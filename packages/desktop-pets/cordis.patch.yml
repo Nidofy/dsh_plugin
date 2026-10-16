@@ -1,0 +1,3 @@
+- insert:
+    - id: nidofy-desktop-pets
+      name: '@nidofy/dsh-desktop-pets'

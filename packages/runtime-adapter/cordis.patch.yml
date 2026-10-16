@@ -1,0 +1,8 @@
+# Replace before activation; preserve existing session files.
+- id: session-persistence-jsonl
+  disabled: true
+- insert:
+    - id: nidofy-runtime-jsonl
+      name: '@nidofy/dsh-runtime-adapter'
+      config:
+        root: !!js dshHomePath('sessions')

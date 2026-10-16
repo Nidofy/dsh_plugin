@@ -1,0 +1,104 @@
+{
+  "name": "@nidofy/dsh-working-notebook",
+  "version": "0.1.0",
+  "description": "Independent DSH working notes, history and optional compaction organization",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./enhanced.patch.yml": "./enhanced.patch.yml",
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./context": {
+      "types": "./lib/types/engine/context.d.ts",
+      "default": "./lib/context.js"
+    },
+    "./notebook": {
+      "types": "./lib/types/engine/notebook.d.ts",
+      "default": "./lib/notebook.js"
+    },
+    "./compaction": {
+      "types": "./lib/types/engine/compaction.d.ts",
+      "default": "./lib/compaction.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./notebook-types": {
+      "types": "./lib/types/engine/shared/notebook-types.d.ts"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./enhanced": {
+      "types": "./lib/types/enhanced.d.ts",
+      "default": "./lib/enhanced.js"
+    },
+    "./standard-store": {
+      "types": "./lib/types/engine/standard-store.d.ts",
+      "default": "./lib/standard-store.js"
+    },
+    "./standard": {
+      "types": "./lib/types/standard.d.ts",
+      "default": "./lib/standard.js"
+    }
+  },
+  "files": [
+    "lib",
+    "LICENSE",
+    "cordis.patch.yml",
+    "enhanced.patch.yml"
+  ],
+  "dependencies": {
+    "@nidofy/dsh-plugin-shared": "0.1.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-client-store": "0.2.0-rc.2",
+    "react": "^18.2.0",
+    "@deepseek-ai/dsh-client-ui-primitives": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.0-rc.2",
+    "@deepseek-ai/cordis": "4.0.4",
+    "@deepseek-ai/dsh-client-connection": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-workspace": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-conversation": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-settings": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-renderer": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-locale": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-compaction-basic": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-session-query": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-session": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-session-persistence": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-agent": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-workspace": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-brand": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-atomic-write": "0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "3.18.4",
+    "@deepseek-ai/dsh-home-paths": "0.2.0-rc.2",
+    "@nidofy/dsh-runtime-adapter": "0.1.0"
+  },
+  "devDependencies": {},
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    }
+  }
+}

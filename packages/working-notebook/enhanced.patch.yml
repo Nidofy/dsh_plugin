@@ -1,0 +1,7 @@
+# Explicit alias for the default full mode; requires runtime-adapter or an equivalent qualified provider.
+# Preserve this package's client identity; both modes use the same client entry.
+- id: nidofy-working-notebook
+  disabled: true
+- insert:
+    - id: nidofy-working-notebook-enhanced
+      name: '@nidofy/dsh-working-notebook/enhanced'

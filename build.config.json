@@ -1,0 +1,37 @@
+{
+  "plugin-shared": {
+    "entries": {
+      "storage": "storage.ts",
+      "state": "state.ts",
+      "durability": "durability.ts"
+    },
+    "client": true
+  },
+  "desktop-pets": {
+    "entries": {
+      "index": "index.ts",
+      "electron": "electron.ts"
+    },
+    "client": true
+  },
+  "working-notebook": {
+    "entries": {
+      "index": "index.ts",
+      "context": "engine/context.ts",
+      "notebook": "engine/notebook.ts",
+      "compaction": "engine/compaction.ts",
+      "enhanced": "enhanced.ts",
+      "standard-store": "engine/standard-store.ts",
+      "standard": "standard.ts"
+    },
+    "client": true
+  },
+  "runtime-adapter": {
+    "entries": {
+      "index": "index.ts",
+      "jsonl": "jsonl/index.ts",
+      "compaction": "compaction/index.ts"
+    },
+    "client": false
+  }
+}

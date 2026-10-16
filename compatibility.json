@@ -1,0 +1,14 @@
+{
+  "dshVersion": "0.2.0-rc.2",
+  "originalRevision": "639ed01539",
+  "desktopSourceRevision": "f3008a67f74e290ebd8fd61fc70ef870ca9493dc",
+  "sourceIncludesUncommittedChanges": true,
+  "node": ">=24.0.0",
+  "tools": {
+    "typescript": "6.0.3",
+    "tsdown": "0.22.2",
+    "vitest": "4.1.8",
+    "tsx": "4.22.4",
+    "jsdom": "29.1.1"
+  }
+}
