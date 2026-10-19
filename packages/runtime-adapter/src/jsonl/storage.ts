@@ -14,7 +14,8 @@ import { errorChain } from '@deepseek-ai/dsh-llm'
 import type { Session, SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@deepseek-ai/dsh-session'
 /** Notebook audit records have no conversation-surface effect. Stock DSH can retain/skip them. */
 function markNotebookRecord(event: SessionEvent): SessionEvent {
-  return event.type as string === 'nidofy/notebook-compaction' ? { ...event, ignorable: true } : event
+  return event.type as string === 'nidofy/notebook-compaction' && (event.data as {schemaVersion?:number}).schemaVersion === 1
+    ? { ...event, ignorable: true } : event
 }
 
 import {

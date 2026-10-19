@@ -1,7 +1,7 @@
 /** Serialized enhancement preferences are independent of note revisions and Session data. */
 import { mkdir, readFile, lstat } from 'node:fs/promises'
 import { join } from 'node:path'
-import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
+import { writeFileAtomic, withFileLock } from '@deepseek-ai/dsh-atomic-write'
 import type { StorageService } from '@nidofy/dsh-plugin-shared/storage'
 
 export interface NotebookSettings { schemaVersion: 1; revision: number; autoOrganize: boolean }
@@ -19,7 +19,10 @@ export class NotebookSettingsStore {
     const path = join(this.home, 'settings.json')
     let stat
     try { stat = await lstat(path) }
-    catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') return; throw error }
+    catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT' && this.value.revision === 0) return
+      throw error
+    }
     if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 4096) throw Error('NOTEBOOK_SETTINGS_UNREADABLE')
     const value: unknown = JSON.parse(await readFile(path, 'utf8'))
     this.value = validate(value)
@@ -28,16 +31,22 @@ export class NotebookSettingsStore {
     const next = validate(input)
     const task = this.queue.catch(() => {}).then(async () => {
       this.controller.signal.throwIfAborted()
+      await mkdir(this.home, { recursive: true, mode: 0o700 })
+      const path = join(this.home, 'settings.json')
+      return withFileLock(path, async () => {
+      this.controller.signal.throwIfAborted()
+      await this.open()
       if (next.revision !== this.value.revision) throw Error('NOTEBOOK_SETTINGS_CONFLICT')
       const committed: NotebookSettings = { ...next, revision: next.revision + 1 }
       await mkdir(this.home, { recursive: true, mode: 0o700 })
-      const path = join(this.home, 'settings.json'), bytes = JSON.stringify(committed) + '\n'
+      const bytes = JSON.stringify(committed) + '\n'
       const write = () => writeFileAtomic(path, bytes, { mode: 0o600 })
       await (this.storage ? this.storage.write(path, Buffer.byteLength(bytes) * 2, write) : write())
       this.value = committed
       this.controller.abort(new Error('NOTEBOOK_POLICY_CHANGED'))
       this.controller = new AbortController()
       return { ...committed }
+      })
     })
     this.queue = task
     return task

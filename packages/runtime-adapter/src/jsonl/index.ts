@@ -268,6 +268,8 @@ class JsonlSessionPersistence extends SessionPersistence {
 
   private root: string
   private compression: JsonlCompression
+  private readonly protectionLifetime = new AbortController()
+  private readonly protections = new Set<Promise<unknown>>()
   private rootEncodingCheck: Promise<void> | undefined
   private readonly tracker = new JsonlBackendTracker(this.name)
   private readonly generationFormat: Omit<JsonlGenerationFormatAdapter, 'createRestore'>
@@ -304,6 +306,7 @@ class JsonlSessionPersistence extends SessionPersistence {
     }
     this.assertUsableRoot()
     this.tracker.install(ctx)
+    ctx.effect(() => async () => { this.protectionLifetime.abort(); await Promise.allSettled(this.protections) })
   }
 
   /**
@@ -488,7 +491,14 @@ class JsonlSessionPersistence extends SessionPersistence {
   }
 
   /** Reuse a local writer's exclusion or acquire the same kernel lease without migrating the source. */
-  private async protectSelected<T>(id: SessionId, operation: () => Promise<T>, signal?: AbortSignal): Promise<T> {
+  private protectSelected<T>(id: SessionId, operation: () => Promise<T>, signal?: AbortSignal): Promise<T> {
+    const combined = signal ? AbortSignal.any([signal, this.protectionLifetime.signal]) : this.protectionLifetime.signal
+    const work = this.protectSelectedInner(id, operation, combined)
+    this.protections.add(work)
+    void work.finally(() => this.protections.delete(work)).catch(() => {})
+    return work
+  }
+  private async protectSelectedInner<T>(id: SessionId, operation: () => Promise<T>, signal?: AbortSignal): Promise<T> {
     signal?.throwIfAborted()
     await this.ensureRootEncoding()
     const writer = this.tracker.writerOf(id)

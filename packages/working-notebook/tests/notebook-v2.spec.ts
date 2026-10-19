@@ -1,7 +1,7 @@
 import { SessionPersistenceGeneration } from '@nidofy/dsh-plugin-shared/durability'
 /** v2 store behavior: separated active set, bounded history journal, dual cursors, v1 copy conversion, and partial-write recovery. */
 import { afterEach, expect, it, onTestFinished, vi } from 'vitest'
-import { copyFile, mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
+import { copyFile, mkdir, mkdtemp, readFile, readdir, rm, stat, unlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { createHash } from 'node:crypto'
@@ -12,7 +12,7 @@ import { notebookActiveInput } from '../src/engine/notebook-input.ts'
 import type { NotebookBudgets, NotebookScope, NotebookStorageAdmission, NotebookStorageWrite } from '../src/engine/notebook.ts'
 
 /** Fault injection for partial-write windows; disabled flags pass every call straight through. */
-const injection = vi.hoisted(() => ({ failRevision: false, failCurrent: false, partialRevision: false,
+const injection = vi.hoisted(() => ({ failRevision: false, failCurrent: false, partialRevision: false, failSync: false,
   abortAfterRevision: undefined as AbortController | undefined }))
 vi.mock('node:fs/promises', async (original) => {
   const real = await original<typeof import('node:fs/promises')>()
@@ -30,16 +30,20 @@ vi.mock('node:fs/promises', async (original) => {
     if (revision) injection.abortAfterRevision?.abort()
   } }
 })
-vi.mock('@deepseek-ai/dsh-atomic-write', async (original) => {
-  const real = await original<typeof import('@deepseek-ai/dsh-atomic-write')>()
-  return { ...real, writeFileAtomic: async (...args: Parameters<typeof real.writeFileAtomic>) => {
+vi.mock('@nidofy/dsh-plugin-shared/durable-file', async (original) => {
+  const real = await original<typeof import('@nidofy/dsh-plugin-shared/durable-file')>()
+  return { ...real, syncFile: async (path: string) => {
+    if (injection.failSync) throw Error('SYNC_FAILED')
+    return real.syncFile(path)
+  }, writeFileDurable: async (...args: Parameters<typeof real.writeFileDurable>) => {
     if (injection.failCurrent && args[0].replaceAll('\\', '/').endsWith('/v2/current.json')) throw Error('CURRENT_WRITE_FAILED')
-    return real.writeFileAtomic(...args)
+    return real.writeFileDurable(...args)
   } }
 })
 afterEach(() => {
   injection.failRevision = false
   injection.failCurrent = false
+  injection.failSync = false
   injection.partialRevision = false
   injection.abortAfterRevision = undefined
 })
@@ -111,9 +115,24 @@ it('cancels a committed read before creating a lazy converted namespace', async 
   await legacy.update(scope.sessionId, { baseRevision: 0, sourceThrough: 0, operations: [add('legacy')] }, events, 'user')
   const controller = new AbortController(); controller.abort()
   await expect(store.readCommitted(scope, controller.signal)).rejects.toThrow()
+  await expect(store.readHistory(scope, undefined, undefined, controller.signal)).rejects.toThrow()
   await expect(stat(v2Directory(home))).rejects.toMatchObject({ code: 'ENOENT' })
   expect(await store.readCommitted(scope)).toMatchObject({ revision: 1, active: [{ id: 'legacy' }],
     cursors: { evidenceThrough: -1, commitThrough: -1 } })
+})
+
+it('does not publish a new pointer when journal synchronization fails', async () => {
+  const home = await mkdtemp(join(tmpdir(), 'nidofy-sync-failure-'))
+  const store = new NotebookV2Store(home, budgets), cold = new NotebookV2Store(home, budgets)
+  onTestFinished(async () => { await store.close(); await cold.close(); await rm(home, { recursive: true, force: true }) })
+  await store.publish(0, scope, { operations: [add('saved')], cursors: { evidenceThrough: 0 } }, events, 'user')
+  const before = await readFile(join(v2Directory(home), 'current.json'), 'utf8')
+  injection.failSync = true
+  await expect(store.publish(1, scope, { operations: [{ action: 'REMOVE', id: 'saved' }] }, events, 'user')).rejects.toThrow('SYNC_FAILED')
+  expect(await readFile(join(v2Directory(home), 'current.json'), 'utf8')).toBe(before)
+  expect(await cold.readCommitted(scope)).toMatchObject({ revision: 1, active: [{ id: 'saved' }] })
+  injection.failSync = false
+  expect(await store.publish(1, scope, { operations: [{ action: 'REMOVE', id: 'saved' }] }, events, 'user')).toMatchObject({ revision: 2, active: [] })
 })
 
 it('keeps accepting notes after a thousand add-and-retire cycles while history stays queryable', async () => {
@@ -281,6 +300,7 @@ it('copy-converts a v1 notebook without touching its bytes and keeps conversion 
   const store = new NotebookV2Store(home, budgets)
   const projection = await store.readActive(scope)
   expect(projection).toMatchObject({ revision: 2, entries: [{ id: 'keep-me', pinned: true, active: true }] })
+  await expect(legacy.read(scope.sessionId)).rejects.toThrow('NOTEBOOK_V2_REQUIRES_ENHANCED')
   expect(projection.entries).toHaveLength(1)
   const history = await store.readHistory(scope)
   expect(history.records).toMatchObject([{ action: 'migrate', atRevision: 2, generation: null, legacySourceThrough: 0, note: { id: 'retired-one', active: false, revision: 2 } }])
@@ -764,3 +784,24 @@ for (const damage of ['truncated', 'unknown-version'] as const) {
     expect(await readFile(revisionPath, 'utf8')).toBe(damaged)
   })
 }
+
+it('refuses a missing v2 pointer on warm and cold reads and preserves every recovery byte', async () => {
+  const home = await mkdtemp(join(tmpdir(), 'nidofy-pointer-loss-')), store = new NotebookV2Store(home, budgets)
+  const cold = new NotebookV2Store(home, budgets)
+  onTestFinished(async () => { await store.close(); await cold.close(); await rm(home, {recursive:true,force:true}) })
+  await store.publish(0, scope, {operations:[add('old')],cursors:{evidenceThrough:0}}, events, 'model')
+  await store.publish(1, scope, {operations:[{action:'REMOVE',id:'old'}]}, events, 'user')
+  const dir=v2Directory(home);await unlink(join(dir,'current.json'))
+  const names=await readdir(dir), bytes=await Promise.all(names.map(n=>readFile(join(dir,n),'utf8')))
+  for (const value of [store,cold]) {
+    await expect(value.readCommitted(scope)).rejects.toThrow('NOTEBOOK_RECOVERY_REQUIRED')
+    await expect(value.publish(0,scope,{operations:[add('replacement')],cursors:{evidenceThrough:0}},events,'model')).rejects.toThrow('NOTEBOOK_RECOVERY_REQUIRED')
+  }
+  expect(await readdir(dir)).toEqual(names)
+  expect(await Promise.all(names.map(n=>readFile(join(dir,n),'utf8')))).toEqual(bytes)
+})
+it('rejects empty model note identifiers', async () => {
+  const home=await mkdtemp(join(tmpdir(),'nidofy-empty-id-')),store=new NotebookV2Store(home,budgets)
+  onTestFinished(async()=>{await store.close();await rm(home,{recursive:true,force:true})})
+  await expect(store.publish(0,scope,{operations:[add('')],cursors:{evidenceThrough:0}},events,'model')).rejects.toThrow('NOTEBOOK_INVALID_ID')
+})

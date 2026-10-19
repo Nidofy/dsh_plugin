@@ -1,9 +1,22 @@
 {
+  "live2d": {
+    "entries": {
+      "index": "index.ts"
+    },
+    "client": true
+  },
+  "source-control": {
+    "entries": {
+      "index": "index.ts"
+    },
+    "client": true
+  },
   "plugin-shared": {
     "entries": {
       "storage": "storage.ts",
       "state": "state.ts",
-      "durability": "durability.ts"
+      "durability": "durability.ts",
+      "durable-file": "durable-file.ts"
     },
     "client": true
   },

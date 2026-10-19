@@ -4,6 +4,8 @@
 
 ## 边界
 
+- packages/source-control 是独立 Git/Hg 面板。只通过已认证的 connection/request 和公开客户端插槽接入；仓库命令只能在已登记的可信根目录执行。版本控制测试使用临时仓库/本地远端，不对用户项目执行提交、分支切换或推送。
+
 - packages/desktop-pets 是桌宠插件；packages/working-notebook 是 notebook 插件；packages/plugin-shared 仅提供共享库；packages/runtime-adapter 为原版 DSH 提供完整 notebook 所需的 JSONL 与摘要扩展。
 - 插件通过 Cordis 服务、事件和可撤销的注册扩展 DSH，不复制 Agent Loop。runtime-adapter 提取并维护现有 JSONL provider 的代际保护扩展，替代原 provider，不能同时运行两个 writer；压缩事务继承官方 BasicCompactionEngine。
 - Electron 窗口权限在 desktop-pets/electron 适配器中；Host 插件不能直接创建原生窗口。

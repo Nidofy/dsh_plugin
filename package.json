@@ -9,6 +9,9 @@
   "packageManager": "pnpm@11.7.0",
   "scripts": {
     "setup": "node scripts/setup.mjs",
+    "sandbox:prepare": "node scripts/sandbox-enhanced.mjs prepare",
+    "sandbox:check": "node scripts/sandbox-enhanced.mjs check",
+    "sandbox:smoke": "node scripts/sandbox-enhanced.mjs smoke",
     "build": "node scripts/build.mjs",
     "typecheck": "node scripts/typecheck.mjs",
     "test": "node scripts/test.mjs",

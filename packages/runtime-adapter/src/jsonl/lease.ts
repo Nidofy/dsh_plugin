@@ -1,37 +1,12 @@
-/**
- * Cross-process write-ownership lock for one session's artifact directory,
- * held for the whole life of a write handle. The arbiter is the kernel:
- * POSIX takes a non-blocking `flock(2)` via native system support on `session.lock`
- * beside the log, and Windows holds a named kernel semaphore derived from
- * that path — never a file lock or handle, so readers, searches, and
- * directory removal proceed freely while the lock is held. Contention maps
- * to `SessionAlreadyOwnedError`; the kernel releases the lock when the
- * holder's descriptor or last object handle closes, including on any process
- * death, so a crashed holder never blocks a successor. A live but wedged
- * holder keeps the lock until its process exits: there is deliberately no
- * expiry that could expropriate a stalled writer whose resumed appends would
- * tear the log.
- * A POSIX lock names an inode, not a path, so after locking the holder
- * verifies the locked inode is still the file at the lock path and retries
- * otherwise: an unlinked-and-recreated lock file carries a fresh inode, and
- * a lock on the orphaned one proves nothing. Removing a live session's lock
- * file therefore forfeits exclusion on POSIX (nothing in the harness does
- * so); Windows has no lock file at all. Readers never touch the lock.
- * The lock is acquired at write-open of an existing artifact and, for a
- * created session, only right before its first materializing write — an
- * unmaterialized session has no filesystem footprint. Release never removes
- * the POSIX lock file: every acquired lock belongs to a materialized or
- * materializing session, and the surviving file keeps the stable inode later
- * lockers verify against. The browser worker stubs the native flock entry to
- * immediate success: it is single-process, so the in-process write claim
- * already excludes every writer.
- * @module @deepseek-ai/dsh-session-persistence-jsonl/lease
- */
+/** Cross-process session ownership. POSIX uses flock on session.lock; Windows
+ * holds an exclusive, non-delete-shared handle to that physical file. Aliases
+ * and different Windows sessions contend on the same kernel file object.
+ * Process exit releases ownership; the empty lock file is intentionally retained.
+ * Deleting a live Windows lock file is refused. No time-based lease stealing. */
 
 import { mkdir, open, stat } from 'node:fs/promises'
 import type { FileHandle } from 'node:fs/promises'
 import { join } from 'node:path'
-import { tryLockExclusive } from '@deepseek-ai/node-addon-system/flock'
 import { SessionAlreadyOwnedError } from '@deepseek-ai/dsh-session-persistence'
 import type { SessionId } from '@deepseek-ai/dsh-session'
 import { acquireLockHandleWin32, releaseLockHandleWin32 } from './win32.ts'
@@ -91,6 +66,7 @@ export class SessionWriteLease {
       const handle = await open(path, 'w')
       try {
         try {
+          const { tryLockExclusive } = await import('@deepseek-ai/node-addon-system/flock')
           await tryLockExclusive(handle.fd)
         } catch (error: unknown) {
           if (isLockContention(error)) throw new SessionAlreadyOwnedError(id)
@@ -123,13 +99,14 @@ export class SessionWriteLease {
    */
   async release(): Promise<void> {
     if (this.released) return
-    this.released = true
     /* v8 ignore start -- native Windows coverage exercises this platform branch; Linux covers the POSIX peer */
     if (this.held.kind === 'win32') {
       await releaseLockHandleWin32(this.held.handle)
+      this.released = true
       return
     }
     /* v8 ignore stop */
     await this.held.handle.close()
+    this.released = true
   }
 }

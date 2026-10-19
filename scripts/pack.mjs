@@ -13,15 +13,15 @@ const stage = await mkdtemp(join(root, '.build/pack-'))
 const artifacts = []
 async function copyPackage(name, dest) {
   const source = join(root, 'packages', name)
-  for (const file of ['package.json', 'LICENSE', 'README.md', 'lib', ...(name === 'plugin-shared' ? [] : ['cordis.patch.yml']), ...(name === 'desktop-pets' ? ['assets'] : []), ...(name === 'runtime-adapter' ? ['notebook.preset.patch.yml'] : []), ...(name === 'working-notebook' ? ['enhanced.patch.yml'] : [])]) {
+  for (const file of ['package.json', 'LICENSE', 'README.md', 'lib', ...(name === 'plugin-shared' ? [] : ['cordis.patch.yml']), ...(['desktop-pets', 'live2d'].includes(name) ? ['assets'] : []), ...(name === 'runtime-adapter' ? ['notebook.preset.patch.yml'] : []), ...(name === 'working-notebook' ? ['enhanced.patch.yml'] : [])]) {
     await cp(join(source, file), join(dest, file), { recursive: true, filter: path => !/\.(?:tsbuildinfo|log)$/.test(path) })
   }
 }
-for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook']) {
+for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook', 'source-control', 'live2d']) {
   const dir = join(stage, name)
   await copyPackage(name, dir)
   const pkg = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8'))
-  if (name !== 'plugin-shared') {
+  if (pkg.dependencies?.['@nidofy/dsh-plugin-shared']) {
     await copyPackage('plugin-shared', join(dir, 'node_modules/@nidofy/dsh-plugin-shared'))
     pkg.bundledDependencies = ['@nidofy/dsh-plugin-shared']
     const shared = JSON.parse(await readFile(join(root, 'packages/plugin-shared/package.json'), 'utf8'))
@@ -37,7 +37,16 @@ for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working
   for (const value of Object.values(pkg.exports).flatMap(value => typeof value === 'string' ? [value] : Object.values(value))) {
     if (!entries.includes('package/' + value.replace(/^\.\//, ''))) throw Error('Missing export: ' + value)
   }
-  if (name !== 'plugin-shared' && !entries.includes('package/node_modules/@nidofy/dsh-plugin-shared/lib/state.js')) throw Error('Shared dependency missing')
+  if (pkg.dependencies?.['@nidofy/dsh-plugin-shared'] && !entries.includes('package/node_modules/@nidofy/dsh-plugin-shared/lib/state.js')) throw Error('Shared dependency missing')
+  if (name === 'live2d') {
+    for (const file of ['lib/frame.js', 'assets/manifest.json', 'assets/upperbody.png', 'assets/live2d/live2dcubismcore.min.js', 'assets/live2d/bluewhale-sdk.mjs', 'assets/live2d/CORE-LICENSE.md', 'assets/live2d/FRAMEWORK-LICENSE.md'])
+      if (!entries.includes('package/' + file)) throw Error('Live2D runtime asset missing: ' + file)
+    const closure = JSON.parse(await readFile(join(dir, 'assets/manifest.json'), 'utf8'))
+    for (const [file, expected] of Object.entries(closure)) {
+      if (!entries.includes('package/assets/' + file)) throw Error('Live2D closure missing: ' + file)
+      if (createHash('sha256').update(await readFile(join(dir, 'assets', file))).digest('hex') !== expected) throw Error('Live2D asset changed without manifest update: ' + file)
+    }
+  }
   for (const section of ['dependencies', 'peerDependencies', 'devDependencies']) {
     if (Object.values(pkg[section] ?? {}).some(value => /^(?:workspace|link|file):/.test(value))) throw Error('Local dependency leaked into tarball')
   }

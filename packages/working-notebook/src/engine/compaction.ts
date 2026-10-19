@@ -2,7 +2,7 @@
 import BasicCompactionEngine, { type BasicSummaryRequest, type SummaryResult } from '@nidofy/dsh-runtime-adapter/compaction'
 import type { Context } from '@deepseek-ai/cordis'
 import { extractSessionEventText } from '@deepseek-ai/dsh-session-query'
-import { applyNotebookDelta } from './notebook.ts'
+import { applyNotebookDelta, type NotebookStore } from './notebook.ts'
 import type {} from './context.ts'
 import type { SessionEvent } from '@deepseek-ai/dsh-session'
 import type { Session } from '@deepseek-ai/dsh-session'
@@ -32,7 +32,9 @@ export default BasicCompactionEngine
  * @param ctx - notebook plugin context with query and notebook services.
  * @param policy - durable enhancement choice, captured at the start of each summary.
  */
-export function installNotebookCompaction(ctx: Context, policy: () => { enabled: boolean; revision: number }): void {
+export function installNotebookCompaction(ctx: Context, policy: () => { enabled: boolean; revision: number }, suppliedStore?: Pick<NotebookStore, 'read' | 'limits'>): void {
+  const store = suppliedStore ?? ctx.nidofyNotebook
+  if (!store || typeof store.read !== 'function' || !store.limits) throw Error('NOTEBOOK_LEGACY_STORE_REQUIRED')
   const lifetime = new AbortController(), jobs = new Set<Promise<SummaryResult>>()
   ctx.effect(() => async () => { lifetime.abort(); await Promise.allSettled(jobs) })
   ctx.on('compaction/basic-summary', (request, next) => {
@@ -47,7 +49,6 @@ export function installNotebookCompaction(ctx: Context, policy: () => { enabled:
     const { input, agent, signal: originalSignal } = request
     const signal = originalSignal ? AbortSignal.any([originalSignal, lifetime.signal]) : lifetime.signal
     request.signal = signal
-    const store = ctx.nidofyNotebook
     const failures = new Set<unknown>(), calls = { count: 0 }
     const delegate = async () => {
       calls.count++
@@ -138,8 +139,10 @@ export function installNotebookV2Compaction(ctx: Context, store: NotebookV2Store
       const session = ctx.sessions.get(options.sessionId)
       if (!session) throw Error('NOTEBOOK_SESSION_REQUIRED')
       const { signal: _signal, ...request } = options
+      const input = JSON.stringify({ request: { messages: request.messages.slice(-1) }, plan: active.plan, appendix: active.appendix })
+      if (Buffer.byteLength(input) > 256 * 1024) throw Error('NOTEBOOK_AUDIT_BUDGET_EXCEEDED')
       session.append('nidofy/notebook-compaction', { schemaVersion: 1, compactionId: active.compactionId, kind: 'request',
-        extraRequests: active.extraRequests, input: JSON.stringify({ request, plan: active.plan, appendix: active.appendix }) })
+        extraRequests: active.extraRequests, input })
     }
     return next()
   })

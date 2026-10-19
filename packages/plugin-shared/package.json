@@ -24,13 +24,19 @@
     "./durability": {
       "types": "./lib/types/durability.d.ts",
       "default": "./lib/durability.js"
+    },
+    "./durable-file": {
+      "types": "./lib/types/durable-file.d.ts",
+      "default": "./lib/durable-file.js"
     }
   },
   "files": [
     "lib",
     "LICENSE"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "koffi": "3.1.1"
+  },
   "peerDependencies": {
     "@deepseek-ai/cordis": "4.0.4",
     "@deepseek-ai/dsh-brand": "0.2.0-rc.2",

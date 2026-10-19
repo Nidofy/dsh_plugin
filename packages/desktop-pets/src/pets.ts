@@ -27,6 +27,7 @@ export function installPetFeed(ctx: Context) {
     const records = (await ctx.sessionQuery.listSessions(abort.signal)).filter(r => r.header.origin !== 'subagent').sort((a, b) => b.header.createdAt - a.header.createdAt).slice(0, 32)
     for (const row of records) {
       if (states.has(row.header.id)) continue
+      try {
       const observation = await ctx.sessionQuery.observeSession(row.header.id, { signal: abort.signal, projectionMode: 'none' })
       try {
         if (states.has(row.header.id)) continue
@@ -34,6 +35,7 @@ export function installPetFeed(ctx: Context) {
         states.set(row.header.id, state)
         feed.accept(row.header.id, recoveryView(state, ctx.agents.get(row.header.id) !== undefined), observation.events.at(-1)?.seq ?? 0)
       } finally { observation[Symbol.dispose]() }
+      } catch { abort.signal.throwIfAborted() }
     }
   })().catch(() => {})
   const pending = new Map<string, Promise<void>>()

@@ -10,5 +10,10 @@
     "vitest": "4.1.8",
     "tsx": "4.22.4",
     "jsdom": "29.1.1"
+  },
+  "workerBaseline": {
+    "source": "official archive",
+    "revision": "639ed015397290b3745d163aafe02ffee4aa3f84",
+    "embedsDesktopCheckout": false
   }
 }

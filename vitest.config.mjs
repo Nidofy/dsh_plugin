@@ -12,7 +12,7 @@ const aliases = Object.fromEntries(Object.entries(upstream.compilerOptions.paths
   try { if (statSync(path).isDirectory()) path = join(path, 'index.ts') } catch { /* Wildcard entries are not concrete files. */ }
   return [key, normalize(path)]
 }))
-for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook']) {
+for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook', 'source-control', 'live2d']) {
   const dir = join(root, 'packages', name), pkg = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8'))
   for (const [key, target] of Object.entries(pkg.exports)) {
     if (typeof target === 'string' || !target.types) continue
@@ -27,7 +27,7 @@ export default defineConfig({
       return { code: result.outputText, map: result.sourceMapText }
     } }],
   oxc: { jsx: { runtime: 'automatic' } },
-  test: { include: ['packages/*/tests/**/*.spec.{ts,tsx}', 'tests/**/*.spec.ts'], pool: 'forks',
+  test: { include: ['packages/*/tests/**/*.spec.{ts,tsx}', 'tests/**/*.spec.ts'], exclude: ['packages/windows-sandbox-*/**', 'tests/windows-sandbox-packed.spec.ts'], pool: 'forks',
     execArgv: process.allowedNodeEnvironmentFlags.has('--webstorage') ? ['--no-webstorage'] : [], testTimeout: 30000, hookTimeout: 30000,
     setupFiles: ['./tests/setup-dom.ts'],
   },

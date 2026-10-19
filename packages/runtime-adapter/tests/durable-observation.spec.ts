@@ -24,7 +24,7 @@ async function fixture(compression: 'none' | 'zstd') {
     const event = session.append('user/message', createUserMessage({ content: [{ type: 'text', text: body }], source: { kind: 'user' } }), { surfaceOp: 'append' })
     await writer.append([event])
   }
-  return { root, mount, provider, session, writer, append }
+  return { root, mount, provider, session, writer, append, dispose: () => contexts[0]!.fiber.dispose() }
 }
 
 it.each(['none', 'zstd'] as const)('keeps %s identity through append, write reopen and a cold provider', async (compression) => {
@@ -80,11 +80,32 @@ it('assigns a copied restore a new generation without changing the source', asyn
   expect(published).toBe(false); expect(await readFile(path)).toEqual(bytes)
 })
 
+it('waits for an admitted cold publication before disposing and refuses new protections', async () => {
+  const f = await fixture('none'); await f.writer.flush(); await f.writer.close()
+  const observed = await f.provider.observeDurable(f.session.id)
+  const entered = Promise.withResolvers<void>(), release = Promise.withResolvers<void>()
+  const publication = f.provider.withGeneration(f.session.id, observed.generation, async () => {
+    entered.resolve(); await release.promise; return 'published'
+  })
+  await entered.promise
+  let disposed = false
+  const disposing = f.dispose().then(() => { disposed = true })
+  try {
+    await new Promise(resolve => setTimeout(resolve, 30))
+    expect(disposed).toBe(false)
+    await expect(f.provider.observeDurable(f.session.id)).rejects.toThrow()
+  } finally { release.resolve() }
+  expect(await publication).toBe('published')
+  await disposing
+  const cold = await f.mount()
+  expect((await cold.observeDurable(f.session.id)).generation).toBe(observed.generation)
+})
+
 it('preserves a completed publication result when releasing its cold lease reports a failure', async () => {
   const f = await fixture('none'); await f.writer.flush(); await f.writer.close()
   const observed = await f.provider.observeDurable(f.session.id)
+  const original = SessionWriteLease.prototype.release
   const release = vi.spyOn(SessionWriteLease.prototype, 'release')
-  const original = release.getMockImplementation()!
   release.mockImplementation(async function (this: SessionWriteLease) {
     await original.call(this)
     throw new Error('SYNTHETIC_POST_RELEASE_FAILURE')

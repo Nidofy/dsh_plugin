@@ -1,7 +1,7 @@
 /** Versioned optional preferences; legacy byte budgets remain explicitly identified. */
 import { mkdir, readFile, lstat } from 'node:fs/promises'
 import { join } from 'node:path'
-import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
+import { writeFileAtomic, withFileLock } from '@deepseek-ai/dsh-atomic-write'
 import type { StorageService } from './storage.ts'
 
 export interface PetSettings {
@@ -98,20 +98,29 @@ export class PreferenceStore {
   constructor(readonly home: string, private readonly storage?: Pick<StorageService, 'write'>) {}
   async open(): Promise<void> {
     try { this.value = validate(await readJson(join(this.home, 'preferences.json'))) }
-    catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') this.warning = 'PREFERENCES_UNREADABLE' }
+    catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') this.warning = 'PREFERENCES_UNREADABLE'
+      else if (this.value.revision !== 0) this.warning = 'PREFERENCES_MISSING'
+    }
   }
   save(input: unknown): Promise<Preferences> {
     const operation = this.queue.catch(() => {}).then(async () => {
+      if (this.warning) throw Error(this.warning)
+      const path = join(this.home, 'preferences.json')
+      await mkdir(this.home, {recursive:true,mode:0o700})
+      return withFileLock(path, async () => {
+      await this.open()
       if (this.warning) throw Error(this.warning)
       const next = validate(input)
       if (next.revision !== this.value.revision) throw Error('PREFERENCES_CONFLICT')
       next.revision++
       await mkdir(this.home, { recursive: true, mode: 0o700 })
-      const path = join(this.home, 'preferences.json'), bytes = JSON.stringify(next)
+      const bytes = JSON.stringify(next)
       const write = () => writeFileAtomic(path, bytes, { mode: 0o600 })
       await (this.storage ? this.storage.write(path, Buffer.byteLength(bytes) * 2, write) : write())
       this.value = next
       return structuredClone(next)
+      })
     })
     this.queue = operation
     return operation

@@ -4,6 +4,9 @@ lib/
 .local/
 .build/
 coverage/
+packages/windows-sandbox-enhanced/native/bin/
+packages/windows-sandbox-enhanced/native/obj/
+packages/windows-sandbox-enhanced/native/runtime/
 *.tsbuildinfo
 *.log
 .env

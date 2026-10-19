@@ -5,7 +5,7 @@ import { resolve } from 'node:path'
 import { readdir, mkdir, copyFile } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 const require = createRequire(import.meta.url)
-for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook']) {
+for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook', 'source-control', 'live2d']) {
   for (const face of (name === 'runtime-adapter' ? ['host'] : ['host', 'client'])) {
     const run = spawnSync(process.execPath, [require.resolve('typescript/bin/tsc'), '-p', `packages/${name}/tsconfig.${face}.json`], { cwd: resolve(import.meta.dirname, '..'), stdio: 'inherit' })
     if (run.status !== 0) process.exit(run.status ?? 1)

@@ -1,0 +1,170 @@
+--- a/packages/runtime-adapter/src/jsonl/win32.ts
++++ b/packages/runtime-adapter/src/jsonl/win32.ts
+@@ -11,7 +11,6 @@
+  * @module dsh-session-persistence-jsonl/win32
+  */
+ 
+-import { createHash } from 'node:crypto'
+ import { mkdtemp, rm, stat } from 'node:fs/promises'
+ import { join, parse, resolve, toNamespacedPath } from 'node:path'
+ 
+@@ -23,6 +22,7 @@
+ type GetLastError = () => number
+ 
+ interface Win32Bindings {
++  createFileW: (path: string, access: number, share: number, security: null, creation: number, flags: number, template: number) => number
+   moveFileExW: MoveFileExW
+   createSemaphoreW: CreateSemaphoreW
+   waitForSingleObject: WaitForSingleObject
+@@ -56,6 +56,7 @@
+   const koffi = (await import('koffi')).default
+   const kernel32 = koffi.load('kernel32.dll')
+   bindings = {
++    createFileW: kernel32.func('__stdcall', 'CreateFileW', 'intptr', ['str16', 'uint', 'uint', 'void*', 'uint', 'uint', 'intptr']) as Win32Bindings['createFileW'],
+     moveFileExW: kernel32.func('__stdcall', 'MoveFileExW', 'int', ['str16', 'str16', 'uint']) as MoveFileExW,
+     createSemaphoreW: kernel32.func('__stdcall', 'CreateSemaphoreW', 'intptr', ['void*', 'int', 'int', 'str16']) as CreateSemaphoreW,
+     waitForSingleObject: kernel32.func('__stdcall', 'WaitForSingleObject', 'uint', ['intptr', 'uint']) as WaitForSingleObject,
+@@ -137,39 +138,18 @@
+   if (ok === 0) throw win32Error('MoveFileExW', api.getLastError(), existing, replacement)
+ }
+ 
+-/**
+- * Acquire the session write lock as a named kernel semaphore (count 1) whose
+- * name is derived from the canonical lock path. A kernel object never touches
+- * the filesystem, so readers, searches, and directory removal proceed freely
+- * while the lock is held; a second acquirer's zero-timeout wait times out
+- * (`EBUSY`); and when the last handle closes — including on any process
+- * death — the object is destroyed, so a successor's create starts fresh.
+- * @param path - the lock file path the name is derived from (case-folded:
+- *   Windows paths are case-insensitive).
+- * @returns the open semaphore handle, released via {@link releaseLockHandleWin32}.
+- */
++/** An exclusive kernel file handle locks the physical file across aliases and
++ * Windows sessions. Denying delete sharing prevents unlink/recreate while owned.
++ * Process death releases ownership; the empty lock file remains. */
+ export async function acquireLockHandleWin32(path: string): Promise<number> {
+   const api = await win32()
+-  const name = `Local\\dsh-session-lock-${createHash('sha256').update(resolve(path).toLowerCase()).digest('hex')}`
+-  const handle = api.createSemaphoreW(null, 1, 1, name)
+-  if (handle === 0) throw win32Error('CreateSemaphoreW', api.getLastError(), path, name)
+-  const wait = api.waitForSingleObject(handle, 0)
+-  if (wait === WAIT_OBJECT_0) return handle
+-  api.closeHandle(handle)
+-  if (wait === WAIT_TIMEOUT) throw win32Error('WaitForSingleObject', ERROR_SHARING_VIOLATION, path, name)
+-  throw win32Error('WaitForSingleObject', api.getLastError(), path, name)
++  const handle = api.createFileW(toNamespacedPath(path), 0xc0000000, 0, null, 4, 0x80, 0)
++  if (handle === -1) throw win32Error('CreateFileW', api.getLastError(), path, path)
++  return handle
+ }
+-
+-/**
+- * Release a lock from {@link acquireLockHandleWin32}: restore the semaphore
+- * count and close the handle (the object dies with its last handle).
+- * @param handle - the open semaphore handle.
+- */
+ export async function releaseLockHandleWin32(handle: number): Promise<void> {
+   const api = await win32()
+-  const released = api.releaseSemaphore(handle, 1, null)
+-  const closed = api.closeHandle(handle)
+-  if (released === 0 || closed === 0) throw win32Error('ReleaseSemaphore', api.getLastError(), `handle:${handle}`, `handle:${handle}`)
++  if (!api.closeHandle(handle)) throw win32Error('CloseHandle', api.getLastError(), `handle:${handle}`, `handle:${handle}`)
+ }
+ 
+ /**
+--- a/packages/runtime-adapter/src/jsonl/lease.ts
++++ b/packages/runtime-adapter/src/jsonl/lease.ts
+@@ -31,7 +31,6 @@
+ import { mkdir, open, stat } from 'node:fs/promises'
+ import type { FileHandle } from 'node:fs/promises'
+ import { join } from 'node:path'
+-import { tryLockExclusive } from '@deepseek-ai/node-addon-system/flock'
+ import { SessionAlreadyOwnedError } from '@deepseek-ai/dsh-session-persistence'
+ import type { SessionId } from '@deepseek-ai/dsh-session'
+ import { acquireLockHandleWin32, releaseLockHandleWin32 } from './win32.ts'
+@@ -91,6 +90,7 @@
+       const handle = await open(path, 'w')
+       try {
+         try {
++          const { tryLockExclusive } = await import('@deepseek-ai/node-addon-system/flock')
+           await tryLockExclusive(handle.fd)
+         } catch (error: unknown) {
+           if (isLockContention(error)) throw new SessionAlreadyOwnedError(id)
+@@ -123,13 +123,14 @@
+    */
+   async release(): Promise<void> {
+     if (this.released) return
+-    this.released = true
+     /* v8 ignore start -- native Windows coverage exercises this platform branch; Linux covers the POSIX peer */
+     if (this.held.kind === 'win32') {
+       await releaseLockHandleWin32(this.held.handle)
++      this.released = true
+       return
+     }
+     /* v8 ignore stop */
+     await this.held.handle.close()
++    this.released = true
+   }
+ }
+--- a/packages/runtime-adapter/package.json
++++ b/packages/runtime-adapter/package.json
+@@ -33,7 +33,9 @@
+     "notebook.preset.patch.yml"
+   ],
+   "dependencies": {
+-    "@nidofy/dsh-plugin-shared": "0.1.0"
++    "@nidofy/dsh-plugin-shared": "0.1.0",
++    "koffi": "3.1.1",
++    "@deepseek-ai/node-addon-system": "0.1.2"
+   },
+   "peerDependencies": {
+     "@deepseek-ai/dsh-session": "0.2.0-rc.2",
+@@ -43,9 +45,7 @@
+     "@deepseek-ai/dsh-session-format": "0.2.0-rc.2",
+     "@deepseek-ai/dsh-session-format-catalog": "0.2.0-rc.2",
+     "@deepseek-ai/dsh-session-format-v3-to-v4": "0.2.0-rc.2",
+-    "@deepseek-ai/node-addon-system": "0.1.2",
+     "@deepseek-ai/schemastery": "3.18.4",
+-    "koffi": "3.1.1",
+     "@deepseek-ai/dsh-compaction-basic": "0.2.0-rc.2",
+     "@deepseek-ai/dsh-agent": "0.2.0-rc.2",
+     "@deepseek-ai/dsh-util-values": "0.2.0-rc.2"
+--- a/packages/windows-sandbox-guard/src/index.ts
++++ b/packages/windows-sandbox-guard/src/index.ts
+@@ -34,9 +34,9 @@
+ export const name = 'windows-sandbox-guard'
+ export function apply(ctx: Context): void {
+   if (process.platform !== 'win32') throw new Error('WINDOWS_REQUIRED')
+-  ctx.plugin(GuardSandbox); ctx.plugin(GuardSubprocess); ctx.plugin(GuardFiles)
+-  ctx.inject(['sandbox', 'subprocess', 'fs'], scope => {
+-    if (!(scope.sandbox instanceof GuardSandbox) || !(scope.subprocess instanceof GuardSubprocess) || !(scope.fs instanceof GuardFiles))
+-      throw new Error('SANDBOX_COMPOSITION_MISMATCH')
+-  })
++  // Register in the top-level fiber. A conflict must fail the owning plugin
++  // and be rejected by the official loader startup audit, not only a child fiber.
++  new GuardSandbox(ctx)
++  new GuardSubprocess(ctx)
++  new GuardFiles(ctx)
+ }
+--- a/packages/windows-sandbox-guard/cordis.patch.yml
++++ b/packages/windows-sandbox-guard/cordis.patch.yml
+@@ -9,6 +9,9 @@
+ - id: fs-sandbox
+   name: '@deepseek-ai/dsh-fs-sandbox'
+   disabled: !!js process.platform === 'win32'
++- id: filesystem
++  name: '@deepseek-ai/dsh-fs-local'
++  disabled: !!js process.platform === 'win32'
+ - insert:
+     - id: windows-sandbox-guard
+       name: '@dsh-extensions/windows-sandbox-guard'
+--- a/packages/working-notebook/src/engine/compaction.ts
++++ b/packages/working-notebook/src/engine/compaction.ts
+@@ -139,7 +139,7 @@
+       if (!session) throw Error('NOTEBOOK_SESSION_REQUIRED')
+       const { signal: _signal, ...request } = options
+       session.append('nidofy/notebook-compaction', { schemaVersion: 1, compactionId: active.compactionId, kind: 'request',
+-        extraRequests: active.extraRequests, input: JSON.stringify({ request, plan: active.plan, appendix: active.appendix }) })
++        extraRequests: active.extraRequests, input: JSON.stringify({ request: { messages: request.messages.slice(-1) }, plan: active.plan, appendix: active.appendix }) })
+     }
+     return next()
+   })

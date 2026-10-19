@@ -1,0 +1,8 @@
+# Diagnostics only: never claim that installing this bundle activates isolation.
+- insert:
+    - id: windows-sandbox-enhanced
+      name: '@dsh-extensions/windows-sandbox-enhanced'
+      disabled: !!js process.platform !== 'win32'
+      config:
+        roots: []
+        maxEntries: 2000

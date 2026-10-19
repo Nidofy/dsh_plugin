@@ -3,3 +3,7 @@
 *.webp binary
 *.zip binary
 *.tgz binary
+# Preserve blank context markers in archived approval patches.
+docs/*-pending.patch whitespace=-blank-at-eol
+# Preserve the vendored SDK bundle's original whitespace.
+packages/live2d/assets/live2d/bluewhale-sdk.mjs whitespace=-blank-at-eol

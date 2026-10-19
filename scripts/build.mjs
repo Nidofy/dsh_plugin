@@ -2,8 +2,26 @@
 import { build } from 'tsdown'
 import ts from 'typescript'
 import { readFile, readdir, rm } from 'node:fs/promises'
+import { existsSync, statSync } from 'node:fs'
+import { spawnSync } from 'node:child_process'
 import { resolve, join } from 'node:path'
 const root = resolve(import.meta.dirname, '..')
+// Re-materialize the pinned official revision before embedding any upstream worker code.
+const prepared = spawnSync(process.execPath, [join(root, 'scripts/prepare-original.mjs')], { cwd: root, stdio: 'inherit' })
+if (prepared.status !== 0) throw Error('OFFICIAL_WORKER_BASELINE_UNAVAILABLE')
+const original = JSON.parse(await readFile(join(root, '.local/original.json'), 'utf8'))
+if (original.revision !== '639ed015397290b3745d163aafe02ffee4aa3f84') throw Error('OFFICIAL_WORKER_BASELINE_MISMATCH')
+const upstream = ts.parseConfigFileTextToJson('tsconfig.base.json', await readFile(join(original.source, 'tsconfig.base.json'), 'utf8')).config.compilerOptions.paths
+const officialWorker = { name: 'official-worker-source', resolveId(id) {
+  for (const [key, paths] of Object.entries(upstream)) {
+    let path
+    if (key === id) path = resolve(original.source, paths[0])
+    else if (key.endsWith('*') && id.startsWith(key.slice(0, -1))) path = resolve(original.source, paths[0].replace('*', id.slice(key.length - 1)))
+    if (!path) continue
+    if (existsSync(path) && statSync(path).isDirectory()) path = join(path, 'index.ts')
+    if (existsSync(path)) return path.replaceAll('\\', '/')
+  }
+} }
 const definitions = JSON.parse(await readFile(join(root, 'build.config.json'), 'utf8'))
 for (const [name, definition] of Object.entries(definitions)) {
   const dir = join(root, 'packages', name)
@@ -20,12 +38,15 @@ for (const [name, definition] of Object.entries(definitions)) {
   })
   if (name === 'runtime-adapter') await build({ config: false, entry: { worker: join(dir, 'src/jsonl/worker.ts') },
     outDir: join(dir, 'lib'), format: 'cjs', platform: 'node', target: 'es2024', dts: false, clean: false,
-    plugins: [{ name: 'worker-standard-decorators', transform(code, id) {
+    plugins: [officialWorker, { name: 'worker-standard-decorators', transform(code, id) {
       if (!/^\s*@[A-Za-z_$][\w$]*/m.test(code)) return
       return { code: ts.transpileModule(code, { fileName: id, compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText, map: null }
     } }],
     deps: { neverBundle: ['koffi', '@deepseek-ai/node-addon-system'], alwaysBundle: [/^@deepseek-ai\/(?!node-addon-system)/] }, outputOptions: { entryFileNames: 'worker.cjs' } })
   if (definition.client === false) continue
+  if (name === 'live2d') await build({ config: false, entry: { frame: join(dir, 'src/frame/index.ts') },
+    outDir: join(dir, 'lib'), format: 'iife', platform: 'browser', target: 'es2022', dts: false, clean: false,
+    outputOptions: { entryFileNames: 'frame.js' } })
   if (name === 'desktop-pets') await build({ config: false, entry: { preload: join(dir, 'src/preload.ts') },
     outDir: join(dir, 'lib'), format: 'cjs', platform: 'node', target: 'es2022', dts: false, clean: false,
     deps: { neverBundle: ['electron'] }, outputOptions: { entryFileNames: 'preload.cjs' } })

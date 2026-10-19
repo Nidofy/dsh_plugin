@@ -9,6 +9,7 @@ interface PetWindow {
   menuOpen: boolean
   menuOffset: number
   fresh: boolean
+  readyTimer?: ReturnType<typeof setTimeout>
   settingsKey?: string
   stateKey?: string
   stateAt?: number
@@ -45,7 +46,7 @@ export function installPetDesktop(preload: string, backend: () => { url: string;
     if (value === null || typeof value !== 'object' || Array.isArray(value)) throw Error('PET_INVALID_STATE')
     return value as Record<string, unknown>
   }
-  function close(id: string): void { const row = windows.get(id); windows.delete(id); row?.window.destroy() }
+  function close(id: string): void { const row = windows.get(id); windows.delete(id); clearTimeout(row?.readyTimer); row?.window.destroy() }
   async function suppressTerminalBubbles(): Promise<boolean> {
     if (!options.suppressTerminalBubbles) return false
     try {
@@ -109,6 +110,8 @@ export function installPetDesktop(preload: string, backend: () => { url: string;
             webPreferences: { preload, nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true } })
           row = { window, snapshot, scale: scaleOf(settings.scale), bubble: 0, menuOpen: false, menuOffset: 0, fresh: true }
           windows.set(id, row)
+          row.readyTimer = setTimeout(() => { if (windows.get(id)?.window === window) close(id) }, 15000)
+          window.webContents.on('render-process-gone', () => { if (windows.get(id)?.window === window) close(id) })
           window.setIgnoreMouseEvents(true, { forward: true })
           window.on('blur', () => {
             const current = windows.get(id)
@@ -118,7 +121,7 @@ export function installPetDesktop(preload: string, backend: () => { url: string;
           })
           window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
           window.webContents.on('will-navigate', (event) =>{  event.preventDefault() })
-          window.on('closed', () => { if (windows.get(id)?.window === window) windows.delete(id) })
+          window.on('closed', () => { clearTimeout(row?.readyTimer); if (windows.get(id)?.window === window) windows.delete(id) })
           try { await window.loadURL('dsh-app://app/api/nidofy-pets/assets/pet/index.html?id=' + encodeURIComponent(id)) }
           catch (error) { close(id); throw error }
         }
@@ -143,7 +146,7 @@ export function installPetDesktop(preload: string, backend: () => { url: string;
     if (method === 'pet_snapshot') return row.snapshot
     if (method === 'pet_resource') return rpc('pet/resource', { id })
     const data = input !== null && typeof input === 'object' ? input as Record<string, unknown> : {}
-    if (method === 'pet_ready') { if (data.decoded === true || data.degraded === true) row.window.showInactive(); return }
+    if (method === 'pet_ready') { if (data.decoded === true || data.degraded === true) { clearTimeout(row.readyTimer); row.window.showInactive() } return }
     if (method !== 'pet_action' || typeof data.action !== 'string') throw Error('PET_ACTION_REFUSED')
     const target = data.target !== null && typeof data.target === 'object' ? data.target as Record<string, unknown> : {}
     if (data.action === 'menu') {

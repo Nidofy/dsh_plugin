@@ -1,0 +1,20 @@
+{
+  "name": "@dsh-extensions/windows-sandbox-guard",
+  "version": "0.1.0-alpha.1",
+  "description": "Opt-in refusal-only guard for DSH Windows Sandbox Enhanced qualification profiles",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=24", "dsh": "0.2.1-rc.2" },
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": { ".": { "types": "./lib/types/index.d.ts", "default": "./lib/index.js" }, "./package.json": "./package.json", "./cordis.patch.yml": "./cordis.patch.yml" },
+  "files": ["lib", "cordis.patch.yml", "README.md", "LICENSE"],
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-sandbox": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-subprocess": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-fs": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-llm": "0.2.1-rc.2"
+  },
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

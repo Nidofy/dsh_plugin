@@ -1,8 +1,8 @@
 /** Versioned working notes; immutable revisions retain evidence and user corrections. */
 import { createHash, randomBytes, randomUUID } from 'node:crypto'
-import { appendFile, mkdir, readFile, readdir, rename, rm, stat, truncate, writeFile } from 'node:fs/promises'
+import { appendFile, mkdir, readFile, readdir, rm, stat, truncate, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
+import { writeFileDurable as writeFileAtomic, syncFile, syncDirectory, publishSyncedFile, ensureDurableDirectory } from '@nidofy/dsh-plugin-shared/durable-file'
 import { extractSessionEventText } from '@deepseek-ai/dsh-session-query'
 import type { SessionEvent } from '@deepseek-ai/dsh-session'
 import { SessionPersistenceGeneration } from '@nidofy/dsh-plugin-shared/durability'
@@ -99,6 +99,11 @@ export class NotebookStore {
    * @returns validated state, or an empty revision-zero notebook when absent.
    */
   async read(sessionId: string): Promise<Notebook> {
+    const v2 = await readdir(join(this.directory(sessionId), 'v2')).catch((error: NodeJS.ErrnoException) => {
+      if (error.code === 'ENOENT') return []
+      throw error
+    })
+    if (v2.some(name => name === 'current.json' || name === 'history.jsonl' || /^revision-.*\.json$/.test(name))) throw Error('NOTEBOOK_V2_REQUIRES_ENHANCED')
     let bytes: string
     try { bytes = await readFile(join(this.directory(sessionId), 'current.json'), 'utf8') }
     catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') return emptyNotebook(sessionId); throw error }
@@ -340,20 +345,6 @@ async function revisionTwinStatus(v2: string, revision: number, bytes: string): 
   return existing === bytes ? 'identical' : 'conflict'
 }
 
-/** Rename with bounded retries for transient Windows scanner interference, mirroring dsh-atomic-write. */
-async function renameWithRetry(temp: string, target: string): Promise<void> {
-  let delay = 20
-  for (let attempt = 0;; attempt++) {
-    try { await rename(temp, target); return }
-    catch (error) {
-      const code = (error as NodeJS.ErrnoException).code
-      if (process.platform !== 'win32' || (code !== 'EPERM' && code !== 'EACCES' && code !== 'EBUSY') || attempt >= 8) throw error
-    }
-    await new Promise(resolve => setTimeout(resolve, delay))
-    delay = Math.min(delay * 2, 200)
-  }
-}
-
 /**
  * Publish one immutable state file without ever exposing a partial final path: the complete
  * bytes first go to an exclusive-create temporary sibling, and the content-derived final name
@@ -372,7 +363,8 @@ async function writeStateFile(v2: string, revision: number, bytes: string): Prom
   const temp = `${target}.${randomBytes(6).toString('hex')}.tmp`
   try {
     await writeFile(temp, bytes, { flag: 'wx', mode: 0o600 })
-    await renameWithRetry(temp, target)
+    await syncFile(temp)
+    await publishSyncedFile(temp, target)
   } catch (error) {
     await rm(temp, { force: true }).catch((cleanupError: unknown) => {
       // A cleanup failure never masks the original write failure; the orphan temp stays counted.
@@ -449,6 +441,7 @@ export class NotebookV2Store {
       let stored: StoredNotebookV2
       if (bytes === undefined) {
         if (await readOptionalText(join(directory, 'current.json')) !== undefined) throw Error('NOTEBOOK_RECOVERY_REQUIRED')
+        await this.assertFreshNamespace(join(directory, 'v2'))
         stored = emptyStoredV2(scope)
       } else { stored = parseStoredV2(parseJsonState(bytes), scope) }
       signal?.throwIfAborted()
@@ -463,9 +456,11 @@ export class NotebookV2Store {
    * @param limit - Page size between 1 and 256; defaults to 50.
    * @returns the committed records from the requested offset and the next page token, or null at the end.
    */
-  readHistory(scope: NotebookScope, pageToken?: number | null, limit?: number): Promise<NotebookHistoryPage> {
+  readHistory(scope: NotebookScope, pageToken?: number | null, limit?: number, signal?: AbortSignal): Promise<NotebookHistoryPage> {
     return this.enqueue(async () => {
-      const loaded = await this.loadScope(scope), token = pageToken ?? 0, size = limit ?? HISTORY_PAGE_DEFAULT
+      signal?.throwIfAborted()
+      const loaded = await this.loadScope(scope, signal), token = pageToken ?? 0, size = limit ?? HISTORY_PAGE_DEFAULT
+      signal?.throwIfAborted()
       if (!Number.isSafeInteger(token) || token < 0 || token > loaded.records.length
         || !Number.isSafeInteger(size) || size < 1 || size > HISTORY_PAGE_MAX) throw Error('NOTEBOOK_INVALID_PAGE')
       const end = Math.min(token + size, loaded.records.length)
@@ -524,6 +519,7 @@ export class NotebookV2Store {
       }
       for (const raw of p.operations) {
         const op = object(raw), id = text(op.id, 80), prior = active.find(row => row.id === id)
+        if (!id.trim()) throw Error('NOTEBOOK_INVALID_ID')
         if (seen.has(id)) throw Error('NOTEBOOK_DUPLICATE_OPERATION')
         seen.add(id)
         if (op.action === 'KEEP') { if (!prior) throw Error('NOTEBOOK_ENTRY_MISSING'); continue }
@@ -594,8 +590,12 @@ export class NotebookV2Store {
             loaded.diskBytes -= journalResidue
             loaded.journalSize = stored.historyBytes
           }
-          await mkdir(v2, { recursive: true, mode: 0o700 })
+          await ensureDurableDirectory(v2)
           if (append !== '') await appendFile(join(v2, 'history.jsonl'), append, 'utf8')
+          if (stored.historyBytes + appendBytes > 0 || journalResidue !== 0) await syncFile(join(v2, 'history.jsonl'))
+          await syncDirectory(v2)
+          await syncDirectory(this.directory(scope.sessionId))
+          await syncDirectory(this.home)
           await writeStateFile(v2, next.revision, stateBytes)
           signal?.throwIfAborted()
           validatePublication?.()
@@ -621,6 +621,7 @@ export class NotebookV2Store {
       // one immutable file was added unless reused, and current replaced its predecessor.
       loaded.diskBytes += appendBytes + (revisionReuse ? 0 : stateSize) + stateSize - loaded.currentSize
       loaded.currentSize = stateSize
+      this.remember(scope.sessionId, loaded)
       return structuredClone({ schemaVersion: next.schemaVersion, scope: next.scope, revision: next.revision,
         cursors: next.cursors, active: next.active, historyRevision: next.historyRevision })
     })
@@ -649,7 +650,7 @@ export class NotebookV2Store {
       const index = indexRecords(records, stored.active)
       const loaded: LoadedNotebookV2 = { stored, committed: true, records, used: index.used, retired: index.retired,
         journalSize: journal.length, currentSize: Buffer.byteLength(current), diskBytes: await measureDisk(v2) }
-      this.cache.set(scope.sessionId, loaded)
+      this.remember(scope.sessionId, loaded)
       return loaded
     }
     const legacy = await readOptionalText(join(directory, 'current.json'))
@@ -658,10 +659,23 @@ export class NotebookV2Store {
   }
 
   /** Cache and return the unpublished empty state of a scope no v1 or v2 publication reached. */
+  private remember(id: string, loaded: LoadedNotebookV2): void {
+    this.cache.delete(id); this.cache.set(id, loaded)
+    let bytes = [...this.cache.values()].reduce((sum, row) => sum + row.stored.historyBytes, 0)
+    while (this.cache.size > 8 || bytes > 32 * 1024 * 1024) {
+      const oldest = this.cache.keys().next().value!
+      bytes -= this.cache.get(oldest)!.stored.historyBytes; this.cache.delete(oldest)
+    }
+  }
+  private async assertFreshNamespace(v2: string): Promise<void> {
+    const names = await readdir(v2).catch((error: NodeJS.ErrnoException) => { if (error.code === 'ENOENT') return []; throw error })
+    if (names.some(name => /^revision-.*\.json$/.test(name)) || await journalSizeOf(v2) > 0) throw Error('NOTEBOOK_RECOVERY_REQUIRED')
+  }
   private async freshScope(scope: NotebookScope, v2: string): Promise<LoadedNotebookV2> {
+    await this.assertFreshNamespace(v2)
     const loaded: LoadedNotebookV2 = { stored: emptyStoredV2(scope), committed: false, records: [], used: new Set<string>(),
       retired: new Map<string, Note>(), journalSize: await journalSizeOf(v2), currentSize: 0, diskBytes: await measureDisk(v2) }
-    this.cache.set(scope.sessionId, loaded)
+    this.remember(scope.sessionId, loaded)
     return loaded
   }
 
@@ -720,8 +734,10 @@ export class NotebookV2Store {
       const persist = async (): Promise<void> => {
         signal?.throwIfAborted()
         validatePublication?.()
-        await mkdir(v2, { recursive: true, mode: 0o700 })
+        await ensureDurableDirectory(v2)
         if (!journalReuse && journal !== '') await writeFileAtomic(join(v2, 'history.jsonl'), journal, { mode: 0o600 })
+        if (journal !== '') await syncFile(join(v2, 'history.jsonl'))
+        await syncDirectory(v2)
         await writeStateFile(v2, stored.revision, stateBytes)
         signal?.throwIfAborted()
         validatePublication?.()
@@ -739,7 +755,7 @@ export class NotebookV2Store {
     const index = indexRecords(records, active)
     const loaded: LoadedNotebookV2 = { stored, committed: true, records, used: index.used, retired: index.retired,
       journalSize: stored.historyBytes, currentSize: stateSize, diskBytes: await measureDisk(v2) }
-    this.cache.set(scope.sessionId, loaded)
+    this.remember(scope.sessionId, loaded)
     return loaded
   }
 }

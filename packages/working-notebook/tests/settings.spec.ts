@@ -31,3 +31,16 @@ it('refuses unknown or malformed persisted preferences without overwriting them'
   await writeFile(join(home, 'settings.json'), JSON.stringify({ schemaVersion: 2, autoOrganize: true }))
   await expect(new NotebookSettingsStore(home, false).open()).rejects.toThrow('NOTEBOOK_SETTINGS_INVALID')
 })
+
+it('rejects a stale revision from another settings owner', async () => {
+  const home = await mkdtemp(join(tmpdir(), 'working-note-settings-hosts-'))
+  const a = new NotebookSettingsStore(home, false), b = new NotebookSettingsStore(home, false)
+  onTestFinished(async () => { await a.close(); await b.close(); await rm(home, { recursive: true, force: true }) })
+  await Promise.all([a.open(), b.open()])
+  const results = await Promise.allSettled([a.save({ ...a.value, autoOrganize: true }), b.save({ ...b.value })])
+  expect(results.filter(row => row.status === 'fulfilled')).toHaveLength(1)
+  expect(results.filter(row => row.status === 'rejected')).toHaveLength(1)
+  const cold = new NotebookSettingsStore(home, false); await cold.open()
+  expect(cold.value.revision).toBe(1)
+  await cold.close()
+})

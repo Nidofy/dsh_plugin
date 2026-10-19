@@ -63,7 +63,8 @@ it('uses original services for notes, evidence, prompt logging and independent p
   await ctx.sessions.flush(agent.session)
   const handle = await ctx.sessionPersistence.open(sessionId, 'read')
   try { expect(JSON.stringify((await handle.read()).events)).toContain('Working notes at this turn boundary.') } finally { await handle.close() }
-  const petStatus = () => fetch(base + '/api/nidofy-pets/status', { method: 'POST', body: '{}' })
+  expect((await fetch(base + '/api/nidofy-pets/status', { method: 'POST', body: '{}' })).status).toBe(400)
+  const petStatus = () => fetch(base + '/api/nidofy-pets/status', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{}' })
   expect((await petStatus()).status).toBe(200)
   await pets.dispose(); expect((await petStatus()).status).toBe(404)
   expect((await post('status', { sessionId })).status).toBe(200)

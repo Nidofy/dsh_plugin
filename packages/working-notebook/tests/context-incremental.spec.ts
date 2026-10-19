@@ -128,3 +128,9 @@ it('reports pending work and drains it during unload without publishing after ca
   expect(f.ctx.get('nidofyNotebookV2')).toBeUndefined()
   await expect(service.read(f.agent.session.id, new AbortController().signal)).rejects.toThrow()
 })
+
+it('does not allow the public notebook update endpoint to advance the internal commit cursor', async () => {
+  const f=await createNotebookFixture(), before=await f.status()
+  await expect(f.api('update',{sessionId:f.agent.session.id,delta:{scope:before.scope,baseRevision:before.revision,operations:[],cursors:{commitThrough:0}}})).rejects.toThrow('NOTEBOOK_COMMIT_CURSOR_FORBIDDEN')
+  expect(await f.status()).toEqual(before)
+})

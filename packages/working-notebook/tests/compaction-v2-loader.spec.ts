@@ -30,6 +30,13 @@ it('retains the actual writer and official marker pairs across three Loader comp
   const audit = raw.events.filter(event => event.type === 'nidofy/notebook-compaction')
   expect(audit.length).toBeGreaterThan(0)
   expect(audit.every(event => event.ignorable === true)).toBe(true)
+  for (const event of audit) if (event.data.kind === 'request' && event.data.input) {
+    const input = JSON.parse(event.data.input)
+    expect(Object.keys(input.request)).toEqual(['messages'])
+    expect(input.request.messages).toHaveLength(1)
+    expect(input.plan).toBeDefined()
+    expect(Buffer.byteLength(event.data.input)).toBeLessThanOrEqual(256 * 1024)
+  }
   // Removing the adapter must not make the user's session logs unreadable to stock DSH.
   const stock = new Context(); await stock.plugin(OriginalJsonl, { root: join(f.home, 'sessions') })
   onTestFinished(() => stock.fiber.dispose())

@@ -1,0 +1,6 @@
+User-provided local SDK: CubismSdkForWeb-5-r.5
+Version: Cubism SDK for Web 5-r.5, compatible with Cubism 5.3.
+Core copied unchanged; Framework bundled for the fixed adapter.
+Adapter build replaces SDK shader fetch with the exact 13 local embedded shader sources.
+No sample models, source projects or external fetch paths are included.
+For personal local development; publication authorization is not certified.

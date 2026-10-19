@@ -1,5 +1,9 @@
 # DSH 独立插件仓库
 
+新增 **DSH Windows Sandbox Enhanced** 独立预览包，单独以官方 **0.2.1-rc.2** 为验证基线。
+当前提供只读 ACL 诊断、恢复计划和可选拒绝执行 guard，**尚无隔离执行后端**。
+开发、安装限制与待验收项目见 [实施记录](docs/windows-sandbox-enhanced.md)，验证命令为 `npm run sandbox:check`。
+
 面向原版 **DSH 0.2.0-rc.2** 的插件开发仓库。Desktop 是可选载体。源代码独立维护，运行时不依赖 `desktop-extras`；保留既有数据路径与笔记格式。
 
 | 包 | 用途 |
@@ -8,6 +12,8 @@
 | `@nidofy/dsh-working-notebook` | 完整 v2 笔记、固定条目、历史引用与检索、项目关联、回合注入、压缩整理 |
 | `@nidofy/dsh-runtime-adapter` | 原版 DSH 的持久化代际保护、摘要扩展及 Notebook 会话预设 |
 | `@nidofy/dsh-plugin-shared` | 共享设置、持久化契约和类型；不自动启用功能 |
+| `@nidofy/dsh-source-control` | 跟随当前项目的 Git/Hg 状态、差异、提交、分支与远端操作面板 |
+| `@nidofy/dsh-live2d` | 官方桌面可用的离线 Live2D 伙伴，采用与 Git 相同的右侧浮动卡片，独立启停 |
 
 ## 开发
 
@@ -29,6 +35,10 @@ npm run smoke:packed
 `compatibility.json` 固定原版 revision、提取来源和工具版本。原版测试由 Git archive 导出到忽略的 `.build/original-dsh`，不会 reset desktop。`dist/manifest.json` 给出安装包大小和 SHA-256。`npm run check` 验证本地类型、测试、构建、打包和隔离安装；原版检查另运行 `test:original`。
 
 ## 安装和使用
+
+Git/Hg 面板独立安装说明见 [版本控制插件](packages/source-control/README.md)，开源参考与设计见 [调查记录](docs/source-control.md)。
+
+Live2D 的方案比较、验证范围与截图见 [Live2D 实施说明](docs/live2d.md)，安装与运行边界见 [插件说明](packages/live2d/README.md)。该包另外通过固定官方 `0.2.1-rc.2` 源码回归与真实 Chromium 离线渲染验收。
 
 安装过程见 [原版 DSH 安装](docs/install.md)。桌宠可单独安装；完整 notebook 同时安装 runtime-adapter。所有安装包都在 `dist/`，本仓库不自动发布 npm，也不改实际 DSH_HOME。
 

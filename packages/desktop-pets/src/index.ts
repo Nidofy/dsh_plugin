@@ -53,7 +53,11 @@ export async function apply(ctx: Context): Promise<void> {
     if (method === 'pet/snapshot' || method === 'pet/update') {
       const selected = [preferences.value.pet, ...preferences.value.companions].find(p => p.id === (input.id ?? '1'))
       if (!selected) throw Error('PET_INSTANCE_MISSING')
-      if (method === 'pet/snapshot' && selected.pinned && petFeed) await petFeed.ensure(selected.pinned, signal)
+      let pinUnavailable = false
+      if (method === 'pet/snapshot' && selected.pinned && petFeed) {
+        try { await petFeed.ensure(selected.pinned, signal) }
+        catch { signal.throwIfAborted(); pinUnavailable = true }
+      }
       if (method === 'pet/update') {
         const next = structuredClone(preferences.value), target = [next.pet, ...next.companions].find(p => p.id === selected.id)
         if (!target) throw Error('PET_INSTANCE_MISSING')
@@ -70,13 +74,13 @@ export async function apply(ctx: Context): Promise<void> {
         } else throw Error('PET_ACTION_REFUSED')
         await preferences.save(next); return { updated: true }
       }
-      return { settings: { ...selected, profile: 'desktop', bubble: { ...selected.bubble, durationMs: selected.quiet ? 0 : selected.bubble.durationMs } },
+      return { pinUnavailable, settings: { ...selected, ...(pinUnavailable ? { pinned: null } : {}), profile: 'desktop', bubble: { ...selected.bubble, durationMs: selected.quiet ? 0 : selected.bubble.durationMs } },
         state: { ...(petFeed?.snapshot() ?? { generation: 'disabled', revision: 0, items: [] }), profile: 'desktop' }, doubleMs: 350 }
     }
     if (method === 'pet/packages' || method === 'pet/resource') {
       const action = method === 'pet/resource' ? 'asset' : text(input.action)
       if (!['list', 'preview', 'import', 'delete', 'asset', 'export'].includes(action)) throw Error('RESOURCE_ACTION_INVALID')
-      const operation = resourceQueue.catch(() => {}).then(() => packageCommand({ home, resources: assets, action,
+      const operation = resourceQueue.catch(() => {}).then(() => packageCommand({ home, resources: assets, action, signal,
         ...(storage ? { storage } : {}),
         resourceId: method === 'pet/resource' ? ([preferences.value.pet, ...preferences.value.companions].find(p => p.id === (input.id ?? '1'))?.resource ?? 'xiaojing') : text(input.resourceId ?? 'xiaojing'),
         ...(input.source === undefined ? {} : { source: text(input.source, 4096) }),
@@ -115,6 +119,8 @@ export async function apply(ctx: Context): Promise<void> {
         response.end(await readFile(path)); return
       }
       if (request.method !== 'POST') { response.writeHead(405); response.end('{}'); return }
+      if (!/^application\/json(?:;|$)/i.test(request.headers['content-type'] ?? '')) throw Error('JSON_POST_REQUIRED')
+      if (request.headers['sec-fetch-site'] === 'cross-site' || (request.headers.origin && new URL(request.headers.origin).host !== request.headers.host)) throw Error('ORIGIN_REFUSED')
       const chunks: Buffer[] = []; let bytes = 0
       for await (const chunk of request) {
         const value: unknown = chunk

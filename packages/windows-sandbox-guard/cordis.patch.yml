@@ -1,0 +1,21 @@
+# Optional qualification-profile lockout, NOT an isolated execution backend.
+# Distinct row IDs; no edits to installation or executable files.
+- id: sandbox
+  name: '@deepseek-ai/dsh-sandbox-local'
+  disabled: !!js process.platform === 'win32'
+- id: subprocess
+  name: '@deepseek-ai/dsh-subprocess-local'
+  disabled: !!js process.platform === 'win32'
+- id: fs-sandbox
+  name: '@deepseek-ai/dsh-fs-sandbox'
+  disabled: !!js process.platform === 'win32'
+- id: filesystem
+  name: '@deepseek-ai/dsh-fs-local'
+  disabled: !!js process.platform === 'win32'
+# The official startup audit treats a pending agent-loop as a fatal error.
+- id: agent-loop
+  name: '@deepseek-ai/dsh-agent-loop'
+  inject: [windowsSandboxGuardReady]
+- insert:
+    - id: windows-sandbox-guard
+      name: '@dsh-extensions/windows-sandbox-guard'

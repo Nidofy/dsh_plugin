@@ -220,6 +220,8 @@ export function installContextV2(ctx: Context, home: string, budgets: NotebookBu
   const update = async (sessionId: string, input: unknown, actor: 'user' | 'model', signal: AbortSignal) => {
     assertOwner()
     const delta = object(input), scope = object(delta.scope)
+    // Public editing cannot claim that a compaction transaction was committed.
+    if (delta.cursors !== undefined && object(delta.cursors).commitThrough !== undefined) throw Error('NOTEBOOK_COMMIT_CURSOR_FORBIDDEN')
     const observation = await readNotebookObservation(ctx, sessionId, signal)
     if (scope.sessionId !== sessionId || scope.generation !== observation.generation) throw Error('NOTEBOOK_SCOPE_CONFLICT')
     if (typeof delta.baseRevision !== 'number') throw Error('NOTEBOOK_INVALID_NUMBER')
@@ -299,7 +301,7 @@ export function installContextV2(ctx: Context, home: string, budgets: NotebookBu
     if (method === 'history') return queue(id, signal, async (entry) => {
       const state = await selected(id, entry, signal)
       return persistence.withGeneration(id, state.scope.generation, () =>
-        store.readHistory(state.scope, typeof input.pageToken === 'number' ? input.pageToken : null), { signal })
+        store.readHistory(state.scope, typeof input.pageToken === 'number' ? input.pageToken : null, undefined, signal), { signal })
     })
     if (method === 'source') {
       const seq = Number(input.seq)

@@ -129,3 +129,13 @@ it('re-reads settings changed during an older poll instead of dropping the refre
   await vi.advanceTimersByTimeAsync(0)
   expect(host.windows).toHaveLength(1)
 })
+
+it('destroys a renderer that never completes its ready handshake', async () => {
+  await vi.advanceTimersByTimeAsync(1500);const window=host.windows[0]!
+  await vi.advanceTimersByTimeAsync(15000);expect(window.destroyed).toBe(true)
+})
+it('destroys a crashed renderer rather than keeping its transparent window alive', async () => {
+  await vi.advanceTimersByTimeAsync(1500);const window=host.windows[0]!
+  const listener=window.webContents.on.mock.calls.find(row=>row[0]==='render-process-gone')?.[1] as (()=>void)|undefined
+  expect(listener).toBeTypeOf('function');listener!();expect(window.destroyed).toBe(true)
+})

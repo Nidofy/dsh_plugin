@@ -1,0 +1,15 @@
+{
+  "live2d/CORE-LICENSE.md": "b81e37048010ef1d336106151201a0323c3309cae44aecdedf57831fe88fa991",
+  "live2d/FRAMEWORK-LICENSE.md": "7ed849bff1e6499aa7cd882e47d246ddbbe06817c1e84cb974df949488302614",
+  "live2d/SDK-INFO.yml": "27b58836e16ca7e43d8df2d05ea1cf3671caf9c426e7e62951acfc62c173e822",
+  "live2d/SDK-NOTICE.md": "fa72aa00a7bf8b98a7617a9d67a3530a9fe23705808163cf54ca799398b22fbc",
+  "live2d/SOURCE.txt": "a3f2994404da72ff0f35fa1a2fe9261ba369db01da8d4a76e37069c53c42c5a0",
+  "live2d/bluewhale-sdk.mjs": "0e49aff3c9efba38170b8f5286ae3b36901b7a3c9e4d33c5efec3deab0ea11f2",
+  "live2d/bluewhale.2048/texture_00.png": "8f9eca6ebdf13309c1657b418f7523b643fb99b10e9ffdc1a63338c547d2e027",
+  "live2d/bluewhale.cdi3.json": "ce21ebb69ae2a3bb75c0f19b67db722fc805ccbc627806e69d0e735982669daa",
+  "live2d/bluewhale.moc3": "c861f1f22d6a990fb7d2d528c521306001dc3f176cb552b9049afd6a8a83fff4",
+  "live2d/bluewhale.model3.json": "414143a1bbecf1066de262024d5641b88a86b73cf0ebbab7eb663d27f635ddfe",
+  "live2d/live2dcubismcore.min.js": "8741f739779b5d5210872bd3d7d99f0f1e56e6c87409e7d26d6bb4b80aa1ef47",
+  "live2d/motions/idle.motion3.json": "9ee37ea606fa3f6994873c3a91d023d14dabed23977d1dbea8ac33a9b895e172",
+  "upperbody.png": "0c7d8b4d1c48f2a9c22ad5e5973d8f992b060bbcee715c561c3ebd3343bcb83a"
+}

@@ -1,0 +1,305 @@
+--- /dev/null
++++ b/packages/plugin-shared/src/durable-file.ts
+@@ -0,0 +1,36 @@
++/** Durable notebook file publication; never falls back to unsynced writes. */
++import { writeFile, open, rename, rm } from 'node:fs/promises'
++import { dirname, toNamespacedPath } from 'node:path'
++import { randomUUID } from 'node:crypto'
++let move: ((source: string, target: string, flags: number) => number) | undefined
++let lastError: (() => number) | undefined
++export async function syncFile(path: string): Promise<void> {
++  const handle = await open(path, 'r+')
++  try { await handle.sync() } finally { await handle.close() }
++}
++export async function syncDirectory(path: string): Promise<void> {
++  if (process.platform === 'win32') return
++  const handle = await open(path, 'r')
++  try { await handle.sync() } finally { await handle.close() }
++}
++export async function publishSyncedFile(source: string, target: string): Promise<void> {
++  if (process.platform !== 'win32') { await rename(source, target); await syncDirectory(dirname(target)); return }
++  if (!move) {
++    const koffi = (await import('koffi')).default, kernel = koffi.load('kernel32.dll')
++    move = kernel.func('__stdcall', 'MoveFileExW', 'int', ['str16', 'str16', 'uint'])
++    lastError = kernel.func('__stdcall', 'GetLastError', 'uint', [])
++  }
++  for (let attempt = 0;; attempt++) {
++    if (move!(toNamespacedPath(source), toNamespacedPath(target), 0x9)) return
++    const code = lastError!()
++    if (![5, 32, 33].includes(code) || attempt >= 8) throw Error(`NOTEBOOK_DURABLE_RENAME_FAILED:${code}`)
++    await new Promise(resolve => setTimeout(resolve, Math.min(20 * 2 ** attempt, 200)))
++  }
++}
++export async function writeFileDurable(path: string, bytes: string, options: { mode?: number } = {}): Promise<void> {
++  const temp = path + '.' + randomUUID() + '.tmp'
++  try {
++    await writeFile(temp, bytes, { flag: 'wx', mode: options.mode ?? 0o600, flush: true })
++    await publishSyncedFile(temp, path)
++  } finally { await rm(temp, { force: true }) }
++}
+--- a/packages/plugin-shared/package.json
++++ b/packages/plugin-shared/package.json
+@@ -24,13 +24,19 @@
+     "./durability": {
+       "types": "./lib/types/durability.d.ts",
+       "default": "./lib/durability.js"
++    },
++    "./durable-file": {
++      "types": "./lib/types/durable-file.d.ts",
++      "default": "./lib/durable-file.js"
+     }
+   },
+   "files": [
+     "lib",
+     "LICENSE"
+   ],
+-  "dependencies": {},
++  "dependencies": {
++    "koffi": "3.1.1"
++  },
+   "peerDependencies": {
+     "@deepseek-ai/cordis": "4.0.4",
+     "@deepseek-ai/dsh-brand": "0.2.0-rc.2",
+--- a/build.config.json
++++ b/build.config.json
+@@ -1,11 +1,22 @@
+ {
+-  "live2d": { "entries": { "index": "index.ts" }, "client": true },
+-  "source-control": { "entries": { "index": "index.ts" }, "client": true },
++  "live2d": {
++    "entries": {
++      "index": "index.ts"
++    },
++    "client": true
++  },
++  "source-control": {
++    "entries": {
++      "index": "index.ts"
++    },
++    "client": true
++  },
+   "plugin-shared": {
+     "entries": {
+       "storage": "storage.ts",
+       "state": "state.ts",
+-      "durability": "durability.ts"
++      "durability": "durability.ts",
++      "durable-file": "durable-file.ts"
+     },
+     "client": true
+   },
+--- a/packages/working-notebook/src/engine/notebook.ts
++++ b/packages/working-notebook/src/engine/notebook.ts
+@@ -2,7 +2,7 @@
+ import { createHash, randomBytes, randomUUID } from 'node:crypto'
+ import { appendFile, mkdir, readFile, readdir, rename, rm, stat, truncate, writeFile } from 'node:fs/promises'
+ import { join } from 'node:path'
+-import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
++import { writeFileDurable as writeFileAtomic, syncFile, syncDirectory, publishSyncedFile } from '@nidofy/dsh-plugin-shared/durable-file'
+ import { extractSessionEventText } from '@deepseek-ai/dsh-session-query'
+ import type { SessionEvent } from '@deepseek-ai/dsh-session'
+ import { SessionPersistenceGeneration } from '@nidofy/dsh-plugin-shared/durability'
+@@ -372,7 +372,8 @@
+   const temp = `${target}.${randomBytes(6).toString('hex')}.tmp`
+   try {
+     await writeFile(temp, bytes, { flag: 'wx', mode: 0o600 })
+-    await renameWithRetry(temp, target)
++    await syncFile(temp)
++    await publishSyncedFile(temp, target)
+   } catch (error) {
+     await rm(temp, { force: true }).catch((cleanupError: unknown) => {
+       // A cleanup failure never masks the original write failure; the orphan temp stays counted.
+@@ -464,9 +465,10 @@
+    * @param limit - Page size between 1 and 256; defaults to 50.
+    * @returns the committed records from the requested offset and the next page token, or null at the end.
+    */
+-  readHistory(scope: NotebookScope, pageToken?: number | null, limit?: number): Promise<NotebookHistoryPage> {
++  readHistory(scope: NotebookScope, pageToken?: number | null, limit?: number, signal?: AbortSignal): Promise<NotebookHistoryPage> {
+     return this.enqueue(async () => {
+-      const loaded = await this.loadScope(scope), token = pageToken ?? 0, size = limit ?? HISTORY_PAGE_DEFAULT
++      signal?.throwIfAborted()
++      const loaded = await this.loadScope(scope, signal), token = pageToken ?? 0, size = limit ?? HISTORY_PAGE_DEFAULT
+       if (!Number.isSafeInteger(token) || token < 0 || token > loaded.records.length
+         || !Number.isSafeInteger(size) || size < 1 || size > HISTORY_PAGE_MAX) throw Error('NOTEBOOK_INVALID_PAGE')
+       const end = Math.min(token + size, loaded.records.length)
+@@ -598,6 +600,10 @@
+           }
+           await mkdir(v2, { recursive: true, mode: 0o700 })
+           if (append !== '') await appendFile(join(v2, 'history.jsonl'), append, 'utf8')
++          if (stored.historyBytes + appendBytes > 0 || journalResidue !== 0) await syncFile(join(v2, 'history.jsonl'))
++          await syncDirectory(v2)
++          await syncDirectory(this.directory(scope.sessionId))
++          await syncDirectory(this.home)
+           await writeStateFile(v2, next.revision, stateBytes)
+           signal?.throwIfAborted()
+           validatePublication?.()
+@@ -651,7 +657,7 @@
+       const index = indexRecords(records, stored.active)
+       const loaded: LoadedNotebookV2 = { stored, committed: true, records, used: index.used, retired: index.retired,
+         journalSize: journal.length, currentSize: Buffer.byteLength(current), diskBytes: await measureDisk(v2) }
+-      this.cache.set(scope.sessionId, loaded)
++      this.remember(scope.sessionId, loaded)
+       return loaded
+     }
+     const legacy = await readOptionalText(join(directory, 'current.json'))
+@@ -660,6 +666,14 @@
+   }
+ 
+   /** Cache and return the unpublished empty state of a scope no v1 or v2 publication reached. */
++  private remember(id: string, loaded: LoadedNotebookV2): void {
++    this.cache.delete(id); this.cache.set(id, loaded)
++    let bytes = [...this.cache.values()].reduce((sum, row) => sum + row.stored.historyBytes, 0)
++    while (this.cache.size > 8 || bytes > 32 * 1024 * 1024) {
++      const oldest = this.cache.keys().next().value!
++      bytes -= this.cache.get(oldest)!.stored.historyBytes; this.cache.delete(oldest)
++    }
++  }
+   private async assertFreshNamespace(v2: string): Promise<void> {
+     const names = await readdir(v2).catch((error: NodeJS.ErrnoException) => { if (error.code === 'ENOENT') return []; throw error })
+     if (names.some(name => /^revision-.*\.json$/.test(name)) || await journalSizeOf(v2) > 0) throw Error('NOTEBOOK_RECOVERY_REQUIRED')
+@@ -668,7 +682,7 @@
+     await this.assertFreshNamespace(v2)
+     const loaded: LoadedNotebookV2 = { stored: emptyStoredV2(scope), committed: false, records: [], used: new Set<string>(),
+       retired: new Map<string, Note>(), journalSize: await journalSizeOf(v2), currentSize: 0, diskBytes: await measureDisk(v2) }
+-    this.cache.set(scope.sessionId, loaded)
++    this.remember(scope.sessionId, loaded)
+     return loaded
+   }
+ 
+@@ -746,7 +760,7 @@
+     const index = indexRecords(records, active)
+     const loaded: LoadedNotebookV2 = { stored, committed: true, records, used: index.used, retired: index.retired,
+       journalSize: stored.historyBytes, currentSize: stateSize, diskBytes: await measureDisk(v2) }
+-    this.cache.set(scope.sessionId, loaded)
++    this.remember(scope.sessionId, loaded)
+     return loaded
+   }
+ }
+--- a/packages/working-notebook/src/engine/context-v2.ts
++++ b/packages/working-notebook/src/engine/context-v2.ts
+@@ -301,7 +301,7 @@
+     if (method === 'history') return queue(id, signal, async (entry) => {
+       const state = await selected(id, entry, signal)
+       return persistence.withGeneration(id, state.scope.generation, () =>
+-        store.readHistory(state.scope, typeof input.pageToken === 'number' ? input.pageToken : null), { signal })
++        store.readHistory(state.scope, typeof input.pageToken === 'number' ? input.pageToken : null, undefined, signal), { signal })
+     })
+     if (method === 'source') {
+       const seq = Number(input.seq)
+--- a/packages/working-notebook/tests/notebook-v2.spec.ts
++++ b/packages/working-notebook/tests/notebook-v2.spec.ts
+@@ -30,11 +30,11 @@
+     if (revision) injection.abortAfterRevision?.abort()
+   } }
+ })
+-vi.mock('@deepseek-ai/dsh-atomic-write', async (original) => {
+-  const real = await original<typeof import('@deepseek-ai/dsh-atomic-write')>()
+-  return { ...real, writeFileAtomic: async (...args: Parameters<typeof real.writeFileAtomic>) => {
++vi.mock('@nidofy/dsh-plugin-shared/durable-file', async (original) => {
++  const real = await original<typeof import('@nidofy/dsh-plugin-shared/durable-file')>()
++  return { ...real, writeFileDurable: async (...args: Parameters<typeof real.writeFileDurable>) => {
+     if (injection.failCurrent && args[0].replaceAll('\\', '/').endsWith('/v2/current.json')) throw Error('CURRENT_WRITE_FAILED')
+-    return real.writeFileAtomic(...args)
++    return real.writeFileDurable(...args)
+   } }
+ })
+ afterEach(() => {
+--- a/packages/runtime-adapter/src/jsonl/index.ts
++++ b/packages/runtime-adapter/src/jsonl/index.ts
+@@ -268,6 +268,8 @@
+ 
+   private root: string
+   private compression: JsonlCompression
++  private readonly protectionLifetime = new AbortController()
++  private readonly protections = new Set<Promise<unknown>>()
+   private rootEncodingCheck: Promise<void> | undefined
+   private readonly tracker = new JsonlBackendTracker(this.name)
+   private readonly generationFormat: Omit<JsonlGenerationFormatAdapter, 'createRestore'>
+@@ -304,6 +306,7 @@
+     }
+     this.assertUsableRoot()
+     this.tracker.install(ctx)
++    ctx.effect(() => async () => { this.protectionLifetime.abort(); await Promise.allSettled(this.protections) })
+   }
+ 
+   /**
+@@ -488,7 +491,14 @@
+   }
+ 
+   /** Reuse a local writer's exclusion or acquire the same kernel lease without migrating the source. */
+-  private async protectSelected<T>(id: SessionId, operation: () => Promise<T>, signal?: AbortSignal): Promise<T> {
++  private protectSelected<T>(id: SessionId, operation: () => Promise<T>, signal?: AbortSignal): Promise<T> {
++    const combined = signal ? AbortSignal.any([signal, this.protectionLifetime.signal]) : this.protectionLifetime.signal
++    const work = this.protectSelectedInner(id, operation, combined)
++    this.protections.add(work)
++    void work.finally(() => this.protections.delete(work)).catch(() => {})
++    return work
++  }
++  private async protectSelectedInner<T>(id: SessionId, operation: () => Promise<T>, signal?: AbortSignal): Promise<T> {
+     signal?.throwIfAborted()
+     await this.ensureRootEncoding()
+     const writer = this.tracker.writerOf(id)
+--- a/packages/runtime-adapter/src/jsonl/storage.ts
++++ b/packages/runtime-adapter/src/jsonl/storage.ts
+@@ -14,7 +14,8 @@
+ import type { Session, SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@deepseek-ai/dsh-session'
+ /** Notebook audit records have no conversation-surface effect. Stock DSH can retain/skip them. */
+ function markNotebookRecord(event: SessionEvent): SessionEvent {
+-  return event.type as string === 'nidofy/notebook-compaction' ? { ...event, ignorable: true } : event
++  return event.type as string === 'nidofy/notebook-compaction' && (event.data as {schemaVersion?:number}).schemaVersion === 1
++    ? { ...event, ignorable: true } : event
+ }
+ 
+ import {
+--- a/packages/plugin-shared/src/state.ts
++++ b/packages/plugin-shared/src/state.ts
+@@ -1,7 +1,7 @@
+ /** Versioned optional preferences; legacy byte budgets remain explicitly identified. */
+ import { mkdir, readFile, lstat } from 'node:fs/promises'
+ import { join } from 'node:path'
+-import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
++import { writeFileAtomic, withFileLock } from '@deepseek-ai/dsh-atomic-write'
+ import type { StorageService } from './storage.ts'
+ 
+ export interface PetSettings {
+@@ -103,15 +103,21 @@
+   save(input: unknown): Promise<Preferences> {
+     const operation = this.queue.catch(() => {}).then(async () => {
+       if (this.warning) throw Error(this.warning)
++      const path = join(this.home, 'preferences.json')
++      await mkdir(this.home, {recursive:true,mode:0o700})
++      return withFileLock(path, async () => {
++      await this.open()
++      if (this.warning) throw Error(this.warning)
+       const next = validate(input)
+       if (next.revision !== this.value.revision) throw Error('PREFERENCES_CONFLICT')
+       next.revision++
+       await mkdir(this.home, { recursive: true, mode: 0o700 })
+-      const path = join(this.home, 'preferences.json'), bytes = JSON.stringify(next)
++      const bytes = JSON.stringify(next)
+       const write = () => writeFileAtomic(path, bytes, { mode: 0o600 })
+       await (this.storage ? this.storage.write(path, Buffer.byteLength(bytes) * 2, write) : write())
+       this.value = next
+       return structuredClone(next)
++      })
+     })
+     this.queue = operation
+     return operation
+--- a/packages/desktop-pets/src/legacy/pet-packages.mjs
++++ b/packages/desktop-pets/src/legacy/pet-packages.mjs
+@@ -1,3 +1,4 @@
++import { withFileLock } from '@deepseek-ai/dsh-atomic-write'
+ import {readFile,lstat,readdir,realpath,open,mkdir,rename,writeFile,rm} from 'node:fs/promises';
+ import {resolve,join,relative,isAbsolute,dirname} from 'node:path';
+ import {inflateRawSync,crc32} from 'node:zlib';
+@@ -63,6 +64,10 @@
+ function publicView(p){return {id:p.id,displayName:p.displayName,version:p.version,digest:p.digest,warnings:p.warnings,preview:p.preview};}
+ export function encodeZip(files){const locals=[],central=[];let offset=0;for(const [name,data]of files){const n=Buffer.from(safeName(name)),crc=crc32(data),head=Buffer.alloc(30);head.writeUInt32LE(0x04034b50);head.writeUInt16LE(20,4);head.writeUInt16LE(0x800,6);head.writeUInt32LE(crc,14);head.writeUInt32LE(data.length,18);head.writeUInt32LE(data.length,22);head.writeUInt16LE(n.length,26);locals.push(head,n,data);const c=Buffer.alloc(46);c.writeUInt32LE(0x02014b50);c.writeUInt16LE(20,4);c.writeUInt16LE(20,6);c.writeUInt16LE(0x800,8);c.writeUInt32LE(crc,16);c.writeUInt32LE(data.length,20);c.writeUInt32LE(data.length,24);c.writeUInt16LE(n.length,28);c.writeUInt32LE(offset,42);central.push(c,n);offset+=30+n.length+data.length;}const dir=Buffer.concat(central),end=Buffer.alloc(22);end.writeUInt32LE(0x06054b50);end.writeUInt16LE(files.size,8);end.writeUInt16LE(files.size,10);end.writeUInt32LE(dir.length,12);end.writeUInt32LE(offset,16);const result=Buffer.concat([...locals,dir,end]);if(result.length>LIMITS.archive)throw Error("导出 ZIP 超过 64 MiB");return result;}
+ export async function packageCommand(options){
++ await mkdir(options.home,{recursive:true});options.signal?.throwIfAborted();
++ return withFileLock(join(options.home,'pet-catalog'),async()=>{options.signal?.throwIfAborted();return packageCommandLocked(options);});
++}
++async function packageCommandLocked(options){
+  options.signal?.throwIfAborted();
+  const {storage,action,home,destination}=options;
+  if(storage&&['import','delete'].includes(action))return storage.write(join(home,'pet-resources'),(action==='import'?LIMITS.total:0)+2*LIMITS.json,()=>packageCommandInner(options));

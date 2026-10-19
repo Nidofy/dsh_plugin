@@ -1,3 +1,4 @@
+import { withFileLock } from '@deepseek-ai/dsh-atomic-write'
 import {readFile,lstat,readdir,realpath,open,mkdir,rename,writeFile,rm} from 'node:fs/promises';
 import {resolve,join,relative,isAbsolute,dirname} from 'node:path';
 import {inflateRawSync,crc32} from 'node:zlib';
@@ -63,6 +64,11 @@ export async function validatePackage(files,resources){
 function publicView(p){return {id:p.id,displayName:p.displayName,version:p.version,digest:p.digest,warnings:p.warnings,preview:p.preview};}
 export function encodeZip(files){const locals=[],central=[];let offset=0;for(const [name,data]of files){const n=Buffer.from(safeName(name)),crc=crc32(data),head=Buffer.alloc(30);head.writeUInt32LE(0x04034b50);head.writeUInt16LE(20,4);head.writeUInt16LE(0x800,6);head.writeUInt32LE(crc,14);head.writeUInt32LE(data.length,18);head.writeUInt32LE(data.length,22);head.writeUInt16LE(n.length,26);locals.push(head,n,data);const c=Buffer.alloc(46);c.writeUInt32LE(0x02014b50);c.writeUInt16LE(20,4);c.writeUInt16LE(20,6);c.writeUInt16LE(0x800,8);c.writeUInt32LE(crc,16);c.writeUInt32LE(data.length,20);c.writeUInt32LE(data.length,24);c.writeUInt16LE(n.length,28);c.writeUInt32LE(offset,42);central.push(c,n);offset+=30+n.length+data.length;}const dir=Buffer.concat(central),end=Buffer.alloc(22);end.writeUInt32LE(0x06054b50);end.writeUInt16LE(files.size,8);end.writeUInt16LE(files.size,10);end.writeUInt32LE(dir.length,12);end.writeUInt32LE(offset,16);const result=Buffer.concat([...locals,dir,end]);if(result.length>LIMITS.archive)throw Error("导出 ZIP 超过 64 MiB");return result;}
 export async function packageCommand(options){
+ await mkdir(options.home,{recursive:true});options.signal?.throwIfAborted();
+ return withFileLock(join(options.home,'pet-catalog'),async()=>{options.signal?.throwIfAborted();return packageCommandLocked(options);});
+}
+async function packageCommandLocked(options){
+ options.signal?.throwIfAborted();
  const {storage,action,home,destination}=options;
  if(storage&&['import','delete'].includes(action))return storage.write(join(home,'pet-resources'),(action==='import'?LIMITS.total:0)+2*LIMITS.json,()=>packageCommandInner(options));
  if(storage&&action==='export'){
@@ -71,24 +77,25 @@ export async function packageCommand(options){
  }
  return packageCommandInner(options);
 }
-async function packageCommandInner({home,resources,action,source,expected,replace=false,resourceId,destination}){
+async function packageCommandInner({home,resources,action,source,expected,replace=false,resourceId,destination,signal}){
+ signal?.throwIfAborted();
  const root=resolve(home,'pet-resources');try{if((await lstat(root)).isSymbolicLink())throw Error('资源库不能是链接');}catch(e){if(e.code!=='ENOENT')throw e;}await mkdir(root,{recursive:true});const catalogPath=join(root,'catalog.json');let catalog={schemaVersion:1,items:[]},catalogWarning=null;try{catalog=JSON.parse(await regular(catalogPath,LIMITS.json));if(catalog.schemaVersion!==1||!Array.isArray(catalog.items)||catalog.items.length>100)throw Error('资源目录索引无效');for(const item of catalog.items){id(item.id);if(!/^[a-z0-9_-]+$/.test(item.folder))throw Error('资源目录索引无效');}}catch(e){if(e.code!=='ENOENT'){catalogWarning='资源索引不可读，已保留原文件；仍可使用和导出内置宠物';catalog={schemaVersion:1,items:[]};if(!['list'].includes(action)&&!(['asset','export'].includes(action)&&resourceId==='xiaojing'))throw Error(catalogWarning);}}
  const removeFolder=async folder=>{if(!folder)return;const target=resolve(root,folder);if(dirname(target)!==root||!/^[a-z0-9_-]+$/.test(folder))throw Error('资源删除路径无效');await rm(target,{recursive:true,force:true});};
- const commit=async()=>{const bytes=JSON.stringify(catalog);if(Buffer.byteLength(bytes)>LIMITS.json)throw Error('资源目录索引过大');const temp=catalogPath+'.'+randomUUID();await writeFile(temp,bytes,{flag:'wx'});await rename(temp,catalogPath);};
+ const commit=async()=>{signal?.throwIfAborted();const bytes=JSON.stringify(catalog);if(Buffer.byteLength(bytes)>LIMITS.json)throw Error('资源目录索引过大');const temp=catalogPath+'.'+randomUUID();await writeFile(temp,bytes,{flag:'wx'});try{signal?.throwIfAborted();await rename(temp,catalogPath);}finally{await rm(temp,{force:true});}};
  const locate=rid=>rid==='xiaojing'?join(resources,'pets/xiaojing'):join(root,catalog.items.find(i=>i.id===id(rid))?.folder??'missing');
  if(action==='list')return {warning:catalogWarning,items:[{id:'xiaojing',displayName:'吃白饭的大肥鱼',builtin:true},...catalog.items.map(({id,displayName})=>({id,displayName,builtin:false}))]};
  if(action==='preview'||action==='import'){
   const p=await validatePackage(await readPackage(source),resources);if(action==='preview')return {...publicView(p),duplicate:p.id==='xiaojing'||catalog.items.some(i=>i.id===p.id)};
   if(p.digest!==expected)throw Error('源包已变化，请重新预检');if(p.id==='xiaojing')throw Error('内置资源只读，请为自定义包使用不同 ID');const old=catalog.items.find(i=>i.id===p.id);if(old&&!replace)throw Error('资源 ID 已存在，请明确选择替换');if(!old&&catalog.items.length>=100)throw Error('最多保存 100 个资源包');
   const folder=p.id+'-'+randomUUID(),stage=join(root,'.stage-'+randomUUID()),final=join(root,folder);await mkdir(stage);
-  try{for(const [name,bytes]of p.files){const path=join(stage,name);await mkdir(dirname(path),{recursive:true});await writeFile(path,bytes,{flag:'wx'});}await validatePackage(await readPackage(stage),resources);await rename(stage,final);catalog.items=catalog.items.filter(i=>i.id!==p.id);catalog.items.push({id:p.id,displayName:p.displayName,folder});await commit();}catch(e){if(dirname(resolve(stage))===root)await rm(stage,{recursive:true,force:true});await removeFolder(folder);throw e;}
+  try{for(const [name,bytes]of p.files){signal?.throwIfAborted();const path=join(stage,name);await mkdir(dirname(path),{recursive:true});await writeFile(path,bytes,{flag:'wx'});}await validatePackage(await readPackage(stage),resources);signal?.throwIfAborted();await rename(stage,final);catalog.items=catalog.items.filter(i=>i.id!==p.id);catalog.items.push({id:p.id,displayName:p.displayName,folder});await commit();}catch(e){if(dirname(resolve(stage))===root)await rm(stage,{recursive:true,force:true});await removeFolder(folder);throw e;}
   let warning;try{await removeFolder(old?.folder);}catch{warning='新资源已安装，旧资源目录未能清理';}return {id:p.id,installed:true,warning};
  }
  if(action==='delete'){id(resourceId);if(resourceId==='xiaojing')throw Error('内置资源不可删除');const old=catalog.items.find(i=>i.id===resourceId);catalog.items=catalog.items.filter(i=>i.id!==resourceId);await commit();let warning;try{await removeFolder(old?.folder);}catch{warning='资源已卸载，旧目录未能清理';}return {deleted:true,warning};}
  if(action==='asset'||action==='export'){
   const p=await validatePackage(await readPackage(locate(resourceId)),resources);
   if(action==='asset'){const images={};for(const [name,b]of p.files)if(/\.(png|webp)$/.test(name))images[name]='data:image/'+(name.endsWith('.png')?'png':'webp')+';base64,'+b.toString('base64');return {id:p.id,displayName:p.displayName,manifest:p.manifest,atlas:p.atlas,interactions:p.interactions,images,warnings:p.warnings};}
-  const parent=await lstat(destination);if(!parent.isDirectory()||parent.isSymbolicLink())throw Error('请选择普通导出目录');const path=join(destination,p.id+'-'+p.digest.slice(0,8)+'-'+randomUUID().slice(0,8)+'.zip');await writeFile(path,encodeZip(p.files),{flag:'wx'});return {path};
+  const parent=await lstat(destination);if(!parent.isDirectory()||parent.isSymbolicLink())throw Error('请选择普通导出目录');const path=join(destination,p.id+'-'+p.digest.slice(0,8)+'-'+randomUUID().slice(0,8)+'.zip');signal?.throwIfAborted();await writeFile(path,encodeZip(p.files),{flag:'wx',signal});return {path};
  }
  throw Error('不支持的资源操作');
 }
