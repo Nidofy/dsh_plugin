@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 小院 · 纸娃娃动作室</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f1e9;color:#263e43;font:15px "Segoe UI","Microsoft YaHei",sans-serif}
+main{max-width:1440px;margin:auto;padding:32px}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #c9d0c3;padding-bottom:22px;gap:24px}
+.eyebrow{font-size:12px;letter-spacing:2px;color:#657e71}h1{font-size:30px;margin:10px 0}p{color:#627570;line-height:1.7;margin:0}
+button,select,input{font:inherit}button,select{background:#fff;border:1px solid #b7c4b6;border-radius:8px;padding:9px 12px;color:inherit}
+button{cursor:pointer}button.primary{background:#355b51;color:white}button:disabled{opacity:.5;cursor:wait}
+.studio{display:grid;grid-template-columns:512px minmax(200px,1fr) 260px;gap:24px;margin-top:24px;align-items:start}
+.stage{width:512px;height:512px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 12px 36px #31443210}
+iframe{width:512px;height:512px;border:0;display:block;background:transparent}
+.caption{font-size:13px;margin-top:12px;color:#627570;line-height:1.7}.reference{height:512px;border:1px solid #d6d9ce;border-radius:16px;display:flex;align-items:center;justify-content:center;background:#fff}
+.reference img{height:320px;width:320px;max-width:100%;object-fit:contain}
+aside{border:1px solid #c9d0c3;border-radius:16px;padding:20px;background:#f9f7f1}label{display:block;font-size:13px;margin:0 0 8px}select{width:100%;margin-bottom:18px}input[type=range]{width:100%;accent-color:#355b51}
+.buttons{display:flex;gap:8px;margin:18px 0}.colors{display:flex;gap:8px;margin:8px 0 18px}.colors button{flex:1}
+.status{font-size:12px;color:#486d57;min-height:35px}h2{font-size:18px;margin:28px 0 12px}.notes{padding:18px 22px;border:1px solid #c9d0c3;border-radius:12px;background:#ecefe4}
+a{color:#355b51}.badge{border:1px solid #b7c4b6;border-radius:20px;padding:8px 14px;font-size:13px}.row{display:flex;gap:12px;align-items:center}
+@media(max-width:1200px){.studio{grid-template-columns:512px 260px;justify-content:center}.comparison{grid-column:1/-1}.reference{height:360px}.reference img{height:280px}}
+@media(max-width:820px){main{padding:16px}.studio{display:flex;flex-wrap:wrap}.stage{max-width:100%;overflow:auto}.comparison{width:100%}aside{width:100%}}
+</style>
+<main>
+<header><div><div class="eyebrow">DSH · AI VILLAGE / PHASE 02</div><h1 data-en="Paper-doll motion studio">纸娃娃动作室</h1><p data-en="Independent limbs, layered hair and tail, and four facial expressions.">独立四肢、分层头发与鲸尾，以及四种面部表情。</p></div><div class="row"><span class="badge" data-en="Motion sample · Ready for review">动作样板 · 待验收</span><button id="language">English</button></div></header>
+<section class="studio">
+<div><div class="stage" id="stage"><iframe id="frame" title="纸娃娃动作预览 / Paper-doll motion preview" sandbox="allow-scripts" src="/frame"></iframe></div><p class="caption" data-en="Live Pixi rendering · 512px viewport. 96 / 128 are actual CSS heights at this viewport size.">实时 Pixi 渲染 · 512px 视口。在此视口下，96 / 128 为实际 CSS 显示高度。</p></div>
+<div class="comparison"><div class="reference"><img src="/approved.png" alt="已批准的角色基准 / Approved character base"></div><p class="caption" data-en="Approved phase 1 base. The animated version uses separately completed and registered parts.">阶段 1 已批准基准。左侧动画使用独立补绘、重新配准的部件。</p></div>
+<aside>
+<label for="action" data-en="Action">动作</label><select id="action"><option value="idle" data-en="Idle · breathing / blink">待机 · 呼吸 / 眨眼</option><option value="walk" data-en="Walk · alternating steps">行走 · 交替迈步</option><option value="pickup" data-en="Pick up · lift">抓起 · 轻抬</option><option value="dragging" data-en="Held · gentle sway">拖动中 · 悬空轻摆</option><option value="put_down" data-en="Put down · settle">放下 · 落地稳定</option></select>
+<label for="expression" data-en="Facial expression">面部表情</label><select id="expression"><option value="auto" data-en="Follow animation">跟随动作</option><option value="neutral" data-en="Neutral">默认</option><option value="happy" data-en="Happy">开心</option><option value="surprised" data-en="Surprised">抓起惊讶</option><option value="sleepy" data-en="Sleepy / blink">困倦 / 眨眼</option></select>
+<label for="size" data-en="Character height">角色显示高度</label><select id="size"><option value="320" data-en="320px · inspect joints">320px · 检查关节</option><option value="128">128px</option><option value="96">96px</option></select>
+<label data-en="Background">检查底色</label><div class="colors"><button data-color="#ffffff" data-en="White">白</button><button data-color="#81858a" data-en="Gray">灰</button><button data-color="#171f29" data-en="Dark">深</button></div>
+<label for="time" data-en="Timeline">时间轴</label><input id="time" type="range" min="0" max="4" step=".01" value="0"><output id="time-value">0.00 s</output>
+<div class="buttons"><button class="primary" id="play" disabled data-en="Play">播放</button><button id="reset" data-en="Reset">重置</button></div>
+<div class="status" id="status" role="status">正在加载 / Loading…</div>
+</aside>
+</section>
+<h2 data-en="What to check">这轮看什么</h2>
+<div class="notes"><p data-en="Watch the alternating legs, sleeve overlaps, hair sway and tail joint. Switch expressions and inspect at 96 / 128px on white, gray and dark backgrounds.">观察双腿是否交替迈步，袖口与衣身是否衔接，头发和鲸尾是否自然跟随；切换表情，并在白、灰、深色底下检查 96 / 128px 观感。</p><p data-en="This is an animation review tool. Scene movement, pointer dragging, furniture, saves and DSH integration belong to later stages.">当前为动作验收工具。场景移动、鼠标拖放、家具、世界存档及 DSH 接入属于后续阶段。</p></div>
+<p class="caption"><a href="/parts" target="_blank" data-en="View the 20 source parts and their alpha">查看 20 张部件与透明通道</a></p>
+</main>
+<script>
+const channel='nidofy-ai-village-phase2',frame=document.getElementById('frame'),token=crypto.randomUUID();
+const action=document.getElementById('action'),expression=document.getElementById('expression'),size=document.getElementById('size'),slider=document.getElementById('time'),play=document.getElementById('play');
+let language='zh',running=false,initialized=false;
+const durations={idle:4,walk:.8,pickup:.35,dragging:1.6,put_down:.55};
+window.__phase2={ready:false,errors:[],state:null};
+document.querySelectorAll('[data-en]').forEach(el=>el.dataset.zh=el.textContent);
+const assets=Promise.all([fetch('/rig').then(r=>r.json()),fetch('/motions').then(r=>r.json()),fetch('/manifest').then(r=>r.json())]).then(async([character,animations,manifest])=>{
+ const entries=await Promise.all(manifest.parts.map(async p=>[p.file,await fetch('/asset/'+p.file.split('/').pop()).then(r=>{if(!r.ok)throw Error('Asset unavailable');return r.arrayBuffer()})]));
+ return {character,animations,images:Object.fromEntries(entries)};
+});
+window.control=(data)=>frame.contentWindow.postMessage({channel,token,type:'control',...data},'*');
+function updatePlay(){play.textContent=running?(language==='zh'?'暂停':'Pause'):(language==='zh'?'播放':'Play')}
+window.addEventListener('message',async event=>{
+ if(event.source!==frame.contentWindow||event.origin!=='null'||event.data?.channel!==channel)return;
+ const data=event.data;
+ if(data.type==='ready'&&!initialized){initialized=true;try{const payload=await assets;frame.contentWindow.postMessage({channel,token,type:'init',...payload},'*',Object.values(payload.images))}catch(e){window.__phase2.errors.push(String(e))}}
+ else if(data.token===token&&data.type==='rendered'){window.__phase2.ready=true;play.disabled=false}
+ else if(data.token===token&&data.type==='state'){window.__phase2.state=data;running=data.running;updatePlay();document.getElementById('status').textContent=(language==='zh'?'本地 WebGL · ':'Local WebGL · ')+data.action+' · '+data.frames+' frames';slider.value=['pickup','put_down'].includes(data.action)?Math.min(data.time,durations[data.action]):data.time%durations[data.action];document.getElementById('time-value').textContent=Number(slider.value).toFixed(2)+' s'}
+ else if(data.token===token&&data.type==='failed'){window.__phase2.errors.push(data.error);document.getElementById('status').textContent=data.error}
+});
+action.onchange=()=>{slider.max=durations[action.value];slider.value=0;window.control({action:action.value,running})};
+expression.onchange=()=>window.control({expression:expression.value});
+size.onchange=()=>window.control({height:Number(size.value)});
+slider.oninput=()=>{running=false;updatePlay();document.getElementById('time-value').textContent=Number(slider.value).toFixed(2)+' s';window.control({time:Number(slider.value),running:false})};
+play.onclick=()=>{running=!running;updatePlay();window.control({running})};
+document.getElementById('reset').onclick=()=>{slider.value=0;window.control({time:0})};
+document.querySelectorAll('[data-color]').forEach(button=>button.onclick=()=>document.getElementById('stage').style.background=button.dataset.color);
+document.getElementById('language').onclick=()=>{language=language==='zh'?'en':'zh';document.documentElement.lang=language==='zh'?'zh-CN':'en';document.querySelectorAll('[data-en]').forEach(el=>el.textContent=el.dataset[language]);document.getElementById('language').textContent=language==='zh'?'English':'中文';updatePlay()};
+document.addEventListener('visibilitychange',()=>frame.contentWindow.postMessage({channel,token,type:'visibility',hidden:document.hidden},'*'));
+window.visibilityForTest=(hidden)=>frame.contentWindow.postMessage({channel,token,type:'visibility',hidden},'*');
+window.inspectForTest=()=>frame.contentWindow.postMessage({channel,token,type:'inspect'},'*');
+</script>
+</html>

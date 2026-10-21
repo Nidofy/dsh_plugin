@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "approvedForRelease": true,
+  "status": "agent-reviewed-assembly",
+  "approval": {
+    "source": "delegated-agent-review",
+    "userInstruction": "中途不需要额外验收"
+  },
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 23,
+        "top": 44,
+        "width": 286,
+        "height": 259
+      },
+      "nativeSize": [
+        286,
+        259
+      ],
+      "bytes": 167783,
+      "sha256": "14ea0154b43c496c1f93c373f9ab650598d6d5c1a9b9ef2c364094072cb0b7a1",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 340,
+        "top": 44,
+        "width": 286,
+        "height": 260
+      },
+      "nativeSize": [
+        286,
+        260
+      ],
+      "bytes": 168953,
+      "sha256": "3da0845f98cca118a09a6493685f3dcf738172edae447ea9bfa5c53a2a456742",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 642,
+        "top": 44,
+        "width": 286,
+        "height": 259
+      },
+      "nativeSize": [
+        286,
+        259
+      ],
+      "bytes": 168235,
+      "sha256": "e5a871de08d8d905e200e19a8fa9c746ec98658a825c118d8b2d3cddffe7d206",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 956,
+        "top": 44,
+        "width": 283,
+        "height": 259
+      },
+      "nativeSize": [
+        283,
+        259
+      ],
+      "bytes": 163070,
+      "sha256": "895436d0044cc643c15fe752c79a43bdca5036fdc0c3c0cc2ddf8bcc8e118f14",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 20,
+        "top": 326,
+        "width": 309,
+        "height": 293
+      },
+      "nativeSize": [
+        309,
+        293
+      ],
+      "bytes": 177840,
+      "sha256": "d6c26a58c188f61f06c04ccceddfc75ade22c58c0d7b06a5d686ed214a47ee1a",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 401,
+        "top": 328,
+        "width": 185,
+        "height": 285
+      },
+      "nativeSize": [
+        185,
+        285
+      ],
+      "bytes": 89414,
+      "sha256": "d0f55b58c3197b704078677b9715400d7945006715f0af6c604fc239b87dc5de",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 715,
+        "top": 329,
+        "width": 203,
+        "height": 286
+      },
+      "nativeSize": [
+        203,
+        286
+      ],
+      "bytes": 91211,
+      "sha256": "d23df1b6af757eb17a7e2bdbd37d8b12105bf3660d276846bf9d2f60e2486c1b",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 1054,
+        "top": 336,
+        "width": 122,
+        "height": 286
+      },
+      "nativeSize": [
+        122,
+        286
+      ],
+      "bytes": 65890,
+      "sha256": "cbbd1465135f34dd470fd00875c3234f31eb2e24fd125c4f5a00de92f0410f17",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 92,
+        "top": 640,
+        "width": 136,
+        "height": 271
+      },
+      "nativeSize": [
+        136,
+        271
+      ],
+      "bytes": 65974,
+      "sha256": "22678d983c4e05ea9d968254c7afe3117dd47c98c7ca41cb438151872f05d3d3",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 392,
+        "top": 660,
+        "width": 226,
+        "height": 203
+      },
+      "nativeSize": [
+        226,
+        203
+      ],
+      "bytes": 84089,
+      "sha256": "50ab15382267b34aac512c031ea7ef2cfe1c5d4c021ab82978981f0a3d9cb65d",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 667,
+        "top": 659,
+        "width": 276,
+        "height": 211
+      },
+      "nativeSize": [
+        276,
+        211
+      ],
+      "bytes": 92017,
+      "sha256": "ce37b52b83b24abb9ae91d56f74cc22845289a917655a8e782ebcd01603994b8",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 1001,
+        "top": 663,
+        "width": 207,
+        "height": 212
+      },
+      "nativeSize": [
+        207,
+        212
+      ],
+      "bytes": 87858,
+      "sha256": "bbd8fde0519a2f4a02f10f4d768648056592d251493d8a40865c0a48066bc6a0",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 40,
+        "top": 956,
+        "width": 279,
+        "height": 229
+      },
+      "nativeSize": [
+        279,
+        229
+      ],
+      "bytes": 99301,
+      "sha256": "2a6319f8763c25053c9700b6a633ec3339536e0cb132987c6f899864a393d040",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 328,
+        "top": 893,
+        "width": 296,
+        "height": 325
+      },
+      "nativeSize": [
+        296,
+        325
+      ],
+      "bytes": 232005,
+      "sha256": "7fa393c644472be7d95981b1cf3903a76407a3eaf09daffd0479ea7e6ff0a3ec",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 645,
+        "top": 915,
+        "width": 321,
+        "height": 314
+      },
+      "nativeSize": [
+        321,
+        314
+      ],
+      "bytes": 228464,
+      "sha256": "117e75a0c0eb3c59c3629c1a064c002ff4ba4a7ef71018c449735e1b94b953ce",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster/claude-v02.png",
+      "crop": {
+        "left": 1037,
+        "top": 899,
+        "width": 188,
+        "height": 311
+      },
+      "nativeSize": [
+        188,
+        311
+      ],
+      "bytes": 102812,
+      "sha256": "2eaa618a56933cd64328284c7751e566e9ba364075502acdea4a786310126332",
+      "processing": "Measured native crop; original RGBA preserved"
+    }
+  ]
+}

@@ -1,5 +1,9 @@
 # 来源与许可
 
+2026-10-21 的全插件兼容基线统一为官方 DSH `0.2.1-rc.2`，源码 revision `687f282e8625c6b8d11ff58211a90524be2e4317`。下文的旧 revision 是原始提取来源；本次 worker 的上游部分改为该新版固定官方源码。
+
+Windows x64 离线包内嵌 Koffi、Sharp 等运行依赖及各自许可证，准确版本见各包 `OFFLINE-DEPENDENCIES.json`。sandbox-enhanced 的自包含 .NET 运行时保留 `native/runtime/DOTNET-LICENSE.TXT` 与 `DOTNET-THIRD-PARTY-NOTICES.TXT`；宿主 DSH/Cordis 不随插件重复分发。
+
 `packages/live2d`：构图与模型引用校验提取自 2026-10-18 本地 desktop-extras，浮层几何适配来自本仓库 source-control；隔离 iframe、消息桥接、独立路由与插件注册为新增实现。Bluewhale 立绘和模型沿用用户现有资源。Cubism SDK for Web 5-r.5 Core 原样复制，Framework 使用原有离线适配器，相关许可与 SDK 版本保存在该包 assets/live2d 中；这些资源不受本仓库 MIT 许可证覆盖，原始来源记录未认证公开分发授权。assets/manifest.json 记录所有复制资产的 SHA-256。仅生成本地验证包，未发布 npm。
 
 `packages/source-control` 为新增实现，参考 Codex/Zcode 截图的交互风格、MIT 的 VS Code Git 扩展及 vscode-hg 的功能设计；没有复制它们的源码、图标或品牌素材。调查链接见 `docs/source-control.md`。Git 与 Mercurial 为宿主外部可执行程序，不打入插件包。

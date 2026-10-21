@@ -21,7 +21,7 @@ for (const item of manifest) {
 const peers = new Set()
 for (const item of manifest) {
   const dir = join(stage, 'node_modules', item.name), pkg = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8'))
-  for (const dep of [...Object.keys(pkg.peerDependencies ?? {}), ...Object.keys(pkg.dependencies ?? {})]) {
+  for (const dep of Object.keys(pkg.peerDependencies ?? {})) {
     if (dep.startsWith('@nidofy/')) continue
     peers.add(dep)
   }
@@ -58,6 +58,7 @@ import * as Pets from '@nidofy/dsh-desktop-pets'
 import * as Notebook from '@nidofy/dsh-working-notebook'
 import * as SourceControl from '@nidofy/dsh-source-control'
 import * as Live2d from '@nidofy/dsh-live2d'
+import * as Village from '@nidofy/dsh-ai-village'
 import { NotebookStore } from '@nidofy/dsh-working-notebook/standard-store'
 import { PreferenceStore, defaults } from '@nidofy/dsh-plugin-shared/state'
 assert.equal(Pets.name, 'nidofy-desktop-pets')
@@ -65,6 +66,7 @@ assert.equal(Notebook.name, 'nidofy-working-notebook')
 assert.equal(Notebook.Config({}).maxActiveEntries, 64)
 assert.equal(SourceControl.name, 'nidofy-source-control')
 assert.equal(Live2d.name, 'nidofy-live2d')
+assert.equal(Village.name, 'nidofy-ai-village')
 assert.equal(SourceControl.Config({}).includeWorkspaces, true)
 const ctx = new Context(); assert.ok(ctx); await ctx.fiber.dispose()
 const home = await mkdtemp(join(tmpdir(), 'dsh-packed-data-'))
@@ -101,25 +103,25 @@ import type { PetSettings } from '@nidofy/dsh-plugin-shared/state'
 import { installPetDesktop } from '@nidofy/dsh-desktop-pets/electron'
 import type { Config as VcsConfig } from '@nidofy/dsh-source-control'
 import { apply as applyLive2d } from '@nidofy/dsh-live2d'
-export type Consumer = [Config, PetSettings, typeof installPetDesktop, VcsConfig, typeof applyLive2d]
+import { apply as applyVillage } from '@nidofy/dsh-ai-village'
+export type Consumer = [Config, PetSettings, typeof installPetDesktop, VcsConfig, typeof applyLive2d, typeof applyVillage]
 `)
 await writeFile(join(stage, 'tsconfig.json'), JSON.stringify({ compilerOptions: { target: 'ES2024', module: 'NodeNext', moduleResolution: 'NodeNext', strict: true, skipLibCheck: true, noEmit: true }, files: ['consumer.ts'] }))
 const check = spawnSync(process.execPath, [require.resolve('typescript/bin/tsc'), '-p', join(stage, 'tsconfig.json')], { cwd: stage, encoding: 'utf8' })
 if (check.status !== 0) throw Error(check.stdout + check.stderr)
 console.log('Packed browser factories, bundle declarations and TypeScript consumer passed')
-const { source } = JSON.parse(await readFile(join(root, '.local/environment.json'), 'utf8'))
+const { officialRuntime: source } = JSON.parse(await readFile(join(root, '.local/environment.json'), 'utf8'))
 const profile = join(stage, 'home/profiles/plugin-smoke')
 await mkdir(profile, { recursive: true })
 await writeFile(join(profile, 'package.json'), JSON.stringify({ name: 'plugin-smoke-profile', private: true,
-  dependencies: { '@nidofy/dsh-desktop-pets': '0.1.0', '@nidofy/dsh-working-notebook': '0.1.0', '@nidofy/dsh-runtime-adapter': '0.1.0', '@nidofy/dsh-source-control': '0.1.0', '@nidofy/dsh-live2d': '0.1.0' },
-  dsh: { profile: { bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@nidofy/dsh-runtime-adapter', '@nidofy/dsh-desktop-pets', '@nidofy/dsh-working-notebook', '@nidofy/dsh-source-control', '@nidofy/dsh-live2d'] } },
+  dependencies: Object.fromEntries(manifest.map(p => [p.name, p.version])),
+  dsh: { profile: { bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@nidofy/dsh-runtime-adapter', '@nidofy/dsh-desktop-pets', '@nidofy/dsh-working-notebook', '@nidofy/dsh-source-control', '@nidofy/dsh-live2d', '@nidofy/dsh-ai-village', '@dsh-extensions/windows-sandbox-enhanced'] } },
 }))
 await writeFile(join(profile, 'cordis.patch.yml'), '[]\n')
-const dump = spawnSync(process.execPath, ['--import', pathToFileURL(join(source, 'node_modules/tsx/dist/esm/index.mjs')).href,
-  join(source, 'apps/cli/src/bin.ts'), '--profile', 'plugin-smoke', '--dump-config'],
+const dump = spawnSync(process.execPath, [join(source, 'node_modules/@deepseek-ai/dsh/lib/bin.js'), '--profile', 'plugin-smoke', '--dump-config'],
   { cwd: source, encoding: 'utf8', timeout: 30000, env: { ...process.env, DSH_HOME: join(stage, 'home') } })
 if (dump.status !== 0) throw Error(dump.stdout + dump.stderr)
-for (const id of ['nidofy-desktop-pets', 'nidofy-working-notebook', 'nidofy-runtime-jsonl', 'preset-notebook', 'nidofy-source-control', 'nidofy-live2d']) assert.ok(dump.stdout.includes(id), 'Missing CLI composition: ' + id)
+for (const id of ['nidofy-desktop-pets', 'nidofy-working-notebook', 'nidofy-runtime-jsonl', 'preset-notebook', 'nidofy-source-control', 'nidofy-live2d', 'nidofy-ai-village', 'windows-sandbox-enhanced']) assert.ok(dump.stdout.includes(id), 'Missing CLI composition: ' + id)
 const schema = yaml.JSON_SCHEMA.extend(new yaml.Type('tag:yaml.org,2002:js', { kind: 'scalar', construct: data => ({ __jsExpr: data }) }))
 const composed = yaml.load(dump.stdout, { schema })
 const rows = list => list.flatMap(row => [row, ...(row.group && Array.isArray(row.config) ? rows(row.config) : [])])

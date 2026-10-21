@@ -22,6 +22,8 @@
 
 ## 开发与兼容
 
-兼容范围限定 DSH `0.2.0-rc.2`、`0.2.1-rc.2`。布局适配仅使用 `data-shell-overlay`、`data-rightbar-col`、`data-conversation-content` 与 frame 展示标记，为主对话预留 364px；上游升级需要复验。找不到兼容布局时不修改宿主。
+兼容范围限定 DSH `0.2.1-rc.2`。布局适配仅使用 `data-shell-overlay`、`data-rightbar-col`、`data-conversation-content` 与 frame 展示标记，为主对话预留 364px；上游升级需要复验。找不到兼容布局时不修改宿主。
 
 运行仓库 `typecheck`、`test`、`build`、`pack`、`smoke:packed`。官方基线测试及浏览器验收见仓库 `docs/live2d.md`。`lib/frame.js` 必须与 Host/Client bundle 一并打包。
+
+本次发行以官方 DSH 0.2.1-rc.2 为统一基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。全仓库发行及验证记录见 `docs/releases/0.2.1-rc.2.md`。

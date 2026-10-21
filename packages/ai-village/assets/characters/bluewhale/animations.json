@@ -1,0 +1,837 @@
+{
+  "schemaVersion": 1,
+  "actions": {
+    "idle": {
+      "duration": 4,
+      "loop": true,
+      "transition": 0.18,
+      "expression": "neutral",
+      "expressions": [
+        {
+          "time": 0,
+          "value": "neutral"
+        },
+        {
+          "time": 3.2,
+          "value": "sleepy"
+        },
+        {
+          "time": 3.34,
+          "value": "neutral"
+        }
+      ],
+      "tracks": [
+        {
+          "part": "body",
+          "property": "y",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 1,
+              "value": -4
+            },
+            {
+              "time": 2,
+              "value": 0
+            },
+            {
+              "time": 3,
+              "value": -4
+            },
+            {
+              "time": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "head",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 1,
+              "value": 1
+            },
+            {
+              "time": 2,
+              "value": 0
+            },
+            {
+              "time": 3,
+              "value": -1
+            },
+            {
+              "time": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "tail-root",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -2
+            },
+            {
+              "time": 2,
+              "value": 2
+            },
+            {
+              "time": 4,
+              "value": -2
+            }
+          ]
+        },
+        {
+          "part": "tail-fin",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 1,
+              "value": -4
+            },
+            {
+              "time": 2,
+              "value": 0
+            },
+            {
+              "time": 3,
+              "value": 4
+            },
+            {
+              "time": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "curl-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 1,
+              "value": 1.5
+            },
+            {
+              "time": 2,
+              "value": 0
+            },
+            {
+              "time": 3,
+              "value": -1.5
+            },
+            {
+              "time": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "curl-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 1,
+              "value": -1.5
+            },
+            {
+              "time": 2,
+              "value": 0
+            },
+            {
+              "time": 3,
+              "value": 1.5
+            },
+            {
+              "time": 4,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "ahoge",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 1,
+              "value": 3
+            },
+            {
+              "time": 2,
+              "value": 0
+            },
+            {
+              "time": 3,
+              "value": -3
+            },
+            {
+              "time": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "duration": 0.8,
+      "loop": true,
+      "transition": 0.16,
+      "expression": "neutral",
+      "tracks": [
+        {
+          "part": "leg-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -9
+            },
+            {
+              "time": 0.2,
+              "value": 0
+            },
+            {
+              "time": 0.4,
+              "value": 9
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 0
+            },
+            {
+              "time": 0.8,
+              "value": -9
+            }
+          ]
+        },
+        {
+          "part": "leg-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 9
+            },
+            {
+              "time": 0.2,
+              "value": 0
+            },
+            {
+              "time": 0.4,
+              "value": -9
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 0
+            },
+            {
+              "time": 0.8,
+              "value": 9
+            }
+          ]
+        },
+        {
+          "part": "leg-left",
+          "property": "y",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.2,
+              "value": -9
+            },
+            {
+              "time": 0.4,
+              "value": 0
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 0
+            },
+            {
+              "time": 0.8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "leg-right",
+          "property": "y",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.2,
+              "value": 0
+            },
+            {
+              "time": 0.4,
+              "value": 0
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": -9
+            },
+            {
+              "time": 0.8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "arm-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 4
+            },
+            {
+              "time": 0.2,
+              "value": 0
+            },
+            {
+              "time": 0.4,
+              "value": -4
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 0
+            },
+            {
+              "time": 0.8,
+              "value": 4
+            }
+          ]
+        },
+        {
+          "part": "arm-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -4
+            },
+            {
+              "time": 0.2,
+              "value": 0
+            },
+            {
+              "time": 0.4,
+              "value": 4
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 0
+            },
+            {
+              "time": 0.8,
+              "value": -4
+            }
+          ]
+        },
+        {
+          "part": "body",
+          "property": "y",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.2,
+              "value": -7
+            },
+            {
+              "time": 0.4,
+              "value": 0
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": -7
+            },
+            {
+              "time": 0.8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "skirt",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -1.3
+            },
+            {
+              "time": 0.2,
+              "value": 0
+            },
+            {
+              "time": 0.4,
+              "value": 1.3
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 0
+            },
+            {
+              "time": 0.8,
+              "value": -1.3
+            }
+          ]
+        },
+        {
+          "part": "curl-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.2,
+              "value": -3
+            },
+            {
+              "time": 0.4,
+              "value": 0
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 3
+            },
+            {
+              "time": 0.8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "curl-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.2,
+              "value": -3
+            },
+            {
+              "time": 0.4,
+              "value": 0
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 3
+            },
+            {
+              "time": 0.8,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "tail-root",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -2
+            },
+            {
+              "time": 0.2,
+              "value": 0
+            },
+            {
+              "time": 0.4,
+              "value": 2
+            },
+            {
+              "time": 0.6000000000000001,
+              "value": 0
+            },
+            {
+              "time": 0.8,
+              "value": -2
+            }
+          ]
+        },
+        {
+          "part": "tail-fin",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 2
+            },
+            {
+              "time": 0.4,
+              "value": -2
+            },
+            {
+              "time": 0.8,
+              "value": 2
+            }
+          ]
+        }
+      ]
+    },
+    "pickup": {
+      "duration": 0.35,
+      "loop": false,
+      "transition": 0.08,
+      "expression": "surprised",
+      "tracks": [
+        {
+          "part": "root",
+          "property": "y",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.35,
+              "value": -32
+            }
+          ]
+        },
+        {
+          "part": "arm-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.35,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "part": "arm-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.35,
+              "value": -10
+            }
+          ]
+        },
+        {
+          "part": "leg-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.35,
+              "value": 6
+            }
+          ]
+        },
+        {
+          "part": "leg-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 0
+            },
+            {
+              "time": 0.35,
+              "value": -6
+            }
+          ]
+        }
+      ]
+    },
+    "dragging": {
+      "duration": 1.6,
+      "loop": true,
+      "transition": 0.16,
+      "expression": "surprised",
+      "tracks": [
+        {
+          "part": "root",
+          "property": "y",
+          "keys": [
+            {
+              "time": 0,
+              "value": -32
+            },
+            {
+              "time": 0.8,
+              "value": -35
+            },
+            {
+              "time": 1.6,
+              "value": -32
+            }
+          ]
+        },
+        {
+          "part": "root",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -2
+            },
+            {
+              "time": 0.8,
+              "value": 2
+            },
+            {
+              "time": 1.6,
+              "value": -2
+            }
+          ]
+        },
+        {
+          "part": "arm-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 10
+            },
+            {
+              "time": 0.8,
+              "value": 13
+            },
+            {
+              "time": 1.6,
+              "value": 10
+            }
+          ]
+        },
+        {
+          "part": "arm-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -10
+            },
+            {
+              "time": 0.8,
+              "value": -13
+            },
+            {
+              "time": 1.6,
+              "value": -10
+            }
+          ]
+        },
+        {
+          "part": "leg-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 6
+            },
+            {
+              "time": 0.8,
+              "value": 2
+            },
+            {
+              "time": 1.6,
+              "value": 6
+            }
+          ]
+        },
+        {
+          "part": "leg-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -6
+            },
+            {
+              "time": 0.8,
+              "value": -2
+            },
+            {
+              "time": 1.6,
+              "value": -6
+            }
+          ]
+        },
+        {
+          "part": "curl-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 3
+            },
+            {
+              "time": 0.8,
+              "value": -3
+            },
+            {
+              "time": 1.6,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "part": "curl-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 3
+            },
+            {
+              "time": 0.8,
+              "value": -3
+            },
+            {
+              "time": 1.6,
+              "value": 3
+            }
+          ]
+        },
+        {
+          "part": "tail-fin",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -4
+            },
+            {
+              "time": 0.8,
+              "value": 4
+            },
+            {
+              "time": 1.6,
+              "value": -4
+            }
+          ]
+        }
+      ]
+    },
+    "put_down": {
+      "duration": 0.55,
+      "loop": false,
+      "transition": 0.06,
+      "expression": "neutral",
+      "tracks": [
+        {
+          "part": "root",
+          "property": "y",
+          "keys": [
+            {
+              "time": 0,
+              "value": -32
+            },
+            {
+              "time": 0.25,
+              "value": 0
+            },
+            {
+              "time": 0.36,
+              "value": 3
+            },
+            {
+              "time": 0.55,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "body",
+          "property": "scaleY",
+          "keys": [
+            {
+              "time": 0,
+              "value": 1
+            },
+            {
+              "time": 0.275,
+              "value": 0.98
+            },
+            {
+              "time": 0.55,
+              "value": 1
+            }
+          ]
+        },
+        {
+          "part": "arm-left",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": 10
+            },
+            {
+              "time": 0.55,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "part": "arm-right",
+          "property": "rotation",
+          "keys": [
+            {
+              "time": 0,
+              "value": -10
+            },
+            {
+              "time": 0.55,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

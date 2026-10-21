@@ -2,9 +2,12 @@ import { defineConfig } from 'vitest/config'
 import ts from 'typescript'
 import { readFileSync, statSync } from 'node:fs'
 import { resolve, join } from 'node:path'
+import { createRequire } from 'node:module'
 const root = import.meta.dirname
-const originalMode = process.env.DSH_TEST_ORIGINAL === '1'
-const { source } = JSON.parse(readFileSync(join(root, originalMode ? '.local/original.json' : '.local/environment.json'), 'utf8'))
+const { source } = JSON.parse(readFileSync(join(root, '.local/original.json'), 'utf8'))
+const toolsSource = JSON.parse(readFileSync(join(root, '.local/environment.json'), 'utf8')).source
+const runtimeRequire = createRequire(join(root, '.build/official-runtime/package.json'))
+const browserRequire = createRequire(join(root, '.build/live2d-official-deps/package.json'))
 const upstream = ts.parseConfigFileTextToJson('tsconfig.base.json', readFileSync(join(source, 'tsconfig.base.json'), 'utf8')).config
 const normalize = path => path.replaceAll('\\', '/')
 const aliases = Object.fromEntries(Object.entries(upstream.compilerOptions.paths).map(([key, paths]) => {
@@ -20,7 +23,14 @@ for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working
   }
 }
 export default defineConfig({
-  plugins: [{ name: 'dsh-source-aliases', enforce: 'pre', resolveId(id) { return aliases[id] } },
+  plugins: [{ name: 'dsh-source-aliases', enforce: 'pre', resolveId(id, importer) {
+    if (aliases[id]) return aliases[id]
+    if (id === 'use-sync-external-store/shim/with-selector') return browserRequire.resolve(id)
+    if (importer?.replaceAll('\\', '/').startsWith(normalize(source) + '/') && !id.startsWith('.') && !id.startsWith('@deepseek-ai/') && !id.startsWith('react')) {
+      try { return runtimeRequire.resolve(id) } catch { /* Source-only UI dependencies come from the build toolchain. */ }
+      try { return createRequire(importer.replace(normalize(source), normalize(toolsSource))).resolve(id) } catch { /* Let Vite diagnose missing dependencies. */ }
+    }
+  } },
     { name: 'standard-decorators', enforce: 'pre', transform(code, id) {
       if (!/\.[cm]?tsx?$/.test(id) || !/^\s*@[A-Za-z_$][\w$]*/m.test(code)) return
       const result = ts.transpileModule(code, { fileName: id, compilerOptions: { target: ts.ScriptTarget.ES2024, module: ts.ModuleKind.ESNext, jsx: ts.JsxEmit.ReactJSX, sourceMap: true } })

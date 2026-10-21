@@ -1,0 +1,471 @@
+{
+  "schemaVersion": 1,
+  "status": "phase2-motion-approved",
+  "approvedForRelease": true,
+  "parts": [
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/phase2/hair-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 12,
+        "top": 26,
+        "width": 554,
+        "height": 531
+      },
+      "nativeSize": [
+        554,
+        531
+      ],
+      "bytes": 600730,
+      "sha256": "9a1b94abcf0b6baa106d6f5f81022f8c7292f16a0b2c882df08e01d254ca6b81",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "front-hair",
+      "file": "parts/front-hair.png",
+      "source": "art/work/phase2/hair-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 590,
+        "top": 124,
+        "width": 502,
+        "height": 431
+      },
+      "nativeSize": [
+        502,
+        431
+      ],
+      "bytes": 411644,
+      "sha256": "64cbfc4e5e0c8ace47e113495a08d44e42faa6f4dc4743c5556349ad430455ce",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "curl-left",
+      "file": "parts/curl-left.png",
+      "source": "art/work/phase2/hair-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 1273,
+        "top": 70,
+        "width": 186,
+        "height": 457
+      },
+      "nativeSize": [
+        186,
+        457
+      ],
+      "bytes": 182478,
+      "sha256": "ab9c962460846d126edc2173df6a61fe3a0d6a72c01b53a407f5b2ad7f421333",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "curl-right",
+      "file": "parts/curl-right.png",
+      "source": "art/work/phase2/hair-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 151,
+        "top": 574,
+        "width": 183,
+        "height": 410
+      },
+      "nativeSize": [
+        183,
+        410
+      ],
+      "bytes": 168419,
+      "sha256": "11279b404a5a061877bc34c2d19c7b69060502418cfb78e5572145244dfd2592",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "headband",
+      "file": "parts/headband.png",
+      "source": "art/work/phase2/hair-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 514,
+        "top": 621,
+        "width": 559,
+        "height": 335
+      },
+      "nativeSize": [
+        559,
+        335
+      ],
+      "bytes": 330037,
+      "sha256": "20e90cab0d1be583dd1e1bbb10c74bd79d00716d1e8b82ac7cbe118f6e000496",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "ear-left",
+      "file": "parts/ear-left.png",
+      "source": "art/work/phase2/hair-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 1091,
+        "top": 758,
+        "width": 176,
+        "height": 150
+      },
+      "nativeSize": [
+        176,
+        150
+      ],
+      "bytes": 51025,
+      "sha256": "faa3ec252ff1795f5c9b2a185975d8b44f130d8f662acac8ba5e125900f97095",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "ear-right",
+      "file": "parts/ear-right.png",
+      "source": "art/work/phase2/hair-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 1347,
+        "top": 757,
+        "width": 177,
+        "height": 151
+      },
+      "nativeSize": [
+        177,
+        151
+      ],
+      "bytes": 49390,
+      "sha256": "81db0d20de076b4249011b2c12111d11e755d509754112450ac492d360c4eea2",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/phase2/torso-skirt-v01.png",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "crop": {
+        "left": 263,
+        "top": 114,
+        "width": 501,
+        "height": 525
+      },
+      "nativeSize": [
+        501,
+        525
+      ],
+      "bytes": 494040,
+      "sha256": "51df6259a50511633fbc092e3dbe844b75f273c83ad9f91455d246aef2d7313e",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "skirt",
+      "file": "parts/skirt.png",
+      "source": "art/work/phase2/torso-skirt-v01.png",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "crop": {
+        "left": 30,
+        "top": 809,
+        "width": 965,
+        "height": 633
+      },
+      "nativeSize": [
+        965,
+        633
+      ],
+      "bytes": 990006,
+      "sha256": "9f579115623627a1b58fcd57e10cc773908639a225208ffca35c90c6a46f7211",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/phase2/body-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 236,
+        "top": 671,
+        "width": 214,
+        "height": 526
+      },
+      "nativeSize": [
+        214,
+        526
+      ],
+      "bytes": 141026,
+      "sha256": "0166bffe16b481f225b57b94d550d5b475b27629525f886fdcdca20bf8f95285",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/phase2/body-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 799,
+        "top": 671,
+        "width": 219,
+        "height": 524
+      },
+      "nativeSize": [
+        219,
+        524
+      ],
+      "bytes": 143730,
+      "sha256": "c0cbbcdcf61d5bb9269bb91f199de92b6013b90b67158d6d9460515b87b4ac72",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/phase2/arms-tail-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 102,
+        "top": 162,
+        "width": 416,
+        "height": 428
+      },
+      "nativeSize": [
+        416,
+        428
+      ],
+      "bytes": 145264,
+      "sha256": "a9f4c816d936c213c468f64f4c689f5c4d5785d0abcc1a4145440c3b71d8a31d",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/phase2/arms-tail-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 737,
+        "top": 162,
+        "width": 415,
+        "height": 428
+      },
+      "nativeSize": [
+        415,
+        428
+      ],
+      "bytes": 144585,
+      "sha256": "b10b9f324f8416e83cd83f1b45202ca6324b3ac070d0a7d4fb2d9db7e135a1ee",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "tail-root",
+      "file": "parts/tail-root.png",
+      "source": "art/work/phase2/arms-tail-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 45,
+        "top": 805,
+        "width": 600,
+        "height": 347
+      },
+      "nativeSize": [
+        600,
+        347
+      ],
+      "bytes": 179241,
+      "sha256": "c398730ca65e755ca7c7f0df8c43bf5d698f9101faf1cf6f966cd45caad86000",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "tail-fin",
+      "file": "parts/tail-fin.png",
+      "source": "art/work/phase2/arms-tail-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 678,
+        "top": 709,
+        "width": 545,
+        "height": 446
+      },
+      "nativeSize": [
+        545,
+        446
+      ],
+      "bytes": 196483,
+      "sha256": "43445a0e929d3c5dae02c5fbd3f0c27d37ae0fc0a55c35b5652acd36f85e02d5",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/phase2/faces-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 80,
+        "top": 67,
+        "width": 524,
+        "height": 549
+      },
+      "nativeSize": [
+        524,
+        549
+      ],
+      "bytes": 333064,
+      "sha256": "6f2ab20403d5e22355ac71ccd1dc7029cc1389e51ca88289424e2a6fd36d4020",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/phase2/faces-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 651,
+        "top": 67,
+        "width": 523,
+        "height": 549
+      },
+      "nativeSize": [
+        523,
+        549
+      ],
+      "bytes": 285079,
+      "sha256": "fc4b43ae66d5f1b2ac056a281a43382bcc5248f727a01e5eaa246cb4eafc45b1",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/phase2/faces-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 80,
+        "top": 651,
+        "width": 523,
+        "height": 543
+      },
+      "nativeSize": [
+        523,
+        543
+      ],
+      "bytes": 333867,
+      "sha256": "78678843eaf532ff24618d0abd99b6eada66207dc015d0aee2427e08aa9e43cf",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/phase2/faces-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 650,
+        "top": 650,
+        "width": 523,
+        "height": 544
+      },
+      "nativeSize": [
+        523,
+        544
+      ],
+      "bytes": 277686,
+      "sha256": "a4f550272882d23755b0da25331c6d698513679c7e00152754677b42c11b9b58",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    },
+    {
+      "id": "ahoge",
+      "file": "parts/ahoge.png",
+      "source": "art/work/phase2/ahoge-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 185,
+        "top": 403,
+        "width": 855,
+        "height": 445
+      },
+      "nativeSize": [
+        855,
+        445
+      ],
+      "bytes": 227823,
+      "sha256": "8f903e7ee482290a66cd456389aa5514abffe1c14002e493abf33562f4dd80aa",
+      "processing": "Measured region and alpha-bounds crop only; alpha >=16 locates bounds with 2px margin; no pixel repainting or upscaling",
+      "completion": "Imagegen occlusion completion; overlap checked in rig preview"
+    }
+  ],
+  "approval": {
+    "source": "user-message",
+    "text": "阶段2验收通过，继续推进阶段3"
+  }
+}

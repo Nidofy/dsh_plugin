@@ -10,7 +10,7 @@ const root = resolve(import.meta.dirname, '..')
 const prepared = spawnSync(process.execPath, [join(root, 'scripts/prepare-original.mjs')], { cwd: root, stdio: 'inherit' })
 if (prepared.status !== 0) throw Error('OFFICIAL_WORKER_BASELINE_UNAVAILABLE')
 const original = JSON.parse(await readFile(join(root, '.local/original.json'), 'utf8'))
-if (original.revision !== '639ed015397290b3745d163aafe02ffee4aa3f84') throw Error('OFFICIAL_WORKER_BASELINE_MISMATCH')
+if (original.revision !== JSON.parse(await readFile(join(root, 'compatibility.json'), 'utf8')).originalRevision) throw Error('OFFICIAL_WORKER_BASELINE_MISMATCH')
 const upstream = ts.parseConfigFileTextToJson('tsconfig.base.json', await readFile(join(original.source, 'tsconfig.base.json'), 'utf8')).config.compilerOptions.paths
 const officialWorker = { name: 'official-worker-source', resolveId(id) {
   for (const [key, paths] of Object.entries(upstream)) {
@@ -24,6 +24,11 @@ const officialWorker = { name: 'official-worker-source', resolveId(id) {
 } }
 const definitions = JSON.parse(await readFile(join(root, 'build.config.json'), 'utf8'))
 for (const [name, definition] of Object.entries(definitions)) {
+  if (name === 'ai-village') {
+    const run = spawnSync(process.execPath, ['scripts/ai-village-release.mjs'], { cwd: root, stdio: 'inherit', windowsHide: true })
+    if (run.status !== 0) throw Error('AI_VILLAGE_BUILD_FAILED')
+    continue
+  }
   const dir = join(root, 'packages', name)
   const pkg = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8'))
   // Only direct generated bundles; keep declaration output produced by typecheck.
@@ -64,3 +69,6 @@ for (const [name, definition] of Object.entries(definitions)) {
       intro: 'var module = { exports: {} }; var exports = module.exports;', footer: 'return module.exports; } });' },
   })
 }
+
+const sandbox = spawnSync(process.execPath, ['scripts/sandbox-enhanced.mjs', 'build'], { cwd: root, stdio: 'inherit', windowsHide: true })
+if (sandbox.status !== 0) throw Error('SANDBOX_BUILD_FAILED')

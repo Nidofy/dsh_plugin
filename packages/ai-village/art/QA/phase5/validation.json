@@ -1,0 +1,53 @@
+{
+  "carrier": "Official Desktop 0.2.1-rc.2",
+  "buildCommit": "332895e0f7c9d4dbfb29729f5eb367fa263ff986",
+  "isolatedProfile": true,
+  "installation": "Official plugin manager: local tgz, Koffi 3.1.1 scripts explicitly enabled in temporary profile",
+  "artifacts": [
+    {
+      "name": "@nidofy/dsh-source-control",
+      "version": "0.1.0",
+      "file": "nidofy-dsh-source-control-0.1.0.tgz",
+      "bytes": 29552,
+      "sha256": "8eb8afeeb3d443c4458ef1d662cb57424d681648551aa7e94e65b3a40e4080e2",
+      "files": 20
+    },
+    {
+      "name": "@nidofy/dsh-live2d",
+      "version": "0.1.0",
+      "file": "nidofy-dsh-live2d-0.1.0.tgz",
+      "bytes": 1429860,
+      "sha256": "48af58330a22805fbe85ec208cfee1e27f995b0493815c84e262efc85c1d39fc",
+      "files": 34
+    },
+    {
+      "name": "@nidofy/dsh-ai-village",
+      "version": "0.1.0",
+      "file": "nidofy-dsh-ai-village-0.1.0.tgz",
+      "bytes": 28188822,
+      "sha256": "c50442b092ec724bd5a685315e0d6694b1e5f2d2126a5884bc2ee79483ff1502",
+      "files": 165
+    }
+  ],
+  "checks": [
+    "Seven installed characters preserve world on selection and perform all 21 desk/dining/rest placements",
+    "Actual Git/Live2D/game launchers are mutually exclusive and preserve game save",
+    "Official right sidebar releases card and width reservation, then restores paused world",
+    "Fresh-session navigation retains courtyard; editor focus/Escape preserves unsent draft",
+    "Renderer reload restores selected character and exact durable paused world",
+    "Three official disable/enable cycles withdraw authenticated routes and restore a single instance with unchanged save"
+  ],
+  "metrics": {
+    "frames": 842,
+    "textures": 130,
+    "tickerStarted": false,
+    "paused": true,
+    "meanPaintMs": 0.4262470284437057,
+    "maxPaintMs": 35.90000009536743
+  },
+  "theme": {
+    "color": "rgb(15, 17, 21)",
+    "background": "rgb(255, 255, 255)"
+  },
+  "errors": []
+}

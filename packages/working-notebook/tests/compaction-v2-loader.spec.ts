@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { Context } from '@deepseek-ai/cordis'
 import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
 import JsonlSessionPersistence from '@nidofy/dsh-runtime-adapter/jsonl'
-import OriginalJsonl from '@deepseek-ai/dsh-session-persistence-jsonl'
+import * as OriginalJsonl from '@deepseek-ai/dsh-session-persistence-jsonl'
 import { NotebookV2Store } from '../src/engine/notebook.ts'
 import { createNotebookFixture as fixture } from './notebook-loader-fixture.ts'
 

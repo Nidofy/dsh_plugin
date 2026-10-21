@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-20",
+  "passed": true,
+  "command": "node scripts/ai-village-phase1.mjs check",
+  "officialRevision": "687f282e8625c6b8d11ff58211a90524be2e4317",
+  "pixiVersion": "8.22.0",
+  "frameBytes": 537065,
+  "display": {
+    "dpr": [
+      1,
+      2
+    ],
+    "sceneCssWidths": [
+      300,
+      340,
+      360
+    ],
+    "characterCssHeights": [
+      96,
+      128
+    ],
+    "languages": [
+      "zh-CN",
+      "en"
+    ]
+  },
+  "isolation": {
+    "parentDomBlocked": true,
+    "cookiesBlocked": true,
+    "unsafeEvalAllowed": false,
+    "externalRequests": 0,
+    "pageErrors": 0
+  },
+  "storage": {
+    "passed": true,
+    "checks": [
+      "profile directory isolation",
+      "cross-process lifetime owner excludes contender",
+      "owner released after shutdown",
+      "concurrent CAS accepts one writer",
+      "restart reads persisted revision",
+      "previous snapshot retained",
+      "nonfinite position rejected",
+      "broken/future/oversize save never overwritten",
+      "relative profile path refused",
+      "Windows synchronized file publication through existing durable utility"
+    ],
+    "limitations": [
+      "Not a Host HTTP integration test",
+      "No power-cut durability claim",
+      "No client lease/epoch or migration yet"
+    ]
+  },
+  "previewArchive": {
+    "bytes": 3732007,
+    "files": [
+      "PIXI-LICENSE.txt",
+      "THIRD-PARTY-NOTICES.txt",
+      "character.png",
+      "dependencies.json",
+      "frame.html",
+      "index.html",
+      "scene.png"
+    ]
+  },
+  "limitations": [
+    "Static candidates, not layered animation",
+    "Temporary preview fixture, not installed DSH",
+    "Software WebGL, not Electron GPU performance"
+  ]
+}

@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "approvedForRelease": true,
+  "status": "agent-reviewed-assembly",
+  "approval": {
+    "source": "delegated-agent-review",
+    "userInstruction": "中途不需要额外验收"
+  },
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 27,
+        "top": 15,
+        "width": 290,
+        "height": 287
+      },
+      "nativeSize": [
+        290,
+        287
+      ],
+      "bytes": 196089,
+      "sha256": "8ee5c7db9cf706218325b2540a171c9198e9c232916dbf0c37e3d0344c5f8be6",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 337,
+        "top": 14,
+        "width": 290,
+        "height": 295
+      },
+      "nativeSize": [
+        290,
+        295
+      ],
+      "bytes": 199930,
+      "sha256": "b424dbdfc747ed8a238138de640a72c94a2318e38b4b82b30a4c93a0ea2f667f",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 647,
+        "top": 14,
+        "width": 292,
+        "height": 295
+      },
+      "nativeSize": [
+        292,
+        295
+      ],
+      "bytes": 202747,
+      "sha256": "c1d4008247580af7de3216063bf24b5619c7c66b460cf82d6d774fc8e2936b6d",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 956,
+        "top": 17,
+        "width": 286,
+        "height": 292
+      },
+      "nativeSize": [
+        286,
+        292
+      ],
+      "bytes": 190586,
+      "sha256": "c207cc93890a55dbd5bc333c2d5cbf12ac77308812257d9e0b25b669491054a2",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 24,
+        "top": 321,
+        "width": 319,
+        "height": 287
+      },
+      "nativeSize": [
+        319,
+        287
+      ],
+      "bytes": 178988,
+      "sha256": "7f7daebc19a899601189c2b2c76a0af520ee009f01e8731f292cd45af8a51130",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 403,
+        "top": 321,
+        "width": 192,
+        "height": 290
+      },
+      "nativeSize": [
+        192,
+        290
+      ],
+      "bytes": 110170,
+      "sha256": "2d22eeaa7c3f984c4135a024a192a5a7c4a5e7290ee5b95bcf900bdf898f9cfc",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 666,
+        "top": 322,
+        "width": 192,
+        "height": 292
+      },
+      "nativeSize": [
+        192,
+        292
+      ],
+      "bytes": 112440,
+      "sha256": "b064fbbf4f53cb310ee48bf4d87c9ee1a74d8a0af1a83fd5535727bcb214f280",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 1054,
+        "top": 322,
+        "width": 112,
+        "height": 292
+      },
+      "nativeSize": [
+        112,
+        292
+      ],
+      "bytes": 56964,
+      "sha256": "cc4c1c52b35a8dabe23122837c98188daaba9dab836966224204dbc5c8495840",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 99,
+        "top": 628,
+        "width": 134,
+        "height": 297
+      },
+      "nativeSize": [
+        134,
+        297
+      ],
+      "bytes": 54150,
+      "sha256": "5b780025461fed45b06293dd2f82ca0da5fa6d7b4f882822d69ab2785d5d7480",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 372,
+        "top": 639,
+        "width": 223,
+        "height": 246
+      },
+      "nativeSize": [
+        223,
+        246
+      ],
+      "bytes": 109950,
+      "sha256": "56e8eda2cdc1dc1cf1b4a7f2894110c38c8788db1c5d4067140a186747a0e406",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 674,
+        "top": 635,
+        "width": 239,
+        "height": 235
+      },
+      "nativeSize": [
+        239,
+        235
+      ],
+      "bytes": 100905,
+      "sha256": "ce8ccf9c1a2dc4d0e1e5465d766a44d7dd827bc7fcae86620b02dab212bb884a",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 984,
+        "top": 649,
+        "width": 200,
+        "height": 236
+      },
+      "nativeSize": [
+        200,
+        236
+      ],
+      "bytes": 107510,
+      "sha256": "54a1c62086348fdfd1831dfe60d241985071b480748f417b1a78a14c54d9eaa2",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 58,
+        "top": 925,
+        "width": 204,
+        "height": 310
+      },
+      "nativeSize": [
+        204,
+        310
+      ],
+      "bytes": 139113,
+      "sha256": "115064f400f20a00d86041b2d78a8cc73a5be626c3186f1d6971a9522dd85f51",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 344,
+        "top": 885,
+        "width": 288,
+        "height": 354
+      },
+      "nativeSize": [
+        288,
+        354
+      ],
+      "bytes": 240981,
+      "sha256": "33756957785d61636af08ee6f75d83d65f9906316928446cec3fc5b35ee3867b",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 651,
+        "top": 915,
+        "width": 285,
+        "height": 321
+      },
+      "nativeSize": [
+        285,
+        321
+      ],
+      "bytes": 197770,
+      "sha256": "c6e27ea5ef6faa6ea3e50df76dfd5724d70fdb9782f2640a6d729cbe0371275c",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster/qwen-v01.png",
+      "crop": {
+        "left": 1027,
+        "top": 885,
+        "width": 163,
+        "height": 336
+      },
+      "nativeSize": [
+        163,
+        336
+      ],
+      "bytes": 82592,
+      "sha256": "e39d99c8a1a6e604cb884d3fdfd227fae6c28fceb737c8181475d1a13f601f7d",
+      "processing": "Measured native crop; original RGBA preserved"
+    }
+  ]
+}

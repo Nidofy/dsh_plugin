@@ -2,7 +2,7 @@
  * The public overlay seat has no width-reservation API. Mark only the main chat
  * identified inside the column preceding data-rightbar-col; never embedded chats.
  */
-export interface FloatingGeometry { left: number; top: number; height: number }
+export interface FloatingGeometry { left: number; top: number; height: number; stacked?: boolean }
 export function attachFloatingLayout(anchor: HTMLElement, publish: (geometry: FloatingGeometry | null) => void): () => void {
   const layer = anchor.closest<HTMLElement>('[data-shell-overlay]')
   const frame = layer?.parentElement
@@ -30,7 +30,11 @@ export function attachFloatingLayout(anchor: HTMLElement, publish: (geometry: Fl
       marked = content
       if (!content.hasAttribute('data-nidofy-vcs-space')) content.setAttribute('data-nidofy-vcs-space', '')
       const origin = layer.getBoundingClientRect()
-      geometry = { left: bounds.right - origin.left - 352, top: contentBounds.top - origin.top + 12, height: Math.max(0, contentBounds.height - 24) }
+      const height = Math.max(0, contentBounds.height - 24), top = contentBounds.top - origin.top + 12
+      const stacked = !!frame.querySelector('[data-nidofy-vcs-overlay]') && !!frame.querySelector('[data-nidofy-village-open]')
+      const upper = Math.min(240, Math.floor(height * .35))
+      geometry = stacked ? { left: bounds.right - origin.left - 352, top: top, height: upper, stacked: true }
+        : { left: bounds.right - origin.left - 352, top, height }
     }
     const next = JSON.stringify(geometry)
     if (next !== previous) { previous = next; publish(geometry) }
@@ -40,7 +44,7 @@ export function attachFloatingLayout(anchor: HTMLElement, publish: (geometry: Fl
   resize.observe(frame)
   // Child replacement covers navigation/HMR. Attributes only cover frame presentation,
   // avoiding observing our own reservation marker and streaming text mutations.
-  mutations.observe(frame, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-rightbar-collapsed', 'data-rightbar-fullscreen'] })
+  mutations.observe(frame, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-rightbar-collapsed', 'data-rightbar-fullscreen', 'data-nidofy-village-open'] })
   update()
   return () => { resize.disconnect(); mutations.disconnect(); release() }
 }

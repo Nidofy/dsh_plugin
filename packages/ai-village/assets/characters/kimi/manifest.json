@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "approvedForRelease": true,
+  "status": "agent-reviewed-assembly",
+  "approval": {
+    "source": "delegated-agent-review",
+    "userInstruction": "中途不需要额外验收"
+  },
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 10,
+        "top": 24,
+        "width": 316,
+        "height": 287
+      },
+      "nativeSize": [
+        316,
+        287
+      ],
+      "bytes": 200348,
+      "sha256": "7ffe17f67c384f6ee74cf8a5bc6da409d55870404bf96a44b25ae7a7d6bd8a73",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 326,
+        "top": 24,
+        "width": 315,
+        "height": 287
+      },
+      "nativeSize": [
+        315,
+        287
+      ],
+      "bytes": 198689,
+      "sha256": "5655a709d9c9899e54bbdd7bbd60214ef873434c5027ab22bacd2238dd2f4ef4",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 641,
+        "top": 24,
+        "width": 310,
+        "height": 287
+      },
+      "nativeSize": [
+        310,
+        287
+      ],
+      "bytes": 197258,
+      "sha256": "819c650d292f756e1b7dc36cddc92d619fa680c94f18650ecef180fa617c73a7",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 951,
+        "top": 24,
+        "width": 302,
+        "height": 287
+      },
+      "nativeSize": [
+        302,
+        287
+      ],
+      "bytes": 190679,
+      "sha256": "d0bc1a4cac39a3a349588e22f8683956ed60befeb38424418d7d0961b2442a56",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 11,
+        "top": 317,
+        "width": 326,
+        "height": 296
+      },
+      "nativeSize": [
+        326,
+        296
+      ],
+      "bytes": 199477,
+      "sha256": "54a20566f91494b5b4aaba89d78caf720ec95d36dca9a9eae8a036213fe973c4",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 394,
+        "top": 328,
+        "width": 201,
+        "height": 291
+      },
+      "nativeSize": [
+        201,
+        291
+      ],
+      "bytes": 92147,
+      "sha256": "6f1f427461551f87e0357bb32376ea6c2a02ab7886a1556d233d72e66b88dce9",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 697,
+        "top": 330,
+        "width": 200,
+        "height": 282
+      },
+      "nativeSize": [
+        200,
+        282
+      ],
+      "bytes": 91620,
+      "sha256": "645bb84bc05f097de751577a5f3f0f75c9191bd99acf3d90d4e2ff0ad85edb0b",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 1035,
+        "top": 324,
+        "width": 111,
+        "height": 289
+      },
+      "nativeSize": [
+        111,
+        289
+      ],
+      "bytes": 59798,
+      "sha256": "33449d9c6469d6472609f0f491091b35e44a0bbd22f3f2d626f01ceff12a0b34",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 107,
+        "top": 632,
+        "width": 113,
+        "height": 281
+      },
+      "nativeSize": [
+        113,
+        281
+      ],
+      "bytes": 59247,
+      "sha256": "16220dc31128a235c7f3757661230b327fd1c173a7597de64d9eddac1a53b836",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 376,
+        "top": 649,
+        "width": 224,
+        "height": 219
+      },
+      "nativeSize": [
+        224,
+        219
+      ],
+      "bytes": 83747,
+      "sha256": "0b61fe5da0efcda5abccb64520b22df71678c93a6bf20b4664592bd876bf7601",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 688,
+        "top": 660,
+        "width": 236,
+        "height": 208
+      },
+      "nativeSize": [
+        236,
+        208
+      ],
+      "bytes": 77622,
+      "sha256": "0f827746cb5e5db8b551f75672a65eee50f3df853cb5d6ec2086c8efac6ba675",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster/kimi-bowl-v02.png",
+      "crop": {
+        "left": 89,
+        "top": 100,
+        "width": 1101,
+        "height": 1021
+      },
+      "nativeSize": [
+        1101,
+        1021
+      ],
+      "bytes": 1155079,
+      "sha256": "660bf559631473d04af31e3026112452f5232bed22978c4d6be79477831c6bab",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 34,
+        "top": 952,
+        "width": 287,
+        "height": 262
+      },
+      "nativeSize": [
+        287,
+        262
+      ],
+      "bytes": 123882,
+      "sha256": "0e883730040ec932b30fc5c99a379ee77ba629208f462a92e33faa937ba746ad",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 321,
+        "top": 887,
+        "width": 323,
+        "height": 350
+      },
+      "nativeSize": [
+        323,
+        350
+      ],
+      "bytes": 256006,
+      "sha256": "667c79adf5c564a5a6bd41da6bb084025fb5bc82f526ff096176d447afad9cb3",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 640,
+        "top": 915,
+        "width": 317,
+        "height": 319
+      },
+      "nativeSize": [
+        317,
+        319
+      ],
+      "bytes": 225147,
+      "sha256": "7417ed3767435ed07e3f514a6137f6a2548240d5e7d66bea0d444d6224971537",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster/kimi-v01.png",
+      "crop": {
+        "left": 1031,
+        "top": 921,
+        "width": 193,
+        "height": 296
+      },
+      "nativeSize": [
+        193,
+        296
+      ],
+      "bytes": 108195,
+      "sha256": "00ce390521fe2a53ae956f3509d485172343fc1ddf8ac9dad0ea7b2261fe679b",
+      "processing": "Measured native crop; original RGBA preserved"
+    }
+  ]
+}

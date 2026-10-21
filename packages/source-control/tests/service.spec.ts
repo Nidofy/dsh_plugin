@@ -29,7 +29,7 @@ async function service(root: string, hg?: string) {
 }
 afterEach(async () => {
   await Promise.all(services.splice(0).map(s => s.close()))
-  for (const root of roots.splice(0)) { if (!resolve(root).startsWith(join(tmpdir(), 'dsh-vcs-test-'))) throw Error('Invalid cleanup path'); await rm(root, { recursive: true, force: true }) }
+  for (const root of roots.splice(0)) { if (!resolve(root).startsWith(join(tmpdir(), 'dsh-vcs-test-'))) throw Error('Invalid cleanup path'); await rm(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 }) }
 })
 
 describe('Git service on real isolated repositories', () => {

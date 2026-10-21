@@ -1,13 +1,14 @@
 {
   "name": "@nidofy/dsh-runtime-adapter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "license": "MIT",
   "description": "Original DSH durability and notebook compaction adapters",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "engines": {
-    "node": ">=24"
+    "node": ">=24",
+    "dsh": "0.2.1-rc.2"
   },
   "exports": {
     ".": {
@@ -33,22 +34,22 @@
     "notebook.preset.patch.yml"
   ],
   "dependencies": {
-    "@nidofy/dsh-plugin-shared": "0.1.0",
+    "@nidofy/dsh-plugin-shared": "0.1.1",
     "koffi": "3.1.1",
     "@deepseek-ai/node-addon-system": "0.1.2"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-session": "0.2.0-rc.2",
-    "@deepseek-ai/dsh-session-persistence": "0.2.0-rc.2",
-    "@deepseek-ai/cordis": "4.0.4",
-    "@deepseek-ai/dsh-llm": "0.2.0-rc.2",
-    "@deepseek-ai/dsh-session-format": "0.2.0-rc.2",
-    "@deepseek-ai/dsh-session-format-catalog": "0.2.0-rc.2",
-    "@deepseek-ai/dsh-session-format-v3-to-v4": "0.2.0-rc.2",
-    "@deepseek-ai/schemastery": "3.18.4",
-    "@deepseek-ai/dsh-compaction-basic": "0.2.0-rc.2",
-    "@deepseek-ai/dsh-agent": "0.2.0-rc.2",
-    "@deepseek-ai/dsh-util-values": "0.2.0-rc.2"
+    "@deepseek-ai/dsh-session": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-session-persistence": "0.2.1-rc.2",
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-llm": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-session-format": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-session-format-catalog": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-session-format-v3-to-v4": "0.2.1-rc.2",
+    "@deepseek-ai/schemastery": "3.18.5",
+    "@deepseek-ai/dsh-compaction-basic": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-agent": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-util-values": "0.2.1-rc.2"
   },
   "dsh": {
     "bundle": {

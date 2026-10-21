@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen",
+  "approval": "User: 视觉效果确认通过，可以进入阶段2",
+  "assets": [
+    {
+      "id": "body",
+      "prompt": "Edit the provided approved chibi bluewhale maid character into a transparent production component atlas. Preserve exactly the navy/white colors, whale apron design, gold accents, soft anime linework and illumination. Output ONLY FOUR isolated fully drawn components, one per cell in a regular 2 column by 2 row grid, generous transparent separation, no labels or grid lines. Cell top left: the navy bodice with white ruffled blouse front, neck ribbon and blue gem, puff shoulder sleeve caps, and waistband, but NO head, NO arms, NO skirt. Fully fill the torso under where arms and hair used to cover it. Top right: complete bell-shaped navy skirt with white whale apron and white hem frills, including the hidden upper waist strip, but NO torso, hands, hair or legs. Bottom left: the character SCREEN-LEFT small leg, extended upward hidden thigh to joint, pale skin, white frilled ankle sock and original dark blue Mary Jane shoe; one complete continuous leg and shoe. Bottom right: corresponding SCREEN-RIGHT continuous leg, sock and shoe. All parts front-facing in original neutral pose, legs anatomically correct short chibi legs, not adult legs. Each isolated part should be large within its cell but never touch edges. Parts do not overlap. TRUE transparent background, white cloth remains opaque. This is an edit extracting AND completing occluded anatomy for animation, not a redraw of a full character. No face, no assembled character, no text, no decorative border, no shadows outside parts.",
+      "generationId": "exec-fee87aa9-028c-45ed-99e6-2364a2776fbe",
+      "transparent_background": true,
+      "source": "../work/phase2/body-v01.png",
+      "references": [
+        "../candidates/bluewhale-neutral-v01.png"
+      ]
+    },
+    {
+      "id": "arms-tail",
+      "prompt": "Edit the approved chibi bluewhale maid image into FOUR isolated animation parts on genuine transparency, a strict 2 column by 2 row atlas, one part centered inside each cell, broad transparent gutters and margins. Preserve its exact soft anime style, navy colors, skin tone, gold embroidery and whale anatomy. Top left: SCREEN-LEFT entire arm from hidden rounded shoulder attachment through blue sleeve and white cuff to the relaxed small hand, angled down/out as in the approved image; complete occluded shoulder, no torso/hair. Top right: SCREEN-RIGHT corresponding entire arm and hand, same front-view and original pose; no torso/hair. Bottom left: the character whale TAIL STEM ONLY, curved thick blue tail from rounded hidden root to the narrow joint just before its two flukes; preserve lighter underside; no flukes. Bottom right: the complete two-prong blue WHALE TAIL FLUKES ONLY from the image, connected at one rounded narrow attachment base, no long stem. These tail parts must reconnect cleanly, with extra overlapping painted joint region. Each part is independent, intact and fully drawn with overlap at hidden attachment; no hard missing wedges. Do not include any other body part, skirt, face, duplicate hand or full character. No labels, lettering, grids, ground shadows or checkerboard. Parts never touch cell boundaries. Keep white cuffs opaque.",
+      "generationId": "exec-890b7eb0-c49e-43a3-8093-7ecb46875da3",
+      "transparent_background": true,
+      "source": "../work/phase2/arms-tail-v01.png",
+      "references": [
+        "../candidates/bluewhale-neutral-v01.png"
+      ]
+    },
+    {
+      "id": "hair",
+      "prompt": "Edit the approved bluewhale chibi maid into a six-part hair/head-accessory atlas on genuine transparent background. Preserve her exact indigo-to-light-blue hair, soft anime outlines, large round chibi hair silhouette and recognizable asymmetric blue bow. Use a strict THREE COLUMNS by TWO ROWS layout, exactly ONE component per cell, separated by broad transparent gutters. Read left to right: TOP LEFT = complete BACK HAIR mass only, behind the head and body, long wavy curls with blue gradient tips, fully painted where head/torso had obscured it; NO face, headband, fringe, bow or ears. TOP CENTER = FRONT HAIR cap and bangs ONLY, round crown down to central pointed fringe and short face-framing side locks; leave the facial area transparent, omit all face skin, eyes, long side curls, headband, bow, ears and ahoge. TOP RIGHT = long SCREEN-LEFT loose front-side CURL LOCK only, blue gradient, from hidden rounded root to curled tip. BOTTOM LEFT = corresponding SCREEN-RIGHT long loose front-side CURL LOCK only. BOTTOM CENTER = the white frilled MAID HEADBAND with its thin dark curved base and blue bow on SCREEN RIGHT, combined into one coherent accessory; no face, hair or ears. BOTTOM RIGHT = pair of blue FIN EARS, held in their original relative left/right positions by transparent space, no other elements. Retain natural colors and opaque white frills. Front view unchanged. Complete hidden root regions for rotation. Each isolated component fills its own cell but never touches an edge. No full characters, text, labels, grid lines, background, casting shadow or extra ornaments.",
+      "generationId": "exec-a53ce972-44b9-44b3-9b2a-8ed665305946",
+      "transparent_background": true,
+      "source": "../work/phase2/hair-v01.png",
+      "references": [
+        "../candidates/bluewhale-neutral-v01.png"
+      ]
+    },
+    {
+      "id": "faces",
+      "prompt": "Edit the supplied approved character into FOUR interchangeable FACE PLATES for the same paper doll, strict TWO COLUMNS by TWO ROWS atlas with generous transparent gaps. Each cell contains ONLY the same complete rounded chibi skin face oval, small neck attachment, blush, eyes/brows/mouth. No hair at all, no bangs, ears, headband, ribbon, clothing or extra decoration. Complete the skin normally hidden by hair. All four faces must have EXACTLY the same front view, oval shape, scale, centered eye spacing, neck shape, position within cell and skin shading. Preserve original big blue eyes and tiny nose and mouth. TOP LEFT = default calm tiny closed-mouth smile with original open blue eyes. TOP RIGHT = happy, gently curved smiling eyes and a tiny open smiling mouth. BOTTOM LEFT = picked-up surprised, open blue eyes a little wider with raised brows and a small round open mouth. BOTTOM RIGHT = sleepy / blink, both eyes softly closed and tiny relaxed mouth. This is one identity with four expressions, never four different characters. True transparent background outside the skin plates, no paper/card/background or checkerboard, no words, symbols, sweat marks or motion lines. Center each oval with identical transparent margins. Clean original anime linework, gentle upper-left lighting. Preserve the approved chibi face proportion.",
+      "generationId": "exec-b00917eb-e7de-4647-b978-bdbcc2f21097",
+      "transparent_background": true,
+      "source": "../work/phase2/faces-v01.png",
+      "references": [
+        "../candidates/bluewhale-neutral-v01.png"
+      ]
+    },
+    {
+      "id": "torso-skirt",
+      "prompt": "Image 1 is the approved full character and identity reference. Image 2 is an intermediate parts sheet, NOT the desired final layout. Make a new corrected atlas containing EXACTLY TWO separated parts, ONE COLUMN and TWO ROWS, on genuine transparency. Upper half: ONLY the central sleeveless navy bodice, white ruffled blouse front with three buttons, neck ribbon/blue diamond and four-gold-button waistband. REMOVE ALL blue sleeves, cuffs, hands, shoulders extending to sides; the torso has clean rounded hidden attachment edges at the side underarms. No head/neck skin/hair/legs. Lower half: the entire navy bell-shaped skirt with white frilled hem, whale apron, side gold bows and embroidery, preserving Image 1 design; include a plain hidden navy waist overlap but DO NOT duplicate the four gold waistband buttons, which already belong to torso. NO torso, arms or legs in this lower part. Each part fully within its half with at least 10% transparent margin on all sides and a broad transparent gap. Original front view, same colors, shading and linework. No face, full character, labels, cell lines, checkerboard or ground shadow. White fabric must stay opaque.",
+      "generationId": "exec-f141e662-c49d-43d4-a815-f3dcea45d8f9",
+      "transparent_background": true,
+      "source": "../work/phase2/torso-skirt-v01.png",
+      "references": [
+        "../candidates/bluewhale-neutral-v01.png",
+        "../work/phase2/body-v01.png"
+      ]
+    }
+  ]
+}

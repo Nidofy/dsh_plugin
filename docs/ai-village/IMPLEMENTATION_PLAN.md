@@ -1,16 +1,16 @@
 # AI 小院：实施方案与路线
 
-日期：2026-10-20。状态：已完成资料审阅和技术方案；待开始视觉样板与实现。
+日期：2026-10-20。状态：P0–P5 已完成。用户已依次验收 P1、P2、P3，并授权补齐所有角色、增加角色选择、直接完成 P5，不再设置中途验收。最终范围与实际证据见 [阶段 5 结果](PHASE5_RESULTS.md) 和 [角色资源记录](ROSTER_ASSETS.md)。下文保留最初技术路线，涉及单角色首版的规划由本段范围更新替代。
 
 仓库：`D:\Documents\FeiyangChen\devApps\dsh_plugin`。
 审阅起点：`main` / `d4dd0e7e0a7f55671aba5568ca69303102a8818c`，初始工作树干净。
-本轮仅新增计划文档和忽略目录中的审计输出，未修改插件实现、安装环境或参考资源，未提交/推送。
+P0 三份文档已提交为 `0fb91a4` 并推送 GitHub main；P1 实施位于 `codex/ai-village-phase1`。
 
 相关文档：[资源审计](ART_AUDIT.md)、[资产计划](ASSET_PLAN.md)。
 
 ## 目标与首版边界
 
-独立 `@nidofy/dsh-ai-village` 包，建议源码目录 `packages/ai-village`。一名 Q 版蓝鲸角色、一套服装、一个场景，完成待机、闲逛、抓起拖放、普通地面放置，以及工作桌、米饭桌、休息坐垫三种地点行为。
+独立 `@nidofy/dsh-ai-village` 包，源码目录 `packages/ai-village`。最终交付 DeepSeek、Claude、Gemini、GPT、Grok、Kimi、千问七名 Q 版角色和一个场景，完成待机、闲逛、抓起拖放、普通地面放置，以及工作桌、米饭桌、休息坐垫三种地点行为。按用户“共存或者切换”的要求采用角色选择；同一时间一位伙伴，不引入多人调度。
 
 入口沿用会话工具栏与右侧浮卡。sidebar 展开、其他浮卡占位、窗口隐藏或空间不足时停止游戏；回来延续原世界。切聊天不创建新世界。关闭浮卡保留当前进度。
 
@@ -20,9 +20,9 @@
 
 采用 TypeScript、现有 React/Cordis 插件壳、固定版本 PixiJS 8、分层透明 PNG、JSON 动作与场景定义。PixiJS 的 Container 适合部件层级，Sprite/渲染排序适合纸娃娃与家具遮挡；输入在 Canvas 上保留 DOM Pointer Events 捕获路径。
 
-仅实现一套正式渲染器。初始选择 WebGL，30 FPS 为调校目标，隐藏停止绘制与模拟；具体性能和资源上限须实测。PixiJS 在构建期准备并锁定精确版本，打入离线 frame bundle，不从 CDN 加载。当前根 package.json 未声明 PixiJS，本轮未安装依赖。
+仅实现一套正式渲染器。初始选择 WebGL，30 FPS 为调校目标，隐藏停止绘制与模拟；具体性能和资源上限须实测。PixiJS 在构建期准备并锁定精确版本，打入离线 frame bundle，不从 CDN 加载。P1 已在 ai-village 的独立 package.json/lock 中固定 PixiJS 8.22.0，通过离线 iframe 构建与渲染试验。
 
-开工先验证该精确版本能被仓库 tsdown 构建为离线 iframe bundle；通过后固定依赖与许可证清单。若存在不能解决的构建/目标环境限制，再明确改选 Canvas2D，避免维护双引擎。
+P1 的 tsdown 构建和许可证清单已经通过，保留 PixiJS 路线；仍需后续真实 Desktop 和性能验证。
 
 本轮核对的上游接口资料：
 
@@ -112,7 +112,7 @@ DSH Client 插件实例
 
 一个实际 DSH profile 对应一个世界，Host 持有磁盘唯一写入者，客户端必须获得运行所有权。第二个同 profile 窗口显示占用状态，不启动另一份自主模拟。多个 Host 进程还需通过本机跨进程锁/平台已有机制防止争写；仅 JS Promise 队列不够。
 
-正式路径待在所选官方源码中核对 profile 身份和存储根后固定。现有 desktop-pets 的 `resolveDshHome()/nidofy-extras` 提供仓库惯例，但不能据此假设共享 home 已实现 profile 隔离。游戏数据须独立命名，不改变已有 preferences、notebook 或宠物资源。
+P1 已在所选官方源码中核对 `ProfileContext.dir`，以 `<profile.dir>/nidofy-ai-village/` 作为独立存档目录进行试验。现有 desktop-pets 的 `resolveDshHome()/nidofy-extras` 提供仓库惯例，但不能据此假设共享 home 已实现 profile 隔离。游戏数据须独立命名，不改变已有 preferences、notebook 或宠物资源。
 
 保存字段：schemaVersion、worldId、sceneVersion、avatarDefinitionVersion、revision、逻辑时间、稳定位置/朝向/行为与剩余时间、RNG、用户暂停偏好。瞬时 DOM/指针对象与悬空 dragging 不入档。
 
@@ -135,7 +135,7 @@ DSH Client 插件实例
 | P4 DSH 接入 | 三浮卡协调、sidebar、会话/连接、Host 存档桥、卸载 | 固定官方源码回归与浏览器交互证据；无状态重置和布局冲突 |
 | P5 打包和真实安装验收 | typecheck、行为测试、build、pack、smoke、临时 Desktop profile 安装 | tgz/哈希/依赖清单/构建身份、截图或录像、实际执行与未验证清单 |
 
-视觉批准来自交接包明确要求。本轮用户请求止于详细阅读与方案确认，因此尚未生成 P1 样板；也不把 P0 文档称为完成了交接包的“样板确认检查点”。
+视觉批准来自交接包明确要求。用户已确认 P1、P2、P3，并将新增角色的中途检查委托给实施过程。P4 已完成固定官方源码与真实浏览器回归，详见 [阶段 4 结果](PHASE4_RESULTS.md)。P5 已完成正式打包及隔离官方 Desktop 安装、启停与进程恢复检查，详见 [阶段 5 结果](PHASE5_RESULTS.md)；未覆盖项按该记录保留。
 
 验收重点：
 
@@ -148,4 +148,4 @@ DSH Client 插件实例
 - 禁用/重新启用不累积监听器、进程或图形资源。
 - 真实 CPU/内存/帧耗时测量；开发页不替代官方 Desktop 安装。
 
-后续可按 0.2 少量角色与日程、0.3 家具与社区逐步扩展。首版不提前搭建多角色调度、通用资产市场或 LLM 代理系统。
+后续可扩展多人同时在场、日程、家具与社区；七角色选择已在本次交付。首版不提前搭建多角色调度、通用资产市场或 LLM 代理系统。

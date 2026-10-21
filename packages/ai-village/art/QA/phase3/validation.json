@@ -1,0 +1,84 @@
+{
+  "logic": [
+    "seeded 10-minute simulation stays within navigable ground; obstacle crossing and nonfinite destinations refused",
+    "CSS drag threshold, offset, all three hotspots, invalid landing, post-up cancellation, hidden drag rollback, independent pause reasons, schema validation",
+    "durable roundtrip/reopen, idempotent ACK, CAS competing writers, owner loss, previous snapshot, invalid/future/oversize refusal and explicit recovery preserving original bytes",
+    "same-process and independent child-process host owners refused by filesystem lifetime lock",
+    "extracted preview smoke: fixed asset manifest, authenticated save/reload, unauthenticated/cross-origin/path refusal"
+  ],
+  "browser": {
+    "runs": [
+      {
+        "dpr": 1,
+        "isolation": {
+          "isolated": true,
+          "canvas": {
+            "width": 360,
+            "height": 480
+          },
+          "csp": "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; sandbox allow-scripts"
+        },
+        "renderMetrics": {
+          "frames": 115,
+          "actors": 1,
+          "textures": 34,
+          "tickerStarted": false,
+          "paused": true,
+          "meanPaintMs": 1.1373913225920305,
+          "maxPaintMs": 47.90000009536743
+        },
+        "status": "passed",
+        "checks": [
+          "three activity drops",
+          "outside capture and rejection",
+          "Escape cancellation",
+          "hidden drag rollback",
+          "hidden stops simulation",
+          "user pause survives remount",
+          "reload restores exact saved world",
+          "second tab rejected",
+          "300/480px and letterbox coordinates",
+          "uncertain ACK readback",
+          "bilingual UI"
+        ]
+      },
+      {
+        "dpr": 2,
+        "isolation": {
+          "isolated": true,
+          "canvas": {
+            "width": 720,
+            "height": 960
+          },
+          "csp": "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; sandbox allow-scripts"
+        },
+        "renderMetrics": {
+          "frames": 132,
+          "actors": 1,
+          "textures": 34,
+          "tickerStarted": false,
+          "paused": true,
+          "meanPaintMs": 1.3196969790892168,
+          "maxPaintMs": 55.10000014305115
+        },
+        "status": "passed",
+        "checks": [
+          "three activity drops",
+          "outside capture and rejection",
+          "Escape cancellation",
+          "hidden drag rollback",
+          "hidden stops simulation",
+          "user pause survives remount",
+          "reload restores exact saved world",
+          "second tab rejected",
+          "300/480px and letterbox coordinates",
+          "uncertain ACK readback",
+          "bilingual UI"
+        ]
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  "packedFiles": 179
+}

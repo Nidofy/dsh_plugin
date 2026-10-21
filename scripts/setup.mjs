@@ -1,5 +1,5 @@
 /** Link a local compatible DSH checkout without changing its files or installing lifecycle hooks. */
-import { readFile, writeFile, mkdir, readdir, symlink, lstat, realpath } from 'node:fs/promises'
+import { readFile, writeFile, mkdir, readdir, symlink, lstat, realpath, unlink } from 'node:fs/promises'
 import { dirname, resolve, join } from 'node:path'
 const root = resolve(import.meta.dirname, '..')
 const source = resolve(process.env.DSH_SOURCE ?? process.argv[2] ?? join(root, '../dshWinUi/electron'))
@@ -7,7 +7,10 @@ const json = async path => JSON.parse(await readFile(path, 'utf8'))
 const upstream = await json(join(source, 'package.json'))
 if (upstream.name !== '@deepseek-ai/dsh-root') throw Error('DSH_SOURCE must point to a DSH source checkout')
 const compatibility = await json(join(root, 'compatibility.json'))
-if (upstream.version !== compatibility.dshVersion) throw Error('DSH version differs from compatibility.json; qualify the new API before updating the baseline')
+// DSH_SOURCE supplies build tools; runtime identities come only from the official install.
+const runtime = join(root, '.build/official-runtime')
+const runtimePackage = await json(join(runtime, 'node_modules/@deepseek-ai/dsh/package.json'))
+if (runtimePackage.version !== compatibility.dshVersion) throw Error('Install the pinned official DSH in .build/official-runtime first')
 for (const [name, expected] of Object.entries(compatibility.tools)) {
   const installed = await json(join(source, 'node_modules', name, 'package.json'))
   if (installed.version !== expected) throw Error(`${name}: expected ${expected}, received ${installed.version}`)
@@ -15,8 +18,12 @@ for (const [name, expected] of Object.entries(compatibility.tools)) {
 async function link(target, destination) {
   await mkdir(dirname(destination), { recursive: true })
   try {
-    await lstat(destination)
-    if (await realpath(destination) !== await realpath(target)) throw Error('Existing dependency differs: ' + destination)
+    const existing = await lstat(destination)
+    if (await realpath(destination) !== await realpath(target)) {
+      if (!existing.isSymbolicLink() || !resolve(destination).startsWith(join(root, 'node_modules') + '\\')) throw Error('Refusing to replace a real dependency directory: ' + destination)
+      await unlink(destination)
+      await symlink(target, destination, process.platform === 'win32' ? 'junction' : 'dir')
+    }
   } catch (error) {
     if (error.code !== 'ENOENT') throw error
     await symlink(target, destination, process.platform === 'win32' ? 'junction' : 'dir')
@@ -33,6 +40,9 @@ for (const base of ['vendor', 'apps', 'packages', 'native']) {
 for (const name of await readdir(join(root, 'packages'))) {
   const dir = join(root, 'packages', name), p = await json(join(dir, 'package.json'))
   packages.set(p.name, dir)
+}
+for (const name of await readdir(join(runtime, 'node_modules/@deepseek-ai'))) {
+  packages.set('@deepseek-ai/' + name, join(runtime, 'node_modules/@deepseek-ai', name))
 }
 for (const [name, dir] of packages) await link(dir, join(root, 'node_modules', name))
 for (const entry of await readdir(join(source, 'node_modules'), { withFileTypes: true })) {
@@ -52,5 +62,5 @@ for (const [name, owner] of [['react', 'apps/desktop'], ['react-dom', 'apps/desk
   }
 }
 await mkdir(join(root, '.local'), { recursive: true })
-await writeFile(join(root, '.local/environment.json'), JSON.stringify({ source, version: upstream.version }, null, 2) + '\n')
-console.log('Local development dependencies linked; DSH version:', upstream.version)
+await writeFile(join(root, '.local/environment.json'), JSON.stringify({ source, version: runtimePackage.version, toolchainDshVersion: upstream.version, officialRuntime: runtime }, null, 2) + '\n')
+console.log('Build tools linked; official runtime:', runtimePackage.version)

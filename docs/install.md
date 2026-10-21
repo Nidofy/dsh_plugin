@@ -1,20 +1,22 @@
 # 原版 DSH 安装
 
-基线：DSH 0.2.0-rc.2、Node 24+。请先停止目标 profile，再安装；安装后重新启动。以下命令是安装步骤，本次开发未在你的实际 DSH_HOME 中执行。
+基线：官方 DSH 0.2.1-rc.2、Windows x64、Node 24+。请先停止目标 profile，再安装；安装后完整重启。以下命令是安装步骤，本次开发未在你的实际 DSH_HOME 中执行。
 
 ## 完整模式
 
 从仓库根目录运行，按顺序添加配套适配包和功能包：
 
 ```powershell
-dsh plugin --profile web add .\dist\nidofy-dsh-runtime-adapter-0.1.0.tgz
-dsh plugin --profile web add .\dist\nidofy-dsh-working-notebook-0.1.0.tgz
-dsh plugin --profile web add .\dist\nidofy-dsh-desktop-pets-0.1.0.tgz
+dsh plugin --profile web add .\dist\nidofy-dsh-runtime-adapter-0.1.1.tgz
+dsh plugin --profile web add .\dist\nidofy-dsh-working-notebook-0.1.1.tgz
+dsh plugin --profile web add .\dist\nidofy-dsh-desktop-pets-0.1.1.tgz
 dsh --profile web --dump-config
 dsh --profile web
 ```
 
-`dsh plugin add` 将 bundle 加入指定 profile；若使用 Web Plugin Manager，请安装相同 tgz 并按上述顺序启用。桌宠可单独添加，不要求 notebook 或 runtime-adapter。共享库已内嵌，不必单独安装。包管理器可能需要下载依赖，离线 smoke 验证使用开发宿主已安装的 peer 依赖。
+`dsh plugin add` 将 bundle 加入指定 profile；若使用 Web Plugin Manager，请安装相同 tgz 并按上述顺序启用。桌宠可单独添加，不要求 notebook 或 runtime-adapter。共享库与 Koffi、Sharp 及对应 Windows 原生二进制均已内嵌，不必联网下载或执行依赖构建脚本。DSH 自身须已安装；宿主 peer 由官方 profile 解析器复用，避免产生第二份 Cordis。九个包已用空 pnpm store、`--offline --ignore-scripts`、不可连接 registry 验证安装，详见 `dist/offline-validation.json`。
+
+Git/Hg 0.1.2、小院 0.2.1、Live2D 0.1.1 可各自安装；Git 与小院上下共存，小院与 Live2D 互斥。sandbox-enhanced 的两个 alpha 包仅用于诊断和隔离验收，guard 会拒绝命令及文件操作，不要一键启用全部包。共享库没有启用入口。
 
 检查 dump 中原 `session-persistence-jsonl` 已 disabled，新 `nidofy-runtime-jsonl`、`preset-notebook`、`nidofy-working-notebook` 和 `nidofy-desktop-pets` 存在。不要再次手动挂载同一个 provider 或 notebook owner。
 

@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "approvedForRelease": true,
+  "status": "agent-reviewed-assembly",
+  "approval": {
+    "source": "delegated-agent-review",
+    "userInstruction": "中途不需要额外验收"
+  },
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 7,
+        "top": 21,
+        "width": 313,
+        "height": 289
+      },
+      "nativeSize": [
+        313,
+        289
+      ],
+      "bytes": 190144,
+      "sha256": "cc283b7b3d498cc71c005566d33828a804056f3ddf218d04367c0e0ed44062a9",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 320,
+        "top": 25,
+        "width": 313,
+        "height": 288
+      },
+      "nativeSize": [
+        313,
+        288
+      ],
+      "bytes": 192394,
+      "sha256": "50fc8e6263a758421a45b227b8fd4de7e019f3c45182d0bc9ded654fde28cf1b",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 633,
+        "top": 23,
+        "width": 311,
+        "height": 292
+      },
+      "nativeSize": [
+        311,
+        292
+      ],
+      "bytes": 192179,
+      "sha256": "b4bb1c39f026f6aa274279aa5be0cc0d53791a1fc908b40d3dc3d4447c5a0ff2",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 944,
+        "top": 24,
+        "width": 309,
+        "height": 291
+      },
+      "nativeSize": [
+        309,
+        291
+      ],
+      "bytes": 185064,
+      "sha256": "c7b339c7047846b8eac058acefea371201f8bdbeafe1db7d4d937231f20f343e",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 28,
+        "top": 325,
+        "width": 301,
+        "height": 292
+      },
+      "nativeSize": [
+        301,
+        292
+      ],
+      "bytes": 157743,
+      "sha256": "c43cb8432e09f9ab15508cdbbb68115baa5bc9788d79f709294cfbd711854fc2",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 413,
+        "top": 345,
+        "width": 196,
+        "height": 277
+      },
+      "nativeSize": [
+        196,
+        277
+      ],
+      "bytes": 85531,
+      "sha256": "8b766c3cf9f04cf232c82c2ff9815286087538f448463034744010bae8e4c547",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 640,
+        "top": 345,
+        "width": 229,
+        "height": 276
+      },
+      "nativeSize": [
+        229,
+        276
+      ],
+      "bytes": 88550,
+      "sha256": "bbcec0602a75c26e78968311f27cf0f2a896328bf3847d5ee5ff53d9d6a5544e",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 1049,
+        "top": 347,
+        "width": 100,
+        "height": 276
+      },
+      "nativeSize": [
+        100,
+        276
+      ],
+      "bytes": 58127,
+      "sha256": "d4e0e2668c578e722b3a08b092375e2c5a3c9d0da0e08ae0e5fc82270e4e3c87",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 118,
+        "top": 641,
+        "width": 100,
+        "height": 261
+      },
+      "nativeSize": [
+        100,
+        261
+      ],
+      "bytes": 55169,
+      "sha256": "85f2bb24b4baf6c5b85613c946a19ce4231911e8a3b37a0fb673b01906be58a9",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 400,
+        "top": 665,
+        "width": 224,
+        "height": 224
+      },
+      "nativeSize": [
+        224,
+        224
+      ],
+      "bytes": 84786,
+      "sha256": "e64706c92c08b81272480688c13a0007ae15d775a854b08c181e80713c6620f1",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 657,
+        "top": 664,
+        "width": 316,
+        "height": 235
+      },
+      "nativeSize": [
+        316,
+        235
+      ],
+      "bytes": 78784,
+      "sha256": "a38aa8119f890a3b060d8fa15cdfbd23e5915352566b28205d88c2a48829f5f0",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 973,
+        "top": 662,
+        "width": 221,
+        "height": 231
+      },
+      "nativeSize": [
+        221,
+        231
+      ],
+      "bytes": 102100,
+      "sha256": "4fa26ed031cdfbe9ff66904444d2898550de2575834054f9602a04c25638fc5c",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 28,
+        "top": 976,
+        "width": 273,
+        "height": 215
+      },
+      "nativeSize": [
+        273,
+        215
+      ],
+      "bytes": 105064,
+      "sha256": "337d0ed0bc4c8809ab36939903ba32855689420223b38df5ec09eba0eeee5eef",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 321,
+        "top": 904,
+        "width": 323,
+        "height": 332
+      },
+      "nativeSize": [
+        323,
+        332
+      ],
+      "bytes": 244576,
+      "sha256": "449b1f27529f23fbecace10cd2569e749d806ff6cf91985e059fd9bb01c478c2",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 634,
+        "top": 915,
+        "width": 318,
+        "height": 324
+      },
+      "nativeSize": [
+        318,
+        324
+      ],
+      "bytes": 234096,
+      "sha256": "93c312817c52138a025a62b72a8a041de1413620eeedec942ec22c8aa6517325",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster/grok-v01.png",
+      "crop": {
+        "left": 973,
+        "top": 1020,
+        "width": 263,
+        "height": 120
+      },
+      "nativeSize": [
+        263,
+        120
+      ],
+      "bytes": 41429,
+      "sha256": "8cda4a71c67683eea68f9ebeab3829da19ba570d934d70fc46eaa8c7a275c133",
+      "processing": "Measured native crop; original RGBA preserved"
+    }
+  ]
+}

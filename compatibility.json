@@ -1,8 +1,7 @@
 {
-  "dshVersion": "0.2.0-rc.2",
-  "originalRevision": "639ed01539",
-  "desktopSourceRevision": "f3008a67f74e290ebd8fd61fc70ef870ca9493dc",
-  "sourceIncludesUncommittedChanges": true,
+  "dshVersion": "0.2.1-rc.2",
+  "originalRevision": "687f282e8625c6b8d11ff58211a90524be2e4317",
+  "sourceIncludesUncommittedChanges": false,
   "node": ">=24.0.0",
   "tools": {
     "typescript": "6.0.3",
@@ -13,7 +12,9 @@
   },
   "workerBaseline": {
     "source": "official archive",
-    "revision": "639ed015397290b3745d163aafe02ffee4aa3f84",
+    "revision": "687f282e8625c6b8d11ff58211a90524be2e4317",
     "embedsDesktopCheckout": false
-  }
+  },
+  "officialArchiveSha256": "157903b22c2881d3678d846755afe957a48df834e747deda805a1195ce25a146",
+  "officialRelease": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.1-rc.2"
 }

@@ -17,6 +17,8 @@ export type { Request } from './Panel.tsx'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap { 'nidofy.source-control': keyof typeof en }
+  // Public 0.2.1 slot contract. inject() waits for declaration, so it stays dormant on 0.2.0.
+  interface SlotMap { 'conversation.hero.options': { kind: 'list'; scope: 'session' } }
 }
 export const name = 'nidofy-source-control-client'
 export const inject = ['slots', 'locale', 'connection', 'uiSession']
@@ -67,5 +69,6 @@ export function apply(ctx: Context): void {
   }
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-source-control-floating', locale: 'nidofy.source-control' }, Floating))
   ctx.slots.inject('conversation.session.header.utilities', () => ctx.slots.register({ name: 'conversation.session.header.utilities', id: 'nidofy-source-control', order: 90, locale: 'nidofy.source-control' }, Launcher))
+  ctx.slots.inject('conversation.hero.options', () => ctx.slots.register({ name: 'conversation.hero.options', id: 'nidofy-source-control-hero', order: 90, locale: 'nidofy.source-control' }, Launcher))
   ctx.slots.inject('settings.section', () => ctx.slots.register({ name: 'settings.section', id: 'nidofy-source-control', order: 48, locale: 'nidofy.source-control', label: () => t('title') }, Settings))
 }

@@ -13,6 +13,8 @@ import { css } from './style.ts'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap { 'nidofy.live2d': keyof typeof en }
+  // Public 0.2.1 slot contract. inject() waits for declaration, so it stays dormant on 0.2.0.
+  interface SlotMap { 'conversation.hero.options': { kind: 'list'; scope: 'session' } }
 }
 export const name = 'nidofy-live2d-client'
 export const inject = ['slots', 'locale', 'connection', 'uiSession']
@@ -29,7 +31,7 @@ export function apply(ctx: Context): void {
   // Shared, presentation-only arbitration with the Git card: the last explicit opener owns the rail.
   const eventName = 'nidofy:floating-panel-open'
   ctx.effect(() => {
-    const yieldPanel = (event: Event) => { if ((event as CustomEvent).detail === 'source-control') change(false) }
+    const yieldPanel = (event: Event) => { if (['source-control', 'ai-village'].includes((event as CustomEvent).detail)) change(false) }
     window.addEventListener(eventName, yieldPanel)
     return () => window.removeEventListener(eventName, yieldPanel)
   })
@@ -60,4 +62,5 @@ export function apply(ctx: Context): void {
   }
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-live2d-floating', locale: 'nidofy.live2d' }, Surface))
   ctx.slots.inject('conversation.session.header.utilities', () => ctx.slots.register({ name: 'conversation.session.header.utilities', id: 'nidofy-live2d', order: 91, locale: 'nidofy.live2d' }, Launcher))
+  ctx.slots.inject('conversation.hero.options', () => ctx.slots.register({ name: 'conversation.hero.options', id: 'nidofy-live2d-hero', order: 91, locale: 'nidofy.live2d' }, Launcher))
 }

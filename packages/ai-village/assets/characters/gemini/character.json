@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "id": "gemini-v01",
+  "canvas": [
+    1024,
+    1024
+  ],
+  "feet": [
+    512,
+    952
+  ],
+  "visibleHeight": 900,
+  "parts": [
+    {
+      "id": "root",
+      "parent": null,
+      "pivot": [
+        512,
+        952
+      ],
+      "offset": [
+        512,
+        952
+      ],
+      "size": [
+        0,
+        0
+      ],
+      "z": 0,
+      "mirror": "never"
+    },
+    {
+      "id": "leg-left",
+      "parent": "root",
+      "file": "parts/leg-left.png",
+      "offset": [
+        415,
+        795
+      ],
+      "size": [
+        95,
+        157
+      ],
+      "pivot": [
+        463,
+        813
+      ],
+      "z": 2,
+      "mirror": "never"
+    },
+    {
+      "id": "leg-right",
+      "parent": "root",
+      "file": "parts/leg-right.png",
+      "offset": [
+        526,
+        795
+      ],
+      "size": [
+        95,
+        157
+      ],
+      "pivot": [
+        573,
+        813
+      ],
+      "z": 2,
+      "mirror": "never"
+    },
+    {
+      "id": "body",
+      "parent": "root",
+      "pivot": [
+        512,
+        665
+      ],
+      "offset": [
+        512,
+        665
+      ],
+      "size": [
+        0,
+        0
+      ],
+      "z": 3,
+      "mirror": "never"
+    },
+    {
+      "id": "back-hair",
+      "parent": "body",
+      "file": "parts/back-hair.png",
+      "offset": [
+        230,
+        245
+      ],
+      "size": [
+        564,
+        612
+      ],
+      "pivot": [
+        512,
+        350
+      ],
+      "z": 0,
+      "mirror": "never"
+    },
+    {
+      "id": "arm-left",
+      "parent": "body",
+      "file": "parts/arm-left.png",
+      "offset": [
+        320,
+        555
+      ],
+      "size": [
+        170,
+        228
+      ],
+      "pivot": [
+        445,
+        576
+      ],
+      "z": 2,
+      "mirror": "never"
+    },
+    {
+      "id": "arm-right",
+      "parent": "body",
+      "file": "parts/arm-right.png",
+      "offset": [
+        534,
+        555
+      ],
+      "size": [
+        170,
+        228
+      ],
+      "pivot": [
+        579,
+        576
+      ],
+      "z": 2,
+      "mirror": "never"
+    },
+    {
+      "id": "torso",
+      "parent": "body",
+      "file": "parts/torso.png",
+      "offset": [
+        300,
+        530
+      ],
+      "size": [
+        424,
+        345
+      ],
+      "pivot": [
+        512,
+        555
+      ],
+      "z": 3,
+      "mirror": "never"
+    },
+    {
+      "id": "head",
+      "parent": "body",
+      "pivot": [
+        512,
+        540
+      ],
+      "offset": [
+        512,
+        540
+      ],
+      "size": [
+        0,
+        0
+      ],
+      "z": 8,
+      "mirror": "never"
+    },
+    {
+      "id": "face",
+      "parent": "head",
+      "offset": [
+        210,
+        60
+      ],
+      "size": [
+        604,
+        560
+      ],
+      "pivot": [
+        512,
+        520
+      ],
+      "z": 2,
+      "mirror": "never",
+      "expressions": {
+        "neutral": "parts/face-neutral.png",
+        "happy": "parts/face-happy.png",
+        "surprised": "parts/face-surprised.png",
+        "sleepy": "parts/face-sleepy.png"
+      }
+    },
+    {
+      "id": "ornament",
+      "parent": "body",
+      "file": "parts/ornament.png",
+      "offset": [
+        680,
+        700
+      ],
+      "size": [
+        230,
+        210
+      ],
+      "pivot": [
+        690,
+        720
+      ],
+      "z": 1,
+      "mirror": "never"
+    }
+  ]
+}

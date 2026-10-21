@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "approvedForRelease": true,
+  "status": "agent-reviewed-assembly",
+  "approval": {
+    "source": "delegated-agent-review",
+    "userInstruction": "中途不需要额外验收"
+  },
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 19,
+        "top": 30,
+        "width": 303,
+        "height": 279
+      },
+      "nativeSize": [
+        303,
+        279
+      ],
+      "bytes": 192282,
+      "sha256": "740be4fd45b1657535bb500100950fab75f7aea42e5bb5b6d58358369ccd4f93",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 334,
+        "top": 27,
+        "width": 299,
+        "height": 282
+      },
+      "nativeSize": [
+        299,
+        282
+      ],
+      "bytes": 191400,
+      "sha256": "b4985256f9d571dcf9072c4a7094db841712adf5da099eb5426ec78faa9695d2",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 644,
+        "top": 27,
+        "width": 299,
+        "height": 284
+      },
+      "nativeSize": [
+        299,
+        284
+      ],
+      "bytes": 192355,
+      "sha256": "3f45598b0ef1a6da0cb14e8cc53626bdbbfcd3d1c5fe51a92def5a411b599e77",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 950,
+        "top": 28,
+        "width": 298,
+        "height": 280
+      },
+      "nativeSize": [
+        298,
+        280
+      ],
+      "bytes": 184815,
+      "sha256": "9ac6759602a3028a7d02357e06813d2b55c38488dde7ba277bee9a01aa376f00",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 20,
+        "top": 344,
+        "width": 350,
+        "height": 271
+      },
+      "nativeSize": [
+        350,
+        271
+      ],
+      "bytes": 180407,
+      "sha256": "9c729b12b1b5c424700d378a74f11e2e5a78b944b0dab4be96450ef4899d66ce",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 426,
+        "top": 343,
+        "width": 176,
+        "height": 274
+      },
+      "nativeSize": [
+        176,
+        274
+      ],
+      "bytes": 87025,
+      "sha256": "db5f30d3dc0edc6321172527abdc360986d7e2c9a6b521c91e57e954c80f3dc0",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 699,
+        "top": 346,
+        "width": 216,
+        "height": 278
+      },
+      "nativeSize": [
+        216,
+        278
+      ],
+      "bytes": 95541,
+      "sha256": "d2921cfc6deac13e2a3bcdd464bedeb791eef9a26506741f40cefd369a068121",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 1034,
+        "top": 337,
+        "width": 127,
+        "height": 280
+      },
+      "nativeSize": [
+        127,
+        280
+      ],
+      "bytes": 83659,
+      "sha256": "ff260e9d3d4a1c7bba6ef0ca9d38aa61ef1973fc70d7d1e4d4bf754a5db8b2bf",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 123,
+        "top": 645,
+        "width": 130,
+        "height": 260
+      },
+      "nativeSize": [
+        130,
+        260
+      ],
+      "bytes": 78921,
+      "sha256": "278fb0ec569397ccd9d5c0b86e1a7ba836e18c730a8dd8f3e71de724625b1a21",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 382,
+        "top": 669,
+        "width": 233,
+        "height": 201
+      },
+      "nativeSize": [
+        233,
+        201
+      ],
+      "bytes": 98083,
+      "sha256": "6697a567363641856f58edfcecd9e1da65db076183f6fc8b4baf5f6964b62e6f",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 671,
+        "top": 690,
+        "width": 253,
+        "height": 178
+      },
+      "nativeSize": [
+        253,
+        178
+      ],
+      "bytes": 83838,
+      "sha256": "8327e6ec2696a9dba18360cc0b84a51c7f29d8845536d78a07ae4d5f899dbe92",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 1005,
+        "top": 680,
+        "width": 228,
+        "height": 190
+      },
+      "nativeSize": [
+        228,
+        190
+      ],
+      "bytes": 80574,
+      "sha256": "7d3dabe2a4d141de53bc4ffc6b7c9d257f77165712d9b3dbb73113dcf8118469",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 46,
+        "top": 956,
+        "width": 226,
+        "height": 260
+      },
+      "nativeSize": [
+        226,
+        260
+      ],
+      "bytes": 118992,
+      "sha256": "cf90e5ee223e7380afd9e25ebb494748bcec2a12bbc806f5043917f38a59a684",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 339,
+        "top": 868,
+        "width": 298,
+        "height": 360
+      },
+      "nativeSize": [
+        298,
+        360
+      ],
+      "bytes": 245997,
+      "sha256": "ed1f94818e2b7e103b6be63f5bb000c7a25df9a20032c98ab109c78a2e2a848a",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 659,
+        "top": 915,
+        "width": 309,
+        "height": 315
+      },
+      "nativeSize": [
+        309,
+        315
+      ],
+      "bytes": 215685,
+      "sha256": "3938573142575308e809d34cae95e6dcf96db4de2bf23301658eec2bed7b0eab",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster/gemini-v02.png",
+      "crop": {
+        "left": 1003,
+        "top": 952,
+        "width": 231,
+        "height": 228
+      },
+      "nativeSize": [
+        231,
+        228
+      ],
+      "bytes": 93972,
+      "sha256": "e144319dbd33f9f2d9ea1faebd8ad004413515229942f4d84e2691476a7d3ee1",
+      "processing": "Measured native crop; original RGBA preserved"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto'
 import { dirname, join, resolve } from 'node:path'
 import { createRequire } from 'node:module'
 import * as tar from 'tar'
+import { bundleRuntimeDependencies } from './offline-dependencies.mjs'
 const root = resolve(import.meta.dirname, '..'), require = createRequire(import.meta.url)
 const npm = join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js')
 await mkdir(join(root, 'dist'), { recursive: true })
@@ -13,27 +14,27 @@ const stage = await mkdtemp(join(root, '.build/pack-'))
 const artifacts = []
 async function copyPackage(name, dest) {
   const source = join(root, 'packages', name)
-  for (const file of ['package.json', 'LICENSE', 'README.md', 'lib', ...(name === 'plugin-shared' ? [] : ['cordis.patch.yml']), ...(['desktop-pets', 'live2d'].includes(name) ? ['assets'] : []), ...(name === 'runtime-adapter' ? ['notebook.preset.patch.yml'] : []), ...(name === 'working-notebook' ? ['enhanced.patch.yml'] : [])]) {
+  for (const file of ['package.json', 'LICENSE', 'README.md', 'lib', ...(name === 'plugin-shared' ? [] : ['cordis.patch.yml']), ...(['desktop-pets', 'live2d', 'ai-village'].includes(name) ? ['assets'] : []), ...(name === 'ai-village' ? ['THIRD-PARTY-NOTICES.txt'] : []), ...(name === 'runtime-adapter' ? ['notebook.preset.patch.yml'] : []), ...(name === 'working-notebook' ? ['enhanced.patch.yml'] : []), ...(name === 'windows-sandbox-enhanced' ? ['native/runtime'] : [])]) {
     await cp(join(source, file), join(dest, file), { recursive: true, filter: path => !/\.(?:tsbuildinfo|log)$/.test(path) })
   }
 }
-for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook', 'source-control', 'live2d']) {
+for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook', 'source-control', 'live2d', 'ai-village', 'windows-sandbox-enhanced', 'windows-sandbox-guard'].filter(name => !process.argv.includes('--sandbox') || name.startsWith('windows-sandbox-'))) {
   const dir = join(stage, name)
   await copyPackage(name, dir)
-  const pkg = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8'))
+  let pkg = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8'))
   if (pkg.dependencies?.['@nidofy/dsh-plugin-shared']) {
-    await copyPackage('plugin-shared', join(dir, 'node_modules/@nidofy/dsh-plugin-shared'))
-    pkg.bundledDependencies = ['@nidofy/dsh-plugin-shared']
     const shared = JSON.parse(await readFile(join(root, 'packages/plugin-shared/package.json'), 'utf8'))
     Object.assign(pkg.peerDependencies, shared.peerDependencies)
-    await writeFile(join(dir, 'package.json'), JSON.stringify(pkg, null, 2) + '\n')
   }
-  const run = spawnSync(process.execPath, [npm, 'pack', '--ignore-scripts', '--json', '--pack-destination', join(root, 'dist')], { cwd: dir, encoding: 'utf8' })
+  pkg.files = [...new Set([...(pkg.files ?? []), 'OFFLINE-DEPENDENCIES.json'])]
+  await writeFile(join(dir, 'package.json'), JSON.stringify(pkg, null, 2) + '\n')
+  pkg = await bundleRuntimeDependencies(root, dir, copyPackage)
+  const run = spawnSync(process.execPath, [npm, 'pack', '--ignore-scripts', '--json', '--cache', join(root, '.build/npm-pack-cache'), '--pack-destination', join(root, 'dist')], { cwd: dir, encoding: 'utf8', windowsHide: true })
   if (run.status !== 0) throw Error(run.stderr || run.stdout)
   const [result] = JSON.parse(run.stdout), file = join(root, 'dist', result.filename)
   const entries = []
   await tar.t({ file, onReadEntry: entry => entries.push(entry.path) })
-  if (entries.some(path => /(?:^|\/)\.env|\.local\/|node_modules\/(?!@nidofy\/dsh-plugin-shared)/.test(path))) throw Error('Unexpected packaged file')
+  if (entries.some(path => /(?:^|\/)\.env|\.local\/|\.git\//.test(path))) throw Error('Unexpected packaged file')
   for (const value of Object.values(pkg.exports).flatMap(value => typeof value === 'string' ? [value] : Object.values(value))) {
     if (!entries.includes('package/' + value.replace(/^\.\//, ''))) throw Error('Missing export: ' + value)
   }
@@ -47,11 +48,28 @@ for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working
       if (createHash('sha256').update(await readFile(join(dir, 'assets', file))).digest('hex') !== expected) throw Error('Live2D asset changed without manifest update: ' + file)
     }
   }
+  if (name === 'ai-village') {
+      if (!entries.includes('package/lib/frame.js')) throw Error('Missing game renderer')
+      for (const id of ['bluewhale', 'claude', 'gemini', 'gpt', 'grok', 'kimi', 'qwen']) {
+        const closure = JSON.parse(await readFile(join(dir, `assets/characters/${id}/manifest.json`), 'utf8'))
+        if (!closure.approvedForRelease) throw Error('Unreviewed character ' + id)
+        for (const part of closure.parts) {
+          const file = `assets/characters/${id}/${part.file}`
+          if (!entries.includes('package/' + file) || createHash('sha256').update(await readFile(join(dir, file))).digest('hex') !== part.sha256) throw Error('Character closure mismatch: ' + file)
+        }
+      }
+  }
   for (const section of ['dependencies', 'peerDependencies', 'devDependencies']) {
     if (Object.values(pkg[section] ?? {}).some(value => /^(?:workspace|link|file):/.test(value))) throw Error('Local dependency leaked into tarball')
   }
   artifacts.push({ name: pkg.name, version: pkg.version, file: result.filename, bytes: (await stat(file)).size,
-    sha256: createHash('sha256').update(await readFile(file)).digest('hex'), files: entries.length })
+    sha256: createHash('sha256').update(await readFile(file)).digest('hex'), files: entries.length, platform: 'win32-x64', dsh: '0.2.1-rc.2', offline: true })
   console.log('Packed', result.filename, entries.length, 'files')
 }
+if (process.argv.includes('--sandbox')) {
+  const old = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8').catch(e => { if(e.code === 'ENOENT') return '[]'; throw e }))
+  artifacts.unshift(...old.filter(item => !item.name.startsWith('@dsh-extensions/windows-sandbox-')))
+}
 await writeFile(join(root, 'dist/manifest.json'), JSON.stringify(artifacts, null, 2) + '\n')
+const baseline = JSON.parse(await readFile(join(root, 'compatibility.json'), 'utf8'))
+await writeFile(join(root, 'dist/windows-sandbox-manifest.json'), JSON.stringify({ baseline: baseline.originalRevision, qualification: 'preview-not-isolated', artifacts: artifacts.filter(p => p.name.startsWith('@dsh-extensions/')) }, null, 2) + '\n')

@@ -1,23 +1,49 @@
 {
   "name": "@dsh-extensions/windows-sandbox-enhanced",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "DSH Windows Sandbox Enhanced — read-only diagnostics and recovery planning preview",
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=24", "dsh": "0.2.1-rc.2" },
+  "engines": {
+    "node": ">=24",
+    "dsh": "0.2.1-rc.2"
+  },
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
-  "bin": { "dsh-windows-sandbox": "lib/cli.js" },
+  "bin": {
+    "dsh-windows-sandbox": "lib/cli.js"
+  },
   "exports": {
-    ".": { "types": "./lib/types/index.d.ts", "default": "./lib/index.js" },
-    "./client": { "types": "./lib/types/client/index.d.ts", "default": "./lib/client.js" },
-    "./audit": { "types": "./lib/types/audit.d.ts", "default": "./lib/audit.js" },
-    "./journal": { "types": "./lib/types/journal.d.ts", "default": "./lib/journal.js" },
-    "./lifecycle": { "types": "./lib/types/lifecycle.d.ts", "default": "./lib/lifecycle.js" },
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./audit": {
+      "types": "./lib/types/audit.d.ts",
+      "default": "./lib/audit.js"
+    },
+    "./journal": {
+      "types": "./lib/types/journal.d.ts",
+      "default": "./lib/journal.js"
+    },
+    "./lifecycle": {
+      "types": "./lib/types/lifecycle.d.ts",
+      "default": "./lib/lifecycle.js"
+    },
     "./package.json": "./package.json",
     "./cordis.patch.yml": "./cordis.patch.yml"
   },
-  "files": ["lib", "native/runtime", "cordis.patch.yml", "README.md", "LICENSE"],
+  "files": [
+    "lib",
+    "native/runtime",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
   "peerDependencies": {
     "@deepseek-ai/cordis": "4.0.5",
     "@deepseek-ai/schemastery": "3.18.5",
@@ -29,7 +55,16 @@
     "react": "^18.2.0"
   },
   "dsh": {
-    "bundle": { "patch": "./cordis.patch.yml" },
-    "client": { "inject": ["@deepseek-ai/dsh-client-ui-renderer", "@deepseek-ai/dsh-client-ui-settings", "@deepseek-ai/dsh-client-locale"], "platform": "web" }
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-locale"
+      ],
+      "platform": "web"
+    }
   }
 }

@@ -61,7 +61,13 @@ if (command === 'typecheck' || command === 'check') {
 }
 if (command === 'build' || command === 'check') {
   const native = join(root, 'packages/windows-sandbox-enhanced/native/runtime')
-  run('dotnet', ['publish', 'packages/windows-sandbox-enhanced/native/SandboxAudit.csproj', '-c', 'Release', '--self-contained', 'false', '-o', native])
+  run('dotnet', ['publish', 'packages/windows-sandbox-enhanced/native/SandboxAudit.csproj', '-c', 'Release', '-r', 'win-x64', '--self-contained', 'true', '-o', native])
+  const runtimeConfig = JSON.parse(await readFile(join(native, 'DshSandboxAudit.runtimeconfig.json'), 'utf8'))
+  const runtimeVersion = runtimeConfig.runtimeOptions.includedFrameworks.find(f => f.name === 'Microsoft.NETCore.App').version
+  const nuget = process.env.NUGET_PACKAGES ?? join(process.env.USERPROFILE, '.nuget/packages')
+  const runtimePack = join(nuget, 'microsoft.netcore.app.runtime.win-x64', runtimeVersion)
+  await cp(join(runtimePack, 'LICENSE.TXT'), join(native, 'DOTNET-LICENSE.TXT'))
+  await cp(join(runtimePack, 'THIRD-PARTY-NOTICES.TXT'), join(native, 'DOTNET-THIRD-PARTY-NOTICES.TXT'))
   const files = {}
   for (const file of await readdir(native)) {
     if (file.endsWith('.pdb')) { await rm(join(native, file)); continue }
@@ -87,27 +93,7 @@ if (command === 'build' || command === 'check') {
   }
 }
 if (command === 'test' || command === 'check') run(process.execPath, ['node_modules/vitest/vitest.mjs', 'run', '--config', 'scripts/sandbox-enhanced.vitest.mjs', '--reporter=default', '--reporter=json', '--outputFile=.build/sandbox-enhanced/tests.json'])
-if (command === 'pack' || command === 'check') {
-  await mkdir(join(root, 'dist'), { recursive: true })
-  const manifest = []
-  for (const name of packages) {
-    const directory = join(root, 'packages', name), pkg = JSON.parse(await readFile(join(directory, 'package.json'), 'utf8'))
-    for (const version of Object.values({ ...pkg.dependencies, ...pkg.peerDependencies }))
-      if (/^(?:file|workspace|link):/.test(version)) throw new Error('Local dependency in artifact')
-    const npm = join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js')
-    const result = spawnSync(process.execPath, [npm, 'pack', '--json', '--ignore-scripts', '--pack-destination', join(root, 'dist')], { cwd: directory, encoding: 'utf8' })
-    if (result.status !== 0) throw new Error(result.stderr)
-    const [packed] = JSON.parse(result.stdout), file = join(root, 'dist', packed.filename), names = []
-    await tar.t({ file, onReadEntry: e => names.push(e.path) })
-    if (names.some(p => /(?:node_modules|native\/obj|native\/bin|\.local|\.build)\//.test(p))) throw new Error('Unexpected artifact content')
-    for (const value of Object.values(pkg.exports).flatMap(v => typeof v === 'string' ? [v] : Object.values(v)))
-      if (!names.includes('package/' + value.slice(2))) throw new Error('Missing export ' + value)
-    if (name === 'windows-sandbox-enhanced' && !names.includes('package/native/runtime/manifest.json')) throw new Error('Missing native helper')
-    manifest.push({ name: pkg.name, version: pkg.version, file: packed.filename, sha256: digest(await readFile(file)), files: names.length })
-  }
-  await writeFile(join(root, 'dist/windows-sandbox-manifest.json'), JSON.stringify({ baseline: revision, qualification: 'preview-not-isolated', artifacts: manifest }, null, 2))
-  console.log(manifest)
-}
+if (command === 'pack' || command === 'check') run(process.execPath, ['scripts/pack.mjs', '--sandbox'])
 if (command === 'smoke' || command === 'check') run(process.execPath, ['node_modules/vitest/vitest.mjs', 'run', '--config', 'scripts/sandbox-enhanced.vitest.mjs', '--reporter=default', '--reporter=json', '--outputFile=.build/sandbox-enhanced/packed-tests.json'], {
   env: { ...process.env, DSH_SANDBOX_PACKED: '1' },
 })

@@ -12,14 +12,19 @@
     "sandbox:prepare": "node scripts/sandbox-enhanced.mjs prepare",
     "sandbox:check": "node scripts/sandbox-enhanced.mjs check",
     "sandbox:smoke": "node scripts/sandbox-enhanced.mjs smoke",
+    "village:check": "node scripts/ai-village-phase4.mjs check",
+    "village:build": "node scripts/ai-village-release.mjs",
+    "village:companions": "node scripts/ai-village-companions.mjs",
     "build": "node scripts/build.mjs",
     "typecheck": "node scripts/typecheck.mjs",
-    "test": "node scripts/test.mjs",
+    "test": "node scripts/test.mjs && node scripts/sandbox-enhanced.mjs test",
     "pack": "node scripts/pack.mjs",
     "prepare:original": "node scripts/prepare-original.mjs",
     "test:original": "node scripts/test-original.mjs",
-    "smoke:packed": "node scripts/smoke-packed.mjs",
-    "check": "npm run typecheck && npm run test && npm run build && npm run pack && npm run smoke:packed"
+    "smoke:packed": "node scripts/smoke-packed.mjs && node scripts/sandbox-enhanced.mjs smoke && node scripts/offline-install-check.mjs",
+    "check": "npm run typecheck && npm run test && npm run build && npm run pack && npm run smoke:packed",
+    "smoke:offline": "node scripts/offline-install-check.mjs",
+    "prepare:runtime": "node scripts/prepare-runtime.mjs"
   },
   "devDependencies": {
     "typescript": "6.0.3",

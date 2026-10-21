@@ -1,0 +1,53 @@
+{
+  "sampledAt": "2026-10-20T11:11:55.420Z",
+  "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+  "logicalCores": 16,
+  "ramGiB": 31.49742889404297,
+  "gpu": [
+    {
+      "vendorId": 32902,
+      "deviceId": 32081,
+      "subSysId": 944707498,
+      "revision": 3,
+      "vendorString": "",
+      "deviceString": "Intel(R) Arc(TM) 140T GPU (16GB)",
+      "driverVendor": "Intel",
+      "driverVersion": "32.0.101.8243"
+    },
+    {
+      "vendorId": 32902,
+      "deviceId": 32081,
+      "subSysId": 944707498,
+      "revision": 3,
+      "vendorString": "",
+      "deviceString": "Intel(R) Arc(TM) 140T GPU (16GB)",
+      "driverVendor": "",
+      "driverVersion": "32.0.101.8243"
+    },
+    {
+      "vendorId": 5140,
+      "deviceId": 140,
+      "subSysId": 0,
+      "revision": 0,
+      "vendorString": "",
+      "deviceString": "Microsoft Basic Render Driver",
+      "driverVendor": "",
+      "driverVersion": "10.0.26100.8972"
+    }
+  ],
+  "visible": {
+    "seconds": 15.007,
+    "totalDesktopCpuPercentOfOneCore": 20.59562204304658,
+    "parentRendererHeapBytes": 29799960,
+    "fps": 26.121143466382357,
+    "meanPaintMs": 0.34775413209946726,
+    "maxPaintMs": 36.39999997615814,
+    "textures": 130
+  },
+  "hidden": {
+    "seconds": 15.015,
+    "totalDesktopCpuPercentOfOneCore": 0.47637029637029743,
+    "parentRendererHeapBytes": 30251580
+  },
+  "limitations": "Two 15-second samples. CPU includes the entire isolated Desktop, parent heap excludes GPU/native textures. Paint time measures JS render submission, not GPU completion. No long soak or cross-device claim."
+}

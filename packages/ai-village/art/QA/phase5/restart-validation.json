@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "character": "qwen",
+  "behavior": "rest",
+  "artifacts": [
+    {
+      "name": "@nidofy/dsh-source-control",
+      "version": "0.1.0",
+      "file": "nidofy-dsh-source-control-0.1.0.tgz",
+      "bytes": 29552,
+      "sha256": "8eb8afeeb3d443c4458ef1d662cb57424d681648551aa7e94e65b3a40e4080e2",
+      "files": 20
+    },
+    {
+      "name": "@nidofy/dsh-live2d",
+      "version": "0.1.0",
+      "file": "nidofy-dsh-live2d-0.1.0.tgz",
+      "bytes": 1429860,
+      "sha256": "48af58330a22805fbe85ec208cfee1e27f995b0493815c84e262efc85c1d39fc",
+      "files": 34
+    },
+    {
+      "name": "@nidofy/dsh-ai-village",
+      "version": "0.1.0",
+      "file": "nidofy-dsh-ai-village-0.1.0.tgz",
+      "bytes": 28188822,
+      "sha256": "c50442b092ec724bd5a685315e0d6694b1e5f2d2126a5884bc2ee79483ff1502",
+      "files": 165
+    }
+  ]
+}

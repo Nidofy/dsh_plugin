@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "id": "courtyard",
+  "version": 1,
+  "size": [
+    360,
+    480
+  ],
+  "walkable": {
+    "x": 45,
+    "y": 211,
+    "width": 248,
+    "height": 222
+  },
+  "obstacles": [
+    {
+      "x": 38,
+      "y": 290,
+      "width": 124,
+      "height": 27
+    },
+    {
+      "x": 204,
+      "y": 290,
+      "width": 124,
+      "height": 27
+    }
+  ],
+  "spawn": {
+    "x": 173,
+    "y": 365
+  },
+  "hotspots": [
+    {
+      "id": "work",
+      "hit": {
+        "x": 46,
+        "y": 225,
+        "width": 112,
+        "height": 64
+      },
+      "anchor": {
+        "x": 102,
+        "y": 283
+      }
+    },
+    {
+      "id": "eat",
+      "hit": {
+        "x": 212,
+        "y": 225,
+        "width": 112,
+        "height": 64
+      },
+      "anchor": {
+        "x": 268,
+        "y": 283
+      }
+    },
+    {
+      "id": "rest",
+      "hit": {
+        "x": 233,
+        "y": 370,
+        "width": 90,
+        "height": 55
+      },
+      "anchor": {
+        "x": 274,
+        "y": 411
+      }
+    }
+  ],
+  "furniture": [
+    {
+      "id": "work",
+      "asset": "desk",
+      "rect": {
+        "x": 46,
+        "y": 239,
+        "width": 112,
+        "height": 68
+      },
+      "split": 0.1
+    },
+    {
+      "id": "eat",
+      "asset": "table",
+      "rect": {
+        "x": 212,
+        "y": 239,
+        "width": 112,
+        "height": 68
+      },
+      "split": 0.09976798143851508
+    }
+  ],
+  "cushion": {
+    "x": 235,
+    "y": 385,
+    "width": 78,
+    "height": 44
+  }
+}

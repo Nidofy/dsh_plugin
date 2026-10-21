@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "id": "furniture",
+      "references": [
+        "../approved/courtyard-empty-v01.png",
+        "../approved/bluewhale-neutral-v01.png"
+      ],
+      "prompt": "Use case: stylized-concept. Input 1 is the approved courtyard STYLE / PERSPECTIVE reference, input 2 is the small chibi scale reference only. Create a transparent furniture component sheet with exactly FOUR separate objects in a 2x2 layout, broad transparent gutters. Top left: a small honey-wood WRITING DESK, simple front-facing rectangular table with slightly visible top, four short legs, one open ivory notebook on top (blank pages, no writing) and a pencil lying beside it. No chair. Top right: a matching small honey-wood DINING TABLE, slightly rounded rectangular top, same viewpoint and height, completely bare tabletop, no chair. Bottom left: a thick soft round sage-green FLOOR CUSHION seen slightly from above, with subtle cream piping, no person. Bottom right: one small white ceramic bowl filled with white rice and a tiny green garnish. All four objects intact and separate, no overlaps and at least ten percent clear margins within their cells. Gentle upper-left lighting, warm muted storybook soft anime rendering and clean readable silhouettes matching the courtyard. Front table edges horizontal, shallow elevated perspective rather than isometric diagonal; table aprons and legs fully drawn so we can separate rear/top and front occlusion later. No people, text, letters, UI, grids, background floor, ground shadow outside objects or watermark. Genuine transparent background; ivory and white parts stay opaque.",
+      "generationId": "exec-1c1c4e3a-2ddf-40ba-9156-470c0a2b07cd",
+      "output": "../work/phase3/furniture-v01.png",
+      "transparent_background": true
+    },
+    {
+      "id": "activity-arms",
+      "references": [
+        "../approved/bluewhale-neutral-v01.png"
+      ],
+      "prompt": "Edit this approved chibi character into a transparent four-part ARM POSE atlas, strict 2x2 layout with generous gaps. Keep original blue maid sleeves, white cuffs, gold embroidery, skin tone, soft anime linework and upper-left illumination. Each cell contains one complete isolated arm from rounded hidden shoulder root to small hand; no head, torso, skirt or hair. Top left: SCREEN-LEFT arm bent forward across a desk, hand holding a short pencil pointed down to write, with hidden shoulder completed. Top right: SCREEN-RIGHT arm bent forward, small relaxed hand palm down on a desktop. Bottom left: SCREEN-LEFT arm bent inward holding a white ceramic bowl full of rice at chest level, bowl integrated with hand, clearly readable. Bottom right: SCREEN-RIGHT arm bent upward holding a little spoon pointed toward the character mouth to screen left, spoon with tiny bit of rice. Front view with slight elevation, compact chibi proportions not adult arms. Independently drawn sleeve overlap at roots, intact hands and utensils. No full character, additional objects, labels, frames, background/checkerboard or cast shadow. True alpha transparency, opaque white cuffs and bowl.",
+      "generationId": "exec-e0a011f7-85a8-4093-8240-c0d2710773bd",
+      "output": "../work/phase3/activity-arms-v01.png",
+      "transparent_background": true
+    },
+    {
+      "id": "rest-pose",
+      "references": [
+        "../approved/bluewhale-neutral-v01.png"
+      ],
+      "prompt": "Edit the approved character to a true comfortable SEATED REST POSE on transparent background. Preserve her identity exactly: large round blue-haired chibi head, 2 to 2.5 head body, white frilled maid headband with blue bow on screen right, fin ears, curved blue ahoge, blue/white maid dress and white whale apron, blue whale tail curving to screen right. Sit upright on the floor with visibly bent knees and short legs tucked forward under the spread skirt, the little shoes visible in front, hands resting relaxed on knees. This must be an actually redrawn seated pose with compressed/tucked lower body, not a rotated or scaled standing pose. Both eyes softly closed for sleep, tiny relaxed smile. Same front view and soft anime linework, gentle upper-left light; retain opaque white dress fabric. Entire complete character, tail and shoes within generous transparent margins. No cushion, furniture, bed, floor, shadows, Zzz, symbols, text, bubbles, border or watermark. Single pose only, genuine transparent background.",
+      "generationId": "exec-ef1dd50b-7af3-46ff-9cb9-338ba419ad17",
+      "output": "../work/phase3/rest-pose-v01.png",
+      "transparent_background": true
+    }
+  ]
+}

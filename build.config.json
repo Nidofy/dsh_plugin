@@ -1,4 +1,9 @@
 {
+  "ai-village": {
+    "entries": { "index": "index.ts" },
+    "client": true,
+    "officialBaseline": "0.2.1-rc.2"
+  },
   "live2d": {
     "entries": {
       "index": "index.ts"

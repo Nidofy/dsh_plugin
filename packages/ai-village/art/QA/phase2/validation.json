@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "command": "node scripts/ai-village-phase2.mjs check",
+  "pixiVersion": "8.22.0",
+  "parts": 20,
+  "actions": [
+    "idle",
+    "walk",
+    "pickup",
+    "dragging",
+    "put_down"
+  ],
+  "expressions": [
+    "neutral",
+    "happy",
+    "surprised",
+    "sleepy"
+  ],
+  "frameBytes": 541390,
+  "externalRequests": [],
+  "pageErrors": [],
+  "runs": [
+    {
+      "dpr": 1,
+      "isolation": {
+        "blocked": true,
+        "width": 512,
+        "height": 512
+      },
+      "hiddenFramesUnchanged": true,
+      "hiddenTimeUnchanged": true
+    },
+    {
+      "dpr": 2,
+      "isolation": {
+        "blocked": true,
+        "width": 1024,
+        "height": 1024
+      },
+      "hiddenFramesUnchanged": true,
+      "hiddenTimeUnchanged": true
+    }
+  ],
+  "logic": {
+    "passed": true,
+    "checks": [
+      "acyclic hierarchy and finite anchors",
+      "animation keys and loop seams",
+      "independent alternating legs",
+      "transition continuity",
+      "pickup expression",
+      "put-down settles",
+      "invalid time refused"
+    ]
+  },
+  "recording": {
+    "file": "motion-preview.webm",
+    "bytes": 1307007,
+    "source": "Actual Chromium WebGL playback",
+    "oneShotStopsVerified": true
+  },
+  "previewArchive": {
+    "bytes": 7269592,
+    "entries": 27
+  },
+  "limitations": [
+    "Animation preview only; not scene gameplay",
+    "Software WebGL, not Desktop hardware performance",
+    "New parts await motion review; base art approved"
+  ]
+}

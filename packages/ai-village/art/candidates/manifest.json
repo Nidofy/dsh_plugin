@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "kind": "phase1-approved-visual-bases",
+  "assets": [
+    {
+      "path": "bluewhale-neutral-v01.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "4a6beb3209b4564976737c25570f98600fb147f98298d448d8e356a296a69402",
+      "bytes": 1483668,
+      "status": "approved-base",
+      "approved": true,
+      "tool": "built-in image_gen",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "processing": "Copied verbatim; no pixel edits or upscaling",
+      "alphaBounds": [
+        0,
+        0,
+        1236,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparent": 759696,
+      "opaque": 1637,
+      "partial": 811183,
+      "dominantAlpha": [
+        [
+          253,
+          618945
+        ],
+        [
+          252,
+          97401
+        ],
+        [
+          254,
+          30615
+        ],
+        [
+          251,
+          15309
+        ],
+        [
+          1,
+          11101
+        ]
+      ],
+      "approval": {
+        "source": "user-message",
+        "text": "视觉效果确认通过，可以进入阶段2"
+      }
+    },
+    {
+      "path": "courtyard-empty-v01.png",
+      "size": [
+        1086,
+        1448
+      ],
+      "mode": "RGB",
+      "sha256": "6e0fbd6748abcc8905bc5c32012a39a0fd2fea1a9f0340ffa3a3b7b869937f6d",
+      "bytes": 2232444,
+      "status": "approved-base",
+      "approved": true,
+      "tool": "built-in image_gen",
+      "nativeSize": [
+        1086,
+        1448
+      ],
+      "processing": "Copied verbatim; no pixel edits or upscaling",
+      "approval": {
+        "source": "user-message",
+        "text": "视觉效果确认通过，可以进入阶段2"
+      }
+    }
+  ]
+}

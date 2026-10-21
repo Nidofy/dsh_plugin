@@ -1,0 +1,9 @@
+{
+  "tool": "built-in image_gen",
+  "id": "ahoge",
+  "prompt": "Extract and complete ONLY the single curved blue ahoge (the loose curved hair antenna at the very top) from the approved character in this image. Keep exactly its hooked curved silhouette, original indigo colors, linework, blue highlight and root pointing down. One isolated small hair strand centered on a genuinely transparent square canvas with generous clear margins. Remove ALL white maid headband pixels and all other hair, face or clothing. The strand must be fully painted to its tapered attachment root so it can overlap a separate hair cap. No other pieces, no glow, no cast shadow, no text, no grid. Keep the shape faithful to the approved character, do not invent a different hairstyle.",
+  "generationId": "exec-1ddcb0ee-021f-4aca-80a1-5beed71e5f3c",
+  "reference": "../approved/bluewhale-neutral-v01.png",
+  "output": "../work/phase2/ahoge-v01.png",
+  "transparent_background": true
+}

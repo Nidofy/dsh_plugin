@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "tool": "built-in image_gen",
+  "promptRecordType": "exact",
+  "assets": [
+    {
+      "output": "../candidates/bluewhale-neutral-v01.png",
+      "status": "candidate",
+      "transparent_background": true,
+      "reference": {
+        "role": "design reference only; lower-center and upper-right chibi",
+        "source": "dsh_docs/plugin_game/DSH_AI_Village_MVP_Handoff_v0.1/references/deepseek_ref.jpg",
+        "sha256": "e98f4c7349378206d2383d1a7d8ddbc58acf6ca2839f4d95a75c7f4dd59846a3"
+      },
+      "generationId": "exec-10276a5f-075c-4342-9b76-eb7f9a56981d",
+      "prompt": "Use case: stylized-concept. Asset type: ONE candidate game character base illustration for a layered paper-doll game, not a finished rig. Input image 1 is design reference only. Use ONLY the large chibi figure at the lower center and the tiny chibi at the top right of this collage. Ignore the taller characters and black/red outfits. Generate ONE complete neutral standing character on genuine transparent background, preferably a square canvas. Strictly 2 to 2.5 heads tall from crown to soles: very large round head, short torso, little legs, compact rounded silhouette. Preserve long indigo-to-blue hair, large blue eyes, a curved ahoge, white frilled maid headband, one blue side bow, two fin-like ears, navy-and-white maid dress, small whale motif on apron and a complete blue whale tail extending to screen right. Simplify tiny gold embroidery and stray hair for readability at 96 to 128 px character height. Front view, level head, small closed-mouth neutral smile. Both arms gently away from body with relaxed small hands, both shoes visible and separated on the same baseline. Tail fully inside image and not covering the feet. Consistent crisp soft anime linework and soft cel shading, gentle light from upper left. Entire character with transparent margins, feet near 90 percent of canvas height. Preserve white apron and lace as opaque fabric. No props, furniture, scenery, cast ground shadow, text, labels, multiple poses, frame, grid, watermark, black dress, or adult body proportions. This is the single identity base for later edited parts."
+    },
+    {
+      "output": "../candidates/courtyard-empty-v01.png",
+      "status": "candidate",
+      "transparent_background": false,
+      "reference": null,
+      "generationId": "exec-244eed40-50c8-488e-b07e-f162c0c2fc34",
+      "prompt": "Use case: stylized-concept. Asset type: ONE empty background candidate for a cozy chibi paper-doll courtyard game. Generate a portrait 3:4 composition corresponding to a logical 360x480 scene. A small warm storybook courtyard attached to a cottage, gentle slightly elevated front view with a clearly readable ground plane, NOT a top-down map or strong isometric view. Warm cream plaster and light natural wood along the upper edge, a quiet garden glimpse and a few softly painted green plants restricted to the outside edges. Soft light from upper left, restrained warm ivory, muted sage and honey wood palette so a navy/blue-white character stands out. Keep the central and lower two thirds a spacious continuous pale warm stone or plaster floor with very subtle large-scale texture; no steps, paths that split it, obstacles or busy floor decoration. Three uncluttered areas near the upper left, upper right and lower right will later receive separately drawn work desk, rice table and resting cushion. Do not draw these objects now and do not mark the positions. Clean soft anime/storybook game illustration, simplified shapes and enough line clarity at 340 CSS pixels wide. The image itself fills the frame. NO people, animals, furniture, desk, table, chair, cushion, bowls, props, signs, letters, words, interface, status bars, buttons, decorative frame, game screenshot border, grid or watermark. An inviting calm empty place to populate later, rather than a completed furnished room."
+    }
+  ]
+}

@@ -1,31 +1,20 @@
-/** Materialize the pinned original DSH source for compatibility tests; never reset the desktop checkout. */
+/** Select the hash-verified official archive shared by all compatibility lanes. */
+import { readFile, writeFile, mkdir } from 'node:fs/promises'
+import { resolve, join } from 'node:path'
 import { spawnSync } from 'node:child_process'
-import { readFile, writeFile, mkdir, readdir, symlink, lstat } from 'node:fs/promises'
-import { join, resolve, dirname } from 'node:path'
-import * as tar from 'tar'
 const root = resolve(import.meta.dirname, '..')
-const { source } = JSON.parse(await readFile(join(root, '.local/environment.json'), 'utf8'))
-const revision = '639ed015397290b3745d163aafe02ffee4aa3f84'
-const original = join(root, '.build/original-dsh'), archive = join(root, '.build/original-dsh.tar')
-await mkdir(original, { recursive: true })
-const run = spawnSync('git', ['archive', '--format=tar', '-o', archive, revision, 'packages', 'vendor', 'native', 'tsconfig.base.json', 'tsconfig.base.client.json'], { cwd: source, encoding: 'utf8' })
-if (run.status !== 0) throw Error(run.stderr)
-await tar.x({ file: archive, cwd: original })
-async function link(target, dest) {
-  try { await lstat(dest); return } catch (error) { if (error.code !== 'ENOENT') throw error }
-  try { await lstat(target) } catch (error) { if (error.code === 'ENOENT') return; throw error }
-  await mkdir(dirname(dest), { recursive: true })
-  await symlink(target, dest, process.platform === 'win32' ? 'junction' : 'dir')
+const compatibility = JSON.parse(await readFile(join(root, 'compatibility.json'), 'utf8'))
+const file = join(root, '.build/sandbox-enhanced/baseline.json')
+let baseline
+try { baseline = JSON.parse(await readFile(file, 'utf8')) } catch (error) {
+  if (error.code !== 'ENOENT') throw error
+  const prepared = spawnSync(process.execPath, ['scripts/sandbox-enhanced.mjs', 'prepare'], { cwd: root, stdio: 'inherit', windowsHide: true })
+  if (prepared.status !== 0) throw Error('OFFICIAL_BASELINE_UNAVAILABLE')
+  baseline = JSON.parse(await readFile(file, 'utf8'))
 }
-await link(join(source, 'node_modules'), join(original, 'node_modules'))
-for (const group of await readdir(join(original, 'packages'), { withFileTypes: true })) {
-  if (!group.isDirectory()) continue
-  for (const pkg of await readdir(join(original, 'packages', group.name), { withFileTypes: true })) {
-    if (pkg.isDirectory()) await link(join(source, 'packages', group.name, pkg.name, 'node_modules'), join(original, 'packages', group.name, pkg.name, 'node_modules'))
-  }
-}
-for (const pkg of await readdir(join(original, 'vendor'), { withFileTypes: true })) {
-  if (pkg.isDirectory()) await link(join(source, 'vendor', pkg.name, 'node_modules'), join(original, 'vendor', pkg.name, 'node_modules'))
-}
-await writeFile(join(root, '.local/original.json'), JSON.stringify({ source: original, revision }, null, 2) + '\n')
-console.log('Original DSH source prepared:', revision)
+if (baseline.revision !== compatibility.originalRevision || baseline.archiveHash !== compatibility.officialArchiveSha256) throw Error('OFFICIAL_BASELINE_MISMATCH')
+const pkg = JSON.parse(await readFile(join(baseline.source, 'package.json'), 'utf8'))
+if (pkg.version !== compatibility.dshVersion) throw Error('OFFICIAL_VERSION_MISMATCH')
+await mkdir(join(root, '.local'), { recursive: true })
+await writeFile(join(root, '.local/original.json'), JSON.stringify(baseline, null, 2) + '\n')
+console.log('Official DSH baseline:', pkg.version, baseline.revision)

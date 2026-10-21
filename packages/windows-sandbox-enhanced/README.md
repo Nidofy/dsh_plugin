@@ -13,3 +13,5 @@ Never install into a production profile assuming the isolated backend is ready.
 No official installation file, real-workspace ACL, or DSH_HOME is changed by the
 development build or tests. See `docs/windows-sandbox-enhanced.md` for the
 qualification matrix and remaining integration work.
+
+本次发行以官方 DSH 0.2.1-rc.2 为统一基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。全仓库发行及验证记录见 `docs/releases/0.2.1-rc.2.md`。

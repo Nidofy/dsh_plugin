@@ -1,0 +1,15 @@
+{
+  "officialRevision": "687f282e8625c6b8d11ff58211a90524be2e4317",
+  "checks": [
+    "7 characters, 21 activity placements, live selector without renderer replacement; fixed texture count 130",
+    "50 sidebar cycles: one reservation, one frame, paused world unchanged",
+    "session changes preserve world and renderer instance",
+    "Git above village simultaneously, one width reservation and same iframe; Live2D excludes both",
+    "Host restart and connection generation reset reconcile profile, epoch and revision, preserving user pause",
+    "narrow/main panel hiding, drag rollback, conversation focus and draft preserved",
+    "refresh restores last durable snapshot, second window cannot simulate",
+    "Seven residents independently simulate, focus preserves all actors, three concurrent activities persist across reload; removal releases rigs"
+  ],
+  "errors": [],
+  "external": []
+}

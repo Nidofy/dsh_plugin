@@ -13,7 +13,7 @@ it('loads packaged Bundles through the official profile composer and keeps diagn
     initProfile(profileDir, names.map(name => '@dsh-extensions/' + name))
     for (const name of names) {
       const directory = join(profileDir, 'node_modules/@dsh-extensions', name); await mkdir(directory, { recursive: true })
-      await tar.x({ file: resolve(`dist/dsh-extensions-${name}-0.1.0-alpha.1.tgz`), cwd: directory, strip: 1 })
+      await tar.x({ file: resolve(`dist/dsh-extensions-${name}-0.1.0-alpha.2.tgz`), cwd: directory, strip: 1 })
     }
     const anchor = join(home, 'installation/package.json'); await mkdir(join(home, 'installation'), { recursive: true })
     await writeFile(anchor, JSON.stringify({ name: '@deepseek-ai/dsh', version: '0.2.1-rc.2', type: 'module' }))

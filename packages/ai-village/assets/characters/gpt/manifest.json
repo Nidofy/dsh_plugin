@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "approvedForRelease": true,
+  "status": "agent-reviewed-assembly",
+  "approval": {
+    "source": "delegated-agent-review",
+    "userInstruction": "中途不需要额外验收"
+  },
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 14,
+        "top": 10,
+        "width": 321,
+        "height": 308
+      },
+      "nativeSize": [
+        321,
+        308
+      ],
+      "bytes": 188224,
+      "sha256": "03f8d3daf770a651a9a2a03077388141b73213bbdfcbf34436c37d93049eecb0",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 335,
+        "top": 10,
+        "width": 311,
+        "height": 308
+      },
+      "nativeSize": [
+        311,
+        308
+      ],
+      "bytes": 185963,
+      "sha256": "9a56e2b3278f530e5fc82182c917e358158a12f4e4254f8ef250c2a79ea4c97f",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 646,
+        "top": 9,
+        "width": 309,
+        "height": 309
+      },
+      "nativeSize": [
+        309,
+        309
+      ],
+      "bytes": 186297,
+      "sha256": "011378928d2acd6ce1b06a09c8b75b64f66f125901ba1055724d538ddd8b2523",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 955,
+        "top": 10,
+        "width": 299,
+        "height": 308
+      },
+      "nativeSize": [
+        299,
+        308
+      ],
+      "bytes": 178124,
+      "sha256": "77f67046559a8716bb0aa4eb4d8935cec2dd6c523563c4b778a2d438087fff46",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 20,
+        "top": 323,
+        "width": 324,
+        "height": 297
+      },
+      "nativeSize": [
+        324,
+        297
+      ],
+      "bytes": 151110,
+      "sha256": "525458cfb737f5f8a3536175d560abc1e706d849761bdd96ceeafc5cc9bd859b",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 418,
+        "top": 329,
+        "width": 203,
+        "height": 290
+      },
+      "nativeSize": [
+        203,
+        290
+      ],
+      "bytes": 92792,
+      "sha256": "10152d19d4cc3ce43675b5294d25757e8b0cd624a35278dea0d452bdfa70c3d7",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 688,
+        "top": 331,
+        "width": 211,
+        "height": 290
+      },
+      "nativeSize": [
+        211,
+        290
+      ],
+      "bytes": 97581,
+      "sha256": "1bdfddb6b1d6cd68dcdbd291a914c3d32725f8dc2088f4ef72b1911dcf66cbaa",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 1069,
+        "top": 334,
+        "width": 97,
+        "height": 286
+      },
+      "nativeSize": [
+        97,
+        286
+      ],
+      "bytes": 55905,
+      "sha256": "1bfc2e990361cdb2ab38b080f30dd3d7c713b574609135387a01df120fadc337",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 112,
+        "top": 637,
+        "width": 103,
+        "height": 267
+      },
+      "nativeSize": [
+        103,
+        267
+      ],
+      "bytes": 53800,
+      "sha256": "9f4cfb4f1a49f917e46c0d7050de59e7d242cc21f1c0f47c53adc9b1a66f6735",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 384,
+        "top": 661,
+        "width": 206,
+        "height": 219
+      },
+      "nativeSize": [
+        206,
+        219
+      ],
+      "bytes": 78657,
+      "sha256": "34706bf0ea11346431ff5e528966c603f4c7857aabbcaa562da17f0698103c37",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 698,
+        "top": 658,
+        "width": 219,
+        "height": 212
+      },
+      "nativeSize": [
+        219,
+        212
+      ],
+      "bytes": 68285,
+      "sha256": "a4e120ee86bd692d39a803b135f0a207e688a85b7eb75b58aaf6302463818de0",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 982,
+        "top": 654,
+        "width": 206,
+        "height": 233
+      },
+      "nativeSize": [
+        206,
+        233
+      ],
+      "bytes": 95207,
+      "sha256": "204c200f10dce33fb789153b80f8bd08f444e6d782aae90edebc0c4fdded36c0",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 48,
+        "top": 949,
+        "width": 273,
+        "height": 274
+      },
+      "nativeSize": [
+        273,
+        274
+      ],
+      "bytes": 90786,
+      "sha256": "a18d41384432e1bd6b5c0b52dcbae3298ceabb61a491403980193a27c695623f",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 321,
+        "top": 892,
+        "width": 313,
+        "height": 352
+      },
+      "nativeSize": [
+        313,
+        352
+      ],
+      "bytes": 234205,
+      "sha256": "15fa031044e9893a0661bd9a471aa1378fe5cc005d25b5b6cca6dd194907b9d4",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 646,
+        "top": 915,
+        "width": 315,
+        "height": 333
+      },
+      "nativeSize": [
+        315,
+        333
+      ],
+      "bytes": 195529,
+      "sha256": "d7e3d0d0fe99596aa3b5107e4cd056ccb88c88ecd76540f6f0a37a55ad014061",
+      "processing": "Measured native crop; original RGBA preserved"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster/gpt-v01.png",
+      "crop": {
+        "left": 1015,
+        "top": 887,
+        "width": 210,
+        "height": 340
+      },
+      "nativeSize": [
+        210,
+        340
+      ],
+      "bytes": 101967,
+      "sha256": "ff87c0434138a7ecb115a5b50701b9c1b9741979190b13249a6c82fb43b2e82e",
+      "processing": "Measured native crop; original RGBA preserved"
+    }
+  ]
+}

@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 1,
+  "id": "bluewhale-v01",
+  "canvas": [
+    1024,
+    1024
+  ],
+  "feet": [
+    512,
+    952
+  ],
+  "visibleHeight": 900,
+  "status": "phase2-motion-review",
+  "baseApproval": "User approved phase1 visual bases",
+  "parts": [
+    {
+      "id": "root",
+      "parent": null,
+      "pivot": [
+        512,
+        952
+      ],
+      "offset": [
+        512,
+        952
+      ],
+      "size": [
+        0,
+        0
+      ],
+      "z": 0,
+      "mirror": "never"
+    },
+    {
+      "id": "tail-root",
+      "parent": "root",
+      "file": "parts/tail-root.png",
+      "offset": [
+        622,
+        734
+      ],
+      "size": [
+        266,
+        164
+      ],
+      "pivot": [
+        643,
+        771
+      ],
+      "z": 0,
+      "mirror": "never"
+    },
+    {
+      "id": "tail-fin",
+      "parent": "tail-root",
+      "file": "parts/tail-fin.png",
+      "offset": [
+        790,
+        616
+      ],
+      "size": [
+        212,
+        178
+      ],
+      "pivot": [
+        885,
+        782
+      ],
+      "z": 1,
+      "mirror": "never"
+    },
+    {
+      "id": "leg-left",
+      "parent": "root",
+      "file": "parts/leg-left.png",
+      "offset": [
+        416,
+        798
+      ],
+      "size": [
+        93,
+        154
+      ],
+      "pivot": [
+        464,
+        815
+      ],
+      "z": 2,
+      "mirror": "never"
+    },
+    {
+      "id": "leg-right",
+      "parent": "root",
+      "file": "parts/leg-right.png",
+      "offset": [
+        534,
+        798
+      ],
+      "size": [
+        93,
+        154
+      ],
+      "pivot": [
+        577,
+        815
+      ],
+      "z": 2,
+      "mirror": "never"
+    },
+    {
+      "id": "body",
+      "parent": "root",
+      "pivot": [
+        512,
+        673
+      ],
+      "offset": [
+        512,
+        673
+      ],
+      "size": [
+        0,
+        0
+      ],
+      "z": 3,
+      "mirror": "never"
+    },
+    {
+      "id": "back-hair",
+      "parent": "body",
+      "file": "parts/back-hair.png",
+      "offset": [
+        185,
+        168
+      ],
+      "size": [
+        645,
+        585
+      ],
+      "pivot": [
+        512,
+        310
+      ],
+      "z": 0,
+      "mirror": "never"
+    },
+    {
+      "id": "arm-left",
+      "parent": "body",
+      "file": "parts/arm-left.png",
+      "offset": [
+        299,
+        557
+      ],
+      "size": [
+        169,
+        175
+      ],
+      "pivot": [
+        447,
+        575
+      ],
+      "z": 3,
+      "mirror": "never"
+    },
+    {
+      "id": "arm-right",
+      "parent": "body",
+      "file": "parts/arm-right.png",
+      "offset": [
+        558,
+        557
+      ],
+      "size": [
+        169,
+        175
+      ],
+      "pivot": [
+        579,
+        575
+      ],
+      "z": 3,
+      "mirror": "never"
+    },
+    {
+      "id": "skirt",
+      "parent": "body",
+      "file": "parts/skirt.png",
+      "offset": [
+        284,
+        641
+      ],
+      "size": [
+        456,
+        232
+      ],
+      "pivot": [
+        512,
+        655
+      ],
+      "z": 4,
+      "mirror": "never"
+    },
+    {
+      "id": "torso",
+      "parent": "body",
+      "file": "parts/torso.png",
+      "offset": [
+        410,
+        506
+      ],
+      "size": [
+        204,
+        170
+      ],
+      "pivot": [
+        512,
+        550
+      ],
+      "z": 5,
+      "mirror": "never"
+    },
+    {
+      "id": "head",
+      "parent": "body",
+      "pivot": [
+        512,
+        503
+      ],
+      "offset": [
+        512,
+        503
+      ],
+      "size": [
+        0,
+        0
+      ],
+      "z": 10,
+      "mirror": "never"
+    },
+    {
+      "id": "ear-left",
+      "parent": "head",
+      "file": "parts/ear-left.png",
+      "offset": [
+        194,
+        352
+      ],
+      "size": [
+        145,
+        119
+      ],
+      "pivot": [
+        330,
+        382
+      ],
+      "z": 1,
+      "mirror": "never"
+    },
+    {
+      "id": "ear-right",
+      "parent": "head",
+      "file": "parts/ear-right.png",
+      "offset": [
+        685,
+        352
+      ],
+      "size": [
+        145,
+        119
+      ],
+      "pivot": [
+        692,
+        382
+      ],
+      "z": 1,
+      "mirror": "never"
+    },
+    {
+      "id": "face",
+      "parent": "head",
+      "offset": [
+        347,
+        230
+      ],
+      "size": [
+        330,
+        310
+      ],
+      "pivot": [
+        512,
+        490
+      ],
+      "z": 2,
+      "mirror": "never",
+      "expressions": {
+        "neutral": "parts/face-neutral.png",
+        "happy": "parts/face-happy.png",
+        "surprised": "parts/face-surprised.png",
+        "sleepy": "parts/face-sleepy.png"
+      }
+    },
+    {
+      "id": "front-hair",
+      "parent": "head",
+      "file": "parts/front-hair.png",
+      "offset": [
+        273,
+        144
+      ],
+      "size": [
+        478,
+        409
+      ],
+      "pivot": [
+        512,
+        283
+      ],
+      "z": 3,
+      "mirror": "never"
+    },
+    {
+      "id": "headband",
+      "parent": "head",
+      "file": "parts/headband.png",
+      "offset": [
+        278,
+        85
+      ],
+      "size": [
+        495,
+        312
+      ],
+      "pivot": [
+        512,
+        208
+      ],
+      "z": 4,
+      "mirror": "never"
+    },
+    {
+      "id": "ahoge",
+      "parent": "head",
+      "file": "parts/ahoge.png",
+      "offset": [
+        344,
+        55
+      ],
+      "size": [
+        174,
+        89
+      ],
+      "pivot": [
+        495,
+        138
+      ],
+      "z": 5,
+      "mirror": "never"
+    },
+    {
+      "id": "curl-left",
+      "parent": "head",
+      "file": "parts/curl-left.png",
+      "offset": [
+        280,
+        480
+      ],
+      "size": [
+        100,
+        208
+      ],
+      "pivot": [
+        325,
+        493
+      ],
+      "z": 6,
+      "mirror": "never"
+    },
+    {
+      "id": "curl-right",
+      "parent": "head",
+      "file": "parts/curl-right.png",
+      "offset": [
+        644,
+        480
+      ],
+      "size": [
+        100,
+        208
+      ],
+      "pivot": [
+        694,
+        493
+      ],
+      "z": 6,
+      "mirror": "never"
+    }
+  ]
+}

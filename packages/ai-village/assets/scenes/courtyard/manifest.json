@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "status": "phase3-scene-approved",
+  "approvedForRelease": true,
+  "files": [
+    {
+      "file": "desk.png",
+      "bytes": 601888,
+      "sha256": "ac6c8d9dcd1a847388a35d64939ab8ee3c3851d2188aa06f298af97fae0ab33e",
+      "size": [
+        721,
+        430
+      ],
+      "alpha": true
+    },
+    {
+      "file": "desk-back.png",
+      "bytes": 66563,
+      "sha256": "9614b835d49cc665767f54b2c21dd9190e5afc8167abbcaa39a3d93e1e213f57",
+      "size": [
+        721,
+        43
+      ],
+      "alpha": true
+    },
+    {
+      "file": "desk-front.png",
+      "bytes": 536764,
+      "sha256": "6f43ceeaa86e5d924cbeb539adf261a75a031a6a6708e406a43ce5e19436d29b",
+      "size": [
+        721,
+        387
+      ],
+      "alpha": true
+    },
+    {
+      "file": "table.png",
+      "bytes": 568171,
+      "sha256": "06142721225424bb880364291ce497d5dff989b2c07ee2d2aa23d2945fdb47e9",
+      "size": [
+        704,
+        431
+      ],
+      "alpha": true
+    },
+    {
+      "file": "table-back.png",
+      "bytes": 66874,
+      "sha256": "80d06401387d73175d655b3bb02a5f81525966b5c8885e331426ec09c5f41918",
+      "size": [
+        704,
+        43
+      ],
+      "alpha": true
+    },
+    {
+      "file": "table-front.png",
+      "bytes": 503210,
+      "sha256": "6f0c441a4d7ee0886e0d2c042a47264c4972421cad5234fbbdbb1817e99a855b",
+      "size": [
+        704,
+        388
+      ],
+      "alpha": true
+    },
+    {
+      "file": "cushion.png",
+      "bytes": 483383,
+      "sha256": "d1fc940caa57904e840a1dd9211dcdf71ff60c105b9f67a5447a1b1d8dd4a663",
+      "size": [
+        605,
+        353
+      ],
+      "alpha": true
+    },
+    {
+      "file": "bowl.png",
+      "bytes": 170926,
+      "sha256": "b7b2090f2becbb3335002322c9575bdd250406aeba8a03882490bcc8b2466397",
+      "size": [
+        291,
+        237
+      ],
+      "alpha": true
+    },
+    {
+      "file": "work-left.png",
+      "bytes": 248328,
+      "sha256": "95a62f06ac799fcdefb10ec7213345aacf68ee96efb96f764d08a57c1e75fe1c",
+      "size": [
+        385,
+        501
+      ],
+      "alpha": true
+    },
+    {
+      "file": "work-right.png",
+      "bytes": 243707,
+      "sha256": "d69ceeaac66160f576f345d0fa313d8b71f6611d96f8cc4ab3cd9de0054bf72d",
+      "size": [
+        430,
+        506
+      ],
+      "alpha": true
+    },
+    {
+      "file": "eat-left.png",
+      "bytes": 272557,
+      "sha256": "7481c3d4fc5fc6c06f742dabe49940b03521bfada8482830bc0574279f55b624",
+      "size": [
+        455,
+        487
+      ],
+      "alpha": true
+    },
+    {
+      "file": "eat-right.png",
+      "bytes": 267985,
+      "sha256": "b7f10edee77172469a9336738a57baccf3bb0389f7ed5dda0b911db5246d6467",
+      "size": [
+        580,
+        392
+      ],
+      "alpha": true
+    },
+    {
+      "file": "rest-pose.png",
+      "bytes": 2017891,
+      "sha256": "4838348c9bd0adf90f962a581d41c7bdd96d9a440495551979fc8abc4addb07d",
+      "size": [
+        1200,
+        1223
+      ],
+      "alpha": true
+    },
+    {
+      "file": "background.png",
+      "bytes": 2232444,
+      "sha256": "6e0fbd6748abcc8905bc5c32012a39a0fd2fea1a9f0340ffa3a3b7b869937f6d",
+      "size": [
+        1086,
+        1448
+      ],
+      "alpha": false
+    }
+  ],
+  "production": [
+    {
+      "id": "desk",
+      "source": "art/work/phase3/furniture-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 48,
+        "top": 108,
+        "width": 721,
+        "height": 430
+      },
+      "split": {
+        "cut": 43,
+        "ratio": 0.1,
+        "reconstructionMaxVisibleDifference": 1
+      }
+    },
+    {
+      "id": "table",
+      "source": "art/work/phase3/furniture-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 795,
+        "top": 108,
+        "width": 704,
+        "height": 431
+      },
+      "split": {
+        "cut": 43,
+        "ratio": 0.09976798143851508,
+        "reconstructionMaxVisibleDifference": 1
+      }
+    },
+    {
+      "id": "cushion",
+      "source": "art/work/phase3/furniture-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 147,
+        "top": 602,
+        "width": 605,
+        "height": 353
+      }
+    },
+    {
+      "id": "bowl",
+      "source": "art/work/phase3/furniture-v01.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "crop": {
+        "left": 1014,
+        "top": 662,
+        "width": 291,
+        "height": 237
+      }
+    },
+    {
+      "id": "work-left",
+      "source": "art/work/phase3/activity-arms-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 134,
+        "top": 99,
+        "width": 385,
+        "height": 501
+      }
+    },
+    {
+      "id": "work-right",
+      "source": "art/work/phase3/activity-arms-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 696,
+        "top": 99,
+        "width": 430,
+        "height": 506
+      }
+    },
+    {
+      "id": "eat-left",
+      "source": "art/work/phase3/activity-arms-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 90,
+        "top": 665,
+        "width": 455,
+        "height": 487
+      }
+    },
+    {
+      "id": "eat-right",
+      "source": "art/work/phase3/activity-arms-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 624,
+        "top": 720,
+        "width": 580,
+        "height": 392
+      }
+    },
+    {
+      "id": "rest-pose",
+      "source": "art/work/phase3/rest-pose-v01.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "crop": {
+        "left": 46,
+        "top": 5,
+        "width": 1200,
+        "height": 1223
+      }
+    }
+  ],
+  "processing": "Measured crop; preserve RGBA. Tables split into lossless aligned rear/front slices.",
+  "approval": {
+    "source": "user-message",
+    "text": "阶段3验收通过，继续推进"
+  }
+}

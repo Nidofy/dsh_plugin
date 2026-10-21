@@ -1,0 +1,24 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 小院 · 可玩场景</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f1e9;color:#29443f;font:15px "Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1100px;margin:0 auto;padding:32px}
+header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ccd4c5;padding-bottom:20px;gap:20px}
+h1{font-size:30px;margin:10px 0}.eyebrow{font-size:12px;letter-spacing:2px;color:#698371}p{line-height:1.7;color:#61756a;margin:0}.layout{display:grid;grid-template-columns:1fr 290px;gap:36px;margin-top:26px}
+.canvas-wrap{display:flex;align-items:start;justify-content:center;min-height:480px}.scene{width:360px;aspect-ratio:3/4;border-radius:18px;overflow:hidden;box-shadow:0 12px 40px #3d4d3420;background:#e8e6da;max-width:100%}
+iframe{width:100%;height:100%;display:block;border:0}.panel{padding:22px;border:1px solid #cad4bf;background:#faf9f3;border-radius:16px}
+button,select{font:inherit;color:inherit;padding:9px 13px;border:1px solid #b3c5ac;background:white;border-radius:9px}button{cursor:pointer}button.primary{background:#3e6356;color:white}
+.buttons{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}h2{font-size:18px;margin:0 0 12px}.status{margin:12px 0;color:#4c6f54;font-size:13px}label{display:block;font-size:13px;margin-top:20px;margin-bottom:8px}select{width:100%}
+.help{margin-top:20px;border-top:1px solid #d5dbcd;padding-top:18px;font-size:13px}#placement{font-size:13px;color:#976246;min-height:40px}details{margin-top:18px;font-size:13px}details button{margin-top:8px}footer{margin-top:24px;font-size:12px;color:#788575}
+#closed-note{padding:25px;text-align:center;border:1px dashed #aab9a0;border-radius:12px;margin-top:20px}
+@media(max-width:800px){main{padding:18px}.layout{grid-template-columns:1fr}.panel{max-width:480px;margin:auto;width:100%}}
+</style>
+<main><header><div><div class="eyebrow">DSH · AI VILLAGE / PHASE 03</div><h1 data-en="A little day in the courtyard">小院里的一小天</h1><p data-en="Pick her up, find a place to land, or let her wander.">轻轻拎起，找个地方落脚；也可以让她慢慢逛。</p></div><button id="language">English</button></header>
+<div class="layout"><div><div class="canvas-wrap"><div class="scene" id="scene-container"></div></div><p id="closed-note" hidden data-en="The courtyard is closed. Your world is kept.">小院已收起，当前进度保留。</p></div>
+<aside class="panel"><h2 id="activity">正在准备小院…</h2><p data-en="Drag the character to the left desk to write, the right table to eat, or the cushion to rest.">拖到左侧书桌写写画画，右侧餐桌吃饭，或到坐垫上打个盹。</p>
+<div class="buttons"><button class="primary" id="pause">暂停</button><button id="toggle">收起小院</button><button id="save" data-en="Save now">保存进度</button></div>
+<div id="save-status" class="status" role="status">正在加载…</div><div id="placement" role="status"></div>
+<label for="size" data-en="Display width">显示宽度</label><select id="size"><option value="300">300 px</option><option value="360" selected>360 px</option><option value="480">480 px</option></select>
+<div class="help"><p data-en="Ordinary ground is free to use. Invalid drops return her to the original spot. Esc cancels a drag. Closing or hiding pauses time.">普通地面可自由放置。非法落点会回到原处；Esc 取消拖动。收起或隐藏小院会暂停时间。</p></div>
+<details><summary data-en="Development & recovery">开发与恢复</summary><button id="debug" data-en="Show landing areas">显示落点范围</button><button id="recover" data-en="Restore previous save">恢复上一成功版</button><button id="retry" data-en="Reload / retry ownership">重新打开 / 重试占用</button><p data-en="Recovery preserves the damaged file. Progress is stored in this local development profile.">恢复会保留损坏原档。进度保存在本地开发 profile 中。</p></details>
+</aside></div><footer data-en="Offline standalone scene. Writing, eating and sleeping are game actions; no model calls or real tasks. DSH integration comes later.">离线独立场景。写字、吃饭和休息均为游戏动作，不调用模型或执行真实任务；DSH 接入在后续阶段。</footer></main>
+<script>window.__VILLAGE_KEY__="__SERVER_KEY__"</script><script src="/client.js"></script></html>

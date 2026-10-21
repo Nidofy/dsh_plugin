@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen",
+  "processing": "Copied original generator outputs; no pixel edits",
+  "sources": [
+    {
+      "file": "body-v01.png",
+      "bytes": 993466,
+      "sha256": "8dff7a59f1e0e1c76413ba3db6e9dffc5920eb345347dd63bde0c1f343b09a89"
+    },
+    {
+      "file": "arms-tail-v01.png",
+      "bytes": 690702,
+      "sha256": "83a65cbfa56707684e7ca99d0647ce0b67d168d334903fac57da864b73816448"
+    },
+    {
+      "file": "hair-v01.png",
+      "bytes": 1833532,
+      "sha256": "483a15de283a6d455fd18c63ed8aafa8109e06a693af480e16045658bfd411cf"
+    },
+    {
+      "file": "faces-v01.png",
+      "bytes": 1322200,
+      "sha256": "d815441a8b06dfd59c306631e864babfec571845e05260e15de1d957e2a72a88"
+    },
+    {
+      "file": "torso-skirt-v01.png",
+      "bytes": 1606446,
+      "sha256": "db6bdac1c1e9b6d05e1b12a6d3e0c2483712e86d29495f037cc440c4fcf7d242"
+    },
+    {
+      "file": "ahoge-v01.png",
+      "bytes": 245905,
+      "sha256": "125c0db4e81c666ffd66da98b694e3514c66b0ebe24c094a9d034d53b7f5645f"
+    }
+  ]
+}
