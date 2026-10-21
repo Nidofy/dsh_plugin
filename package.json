@@ -24,7 +24,9 @@
     "smoke:packed": "node scripts/smoke-packed.mjs && node scripts/sandbox-enhanced.mjs smoke && node scripts/offline-install-check.mjs",
     "check": "npm run typecheck && npm run test && npm run build && npm run pack && npm run smoke:packed",
     "smoke:offline": "node scripts/offline-install-check.mjs",
-    "prepare:runtime": "node scripts/prepare-runtime.mjs"
+    "prepare:runtime": "node scripts/prepare-runtime.mjs",
+    "ui:check": "node scripts/plugin-ui-check.mjs",
+    "smoke:runtime-install": "node scripts/runtime-install-check.mjs"
   },
   "devDependencies": {
     "typescript": "6.0.3",

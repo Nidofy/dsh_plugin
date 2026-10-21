@@ -26,6 +26,6 @@ disposePets()
 
 第四参数可选地提供现有 Companion 命令的 scope 准入函数；未提供时协调 IPC 拒绝请求。第五参数可提供 `suppressTerminalBubbles(signal)`，用于载体已发送系统通知时抑制重复气泡。默认不依赖旧 workbench 通知路由。
 
-当前 dsh desktop 的既有适配器使用 `/api/nidofy-extras/`；接入本包时改用上述导出和 `/api/nidofy-pets/`。同一进程不要同时安装两份原生适配器，同一 DSH_HOME 不要同时启用旧 extras 与新桌宠设置 owner。现有 desktop 工作区没有自动切换，便于单独审查载体接入。
+当前 dsh desktop 的既有适配器使用 `/api/nidofy-extras/`；接入本包时改用上述导出和 `/api/nidofy-pets/`。同一进程不要同时安装两份原生适配器，同一 DSH_HOME 不要同时启用旧 extras 与新桌宠设置 owner。现有 desktop 源码工作区不自动切换。本仓库通过 `node scripts/build-pet-carrier.mjs` 对固定官方发行文件生成独立适配包，以校验 SHA-256 的方式限定基线；安装脚本复制完整载体到新目录，不覆盖原安装。说明见 [独立桌宠发行记录](releases/native-pets-tall-village-2026-10-21.md)。
 
-已验证：模拟 Electron 下的权限检查、拖动保存、断开重连、加载失败和卸载。尚未验证：实际桌面窗口、显示器缩放、签名分发和其他平台原生表现。
+已验证：模拟 Electron 下的权限检查、拖动保存、断开重连、加载失败和卸载；Windows 真实适配 Desktop 中，官方总开关创建独立置顶无父窗口、渲染真实图像，主窗口最小化后桌宠仍可见，关闭和连续三轮启停无残留。验证脚本为 scripts/pet-native-check.mjs，临时 profile 位于 .build/pet-native-qa。尚未验证多显示器切换、签名分发和其他平台原生表现。

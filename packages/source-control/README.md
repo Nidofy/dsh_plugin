@@ -1,3 +1,9 @@
+启动入口统一位于右上角 sidebar 展开按钮左侧，顺序为 Git → Live2D → AI 小院；新会话与已有会话保持一致。此修改仅更新源码与本地构建，未重新制作离线包。
+
+## 0.1.3 共存布局
+
+Git 可与 Live2D 或 AI 小院同时打开。展开内容后按实测高度重新分配右侧空间，伙伴同步下移；大屏不再固定为 240px。
+
 # DSH Git / Hg 面板
 
 独立包 `@nidofy/dsh-source-control`，面向原版 DSH 0.2.1-rc.2 / Node 24+，也可在 desktop 使用。无需桌宠、notebook 或 runtime-adapter。宿主需自行安装 Git / Mercurial；没有 Hg 时仍可使用 Git。
@@ -7,7 +13,7 @@
 在停止的目标 profile 中安装构建产物，再启动 DSH：
 
 ```powershell
-dsh plugin --profile web add .\dist\nidofy-dsh-source-control-0.1.2.tgz
+dsh plugin --profile web add .\dist\nidofy-dsh-source-control-0.1.3.tgz
 dsh --profile web
 ```
 
@@ -53,7 +59,7 @@ dsh --profile web
 
 ## Desktop 集成
 
-0.1.1 支持与 AI 小院 0.2.0 同时打开：Git 位于右列上方，小院位于下方，两者共用一列留白；关闭小院后 Git 恢复完整可用高度。Live2D 保持互斥。该组合额外验证官方 Desktop 0.2.1-rc.2；替换更新包后完整退出并重启 DSH。
+0.1.3 支持与 AI 小院或 Live2D 同时打开：Git 位于右列上方，伙伴位于下方，两者共用一列留白；关闭伙伴后 Git 恢复完整可用高度。Git 按内容高度展开，伙伴填充下方剩余区域。小院与 Live2D 仍互斥。该组合以官方 0.2.1-rc.2 为基线；替换更新包后完整退出并重启 DSH。
 
 会话工具栏切换独立的 340px 浮动卡片，通过官方 `shell.overlay` 插槽呈现；不注册 sidebar 标签、不使用 Modal 或遮罩。卡片按内容自适应高度，详情过长时内部滚动。展开时只为主对话内容（消息与输入框）预留 364px，顶部工具栏不移动。打开官方 sidebar 后卡片自动隐藏并撤销留白，收起 sidebar 后恢复。主对话可用宽度不足 764px 时暂时隐藏，避免挤压输入区。Settings → 版本控制仍内嵌同一面板。
 

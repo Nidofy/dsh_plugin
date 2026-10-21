@@ -1,5 +1,7 @@
 # 来源与许可
 
+`packages/whale-skin`：本地背景与角色装饰来自 [Nidofy/dsh-deep-whale](https://github.com/Nidofy/dsh-deep-whale) 的固定提交 `9f198960e8d28b2dfb7495443a1b752b4e4a4486`。保留上善、ZipZipPipe、Small-tailqwq 的署名及 CC BY-NC-SA 4.0 许可，详见包内 `NOTICE.md`、`UPSTREAM-NOTICE`、`LICENSE-ARTWORK`；素材不适用本仓库 MIT 代码许可。
+
 2026-10-21 的全插件兼容基线统一为官方 DSH `0.2.1-rc.2`，源码 revision `687f282e8625c6b8d11ff58211a90524be2e4317`。下文的旧 revision 是原始提取来源；本次 worker 的上游部分改为该新版固定官方源码。
 
 Windows x64 离线包内嵌 Koffi、Sharp 等运行依赖及各自许可证，准确版本见各包 `OFFLINE-DEPENDENCIES.json`。sandbox-enhanced 的自包含 .NET 运行时保留 `native/runtime/DOTNET-LICENSE.TXT` 与 `DOTNET-THIRD-PARTY-NOTICES.TXT`；宿主 DSH/Cordis 不随插件重复分发。

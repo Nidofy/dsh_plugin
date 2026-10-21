@@ -16,6 +16,7 @@ import { object, text } from './state.ts'
 import { LocalHistorySearch } from './history-search.ts'
 import { HistoryGroups } from './history-groups.ts'
 import { HistorySubstringIndex } from './history-index.ts'
+import { notebookCoverage, continuationCard, handoffMarkdown } from './continuation.ts'
 import type { WorkspaceId } from '@deepseek-ai/dsh-workspace'
 import { brandString } from '@deepseek-ai/dsh-brand'
 import type { SessionPersistenceGeneration } from '@nidofy/dsh-plugin-shared/durability'
@@ -285,6 +286,33 @@ export function installContextV2(ctx: Context, home: string, budgets: NotebookBu
     assertOwner()
     const id = SessionId(text(input.sessionId, 128))
     signal.throwIfAborted()
+    if (method === 'continuation-sessions') {
+      const authority = await historyGroups.capture(id, signal)
+      const records = await ctx.sessionQuery.filterSessions([{ kind: 'cwd', values: authority.members.map(member => member.path) }], signal)
+      await historyGroups.validate(id, undefined, authority, signal)
+      return { authority, incomplete: records.length > reads.maxCachedSessions,
+        sessions: records.slice(0, reads.maxCachedSessions).map(row => ({ id: row.header.id, cwd: row.header.cwd })) }
+    }
+    if (method === 'coverage' || method === 'continuation') {
+      const target = method === 'continuation' && input.targetSessionId !== undefined ? SessionId(text(input.targetSessionId, 128)) : id
+      const authority = target === id ? undefined : await historyGroups.capture(id, signal)
+      if (authority) {
+        if (JSON.stringify(input.authority) !== JSON.stringify(authority)) throw Error('HISTORY_GROUP_CONFLICT')
+        await historyGroups.validate(id, target, authority, signal)
+      }
+      return queue(target, signal, async () => {
+      const settings = policy(), observation = await readNotebookObservation(ctx, target, signal)
+      return persistence.withGeneration(target, observation.generation, async () => {
+        assertOwner()
+        const state = await store.readSelected({ sessionId: target, generation: observation.generation }, signal)
+        if (method === 'coverage') return notebookCoverage(state, observation, budgets, settings.enabled, settings.revision)
+        const card = continuationCard(state, observation, authority)
+        if (authority) await historyGroups.validate(id, target, authority, signal)
+        signal.throwIfAborted(); assertOwner()
+        return { card, markdown: handoffMarkdown(card) }
+      }, { signal })
+    })
+    }
     if (method === 'search-groups') return historyGroups.view(id, signal)
     if (method === 'save-search-groups') {
       if (typeof input.expectedRevision !== 'number' || !Number.isSafeInteger(input.expectedRevision)

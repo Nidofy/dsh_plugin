@@ -31,6 +31,7 @@ export interface HistoryPage {
   scannedEvents: number
   indexedEvents?: number
   indexRecovered?: boolean
+  indexCoverage?: { sessionId: string; indexedThrough: number; durableThrough: number; reason?: 'capacity' | 'results' }[]
 }
 /** Revalidated original material; only an explicit user action may copy it to a draft. */
 export interface HistorySource extends HistoryHit { text: string }
@@ -118,6 +119,8 @@ export class LocalHistorySearch {
         }, { signal }) : undefined
       if (recentStart > 0 && !indexed || indexed?.incomplete) page.substringIncomplete = true
       if (indexed) {
+        ;(page.indexCoverage ??= []).push({ sessionId: id, indexedThrough: indexed.indexedThrough,
+          durableThrough: observation.durableThrough, ...indexed.reason ? { reason: indexed.reason } : {} })
         page.indexedEvents = (page.indexedEvents ?? 0) + indexed.indexedEvents
         page.indexRecovered = (page.indexRecovered ?? false) || indexed.recovered
       }

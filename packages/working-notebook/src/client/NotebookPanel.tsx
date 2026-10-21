@@ -6,6 +6,7 @@ import { Enhancement } from './Enhancement.tsx'
 import type { Companion, CompanionScope } from '@nidofy/dsh-plugin-shared/client'
 import { emptyDraft } from './drafts.ts'
 import type { NotebookDraft } from './drafts.ts'
+import type { notebookCoverage, continuationCard } from '../engine/continuation.ts'
 
 interface Source { seq: number; type: string; text: string }
 interface Status { notebook: NotebookV2; sourceThrough: number; index: string; synchronization?: NotebookSynchronization }
@@ -74,6 +75,12 @@ export function NotebookPanel({ sessionId, scope: companionScope, using, runWrit
     }).finally(() => { if (method === 'update' || method === 'synchronize') refreshFacts?.(companionScope) })
   }
   const [status, setStatus] = useState<Status>(), [events, setEvents] = useState<Source[]>([])
+  const [coverage, setCoverage] = useState<ReturnType<typeof notebookCoverage>>()
+  const [continuation, setContinuation] = useState<{ card: ReturnType<typeof continuationCard>; markdown: string }>()
+  const [linkedSessions, setLinkedSessions] = useState<{ authority: HistoryAuthority; incomplete: boolean; sessions: { id: string; cwd?: string }[] }>()
+  const [returnSession, setReturnSession] = useState(sessionId)
+  const continuationRequest = useRef<AbortController | null>(null)
+  useEffect(() => () => { continuationRequest.current?.abort() }, [lifetime])
   const [error, setError] = useState(''), [busy, setBusy] = useState(false), [revision, refresh] = useState(0)
   const [organizing, setOrganizing] = useState(false), [organizationFailed, setOrganizationFailed] = useState(false)
   const [localDraft, setLocalDraft] = useState<NotebookDraft>(emptyDraft)
@@ -92,13 +99,14 @@ export function NotebookPanel({ sessionId, scope: companionScope, using, runWrit
   const [results, setResults] = useState<Hit[]>()
   const [preview, setPreview] = useState<{ source: NotebookHistorySource; scope: string }>()
   const [substringIncomplete, setSubstringIncomplete] = useState(false)
+  const [indexCoverage, setIndexCoverage] = useState<{ sessionId: string; indexedThrough: number; durableThrough: number; reason?: 'capacity' | 'results' }[]>([])
   const historyRequest = useRef<AbortController | null>(null)
   const [historyBusy, setHistoryBusy] = useState(false)
   const [groups, setGroups] = useState<HistoryGroupView>(), [groupSelection, setGroupSelection] = useState<string[]>([])
   useEffect(() => () => { historyRequest.current?.abort() }, [lifetime])
   const resetSearch = () => {
     historyRequest.current?.abort(); historyRequest.current = null
-    setHistoryBusy(false); setResults(undefined); setPreview(undefined); setSubstringIncomplete(false)
+    setHistoryBusy(false); setResults(undefined); setPreview(undefined); setSubstringIncomplete(false); setIndexCoverage([])
   }
   const searchRead = async <T,>(operation: (signal: AbortSignal) => Promise<T>, accept: (value: T) => void) => {
     historyRequest.current?.abort()
@@ -117,15 +125,22 @@ export function NotebookPanel({ sessionId, scope: companionScope, using, runWrit
   }
   const [history, setHistory] = useState<NotebookHistoryPage>()
   const acceptGroups = (value: HistoryGroupView) => {
+    continuationRequest.current?.abort(); setContinuation(undefined); setLinkedSessions(undefined); setReturnSession(sessionId)
     setGroups(value); setGroupSelection(value.project?.members.map(member => member.id) ?? [value.current.id])
   }
   useEffect(() => {
     const abort = new AbortController()
     setOrganizing(true); setOrganizationFailed(false)
     setHistory(undefined)
+    setCoverage(undefined); setContinuation(undefined)
+    continuationRequest.current?.abort()
     void read('synchronize', { sessionId }, abort.signal)
       .then(() => Promise.all([read<Status>('status', { sessionId }, abort.signal), read<Source[]>('events', { sessionId }, abort.signal)]))
-      .then(([state, sources]) => { if (!abort.signal.aborted) { setStatus(state); setEvents(sources) } })
+      .then(async ([state, sources]) => {
+        if (!abort.signal.aborted) { setStatus(state); setEvents(sources) }
+        const value = await read<ReturnType<typeof notebookCoverage>>('coverage', { sessionId }, abort.signal)
+        if (!abort.signal.aborted && typeof value.evidenceThrough === 'number') setCoverage(value)
+      })
       .catch((error: unknown) => { if (!abort.signal.aborted) { setError(String(error)); setOrganizationFailed(true) } })
       .finally(() => { if (!abort.signal.aborted) setOrganizing(false) })
     return () => { abort.abort() }
@@ -157,6 +172,22 @@ export function NotebookPanel({ sessionId, scope: companionScope, using, runWrit
     } catch (error) { setError(String(error)); refresh(value => value + 1) }
     finally { setBusy(false) }
   }
+  const loadContinuation = async (format?: 'json' | 'md') => {
+    continuationRequest.current?.abort()
+    const abort = new AbortController(); continuationRequest.current = abort
+    setBusy(true); setError('')
+    try {
+      const value = await read<{ card: ReturnType<typeof continuationCard>; markdown: string }>('continuation',
+        { sessionId, targetSessionId: returnSession, ...(returnSession !== sessionId ? { authority: linkedSessions?.authority } : {}) }, abort.signal)
+      lifetime.signal.throwIfAborted(); abort.signal.throwIfAborted(); setContinuation(value)
+      if (!format) return
+      const url = URL.createObjectURL(new Blob([format === 'json' ? JSON.stringify(value.card, null, 2) : value.markdown],
+        { type: format === 'json' ? 'application/json' : 'text/markdown;charset=utf-8' }))
+      const link = document.createElement('a'); link.href = url; link.download = 'notebook-handoff.' + format; link.click()
+      setTimeout(() => { URL.revokeObjectURL(url) }, 1000)
+    } catch (error) { if (!lifetime.signal.aborted && !abort.signal.aborted) setError(String(error)) }
+    finally { if (!lifetime.signal.aborted && continuationRequest.current === abort) setBusy(false) }
+  }
   return <div className="nidofy-detail nidofy-notebook">
     {uncertain && !busy && !historyBusy && <p role="status">{t('saveUnconfirmed')} <button onClick={() => { markUncertain?.(false) }}>{t('saveChecked')}</button></p>}
     <header><strong>{t('notebook')}</strong><button onClick={() => { refresh(value => value + 1) }}>{t('refresh')}</button></header>
@@ -165,7 +196,33 @@ export function NotebookPanel({ sessionId, scope: companionScope, using, runWrit
     <p role="status">{t(organizing || status?.synchronization?.phase === 'organizing' ? 'organizationPending'
       : organizationFailed || status?.synchronization?.phase === 'failed' ? 'organizationFailed' : 'organizationReady')}
     {status?.synchronization?.diagnostic && ' · ' + status.synchronization.diagnostic}</p>
-    <form aria-busy={historyBusy} onSubmit={(event) => { event.preventDefault(); resetSearch(); void searchRead(signal => read<{ items: Hit[]; substringIncomplete: boolean }>('search', { sessionId, query, scope }, signal), (value) => { setResults(value.items); setSubstringIncomplete(value.substringIncomplete) }) }}>
+    {coverage && <div role="status">
+      <p>{t('evidenceCoverage')}: {coverage.evidenceThrough} / {coverage.durableThrough} · {t('pendingEvents')}: {coverage.pendingEvents}</p>
+      {!coverage.autoOrganize && <p>{t('organizationOff')}</p>}
+      {coverage.blockedSeq !== undefined && <p>{t('blockedEvidence')}: #{coverage.blockedSeq}</p>}
+      <small>{t('coveragePreview')}</small>
+    </div>}
+    <details><summary>{t('returnCard')}</summary>
+      <p>{t('handoffNotice')}</p>
+      <button disabled={busy || organizing} onClick={() => { void read<NonNullable<typeof linkedSessions>>('continuation-sessions', { sessionId }).then(value => { if (!lifetime.signal.aborted) setLinkedSessions(value) }).catch(error => { if (!lifetime.signal.aborted) setError(String(error)) }) }}>{t('chooseReturnSession')}</button>
+      {linkedSessions && <><select aria-label={t('chooseReturnSession')} value={returnSession} onChange={event => {
+        continuationRequest.current?.abort(); setBusy(false); setContinuation(undefined); setReturnSession(event.target.value)
+      }}><option value={sessionId}>{t('currentSession')}</option>{linkedSessions.sessions.filter(row => row.id !== sessionId).map(row => <option key={row.id} value={row.id}>{row.id} · {row.cwd}</option>)}</select>
+        {linkedSessions.incomplete && <small>{t('returnSessionsLimited')}</small>}</>}
+      <button disabled={busy || organizing} onClick={() => { void loadContinuation() }}>{t('loadReturnCard')}</button>
+      <button disabled={busy || organizing} onClick={() => { void loadContinuation('md') }}>{t('exportMarkdown')}</button>
+      <button disabled={busy || organizing} onClick={() => { void loadContinuation('json') }}>{t('exportJson')}</button>
+      {continuation?.card && <div aria-label={t('returnCard')}>
+        <p>{t('baselineUnknown')}</p>
+        {continuation.card.entries.length === 0 && <p>{t('noCommittedNotes')}</p>}
+        {continuation.card.entries.map(row => <article key={row.id}><strong>{t(row.kind)}</strong><p>{row.text}</p>
+          <small>{t(row.source.role === 'user' ? 'sourceUser' : row.source.role === 'tool' ? 'sourceTool' : row.source.role === 'assistant' ? 'sourceAssistant' : 'sourceUnknown')} · #{row.seq}</small>
+          <blockquote>{row.quote}</blockquote>{!row.source.verified && <p>{t('sourceUnavailable')}</p>}
+          {row.verification && <p>{t('verificationStale')}</p>}
+        </article>)}
+      </div>}
+    </details>
+    <form aria-busy={historyBusy} onSubmit={(event) => { event.preventDefault(); resetSearch(); void searchRead(signal => read<{ items: Hit[]; substringIncomplete: boolean; indexCoverage?: typeof indexCoverage }>('search', { sessionId, query, scope }, signal), (value) => { setResults(value.items); setSubstringIncomplete(value.substringIncomplete); setIndexCoverage(value.indexCoverage ?? []) }) }}>
       <label>{t('historySearch')}<input value={query} onChange={(event) => { resetSearch(); setQuery(event.target.value) }} required /></label>
       <select aria-label={t('searchScope')} value={scope} disabled={busy} onChange={(event) => { resetSearch(); setScope(event.target.value) }}><option value="session">{t('currentSession')}</option><option value="workspace">{t('sameWorkspace')}</option><option value="project">{t('linkedProject')}</option></select>
       <button disabled={busy || !query.trim()}>{t('search')}</button>
@@ -181,6 +238,7 @@ export function NotebookPanel({ sessionId, scope: companionScope, using, runWrit
         <button disabled={!groups.project} onClick={() => { resetSearch(); void searchRead(signal => read<HistoryGroupView>('save-search-groups', { sessionId, expectedRevision: groups.revision, workspaceIds: [] }, signal), (value) => { acceptGroups(value); setScope('session') }) }}>{t('removeHistoryProject')}</button>
       </div>
     </fieldset>}
+    {indexCoverage.filter(row => row.reason).map(row => <p role="status" key={row.sessionId}>{t('indexCoverage')} · {row.sessionId}: {row.indexedThrough} / {row.durableThrough} · {t(row.reason === 'capacity' ? 'indexCapacity' : 'indexResults')}</p>)}
     {results && <div className="nidofy-change-list" aria-label={t('searchResults')}>{results.length === 0 && <p>{t('noMatches')}</p>}{substringIncomplete && <p role="status">{t('substringIncomplete')}</p>}{results.map(hit => <button key={hit.sessionId + ':' + hit.generation + ':' + String(hit.seq)} onClick={() => { setPreview(undefined); void searchRead(signal => read<NotebookHistorySource>('search-source', { sessionId, targetSessionId: hit.sessionId, generation: hit.generation, seq: hit.seq, digest: hit.digest, scope, authority: hit.authority }, signal), (value) => { setPreview({ source: value, scope }) }) }}><span>{hit.snippet}<small> · {hit.sessionId} #{hit.seq} · {hit.role} · {hit.generation}</small></span></button>)}</div>}
     {preview && <><pre aria-label={t('sourceEvent')}>{preview.source.text}</pre>{citeSource && <button disabled={busy || historyBusy} onClick={() => {
       void searchRead(signal => read<NotebookHistorySource>('search-source', { sessionId, targetSessionId: preview.source.sessionId, generation: preview.source.generation, seq: preview.source.seq, digest: preview.source.digest, scope: preview.scope, authority: preview.source.authority }, signal),

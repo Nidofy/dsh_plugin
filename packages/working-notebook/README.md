@@ -1,5 +1,7 @@
 # @nidofy/dsh-working-notebook
 
+当前版本 **0.2.0**：新增整理覆盖状态、索引容量降级保留、返回卡和 Markdown/JSON 交接导出。返回卡支持当前会话或显式关联项目中选定的会话，区分原文来源；未绑定执行时代码的历史验证明确要求复验。不会调用模型、自动合并跨会话结论或转移授权。使用现有 v2 数据格式。详见 [本轮发行](../../docs/releases/notebook-village-2026-10-21.md)。
+
 面向标准 DSH Web profile 的独立 Cordis bundle。包含 `notebook_read` / `notebook_update` 工具、下一回合已提交笔记注入、用户修订、固定条目、原始历史检索、项目关联以及可选的 basic-compaction 整理。存储、证据验证和整理引擎均在本包中，不依赖 desktop-extras 或桌宠插件。
 
 原版 DSH 同时安装并启用 `@nidofy/dsh-runtime-adapter` 和本包的 tgz（均已内嵌共享库）。Settings → Notebook 显式选择会话并打开笔记；已有 Companion 服务时还可贡献笔记入口，但不自行启动 Companion。关闭插件撤销工具、事件、路由和 UI，不删除笔记，也不撤销已记录的历史上下文。

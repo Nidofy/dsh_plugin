@@ -1,3 +1,9 @@
+启动入口统一位于右上角 sidebar 展开按钮左侧，顺序为 Git → Live2D → AI 小院；新会话与已有会话保持一致。此修改仅更新源码与本地构建，未重新制作离线包。
+
+## 0.1.2 共存布局
+
+与 Git 同时显示，Git 在上，Live2D 占用剩余空间。仅与 AI 小院互斥。
+
 # DSH Live2D 伙伴
 
 `@nidofy/dsh-live2d` 是用于官方 DSH Desktop / Web 的独立插件，默认从会话工具栏打开右侧浮动卡片，使用公开 `shell.overlay` 插槽。**不注册 sidebar 标签，不替换 rightbar，不依赖 desktop-extras，也不创建 Electron 桌宠窗口。**

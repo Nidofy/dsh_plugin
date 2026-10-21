@@ -1,6 +1,6 @@
 {
   "name": "@nidofy/dsh-live2d",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Offline Live2D companion floating panel for official DSH Desktop",
   "type": "module",
   "license": "MIT",
@@ -38,7 +38,8 @@
     "@deepseek-ai/dsh-client-ui-layout": "0.2.1-rc.2",
     "@deepseek-ai/dsh-client-ui-slots": "0.2.1-rc.2",
     "@deepseek-ai/dsh-client-locale": "0.2.1-rc.2",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dsh": {
     "bundle": {

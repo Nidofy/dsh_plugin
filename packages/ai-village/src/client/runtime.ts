@@ -5,7 +5,7 @@ import { scene, resources, character, animations, roster } from '../definitions.
 import type { PauseReason, PointerIntent } from '../core/controller.ts'
 import type { Saved } from '../host/save-store.ts'
 const prefix = '/api/nidofy-ai-village/'
-interface State { profileId: string; epoch: string; saved: Saved | null }
+interface State { profileId: string; epoch: string; saved: Saved | null; retention?: { diagnostic?: string } }
 export type Request = (path: string, init?: RequestInit) => Promise<Response>
 /** One instance per plugin lifetime, deliberately independent of session selection and React mounts. */
 export class VillageRuntime {
@@ -14,6 +14,7 @@ export class VillageRuntime {
   readonly reasons = new Set<PauseReason>(['closed', 'disconnected'])
   open = false; connected = false; ready = false; frameReady = false; error = ''; revision = 0; dragTime = 0
   profileId = ''; epoch = ''; lease = ''; generation = 0
+  retentionWarning = false
   images: Record<string, ArrayBuffer> | undefined
   private version = 0
   private listeners = new Set<() => void>()
@@ -80,11 +81,14 @@ export class VillageRuntime {
         this.profileId = owner.profileId; this.epoch = owner.epoch; this.lease = owner.lease
         clearInterval(this.heartbeat)
         this.heartbeat = setInterval(() => {
-          void this.api('heartbeat', this.credentials()).catch(e => { if (current()) this.fail(e) })
+          void this.api<{ retention?: { diagnostic?: string } }>('heartbeat', this.credentials()).then(value => {
+            if (current() && this.retentionWarning !== !!value.retention?.diagnostic) { this.retentionWarning = !!value.retention?.diagnostic; this.emit() }
+          }).catch(e => { if (current()) this.fail(e) })
         }, 4000)
         const state = await this.api<State>('state', undefined, signal)
         if (!current()) return
         if (owner.profileId !== state.profileId || owner.epoch !== state.epoch) throw Error('HOST_CHANGED')
+        this.retentionWarning = !!state.retention?.diagnostic
         if (this.controller && (state.saved?.revision ?? 0) !== this.revision) {
           if (this.pendingOperation && state.saved?.operationId === this.pendingOperation) this.revision = state.saved.revision
           else throw Error('REVISION_CONFLICT')

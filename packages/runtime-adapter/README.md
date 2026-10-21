@@ -11,3 +11,5 @@
 新 notebook 审计事件写入 ignorable 标记；旧 desktop 的同名 required 审计事件仅在读取时兼容，不改旧日志。其他未知 required 事件仍拒绝。类型增补不代表任意 provider 支持增强 API，working-notebook 激活时会检查方法。
 
 本次发行以官方 DSH 0.2.1-rc.2 为统一基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。全仓库发行及验证记录见 `docs/releases/0.2.1-rc.2.md`。
+
+权限提示排查：已通过官方安装服务的非管理员、空缓存离线本地包导入验证。若仍提示没有写入权限，请保留 .plugin-manager/logs 中 EPERM / EACCES 行与路径，见 docs/releases/ui-fixes-2026-10-21.md；不要为此关闭持久化文件锁。

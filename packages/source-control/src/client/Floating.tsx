@@ -10,11 +10,9 @@ export function FloatingPanel({ projectRoot, locale, onClose }: { projectRoot: s
     <style>{`[data-nidofy-vcs-space]{margin-right:364px!important}
       .vcs-floating{position:absolute;width:340px;pointer-events:auto;overflow:auto;scrollbar-width:thin;border-radius:16px}
       .vcs-floating .vcs-content{max-height:none}
-      .vcs-floating[data-stacked]>.dsh-vcs{min-height:100%;display:flex;flex-direction:column}
-      .vcs-floating[data-stacked] .vcs-panel{flex:1}
       [data-shell-overlay] .vcs-floating .vcs-panel{box-shadow:0 8px 28px #0002}`}</style>
     {geometry && <aside className="vcs-floating" data-stacked={geometry.stacked || undefined} aria-label={locale === 'zh' ? '版本控制浮窗' : 'Version control card'}
-      style={{ left: geometry.left, top: geometry.top, maxHeight: geometry.height, ...(geometry.stacked ? { height: geometry.height } : {}) }}
+      style={{ left: geometry.left, top: geometry.top, maxHeight: geometry.height }}
       onKeyDown={event => { if (event.key === 'Escape' && !event.defaultPrevented) { event.stopPropagation(); onClose() } }}>
       <RepositoryPanel projectRoot={projectRoot} locale={locale} onClose={onClose} />
     </aside>}

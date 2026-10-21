@@ -41,7 +41,7 @@ export function installPetDesktop(preload: string, backend: () => { url: string;
   async function rpc(method: string, body: object = {}, signal?: AbortSignal): Promise<Record<string, unknown>> {
     const host = backend(), url = new URL('/api/nidofy-pets/' + method, host.url)
     const response = await net.fetch(url.toString(), { method: 'POST', headers: { origin: url.origin, cookie: host.cookie, 'content-type': 'application/json' }, body: JSON.stringify(body), signal: AbortSignal.any([controller.signal, AbortSignal.timeout(5000), ...signal ? [signal] : []]) })
-    if (!response.ok) throw Error('PET_PLUGIN_UNAVAILABLE')
+    if (!response.ok) throw Object.assign(Error('PET_PLUGIN_UNAVAILABLE'), { status: response.status })
     const value: unknown = await response.json()
     if (value === null || typeof value !== 'object' || Array.isArray(value)) throw Error('PET_INVALID_STATE')
     return value as Record<string, unknown>
@@ -136,7 +136,12 @@ export function installPetDesktop(preload: string, backend: () => { url: string;
         }
       }
       nextPollAt = Date.now() + (instances.length === 0 ? 10_000 : 1500)
-    } catch { for (const row of windows.values()) expire(row); nextPollAt = Date.now() + 5000 } finally {
+    } catch (error) {
+      // A removed/disabled plugin must not leave orphan native windows alive.
+      if ((error as { status?: number })?.status === 404) { for (const id of windows.keys()) close(id) }
+      else { for (const row of windows.values()) expire(row) }
+      nextPollAt = Date.now() + 5000
+    } finally {
       polling = false
       if (refreshPending) { refreshPending = false; void poll() }
     }

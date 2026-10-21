@@ -1,6 +1,6 @@
 {
   "name": "@nidofy/dsh-desktop-pets",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "Independent DSH desktop pets, resource packages and Electron adapter",
   "type": "module",
   "license": "MIT",
@@ -53,7 +53,8 @@
     "@deepseek-ai/dsh-home-paths": "0.2.1-rc.2",
     "@deepseek-ai/dsh-session": "0.2.1-rc.2",
     "@deepseek-ai/dsh-session-query": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-agent": "0.2.1-rc.2"
+    "@deepseek-ai/dsh-agent": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-client-ui-layout": "0.2.1-rc.2"
   },
   "devDependencies": {},
   "main": "lib/index.js",
@@ -66,7 +67,9 @@
       "inject": [
         "@deepseek-ai/dsh-client-ui-renderer",
         "@deepseek-ai/dsh-client-ui-settings",
-        "@deepseek-ai/dsh-client-locale"
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-connection"
       ],
       "platform": "web"
     }

@@ -49,6 +49,22 @@ function invoke(action: string, target: object = {}) {
   return host.handlers.get('nidofy:pet')!({ sender: window.webContents, senderFrame: window.webContents.mainFrame },
     'pet_action', { action, target })
 }
+it('creates parentless transparent windows, closes on global off and recreates on explicit refresh', async () => {
+  await vi.advanceTimersByTimeAsync(1500)
+  const window = host.windows[0]!
+  expect(window.options.parent).toBeUndefined()
+  expect(window.options).toMatchObject({ transparent: true, frame: false, alwaysOnTop: true, skipTaskbar: true })
+  host.enabled = false; dispose.refresh(); await vi.advanceTimersByTimeAsync(0)
+  expect(window.destroyed).toBe(true)
+  host.enabled = true; dispose.refresh(); await vi.advanceTimersByTimeAsync(0)
+  expect(host.windows).toHaveLength(2)
+})
+it('closes native windows when the plugin route disappears', async () => {
+  await vi.advanceTimersByTimeAsync(1500)
+  host.fetch.mockResolvedValue(new Response(null, { status: 404 }))
+  dispose.refresh(); await vi.advanceTimersByTimeAsync(0)
+  expect(host.windows[0]!.destroyed).toBe(true)
+})
 it('clamps invalid scale and avoids unchanged bounds/settings writes while retaining its state heartbeat', async () => {
   host.scale = Number.NaN
   await vi.advanceTimersByTimeAsync(1500)

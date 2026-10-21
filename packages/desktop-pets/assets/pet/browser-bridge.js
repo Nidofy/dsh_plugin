@@ -24,7 +24,13 @@ export function installBrowserBridge() {
       if (method === 'pet_resource') return rpc('pet/resource')
       if (method !== 'pet_action') throw Error('PET_ACTION_REFUSED')
       if (['hit-test', 'bubble-size', 'drag', 'drag-move', 'drag-end'].includes(input.action)) return
-      if (input.action === 'menu') { emit('pet-layout', { open: input.target?.open === true, side: 'right', width: 430 }); return }
+      if (input.action === 'menu') {
+        const open = input.target?.open === true
+        const width = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pet-width')) || 240
+        emit('pet-layout', { open, side: 'right', width })
+        if (parent !== window) parent.postMessage({ type: 'nidofy:pet-menu', open }, location.origin)
+        return
+      }
       if (!['pin', 'unpin', 'hide', 'interact'].includes(input.action)) throw Error('PET_DESKTOP_REQUIRED')
       await rpc('pet/update', input)
       return rpc('pet/snapshot')

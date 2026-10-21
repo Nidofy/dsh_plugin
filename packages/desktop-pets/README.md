@@ -1,3 +1,7 @@
+## 0.2.1 独立桌宠
+
+官方「设置 → 桌宠」直接显示官方滑动总开关和完整管理控件；不再使用嵌套管理页面。开关在配套 Electron 载体中创建 / 关闭独立桌面透明窗口；关闭停止 Host 会话观察。已移除 DSH 主窗口内的浮层。未适配客户端明确提示缺少窗口支持，设置继续保留。载体构建与使用见仓库 docs/releases/native-pets-tall-village-2026-10-21.md。
+
 # @nidofy/dsh-desktop-pets
 
 面向标准 DSH Web profile 的独立 Cordis bundle。提供 Session 状态投影、桌宠设置、最多三个实例、本地资源包预检/导入/删除/导出，以及浏览器内动画预览。它不依赖旧 desktop-extras、notebook、模型调用或私有 Desktop Host。停用插件移除路由与事件订阅，保留设置和资源。
@@ -8,6 +12,6 @@
 
 可选 `@nidofy/dsh-desktop-pets/electron` 导出 `installPetDesktop`，`@nidofy/dsh-desktop-pets/preload` 提供沙箱预加载脚本。载体负责 `dsh-app://app` 协议、向认证 Host 转发请求、主会话导航及应用退出清理，详见仓库 docs/electron-adapter.md。浏览器预览不提供桌面拖动、穿透点击或原生窗口，也不伪造导航结果。
 
-兼容基线：DSH 0.2.1-rc.2 的本地源码接口与 Cordis 4.0.5；尚未验证其他发行版本。桌宠只读取 Session 事件，不添加 prompt、工具或模型请求。单元测试覆盖原生窗口生命周期、设置和协调命令；真实 Electron GUI 仍需在接入载体后验证。
+兼容基线：DSH 0.2.1-rc.2 的本地源码接口与 Cordis 4.0.5；尚未验证其他发行版本。桌宠只读取 Session 事件，不添加 prompt、工具或模型请求。单元测试覆盖原生窗口生命周期、设置和协调命令；配套 Windows 载体已通过真实 Electron GUI 启停和主窗口最小化验收；其他平台尚未验证。
 
 本次发行以官方 DSH 0.2.1-rc.2 为统一基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。全仓库发行及验证记录见 `docs/releases/0.2.1-rc.2.md`。

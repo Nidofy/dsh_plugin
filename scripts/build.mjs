@@ -55,6 +55,9 @@ for (const [name, definition] of Object.entries(definitions)) {
   if (name === 'desktop-pets') await build({ config: false, entry: { preload: join(dir, 'src/preload.ts') },
     outDir: join(dir, 'lib'), format: 'cjs', platform: 'node', target: 'es2022', dts: false, clean: false,
     deps: { neverBundle: ['electron'] }, outputOptions: { entryFileNames: 'preload.cjs' } })
+  if (name === 'desktop-pets') await build({ config: false, entry: { preload: join(dir, 'src/carrier-preload.ts') },
+    outDir: join(dir, 'lib'), format: 'cjs', platform: 'node', target: 'es2022', dts: false, clean: false,
+    deps: { neverBundle: ['electron'] }, outputOptions: { entryFileNames: 'carrier-preload.cjs' } })
   if (name === 'plugin-shared') {
     await build({ config: false, entry: { client: join(dir, 'src/client/index.ts') }, outDir: join(dir, 'lib'), format: 'esm', platform: 'browser', dts: false, clean: false, fixedExtension: false })
     continue
@@ -70,5 +73,8 @@ for (const [name, definition] of Object.entries(definitions)) {
   })
 }
 
+if (!process.argv.includes('--exclude-sandbox')) {
 const sandbox = spawnSync(process.execPath, ['scripts/sandbox-enhanced.mjs', 'build'], { cwd: root, stdio: 'inherit', windowsHide: true })
 if (sandbox.status !== 0) throw Error('SANDBOX_BUILD_FAILED')
+
+}

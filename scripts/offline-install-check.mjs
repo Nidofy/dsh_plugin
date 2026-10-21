@@ -6,7 +6,8 @@ import { join, resolve, delimiter } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 const root = resolve(import.meta.dirname, '..')
-const manifest = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8'))
+const excludeSandbox = process.argv.includes('--exclude-sandbox')
+const manifest = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8')).filter(p => !excludeSandbox || !p.name.startsWith('@dsh-extensions/windows-sandbox-'))
 const stage = await mkdtemp(join(root, '.build/offline-check-'))
 const candidates = [process.env.PNPM_CLI, ...process.env.PATH.split(delimiter).flatMap(p => [
   join(p, 'node_modules/pnpm/bin/pnpm.cjs'), join(p, 'node_modules/pnpm/bin/pnpm.mjs'),
@@ -42,9 +43,11 @@ const req=createRequire(join(root,'node_modules/@nidofy/dsh-desktop-pets/package
 assert.ok(req.resolve('sharp').startsWith(root))
 const png=await req('sharp')({create:{width:2,height:2,channels:4,background:'#123456'}}).png().toBuffer()
 assert.equal(png.subarray(1,4).toString(),'PNG')
+if (${!excludeSandbox}) {
 const doctor=JSON.parse(execFileSync(process.execPath,[join(root,'node_modules/@dsh-extensions/windows-sandbox-enhanced/lib/cli.js'),'doctor'],{encoding:'utf8',windowsHide:true,env:{...process.env,DOTNET_ROOT:join(root,'absent-dotnet'),DOTNET_MULTILEVEL_LOOKUP:'0'}}))
 assert.equal(doctor.nativeHelper,'verified')
-console.log('Offline Koffi, Sharp and self-contained audit helper passed')
+}
+console.log('Offline installed runtime checks passed')
 `
 await writeFile(join(stage, 'verify.mjs'), verifier)
 const verified = spawnSync(process.execPath, [join(stage, 'verify.mjs')], { cwd: stage, encoding: 'utf8', windowsHide: true })
@@ -52,4 +55,4 @@ if (verified.status !== 0) throw Error(verified.stdout + verified.stderr)
 console.log(verified.stdout.trim())
 await writeFile(join(root, 'dist/offline-validation.json'), JSON.stringify({ dsh: '0.2.1-rc.2', platform: 'win32-x64',
   passed: true, packageManager: 'pnpm', emptyStore: true, offline: true, lifecycleScripts: false,
-  nativeChecks: ['koffi', 'sharp PNG encoding', 'self-contained sandbox audit helper'], artifacts: manifest }, null, 2) + '\n')
+  nativeChecks: ['koffi', 'sharp PNG encoding', ...excludeSandbox ? [] : ['self-contained sandbox audit helper']], artifacts: manifest }, null, 2) + '\n')

@@ -1,5 +1,7 @@
 import { Application, Container, Graphics, Sprite, Texture } from 'pixi.js'
 import 'pixi.js/unsafe-eval'
+import { renderResolution } from './quality.ts'
+import { sceneViewport } from './viewport.ts'
 import { PaperDoll } from '../art/paper-doll.ts'
 import { samplePose } from '../art/animation.ts'
 import { hitActor, orderedActors, validateWorld } from '../core/world.ts'
@@ -12,7 +14,7 @@ let token = '', received = 0, sent = 0, initialized = false, disposed = false, p
 let app: Application | undefined, scene: SceneArt, character: Character, animations: AnimationSet
 type AvatarArt = { character: Character; animations: AnimationSet; activityPrefix: string }
 let roster: Record<string, AvatarArt> = {}
-let view: View | undefined, shadow: Graphics, hints: Graphics, tableBowl: Sprite
+let view: View | undefined, shadow: Graphics, hints: Graphics, tableBowl: Sprite, backdrop: Sprite
 const stage = new Container(), textures = new Map<string, Texture>(), urls: string[] = []
 interface Rig { doll: PaperDoll; resting: Sprite; activity: Container; arms: Map<string, Sprite>; art: AvatarArt }
 const rigs = new Map<string, Rig>()
@@ -42,9 +44,11 @@ function rectangleSprite(file: string, rect: Rect, z: number): Sprite {
 }
 function layout() {
   if (!app) return
-  app.renderer.resize(innerWidth, innerHeight)
-  const scale = Math.min(innerWidth / 360, innerHeight / 480)
-  stage.scale.set(scale); stage.position.set((innerWidth - scale * 360) / 2, (innerHeight - scale * 480) / 2)
+  app.renderer.resize(innerWidth, innerHeight, renderResolution(devicePixelRatio, innerWidth, innerHeight))
+  const { world, background } = sceneViewport(innerWidth, innerHeight)
+  stage.scale.set(world.scale); stage.position.set(world.x, world.y)
+  backdrop.position.set(background.x, background.y)
+  backdrop.width = background.width; backdrop.height = background.height
   paint()
 }
 function local(event: PointerEvent): Point {
@@ -66,16 +70,16 @@ async function init(message: { character: Character; animations: AnimationSet; r
     textures.set(file, Texture.from(image))
   }
   const instance = new Application()
-  await instance.init({ width: innerWidth, height: innerHeight, resolution: Math.min(devicePixelRatio, 2), antialias: true,
+  await instance.init({ width: innerWidth, height: innerHeight, resolution: renderResolution(devicePixelRatio, innerWidth, innerHeight), autoDensity: true, antialias: true,
     preference: 'webgl', autoStart: false, sharedTicker: false, background: 0xf0eadb })
   if (disposed) { instance.destroy(true, { children: true }); return }
   app = instance
-  stage.sortableChildren = true; app.stage.addChild(stage)
+  backdrop = new Sprite(textures.get('scene/background.png')!)
+  stage.sortableChildren = true; app.stage.addChild(backdrop, stage)
   document.body.append(app.canvas)
   app.canvas.style.touchAction = 'none'
   app.canvas.tabIndex = 0
   app.canvas.style.outline = 'none'
-  rectangleSprite('scene/background.png', { x: 0, y: 0, width: 360, height: 480 }, -100)
   rectangleSprite('scene/cushion.png', scene.cushion, 0)
   for (const item of scene.furniture) {
     rectangleSprite(`scene/${item.asset}-back.png`, { ...item.rect, height: item.rect.height * item.split }, item.rect.y * 10)
@@ -164,6 +168,7 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
   }
 }
 Object.assign(window, { __sceneMetrics: () => ({ frames, actors: rigs.size, textures: textures.size, tickerStarted: app?.ticker.started ?? false,
+  viewport: sceneViewport(innerWidth, innerHeight),
   paused: view?.paused ?? true, meanPaintMs: frames ? paintMs / frames : 0, maxPaintMs }) })
 window.addEventListener('message', event => {
   if (event.source !== parent || event.data?.channel !== channel || event.data?.version !== version || disposed) return

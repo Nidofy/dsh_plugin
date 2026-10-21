@@ -25,7 +25,7 @@ const ctx = { effect: (fn: () => (() => unknown)) => { cleanups.push(fn()) },
 Git.apply(ctx); Live2D.apply(ctx)
 let runtime = new VillageRuntime()
 registerClient(ctx, runtime)
-const root = createRoot(document.getElementById('root')!), launch = createRoot(document.getElementById('launchers')!)
+const root = createRoot(document.getElementById('root')!)
 const sessions = { byId: {} }, workspaces = { items: [] }, statuses = new Map([['session-a', { running: false }], ['session-b', { running: false }]])
 const props = (locale: string) => ({ t: (key: string) => dictionaries.get(locale)?.zh[key] ?? key,
   usePanelInfo: (select: (v: { activePanelId: string | null }) => unknown) => select({ activePanelId: useSyncExternalStore(panel.subscribe, panel.getSnapshot) }),
@@ -33,7 +33,6 @@ const props = (locale: string) => ({ t: (key: string) => dictionaries.get(locale
   useSessions: (select: (v: typeof sessions) => unknown) => select(sessions), useWorkspaces: (select: (v: typeof workspaces) => unknown) => select(workspaces) })
 function show() {
   root.render(<>{entries.filter(e => e.slot === 'shell.overlay').map((e, i) => createElement(e.component, { ...props(e.locale), key: i }))}</>)
-  launch.render(<>{entries.filter(e => e.slot === 'conversation.session.header.utilities').map((e, i) => createElement(e.component, { ...props(e.locale), key: i }))}</>)
 }
 show()
 const api = {
@@ -45,7 +44,7 @@ const api = {
   reset: () => { for (const fn of resets) fn() },
   panel: (value: boolean) => panel.set(value ? 'settings' : null),
   flush: () => runtime.flush(),
-  dispose: async () => { root.render(null); launch.render(null); for (const fn of cleanups.reverse()) await fn() },
+  dispose: async () => { root.render(null); for (const fn of cleanups.reverse()) await fn() },
 }
 Object.assign(window, { __villageHostFixture: api })
 document.getElementById('session')!.onclick = api.session

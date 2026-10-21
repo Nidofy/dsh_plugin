@@ -14,6 +14,33 @@ const using: Companion['using'] = (_scope, operation, signal) => operation(signa
 afterEach(() => { cleanup(); vi.unstubAllGlobals() })
 const t = ((key: keyof typeof en) => en[key]) as PropsLocale<'nidofy.notebook'>['t']
 
+it.each([en, zh])('shows committed coverage and historical verification uncertainty in a return card', async locale => {
+  const calls: string[] = []
+  vi.stubGlobal('fetch', async (url: string) => {
+    const method = url.split('/').at(-1)!; calls.push(method)
+    return Response.json(method === 'settings' ? { autoOrganize: false, revision: 0 }
+      : method === 'status' ? { notebook: { revision: 2, active: [] } } : method === 'events' ? []
+      : method === 'coverage' ? { evidenceThrough: 4, durableThrough: 18, pendingEvents: 14, blockedSeq: 5, autoOrganize: false }
+      : method === 'search' ? { items: [], substringIncomplete: true, indexCoverage: [{ sessionId: 'current', indexedThrough: 4, durableThrough: 18, reason: 'capacity' }] }
+      : method === 'continuation' ? { card: { entries: [{ id: 'test', kind: 'verification', text: 'Old test claim', seq: 3,
+        quote: 'Recorded result', source: { role: 'assistant', verified: true }, verification: { current: 'requires-revalidation' } }] }, markdown: 'reference' } : {})
+  })
+  const translated = ((key: keyof typeof en) => locale[key]) as PropsLocale<'nidofy.notebook'>['t']
+  render(<NotebookPanel sessionId="current" scope={companionScope} using={using} t={translated} />)
+  expect(await screen.findByText(locale.organizationOff)).toBeDefined()
+  expect(screen.getByText(locale.blockedEvidence + ': #5')).toBeDefined()
+  fireEvent.click(screen.getByText(locale.returnCard, { selector: 'summary' }))
+  fireEvent.click(screen.getByRole('button', { name: locale.loadReturnCard }))
+  expect(await screen.findByText('Old test claim')).toBeDefined()
+  expect(screen.getByText(locale.verificationStale)).toBeDefined()
+  expect(screen.getByText(locale.baselineUnknown)).toBeDefined()
+  expect(calls.filter(x => x === 'continuation')).toHaveLength(1)
+  expect(calls).not.toContain('update')
+  fireEvent.change(screen.getByLabelText(locale.historySearch), { target: { value: 'earlier' } })
+  fireEvent.click(screen.getByRole('button', { name: locale.search }))
+  expect(await screen.findByText(locale.indexCoverage + ' · current: 4 / 18 · ' + locale.indexCapacity)).toBeDefined()
+})
+
 it.each([en, zh])('saves only explicit workspace selections and carries their revision through previews and citation', async (locale) => {
   const translated = ((key: keyof typeof en) => locale[key]) as PropsLocale<'nidofy.notebook'>['t']
   const calls: { method: string; input: Record<string, unknown> }[] = [], cite = vi.fn()

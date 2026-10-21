@@ -54,6 +54,6 @@ await page.locator('.village-canvas iframe').waitFor()
 const result = { sampledAt: new Date().toISOString(), cpu: cpus()[0]?.model, logicalCores: cpus().length,
   ramGiB: totalmem() / 1024 ** 3, gpu: system.gpu.devices, visible, hidden,
   limitations: 'Two 15-second samples. CPU includes the entire isolated Desktop, parent heap excludes GPU/native textures. Paint time measures JS render submission, not GPU completion. No long soak or cross-device claim.' }
-await writeFile(join(root, 'packages/ai-village/art/QA/phase5/performance.json'), JSON.stringify(result, null, 2) + '\n')
+await writeFile(join(root, '.build/ai-village-v0.3-qa/desktop/performance.json'), JSON.stringify(result, null, 2) + '\n')
 console.log(JSON.stringify(result))
 process.exit(0)

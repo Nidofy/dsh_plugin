@@ -12,7 +12,11 @@ import { object, readJson } from './state.ts'
 interface Document { seq: number; text: string }
 interface Checkpoint { schemaVersion: 1; sessionId: string; generation: string; through: number; anchor: string; documents: Document[] }
 /** Index work and recall limits remain separate from verified source results. */
-export interface HistoryIndexResult { seqs: number[]; indexedEvents: number; recovered: boolean; incomplete: boolean }
+export interface HistoryIndexResult {
+  seqs: number[]; indexedEvents: number; recovered: boolean; incomplete: boolean
+  indexedThrough: number
+  reason?: 'capacity' | 'results'
+}
 function hash(value: object): string { return createHash('sha256').update(JSON.stringify(value)).digest('hex') }
 function checkpoint(raw: unknown): Checkpoint {
   const wrapper = object(raw), value = object(wrapper.value)
@@ -85,6 +89,8 @@ export class HistorySubstringIndex {
       : { schemaVersion: 1, sessionId: observation.meta.id, generation: observation.generation, through: -1, anchor: '', documents: [] }
     const start = next.through + 1
     let indexedEvents = 0
+    // Failed growth must not withdraw an already validated source prefix.
+    const fallback = () => this.query(reusable && previous ? previous : undefined, indexedEvents, recovered, signal, query, true)
     let retainedBytes = Buffer.byteLength(JSON.stringify(next))
     for (let index = start; index <= observation.durableThrough; index++) {
       signal.throwIfAborted()
@@ -95,7 +101,7 @@ export class HistorySubstringIndex {
       if (original) {
         const document = { seq: event.seq, text: extractSessionEventText(event) }
         retainedBytes += Buffer.byteLength(JSON.stringify(document)) + 1
-        if (retainedBytes > this.maxBytes) return { seqs: [], indexedEvents, recovered, incomplete: true }
+        if (retainedBytes > this.maxBytes) return fallback()
         next.documents.push(document)
       }
       indexedEvents++
@@ -103,7 +109,7 @@ export class HistorySubstringIndex {
     }
     next.through = observation.durableThrough; next.anchor = anchorHash
     const bytes = JSON.stringify({ checksum: hash(next), value: next }), size = Buffer.byteLength(bytes)
-    if (size > this.maxBytes) return { seqs: [], indexedEvents, recovered, incomplete: true }
+    if (size > this.maxBytes) return fallback()
     if (!reusable || indexedEvents > 0) {
       await mkdir(this.directory, { recursive: true, mode: 0o700 })
       let used = 0
@@ -112,13 +118,18 @@ export class HistorySubstringIndex {
         if (!info.isFile() || info.isSymbolicLink()) throw Error('HISTORY_INDEX_FILE_REFUSED')
         used += info.size
       }
-      if (used + size > this.maxBytes) return { seqs: [], indexedEvents, recovered, incomplete: true }
+      if (used + size > this.maxBytes) return fallback()
       signal.throwIfAborted()
       const storage = this.ctx.get('nidofyStorage')
       const write = () => { signal.throwIfAborted(); return writeFileAtomic(path, bytes, { mode: 0o600 }) }
       await (storage ? storage.write(path, size * 2, write) : write())
     }
+    return this.query(next, indexedEvents, recovered, signal, query, false)
+  }
+  private async query(source: Checkpoint | undefined, indexedEvents: number, recovered: boolean,
+    signal: AbortSignal, query: string, capacity: boolean): Promise<HistoryIndexResult> {
     signal.throwIfAborted()
+    if (!source) return { seqs: [], indexedEvents, recovered, incomplete: true, indexedThrough: -1, reason: 'capacity' }
     if (!this.db) {
       const { DatabaseSync } = await import('node:sqlite')
       this.db = new DatabaseSync(':memory:')
@@ -130,7 +141,7 @@ export class HistorySubstringIndex {
     try {
       db.exec('DELETE FROM documents')
       const insert = db.prepare('INSERT INTO documents(text, seq) VALUES (?, ?)')
-      for (const [index, document] of next.documents.entries()) {
+      for (const [index, document] of source.documents.entries()) {
         signal.throwIfAborted()
         insert.run(document.text, document.seq)
         if ((index + 1) % this.batchEvents === 0) await setImmediate(undefined, { signal })
@@ -144,7 +155,9 @@ export class HistorySubstringIndex {
       return row.seq
     })
     signal.throwIfAborted()
-    return { seqs, indexedEvents, recovered, incomplete: rows.length > this.resultLimit }
+    return { seqs, indexedEvents, recovered, indexedThrough: source.through,
+      incomplete: capacity || rows.length > this.resultLimit,
+      ...capacity ? { reason: 'capacity' as const } : rows.length > this.resultLimit ? { reason: 'results' as const } : {} }
   }
   /** Reject new operations and wait for SQLite use to stop before closing.
    * @returns Resolution after every queued operation settles and the local database closes.

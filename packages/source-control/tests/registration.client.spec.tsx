@@ -8,6 +8,7 @@ import * as Plugin from '../src/client/index.ts'
 class Transport extends Service { constructor(ctx: Context) { super(ctx, 'connection') } }
 it('owns only an additive overlay; toggles without a sidebar service and cleans up repeated loads', async () => {
  const ctx = new Context()
+  const corner = document.createElement('div'); corner.dataset.conversationHeaderCorner = ''; document.body.append(corner)
  try {
   await ctx.plugin(Transport); await ctx.plugin(SlotRegistry)
   ctx.provide('uiSession', { adapter: { current: { subscribe: () => () => {}, getSnapshot: () => ({ key: undefined }) } } } as never)
@@ -24,9 +25,11 @@ it('owns only an additive overlay; toggles without a sidebar service and cleans 
   } }, () => null)
   for (let i = 0; i < 2; i++) {
    const fiber = await ctx.plugin(Plugin)
-   for (const key of ['conversation.session.header.utilities','settings.section','shell.overlay'] as const) expect(ctx.slots.entries(key)).toHaveLength(1)
+   expect(ctx.slots.entries('conversation.session.header.utilities')).toHaveLength(0)
+   expect(ctx.slots.entries('settings.section')).toHaveLength(1)
+   expect(ctx.slots.entries('shell.overlay')).toHaveLength(2)
    expect(ctx.slots.entries('sidebar.right.pane.tab')).toHaveLength(0)
-   const Launcher = ctx.slots.entries('conversation.session.header.utilities')[0]!.component as ComponentType<{t: (key: string) => string}>
+   const Launcher = ctx.slots.entries('shell.overlay').find(entry => entry.options.id?.endsWith('-launcher'))!.component as ComponentType<{t: (key: string) => string}>
    render(createElement(Launcher, { t: key => dictionaries.get('nidofy.source-control')!.en![key]! }))
    const button = screen.getByRole('button', { name: 'Open Git / Hg tools' })
    fireEvent.click(button); expect(button.getAttribute('aria-pressed')).toBe('true')
@@ -36,5 +39,5 @@ it('owns only an additive overlay; toggles without a sidebar service and cleans 
    for (const key of ['conversation.session.header.utilities','settings.section','shell.overlay'] as const) expect(ctx.slots.entries(key)).toHaveLength(0)
    expect(dictionaries.size).toBe(0)
   }
- } finally { cleanup(); await ctx.fiber.dispose() }
+ } finally { cleanup(); corner.remove(); await ctx.fiber.dispose() }
 })

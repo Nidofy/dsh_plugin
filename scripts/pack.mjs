@@ -14,11 +14,11 @@ const stage = await mkdtemp(join(root, '.build/pack-'))
 const artifacts = []
 async function copyPackage(name, dest) {
   const source = join(root, 'packages', name)
-  for (const file of ['package.json', 'LICENSE', 'README.md', 'lib', ...(name === 'plugin-shared' ? [] : ['cordis.patch.yml']), ...(['desktop-pets', 'live2d', 'ai-village'].includes(name) ? ['assets'] : []), ...(name === 'ai-village' ? ['THIRD-PARTY-NOTICES.txt'] : []), ...(name === 'runtime-adapter' ? ['notebook.preset.patch.yml'] : []), ...(name === 'working-notebook' ? ['enhanced.patch.yml'] : []), ...(name === 'windows-sandbox-enhanced' ? ['native/runtime'] : [])]) {
+  for (const file of ['package.json', 'LICENSE', 'README.md', 'lib', ...(name === 'plugin-shared' ? [] : ['cordis.patch.yml']), ...(['desktop-pets', 'live2d', 'ai-village', 'whale-skin'].includes(name) ? ['assets'] : []), ...(name === 'ai-village' ? ['THIRD-PARTY-NOTICES.txt'] : []), ...(name === 'whale-skin' ? ['LICENSE-ARTWORK', 'UPSTREAM-NOTICE', 'NOTICE.md'] : []), ...(name === 'runtime-adapter' ? ['notebook.preset.patch.yml'] : []), ...(name === 'working-notebook' ? ['enhanced.patch.yml'] : []), ...(name === 'windows-sandbox-enhanced' ? ['native/runtime'] : [])]) {
     await cp(join(source, file), join(dest, file), { recursive: true, filter: path => !/\.(?:tsbuildinfo|log)$/.test(path) })
   }
 }
-for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook', 'source-control', 'live2d', 'ai-village', 'windows-sandbox-enhanced', 'windows-sandbox-guard'].filter(name => !process.argv.includes('--sandbox') || name.startsWith('windows-sandbox-'))) {
+for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working-notebook', 'source-control', 'live2d', 'ai-village', 'whale-skin', 'windows-sandbox-enhanced', 'windows-sandbox-guard'].filter(name => (!process.argv.includes('--sandbox') || name.startsWith('windows-sandbox-')) && (!process.argv.includes('--exclude-sandbox') || !name.startsWith('windows-sandbox-')))) {
   const dir = join(stage, name)
   await copyPackage(name, dir)
   let pkg = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8'))
@@ -70,6 +70,10 @@ if (process.argv.includes('--sandbox')) {
   const old = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8').catch(e => { if(e.code === 'ENOENT') return '[]'; throw e }))
   artifacts.unshift(...old.filter(item => !item.name.startsWith('@dsh-extensions/windows-sandbox-')))
 }
+if (process.argv.includes('--exclude-sandbox')) {
+  const old = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8').catch(e => { if (e.code === 'ENOENT') return '[]'; throw e }))
+  artifacts.push(...old.filter(item => item.name.startsWith('@dsh-extensions/windows-sandbox-')))
+}
 await writeFile(join(root, 'dist/manifest.json'), JSON.stringify(artifacts, null, 2) + '\n')
 const baseline = JSON.parse(await readFile(join(root, 'compatibility.json'), 'utf8'))
-await writeFile(join(root, 'dist/windows-sandbox-manifest.json'), JSON.stringify({ baseline: baseline.originalRevision, qualification: 'preview-not-isolated', artifacts: artifacts.filter(p => p.name.startsWith('@dsh-extensions/')) }, null, 2) + '\n')
+if (!process.argv.includes('--exclude-sandbox')) await writeFile(join(root, 'dist/windows-sandbox-manifest.json'), JSON.stringify({ baseline: baseline.originalRevision, qualification: 'preview-not-isolated', artifacts: artifacts.filter(p => p.name.startsWith('@dsh-extensions/')) }, null, 2) + '\n')

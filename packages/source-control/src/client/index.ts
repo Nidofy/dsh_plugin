@@ -1,3 +1,4 @@
+import { HeaderLauncher } from './header-launcher.tsx'
 import type { Context } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
@@ -17,8 +18,6 @@ export type { Request } from './Panel.tsx'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap { 'nidofy.source-control': keyof typeof en }
-  // Public 0.2.1 slot contract. inject() waits for declaration, so it stays dormant on 0.2.0.
-  interface SlotMap { 'conversation.hero.options': { kind: 'list'; scope: 'session' } }
 }
 export const name = 'nidofy-source-control-client'
 export const inject = ['slots', 'locale', 'connection', 'uiSession']
@@ -32,11 +31,6 @@ export function apply(ctx: Context): void {
   const change = (open: boolean, generation = state.generation) => {
     state = { open, generation }; for (const listener of listeners) listener()
   }
-  ctx.effect(() => {
-    const yieldPanel = (event: Event) => { if ((event as CustomEvent).detail === 'live2d') change(false) }
-    window.addEventListener('nidofy:floating-panel-open', yieldPanel)
-    return () => window.removeEventListener('nidofy:floating-panel-open', yieldPanel)
-  })
   ctx.on('connection/reset', () => change(false, state.generation + 1))
   const selection = ctx.uiSession.adapter.current
   type Localized = PropsLocale<'nidofy.source-control'>
@@ -68,7 +62,7 @@ export function apply(ctx: Context): void {
     } })
   }
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-source-control-floating', locale: 'nidofy.source-control' }, Floating))
-  ctx.slots.inject('conversation.session.header.utilities', () => ctx.slots.register({ name: 'conversation.session.header.utilities', id: 'nidofy-source-control', order: 90, locale: 'nidofy.source-control' }, Launcher))
-  ctx.slots.inject('conversation.hero.options', () => ctx.slots.register({ name: 'conversation.hero.options', id: 'nidofy-source-control-hero', order: 90, locale: 'nidofy.source-control' }, Launcher))
   ctx.slots.inject('settings.section', () => ctx.slots.register({ name: 'settings.section', id: 'nidofy-source-control', order: 48, locale: 'nidofy.source-control', label: () => t('title') }, Settings))
+  ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-source-control-launcher', order: -30, locale: 'nidofy.source-control' },
+    (props: PropsLocale<'nidofy.source-control'>) => createElement(HeaderLauncher, { id: 'source-control', order: -30, children: createElement(Launcher, props) })))
 }

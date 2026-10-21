@@ -37,10 +37,10 @@ export function Floating({ locale, status, onClose, active = true }: { locale: s
   useEffect(() => { try { localStorage.setItem(preferenceKey, JSON.stringify(presentation)) } catch { /* Memory-only settings remain usable. */ } }, [presentation])
   const change = (value: Partial<CharacterPresentation>) => setPresentation(current => ({ ...current, ...value }))
   const retryAnimation = () => { setFailed(false); setRetry(value => value + 1) }
-  return <div ref={anchor} data-nidofy-live2d-overlay="" className="dsh-live2d">
+  return <div ref={anchor} data-nidofy-live2d-overlay="" data-nidofy-live2d-open={active ? '' : undefined} className="dsh-live2d">
     <style>{css}</style>
     {active && geometry && visible && <aside className="live2d-card" aria-label={t.title}
-      style={{ left: geometry.left, top: geometry.top, height: Math.min(680, geometry.height) }}
+      style={{ left: geometry.left, top: geometry.top, height: geometry.stacked ? geometry.height : Math.min(680, geometry.height) }}
       onKeyDown={event => { if (event.key === 'Escape' && !event.defaultPrevented) { event.stopPropagation(); onClose() } }}>
       <header className="live2d-header"><strong>{t.title}</strong>
         <button aria-label={t.settings} aria-expanded={settings} onClick={() => setSettings(value => !value)}>{t.settings}</button>

@@ -12,7 +12,8 @@ const root = resolve(import.meta.dirname, '..'), require = createRequire(import.
 await mkdir(join(root, '.build'), { recursive: true })
 const stage = await mkdtemp(join(root, '.build/installed-'))
 await writeFile(join(stage, 'package.json'), '{"private":true,"type":"module"}\n')
-const manifest = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8'))
+const excludeSandbox = process.argv.includes('--exclude-sandbox')
+const manifest = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8')).filter(p => !excludeSandbox || !p.name.startsWith('@dsh-extensions/windows-sandbox-'))
 for (const item of manifest) {
   const dir = join(stage, 'node_modules', item.name)
   await mkdir(dir, { recursive: true })
@@ -59,6 +60,7 @@ import * as Notebook from '@nidofy/dsh-working-notebook'
 import * as SourceControl from '@nidofy/dsh-source-control'
 import * as Live2d from '@nidofy/dsh-live2d'
 import * as Village from '@nidofy/dsh-ai-village'
+import * as WhaleSkin from '@nidofy/dsh-whale-skin'
 import { NotebookStore } from '@nidofy/dsh-working-notebook/standard-store'
 import { PreferenceStore, defaults } from '@nidofy/dsh-plugin-shared/state'
 assert.equal(Pets.name, 'nidofy-desktop-pets')
@@ -67,6 +69,7 @@ assert.equal(Notebook.Config({}).maxActiveEntries, 64)
 assert.equal(SourceControl.name, 'nidofy-source-control')
 assert.equal(Live2d.name, 'nidofy-live2d')
 assert.equal(Village.name, 'nidofy-ai-village')
+assert.equal(WhaleSkin.name, 'nidofy-whale-skin')
 assert.equal(SourceControl.Config({}).includeWorkspaces, true)
 const ctx = new Context(); assert.ok(ctx); await ctx.fiber.dispose()
 const home = await mkdtemp(join(tmpdir(), 'dsh-packed-data-'))
@@ -115,13 +118,13 @@ const profile = join(stage, 'home/profiles/plugin-smoke')
 await mkdir(profile, { recursive: true })
 await writeFile(join(profile, 'package.json'), JSON.stringify({ name: 'plugin-smoke-profile', private: true,
   dependencies: Object.fromEntries(manifest.map(p => [p.name, p.version])),
-  dsh: { profile: { bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@nidofy/dsh-runtime-adapter', '@nidofy/dsh-desktop-pets', '@nidofy/dsh-working-notebook', '@nidofy/dsh-source-control', '@nidofy/dsh-live2d', '@nidofy/dsh-ai-village', '@dsh-extensions/windows-sandbox-enhanced'] } },
+  dsh: { profile: { bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@nidofy/dsh-runtime-adapter', '@nidofy/dsh-desktop-pets', '@nidofy/dsh-working-notebook', '@nidofy/dsh-source-control', '@nidofy/dsh-live2d', '@nidofy/dsh-ai-village', ...excludeSandbox ? [] : ['@dsh-extensions/windows-sandbox-enhanced']] } },
 }))
 await writeFile(join(profile, 'cordis.patch.yml'), '[]\n')
 const dump = spawnSync(process.execPath, [join(source, 'node_modules/@deepseek-ai/dsh/lib/bin.js'), '--profile', 'plugin-smoke', '--dump-config'],
   { cwd: source, encoding: 'utf8', timeout: 30000, env: { ...process.env, DSH_HOME: join(stage, 'home') } })
 if (dump.status !== 0) throw Error(dump.stdout + dump.stderr)
-for (const id of ['nidofy-desktop-pets', 'nidofy-working-notebook', 'nidofy-runtime-jsonl', 'preset-notebook', 'nidofy-source-control', 'nidofy-live2d', 'nidofy-ai-village', 'windows-sandbox-enhanced']) assert.ok(dump.stdout.includes(id), 'Missing CLI composition: ' + id)
+for (const id of ['nidofy-desktop-pets', 'nidofy-working-notebook', 'nidofy-runtime-jsonl', 'preset-notebook', 'nidofy-source-control', 'nidofy-live2d', 'nidofy-ai-village', ...excludeSandbox ? [] : ['windows-sandbox-enhanced']]) assert.ok(dump.stdout.includes(id), 'Missing CLI composition: ' + id)
 const schema = yaml.JSON_SCHEMA.extend(new yaml.Type('tag:yaml.org,2002:js', { kind: 'scalar', construct: data => ({ __jsExpr: data }) }))
 const composed = yaml.load(dump.stdout, { schema })
 const rows = list => list.flatMap(row => [row, ...(row.group && Array.isArray(row.config) ? rows(row.config) : [])])

@@ -1,46 +1,43 @@
-/** DSH 0.2.0-rc.2 / 0.2.1-rc.2 geometry adapter. No private service or hashed CSS class access.
- * The public overlay seat has no width-reservation API. Mark only the main chat
- * identified inside the column preceding data-rightbar-col; never embedded chats.
- */
-export interface FloatingGeometry { left: number; top: number; height: number }
+/** DSH 0.2.1 shared rail protocol: Git grows with content; companions use the remaining space. */
+export interface FloatingGeometry { left: number; top: number; height: number; stacked?: boolean }
 export function attachFloatingLayout(anchor: HTMLElement, publish: (geometry: FloatingGeometry | null) => void): () => void {
-  const layer = anchor.closest<HTMLElement>('[data-shell-overlay]')
-  const frame = layer?.parentElement
+  const layer = anchor.closest<HTMLElement>('[data-shell-overlay]'), frame = layer?.parentElement
   if (!layer || !frame) { publish(null); return () => {} }
-  let marked: HTMLElement | null = null
-  let observed: HTMLElement | null = null
-  let previous = ''
+  let marked: HTMLElement | null = null, previous = ''
+  const observed = new Set<Element>()
   const release = () => { marked?.removeAttribute('data-nidofy-live2d-space'); marked = null }
+  const resize = new ResizeObserver(() => update())
   const update = () => {
     const right = frame.querySelector<HTMLElement>(':scope > [data-rightbar-col]')
     const center = right?.previousElementSibling as HTMLElement | null
-    if (observed !== center) {
-      if (observed) resize.unobserve(observed)
-      observed = center
-      if (observed) resize.observe(observed)
-    }
     const content = center?.querySelector<HTMLElement>('[data-conversation-content]') ?? null
-    const bounds = center?.getBoundingClientRect()
-    const contentBounds = content?.getBoundingClientRect()
+    const git = frame.querySelector<HTMLElement>('[data-nidofy-vcs-overlay]')
+    const body = git?.querySelector<HTMLElement>('.dsh-vcs') ?? null
+    const targets = new Set<Element>([frame, ...[center, content, body].filter((e): e is HTMLElement => !!e)])
+    for (const element of observed) if (!targets.has(element)) { resize.unobserve(element); observed.delete(element) }
+    for (const element of targets) if (!observed.has(element)) { resize.observe(element); observed.add(element) }
+    const bounds = center?.getBoundingClientRect(), box = content?.getBoundingClientRect()
     const visible = frame.hasAttribute('data-rightbar-collapsed') && !frame.hasAttribute('data-rightbar-fullscreen')
-      && bounds && contentBounds && bounds.width >= 764 && contentBounds.height > 0
+      && bounds && box && bounds.width >= 764 && box.height > 0
     if (marked !== content || !visible) release()
     let geometry: FloatingGeometry | null = null
     if (visible && content) {
       marked = content
       if (!content.hasAttribute('data-nidofy-live2d-space')) content.setAttribute('data-nidofy-live2d-space', '')
-      const origin = layer.getBoundingClientRect()
-      geometry = { left: bounds.right - origin.left - 352, top: contentBounds.top - origin.top + 12, height: Math.max(0, contentBounds.height - 24) }
+      const origin = layer.getBoundingClientRect(), height = Math.max(0, box.height - 24), top = box.top - origin.top + 12
+      const stacked = !!git && !!frame.querySelector('[data-nidofy-village-open],[data-nidofy-live2d-open]')
+      const reserve = Math.min(600, height * .48), limit = Math.max(0, height - reserve - 12)
+      const natural = body?.getBoundingClientRect().height ?? 0
+      const upper = Math.min(limit, natural || limit)
+      geometry = { left: bounds.right - origin.left - 352, top: top + (true && stacked ? upper + 12 : 0),
+        height: stacked ? (true ? Math.max(0, height - upper - 12) : upper) : height, ...(stacked ? {stacked:true} : {}) }
     }
     const next = JSON.stringify(geometry)
     if (next !== previous) { previous = next; publish(geometry) }
   }
-  const resize = new ResizeObserver(update)
   const mutations = new MutationObserver(update)
-  resize.observe(frame)
-  // Child replacement covers navigation/HMR. Attributes only cover frame presentation,
-  // avoiding observing our own reservation marker and streaming text mutations.
-  mutations.observe(frame, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-rightbar-collapsed', 'data-rightbar-fullscreen'] })
+  mutations.observe(frame, { childList: true, subtree: true, attributes: true,
+    attributeFilter: ['data-rightbar-collapsed', 'data-rightbar-fullscreen', 'data-nidofy-village-open', 'data-nidofy-live2d-open'] })
   update()
   return () => { resize.disconnect(); mutations.disconnect(); release() }
 }

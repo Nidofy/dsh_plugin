@@ -83,7 +83,7 @@ export class VillageHost {
       return { lease: this.lease.id, profileId: this.profileId, epoch: this.epoch }
     })
     if (data.epoch !== this.epoch || !this.valid(data.lease)) throw Error('OWNER_LOST')
-    if (path === 'heartbeat') { this.lease!.expires = Date.now() + 15000; return { ok: true } }
+    if (path === 'heartbeat') { this.lease!.expires = Date.now() + 15000; return { ok: true, retention: this.store.retention } }
     if (path === 'release') return withFileLock(join(this.store.directory, 'transaction'), async () => {
       if (this.valid(data.lease)) this.lease = null
       return { ok: true }
@@ -99,7 +99,7 @@ export class VillageHost {
     try {
       signal.throwIfAborted()
       const path = (req.url ?? '').slice(prefix.length)
-      if (req.method === 'GET' && path === 'state') { json(200, { profileId: this.profileId, epoch: this.epoch, saved: await this.store.read() }); return }
+      if (req.method === 'GET' && path === 'state') { json(200, { profileId: this.profileId, epoch: this.epoch, saved: await this.store.read(), retention: this.store.retention }); return }
       if (req.method === 'GET' || req.method === 'HEAD') {
         const bytes = this.files.get(path)
         if (!bytes) { json(404, { error: 'NOT_FOUND' }); return }

@@ -1,3 +1,4 @@
+import { HeaderLauncher } from './header-launcher.tsx'
 import type { Context } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
@@ -13,8 +14,6 @@ import { css } from './style.ts'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap { 'nidofy.live2d': keyof typeof en }
-  // Public 0.2.1 slot contract. inject() waits for declaration, so it stays dormant on 0.2.0.
-  interface SlotMap { 'conversation.hero.options': { kind: 'list'; scope: 'session' } }
 }
 export const name = 'nidofy-live2d-client'
 export const inject = ['slots', 'locale', 'connection', 'uiSession']
@@ -28,10 +27,10 @@ export function apply(ctx: Context): void {
   const change = (open: boolean, generation = state.generation) => {
     state = { open, generation }; for (const listener of listeners) listener()
   }
-  // Shared, presentation-only arbitration with the Git card: the last explicit opener owns the rail.
+  // Companions are exclusive; Git remains above either companion.
   const eventName = 'nidofy:floating-panel-open'
   ctx.effect(() => {
-    const yieldPanel = (event: Event) => { if (['source-control', 'ai-village'].includes((event as CustomEvent).detail)) change(false) }
+    const yieldPanel = (event: Event) => { if ((event as CustomEvent).detail === 'ai-village') change(false) }
     window.addEventListener(eventName, yieldPanel)
     return () => window.removeEventListener(eventName, yieldPanel)
   })
@@ -61,6 +60,6 @@ export function apply(ctx: Context): void {
       }, '◉'))
   }
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-live2d-floating', locale: 'nidofy.live2d' }, Surface))
-  ctx.slots.inject('conversation.session.header.utilities', () => ctx.slots.register({ name: 'conversation.session.header.utilities', id: 'nidofy-live2d', order: 91, locale: 'nidofy.live2d' }, Launcher))
-  ctx.slots.inject('conversation.hero.options', () => ctx.slots.register({ name: 'conversation.hero.options', id: 'nidofy-live2d-hero', order: 91, locale: 'nidofy.live2d' }, Launcher))
+  ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-live2d-launcher', order: -20, locale: 'nidofy.live2d' },
+    (props: PropsLocale<'nidofy.live2d'>) => createElement(HeaderLauncher, { id: 'live2d', order: -20, children: createElement(Launcher, props) })))
 }

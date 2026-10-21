@@ -8,7 +8,7 @@ import { mkdtemp, readFile, writeFile } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
 import { createHash, randomUUID } from 'node:crypto'
 
-it('reads a real schema-1 snapshot and saves schema 2 while retaining exact old bytes and revision history', async () => {
+it('reads a real schema-1 snapshot and saves schema 3 while retaining exact old bytes and revision history', async () => {
   const profile = await mkdtemp(resolve('.build/ai-village-phase4/migration-'))
   const store = await SaveStore.open(profile, scene)
   const { companions: _, ...single } = createWorld(scene)
@@ -18,7 +18,7 @@ it('reads a real schema-1 snapshot and saves schema 2 while retaining exact old 
   const pointer = JSON.stringify({ schemaVersion: 1, revision: 7, operationId, snapshot: name, hash: createHash('sha256').update(bytes).digest('hex') })
   await writeFile(join(store.directory, 'current.json'), pointer)
   const old = (await store.read())!
-  expect(old.world.schemaVersion).toBe(2); expect(old.world.ticks).toBe(1200)
+  expect(old.world.schemaVersion).toBe(3); expect(old.world.ticks).toBe(1200)
   expect(await readFile(join(store.directory, 'current.json'), 'utf8')).toBe(pointer)
   const c = new WorldController(old.world, scene, () => {}); c.setCharacterPresent('claude', true)
   const saved = await store.save(7, c.snapshot(), randomUUID())
@@ -36,7 +36,7 @@ it('migrates schema 1 without resetting progress, rejects duplicate residents an
   expect(JSON.stringify(legacy)).toBe(original)
   expect(() => validateWorld({ ...current, companions: [current.actor] }, scene)).toThrow('INVALID_WORLD')
   expect(() => validateWorld({ ...current, companions: {} }, scene)).toThrow()
-  expect(() => validateWorld({ ...current, schemaVersion: 3 }, scene)).toThrow()
+  expect(() => validateWorld({ ...current, schemaVersion: 4 }, scene)).toThrow()
   const anchor = scene.hotspots.find(h => h.id === 'work')!.anchor
   const working = { ...current.actor, behavior: 'work', position: anchor, safe: anchor }
   expect(() => validateWorld({ ...current, actor: working, companions: [{ ...working, id: 'claude' }] }, scene)).toThrow()

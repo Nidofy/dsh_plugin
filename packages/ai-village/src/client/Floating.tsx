@@ -38,7 +38,7 @@ export function Floating({ runtime, locale, active, onClose }: { runtime: Villag
   const members = runtime.controller ? actors(runtime.controller.world).map(a => a.id) : ['bluewhale']
   const status = runtime.controller?.pauseReasons.size ? t.paused : runtime.controller?.drag?.active ? t.dragging : actor ? t[actor.behavior] : t.loading
   return <div ref={anchor} data-nidofy-ai-village-overlay="" data-nidofy-village-open={runtime.open && active ? '' : undefined} className="dsh-ai-village"><style>{css}</style>
-    {visible && <aside className="village-card" aria-label={t.title} style={{ left: geometry.left, top: geometry.top, height: Math.min(600, geometry.height) }}>
+    {visible && <aside className="village-card" aria-label={t.title} style={{ left: geometry.left, top: geometry.top, height: geometry.stacked ? geometry.height : Math.min(720, geometry.height) }}>
       <header className="village-header"><strong>{t.title}</strong>
         <button disabled={!runtime.controller || !runtime.ready} onClick={() => runtime.pause('user', !runtime.controller?.world.userPaused)}>{runtime.controller?.world.userPaused ? t.resume : t.pause}</button>
         <button aria-label={t.close} onClick={onClose}>×</button>
@@ -58,6 +58,7 @@ export function Floating({ runtime, locale, active, onClose }: { runtime: Villag
         <button disabled={!runtime.ready || !!runtime.error} onClick={() => runtime.setAllCharacters(false)}>{locale === 'zh' ? '仅留当前' : 'Keep selected only'}</button></div>
       </details>
       <div className="village-footer" role="status">{status} · {t.saved} r{runtime.revision}</div>
+      {runtime.retentionWarning && <div className="village-footer" role="status">{t.retentionWarning}</div>}
       {runtime.error ? <div className="village-error" role="alert">
         <p>{runtime.error.includes('WORLD_IN_USE') ? t.occupied : /PROFILE_CHANGED|REVISION_CONFLICT|HOST_CHANGED/.test(runtime.error) ? t.conflict : t.error}</p>
         <button onClick={() => runtime.retry()}>{t.retry}</button>

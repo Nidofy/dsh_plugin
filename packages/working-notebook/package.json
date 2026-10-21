@@ -1,6 +1,6 @@
 {
   "name": "@nidofy/dsh-working-notebook",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Independent DSH working notes, history and optional compaction organization",
   "type": "module",
   "license": "MIT",

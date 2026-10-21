@@ -1,3 +1,4 @@
+import { HeaderLauncher } from './header-launcher.tsx'
 import type { Context } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
@@ -47,7 +48,6 @@ export function registerClient(ctx: Context, runtime: VillageRuntime): void {
       }, '⌂'))
   }
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-ai-village-floating', locale: 'nidofy.ai-village' }, Surface))
-  ctx.slots.inject('conversation.session.header.utilities', () => ctx.slots.register({ name: 'conversation.session.header.utilities', id: 'nidofy-ai-village', order: 92, locale: 'nidofy.ai-village' }, Launcher))
-  // Official DSH hides the session header before the first message. Keep the game reachable in a fresh session.
-  ctx.slots.inject('conversation.hero.options', () => ctx.slots.register({ name: 'conversation.hero.options', id: 'nidofy-ai-village-hero', order: 92, locale: 'nidofy.ai-village' }, Launcher))
+  ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-ai-village-launcher', order: -10, locale: 'nidofy.ai-village' },
+    (props: PropsLocale<'nidofy.ai-village'>) => createElement(HeaderLauncher, { id: 'ai-village', order: -10, children: createElement(Launcher, props) })))
 }

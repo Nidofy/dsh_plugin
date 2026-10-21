@@ -7,7 +7,7 @@ const { source } = JSON.parse(await readFile(join(root, '.local/environment.json
 const pnpm = join(source, 'node_modules/.pnpm'), name = (await readdir(pnpm)).find(n => n.startsWith('playwright@1.61.'))
 const { chromium } = await import(pathToFileURL(join(pnpm, name, 'node_modules/playwright/index.mjs')).href)
 const browser = await chromium.connectOverCDP('http://127.0.0.1:18751')
-const qa = join(root, 'packages/ai-village/art/QA/phase5')
+const qa = join(root, '.build/ai-village-v0.3-qa/desktop/discovery')
 const artifacts = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8'))
 const tarball = id => join(root, 'dist', artifacts.find(p => p.name === `@nidofy/dsh-${id}`).file)
 await mkdir(qa, { recursive: true })
@@ -119,6 +119,7 @@ for (const [i, page] of browser.contexts().flatMap(c => c.pages()).entries()) {
   console.log(await page.locator('button[aria-label]').evaluateAll(nodes => nodes.map(n => n.getAttribute('aria-label'))))
   console.log(await page.locator('[aria-label="Enable @nidofy/dsh-ai-village"]').evaluateAll(nodes => nodes.map(n => n.outerHTML)))
   console.log(await page.evaluate(() => ({ hidden: document.hidden, focused: document.hasFocus(),
+    viewport: [innerWidth, innerHeight], dpr: devicePixelRatio,
     overlay: document.querySelectorAll('[data-nidofy-ai-village-overlay]').length,
     cards: document.querySelectorAll('.village-card').length,
     frames: document.querySelectorAll('.village-canvas iframe').length })))

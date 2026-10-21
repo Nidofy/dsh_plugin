@@ -1,6 +1,6 @@
 {
   "name": "@nidofy/dsh-ai-village",
-  "version": "0.2.1",
+  "version": "0.3.2",
   "private": true,
   "description": "Offline AI Village with seven selectable chibi companions and persistent courtyard activities",
   "type": "module",
@@ -40,7 +40,8 @@
     "@deepseek-ai/dsh-client-ui-layout": "0.2.1-rc.2",
     "@deepseek-ai/dsh-client-ui-slots": "0.2.1-rc.2",
     "@deepseek-ai/dsh-client-locale": "0.2.1-rc.2",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dsh": {
     "bundle": {

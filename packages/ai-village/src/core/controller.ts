@@ -1,4 +1,4 @@
-import { actors, available, hitActor, placement, step, validateWorld, walkable } from './world.ts'
+import { actors, available, hitActor, placement, step, validateWorld, walkable, seatAvailable } from './world.ts'
 import type { Point, Scene, World } from './world.ts'
 import { isCharacterId } from './roster.ts'
 export type PauseReason = 'user' | 'hidden' | 'closed' | 'disconnected' | 'ownership' | 'sidebar' | 'other-panel' | 'insufficient-space'
@@ -51,7 +51,7 @@ export class WorldController {
       }
       if (!position) return
       this.world.companions.push({ id, facing: 'right', position, safe: { ...position }, behavior: 'idle', phase: 0,
-        remaining: 2 + this.world.companions.length, destination: null })
+        remaining: 2 + this.world.companions.length, destination: null, intent: null })
     } else if (this.world.actor.id === id) this.world.actor = this.world.companions.shift()!
     else this.world.companions = this.world.companions.filter(a => a.id !== id)
     this.changed()
@@ -80,12 +80,14 @@ export class WorldController {
     if (!drag.active) return
     const result = placement(this.scene, drag.position, this.world.actor.safe)
     const accepted = result.accepted && available(this.world, result.position, this.world.actor.id)
-      && (!result.activity || !this.world.companions.some(a => a.behavior === result.activity))
+      && (!result.hotspot || seatAvailable(this.world, result.hotspot, this.world.actor.id))
     this.lastPlacement = accepted ? 'accepted' : 'rejected'
     if (!accepted) return
     Object.assign(this.world.actor, { position: result.position, safe: { ...result.position },
       facing: result.activity ? 'right' : this.world.actor.facing,
-      behavior: result.activity ?? 'put_down', phase: 0, remaining: result.activity ? 0 : .55, destination: null })
+      behavior: result.activity ?? 'put_down', phase: 0, remaining: result.activity ? 45 : .55, destination: null,
+      intent: result.hotspot && result.activity ? { furnitureId: result.hotspot.id, seat: result.hotspot.seat ?? 'main', activity: result.activity,
+        stage: 'use', route: [], expires: this.world.ticks + 1800 } : null })
     this.changed()
   }
   snapshot(): World { return validateWorld(this.world, this.scene) }

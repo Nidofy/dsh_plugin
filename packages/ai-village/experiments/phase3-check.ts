@@ -44,7 +44,7 @@ export async function check(scene: Scene, root: string) {
   c.pause('user', false); c.advance(1); assert.equal(c.world.ticks, rest.ticks + 3)
   const malformed: World = structuredClone(rest); malformed.actor.behavior = 'walk'; malformed.actor.destination = { x: Infinity, y: 300 }
   assert.throws(() => validateWorld(malformed, scene))
-  assert.throws(() => validateWorld({ ...rest, schemaVersion: 3 }, scene))
+  assert.throws(() => validateWorld({ ...rest, schemaVersion: 4 }, scene))
   assert.throws(() => validateWorld({ ...rest, ticks: NaN }, scene))
   results.push('CSS drag threshold, offset, all three hotspots, invalid landing, post-up cancellation, hidden drag rollback, independent pause reasons, schema validation')
   const profile = await mkdtemp(join(root, 'store-')), store = await SaveStore.open(profile, scene)

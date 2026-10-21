@@ -9,9 +9,21 @@ const { source } = JSON.parse(await readFile(join(root, '.local/environment.json
 const pnpm = join(source, 'node_modules/.pnpm'), name = (await readdir(pnpm)).find(n => n.startsWith('playwright@1.61.'))
 const { chromium } = await import(pathToFileURL(join(pnpm, name, 'node_modules/playwright/index.mjs')).href)
 const browser = await chromium.connectOverCDP('http://127.0.0.1:18751')
+// The isolated profile deliberately has no credentials. Finish the official optional
+// onboarding before testing: a hidden workspace target can still accept DOM events.
+const welcome = browser.contexts().flatMap(c => c.pages()).find(p => p.url().endsWith('/welcome.html'))
+if (welcome) {
+  const later = welcome.getByRole('button', { name: 'Set up later', exact: true })
+  if (!await later.isVisible()) await welcome.getByRole('button', { name: 'Add API Key', exact: true }).click()
+  await later.click()
+}
 const page = browser.contexts().flatMap(c => c.pages()).find(p => p.url().startsWith('dsh-app:'))
 assert.ok(page, 'Isolated official Desktop required')
-const qa = join(root, 'packages/ai-village/art/QA/v0.2'), work = join(root, '.build/ai-village-phase5')
+await page.bringToFront()
+// Fix the test viewport rather than inheriting a previously saved narrow BrowserView layout.
+// Native window resizing remains a separate manual acceptance item.
+await page.setViewportSize({ width: 1400, height: 1000 })
+const qa = join(root, '.build/ai-village-v0.3-qa/desktop'), work = join(root, '.build/ai-village-phase5')
 await mkdir(qa, { recursive: true })
 const errors = [], checks = []
 const artifacts = JSON.parse(await readFile(join(root, 'dist/manifest.json'), 'utf8'))
@@ -92,7 +104,9 @@ try {
     for (const [behavior, target] of [['work', { x: 102, y: 283 }], ['eat', { x: 268, y: 283 }], ['rest', { x: 274, y: 411 }]]) {
       await drag(target)
       await until(async () => (await world())?.actor.behavior === behavior, 'Activity was not saved: ' + behavior)
-      await page.locator('.village-card').screenshot({ path: join(qa, `${id}-${behavior}.png`) })
+      await pause()
+      // Full target capture avoids element-stability RAF waits on an occluded Electron window.
+      await page.screenshot({ path: join(qa, `${id}-${behavior}.png`), timeout: 15000 })
     }
   }
   checks.push('Seven installed characters preserve world on selection and perform all 21 desk/dining/rest placements')
@@ -153,7 +167,7 @@ try {
   await gitButton.click(); await stacked()
   await page.screenshot({ path: join(qa, 'desktop-seven-residents-stacked.png') })
   await page.locator('.village-members summary').click()
-  await page.locator('.village-card').screenshot({ path: join(qa, 'resident-picker.png') })
+  await page.screenshot({ path: join(qa, 'resident-picker.png'), timeout: 15000 })
   await page.locator('.village-members summary').click()
   await gitButton.click()
   checks.push('Seven installed residents independently animate; focus preserves all actors; three furniture activities coexist and persist')
@@ -187,7 +201,7 @@ try {
   await writeFile(join(work, 'expected-multiplayer-world.json'), JSON.stringify(saved, null, 2) + '\n')
   assert.deepEqual(errors, [])
   await writeFile(join(qa, 'validation.json'), JSON.stringify({ carrier: 'Official Desktop 0.2.1-rc.2', buildCommit: '332895e0f7c9d4dbfb29729f5eb367fa263ff986',
-    isolatedProfile: true, installation: 'Official plugin manager: local tgz, Koffi 3.1.1 scripts explicitly enabled in temporary profile',
+    isolatedProfile: true, viewport: { width: 1400, height: 1000, emulated: true }, installation: 'Official plugin manager: local tgz in temporary profile',
     artifacts, checks, metrics, theme: pixels, errors }, null, 2) + '\n')
   console.log(JSON.stringify({ checks, metrics, errors }))
 } catch (error) { console.error(error); process.exit(1) }

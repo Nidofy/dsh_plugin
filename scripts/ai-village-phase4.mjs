@@ -46,7 +46,7 @@ await build({ config: false, entry: { index: join(pkg, 'src/index.ts'), service:
   deps: { alwaysBundle: Object.keys(alias), neverBundle: ['koffi'] } })
 await build({ config: false, entry: { client: join(pkg, 'src/client/index.ts') }, outDir: join(out, 'lib'),
   format: 'cjs', platform: 'browser', target: 'es2022', clean: false, dts: false,
-  deps: { neverBundle: ['react', 'react/jsx-runtime'] }, define: { 'process.env.NODE_ENV': '\"production\"' },
+  deps: { neverBundle: ['react', 'react-dom', 'react/jsx-runtime'] }, define: { 'process.env.NODE_ENV': '\"production\"' },
   outputOptions: { entryFileNames: 'client.js', banner: 'window.__ModuleLoader__.load({ id: \"@nidofy/dsh-ai-village\", factory: (require) => {',
     intro: 'var module = { exports: {} }; var exports = module.exports;', footer: 'return module.exports; } });' } })
 await build({ config: false, entry: { frame: join(pkg, 'src/frame/scene.ts') }, outDir: join(out, 'lib'),

@@ -2,15 +2,15 @@
 
 ## AI 小院
 
-`ai-village` 使用 `shell.overlay` 与会话工具栏入口。世界 owner 在插件生命周期中创建，与会话选择及 React 浮卡挂载解耦。Git 与小院共享右列上下布局；Live2D 通过已有展示事件与两者互斥，只有显式打开动作参与抢占。侧栏/空间不足、窗口隐藏、关闭、主面板和断连均暂停，用户暂停偏好独立保存。
+`ai-village` 使用 `shell.overlay` 与会话工具栏入口。世界 owner 在插件生命周期中创建，与会话选择及 React 浮卡挂载解耦。Git 与小院共享右列上下布局；Live2D 通过已有展示事件仅与小院互斥，只有显式打开动作参与抢占。侧栏/空间不足、窗口隐藏、关闭、主面板和断连均暂停，用户暂停偏好独立保存。
 
 Host 从 `ProfileContext.dir` 获取可信存档根，通过官方已认证 `connection/request` 提供固定资源及受限存档操作。跨进程 owner 锁、客户端租约/Host epoch、持久 profile 身份、CAS 与 operationId 防止重连和多窗口争写。渲染 iframe 不接触 Host API，资源由父页面校验后传入。固定源码及实际 Desktop `0.2.1-rc.2` 已通过验证，见 [阶段 5 记录](ai-village/PHASE5_RESULTS.md)。
 
-七个稳定角色 ID 使用 schemaVersion=2 世界模型，actor 表示选中角色，companions 保存其他在场成员。读取旧格式 1 时增加空 companions，首次新保存再写入格式 2，保留原快照。各角色独立模拟，固定 ID 顺序消费随机数，选中角色变化不改变模拟顺序；家具独占，落点与行走避开其他人的脚下位置。每个角色拥有独立 rig，按脚下深度绘制和命中；移出角色释放 rig，纹理池仍为 130 张。公共场景复用家具，工作/吃饭的手臂和休息全身图按角色替换。三个浮卡额外注册公开 `conversation.hero.options`，保证未发送消息的新会话也可打开。
+七个稳定角色 ID 使用 schemaVersion=3 世界模型，actor 表示选中角色，companions 保存其他在场成员。读取旧格式 1/2 时在内存迁移，格式 1 增加空 companions，旧持续活动获得有限时长；首次新保存写入格式 3，保留旧原件。各角色独立模拟，固定 ID 顺序消费随机数，选中角色变化不改变模拟顺序；家具独占，落点与行走避开其他人的脚下位置。每个角色拥有独立 rig，按脚下深度绘制和命中；移出角色释放 rig，纹理池仍为 130 张。公共场景复用家具，工作/吃饭的手臂和休息全身图按角色替换。自主行为保存家具实例/座位预留、路线和活动时钟；使用有限可见图绕过现有障碍。存档只回收明确标记的新周期快照，保留近期 32 份及恢复引用，清理失败不撤销已持久化保存。三个启动入口统一从 `shell.overlay` 挂载，再通过 React Portal 放到官方 `[data-conversation-header-corner]` 标记内、sidebar 按钮左侧。官方 corner 插槽为 single，保持原 sidebar owner 不变；适配器仅管理各自的 DOM 子节点，按 Git / Live2D / 小院排序，跟随新会话、已有会话的 header 重建迁移，卸载移除节点并断开观察。删除 hero/options 与 header/utilities 的重复入口。三个独立包保持相同的小型 header-launcher 适配器，不引入共享库的原生依赖；标记随 DSH 版本复验。
 
 ## Live2D 浮动伙伴
 
-`live2d` 使用 `shell.overlay` 与会话工具栏入口，独立拥有资产路由、展示参数、渲染生命周期；不注册 `sidebar.right.pane.tab`、`rightbar`、`shell.accessory` 或 `nidofy.companion`，不依赖 desktop-extras。它与 Git 卡片通过展示专用 `nidofy:floating-panel-open` 事件互斥，最后一次显式打开者占用右侧位置，事件不携带业务数据。几何适配只触碰自身的对话留白标记，退出时撤销。
+`live2d` 使用 `shell.overlay` 与会话工具栏入口，独立拥有资产路由、展示参数、渲染生命周期；不注册 `sidebar.right.pane.tab`、`rightbar`、`shell.accessory` 或 `nidofy.companion`，不依赖 desktop-extras。它与小院通过展示专用 `nidofy:floating-panel-open` 事件互斥，与 Git 共享按内容高度分配的右侧位置，事件不携带业务数据。几何适配只触碰自身的对话留白标记，退出时撤销。
 
 Cubism 在不透明来源 sandbox iframe 中执行；Host 提供固定白名单资源，主页面校验后传递离线字节，iframe CSP 禁止联网。模型和 Core 不进入主客户端 bundle。隐藏移除 iframe，失败静态回退并保留明确重试入口。展示契约由独立插件拥有，保持旧构图语义；无需引用定制 feature 的类型。详见 [Live2D 方案与验证](live2d.md)。
 
@@ -39,9 +39,11 @@ Notebook 预设基于原版 Standard 预设，只替换 compaction provider，�
 
 `/standard` 是显式基础入口，用于不提供增强 provider 的部署；与 v2 互斥，不会降级覆盖已有 v2 数据。
 
+Notebook 0.2.0 的返回卡与交接包是已提交笔记的只读投影，按原文事件重新验证来源，跨会话选择复用显式项目授权。覆盖预览不推进游标；索引容量不足保留有效旧范围。没有执行时代码回执的验证一律标记需要复验，不推断当前代码通过。
+
 ## 桌宠
 
-Host 只读取会话状态并提供 `/api/nidofy-pets/`；总开关关闭时卸载观察器。静态资源校验路径，设置保持修订检查。Web bridge 提供动画预览；Electron 导出控制透明窗口、IPC、拖动与退出清理，载体负责认证和协议。
+Host 只读取会话状态并提供 `/api/nidofy-pets/`；总开关关闭时卸载观察器。静态资源校验路径，设置保持修订检查。官方设置页提供直接管理与总开关；不再注册主窗口内的桌宠浮层。Electron 导出控制独立透明窗口、IPC、拖动与退出清理，载体负责认证和协议。固定官方 Windows 载体适配由 scripts/build-pet-carrier.mjs 在本仓库生成，设置保存后刷新窗口；未适配客户端显示明确提示。应用页 preload 只暴露版本和会话导航通知，不提供原生命令或 Host 凭据。
 
 ## 验证与发布
 

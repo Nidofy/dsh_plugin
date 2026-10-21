@@ -1,5 +1,15 @@
 /** Independent working-note controls and source-history copy. */
 export const en = {
+  indexCoverage: 'Indexed / durable event', indexCapacity: 'Capacity reached; verified older matches remain searchable', indexResults: 'Result limit reached',
+  chooseReturnSession: 'Choose a linked project conversation', returnSessionsLimited: 'Only a bounded set of project conversations is shown.',
+  evidenceCoverage: 'Committed evidence / durable history', pendingEvents: 'Events beyond coverage',
+  organizationOff: 'Automatic organization is off. New history is not automatically added to notes.',
+  blockedEvidence: 'Next batch stops before event', coveragePreview: 'Batch preview only; the compactor appendix can reduce the available budget. This does not advance coverage.',
+  returnCard: 'Return card and handoff', loadReturnCard: 'Read committed return card', exportMarkdown: 'Export Markdown', exportJson: 'Export JSON',
+  handoffNotice: 'Explicit export of the selected conversation’s committed notes and references. No model call. References do not transfer authorization.',
+  baselineUnknown: 'Code baseline and uncommitted changes are unknown. Check the working tree before continuing.',
+  noCommittedNotes: 'No committed notes yet.', sourceUser: 'User source', sourceTool: 'Tool result source', sourceAssistant: 'Assistant claim', sourceUnknown: 'Unknown source',
+  sourceUnavailable: 'The source quote could not be revalidated.', verificationStale: 'Historical verification: not bound to the current code. Revalidation required.',
   notebookSettingsDescription: 'Read and edit notes, search history and manage linked workspaces for the current conversation.', openNotebook: 'Open notes', closeNotebook: 'Close', savePending: 'Saving notes', stopWaitingNotice: 'Saving may already have completed. If you stop waiting, check the notes before saving again.', keepWaiting: 'Keep waiting', stopWaiting: 'Stop waiting',
   saveUnconfirmed: 'The last save was not confirmed. Check the current notes before saving again.', saveChecked: 'Checked',
   noteSettings: 'Note settings and context', activeNotes: 'Active notes', editNote: 'Edit note', errorDetails: 'Technical details',
@@ -55,6 +65,16 @@ export const en = {
 
 
 export const zh: Record<keyof typeof en, string> = {
+  indexCoverage: '索引覆盖 / 已持久化事件', indexCapacity: '已达容量上限，已验证的旧历史仍可检索', indexResults: '已达结果数量上限',
+  chooseReturnSession: '选择关联项目会话', returnSessionsLimited: '这里只列出数量受限的项目会话。',
+  evidenceCoverage: '已提交证据覆盖 / 已持久化历史', pendingEvents: '覆盖之后的事件数',
+  organizationOff: '自动整理已关闭，新增历史不会自动写入笔记。',
+  blockedEvidence: '下一批次将在此事件之前停止', coveragePreview: '这里只预览批次容量；压缩器附加内容可能进一步减少预算，不会推进覆盖游标。',
+  returnCard: '返回卡与交接包', loadReturnCard: '读取已提交返回卡', exportMarkdown: '导出 Markdown', exportJson: '导出 JSON',
+  handoffNotice: '显式导出选定会话已提交的笔记与引用，不调用模型。引用内容不转移执行授权。',
+  baselineUnknown: '代码基线与未提交修改尚未取得，继续前请核对工作区。',
+  noCommittedNotes: '尚无已提交笔记。', sourceUser: '用户原文', sourceTool: '工具结果来源', sourceAssistant: '模型陈述', sourceUnknown: '来源未知',
+  sourceUnavailable: '未能重新核实原文引用。', verificationStale: '历史验证尚未绑定当前代码，需要重新验证。',
   notebookSettingsDescription: '查看和编辑当前会话的笔记、搜索历史，以及管理关联工作区', openNotebook: '打开笔记', closeNotebook: '关闭', savePending: '正在保存笔记', stopWaitingNotice: '保存可能已经完成。停止等待后，请先核对笔记再保存', keepWaiting: '继续等待', stopWaiting: '停止等待',
   saveUnconfirmed: '上次保存结果待确认，请核对当前笔记后再保存', saveChecked: '已核对',
   noteSettings: '笔记设置与上下文', activeNotes: '当前笔记', editNote: '编辑笔记', errorDetails: '技术详情',

@@ -7,7 +7,7 @@ import assert from 'node:assert/strict'
 import * as tar from 'tar'
 import { spawn } from 'node:child_process'
 const root = resolve(import.meta.dirname, '..'), pkg = join(root, 'packages/ai-village')
-const out = join(root, '.build/ai-village-phase3'), qa = join(pkg, 'art/QA/phase3')
+const out = join(root, '.build/ai-village-phase3'), qa = join(root, '.build/ai-village-v0.3-qa/storage-browser')
 await mkdir(out, { recursive: true }); await mkdir(qa, { recursive: true })
 const mode = process.argv[2] ?? 'check'
 assert.ok(['check', 'serve', 'build'].includes(mode))
