@@ -1,0 +1,59 @@
+{
+  "sourceHead": "42ee9f46eb0b772fb556631b9a75669c9ea49edf",
+  "budget": {
+    "bytes": 4194304,
+    "pixels": 8000000,
+    "layers": 8,
+    "perFile": 8388608,
+    "sourceSHA": "b82dd12e23c88ed0ab79d3fb9de15da3b845bff311f582b273313e6f53186beb",
+    "themeSHA": "5492d1e1e1530fdf29513ecf843650a59e21cbc6748ddf6f7bdf6584a4cdd208"
+  },
+  "groups": [
+    {
+      "name": "raw",
+      "provenance": {
+        "master": "../../art/entrance-v1/source/master-closed-original.png",
+        "cleanPlate": "../../art/entrance-v1/source/environment-clean-original.png",
+        "method": "built-in image_gen; clean plate edited from same master; deterministic masks and pixel extraction",
+        "originalPixels": [
+          1086,
+          1448
+        ]
+      },
+      "status": "FAIL",
+      "artStatus": "ART_REVIEW",
+      "bytes": 5747338,
+      "pixels": 17107200,
+      "rgbaBytes": 68428800,
+      "layers": 11,
+      "limits": {
+        "bytes": 4194304,
+        "pixels": 8000000,
+        "layers": 8,
+        "perFile": 8388608,
+        "sourceSHA": "b82dd12e23c88ed0ab79d3fb9de15da3b845bff311f582b273313e6f53186beb",
+        "themeSHA": "5492d1e1e1530fdf29513ecf843650a59e21cbc6748ddf6f7bdf6584a4cdd208"
+      },
+      "failures": []
+    },
+    {
+      "name": "compat",
+      "provenance": "Original dream-garden master; pending human approval. Rect aperture is bounding box ONLY: use supplied curved alpha mask for actual reveal.",
+      "status": "PASS",
+      "artStatus": "ART_REVIEW",
+      "bytes": 2749401,
+      "pixels": 1773738,
+      "rgbaBytes": 7094952,
+      "layers": 8,
+      "limits": {
+        "bytes": 4194304,
+        "pixels": 8000000,
+        "layers": 8,
+        "perFile": 8388608,
+        "sourceSHA": "b82dd12e23c88ed0ab79d3fb9de15da3b845bff311f582b273313e6f53186beb",
+        "themeSHA": "5492d1e1e1530fdf29513ecf843650a59e21cbc6748ddf6f7bdf6584a4cdd208"
+      },
+      "failures": []
+    }
+  ]
+}

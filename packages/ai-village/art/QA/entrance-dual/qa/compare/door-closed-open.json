@@ -1,0 +1,13 @@
+{
+  "before": "packages\\ai-village\\art\\QA\\entrance-dual\\qa\\art-preview\\580x720-light-0.png",
+  "after": "packages\\ai-village\\art\\QA\\entrance-dual\\qa\\art-preview\\580x720-light-100.png",
+  "beforeSHA": "0c99ca4434da4d9d7a5cfb2452f0f46e464b28a96f3d5c999e3e173e3fa3e084",
+  "afterSHA": "4100873d05838000801dcb9c07e261efa569b6bfb88c5c3e7bc1189361facc29",
+  "width": 580,
+  "height": 721,
+  "meanAbsoluteRGB": 11.38915698184195,
+  "changedFraction": 0.1361590702568272,
+  "maxChannelDelta": 216,
+  "status": "MEASURED",
+  "approval": "NEEDS_HUMAN_REVIEW; metric alone is not a visual acceptance threshold"
+}

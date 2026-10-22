@@ -1,0 +1,17 @@
+{
+  "baseSHA": "bc230e7f662f47efb497529a276d09aad90ad4ac",
+  "qaBranch": "codex/entrance-qa",
+  "qaHeadAtRun": "bc230e7f662f47efb497529a276d09aad90ad4ac",
+  "sourceArtSHA": "42ee9f46eb0b772fb556631b9a75669c9ea49edf",
+  "cachedOriginMain": "bc230e7f662f47efb497529a276d09aad90ad4ac",
+  "node": "v24.16.0",
+  "platform": "win32",
+  "arch": "x64",
+  "sourceStatus": "ART_REVIEW; no approval changed",
+  "originalUntracked": [
+    "docs/ai-village/NEXT_FEATURES_2026-10-21.md",
+    "docs/ai-village/UI_VISUAL_DIRECTION_REVIEW_2026-10-22.md"
+  ],
+  "A_checkpoint": "NOT_AVAILABLE_AT_HARNESS_CHECKPOINT",
+  "productionFilesModified": false
+}

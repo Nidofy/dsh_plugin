@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "command": "node --test tools/ai-village-dualqa/png.test.mjs",
+  "exitCode": 0,
+  "stdout": "✔ independent PNG validator accepts complete RGBA and rejects corrupted/truncated bytes (1.4912ms)\n✔ bounded inflation rejects oversized dimensions, inconsistent scanlines and invalid filters (0.6908ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 59.9693\n",
+  "stderr": ""
+}
