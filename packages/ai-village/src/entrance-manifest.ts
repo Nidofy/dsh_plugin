@@ -1,7 +1,7 @@
 // Generated from the local entrance asset manifest.
 export const entranceManifest = {
   "status": "ART_REVIEW",
-  "source": "Original dream-garden art commit 42ee9f46eb0b772fb556631b9a75669c9ea49edf; cropped 2x compatibility export, unchanged PNG bytes; human approval pending.",
+  "source": "Original dream-garden art commit 42ee9f46eb0b772fb556631b9a75669c9ea49edf; cropped 2x compatibility export, unchanged PNG bytes; hinge-preserving 6px leaf overlap; human approval pending.",
   "designSize": {
     "width": 1080,
     "height": 1440
@@ -56,9 +56,9 @@ export const entranceManifest = {
       "key": "entrance/entrance-gate-left.png",
       "kind": "left",
       "rect": {
-        "x": 0.2763888888888889,
+        "x": 0.2762576921349324,
         "y": 0.22604166666666667,
-        "width": 0.22777777777777777,
+        "width": 0.23333333333333334,
         "height": 0.3770833333333333
       },
       "pivot": [
@@ -71,9 +71,9 @@ export const entranceManifest = {
       "key": "entrance/entrance-gate-right.png",
       "kind": "right",
       "rect": {
-        "x": 0.49583333333333335,
+        "x": 0.49040776365129024,
         "y": 0.22604166666666667,
-        "width": 0.23055555555555557,
+        "width": 0.23611111111111113,
         "height": 0.3770833333333333
       },
       "pivot": [
@@ -183,7 +183,7 @@ export const entranceManifest = {
     }
   ],
   "id": "dream-garden",
-  "revision": 1,
+  "revision": 2,
   "portalPolygon": [
     [
       0.2817675925925926,

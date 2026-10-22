@@ -1,7 +1,43 @@
 {
   "status": "ART_REVIEW",
   "source_commit": "42ee9f46eb0b772fb556631b9a75669c9ea49edf",
-  "importer": "ai-village-entrance-import/v1",
+  "importer": "ai-village-entrance-import/v2",
+  "closure_adjustments": [
+    {
+      "key": "entrance/entrance-gate-left.png",
+      "original_rect": {
+        "x": 0.2763888888888889,
+        "y": 0.22604166666666667,
+        "width": 0.22777777777777777,
+        "height": 0.3770833333333333
+      },
+      "rect": {
+        "x": 0.2762576921349324,
+        "y": 0.22604166666666667,
+        "width": 0.23333333333333334,
+        "height": 0.3770833333333333
+      },
+      "hinge_x": 0.281767955801105,
+      "added_design_width": 6
+    },
+    {
+      "key": "entrance/entrance-gate-right.png",
+      "original_rect": {
+        "x": 0.49583333333333335,
+        "y": 0.22604166666666667,
+        "width": 0.23055555555555557,
+        "height": 0.3770833333333333
+      },
+      "rect": {
+        "x": 0.49040776365129024,
+        "y": 0.22604166666666667,
+        "width": 0.23611111111111113,
+        "height": 0.3770833333333333
+      },
+      "hinge_x": 0.7209944751381215,
+      "added_design_width": 6
+    }
+  ],
   "source_manifest_sha256": "b52e0c7a87e9b42d7003bdbdf6a3ee05ac5153736f21ba08d535288c253b1a48",
   "geometry_manifest_sha256": "a66c853ab46c2b85dcef41cc2ae91dc5cd0a69e51edfbc2f568e12e8a0f7d80d",
   "sources": [
@@ -150,9 +186,9 @@
         362
       ],
       "rect": {
-        "x": 0.2763888888888889,
+        "x": 0.2762576921349324,
         "y": 0.22604166666666667,
-        "width": 0.22777777777777777,
+        "width": 0.23333333333333334,
         "height": 0.3770833333333333
       },
       "pivot": [
@@ -179,9 +215,9 @@
         362
       ],
       "rect": {
-        "x": 0.49583333333333335,
+        "x": 0.49040776365129024,
         "y": 0.22604166666666667,
-        "width": 0.23055555555555557,
+        "width": 0.23611111111111113,
         "height": 0.3770833333333333
       },
       "pivot": [
