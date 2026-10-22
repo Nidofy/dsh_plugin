@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "file": "nidofy-dsh-ai-village-0.6.4.tgz",
+  "sha256": "93d7b3d7c0ce5d59622043e15f51925714e9188d3352961454087b38c33fe027",
+  "bytes": 32114558,
+  "entries": 276,
+  "art_status": "ART_REVIEW",
+  "offline_empty_store": true,
+  "registry": "http://127.0.0.1:9",
+  "lifecycle_scripts": false,
+  "isolated_host_smoke": true,
+  "real_profile_touched": false,
+  "preview_modules_packaged": false,
+  "host_peers": "Existing pinned host installation, provided only after offline plugin install"
+}

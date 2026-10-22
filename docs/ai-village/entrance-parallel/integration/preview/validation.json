@@ -1,7 +1,7 @@
 {
   "status": "PASS",
   "art_status": "ART_REVIEW",
-  "fixture_sha256": "e0e42ce68f599e2bf51f419aaebec355d4d860dc8f035024b80866736f22a29b",
+  "fixture_sha256": "6d2da739e0eccb74766b827adb7efa0974dbf18f2b9cdba0aff2634d1fb5f548",
   "errors": [],
   "results": [
     {
@@ -10,6 +10,17 @@
       "theme": "light",
       "language": "zh",
       "dpr": 1,
+      "warmReopenVerified": true,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
       "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
       "verdict": "PASS",
       "held_first_frame_ack": true,
@@ -17,27 +28,76 @@
       "phases": [
         {
           "phase": "approach",
-          "at": 196.39999985694885,
+          "at": 179.09999990463257,
           "canReveal": false
         },
         {
           "phase": "wait",
-          "at": 1319.6999998092651,
+          "at": 1287.1999998092651,
           "canReveal": false
         },
         {
           "phase": "open",
-          "at": 1799.3999998569489,
+          "at": 3546.899999856949,
           "canReveal": true
         },
         {
           "phase": "cross",
-          "at": 2465.199999809265,
+          "at": 4237.799999952316,
           "canReveal": true
         },
         {
           "phase": "reveal",
-          "at": 3031.0999999046326,
+          "at": 4803.299999952316,
+          "canReveal": true
+        }
+      ]
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "light",
+      "language": "en",
+      "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
+      "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
+      "verdict": "PASS",
+      "held_first_frame_ack": true,
+      "keyframes": "Harness seeks door transforms while real world ACK is withheld; normal animation replay follows",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 170,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1289.2999999523163,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 3506.7999999523163,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 4173,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 4739.399999856949,
           "canReveal": true
         }
       ]
@@ -48,6 +108,17 @@
       "theme": "dark",
       "language": "zh",
       "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
       "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
       "verdict": "PASS",
       "held_first_frame_ack": true,
@@ -55,27 +126,76 @@
       "phases": [
         {
           "phase": "approach",
-          "at": 173.09999990463257,
+          "at": 173.29999995231628,
           "canReveal": false
         },
         {
           "phase": "wait",
-          "at": 1290.7000000476837,
+          "at": 1274.2999999523163,
           "canReveal": false
         },
         {
           "phase": "open",
-          "at": 1762.7000000476837,
+          "at": 1746.2000000476837,
           "canReveal": true
         },
         {
           "phase": "cross",
-          "at": 2407,
+          "at": 2441,
           "canReveal": true
         },
         {
           "phase": "reveal",
-          "at": 2973.5999999046326,
+          "at": 2991.5999999046326,
+          "canReveal": true
+        }
+      ]
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "dark",
+      "language": "en",
+      "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
+      "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
+      "verdict": "PASS",
+      "held_first_frame_ack": true,
+      "keyframes": "Harness seeks door transforms while real world ACK is withheld; normal animation replay follows",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 157.20000004768372,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1275.7000000476837,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1748.6000001430511,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2426.4000000953674,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 2992.4000000953674,
           "canReveal": true
         }
       ]
@@ -86,6 +206,17 @@
       "theme": "light",
       "language": "zh",
       "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
       "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
       "verdict": "PASS",
       "held_first_frame_ack": true,
@@ -93,27 +224,76 @@
       "phases": [
         {
           "phase": "approach",
-          "at": 170.29999995231628,
+          "at": 165.19999980926514,
           "canReveal": false
         },
         {
           "phase": "wait",
-          "at": 1305.8999998569489,
+          "at": 1295.8999998569489,
           "canReveal": false
         },
         {
           "phase": "open",
-          "at": 1908.7999999523163,
+          "at": 1880.1999998092651,
           "canReveal": true
         },
         {
           "phase": "cross",
-          "at": 2589.2999999523163,
+          "at": 2547.5,
           "canReveal": true
         },
         {
           "phase": "reveal",
-          "at": 3155.7999999523163,
+          "at": 3114.5,
+          "canReveal": true
+        }
+      ]
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "en",
+      "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
+      "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
+      "verdict": "PASS",
+      "held_first_frame_ack": true,
+      "keyframes": "Harness seeks door transforms while real world ACK is withheld; normal animation replay follows",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 165,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1291.5,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1900,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2548.699999809265,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3099,
           "canReveal": true
         }
       ]
@@ -124,6 +304,17 @@
       "theme": "dark",
       "language": "zh",
       "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
       "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
       "verdict": "PASS",
       "held_first_frame_ack": true,
@@ -131,27 +322,76 @@
       "phases": [
         {
           "phase": "approach",
-          "at": 165.5,
+          "at": 163.09999990463257,
           "canReveal": false
         },
         {
           "phase": "wait",
-          "at": 1273.5,
+          "at": 1288.7999999523163,
           "canReveal": false
         },
         {
           "phase": "open",
-          "at": 1864.6000001430511,
+          "at": 1862.4000000953674,
           "canReveal": true
         },
         {
           "phase": "cross",
-          "at": 2549.9000000953674,
+          "at": 2548.5,
           "canReveal": true
         },
         {
           "phase": "reveal",
-          "at": 3117.2999999523163,
+          "at": 3097.7000000476837,
+          "canReveal": true
+        }
+      ]
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "dark",
+      "language": "en",
+      "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
+      "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
+      "verdict": "PASS",
+      "held_first_frame_ack": true,
+      "keyframes": "Harness seeks door transforms while real world ACK is withheld; normal animation replay follows",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 208.29999995231628,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1357.1999998092651,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1948.8999998569489,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2616.0999999046326,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3165.0999999046326,
           "canReveal": true
         }
       ]
@@ -162,6 +402,17 @@
       "theme": "light",
       "language": "zh",
       "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
       "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
       "verdict": "PASS",
       "held_first_frame_ack": true,
@@ -169,27 +420,76 @@
       "phases": [
         {
           "phase": "approach",
-          "at": 171.70000004768372,
+          "at": 172.5,
           "canReveal": false
         },
         {
           "phase": "wait",
-          "at": 1317.5,
+          "at": 1330.9000000953674,
           "canReveal": false
         },
         {
           "phase": "open",
-          "at": 2044.5,
+          "at": 2009.9000000953674,
           "canReveal": true
         },
         {
           "phase": "cross",
-          "at": 2770.7000000476837,
+          "at": 2738.100000143051,
           "canReveal": true
         },
         {
           "phase": "reveal",
-          "at": 3320.0999999046326,
+          "at": 3304.800000190735,
+          "canReveal": true
+        }
+      ]
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "light",
+      "language": "en",
+      "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
+      "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
+      "verdict": "PASS",
+      "held_first_frame_ack": true,
+      "keyframes": "Harness seeks door transforms while real world ACK is withheld; normal animation replay follows",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 172.70000004768372,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1311.7999999523163,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 2028.3999998569489,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2740.5,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3306.7999999523163,
           "canReveal": true
         }
       ]
@@ -200,6 +500,17 @@
       "theme": "dark",
       "language": "zh",
       "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
       "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
       "verdict": "PASS",
       "held_first_frame_ack": true,
@@ -207,27 +518,76 @@
       "phases": [
         {
           "phase": "approach",
-          "at": 165.70000004768372,
+          "at": 168.5,
           "canReveal": false
         },
         {
           "phase": "wait",
-          "at": 1294.3999998569489,
+          "at": 1302.2999999523163,
           "canReveal": false
         },
         {
           "phase": "open",
-          "at": 2056.899999856949,
+          "at": 2025.0999999046326,
           "canReveal": true
         },
         {
           "phase": "cross",
-          "at": 2766.5,
+          "at": 2718.899999856949,
           "canReveal": true
         },
         {
           "phase": "reveal",
-          "at": 3332.899999856949,
+          "at": 3269.7999999523163,
+          "canReveal": true
+        }
+      ]
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "dark",
+      "language": "en",
+      "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
+      "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
+      "verdict": "PASS",
+      "held_first_frame_ack": true,
+      "keyframes": "Harness seeks door transforms while real world ACK is withheld; normal animation replay follows",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 162.39999985694885,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1307.0999999046326,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1996.5999999046326,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2713.899999856949,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3264.199999809265,
           "canReveal": true
         }
       ]
@@ -238,6 +598,17 @@
       "theme": "light",
       "language": "zh",
       "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
       "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
       "verdict": "PASS",
       "held_first_frame_ack": true,
@@ -245,27 +616,76 @@
       "phases": [
         {
           "phase": "approach",
-          "at": 186.40000009536743,
+          "at": 173.10000014305115,
           "canReveal": false
         },
         {
           "phase": "wait",
-          "at": 1318.2000000476837,
+          "at": 1275.8000001907349,
           "canReveal": false
         },
         {
           "phase": "open",
-          "at": 1660.7000000476837,
+          "at": 1623.4000000953674,
           "canReveal": true
         },
         {
           "phase": "cross",
-          "at": 2336.2000000476837,
+          "at": 2292.9000000953674,
           "canReveal": true
         },
         {
           "phase": "reveal",
-          "at": 2885.5,
+          "at": 2859.300000190735,
+          "canReveal": true
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "height": 360,
+      "theme": "light",
+      "language": "en",
+      "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
+      "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
+      "verdict": "PASS",
+      "held_first_frame_ack": true,
+      "keyframes": "Harness seeks door transforms while real world ACK is withheld; normal animation replay follows",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 158.39999985694885,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1281.7999999523163,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1628.7000000476837,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2297.5999999046326,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 2864.2000000476837,
           "canReveal": true
         }
       ]
@@ -276,6 +696,17 @@
       "theme": "dark",
       "language": "zh",
       "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
       "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
       "verdict": "PASS",
       "held_first_frame_ack": true,
@@ -283,27 +714,76 @@
       "phases": [
         {
           "phase": "approach",
-          "at": 167.59999990463257,
+          "at": 172.39999985694885,
           "canReveal": false
         },
         {
           "phase": "wait",
-          "at": 1269.9000000953674,
+          "at": 1294.8999998569489,
           "canReveal": false
         },
         {
           "phase": "open",
-          "at": 1610.5,
+          "at": 1658.0999999046326,
           "canReveal": true
         },
         {
           "phase": "cross",
-          "at": 2285.4000000953674,
+          "at": 2328.699999809265,
           "canReveal": true
         },
         {
           "phase": "reveal",
-          "at": 2835.4000000953674,
+          "at": 2895.0999999046326,
+          "canReveal": true
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "height": 360,
+      "theme": "dark",
+      "language": "en",
+      "dpr": 1,
+      "warmReopenVerified": false,
+      "artRequests": [
+        "entrance/entrance-bg-far.png",
+        "entrance/entrance-bg-mid.png",
+        "entrance/entrance-path.png",
+        "entrance/entrance-gate-left.png",
+        "entrance/entrance-gate-right.png",
+        "entrance/entrance-gate-frame.png",
+        "entrance/entrance-fg-left.png",
+        "entrance/entrance-fg-right.png"
+      ],
+      "backend": "Chromium SwiftShader; harness explicitly opts into DOM motion",
+      "verdict": "PASS",
+      "held_first_frame_ack": true,
+      "keyframes": "Harness seeks door transforms while real world ACK is withheld; normal animation replay follows",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 162.90000009536743,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1284.2000000476837,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1663.7000000476837,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2318.7999999523163,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 2869,
           "canReveal": true
         }
       ]

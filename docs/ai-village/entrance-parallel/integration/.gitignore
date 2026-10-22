@@ -1,0 +1,2 @@
+# Browser scripts retain raw duplicate video filenames locally; named recordings are committed.
+regression/videos/

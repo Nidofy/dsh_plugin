@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "art_status": "ART_REVIEW",
+  "fixture_sha256": "6d2da739e0eccb74766b827adb7efa0974dbf18f2b9cdba0aff2634d1fb5f548",
+  "errors": [],
+  "results": [
+    {
+      "case": "candidate door PNG 404",
+      "verdict": "PASS",
+      "firstFrame": true,
+      "fallback": "static entrance, real world remains usable"
+    }
+  ]
+}

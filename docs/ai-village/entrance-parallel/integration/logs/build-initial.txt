@@ -1,0 +1,28 @@
+file:///D:/Documents/FeiyangChen/devApps/dsh_plugin-entrance-integration/scripts/ai-village-phase4.mjs:35
+if (diagnostics.length) throw Error(ts.formatDiagnosticsWithColorAndContext(diagnostics, { getCanonicalFileName: f => f, getCurrentDirectory: () => root, getNewLine: () => '\n' }))
+                              ^
+
+Error: packages/ai-village/src/frame/atmosphere.ts:1:55 - error TS2307: Cannot find module 'pixi.js' or its corresponding type declarations.
+
+1 import { Texture, Sprite, Container, Rectangle } from 'pixi.js'
+                                                        ~~~~~~~~~
+packages/ai-village/src/frame/neighborhood-art.ts:1:37 - error TS2307: Cannot find module 'pixi.js' or its corresponding type declarations.
+
+1 import { Container, Graphics } from 'pixi.js'
+                                      ~~~~~~~~~
+packages/ai-village/src/frame/scene.ts:12:96 - error TS2307: Cannot find module 'pixi.js' or its corresponding type declarations.
+
+12 import { Application, Container, Graphics, Sprite, Texture, RenderTexture, Matrix, Text } from 'pixi.js'
+                                                                                                  ~~~~~~~~~
+packages/ai-village/src/frame/scene.ts:13:8 - error TS2882: Cannot find module or type declarations for side-effect import of 'pixi.js/unsafe-eval'.
+
+13 import 'pixi.js/unsafe-eval'
+          ~~~~~~~~~~~~~~~~~~~~~
+packages/ai-village/src/art/paper-doll.ts:1:44 - error TS2307: Cannot find module 'pixi.js' or its corresponding type declarations.
+
+1 import { Container, Sprite, Texture } from 'pixi.js'
+                                             ~~~~~~~~~
+
+    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin-entrance-integration/scripts/ai-village-phase4.mjs:35:31
+
+Node.js v24.16.0
