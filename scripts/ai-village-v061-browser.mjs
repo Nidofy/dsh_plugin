@@ -64,10 +64,13 @@ try {
   for (const button of await page.locator('.village-hud button').all()) {
     const box = await button.boundingBox(); assert.ok(box.width >= 40 && box.height >= 40)
   }
-  assert.ok(await page.locator('.village-hud svg').count() >= 3)
+  assert.equal(await page.locator('.village-hud svg').count(), 1)
   assert.equal(await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true, cancelable: true }))), true)
   assert.deepEqual((await inspect()).homeDraft, draft)
   await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })))
+  if(await page.locator('.village-edit-options details[open]').count())await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })))
+  if(!(await inspect()).presentation.confirmClose)await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })))
+  assert.ok((await inspect()).presentation.confirmClose);assert.deepEqual((await inspect()).homeDraft,draft);await click('放弃并退出布置')
   await page.waitForFunction(() => !window.__villageHostFixture.inspect().homeDraft)
   assert.equal(await page.getByRole('tab', { name: '布置', exact: true }).evaluate(e => document.activeElement === e), true)
   checks.push('synthetic IME Escape preserved; ordinary frame Escape cancels once and returns focus')

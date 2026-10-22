@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "baseline": "e85ccc7 actual schema2 decoder",
+  "checks": [
+    "schema2 original values and notice IDs retained by schema3 migration",
+    "0.6.2 refuses schema3 without modifying bytes",
+    "separate restored backup reads through actual 0.6.2 decoder",
+    "new schema3 data remains untouched"
+  ],
+  "backupPointerSHA256": "6a7ff3737e2aa90f03e982d49883fd761a28164748d20c73011665b029e79076",
+  "upgradedPointerSHA256": "8d82927aee7136c55188360d510f5e1b9b064bb4f5db9f8f2551155b66108fd8"
+}

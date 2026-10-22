@@ -10,7 +10,7 @@ import type { GlobalStandardProps, PropsLocale } from '@deepseek-ai/dsh-client-u
 import { createElement, useSyncExternalStore } from 'react'
 import { VillageRuntime } from './runtime.ts'
 import { VillageIcon } from './Icon.tsx'
-import { Floating, css } from './Floating.tsx'
+import { Floating } from './Floating.tsx'
 import { en, zh } from './messages.ts'
 declare module '@deepseek-ai/dsh-client-ui-slots' { interface LocaleNamespaceMap { 'nidofy.ai-village': keyof typeof en } }
 export const name = 'nidofy-ai-village-client'
@@ -43,7 +43,7 @@ export function registerClient(ctx: Context, runtime: VillageRuntime): void {
   }
   function Launcher(props: PropsLocale<'nidofy.ai-village'>) {
     useSyncExternalStore(runtime.subscribeUI, runtime.snapshotUI)
-    return createElement('span', { className: 'dsh-ai-village' }, createElement('style', null, css),
+    return createElement('span', { className: 'dsh-ai-village' },
       createElement('button', { 'data-nidofy-village-launcher': '', title: props.t('open'), 'aria-label': props.t('open'), 'aria-pressed': runtime.open,
         onClick: () => { if (runtime.open) close(); else { window.dispatchEvent(new CustomEvent('nidofy:floating-panel-open', { detail: 'ai-village' })); runtime.show() } },
       }, createElement(VillageIcon, { name: 'home' })))

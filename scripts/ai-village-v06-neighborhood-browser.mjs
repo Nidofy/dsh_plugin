@@ -41,13 +41,13 @@ try{
  await click('暂停');await page.evaluate(()=>window.__villageHostFixture.flush())
  const noticeWorld=(await inspect()).world;assert.equal((await inspect()).notices.length,12);assert.ok((await inspect()).presentation.toastIds.length<=16)
  await page.getByRole('button',{name:/^消息，/}).click();const beforeRead=(await inspect()).preferences.noticeReadIds.length;assert.equal(beforeRead,0)
- const noticeQA=join(root,'packages/ai-village/art/QA/ui-v1/visual'),noticeBox=await page.locator('.village-card').boundingBox(),noticeName=Math.round(noticeBox.width)+'x'+Math.round(noticeBox.height)+'-notifications-populated';await page.screenshot({path:join(noticeQA,noticeName+'.png')});await writeFile(join(noticeQA,'notifications-metadata.json'),JSON.stringify({name:noticeName,css:noticeBox,dpr:1,kind:'RUNTIME',build:JSON.parse(await readFile(join(noticeQA,'metadata.json'),'utf8'))[0].build},null,2))
+ const noticeQA=join(root,'packages/ai-village/art/QA/ui-v11/visual'),noticeBox=await page.locator('.village-card').boundingBox(),noticeName=Math.round(noticeBox.width)+'x'+Math.round(noticeBox.height)+'-notifications-populated';await page.screenshot({path:join(noticeQA,noticeName+'.png')});await writeFile(join(noticeQA,'notifications-metadata.json'),JSON.stringify({name:noticeName,css:noticeBox,dpr:1,kind:'RUNTIME',build:JSON.parse(await readFile(join(noticeQA,'metadata.json'),'utf8'))[0].build},null,2))
  await page.locator('.village-notice-list button').first().click();await page.waitForFunction(()=>window.__villageHostFixture.inspect().preferences.noticeReadIds.length===1);assert.deepEqual((await inspect()).world,noticeWorld)
  await page.getByRole('button',{name:/^消息，/}).click();await click('全部已读');await page.waitForFunction(()=>window.__villageHostFixture.inspect().preferences.noticeReadIds.length===12);assert.deepEqual((await inspect()).world,noticeWorld);await page.getByRole('button',{name:'查看手账',exact:true}).press('Escape');checks.push('12 confirmed notices; open does not mark read; target navigation and mark all read preserve world')
  await tab('布置');await click('挂饰')
  for(const [name,slot] of [['纸灯笼','窗边'],['花叶挂饰','院墙']]){
   const choose=async()=>{await tab('布置');await click('挂饰');await page.getByText(name,{exact:true}).locator('..').getByRole('button',{name:'调整位置',exact:true}).click()}
-  await choose();await page.locator('.village-arrangement').getByRole('button',{name:slot,exact:true}).click();await page.keyboard.press('Escape')
+  await choose();await page.locator('.village-arrangement').getByRole('button',{name:slot,exact:true}).click();await page.keyboard.press('Escape');if(await page.getByRole('button',{name:'放弃并退出布置',exact:true}).isVisible())await click('放弃并退出布置')
   assert.equal((await inspect()).world.neighborhood.decorations[name==='纸灯笼'?'lantern':'planter'],null)
   await choose();await page.locator('.village-arrangement').getByRole('button',{name:slot,exact:true}).click();await click('保存装饰');await page.evaluate(()=>window.__villageHostFixture.flush())
  }

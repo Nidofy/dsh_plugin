@@ -1,0 +1,301 @@
+{
+  "error": "TimeoutError: page.waitForFunction: Timeout 30000ms exceeded.",
+  "checks": [
+    "96 actual component screenshots: 6 sizes × 2 themes × 2 languages × 4 states; bounded cards, transparent HUD, same iframe",
+    "resident→settings→appearance→back twice, more→settings→back, no world writes"
+  ],
+  "errors": [],
+  "state": {
+    "presentation": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "journal",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "activities",
+            "decor": "furniture",
+            "journal": "album"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "journal",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "activities",
+            "decor": "furniture",
+            "journal": "album"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "journal",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "activities",
+            "decor": "furniture",
+            "journal": "album"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "journal",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "activities",
+        "decor": "furniture",
+        "journal": "album"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "notices": [],
+    "world": {
+      "schemaVersion": 6,
+      "worldId": "bluewhale-courtyard",
+      "sceneVersion": 3,
+      "avatarDefinitionVersion": 1,
+      "ticks": 3,
+      "rng": 2387716937,
+      "userPaused": true,
+      "actor": {
+        "id": "bluewhale",
+        "facing": "right",
+        "position": {
+          "x": 174,
+          "y": 340
+        },
+        "safe": {
+          "x": 174,
+          "y": 340
+        },
+        "behavior": "idle",
+        "phase": 0.1,
+        "remaining": 3.9000000000000004,
+        "intent": null,
+        "destination": null
+      },
+      "companions": [
+        {
+          "id": "claude",
+          "facing": "right",
+          "position": {
+            "x": 60,
+            "y": 350
+          },
+          "safe": {
+            "x": 60,
+            "y": 350
+          },
+          "behavior": "idle",
+          "phase": 0,
+          "remaining": 2,
+          "intent": null,
+          "destination": null
+        },
+        {
+          "id": "gemini",
+          "facing": "right",
+          "position": {
+            "x": 124,
+            "y": 350
+          },
+          "safe": {
+            "x": 124,
+            "y": 350
+          },
+          "behavior": "idle",
+          "phase": 0,
+          "remaining": 3,
+          "intent": null,
+          "destination": null
+        },
+        {
+          "id": "gpt",
+          "facing": "right",
+          "position": {
+            "x": 252,
+            "y": 350
+          },
+          "safe": {
+            "x": 252,
+            "y": 350
+          },
+          "behavior": "idle",
+          "phase": 0,
+          "remaining": 4,
+          "intent": null,
+          "destination": null
+        },
+        {
+          "id": "grok",
+          "facing": "right",
+          "position": {
+            "x": 60,
+            "y": 414
+          },
+          "safe": {
+            "x": 60,
+            "y": 414
+          },
+          "behavior": "idle",
+          "phase": 0,
+          "remaining": 5,
+          "intent": null,
+          "destination": null
+        },
+        {
+          "id": "kimi",
+          "facing": "right",
+          "position": {
+            "x": 124,
+            "y": 414
+          },
+          "safe": {
+            "x": 124,
+            "y": 414
+          },
+          "behavior": "idle",
+          "phase": 0,
+          "remaining": 6,
+          "intent": null,
+          "destination": null
+        },
+        {
+          "id": "qwen",
+          "facing": "right",
+          "position": {
+            "x": 188,
+            "y": 414
+          },
+          "safe": {
+            "x": 188,
+            "y": 414
+          },
+          "behavior": "idle",
+          "phase": 0,
+          "remaining": 7,
+          "intent": null,
+          "destination": null
+        }
+      ],
+      "simulationRulesVersion": 3,
+      "contentRevision": 3,
+      "activeEvent": null,
+      "progress": {
+        "completedWishes": [],
+        "discovered": [],
+        "unlocked": [],
+        "lastCompletedEventId": null
+      },
+      "journal": [],
+      "decorations": {
+        "layoutRevision": 0,
+        "windChime": null
+      },
+      "neighborhood": {
+        "layout": "courtyard",
+        "layoutRevision": 0,
+        "event": null,
+        "memories": [],
+        "bonds": [],
+        "decorations": {
+          "lantern": null,
+          "planter": null
+        },
+        "nextInteractionTick": 0,
+        "lastEventId": null
+      },
+      "home": {
+        "revision": 0,
+        "positions": {
+          "work": 0,
+          "eat": 0,
+          "bench": 0,
+          "corner": 0
+        },
+        "environment": "afternoon",
+        "accessories": {
+          "bluewhale": "none",
+          "claude": "none",
+          "gemini": "none",
+          "gpt": "none",
+          "grok": "none",
+          "kimi": "none",
+          "qwen": "none"
+        }
+      }
+    },
+    "revision": 3,
+    "ready": true,
+    "frameReady": false,
+    "drag": null,
+    "reasons": [
+      "user",
+      "insufficient-space"
+    ],
+    "error": "",
+    "generation": 1,
+    "profileId": "23651444-7b81-4c5b-93b1-e13bf7d66e04",
+    "homeDraft": null,
+    "extraDecorationDraft": null,
+    "homeDraftError": "",
+    "album": null,
+    "albumError": "",
+    "photoMode": false,
+    "actionError": "",
+    "preferences": {
+      "schemaVersion": 3,
+      "theme": "light",
+      "textScale": 1,
+      "language": "zh",
+      "reducedMotion": false,
+      "bubbles": true,
+      "reducedTransparency": false,
+      "noticeReadIds": [],
+      "noticesInitialized": true
+    },
+    "preferencesSaving": false,
+    "saveReceipt": {
+      "status": "committed",
+      "operationId": "6e09808f-71e2-470e-9740-9f276c3f2610",
+      "profileId": "23651444-7b81-4c5b-93b1-e13bf7d66e04",
+      "epoch": "e7d1bf18-4cd4-4ee4-a589-e404feaa12d5",
+      "revision": 3
+    }
+  }
+}

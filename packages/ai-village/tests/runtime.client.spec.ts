@@ -11,14 +11,16 @@ function fixture(initialWorld?: ContentWorld, initialPrefs?: unknown) {
   vi.stubGlobal('requestAnimationFrame', () => 1); vi.stubGlobal('cancelAnimationFrame', () => {})
   let profileId = crypto.randomUUID(), epoch = crypto.randomUUID(), saved: Saved<ContentWorld> | null = initialWorld ? {revision:1,operationId:crypto.randomUUID(),world:initialWorld} : null, uncertain = false
   let release = 0, mutations = 0, preferences: any = initialPrefs ? {revision:1,operationId:crypto.randomUUID(),world:initialPrefs} : null
-  let stateUnavailable = false, gate: Promise<void> | null = null
+  let stateGate: Promise<void> | null = null
+  let stateUnavailable = false, heartbeatFailure = false, heartbeats = 0, gate: Promise<void> | null = null
   const runtime = new VillageRuntime(async (path, init) => {
     const data = init?.body ? JSON.parse(String(init.body)) : null
     let result: unknown
-    if (path.endsWith('/acquire')) result = { profileId, epoch, lease: crypto.randomUUID() }
+    if (path.endsWith('/heartbeat')) { heartbeats++; if (heartbeatFailure) throw new TypeError('Failed to fetch'); result = { ok: true } }
+    else if (path.endsWith('/acquire')) result = { profileId, epoch, lease: crypto.randomUUID() }
     else if (path.endsWith('/preferences-state')) result = { profileId, epoch, saved: preferences }
     else if (path.endsWith('/preferences-save')) { preferences = { revision: (preferences?.revision ?? 0) + 1, operationId: data.operationId, world: data.world }; result = { ...preferences, profileId, epoch } }
-    else if (path.endsWith('/state')) { if (stateUnavailable) throw Error('STATE_OFFLINE'); result = { profileId, epoch, saved } }
+    else if (path.endsWith('/state')) { if (stateUnavailable) throw Error('STATE_OFFLINE'); result = { profileId, epoch, saved }; const pending = stateGate; stateGate = null; if(pending) await pending }
     else if (path.endsWith('/save')) {
       mutations++; if (gate) await gate
       saved = { revision: (saved?.revision ?? 0) + 1, operationId: data.operationId, world: data.world }
@@ -33,10 +35,42 @@ function fixture(initialWorld?: ContentWorld, initialPrefs?: unknown) {
   runtime.images = {} // Resource integrity is exercised by browser/Host tests.
   return { runtime, loseAck: () => { uncertain = true }, foreignProfile: () => { profileId = crypto.randomUUID(); epoch = crypto.randomUUID(); saved = null },
     stateOffline: (value: boolean) => { stateUnavailable = value }, restart: () => { epoch = crypto.randomUUID() },
+    holdState: () => { let done!: () => void; stateGate = new Promise<void>(resolve => { done = resolve }); return () => done() },
     holdSave: () => { let done!: () => void; gate = new Promise<void>(resolve => { done = resolve }); return () => { gate = null; done() } },
     changeRevision: () => { saved = { revision: (saved?.revision ?? 0) + 1, operationId: crypto.randomUUID(), world: createWorld(scene) } },
-    stats: () => ({ release, mutations }) }
+    heartbeatOffline: (value: boolean) => { heartbeatFailure = value },
+    stats: () => ({ release, mutations, heartbeats }) }
 }
+
+it('recovers same-transport heartbeat failure after authority checks, preserving user pause, draft, undo and frame gate', async () => {
+  vi.useFakeTimers();const f=fixture(), r=f.runtime
+  try {
+    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.pause('user',true);await r.flush()
+    r.beginHome();r.homeTemplate('reading');const draft=structuredClone(r.homeDraft), world=r.controller!.world,writes=f.stats().mutations
+    f.heartbeatOffline(true);await vi.advanceTimersByTimeAsync(4000)
+    expect(r.errorCode).toBe('CONNECTION_TEMPORARY');expect(r.connected).toBe(true);expect(r.reasons.has('disconnected')).toBe(true)
+    f.heartbeatOffline(false);await vi.advanceTimersByTimeAsync(1000)
+    expect(r.error).toBe('');expect(r.reasons.has('disconnected')).toBe(false);expect(r.reasons.has('user')).toBe(true);expect(r.reasons.has('arrange')).toBe(true)
+    expect(r.homeDraft).toEqual(draft);expect(r.canUndoHome).toBe(true);expect(r.controller!.world).toBe(world);expect(r.frameReady).toBe(false);expect(f.stats().mutations).toBe(writes)
+  } finally {await r.dispose();vi.useRealTimers()}
+})
+it('bounds recovery to 1/2/4 seconds and cancels hidden attempts without losing drafts',async()=>{
+ vi.useFakeTimers();const f=fixture(),r=f.runtime
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await r.flush();r.beginHome();const draft=structuredClone(r.homeDraft)
+ f.heartbeatOffline(true);await vi.advanceTimersByTimeAsync(4000);await vi.advanceTimersByTimeAsync(7000)
+ expect(r.recoveryState).toBe('blocked');const count=f.stats().heartbeats;await vi.advanceTimersByTimeAsync(2000);expect(f.stats().heartbeats-count).toBeLessThanOrEqual(1)
+ expect(r.errorCode).toBe('CONNECTION_TEMPORARY');expect(r.homeDraft).toEqual(draft)
+ }finally{await r.dispose();vi.useRealTimers()}
+})
+it('read-only recovery confirms a lost ACK once and refuses foreign revision without taking over',async()=>{
+ vi.useFakeTimers();const f=fixture(),r=f.runtime
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await r.flush();r.beginHome();r.homeTemplate('reading')
+ const count=f.stats().mutations;f.loseAck();f.stateOffline(true);await r.confirmHome();expect(r.saveReceipt.status).toBe('unknown');const draft=structuredClone(r.homeDraft)
+ f.stateOffline(false);await r.checkRecovery();expect(r.saveReceipt.status).toBe('committed');expect(f.stats().mutations).toBe(count+1);expect(r.homeDraft).toEqual(draft)
+ f.heartbeatOffline(true);await vi.advanceTimersByTimeAsync(4000);f.heartbeatOffline(false);f.changeRevision();await vi.advanceTimersByTimeAsync(1000)
+ expect(r.errorCode).toBe('REVISION_CONFLICT');expect(r.reasons.has('disconnected')).toBe(true);expect(f.stats().mutations).toBe(count+1)
+ }finally{await r.dispose();vi.useRealTimers()}
+})
 it('arrangement previews never mutate the world; undo, cancellation and reconnect discard only the draft', async () => {
   const f = fixture(), r = f.runtime
   try {
@@ -280,3 +314,15 @@ it('initializes twelve existing facts as read when legacy preferences migrate, w
  const f=fixture(world,{schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}),r=f.runtime
  try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(6)}finally{await r.dispose()}
 })
+
+
+it('late automatic recovery reads cannot publish into a new connection generation',async()=>{
+ vi.useFakeTimers();const f=fixture(),r=f.runtime
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.pause('user',true);await r.flush();f.heartbeatOffline(true);await vi.advanceTimersByTimeAsync(4000);f.heartbeatOffline(false)
+ const release=f.holdState();await vi.advanceTimersByTimeAsync(1000);expect(r.recoveryState).toBe('checking')
+ r.setConnection(false);r.setConnection(true);await vi.waitFor(()=>expect(r.ready).toBe(true));const controller=r.controller,world=r.controller!.snapshot(),writes=f.stats().mutations;r.setFrameReady(false);release();await vi.advanceTimersByTimeAsync(20)
+ expect(r.controller).toBe(controller);expect(r.controller!.snapshot()).toEqual(world);expect(r.frameReady).toBe(false);expect(f.stats().mutations).toBe(writes);expect(r.error).toBe('');expect(r.reasons.has('user')).toBe(true)
+ }finally{await r.dispose();vi.useRealTimers()}
+})
+
+it('parent navigation consumes stale iframe resident and actor intents before render delivery',async()=>{const f=fixture(),r=f.runtime;try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.setCharacterPresent('claude',true);await r.flush();r.setFrameReady(true);const world=r.controller!.snapshot(),writes=f.stats().mutations;r.present({type:'tab',tab:'residents'});r.input({kind:'resident',id:'claude'});expect(r.presentation.drawer).toBe('closed');expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);r.present({type:'tab',tab:'residents'});r.input({kind:'camera',camera:{zoom:1.5,panX:0,panY:0}});expect(r.presentation.camera.zoom).toBe(1);for(const type of ['down','move','up']as const)r.pointer({type,id:7,point:world.actor.position,css:{x:100,y:100}});expect(r.controller!.drag).toBeNull();expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);expect(f.stats().mutations).toBe(writes)}finally{await r.dispose()}})

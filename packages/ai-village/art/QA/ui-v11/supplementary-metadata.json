@@ -1,0 +1,254 @@
+[
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/lifecycle/limited-space.png",
+    "sha256": "4e1d7e6dcd0a14d0f1845840f5cdbe9cb9fd8f486fad26eb52e40ae9e2b7687c",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/lifecycle/missing-resource.png",
+    "sha256": "ed86e7b4ba8b2157ea6c633a19f83a8b493a24d875d262849bd5fcb6990d7a84",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/lifecycle/narrow-expanded.png",
+    "sha256": "64189358ad3562cfa476eea0a25c6411962eae4ea604121325d1898a9d282f67",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/lifecycle/seven-residents.png",
+    "sha256": "de77106d2279464d55d84dd9686dc6270929b75b052f61b6bb10e0689ffda7ee",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/lifecycle/validation.json",
+    "sha256": "89005503ead8fe2fcf1416e309186fc16fc2eddd73cb3e2d454961829dc29a70",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/content/cold-restored.png",
+    "sha256": "d08e12cb896704db1dd392e31c9fb817e1d7b164cfa26511261506872ebc9f3e",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/content/layout-preview.png",
+    "sha256": "40b57653c0d5d2620aaec0f6c8692d45d3b3370a2db57630faab655438bccd7b",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/content/postcard.png",
+    "sha256": "c96b2396e4b546ee8b58388e8d97fd505ffd3130ad704c46995d6696c6303b58",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/content/read.png",
+    "sha256": "b959ff87c055eb6a3a37e98e2fff483f818e2e0473a3aeb7ec7cd5fa1a469e1d",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/content/twilight-reading.png",
+    "sha256": "ed81126b7b3c89b13cab9d5820835290c1d41521b718b6848e250e914b2d080a",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/content/validation.json",
+    "sha256": "84bef86d96592f28de951b19c7c915e3e4b206a09731137cca5aa0506c5938d6",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/content/water.png",
+    "sha256": "f23c5441204c59949a426f9845138b938f71885b8d2809198b0c6793f0c15389",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/album-restored.png",
+    "sha256": "3f3ea4787f1cd7a948f9bdcc6af09acdda43a50ff082559182291ad6fa5583ca",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/bench.png",
+    "sha256": "64b7daa183122eeb7ee7582a4acfe79d059aacb585c802d0efd698a14650254c",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/decorations.png",
+    "sha256": "173edc1bd1ce91aa5d5936c1f8219083a1b4b4f6d8704821dc0151a0ffd961d2",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/journal.png",
+    "sha256": "2d179eb999a6e0820a33f714b8612fe4bd37923e445760ea08a3304be7e467f4",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/photo-mode.png",
+    "sha256": "a238f950f75490cc6a5190a51429d5bb194c250338e67068600240830853e122",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/postcard.png",
+    "sha256": "95b8e168e671781fa93fbbda8d53d487c134e75b1e5ff19b97751913769e7332",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/read.png",
+    "sha256": "b8b3001573506425d5b919a9bb7c736422e75dad1c6c2e0cdd0c6a68b563a4b5",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/validation.json",
+    "sha256": "06076b8800cbec824ebd99b1483cb9373c0c80bc3457b98715db186af17b388e",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  {
+    "path": "packages/ai-village/art/QA/ui-v11/neighborhood/water.png",
+    "sha256": "808a40454f81fec234500b7d24ba52f00b3ab58c4bb9ccf301e0353e635cc239",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  }
+]

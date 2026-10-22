@@ -1,0 +1,1058 @@
+diff --git a/docs/ai-village/ui-v1/DESIGN_SPEC.md b/docs/ai-village/ui-v1/DESIGN_SPEC.md
+index 262ffa4..38de638 100644
+--- a/docs/ai-village/ui-v1/DESIGN_SPEC.md
++++ b/docs/ai-village/ui-v1/DESIGN_SPEC.md
+@@ -398,3 +398,5 @@ toast 宽 `min(320,W−24)`，底在 Dock/抽屉上缘12px，最多一条；显
+ - `scripts/ai-village-official.vitest.mjs`、根`package.json`与`AGENTS.md`。
+ 
+ 三份模型附件作为交互建议来源，不作为源码事实：DeepSeek建议毛玻璃/HUD/道具预览；Gemini强调导航收敛、消息常驻和清晰半透明道具；Opus强调旧元素映射、家具已有态、层级和拖动冲突。所有具体尺寸、状态规则、版本边界与实施选择由本冻结方案确定，不宣称原附件已经给出。
++
++> 2026-10-22 修订：UI-v1.1 明确替换本文件的默认48%抽屉、短高深展开、全高设置/宽面板、森林绿大底、HUD实色底与无来源overlay。见 [UI-v1.1决策](../ui-v1.1/DECISION_LOG.md)。本文件保留为0.6.2历史，不代表当前验收。
+diff --git a/packages/ai-village/README.md b/packages/ai-village/README.md
+index 97bdc66..8b741ed 100644
+--- a/packages/ai-village/README.md
++++ b/packages/ai-village/README.md
+@@ -1,10 +1,10 @@
+-# AI 小院 · 0.6.2 · UI-v1
++# AI 小院 · 0.6.3 · UI-v1.1
+ 
+ 七位居民共享一方离线小院。0.6「我的小院」增加家具锚点编辑、真实布局预览与撤销、可选配饰和两套环境主题，延续邻里互动、手账与照片相册。
+ 
+ ## 开始游玩
+ 
+-1. 在 DSH Plugins → Add plugin 中选择本地 `dist/nidofy-dsh-ai-village-0.6.2.tgz`，安装启用后完整重启 DSH。验证基线为官方 DSH 0.2.1-rc.2、Windows x64，运行依赖离线内嵌。
++1. 在 DSH Plugins → Add plugin 中选择本地 `dist/nidofy-dsh-ai-village-0.6.3.tgz`，安装启用后完整重启 DSH。验证基线为官方 DSH 0.2.1-rc.2、Windows x64，运行依赖离线内嵌。
+ 2. 点击右上角 **⌂**。“居民”中选择伙伴，打招呼、舒展、记灵感、整理书桌、读书、浇水、听风或看天空。七人各有 12 条情境台词及微动作。
+ 3. “心愿”提供首次同桌和另外五条不限时心愿。邀请两位居民喝茶／吃饭，或在长椅聊天、分享书页、交流花草、交换点子、安静陪伴。双方真实到齐后才开始；共同经历累积为初次相聚、一起活动、熟悉，不因离线下降。
+ 4. “布置”提供午后小院、阅读角落、花草角落三个预置布局。六类目录是书桌、餐桌、坐垫、长椅、书架、盆栽；每个布局同时使用四类家具、六个活动位。阅读角落支持读书／分享书页，花草角落支持照料／交流花草。
+@@ -27,7 +27,13 @@
+ 
+ 显示偏好从 schema1 窄迁移到 schema2，保留主题、语言、动态和气泡，新增减少透明与消息已读状态。旧原件由现有 SaveStore 保护。0.6.1 无法读取 schema2 偏好，回退必须使用升级前备份与原安装包，不能直接覆盖新偏好。世界仍 schema6。
+ 
+-本轮结果及人工未测项见 [UI-v1 验收](../../docs/ai-village/ui-v1/RESULTS.md)。一小时真实运行验收继续暂缓，短时自动化不替代现场验收。
++0.6.3 按 UI-v1.1 修订体验：透明 HUD/Dock、暖中性场景玻璃与实色回退、小型摘要/详情卡、逐层返回并恢复目标/滚动/焦点。文字大小支持 90%–200%，三档基础字号为 13/14/15px，辅助文字至少 12px；新安装默认跟随 DSH，旧主题保留。旧 UI-v1 森林绿、默认 48% 高抽屉和全高设置不再适用。
++
++同连接临时心跳故障通过原租约与存档身份/修订核对后恢复，按 1/2/4 秒最多三次；自动恢复保留布置草稿和撤销。未知保存结果只读取核对、不重放，其他 owner/外部修订不自动接管。人工暂停继续保留。现场原始暂停根因仍未确认。
++
++偏好 schema1/2 窄迁移至 schema3，新增 textScale 与 host 主题；world schema6 和 frame protocol3 不变。0.6.2 无法读取新偏好。回退请在停止插件后保留整份新 profile，另建隔离 profile 恢复升级前备份并使用 0.6.2 包，不能在新偏好上直接降级写入。详见 [迁移与回退](../../docs/ai-village/ui-v1.1/MIGRATION.md)。
++
++本轮结果及人工未测项见 [UI-v1.1 验收](../../docs/ai-village/ui-v1.1/RESULTS.md)。一小时真实运行验收继续暂缓，短时自动化不替代现场验收。
+ 
+ ## 存档和资源
+ 
+diff --git a/packages/ai-village/experiments/phase4-client.tsx b/packages/ai-village/experiments/phase4-client.tsx
+index f61486d..617a34e 100644
+--- a/packages/ai-village/experiments/phase4-client.tsx
++++ b/packages/ai-village/experiments/phase4-client.tsx
+@@ -36,7 +36,7 @@ function show() {
+ }
+ show()
+ const api = {
+-  inspect: () => ({ presentation: runtime.presentation, notices: runtime.notices, world: runtime.controller?.snapshot(), revision: runtime.revision, ready: runtime.ready, frameReady: runtime.frameReady,
++  inspect: () => ({ errorCode: runtime.errorCode, recoveryState: runtime.recoveryState, diagnostics: JSON.parse(runtime.diagnostics.export()), presentation: runtime.presentation, notices: runtime.notices, world: runtime.controller?.snapshot(), revision: runtime.revision, ready: runtime.ready, frameReady: runtime.frameReady,
+     drag: runtime.controller?.drag, reasons: [...runtime.reasons], error: runtime.error, generation: runtime.generation, profileId: runtime.profileId,
+     homeDraft: runtime.homeDraft, decorationDraft: runtime.decorationDraft, extraDecorationDraft: runtime.extraDecorationDraft, homeDraftError: runtime.homeDraftError, album: runtime.album.state, albumError: runtime.album.error, photoMode: runtime.photoMode, actionError: runtime.actionError, preferences: runtime.preferences, preferencesSaving: runtime.preferencesSaving, saveReceipt: runtime.saveReceipt }),
+   session: () => { selection.set({ key: selection.getSnapshot().key === 'session-a' ? 'session-b' : 'session-a' }) },
+diff --git a/packages/ai-village/package.json b/packages/ai-village/package.json
+index 1ada8db..7dc44e6 100644
+--- a/packages/ai-village/package.json
++++ b/packages/ai-village/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "@nidofy/dsh-ai-village",
+-  "version": "0.6.2",
++  "version": "0.6.3",
+   "private": true,
+   "description": "Offline AI courtyard with seven residents, editable furniture layouts, neighborhood activities and a local photo album.",
+   "type": "module",
+diff --git a/packages/ai-village/src/client/ArrangementControls.tsx b/packages/ai-village/src/client/ArrangementControls.tsx
+index 8842afe..30aa764 100644
+--- a/packages/ai-village/src/client/ArrangementControls.tsx
++++ b/packages/ai-village/src/client/ArrangementControls.tsx
+@@ -14,5 +14,5 @@ export function ArrangementControls({ runtime: r, cn }: { runtime: VillageRuntim
+         <label>{t('目标居民', 'Resident')}<select aria-label={t('目标居民', 'Resident')} value={target} onChange={e => r.present({ type: 'patch', patch: { accessoryTarget: e.target.value as CharacterId } })}>{characterIds.map(id => <option value={id} key={id}>{characterNames[id]}</option>)}</select></label><label>{t('居民配饰', 'Resident accessory')}<select aria-label={t('居民配饰', 'Resident accessory')} value={d.home.accessories[target]} onChange={e => r.updateHome({ ...d.home, accessories: { ...d.home.accessories, [target]: e.target.value as Accessory } })}><option value="none">{t('不佩戴', 'None')}</option><option value="ribbon">{t('布艺结', 'Fabric bow')}</option><option value="leaf">{t('叶形胸针', 'Leaf pin')}</option></select></label></fieldset></details>
+     </> : <div className="choices">{(['window', 'door', 'wall', null] as const).map((value, i) => <button key={value ?? 'away'} disabled={busy} aria-pressed={slot === value} onClick={() => extra ? r.previewExtraDecoration({ ...extra, slot: value }) : r.previewDecoration(value)}>{[t('窗边', 'Window'), t('门旁', 'Door'), t('院墙', 'Wall'), t('收起', 'Put away')][i]}</button>)}</div>}
+     {(r.homeDraftError || r.actionError) && <p role="alert">{actionErrorText(r.homeDraftError || r.actionError, cn)}</p>}
+-  </div><footer>{d && <button disabled={busy || !r.canUndoHome} onClick={() => r.undoHome()}>{t('撤销', 'Undo')}</button>}<button disabled={busy} onClick={() => r.cancelArrangements()}>{t('取消', 'Cancel')}</button><button className="primary" disabled={busy} onClick={() => { if (d) void r.confirmHome(); else if (extra) void r.decorateExtra(extra.id, extra.slot).then(() => { if (!r.actionError && r.saveReceipt.status === 'committed') r.cancelArrangements() }); else void r.decorate(r.decorationDraft ?? null).then(receipt => { if (receipt?.status === 'committed') r.cancelArrangements() }) }}>{busy ? t('正在核对保存', 'Verifying save') : t('保存布置', 'Save arrangement')}</button></footer></section>
++  </div><footer>{d && <button disabled={busy || !r.canUndoHome} onClick={() => r.undoHome()}>{t('撤销', 'Undo')}</button>}<button disabled={busy} onClick={() => r.arrangementDirty ? r.present({type:'patch',patch:{confirmClose:true,confirmTarget:'arrangement'}}) : r.cancelArrangements()}>{t('取消', 'Cancel')}</button><button className="primary" disabled={busy} onClick={() => { if (d) void r.confirmHome(); else if (extra) void r.decorateExtra(extra.id, extra.slot).then(() => { if (!r.actionError && r.saveReceipt.status === 'committed') r.cancelArrangements() }); else void r.decorate(r.decorationDraft ?? null).then(receipt => { if (receipt?.status === 'committed') r.cancelArrangements() }) }}>{busy ? t('正在核对保存', 'Verifying save') : t('保存布置', 'Save arrangement')}</button></footer></section>
+ }
+diff --git a/packages/ai-village/src/client/Floating.tsx b/packages/ai-village/src/client/Floating.tsx
+index e579815..0ad4b22 100644
+--- a/packages/ai-village/src/client/Floating.tsx
++++ b/packages/ai-village/src/client/Floating.tsx
+@@ -1,4 +1,6 @@
+-import { projectCamera } from '../core/camera.ts'
++import { useVillageTheme } from './theme-bridge.ts'
++import { uiVariables } from './ui-theme.ts'
++import { PanelShell } from './PanelShell.tsx'
+ import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
+ import { attachFloatingLayout, type FloatingGeometry } from './floating-layout.ts'
+ import { attachFrame } from './frame-bridge.ts'
+@@ -27,7 +29,9 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
+   const [geometry, setGeometry] = useState<FloatingGeometry | null>(null), [failed, setFailed] = useState(false), [retry, setRetry] = useState(0)
+   const [fail] = useState(() => () => { setFailed(true); r.setFrameReady(false) })
+   const p = r.presentation, expanded = p.expanded, confirmClose = p.confirmClose
+-  const setConfirmClose = (confirmClose: boolean) => r.present({ type: 'patch', patch: { confirmClose } })
++  const theme = useVillageTheme(r.preferences.theme)
++  const material = r.preferences.reducedTransparency ? 'reduced-transparency' : r.softwareRendering ? 'software-renderer' : typeof CSS !== 'undefined' && CSS.supports('backdrop-filter','blur(14px)') ? 'glass' : 'unsupported-blur'
++  const setConfirmClose = (confirmClose: boolean, confirmTarget: 'plugin' | 'arrangement' = 'plugin') => r.present({ type: 'patch', patch: { confirmClose, confirmTarget } })
+   useLayoutEffect(() => {
+     if (!r.open || !active || !anchor.current) { setGeometry(null); r.pause('sidebar', true); return }
+     return attachFloatingLayout(anchor.current, value => { setGeometry(value); r.pause('sidebar', !value) }, expanded)
+@@ -35,27 +39,26 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
+   const width = geometry?.width ?? 340, height = Math.min(expanded ? 760 : 720, geometry?.height ?? 720), short = height < uiContract.shortHeight
+   const insufficient = !!geometry && (height < uiContract.minimumHeight || width < uiContract.minimumWidth)
+   useEffect(() => { r.pause('insufficient-space', insufficient); return () => r.pause('insufficient-space', false) }, [r, insufficient])
+-  const projection = projectCamera({x:0,y:0,width,height},p.camera), actor = r.controller?.world.actor
+-  const residentPosition = actor ? { left: Math.max(12,Math.min(width-232,projection.x+actor.position.x*projection.scale-110)), top: Math.max(60,Math.min(height-180,projection.y+actor.position.y*projection.scale-150)), transform: 'none' } : {}
+-  const mode = r.arranging || r.photoMode, lastMode = useRef(mode)
++  const mode = r.arranging || r.photoMode, lastMode = useRef(mode), lastPanel = useRef(false)
+   const focusBack = () => { if (returnFocus.current?.isConnected) returnFocus.current.focus(); else (card.current?.querySelector<HTMLElement>('#village-tab-' + r.presentation.tab) ?? card.current?.querySelector<HTMLElement>('.village-hud button'))?.focus() }
++  useEffect(() => { const open=p.drawer!=='closed'||!!p.overlay; if(lastPanel.current&&!open&&!mode)focusBack();lastPanel.current=open },[p.drawer,p.overlay,mode])
+   useEffect(() => { if (lastMode.current && !mode) focusBack(); lastMode.current = mode }, [mode])
+   useEffect(() => { if(confirmClose)card.current?.querySelector<HTMLButtonElement>('.village-confirm button')?.focus() },[confirmClose])
+   const close = () => { if (r.saveReceipt.status === 'pending' || r.saveReceipt.status === 'unknown' || r.homeSaving) return; if (r.arranging && r.arrangementDirty) setConfirmClose(true); else { r.cancelArrangements(); onClose() } }
+   const visible = r.open && active && geometry && !r.reasons.has('hidden')
+   return <div ref={anchor} data-nidofy-ai-village-overlay="" data-nidofy-village-open={r.open && active ? '' : undefined} className="dsh-ai-village"><style>{css}</style>
+-    {visible && <aside ref={card} className="village-card" aria-label={t('AI 小院', 'AI Village')} data-expanded={expanded} data-wide={width >= uiContract.inspectorWidth} data-short={short} data-theme={r.preferences.theme} data-solid={r.preferences.reducedTransparency || r.softwareRendering} data-motion={r.preferences.reducedMotion} style={{ left: geometry.left, top: geometry.top, width, height, '--card-height': `${height}px`, '--drawer-half': `${Math.min(360, Math.floor(.48 * height))}px` } as React.CSSProperties}
++    {visible && <aside ref={card} className="village-card" aria-label={t('AI 小院', 'AI Village')} data-expanded={expanded} data-wide={width >= uiContract.inspectorWidth} data-short={short} data-theme={theme.mode} data-theme-source={theme.source} data-material={material} data-solid={material !== 'glass'} data-motion={r.preferences.reducedMotion} style={{ left: geometry.left, top: geometry.top, width, height, '--card-height': `${height}px`, ...uiVariables(width,height,r.preferences.textScale,theme.mode,r.controller?.world.home.environment ?? 'afternoon') } as React.CSSProperties}
+       onClickCapture={e => { const target = (e.target as HTMLElement).closest<HTMLElement>('button'); if (target && !r.arranging && !r.photoMode && !p.overlay) returnFocus.current = target }}
+       onKeyDown={e => {
+         if(e.key==='Tab' && confirmClose){const buttons=[...card.current!.querySelectorAll<HTMLButtonElement>('.village-confirm button')];if(e.shiftKey&&document.activeElement===buttons[0]){buttons.at(-1)?.focus();e.preventDefault()}else if(!e.shiftKey&&document.activeElement===buttons.at(-1)){buttons[0]?.focus();e.preventDefault()}return}
+         if (e.key !== 'Escape' || e.nativeEvent.isComposing) return
++        const details=card.current?.querySelector<HTMLDetailsElement>('details[open]')
+         if (confirmClose) setConfirmClose(false)
++        else if(details) details.open=false
+         else if (r.controller?.drag) r.cancelDrag()
+-        else if (p.overlay && p.overlay !== 'settings') r.present({ type: 'patch', patch: { overlay: null } })
+-        else if (r.arranging) { if (r.saveReceipt.status !== 'pending' && r.saveReceipt.status !== 'unknown' && !r.homeSaving) r.cancelArrangements() }
++        else if ((p.overlay || p.drawer !== 'closed') && !mode) r.present({ type: 'back' })
++        else if (r.arranging) { if (r.saveReceipt.status !== 'pending' && r.saveReceipt.status !== 'unknown' && !r.homeSaving) { if(r.arrangementDirty) setConfirmClose(true, 'arrangement'); else r.cancelArrangements() } }
+         else if (r.photoMode) r.exitPhoto()
+-        else if (p.overlay === 'settings') { r.present({ type: 'patch', patch: { overlay: null } }); focusBack() }
+-        else if (p.drawer !== 'closed') r.present({ type: 'close' })
+         else if (expanded) r.present({ type: 'patch', patch: { expanded: false } })
+         else return
+         e.preventDefault(); e.stopPropagation()
+@@ -67,12 +70,12 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
+         <Notifications runtime={r} cn={cn} />
+         {r.arranging && <ArrangementControls runtime={r} cn={cn} />}
+         {r.photoMode && <PhotoPanel runtime={r} locale={language} />}
+-        {p.overlay === 'resident' && !mode && r.controller && <section className="village-popover village-resident-card" style={residentPosition}><strong>{characterNames[r.controller.world.actor.id]}</strong><p>{labels[r.controller.world.actor.behavior]}</p><button onClick={() => r.present({ type: 'patch', patch: { tab: 'residents', drawer: short ? 'full' : 'half', overlay: null } })}>{t('互动', 'Activities')}</button></section>}
++        {p.overlay === 'resident' && !mode && r.controller && <PanelShell runtime={r} cn={cn} title={characterNames[r.controller.world.actor.id]} className="village-popover village-resident-card"><p>{labels[r.controller.world.actor.behavior]}</p><button onClick={() => r.present({ type: 'push', patch: { tab: 'residents', page:'activities', drawer: 'full', overlay: null } })}>{t('互动', 'Activities')}</button></PanelShell>}
+         {p.overlay === 'settings' && !mode && <SettingsPanel runtime={r} cn={cn} close={() => { r.present({ type: 'patch', patch: { overlay: null } }); focusBack() }} />}
+       </>}
+-      {(r.error || failed || r.saveReceipt.status === 'unknown' || r.saveReceipt.status === 'rejected') && <section className="village-error" role="alert"><p>{failed ? labels.frameFailed : r.error.includes('WORLD_IN_USE') ? labels.occupied : r.saveReceipt.status === 'unknown' ? labels.saveUnknown : labels.error}</p><button onClick={() => { if (failed) { setFailed(false); setRetry(v => v + 1) } else r.retry() }}>{failed ? labels.retryFrame : labels.retry}</button><details><summary>{t('诊断与恢复', 'Diagnostics and recovery')}</summary><p>{r.error}</p><button onClick={() => void (r.error.includes('PREFERENCES') ? r.recoverPreferences() : r.recover())}>{t('恢复上一成功版本', 'Restore previous revision')}</button></details></section>}
++      {!insufficient && (r.error || failed || r.saveReceipt.status === 'unknown' || r.saveReceipt.status === 'rejected') && <section className="village-error" role="alert"><p>{failed ? labels.frameFailed : r.error.includes('WORLD_IN_USE') ? labels.occupied : r.saveReceipt.status === 'unknown' || r.errorCode === 'PREFERENCES_UNCONFIRMED' ? labels.saveUnknown : r.errorCode === 'CONNECTION_TEMPORARY' ? (r.recoveryState === 'blocked' ? t('连接尚未恢复，请重新核对。','Connection not restored. Check again.') : t('正在连接小院…','Connecting to the courtyard…')) : r.errorCode.includes('CONFLICT') ? t('小院记录已变化，请核对后再继续。','Courtyard data changed. Check before continuing.') : labels.error}</p><button onClick={() => { if (failed) { setFailed(false); setRetry(v => v + 1) } else if (r.errorCode === 'CONNECTION_TEMPORARY' || r.errorCode.includes('UNCONFIRMED')) void r.checkRecovery(); else r.retry() }}>{failed ? labels.retryFrame : labels.retry}</button><details><summary>{t('诊断与恢复', 'Diagnostics and recovery')}</summary><p>{r.errorCode}</p><button onClick={() => void (r.error.includes('PREFERENCES') ? r.recoverPreferences() : r.recover())}>{t('恢复上一成功版本', 'Restore previous revision')}</button></details></section>}
+       {!r.ready && !r.error && <p className="village-loading">{labels.loading}</p>}
+-      {confirmClose && <section className="village-confirm" role="alertdialog" aria-label={t('放弃未保存布置？', 'Discard unsaved arrangement?')}><h2>{t('放弃未保存布置？', 'Discard unsaved arrangement?')}</h2><button onClick={() => setConfirmClose(false)}>{t('继续布置', 'Keep arranging')}</button><button onClick={() => { setConfirmClose(false); r.cancelArrangements(); onClose() }}>{t('放弃并关闭', 'Discard and close')}</button></section>}
++      {confirmClose && <div className="village-confirm-shade"><section className="village-confirm" role="alertdialog" aria-modal="true" aria-label={t('放弃未保存布置？', 'Discard unsaved arrangement?')}><h2>{t('放弃未保存布置？', 'Discard unsaved arrangement?')}</h2><button onClick={() => setConfirmClose(false)}>{t('继续布置', 'Keep arranging')}</button><button onClick={() => { const target=p.confirmTarget; setConfirmClose(false); r.cancelArrangements(); if(target==='plugin') onClose() }}>{p.confirmTarget==='plugin'?t('放弃并关闭', 'Discard and close'):t('放弃并退出布置','Discard and exit arrangement')}</button></section></div>}
+     </aside>}
+   </div>
+ }
+diff --git a/packages/ai-village/src/client/Hud.tsx b/packages/ai-village/src/client/Hud.tsx
+index 5c934a9..b398976 100644
+--- a/packages/ai-village/src/client/Hud.tsx
++++ b/packages/ai-village/src/client/Hud.tsx
+@@ -1,3 +1,4 @@
++import { PanelShell } from './PanelShell.tsx'
+ import { useEffect, useRef, useState } from 'react'
+ import type { VillageRuntime } from './runtime.ts'
+ import { VillageIcon } from './Icon.tsx'
+@@ -16,14 +17,15 @@ export function Hud({ runtime: r, cn, compact, close }: { runtime: VillageRuntim
+     { icon: 'settings' as const, label: t('小院设置', 'Courtyard settings'), disabled: mode, run: () => r.present({ type: 'overlay', overlay: 'settings' }) },
+     { icon: 'close' as const, label: t('关闭小院', 'Close courtyard'), run: close },
+   ]
++  if (mode) return <header className="village-hud village-mode-hud"><button disabled={['pending','unknown'].includes(r.saveReceipt.status)||r.homeSaving} onClick={()=>{if(r.arrangementDirty)r.present({type:'patch',patch:{confirmClose:true,confirmTarget:'arrangement'}});else r.cancelArrangements()}}>{t('退出布置','Exit arrangement')}</button><span className="village-hud-spacer"/><button aria-label={actions[2]!.label} onClick={actions[2]!.run}><VillageIcon name={actions[2]!.icon}/></button></header>
+   return <><header className="village-hud">
+     <button disabled={mode} aria-label={t(`消息，${unread} 条未读`, `Notifications, ${unread} unread`)} onClick={() => r.present({ type: 'overlay', overlay: 'notifications' })}><VillageIcon name="notifications" />{unread > 0 && <b className="village-badge">{unread > 9 ? '9+' : unread}</b>}</button>
+-    <span className="village-time">{t(`第${time.day}天`, `Day ${time.day}`)} · {String(time.hour).padStart(2, '0')}:{String(time.minute).padStart(2, '0')}</span>
++    <span className="village-time">{t(`第${time.day}天`, `Day ${time.day}`)} · {String(time.hour).padStart(2, '0')}:{String(time.minute).padStart(2, '0')}{world?.userPaused && <span aria-label={t('已暂停','Paused')}> · Ⅱ</span>}</span>
+     <span className="village-hud-spacer" />
+-    <button disabled={locked || mode} aria-label={world?.userPaused ? t('继续', 'Resume') : t('暂停', 'Pause')} onClick={() => r.pause('user', !world?.userPaused)}><VillageIcon name={world?.userPaused ? 'play' : 'pause'} /></button>
+-    {compact ? <button aria-label={t('更多', 'More')} onClick={() => r.present({ type: 'overlay', overlay: 'more' })}><VillageIcon name="more" /></button> : actions.map(a => <button key={a.icon} title={a.label} aria-label={a.label} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} /></button>)}
++    <button disabled={!r.ready || r.reasons.has('commit-pending') || mode} aria-label={world?.userPaused ? t('继续', 'Resume') : t('暂停', 'Pause')} onClick={() => r.pause('user', !world?.userPaused)}><VillageIcon name={world?.userPaused ? 'play' : 'pause'} /></button>
++    {compact ? <button aria-label={t('更多', 'More')} onClick={() => r.present({ type: 'overlay', overlay: 'more' })}><VillageIcon name="more" /></button> : actions.map(a => <button key={a.icon} aria-label={a.label} data-disabled-reason={a.disabled?t('当前保存、连接或模式尚未就绪','Save, connection or mode is not ready'):undefined} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} /></button>)}
+   </header>
+-  {p.overlay === 'more' && <section className="village-popover village-more" aria-label={t('更多', 'More')}>{actions.map(a => <button key={a.icon} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} />{a.label}</button>)}</section>}
+-  {(p.overlay === 'view' || (hint || viewFocused) && !p.overlay && p.drawer === 'closed' && !mode) && <section ref={viewRef} className="village-popover village-view" onFocus={()=>setViewFocused(true)} onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget))setViewFocused(false)}} aria-label={t('视角', 'View')}><button aria-label={t('缩小', 'Zoom out')} onClick={() => r.setCamera({ ...p.camera, zoom: Math.max(1, p.camera.zoom - .1) })}>−</button><output>{Math.round(p.camera.zoom * 100)}%</output><button aria-label={t('放大', 'Zoom in')} onClick={() => r.setCamera({ ...p.camera, zoom: Math.min(1.5, p.camera.zoom + .1) })}>+</button><button onClick={() => r.resetCamera()}>{t('恢复全景', 'Reset view')}</button></section>}
++  {p.overlay === 'more' && <PanelShell runtime={r} cn={cn} className="village-popover village-more" title={t('更多', 'More')}>{actions.map(a => <button key={a.icon} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} />{a.label}</button>)}</PanelShell>}
++  {(p.overlay === 'view' || (hint || viewFocused) && !p.overlay && p.drawer === 'closed' && !mode) && <PanelShell runtime={r} cn={cn} className="village-popover village-view" title={t('视角','View')}><div className="choices"><button aria-label={t('缩小', 'Zoom out')} onClick={() => r.setCamera({ ...p.camera, zoom: Math.max(1, p.camera.zoom - .1) })}>−</button><output>{Math.round(p.camera.zoom * 100)}%</output><button aria-label={t('放大', 'Zoom in')} onClick={() => r.setCamera({ ...p.camera, zoom: Math.min(1.5, p.camera.zoom + .1) })}>+</button><button onClick={() => r.resetCamera()}>{t('恢复全景', 'Reset view')}</button></div></PanelShell>}
+   </>
+ }
+diff --git a/packages/ai-village/src/client/Icon.tsx b/packages/ai-village/src/client/Icon.tsx
+index eab4e35..88c1a04 100644
+--- a/packages/ai-village/src/client/Icon.tsx
++++ b/packages/ai-village/src/client/Icon.tsx
+@@ -1,4 +1,5 @@
+ const paths = {
++  back: 'M15 4 7 12l8 8M7 12h14',
+   residents: 'M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0M5 21v-3a7 7 0 0 1 14 0v3',
+   wishes: 'm12 3 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z',
+   decor: 'M4 12h16v8H4ZM6 12V5h12v7M7 20v2M17 20v2',
+diff --git a/packages/ai-village/src/client/ManagementPanel.tsx b/packages/ai-village/src/client/ManagementPanel.tsx
+index 3d57274..f6f28c1 100644
+--- a/packages/ai-village/src/client/ManagementPanel.tsx
++++ b/packages/ai-village/src/client/ManagementPanel.tsx
+@@ -1,3 +1,5 @@
++import { PanelShell } from './PanelShell.tsx'
++import type { Page } from './ui-state.ts'
+ import { zh, en } from './messages.ts'
+ import { useEffect, useRef, useState } from 'react'
+ import type { VillageRuntime } from './runtime.ts'
+@@ -20,34 +22,43 @@ export const actionErrorText = (code: string, cn: boolean) => {
+ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRuntime; cn: boolean; short: boolean }) {
+   const t = (a: string, b: string) => cn ? a : b, locale = cn ? 'zh' : 'en', p = r.presentation, w = r.controller?.world
+   const content = useRef<HTMLDivElement>(null), scrolls = useRef<Record<string, number>>({})
+-  const [admissions, setAdmissions] = useState(false), [first, setFirst] = useState<CharacterId>('bluewhale'), [second, setSecond] = useState<CharacterId>('claude'), [food, setFood] = useState<'tea' | 'rice'>('tea')
++  const [first, setFirst] = useState<CharacterId>('bluewhale'), [second, setSecond] = useState<CharacterId>('claude'), [food, setFood] = useState<'tea' | 'rice'>('tea')
+   const names = { residents: t('居民', 'Residents'), wishes: t('心愿', 'Wishes'), decor: t('布置', 'Decor'), journal: t('手账', 'Journal') }
+-  useEffect(() => { if (content.current) content.current.scrollTop = scrolls.current[p.tab] ?? 0 }, [p.tab])
+   useEffect(() => {
+     if (!p.noticeTarget || p.tab !== 'journal' || p.drawer === 'closed') return
+-    const target = content.current?.querySelector<HTMLElement>(`[data-notice-id="${CSS.escape(p.noticeTarget)}"]`)
++    const target = document.querySelector<HTMLElement>(`[data-notice-id="${CSS.escape(p.noticeTarget)}"]`)
+     if (target) { target.scrollIntoView({ block: 'nearest' }); target.focus(); void r.markNoticesRead([p.noticeTarget]); r.present({ type: 'patch', patch: { noticeTarget: null } }) }
+   }, [p.noticeTarget, p.tab, p.drawer, r])
+   if (!w || r.arranging || r.photoMode) return null
+-  const members = actors(w), selected = w.actor.id, busy = !r.ready || !!r.error || r.reasons.has('commit-pending'), eventBusy = busy || !!w.activeEvent || !!w.neighborhood.event
++  const members = actors(w), selected = p.residentTarget && members.some(a=>a.id===p.residentTarget) ? p.residentTarget : w.actor.id, busy = !r.ready || !!r.error || r.reasons.has('commit-pending'), eventBusy = busy || !!w.activeEvent || !!w.neighborhood.event
+   const guest1 = members.some(a => a.id === first) ? first : selected, guest2 = members.find(a => a.id === second && a.id !== guest1)?.id ?? members.find(a => a.id !== guest1)?.id
+-  const sub = (key: keyof typeof p.subpages, value: string) => r.present({ type: 'patch', patch: { subpages: { ...p.subpages, [key]: value } } })
++  const go = (page: Page) => r.present({ type: 'push', patch: { page, drawer: 'full' } })
++  const sub = (key: keyof typeof p.subpages, value: string) => r.present({ type: 'push', patch: { page: value as Page, drawer: 'full', subpages: { ...p.subpages, [key]: value } } })
+   const activities = (count: number) => <div className="choices">{neighborhoodEvents.filter(d => d.count === count).map(d => {
+     const missing = (d.furniture === 'books' || d.id === 'shared-book') && w.neighborhood.layout !== 'reading' || (d.furniture === 'plant' || d.id === 'plant-care') && w.neighborhood.layout !== 'garden'
+     const reason = busy ? t('保存或连接处理中', 'Save or connection pending') : eventBusy ? t('请先结束当前活动', 'Finish the active event') : missing ? t('需要对应角落', 'Requires the matching corner') : w.ticks < w.neighborhood.nextInteractionTick ? t('请稍候', 'Wait a moment') : count === 2 && !guest2 ? t('需要两位居民', 'Requires two residents') : ''
+-    return <span key={d.id} className="village-action"><button disabled={!!reason} title={reason} onClick={() => void r.interact(d.id, count === 1 ? [selected] : [guest1, guest2!])}>{d.name[locale]}</button>{reason && <small>{reason}</small>}</span>
++    return <span key={d.id} className="village-action"><button disabled={!!reason} title={reason} onClick={() => void r.interact(d.id, count === 1 ? [selected] : [guest1, guest2!])}>{d.name[locale]}</button></span>
+   })}</div>
+   const begin = () => { r.present({ type: 'close' }); r.beginHome() }
+   return <section className="village-management" data-snap={p.drawer}>
+-    <div className="village-drawer" hidden={p.drawer === 'closed'}><header><h2>{names[p.tab]}</h2><button aria-label={t(p.drawer === 'full' ? '还原抽屉' : '深展开', p.drawer === 'full' ? 'Half drawer' : 'Expand drawer')} onClick={() => r.present({ type: 'patch', patch: { drawer: p.drawer === 'full' && !short ? 'half' : 'full' } })}><VillageIcon name={p.drawer === 'full' ? 'compact' : 'expand'} /></button><button aria-label={t('收起面板', 'Collapse panel')} onClick={() => r.present({ type: 'close' })}><VillageIcon name="close" /></button></header>
+-    <div ref={content} id="village-panel" className="village-panel" role="tabpanel" aria-labelledby={`village-tab-${p.tab}`} onScroll={e => { scrolls.current[p.tab] = e.currentTarget.scrollTop }}>
++    {p.drawer !== 'closed' && !p.overlay && <PanelShell runtime={r} cn={cn} title={names[p.tab]} className="village-drawer">
++      {p.page === 'quick' && <>
++        {p.tab === 'residents' && <><div className="village-person"><img src={`/api/nidofy-ai-village/assets/portraits/${selected}.png`} alt=""/><span><strong>{characterNames[selected]}</strong><small>{t('在场','Present')} {members.length}/7 · {(cn?zh:en)[w.actor.behavior]}</small></span></div><div className="choices"><button onClick={()=>go('activities')}>{t('互动','Activities')}</button><button onClick={()=>go('residents')}>{t('全部居民','All residents')}</button></div></>}
++        {p.tab === 'wishes' && <><p>{w.activeEvent || w.neighborhood.event ? t('朋友们正在一起活动','An activity is in progress') : t('同桌的午后','An afternoon together')}</p><div className="choices"><button onClick={()=>sub('wishes','wishes')}>{t('全部心愿','All wishes')}</button><button onClick={()=>sub('wishes','activities')}>{t('一起活动','Together')}</button></div></>}
++        {p.tab === 'decor' && <><small>{layoutNames[w.neighborhood.layout][locale]}</small><div className="choices">{(['furniture','hanging','atmosphere'] as const).map((v,i)=><button key={v} onClick={()=>sub('decor',v)}>{[t('家具','Furniture'),t('挂饰','Hangings'),t('氛围','Atmosphere')][i]}</button>)}</div></>}
++        {p.tab === 'journal' && <><p>{r.notices.length ? (r.notices[0]!.story==='first-table'?t('今天，我们坐到了一起','Today, we shared a table'):stories.find(s=>s.id===r.notices[0]!.story)?.name[locale]) : t('回忆将留在这里。','Memories will stay here.')}</p><div className="choices"><button onClick={()=>sub('journal','memories')}>{t('回忆','Memories')}</button><button onClick={()=>sub('journal','album')}>{t('相册','Album')}</button></div></>}
++      </>}
++      {p.page !== 'quick' && <>
+       {(p.tab === 'wishes' || p.tab === 'residents') && (w.activeEvent || w.neighborhood.event) && <article className="village-status"><strong>{w.activeEvent ? t('同桌的午后', 'An afternoon together') : neighborhoodEvents.find(d => d.id === w.neighborhood.event?.definitionId)?.name[locale]}</strong><p>{(w.activeEvent ?? w.neighborhood.event)!.participants.map(id => characterNames[id]).join(' · ')} · {(w.activeEvent ?? w.neighborhood.event)!.phase}</p><button disabled={busy} onClick={() => void r.cancelEvent()}>{t('取消活动', 'Cancel activity')}</button></article>}
+-      {p.tab === 'residents' && <><header><strong>{t('在场', 'Present')} {members.length}/7</strong><button onClick={() => setAdmissions(!admissions)}>{t('安排入住', 'Manage residents')}</button></header>
+-        {admissions && <div className="village-admissions">{characterIds.map(id => <label key={id}><input aria-label={t('入住 ', 'Resident ') + characterNames[id]} type="checkbox" checked={members.some(a => a.id === id)} disabled={busy || members.length === 1 && id === selected} onChange={e => r.setCharacterPresent(id, e.target.checked)} />{characterNames[id]}</label>)}<button disabled={busy} onClick={() => r.setAllCharacters(true)}>{t('全员入住', 'Invite everyone')}</button><button disabled={busy} onClick={() => r.setAllCharacters(false)}>{t('仅留当前', 'Keep selected only')}</button></div>}
+-        {members.map(a => <div className="village-person" key={a.id}><img src={`/api/nidofy-ai-village/assets/portraits/${a.id}.png`} alt="" /><span><strong>{characterNames[a.id]}</strong><small>{(cn ? zh : en)[a.behavior]}</small></span><button disabled={busy} onClick={() => { r.selectCharacter(a.id); r.sceneClick(true) }}>{t('看看', 'Look')}</button></div>)}
++      {p.tab === 'residents' && (p.page==='residents'||p.page==='admissions') && <><header><strong>{t('在场', 'Present')} {members.length}/7</strong><button onClick={() => go('admissions')}>{t('安排入住', 'Manage residents')}</button></header>
++        {p.page === 'admissions' && <div className="village-admissions">{characterIds.map(id => <label key={id}><input aria-label={t('入住 ', 'Resident ') + characterNames[id]} type="checkbox" checked={members.some(a => a.id === id)} disabled={busy || members.length === 1 && id === selected} onChange={e => r.setCharacterPresent(id, e.target.checked)} />{characterNames[id]}</label>)}<button disabled={busy} onClick={() => r.setAllCharacters(true)}>{t('全员入住', 'Invite everyone')}</button><button disabled={busy} onClick={() => r.setAllCharacters(false)}>{t('仅留当前', 'Keep selected only')}</button></div>}
++        {p.page==='residents' && members.map(a => <div className="village-person" key={a.id}><img src={`/api/nidofy-ai-village/assets/portraits/${a.id}.png`} alt="" /><span><strong>{characterNames[a.id]}</strong><small>{(cn ? zh : en)[a.behavior]}</small></span><button disabled={busy} onClick={() => { r.selectCharacter(a.id); r.present({type:'close'}) }}>{t('看看', 'Look')}</button><button data-focus-key={'resident-detail-'+a.id} onClick={()=>r.present({type:'push',patch:{page:'activities',residentTarget:a.id}})}>{t('详情','Details')}</button></div>)}
++      </>}
++      {p.tab==='residents' && p.page==='activities' && <>
+         <h3>{characterNames[selected]} · {t('日常互动', 'Daily activities')}</h3>{activities(1)}
+-        <button onClick={() => r.present({ type: 'patch', patch: { tab: 'decor', accessoryTarget: selected, subpages: { ...p.subpages, decor: 'atmosphere' } } })}>{t('配饰', 'Accessories')}</button>
+-        <h3>{t('共同经历', 'Shared experiences')}</h3>{w.neighborhood.bonds.filter(b => b.pair.includes(selected)).map(b => <p key={b.pair.join('/')}>{b.pair.map(id => characterNames[id]).join(' & ')} · {b.count >= 3 ? t('熟悉', 'Familiar') : b.count >= 2 ? t('一起活动', 'Companions') : t('初次相聚', 'First gathering')} · ×{b.count}</p>)}
++        <button onClick={() => r.present({ type: 'push', patch: { tab: 'decor', page: 'atmosphere', accessoryTarget: selected, subpages: { ...p.subpages, decor: 'atmosphere' } } })}>{t('配饰', 'Accessories')}</button>
++        <button onClick={()=>go('bonds')}>{t('共同经历','Shared experiences')}</button><button onClick={()=>r.present({type:'overlay',overlay:'settings'})}>{t('小院设置','Courtyard settings')}</button></>}
++      {p.tab==='residents' && p.page==='bonds' && <><h3>{t('共同经历', 'Shared experiences')}</h3>{w.neighborhood.bonds.filter(b => b.pair.includes(selected)).map(b => <p key={b.pair.join('/')}>{b.pair.map(id => characterNames[id]).join(' & ')} · {b.count >= 3 ? t('熟悉', 'Familiar') : b.count >= 2 ? t('一起活动', 'Companions') : t('初次相聚', 'First gathering')} · ×{b.count}</p>)}
+       </>}
+       {p.tab === 'wishes' && <><div className="choices"><button aria-pressed={p.subpages.wishes === 'wishes'} onClick={() => sub('wishes', 'wishes')}>{t('心愿', 'Wishes')}</button><button aria-pressed={p.subpages.wishes === 'activities'} onClick={() => sub('wishes', 'activities')}>{t('一起活动', 'Together')}</button></div>
+         {p.subpages.wishes === 'wishes' ? <><article><p>{w.journal.length ? '✓ ' : '○ '}{t('同桌的午后', 'An afternoon together')}</p><button onClick={() => sub('wishes', 'activities')}>{t('去看看', 'Explore')}</button></article>{wishes.map(item => <article key={item.id}><p>{w.neighborhood.memories.some(m => m.id === item.story) ? '✓ ' : '○ '}{item.title[locale]}</p><button onClick={() => sub('wishes', 'activities')}>{t('去看看', 'Explore')}</button></article>)}</> : <>
+@@ -64,7 +75,8 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
+       </>}
+       {p.tab === 'journal' && <><div className="choices"><button aria-pressed={p.subpages.journal === 'memories'} onClick={() => sub('journal', 'memories')}>{t('回忆', 'Memories')}</button><button aria-pressed={p.subpages.journal === 'album'} onClick={() => sub('journal', 'album')}>{t('相册', 'Album')}</button></div>{p.subpages.journal === 'album' ? <><button disabled={busy || !r.frameReady} onClick={() => { r.present({ type: 'close' }); void r.enterPhoto() }}>{t('拍一张', 'Take a photo')}</button><PhotoPanel runtime={r} locale={locale} albumOnly /></> : <>{r.notices.map(n => <article tabIndex={-1} data-notice-id={n.id} className="village-journal" key={n.id}><small>{t('第', 'Day ')}{villageTime(n.tick).day}{cn ? '天' : ''} · ×{n.count}</small><h3>{n.story === 'first-table' ? t('今天，我们坐到了一起', 'Today, we shared a table') : stories.find(s => s.id === n.story)?.name[locale]}</h3><p>{n.participants.map(id => characterNames[id as CharacterId]).join(' & ')}</p></article>)}{!r.notices.length && <p>{t('回忆会在第一次完成活动并保存后留下。', 'First completed activities become memories after saving.')}</p>}</>}</>}
+       {r.actionError && <p role="alert">{actionErrorText(r.actionError, cn)}<details><summary>{t('详情', 'Details')}</summary>{r.actionError}</details></p>}
+-    </div></div>
+-    <nav className="village-tabs" role="tablist" aria-label={t('小院页面', 'Courtyard pages')}>{villageTabs.map((tab, i) => <button id={`village-tab-${tab}`} key={tab} role="tab" aria-controls="village-panel" aria-selected={p.tab === tab && p.drawer !== 'closed'} onClick={() => r.present({ type: 'tab', tab, short })} onKeyDown={e => { if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return; const next = villageTabs[(i + (e.key === 'ArrowRight' ? 1 : 3)) % 4]!; r.present({ type: 'patch', patch: { tab: next, drawer: short ? 'full' : p.drawer === 'closed' ? 'half' : p.drawer, overlay: null } }); document.getElementById(`village-tab-${next}`)?.focus(); e.preventDefault() }}><VillageIcon name={tab} /><span>{names[tab]}</span></button>)}</nav>
++    </>}
++    </PanelShell>}
++    {!p.overlay && <nav className="village-tabs" role="tablist" aria-label={t('小院页面', 'Courtyard pages')}>{villageTabs.map((tab, i) => <button id={`village-tab-${tab}`} key={tab} role="tab" aria-controls="village-panel" aria-selected={p.tab === tab && p.drawer !== 'closed'} onClick={() => r.present({ type: 'tab', tab, short })} onKeyDown={e => { if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) return; const next = villageTabs[(i + (e.key === 'ArrowRight' ? 1 : 3)) % 4]!; r.present({ type: 'tab', tab: next }); document.getElementById(`village-tab-${next}`)?.focus(); e.preventDefault() }}><VillageIcon name={tab} /><span>{names[tab]}</span></button>)}</nav>}
+   </section>
+ }
+diff --git a/packages/ai-village/src/client/Notifications.tsx b/packages/ai-village/src/client/Notifications.tsx
+index 2319e4e..512ce54 100644
+--- a/packages/ai-village/src/client/Notifications.tsx
++++ b/packages/ai-village/src/client/Notifications.tsx
+@@ -1,3 +1,4 @@
++import { PanelShell } from './PanelShell.tsx'
+ import { characterNames, type CharacterId } from '../core/roster.ts'
+ import { useEffect, useRef, useState } from 'react'
+ import type { VillageRuntime } from './runtime.ts'
+@@ -10,11 +11,11 @@ export function Notifications({ runtime: r, cn }: { runtime: VillageRuntime; cn:
+   useEffect(() => { if (!ids || !settled || blocked || hover) return; const start = Date.now(), timer = setTimeout(() => r.present({ type: 'patch', patch: { toastIds: [] } }), remaining.current); return () => { clearTimeout(timer); remaining.current = Math.max(0, remaining.current - (Date.now() - start)) } }, [ids, settled, blocked, hover, r])
+   const open = (id?: string) => {
+     if (id && !r.notices.some(n => n.id === id)) return
+-    r.present({ type: 'patch', patch: { tab: 'journal', drawer: 'full', overlay: null, noticeTarget: id ?? null, subpages: { ...p.subpages, journal: 'memories' } } })
++    r.present({ type: 'push', patch: { page:'memories',tab: 'journal', drawer: 'full', overlay: null, noticeTarget: id ?? null, subpages: { ...p.subpages, journal: 'memories' } } })
+   }
+-  return <>{p.overlay === 'notifications' && <section className="village-popover village-notices" aria-label={t('消息', 'Notifications')}><header><h2>{t('消息', 'Notifications')}</h2><button disabled={r.preferencesSaving || !r.preferences.noticesInitialized} onClick={() => void r.markNoticesRead(r.notices.map(n => n.id))}>{t('全部已读', 'Mark all read')}</button></header>
++  return <>{p.overlay === 'notifications' && <PanelShell runtime={r} cn={cn} className="village-popover village-notices" title={t('消息', 'Notifications')}><button disabled={r.preferencesSaving || !r.preferences.noticesInitialized} onClick={() => void r.markNoticesRead(r.notices.map(n => n.id))}>{t('全部已读', 'Mark all read')}</button>
+     {!r.preferences.noticesInitialized && <p role="status">{t('消息状态尚未保存', 'Notification state is not saved yet')}</p>}
+-    <div className="village-notice-list">{r.notices.length ? r.notices.map(n => <button key={n.id} onClick={() => open(n.id)}>{!r.preferences.noticeReadIds.includes(n.id) && r.preferences.noticesInitialized ? '• ' : ''}{n.story === 'first-table' ? t('今天，我们坐到了一起', 'Today, we shared a table') : stories.find(s => s.id === n.story)?.name[cn ? 'zh' : 'en']}<small>{n.participants.map(id=>characterNames[id as CharacterId]).join(' · ')}{n.story==='first-table'?t(' · 发现风铃',' · Wind chime discovered'):n.story==='shared-book'?t(' · 发现纸灯笼',' · Lantern discovered'):n.story==='water'?t(' · 发现花叶挂饰',' · Hanging leaves discovered'):''}</small></button>) : <p>{t('还没有留下首次回忆。', 'No first memories yet.')}</p>}</div><button onClick={() => open()}>{t('查看手账', 'Open journal')}</button></section>}
+-    {!!ids && settled && !blocked && <aside className="village-toast" style={{bottom:p.drawer==='closed'?80:p.drawer==='half'?'calc(var(--drawer-half) + 24px)':'calc(100% - 72px)'}} role="status" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)}>{t(`新增 ${p.toastIds.length} 段回忆`, `${p.toastIds.length} new memories`)}<button onClick={() => open(p.toastIds[0])}>{t('查看', 'View')}</button></aside>}
++    <div className="village-notice-list">{r.notices.length ? r.notices.map(n => <button key={n.id} onClick={() => open(n.id)}>{!r.preferences.noticeReadIds.includes(n.id) && r.preferences.noticesInitialized ? '• ' : ''}{n.story === 'first-table' ? t('今天，我们坐到了一起', 'Today, we shared a table') : stories.find(s => s.id === n.story)?.name[cn ? 'zh' : 'en']}<small>{n.participants.map(id=>characterNames[id as CharacterId]).join(' · ')}{n.story==='first-table'?t(' · 发现风铃',' · Wind chime discovered'):n.story==='shared-book'?t(' · 发现纸灯笼',' · Lantern discovered'):n.story==='water'?t(' · 发现花叶挂饰',' · Hanging leaves discovered'):''}</small></button>) : <p>{t('还没有留下首次回忆。', 'No first memories yet.')}</p>}</div><button onClick={() => open()}>{t('查看手账', 'Open journal')}</button></PanelShell>}
++    {!!ids && settled && !blocked && !p.overlay && <aside className="village-toast" style={{bottom:p.drawer==='closed'?80:p.drawer==='half'?'calc(var(--drawer-half) + 24px)':'calc(100% - 72px)'}} role="status" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)}>{t(`新增 ${p.toastIds.length} 段回忆`, `${p.toastIds.length} new memories`)}<button onClick={() => open(p.toastIds[0])}>{t('查看', 'View')}</button></aside>}
+   </>
+ }
+diff --git a/packages/ai-village/src/client/PhotoPanel.tsx b/packages/ai-village/src/client/PhotoPanel.tsx
+index 4598c15..9e55948 100644
+--- a/packages/ai-village/src/client/PhotoPanel.tsx
++++ b/packages/ai-village/src/client/PhotoPanel.tsx
+@@ -1,3 +1,4 @@
++import { VillageIcon } from './Icon.tsx'
+ import { useEffect, useRef, useState } from 'react'
+ import type { VillageRuntime } from './runtime.ts'
+ import type { Photo } from '../core/photo.ts'
+@@ -5,34 +6,36 @@ function download(blob:Blob,name:string){const url=URL.createObjectURL(blob),a=d
+ function AlbumImage({runtime,photo,locale}:{runtime:VillageRuntime;photo:Photo;locale:'zh'|'en'}){
+  const[url,setUrl]=useState(''),[failed,setFailed]=useState(false)
+  useEffect(()=>{let active=true,url='';void runtime.album.image(photo).then(blob=>{if(active){url=URL.createObjectURL(blob);setUrl(url)}}).catch(()=>{if(active)setFailed(true)});return()=>{active=false;if(url)URL.revokeObjectURL(url)}},[runtime,photo.id,photo.hash])
+- return url?<img loading="lazy" src={url} alt={photo.title} style={{width:'100%',maxHeight:180,objectFit:'contain'}}/>:failed?<span>{locale==='zh'?'照片暂时不可用':'Photo unavailable'}</span>:null
++ return url?<img loading="lazy" src={url} alt={photo.title} style={{width:'100%',height:180,objectFit:'contain'}}/>:<div className="village-album-placeholder" role="status">{failed?(locale==='zh'?'照片暂时不可用':'Photo unavailable'):(locale==='zh'?'正在读取照片…':'Loading photo…')}</div>
+ }
+ export function PhotoPanel({runtime,locale,albumOnly=false}:{runtime:VillageRuntime;locale:'zh'|'en';albumOnly?:boolean}){
+  const cn=locale==='zh',t=(zh:string,en:string)=>cn?zh:en,album=runtime.album
+- const[title,setTitle]=useState(''),[bytes,setBytes]=useState<ArrayBuffer|null>(null),[preview,setPreview]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[deleting,setDeleting]=useState<string|null>(null)
+- useEffect(()=>{void album.refresh().catch(()=>setError(t('相册暂时不可用。','Album unavailable.')))},[album])
++ const[title,setTitle]=useState(''),[bytes,setBytes]=useState<ArrayBuffer|null>(null),[preview,setPreview]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[deleting,setDeleting]=useState<string|null>(null),[loaded,setLoaded]=useState(false)
++ useEffect(()=>{let active=true;void album.refresh().catch(()=>{if(active)setError(t('相册暂时不可用。','Album unavailable.'))}).finally(()=>{if(active)setLoaded(true)});return()=>{active=false}},[album])
+  useEffect(()=>{if(!bytes){setPreview('');return}const url=URL.createObjectURL(new Blob([bytes],{type:'image/png'}));setPreview(url);return()=>URL.revokeObjectURL(url)},[bytes])
+  const act=async(fn:()=>Promise<void>)=>{setBusy(true);setError('');try{await fn()}catch{setError(t('照片操作未完成，请保留当前画面并重试读取。','The photo operation did not finish. Keep this view and check again.'))}finally{setBusy(false)}}
+  const locked=busy||album.busy||!!album.pending, panel=useRef<HTMLElement>(null)
++ useEffect(()=>{if(deleting)panel.current?.querySelector<HTMLButtonElement>('[role=alertdialog] button')?.focus()},[deleting])
+  useEffect(()=>{const card=panel.current?.closest('.village-card');const key=(event:Event)=>{const e=event as KeyboardEvent;if(e.key==='Escape'&&!e.isComposing&&(bytes||deleting||locked)){e.preventDefault();e.stopPropagation();if(!locked){setBytes(null);setDeleting(null)}}};card?.addEventListener('keydown',key,true);return()=>card?.removeEventListener('keydown',key,true)},[bytes,deleting,locked])
+- return <section ref={panel} className={albumOnly?'village-album':'village-photo-controls'} aria-label={t('小院相册','Courtyard album')} onKeyDown={e=>{if(e.key==='Escape'&&!e.nativeEvent.isComposing&&(bytes||deleting||locked)){e.preventDefault();e.stopPropagation();if(!locked){setBytes(null);setDeleting(null)}}}}>
++ return <section ref={panel} className={albumOnly?'village-album':'village-photo-controls'} aria-label={t('小院相册','Courtyard album')} onKeyDown={e=>{if(e.key==='Tab'&&deleting){const buttons=[...panel.current!.querySelectorAll<HTMLButtonElement>('[role=alertdialog] button')];if(e.shiftKey&&document.activeElement===buttons[0]){buttons.at(-1)?.focus();e.preventDefault()}else if(!e.shiftKey&&document.activeElement===buttons.at(-1)){buttons[0]?.focus();e.preventDefault()}}if(e.key==='Escape'&&!e.nativeEvent.isComposing&&(bytes||deleting||locked)){e.preventDefault();e.stopPropagation();if(!locked){setBytes(null);setDeleting(null)}}}}>
++ {!albumOnly&&<header className="village-panel-header"><button aria-label={t('返回','Back')} disabled={locked} onClick={()=>{if(bytes)setBytes(null);else runtime.exitPhoto()}}><VillageIcon name="back"/></button><h2>{t('拍照','Photo')}</h2><button disabled={locked} onClick={()=>{if(bytes)setBytes(null);else runtime.exitPhoto()}}>{bytes?t('返回取景','Back to camera'):t('退出拍照','Exit photo mode')}</button></header>}
++ <div className={albumOnly?'':'village-panel'}>
+  {!albumOnly&&<><h3>{t('留住这一刻','Keep this moment')}</h3><p>{t('拍照期间小院暂停。退出后保留原来的暂停设置。','The courtyard pauses for the photo. Your earlier pause setting is preserved.')}</p>
+    <label>{t('取景缩放','Zoom')}<input aria-label={t('取景缩放','Photo zoom')} type="range" min="1" max="1.5" step="0.05" value={runtime.photoOptions.zoom} onChange={e=>{setBytes(null);runtime.setPhotoOptions({zoom:Number(e.target.value)})}}/></label>
+    {(['x','y']as const).map(axis=><label key={axis}>{axis==='x'?t('左右取景','Horizontal crop'):t('上下取景','Vertical crop')}<input type="range" min="-1" max="1" step="0.1" value={runtime.photoOptions[axis]} onChange={e=>{setBytes(null);runtime.setPhotoOptions({[axis]:Number(e.target.value)})}}/></label>)}
+    <div className="choices"><label><input type="checkbox" checked={runtime.photoOptions.date} onChange={e=>{setBytes(null);runtime.setPhotoOptions({date:e.target.checked})}}/>{t('日期','Date')}</label><label><input type="checkbox" checked={runtime.photoOptions.border} onChange={e=>{setBytes(null);runtime.setPhotoOptions({border:e.target.checked})}}/>{t('边框','Border')}</label></div>
+    <button disabled={locked} onClick={()=>{setBytes(null);runtime.setPhotoOptions({zoom:1,x:0,y:0})}}>{t('重置取景','Reset crop')}</button>
+-   <button disabled={locked||!runtime.frameReady} onClick={()=>void act(async()=>setBytes(await runtime.capturePhoto()))}>{t('拍摄照片','Take photo')}</button>
+-   <button disabled={locked} onClick={()=>{if(bytes)setBytes(null);else runtime.exitPhoto()}}>{bytes?t('返回取景','Back to camera'):t('退出拍照','Exit photo mode')}</button>
++   <button className="primary" disabled={locked||!runtime.frameReady} onClick={()=>void act(async()=>setBytes(await runtime.capturePhoto()))}>{t('拍摄照片','Take photo')}</button>
+    {preview&&bytes&&<><img src={preview} alt={t('照片预览','Photo preview')} style={{width:'100%',maxHeight:200,objectFit:'contain'}}/><label>{t('照片标题','Photo title')}<input maxLength={80} value={title} onChange={e=>setTitle(e.target.value)}/></label>
+-    <button disabled={locked} onClick={()=>void act(async()=>{await album.add(bytes,title||t('小院的一刻','A courtyard moment'),runtime.controller!.world.ticks);if(!album.error&&!album.pending)setBytes(null)})}>{t('保存到相册','Save to album')}</button>
++    <button className="primary" disabled={locked} onClick={()=>void act(async()=>{await album.add(bytes,title||t('小院的一刻','A courtyard moment'),runtime.controller!.world.ticks);if(!album.error&&!album.pending)setBytes(null)})}>{t('保存到相册','Save to album')}</button>
+     <button onClick={()=>download(new Blob([bytes],{type:'image/png'}),'ai-village-postcard.png')}>{t('导出 PNG','Export PNG')}</button></>}
+  </>}
+- {albumOnly&&<><h3>{t('本地相册','Local album')} · {album.state?.world.photos.length??0}/20</h3><p>{t('最多 20 张、共 40 MiB。删除照片不会删除手账或解锁。','Up to 20 photos and 40 MiB. Deleting a photo keeps memories and unlocks.')}</p>
++ {albumOnly&&<><h3>{t('本地相册','Local album')} · {album.state?.world.photos.length??0}/20</h3><p>{t('最多 20 张、共 40 MiB。删除照片不会删除手账或解锁。','Up to 20 photos and 40 MiB. Deleting a photo keeps memories and unlocks.')}</p>{!loaded?<p role="status">{t('正在读取相册…','Loading album…')}</p>:!album.state?.world.photos.length&&<p>{t('还没有照片，拍一张留住小院的一刻。','No photos yet. Capture a courtyard moment.')}</p>}
+   {(album.state?.world.photos??[]).map(photo=><article className="village-journal" key={photo.id}><AlbumImage runtime={runtime} photo={photo} locale={locale}/ ><p>{photo.title}</p><button disabled={locked} onClick={()=>void act(async()=>setBytes(await (await album.image(photo)).arrayBuffer()))}>{t('查看照片','View photo')}</button>
+     <button disabled={locked} onClick={()=>void act(async()=>download(await album.image(photo),'ai-village-'+photo.id+'.png'))}>{t('导出','Export')}</button>
+-    {deleting===photo.id?<><button disabled={locked} onClick={()=>void act(async()=>{await album.remove(photo.id);setDeleting(null)})}>{t('确认删除照片','Confirm photo deletion')}</button><button onClick={()=>setDeleting(null)}>{t('取消','Cancel')}</button></>:<button disabled={locked} onClick={()=>setDeleting(photo.id)}>{t('删除照片','Delete photo')}</button>}
++    {deleting===photo.id?<div role="alertdialog" aria-modal="true" aria-label={t('删除照片？','Delete photo?')}><button disabled={locked} onClick={()=>void act(async()=>{await album.remove(photo.id);setDeleting(null)})}>{t('确认删除照片','Confirm photo deletion')}</button><button onClick={()=>setDeleting(null)}>{t('取消','Cancel')}</button></div>:<button disabled={locked} onClick={()=>setDeleting(photo.id)}>{t('删除照片','Delete photo')}</button>}
+   </article>)}</>}
+  {albumOnly&&preview&&<div className="village-photo-view" role="dialog" aria-label={t('照片预览','Photo preview')}><img src={preview} alt={t('照片预览','Photo preview')} style={{width:'100%',maxHeight:'65vh',objectFit:'contain'}}/><button onClick={()=>setBytes(null)}>{t('关闭预览','Close preview')}</button></div>}
+  {(error||album.error)&&<p role="alert">{error||t('相册结果需要核对；不会自动重复保存。','The album result needs checking; the write will not be repeated automatically.')}<button disabled={album.busy} onClick={()=>void act(()=>album.refresh())}>{t('重新读取相册','Check album again')}</button></p>}
+- </section>
++ </div></section>
+ }
+diff --git a/packages/ai-village/src/client/SettingsPanel.tsx b/packages/ai-village/src/client/SettingsPanel.tsx
+index 9fa32cc..96e215a 100644
+--- a/packages/ai-village/src/client/SettingsPanel.tsx
++++ b/packages/ai-village/src/client/SettingsPanel.tsx
+@@ -1,24 +1,22 @@
+-import { useEffect, useRef } from 'react'
++import { PanelShell } from './PanelShell.tsx'
++import { contract } from './ui-contract.ts'
+ import type { VillageRuntime } from './runtime.ts'
+-export function SettingsPanel({ runtime: r, cn, close }: { runtime: VillageRuntime; cn: boolean; close(): void }) {
+-  const t = (a: string, b: string) => cn ? a : b, p = r.preferences, locked = r.preferencesSaving || !!r.error
+-  const ref = useRef<HTMLElement>(null)
+-  useEffect(() => { ref.current?.querySelector<HTMLButtonElement>('button')?.focus() }, [])
+-  return <section ref={ref} className="village-settings" role="dialog" aria-label={t('小院设置', 'Courtyard settings')} onKeyDown={e => {
+-    if (e.key !== 'Tab') return
+-    const nodes = [...ref.current!.querySelectorAll<HTMLElement>('button:not(:disabled),select:not(:disabled),input:not(:disabled),summary')]
+-    if (e.shiftKey && document.activeElement === nodes[0]) { nodes.at(-1)?.focus(); e.preventDefault() }
+-    else if (!e.shiftKey && document.activeElement === nodes.at(-1)) { nodes[0]?.focus(); e.preventDefault() }
+-  }}><header><h2>{t('小院设置', 'Courtyard settings')}</h2><button onClick={close}>{t('完成', 'Done')}</button></header>
+-    <h3>{t('显示与交互', 'Display and interaction')}</h3>
+-    <label>{t('界面主题', 'Theme')}<select aria-label={t('界面主题', 'Theme')} value={p.theme} disabled={locked} onChange={e => void r.setPreferences({ theme: e.target.value as typeof p.theme })}><option value="system">{t('跟随系统', 'System')}</option><option value="light">{t('浅色', 'Light')}</option><option value="dark">{t('深色', 'Dark')}</option></select></label>
+-    <label>{t('语言', 'Language')}<select aria-label={t('语言', 'Language')} value={p.language} disabled={locked} onChange={e => void r.setPreferences({ language: e.target.value as typeof p.language })}><option value="system">{t('跟随 DSH', 'Follow DSH')}</option><option value="zh">中文</option><option value="en">English</option></select></label>
+-    {(['reducedMotion', 'reducedTransparency', 'bubbles'] as const).map((id, i) => <label key={id}><input type="checkbox" checked={p[id]} disabled={locked} onChange={e => void r.setPreferences({ [id]: e.target.checked })} />{[t('减少动态', 'Reduce motion'), t('减少透明效果', 'Reduce transparency'), t('显示对话气泡', 'Show speech bubbles')][i]}</label>)}
+-    <p role="status">{r.preferencesSaving ? t('设置保存中…', 'Saving preferences…') : r.error ? t('设置尚未确认，请重新读取核对。', 'Preferences are unconfirmed. Read again to verify.') : t('设置已确认', 'Preferences confirmed')}</p>
+-    {r.softwareRendering && <p>{t('当前使用实色面板以降低绘制开销，透明效果偏好仍保留。', 'Solid panels reduce rendering cost here; your transparency preference is preserved.')}</p>}
+-    <h3>{t('视角与操作', 'View and controls')}</h3><button onClick={() => r.resetCamera()}>{t('恢复全景', 'Reset view')}</button><p>{t('滚轮缩放，拖动空地平移。轻点居民查看，拖到活动位安排日常。Esc 逐层返回；布置也可用位置按钮。', 'Wheel to zoom; drag empty ground to pan. Tap a resident to inspect, or drag to a seat. Escape returns one layer. Arrangement also supports position buttons.')}</p>
+-    <h3>{t('运行与存档', 'Runtime and saves')}</h3><p>{t('暂停原因', 'Pause reasons')}：{[...r.reasons].join(' / ') || t('运行中', 'Running')}</p><p>{t('最近确认修订', 'Last confirmed revision')}：r{r.revision} · {r.saveReceipt.status}</p>
+-    {r.retentionWarning && <p role="alert">{t('旧快照清理需要检查，已保存数据仍保留。', 'Snapshot cleanup needs attention; saved data is retained.')}</p>}
+-    <details><summary>{t('开发与恢复', 'Diagnostics and recovery')}</summary><p>{t('仅在存档故障时恢复上一成功版本。', 'Restore the previous successful revision only when recovery is needed.')}</p><button onClick={() => void r.recover()}>{t('恢复上一版小院', 'Restore previous courtyard')}</button><button onClick={() => void r.recoverPreferences()}>{t('恢复上一版设置', 'Restore previous preferences')}</button></details>
+-  </section>
++export function SettingsPanel({runtime:r,cn}:{runtime:VillageRuntime;cn:boolean;close?:()=>void}) {
++ const t=(a:string,b:string)=>cn?a:b,p=r.preferences,page=r.presentation.page,locked=r.preferencesSaving||!!r.error
++ const groups=[['appearance',t('外观与显示','Appearance and display')],['controls',t('交互与视角','Controls and view')],['status',t('小院状态','Courtyard status')]] as const
++ const exportTrace=()=>{const url=URL.createObjectURL(new Blob([r.diagnostics.export()],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='ai-village-diagnostics.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
++ return <PanelShell runtime={r} cn={cn} title={groups.find(g=>g[0]===page)?.[1]??t('小院设置','Courtyard settings')} className="village-settings">
++ {page==='quick'&&groups.map(([id,label])=><button key={id} onClick={()=>r.present({type:'push',patch:{page:id}})}>{label}</button>)}
++ {page==='appearance'&&<>
++ <label>{t('界面主题','Theme')}<select aria-label={t('界面主题','Theme')} value={p.theme} disabled={locked} onChange={e=>void r.setPreferences({theme:e.target.value as typeof p.theme})}><option value="host">{t('跟随 DSH','Follow DSH')}</option><option value="system">{t('跟随系统','System')}</option><option value="light">{t('浅色','Light')}</option><option value="dark">{t('深色','Dark')}</option></select></label>
++ <label>{t('文字大小','Text size')}<select aria-label={t('文字大小','Text size')} value={p.textScale} disabled={locked} onChange={e=>void r.setPreferences({textScale:Number(e.target.value)})}>{contract.typography.textScaleValues.map(v=><option key={v} value={v}>{Math.round(v*100)}%</option>)}</select></label>
++ <label>{t('语言','Language')}<select aria-label={t('语言','Language')} value={p.language} disabled={locked} onChange={e=>void r.setPreferences({language:e.target.value as typeof p.language})}><option value="system">{t('跟随 DSH','Follow DSH')}</option><option value="zh">中文</option><option value="en">English</option></select></label>
++ {(['reducedMotion','reducedTransparency','bubbles'] as const).map((id,i)=><label key={id}><input type="checkbox" checked={p[id]} disabled={locked} onChange={e=>void r.setPreferences({[id]:e.target.checked})}/>{[t('减少动态','Reduce motion'),t('减少透明效果','Reduce transparency'),t('显示对话气泡','Show speech bubbles')][i]}</label>)}
++ {r.preferencesSaving&&<p role="status">{t('设置保存中…','Saving preferences…')}</p>}{r.error&&<p role="status">{t('设置尚未确认，请重新读取核对。','Preferences unconfirmed. Read again to verify.')}</p>}
++ </>}
++ {page==='controls'&&<><button onClick={()=>r.resetCamera()}>{t('恢复全景','Reset view')}</button><p>{t('滚轮缩放，拖动空地平移。轻点居民查看，拖到活动位安排日常。Esc 逐层返回。','Wheel to zoom; drag empty ground to pan. Tap residents to inspect; drag to a seat. Escape returns one level.')}</p></>}
++ {page==='status'&&<><p>{r.error?t('小院暂时无法继续，请核对连接或保存状态。','The courtyard needs a connection or save check.'):r.controller?.world.userPaused?t('已暂停，点击继续恢复。','Paused. Select Resume to continue.'):t('小院一切如常。','All is well in the courtyard.')}</p>
++ {r.retentionWarning&&<p>{t('旧快照清理需要检查，已保存数据仍保留。','Snapshot cleanup needs attention; saved data is retained.')}</p>}
++ <details><summary>{t('诊断与恢复','Diagnostics and recovery')}</summary><p>{[...r.reasons].join(' / ')} · r{r.revision} · {r.saveReceipt.status} · {r.errorCode}</p><p>{t('材质回退','Material fallback')}：{r.softwareRendering?'software-renderer':p.reducedTransparency?'reduced-transparency':'auto'}</p><button onClick={exportTrace}>{t('导出诊断','Export diagnostics')}</button><button onClick={()=>void r.checkRecovery()}>{t('重新核对连接与保存','Check connection and save')}</button><button onClick={()=>void r.recover()}>{t('恢复上一版小院','Restore previous courtyard')}</button><button onClick={()=>void r.recoverPreferences()}>{t('恢复上一版设置','Restore previous preferences')}</button></details></>}
++ </PanelShell>
+ }
+diff --git a/packages/ai-village/src/client/content-style.ts b/packages/ai-village/src/client/content-style.ts
+index 0bae711..07613f5 100644
+--- a/packages/ai-village/src/client/content-style.ts
++++ b/packages/ai-village/src/client/content-style.ts
+@@ -1,20 +1,37 @@
++import { contract } from './ui-contract.ts'
+ export const css = `
+ [data-nidofy-ai-village-space]{margin-right:364px!important}
+-.dsh-ai-village{font:14px/1.5 var(--dsw-font-family,system-ui);pointer-events:none}.dsh-ai-village *{box-sizing:border-box}
+-.village-card{--paper:rgba(250,247,240,.90);--panel:rgba(255,252,245,.96);--solid:#FFFCF5;--ink:#34473C;--muted:#626E60;--accent:#456740;--line:#D5D5C5;--soft:#E9EEDD;--danger:#A33D32;--focus:#946A20;position:absolute;isolation:isolate;overflow:hidden;border-radius:20px;color:var(--ink);background:#eae3cf;pointer-events:none;box-shadow:0 12px 50px #14291930}
+-.village-card[data-theme=dark]{--paper:rgba(36,47,42,.92);--panel:rgba(40,53,46,.96);--solid:#28352E;--ink:#EEF0DF;--muted:#BAC5B3;--accent:#B8CCA2;--line:#54624F;--soft:#35473A;--danger:#FFB4A8;--focus:#E2C16E}
+-@media(prefers-color-scheme:dark){.village-card[data-theme=system]{--paper:rgba(36,47,42,.92);--panel:rgba(40,53,46,.96);--solid:#28352E;--ink:#EEF0DF;--muted:#BAC5B3;--accent:#B8CCA2;--line:#54624F;--soft:#35473A;--danger:#FFB4A8;--focus:#E2C16E}}
++.dsh-ai-village{font-family:var(--dsw-font-family,inherit);pointer-events:none}.dsh-ai-village *{box-sizing:border-box}
+ .dsh-ai-village [data-nidofy-village-launcher]{pointer-events:auto}
+-.village-card button,.village-card select,.village-card input,.village-card summary{font:inherit;color:inherit;pointer-events:auto}.village-card button,.village-card select{min-height:40px;min-width:40px;border:1px solid var(--line);border-radius:12px;padding:6px 10px;background:var(--solid);cursor:pointer}.village-card button:disabled{opacity:.55;cursor:default}.village-card button[aria-pressed=true]{background:var(--soft);border-color:var(--accent)}.village-card :focus-visible{outline:3px solid var(--focus);outline-offset:2px}.village-card button:focus-visible{position:relative;z-index:80}.village-card button{margin:0}.village-card header,.village-card nav{padding:0;justify-content:normal}.village-card article{height:auto;display:block;padding:0}.village-card h2{font:600 18px/1.35 system-ui;margin:0}.village-card h3{font-size:14px;margin:12px 0 6px}.village-card p{margin:8px 0;color:var(--muted)}.village-card small{font-size:12px;color:var(--muted);display:block}.village-card label{display:block;margin:8px 0}.village-card select{max-width:100%}.village-card header{display:flex;align-items:center;gap:6px}.village-card header h2,.village-card header strong{flex:1}.village-card [hidden]{display:none!important}.village-card .choices{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.village-card .primary{background:var(--accent);color:var(--solid);min-height:44px}.village-card fieldset{border:1px solid var(--line);border-radius:12px;min-width:0;padding:8px}
++.village-card{position:absolute;isolation:isolate;overflow:hidden;border-radius:20px;color:var(--ink);background:#ead3b4;pointer-events:none;font-size:var(--body);line-height:1.45;accent-color:var(--accent);color-scheme:light;--line:color-mix(in srgb,var(--ink) 35%,transparent);--soft:color-mix(in srgb,var(--ink) 6%,transparent);--danger:#94382d;--focus:#765215;--panel:var(--glass);--paper:var(--panel)}
++.village-card[data-theme=dark]{color-scheme:dark;--danger:#ffb4a8;--focus:#f7d39a}
++.village-card button,.village-card select,.village-card input,.village-card summary{font:inherit;color:inherit;pointer-events:auto;accent-color:var(--accent)}
++.village-card button,.village-card select{min-height:${contract.geometry.hitMin}px;min-width:${contract.geometry.hitMin}px;border:0;border-radius:8px;padding:5px 8px;background:transparent;cursor:pointer;overflow-wrap:anywhere;transition:opacity ${contract.motionMs.hover}ms,transform ${contract.motionMs.hover}ms}
++.village-card button:hover{color:var(--accent);text-decoration:underline;text-underline-offset:4px}.village-card button:active{transform:translateY(1px)}.village-card button:disabled{opacity:.5;cursor:default;text-decoration:none}.village-card button[aria-pressed=true]{font-weight:700;text-decoration:underline;text-underline-offset:5px}
++.village-card :focus-visible{outline:3px solid var(--focus);outline-offset:-3px}.village-card button{margin:0}.village-card header{display:flex;align-items:center;gap:4px;padding:0}.village-card header h2,.village-card header strong{flex:1;min-width:0}.village-card h2{font:600 var(--title)/1.45 inherit;font-family:inherit;font-size:var(--title);line-height:1.45;margin:0}.village-card h3{font-size:var(--body);margin:8px 0}.village-card p{margin:4px 0;color:var(--muted)}.village-card small{font-size:var(--secondary);color:var(--muted);display:block}.village-card label{display:block;margin:8px 0}.village-card select{background:var(--solid);outline:1px solid var(--line);max-width:100%}.village-card input:not([type=checkbox]):not([type=range]){background:var(--solid);border:1px solid var(--line);max-width:100%}.village-card [hidden]{display:none!important}.village-card .choices{display:flex;gap:4px;flex-wrap:wrap;margin:4px 0}.village-card .primary{font-weight:700;color:var(--accent);min-height:44px}.village-card fieldset{border:1px solid var(--line);border-radius:12px;min-width:0;padding:8px}
++.village-card svg{width:var(--icon);height:var(--icon)}
+ .village-canvas{position:absolute;inset:0;z-index:10;pointer-events:auto}.village-canvas iframe{display:block;width:100%;height:100%;border:0}
+-.village-hud{position:absolute;left:12px;right:12px;top:12px;z-index:30;pointer-events:none;gap:6px}.village-hud button{background:var(--paper);backdrop-filter:blur(8px);padding:9px;position:relative;width:40px;height:40px;flex:none}.village-hud-spacer{flex:1}.village-time{font-size:12px;line-height:16px;max-width:124px;background:var(--paper);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:12px;padding:6px 8px;pointer-events:auto}.village-badge{position:absolute;right:-4px;top:-5px;border-radius:12px;background:var(--accent);color:var(--solid);padding:0 4px;font-size:12px}
+-.village-management{position:absolute;z-index:40;left:50%;bottom:12px;transform:translateX(-50%);width:min(calc(100% - 24px),480px);pointer-events:none}.village-tabs{pointer-events:auto;width:min(100%,352px);height:56px;display:flex;margin:auto;background:var(--paper);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:20px;padding:3px}.village-tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:2px;background:transparent;border:0;font-size:12px;padding:2px;min-width:0;border-radius:16px}.village-tabs button[aria-selected=true]{background:var(--soft);color:var(--accent)}
+-.village-drawer{height:calc(var(--drawer-half) - 56px);background:var(--panel);backdrop-filter:blur(12px);border:1px solid var(--line);border-bottom:0;border-radius:20px 20px 0 0;display:flex;flex-direction:column;pointer-events:auto;overflow:hidden}.village-drawer>header{height:40px;flex:none;padding:0 8px 0 14px}.village-drawer>header button{border:0;background:transparent;padding:7px}.village-management:not([data-snap=closed]) .village-tabs{width:100%;border-radius:0 0 20px 20px;backdrop-filter:blur(12px);background:var(--panel)}.village-management[data-snap=full]{height:calc(100% - 84px)}.village-management[data-snap=full] .village-drawer{height:calc(100% - 56px)}
+-.village-panel{overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:12px;flex:1;min-height:0;scrollbar-width:thin}.village-panel select{display:block;width:100%;margin-top:4px}.village-person{display:flex;align-items:center;gap:8px;padding:8px;background:var(--soft);border-radius:12px;margin:8px 0}.village-person img{width:44px;height:44px;object-fit:contain}.village-person span{flex:1;min-width:0}.village-admissions{padding:10px;border:1px solid var(--line);border-radius:12px}.village-admissions label{display:inline-flex;width:50%;font-size:12px;gap:4px}.village-action{display:flex;flex-direction:column;max-width:100%}.village-action small{max-width:140px}.village-journal{border-left:2px solid var(--accent);padding:8px 12px;margin:12px 0}.village-status{background:var(--soft);padding:12px;border-radius:12px}.village-catalog{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.village-catalog>div{padding:10px;border:1px solid var(--line);border-radius:12px;display:flex;gap:8px;align-items:center}
+-.village-popover,.village-settings,.village-confirm,.village-error,.village-photo-controls{position:absolute;pointer-events:auto;background:var(--panel);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;padding:12px;overflow:auto;overscroll-behavior:contain;max-width:calc(100% - 24px)}.village-popover{z-index:50;top:60px;max-height:calc(100% - 96px)}.village-more{right:12px;width:240px}.village-more button{display:flex;gap:10px;align-items:center;width:100%;min-height:44px;border:0;background:transparent;text-align:left}.village-view{right:12px;display:flex;align-items:center;gap:6px}.village-resident-card{width:220px;left:50%;top:40%;transform:translateX(-50%)}.village-notices{left:12px;width:320px;max-height:min(360px,calc(100% - 96px));display:flex;flex-direction:column}.village-notice-list{min-height:0;overflow:auto;overscroll-behavior:contain;margin:8px 0}.village-notice-list>button{display:block;text-align:left;width:100%;min-height:76px;margin:4px 0}.village-notice-list small{margin-top:4px}
+-.village-settings{z-index:60;top:12px;bottom:12px;right:12px;width:360px}.village-settings select{display:block;width:100%;margin-top:5px}.village-settings h3{margin-top:22px}.village-toast{position:absolute;z-index:50;bottom:80px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);border-radius:16px;width:min(320px,calc(100% - 24px));padding:10px;pointer-events:auto;display:flex;align-items:center;justify-content:space-between}
+-.village-arrangement{position:absolute;left:12px;right:12px;bottom:12px;height:170px;z-index:40;background:var(--panel);border:1px solid var(--line);border-radius:20px;pointer-events:auto;backdrop-filter:blur(12px);display:flex;flex-direction:column}.village-mode-label{position:absolute;bottom:calc(100% + 12px);left:0;background:var(--paper);border-radius:12px;padding:6px 10px;font-size:12px}.village-edit-options{overflow:auto;overscroll-behavior:contain;padding:8px 12px;flex:1;min-height:0}.village-edit-options>label{display:inline-flex;align-items:center;gap:8px;margin:0}.village-edit-options>details{position:relative}.village-edit-options details[open]{position:absolute;bottom:54px;left:0;right:0;max-height:calc(var(--card-height) - 150px);overflow:auto;background:var(--solid);border:1px solid var(--line);padding:12px;border-radius:16px}.village-arrangement footer{display:flex;gap:6px;flex:none;padding:4px 8px}.village-arrangement footer button{flex:1;min-height:44px}.village-card[data-short=true] .village-arrangement{height:110px}.village-card[data-short=true] .village-edit-options{padding:0 8px}.village-card[data-short=true] .village-edit-options>.choices{flex-wrap:nowrap}.village-card[data-short=true] .village-edit-options>details{display:inline-block;margin-left:6px}
+-.village-photo-view{position:absolute;inset:12px;z-index:65;background:var(--solid);border-radius:16px;overflow:auto;padding:12px;pointer-events:auto}.village-photo-controls{z-index:60;right:12px;bottom:12px;width:360px;max-height:45%}.village-photo-controls input[type=range]{width:100%}.village-photo-controls button{min-height:44px;margin:3px}.village-photo-controls p{font-size:12px}.village-photo-controls label{font-size:12px;margin:4px 0}.village-error,.village-confirm{z-index:70;left:12px;right:12px;top:72px;max-height:calc(100% - 96px);color:var(--danger)}.village-confirm{background:var(--solid)}.village-loading{position:absolute;top:72px;left:12px;background:var(--solid);padding:12px;z-index:70}
+-.village-card[data-wide=true] .village-management{inset:72px 12px 12px;transform:none;width:auto;height:auto}.village-card[data-wide=true] .village-drawer{position:absolute;right:0;top:0;bottom:0;width:360px;height:100%;border-radius:20px;border-bottom:1px solid var(--line)}.village-card[data-wide=true] .village-tabs{position:absolute;width:352px;left:0;bottom:0;border-radius:20px}
+-.village-card[data-solid=true]{--paper:var(--solid);--panel:var(--solid)}.village-card[data-solid=true] *{backdrop-filter:none!important}.village-card[data-motion=true] *{transition:none!important;animation:none!important}@supports not (backdrop-filter:blur(8px)){.village-card{--paper:var(--solid);--panel:var(--solid)}}
++.village-hud{position:absolute;left:var(--gutter);right:var(--gutter);top:var(--gutter);z-index:30;pointer-events:none;color:var(--hud-ink);text-shadow:0 1px 2px var(--hud-halo)}.village-hud button{padding:9px;position:relative;width:40px;height:40px;flex:none}.village-hud button[aria-label]::after{content:attr(aria-label) " " attr(data-disabled-reason);position:absolute;top:calc(100% + 4px);right:0;width:max-content;max-width:220px;padding:5px 8px;border-radius:8px;background:var(--solid);color:var(--ink);font-size:var(--secondary);line-height:1.45;text-shadow:none;white-space:normal;pointer-events:none;opacity:0;visibility:hidden;transition:opacity 120ms,visibility 0s;transition-delay:${contract.motionMs.tooltipDelay}ms}.village-hud button[aria-label]:hover::after,.village-hud button[aria-label]:focus-visible::after{opacity:1;visibility:visible}.village-hud button:first-child::after{right:auto;left:0}.village-mode-hud button:first-child{width:auto;white-space:nowrap}.village-hud-spacer{flex:1}.village-time{font-size:var(--secondary);line-height:1.45;max-width:124px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:auto}.village-badge{position:absolute;right:0;top:0;border-radius:12px;background:var(--accent);color:var(--solid);padding:0 4px;font-size:12px}
++.village-management{position:absolute;inset:0;z-index:40;pointer-events:none}
++.village-tabs{position:absolute;bottom:var(--gutter);left:50%;transform:translateX(-50%);pointer-events:auto;width:min(calc(100% - 2 * var(--gutter)),288px);height:48px;display:flex;padding:0;margin:0;color:var(--hud-ink);text-shadow:0 1px 2px var(--hud-halo)}
++.village-tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:0;font-size:var(--secondary);padding:0;min-width:${contract.geometry.hitMin}px;line-height:1.1}.village-tabs button[aria-selected=true]{text-decoration:underline;text-underline-offset:3px;font-weight:700}
++.village-card .village-hud button:hover,.village-card .village-tabs button:hover{color:var(--hud-ink)}
++.village-card .village-hud,.village-card .village-hud button,.village-card .village-time,.village-card .village-tabs,.village-card .village-tabs button{background:transparent;border:0;box-shadow:none;backdrop-filter:none}
++.village-surface,.village-popover,.village-confirm,.village-error,.village-photo-controls{position:absolute;pointer-events:auto;background:var(--panel);backdrop-filter:blur(${contract.palette.blurPx}px) saturate(${contract.palette.saturate});border:1px solid var(--line);border-radius:16px;overflow:hidden;max-width:calc(100% - 2 * var(--gutter));display:flex;flex-direction:column;animation:village-open ${contract.motionMs.panel}ms ease-out;box-shadow:0 4px 16px #392f251c}
++.village-drawer{left:50%;transform:translateX(-50%);bottom:calc(var(--gutter) + 56px);width:var(--quick-width);max-height:var(--quick-height)}
++.village-drawer:not([data-page=quick]){width:var(--detail-width);max-height:var(--detail-height)}
++.village-card .village-panel-header{min-height:${contract.geometry.hitMin}px;flex:none;padding:0 4px}.village-panel-header button{padding:6px;flex:none}
++.village-panel{overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:4px 10px 10px;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:var(--muted) transparent;overflow-wrap:anywhere;animation:village-subpage ${contract.motionMs.subpage}ms ease-out;background:linear-gradient(var(--solid),transparent) bottom/100% 2px no-repeat}
++.village-panel select{display:block;width:100%;margin-top:4px}.village-person{display:flex;align-items:center;gap:8px;padding:4px;margin:2px 0}.village-person img{width:32px;height:32px;object-fit:contain}.village-person span{flex:1;min-width:0}.village-admissions{padding:4px}.village-admissions label{display:flex;align-items:center;min-height:44px;gap:8px}.village-action{display:flex;flex-direction:column;max-width:100%}.village-card article{height:auto;display:block}.village-journal{border-left:2px solid var(--accent);padding:8px 12px;margin:12px 0}.village-status{padding:8px;border-radius:12px}.village-catalog{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.village-catalog>div{padding:6px;display:flex;gap:8px;align-items:center}
++.village-popover{z-index:50;top:60px;max-height:var(--detail-height);padding:0}.village-more{right:var(--gutter);width:var(--settings-width)}.village-more>.village-panel>button{display:flex;gap:10px;align-items:center;width:100%;min-height:44px;text-align:left}.village-view{right:var(--gutter);width:var(--settings-width)}.village-view .choices{align-items:center}.village-resident-card{width:220px}.village-notices{left:var(--gutter);width:320px}.village-notice-list>button{display:block;text-align:left;width:100%;min-height:76px;margin:4px 0}
++.village-settings{z-index:60;top:60px;right:var(--gutter);width:var(--settings-width);max-height:var(--settings-height)}.village-settings:not([data-page=quick]){max-height:var(--settings-detail-height)}.village-settings select{display:block;width:100%;margin-top:5px}.village-settings .village-panel>button{display:block;min-height:44px;text-align:left;width:100%}
++.village-toast{position:absolute;z-index:50;bottom:80px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);border-radius:16px;width:min(320px,calc(100% - 24px));padding:10px;pointer-events:auto;display:flex;align-items:center;justify-content:space-between}
++.village-card[data-wide=true] .village-drawer{left:auto;right:var(--gutter);top:64px;bottom:auto;transform:none}.village-card[data-wide=true] .village-tabs{left:var(--gutter);transform:none}
++.village-card[data-solid=true]{--panel:var(--solid)}.village-card[data-solid=true] *{backdrop-filter:none!important}.village-card[data-motion=true] *{transition-duration:0ms!important;animation-duration:0ms!important;transition-delay:0ms!important}
++@keyframes village-open{from{opacity:0}to{opacity:1}}@keyframes village-subpage{from{opacity:0}to{opacity:1}}
++.village-arrangement{position:absolute;left:12px;right:12px;bottom:12px;height:170px;z-index:40;background:var(--panel);border:1px solid var(--line);border-radius:20px;pointer-events:auto;backdrop-filter:blur(${contract.palette.blurPx}px) saturate(${contract.palette.saturate});display:flex;flex-direction:column}.village-mode-label{position:absolute;bottom:calc(100% + 12px);left:0;background:var(--paper);border-radius:12px;padding:6px 10px;font-size:var(--secondary)}.village-edit-options{overflow:auto;overscroll-behavior:contain;padding:8px 12px;flex:1;min-height:0}.village-edit-options>label{display:inline-flex;align-items:center;gap:8px;margin:0}.village-edit-options>details{position:relative}.village-edit-options details[open]{position:absolute;bottom:54px;left:0;right:0;max-height:calc(var(--card-height) - 150px);overflow:auto;background:var(--solid);border:1px solid var(--line);padding:12px;border-radius:16px}.village-arrangement footer{display:flex;gap:6px;flex:none;padding:4px 8px}.village-arrangement footer button{flex:1;min-height:44px}.village-card[data-short=true] .village-arrangement{height:110px}.village-card[data-short=true] .village-edit-options{padding:0 8px}.village-card[data-short=true] .village-edit-options>.choices{flex-wrap:nowrap}.village-card[data-short=true] .village-edit-options>details{display:inline-block;margin-left:6px}
++.village-photo-view{position:absolute;left:12px;right:12px;top:12px;max-height:72%;z-index:65;background:var(--solid);border-radius:16px;overflow:auto;padding:12px;pointer-events:auto}.village-photo-controls{z-index:60;right:12px;bottom:12px;width:360px;max-height:var(--detail-height);padding:0}.village-photo-controls input[type=range]{width:100%}.village-photo-controls button{min-height:44px;margin:3px}.village-photo-controls p{font-size:var(--secondary)}.village-photo-controls label{font-size:var(--secondary);margin:4px 0}.village-error,.village-confirm{z-index:70;left:12px;right:12px;top:72px;max-height:calc(100% - 96px);color:var(--danger)}.village-confirm{background:var(--solid)}.village-loading{position:absolute;top:72px;left:12px;background:var(--solid);padding:12px;z-index:70}
++
++.village-confirm-shade{position:absolute;inset:0;z-index:70;pointer-events:auto;background:transparent}
++.village-album-placeholder{height:120px;display:grid;place-items:center;background:var(--soft)}
+ `
+diff --git a/packages/ai-village/src/client/index.ts b/packages/ai-village/src/client/index.ts
+index 0e56927..aae1918 100644
+--- a/packages/ai-village/src/client/index.ts
++++ b/packages/ai-village/src/client/index.ts
+@@ -10,7 +10,7 @@ import type { GlobalStandardProps, PropsLocale } from '@deepseek-ai/dsh-client-u
+ import { createElement, useSyncExternalStore } from 'react'
+ import { VillageRuntime } from './runtime.ts'
+ import { VillageIcon } from './Icon.tsx'
+-import { Floating, css } from './Floating.tsx'
++import { Floating } from './Floating.tsx'
+ import { en, zh } from './messages.ts'
+ declare module '@deepseek-ai/dsh-client-ui-slots' { interface LocaleNamespaceMap { 'nidofy.ai-village': keyof typeof en } }
+ export const name = 'nidofy-ai-village-client'
+@@ -43,7 +43,7 @@ export function registerClient(ctx: Context, runtime: VillageRuntime): void {
+   }
+   function Launcher(props: PropsLocale<'nidofy.ai-village'>) {
+     useSyncExternalStore(runtime.subscribeUI, runtime.snapshotUI)
+-    return createElement('span', { className: 'dsh-ai-village' }, createElement('style', null, css),
++    return createElement('span', { className: 'dsh-ai-village' },
+       createElement('button', { 'data-nidofy-village-launcher': '', title: props.t('open'), 'aria-label': props.t('open'), 'aria-pressed': runtime.open,
+         onClick: () => { if (runtime.open) close(); else { window.dispatchEvent(new CustomEvent('nidofy:floating-panel-open', { detail: 'ai-village' })); runtime.show() } },
+       }, createElement(VillageIcon, { name: 'home' })))
+diff --git a/packages/ai-village/src/client/json-response.ts b/packages/ai-village/src/client/json-response.ts
+index 5b24862..0f7ed26 100644
+--- a/packages/ai-village/src/client/json-response.ts
++++ b/packages/ai-village/src/client/json-response.ts
+@@ -1,4 +1,4 @@
+-export class HostRequestError extends Error {}
++export class HostRequestError extends Error { constructor(message: string, readonly status = 0) { super(message) } }
+ /** Count wire bytes while reading, not UTF-16 characters after buffering an unbounded body. */
+ export async function readJsonResponse<T>(response: Response, limit = 64 * 1024): Promise<T> {
+   if (!response.body) throw Error('RESPONSE_BODY_MISSING')
+@@ -14,6 +14,6 @@ export async function readJsonResponse<T>(response: Response, limit = 64 * 1024)
+   const bytes = new Uint8Array(size); let at = 0
+   for (const chunk of chunks) { bytes.set(chunk, at); at += chunk.byteLength }
+   const value = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes))
+-  if (!response.ok) throw new HostRequestError(typeof value?.error === 'string' && /^[A-Z_]+$/.test(value.error) ? value.error : 'REQUEST_FAILED')
++  if (!response.ok) throw new HostRequestError(typeof value?.error === 'string' && /^[A-Z_]+$/.test(value.error) ? value.error : 'REQUEST_FAILED', response.status)
+   return value as T
+ }
+diff --git a/packages/ai-village/src/client/messages.ts b/packages/ai-village/src/client/messages.ts
+index 52b1f5a..228a9e5 100644
+--- a/packages/ai-village/src/client/messages.ts
++++ b/packages/ai-village/src/client/messages.ts
+@@ -4,7 +4,7 @@ export const en = {
+   retentionWarning: 'Saved progress is retained. Old snapshot cleanup needs attention.',
+   title: 'AI Village', open: 'Open AI Village', close: 'Close courtyard', pause: 'Pause', resume: 'Resume',
+   retry: 'Reconnect', recover: 'Restore previous save', saved: 'Saved', loading: 'Preparing courtyard…',
+-  error: 'Paused. Progress is kept in memory.', occupied: 'This courtyard is running in another window.',
++  error: 'The courtyard cannot continue yet. Check the connection or save.', occupied: 'This courtyard is running in another window.',
+   conflict: 'The profile or saved progress changed. Memory is kept; reload explicitly to use the current host save.',
+   frameFailed: 'The scene could not be displayed.', retryFrame: 'Retry scene',
+   sit: 'Sitting together', read: 'Reading', tend: 'Tending a plant', idle: 'Taking a break', walk: 'Wandering', work: 'Writing', eat: 'Enjoying rice', rest: 'Resting', put_down: 'Settling',
+@@ -19,7 +19,7 @@ export const zh: typeof en = {
+   retentionWarning: '当前进度已保存，旧快照清理需要检查。',
+   title: 'AI 小院', open: '打开 AI 小院', close: '关闭小院', pause: '暂停', resume: '继续',
+   retry: '重新连接', recover: '恢复上一成功版', saved: '已保存', loading: '正在准备小院…',
+-  error: '已暂停，当前进度保留在内存中。', occupied: '小院正在另一个窗口运行。',
++  error: '小院暂时无法继续，请核对连接或存档。', occupied: '小院正在另一个窗口运行。',
+   conflict: 'profile 或存档已变化，内存进度已保留。请明确刷新页面后使用当前 Host 存档。',
+   frameFailed: '场景显示失败。', retryFrame: '重试场景',
+   idle: '歇一会儿', walk: '慢慢逛', work: '写写画画', eat: '吃饭时间', rest: '安静打盹', put_down: '站稳啦',
+diff --git a/packages/ai-village/src/client/runtime.ts b/packages/ai-village/src/client/runtime.ts
+index fe0df13..3a9307e 100644
+--- a/packages/ai-village/src/client/runtime.ts
++++ b/packages/ai-village/src/client/runtime.ts
+@@ -1,4 +1,6 @@
+ import { arrangementObjects } from '../core/arrangement.ts'
++import { canRecover, recoveryCode, recoveryDelays } from './recovery-policy.ts'
++import { DiagnosticTrace } from './diagnostic-trace.ts'
+ import type { UIInput } from '../core/frame-protocol.ts'
+ import { initialPresentation, presentationReducer, type UIAction } from './ui-state.ts'
+ import { defaultCamera, validCamera, type Camera } from '../core/camera.ts'
+@@ -24,15 +26,77 @@ interface State { profileId: string; epoch: string; saved: Saved<ContentWorld> |
+ export type Request = (path: string, init?: RequestInit) => Promise<Response>
+ /** One instance per plugin lifetime, deliberately independent of session selection and React mounts. */
+ export class VillageRuntime {
++  private dismissedPointer: number | null = null
+   softwareRendering = false
++  readonly diagnostics = new DiagnosticTrace()
++  recoveryState: 'idle' | 'waiting' | 'checking' | 'blocked' = 'idle'
++  errorCode = ''
++  private recoveryCount = 0
++  private recoveryTimer: ReturnType<typeof setTimeout> | undefined
++  private recoveryAttempt: AbortController | null = null
++  private trace() { this.diagnostics.record({ reasons: [...this.reasons], code: this.errorCode, connected: this.connected, frameReady: this.frameReady, receipt: this.saveReceipt.status, ticks: this.controller?.world.ticks ?? 0 }) }
++  private foreground() { return this.open && this.connected && !this.disposing && !this.recovering && !['closed','hidden','sidebar','other-panel','insufficient-space'].some(reason => this.reasons.has(reason as PauseReason)) }
++  private cancelRecovery() { clearTimeout(this.recoveryTimer); this.recoveryTimer = undefined; this.recoveryAttempt?.abort(); this.recoveryAttempt = null }
++  private queueRecovery() {
++    if (!this.foreground() || !canRecover(this.errorCode) || this.recoveryTimer || this.recoveryAttempt || this.recoveryCount >= recoveryDelays.length) return
++    this.recoveryState = 'waiting'
++    this.recoveryTimer = setTimeout(() => { this.recoveryTimer = undefined; void this.checkRecovery() }, recoveryDelays[this.recoveryCount])
++  }
++  /** Same-authority read-only reconciliation. Never reacquire, replay writes or reset drafts. */
++  async checkRecovery() {
++    if (!this.foreground() || !canRecover(this.errorCode) || this.recoveryAttempt) return
++    clearTimeout(this.recoveryTimer); this.recoveryTimer = undefined
++    const attempt = new AbortController(), generation = this.generation, code = this.errorCode
++    this.recoveryAttempt = attempt; this.recoveryCount++; this.recoveryState = 'checking'; this.emit()
++    const current = () => !attempt.signal.aborted && generation === this.generation && this.errorCode === code && this.foreground()
++    const signal = AbortSignal.any([attempt.signal, this.attempt.signal])
++    try {
++      await this.saving; await this.preferenceSaving
++      if (!current()) return
++      await this.api('heartbeat', this.credentials(), signal)
++      const state = await this.api<State>('state', undefined, signal)
++      const prefs = await this.api<{ profileId: string; epoch: string; saved: Saved<Preferences> | null }>('preferences-state', undefined, signal)
++      if (!current()) return
++      if (state.profileId !== this.profileId || prefs.profileId !== this.profileId) throw Error('PROFILE_CHANGED')
++      if (state.epoch !== this.epoch || prefs.epoch !== this.epoch) throw Error('HOST_CHANGED')
++      // Validate all observations before publishing any reconciliation.
++      if (state.saved) validateContentWorld(state.saved.world, scene)
++      if (prefs.saved) decodePreferences(prefs.saved.world)
++      if (!this.transaction.pending && (state.saved?.revision ?? 0) !== this.revision) throw Error('REVISION_CONFLICT')
++      if (!this.preferenceTransaction.pending && (prefs.saved?.revision ?? 0) !== this.preferenceRevision) throw Error('PREFERENCES_CONFLICT')
++      if (this.transaction.pending) {
++        const receipt = this.transaction.reconcile(state)
++        if (receipt.status !== 'committed') throw Error('SAVE_UNCONFIRMED')
++        this.revision = receipt.revision
++        if (this.criticalCandidate && this.controller && state.saved) {
++          this.controller.world = validateContentWorld(state.saved.world, scene); this.controller.syncScene()
++          if (this.controller.world.userPaused) { this.reasons.add('user'); this.controller.pauseReasons.add('user') }
++          else { this.reasons.delete('user'); this.controller.pauseReasons.delete('user') }
++          this.criticalCandidate = null; this.pause('commit-pending', false)
++        }
++        if (state.saved) this.confirmed(state.saved.world)
++      }
++      if (this.preferenceTransaction.pending) {
++        if (this.preferenceTransaction.reconcile(prefs).status !== 'committed') throw Error('PREFERENCES_UNCONFIRMED')
++        this.preferences = decodePreferences(prefs.saved!.world); this.preferenceRevision = prefs.saved!.revision
++      }
++      this.revalidateHome()
++      this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.recoveryCount = 0
++      this.pause('disconnected', false) // schedule still requires frameReady and every other reason cleared
++    } catch (error) {
++      if (current()) { const next = recoveryCode(error, 'heartbeat'); if (!canRecover(next)) { this.errorCode = next; this.error = String(error) }; this.recoveryState = 'blocked'; this.trace() }
++    } finally {
++      if (this.recoveryAttempt === attempt) { this.recoveryAttempt = null; this.queueRecovery(); this.emit() }
++    }
++  }
+   setSoftwareRendering(value: boolean) { this.softwareRendering = value; this.emit() }
+   presentation = initialPresentation()
+   notices: Notice[] = []
+   present(action: UIAction) { this.presentation = presentationReducer(this.presentation, action); this.emit() }
+   input(input: UIInput) {
+     if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.transaction.pending || this.photoMode) return
+-    if (input.kind === 'camera') { this.setCamera(input.camera); return }
+-    if (input.kind === 'resident') { if (!this.arranging && this.controller && actors(this.controller.world).some(a => a.id === input.id)) { this.selectCharacter(input.id); this.sceneClick(true) }; return }
++    if (input.kind === 'camera') { if(this.presentation.drawer==='closed'&&!this.presentation.overlay)this.setCamera(input.camera); return }
++    if (input.kind === 'resident') { if(!this.arranging&&(this.presentation.drawer!=='closed'||this.presentation.overlay)){this.sceneClick();return}; if (!this.arranging && this.controller && actors(this.controller.world).some(a => a.id === input.id)) { this.selectCharacter(input.id); this.sceneClick(true) }; return }
+     if (input.kind === 'scene') { if (!this.arranging) this.sceneClick(); return }
+     if (!this.arranging) return
+     if (this.homeDraft && ['work', 'eat', 'bench', 'corner'].includes(input.id)) {
+@@ -48,7 +112,7 @@ export class VillageRuntime {
+   }
+   setCamera(camera: Camera) { if (validCamera(camera) && !this.arranging && !this.photoMode && !this.controller?.drag && !this.error) this.present({ type: 'patch', patch: { camera, zoomHint: Date.now() } }) }
+   resetCamera() { this.setCamera({ ...defaultCamera }) }
+-  sceneClick(resident = false) { this.present({ type: 'patch', patch: { drawer: 'closed', overlay: resident ? 'resident' : null } }) }
++  sceneClick(resident = false) { this.present({ type: 'close' }); if (resident) this.present({ type: 'overlay', overlay: 'resident' }) }
+   private confirmed(world: ContentWorld) {
+     const previous = new Set(this.notices.map(n => n.id)), next = deriveNotices(world)
+     if (this.preferences.noticesInitialized) this.presentation.toastIds = [...new Set([...this.presentation.toastIds, ...next.filter(n => !previous.has(n.id) && !this.preferences.noticeReadIds.includes(n.id)).map(n => n.id)])].slice(-16)
+@@ -185,13 +249,19 @@ export class VillageRuntime {
+     return readJsonResponse<T>(response)
+   }
+   private credentials() { return { lease: this.lease, epoch: this.epoch } }
+-  private fail(error: unknown) { this.error = String(error); this.pause('disconnected', true); this.emit() }
++  private fail(error: unknown, source: 'heartbeat' | 'operation' = 'operation') {
++    if (source === 'heartbeat' && this.error) return
++    this.cancelRecovery(); this.errorCode = recoveryCode(error, source); this.recoveryCount = 0
++    this.error = String(error); this.recoveryState = canRecover(this.errorCode) ? 'waiting' : 'blocked'
++    this.pause('disconnected', true); this.trace(); this.queueRecovery(); this.emit()
++  }
+   pause(reason: PauseReason, active: boolean) {
+     if (reason === 'user' && this.criticalCandidate) return
+     if (!active && this.reasons.has(reason) && ['sidebar', 'hidden', 'other-panel'].includes(reason)) this.revalidateHome()
+     if (active) this.reasons.add(reason); else this.reasons.delete(reason)
+     if (this.controller?.pauseReasons.has(reason) !== active) this.controller?.pause(reason, active)
+-    this.schedule(); this.emit()
++    if (!this.foreground()) this.cancelRecovery(); else this.queueRecovery()
++    this.trace(); this.schedule(); this.emit()
+   }
+   show() {
+     this.open = true; this.pause('closed', false); this.pause('other-panel', false)
+@@ -208,6 +278,7 @@ export class VillageRuntime {
+   }
+   setConnection(connected: boolean, reset = false) {
+     if (!reset && connected === this.connected) return
++    this.cancelRecovery()
+     if (this.arranging) this.cancelArrangements()
+     this.connected = connected; this.generation++; this.attempt.abort(); this.attempt = new AbortController()
+     clearInterval(this.heartbeat); this.heartbeat = undefined
+@@ -235,7 +306,7 @@ export class VillageRuntime {
+         this.heartbeat = setInterval(() => {
+           void this.api<{ retention?: { diagnostic?: string } }>('heartbeat', this.credentials()).then(value => {
+             if (current() && this.retentionWarning !== !!value.retention?.diagnostic) { this.retentionWarning = !!value.retention?.diagnostic; this.emit() }
+-          }).catch(e => { if (current()) this.fail(e) })
++          }).catch(e => { if (current()) this.fail(e, 'heartbeat') })
+         }, 4000)
+         const state = await this.api<State>('state', undefined, signal)
+         if (!current()) return
+@@ -281,7 +352,7 @@ export class VillageRuntime {
+         }
+         this.trimAssets()
+         if (state.saved) { this.notices = deriveNotices(validateContentWorld(state.saved.world, scene)) }
+-        this.error = ''; this.ready = true
++        this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.ready = true
+         this.pause('disconnected', false); this.pause('ownership', false)
+         if (!this.preferences.noticesInitialized) await this.setPreferences({ noticeReadIds: this.notices.map(n => n.id), noticesInitialized: true })
+         if (!state.saved) this.save()
+@@ -291,9 +362,12 @@ export class VillageRuntime {
+     await work
+     if (this.loading === work) this.loading = null
+   }
+-  setFrameReady(value: boolean) { this.frameReady = value; if (!value) this.controller?.cancelDrag(); this.schedule(); this.emit() }
++  setFrameReady(value: boolean) { this.frameReady = value; if (!value) { this.dismissedPointer=null; this.controller?.cancelDrag() }; this.trace(); this.schedule(); this.emit() }
+   pointer(intent: PointerIntent) {
+     if (!this.frameReady || !this.ready || this.criticalCandidate || this.error) return
++    // Parent presentation is authoritative even before the iframe receives its next render.
++    if(this.dismissedPointer===intent.id){if(intent.type==='up'||intent.type==='cancel')this.dismissedPointer=null;return}
++    if(!this.arranging&&(this.presentation.drawer!=='closed'||this.presentation.overlay)){this.controller?.cancelDrag();if(intent.type==='down')this.dismissedPointer=intent.id;if(intent.type==='down'||intent.type==='up')this.sceneClick();return}
+     const active = this.controller?.drag?.active
+     const before = intent.type === 'up' ? this.controller?.snapshot() : undefined
+     this.changingDraft = intent.type === 'up'
+@@ -515,7 +589,7 @@ export class VillageRuntime {
+   retry() { this.setConnection(this.connected, true) }
+   async recoverPreferences() {
+     if (!this.lease || !this.connected || this.recovering) return
+-    this.recovering = true
++    this.recovering = true; this.cancelRecovery()
+     try {
+       await this.preferenceSaving
+       const saved = await this.api<Saved<Preferences>>('preferences-recover', this.credentials())
+@@ -526,7 +600,7 @@ export class VillageRuntime {
+   }
+   async recover() {
+     if (!this.lease || !this.connected || this.recovering) return
+-    this.recovering = true
++    this.recovering = true; this.cancelRecovery()
+     const generation = this.generation
+     this.pause('ownership', true)
+     this.cancelArrangements()
+@@ -536,7 +610,7 @@ export class VillageRuntime {
+       if (generation !== this.generation) return
+       this.controller = new ContentController(validateContentWorld(saved.world, scene), scene, () => { if (!this.changingDraft) this.save() })
+       if (saved.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
+-      this.revision = saved.revision; this.transaction.reset(); this.criticalCandidate = null; this.pause('commit-pending', false); this.error = ''
++      this.revision = saved.revision; this.transaction.reset(); this.criticalCandidate = null; this.pause('commit-pending', false); this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.recoveryCount = 0
+       for (const reason of this.reasons) this.controller.pause(reason, true)
+       await this.ensureAssets(this.controller.world)
+       if (generation !== this.generation) return
+@@ -548,6 +622,7 @@ export class VillageRuntime {
+   async dispose() {
+     if (this.lifetime.signal.aborted) return
+     this.disposing = true
++    this.cancelRecovery()
+     this.pause('closed', true); this.frameReady = false
+     clearInterval(this.heartbeat)
+     await this.saving
+diff --git a/packages/ai-village/src/client/ui-contract.ts b/packages/ai-village/src/client/ui-contract.ts
+index df91b18..919e99a 100644
+--- a/packages/ai-village/src/client/ui-contract.ts
++++ b/packages/ai-village/src/client/ui-contract.ts
+@@ -1,4 +1,15 @@
+-/** AV-UI-20261022. Dimensions refer to the plugin's CSS viewport. */
+-export const uiContract = { minimumWidth: 320, minimumHeight: 360, fullHudWidth: 560, inspectorWidth: 900, shortHeight: 480, gutter: 12, dockHeight: 56, dockWidth: 352, drawerWidth: 480, dragThreshold: 5, snapRadius: 26 } as const
++import { contract } from '../core/ui-v11-contract.ts'
++export { contract }
++const b = contract.breakpoints, g = contract.geometry
++export const uiContract = { ...b, inspectorWidth: b.wideWidth, gutter: g.gutter, dockHeight: g.dockHeight, dockWidth: g.dockMaxWidth, drawerWidth: g.quick.normalMaxWidth, dragThreshold: contract.unchanged.dragThreshold, snapRadius: contract.unchanged.snapRadius }
+ export const villageTabs = ['residents', 'wishes', 'decor', 'journal'] as const
+ export type VillageTab = typeof villageTabs[number]
++export function uiMetrics(width: number, height: number, textScale: number) {
++  const short = height < b.shortHeight, wide = width >= b.wideWidth, density = short || width < b.fullHudWidth ? 'compact' : wide ? 'wide' : 'regular', type = contract.typography[density]
++  const gutter = short ? g.shortGutter : g.gutter
++  return { density, gutter, body: Math.max(12,type.body*textScale), secondary: Math.max(12,type.secondary*textScale), title:type.title*textScale, icon:type.icon,
++    quickWidth: Math.min(width-2*gutter,short?g.quick.shortMaxWidth:wide?g.quick.wideWidth:g.quick.normalMaxWidth),
++    quickHeight: short?g.quick.shortMaxHeight:wide?g.quick.wideMaxHeight:Math.max(128,Math.min(184,Math.round(.22*height))),
++    detailWidth:Math.min(width-2*gutter,wide?g.detail.wideWidth:g.detail.normalMaxWidth), detailHeight:Math.min(wide?360:320,Math.floor(.52*height)),
++    settingsWidth:Math.min(width-2*gutter,short?g.settings.shortMaxWidth:g.settings.normalMaxWidth), settingsHeight:Math.min(224,Math.floor(.42*height)),settingsDetailHeight:Math.min(320,Math.floor(.52*height)) }
++}
+diff --git a/packages/ai-village/src/client/ui-state.ts b/packages/ai-village/src/client/ui-state.ts
+index 1af29c8..8aa0268 100644
+--- a/packages/ai-village/src/client/ui-state.ts
++++ b/packages/ai-village/src/client/ui-state.ts
+@@ -2,17 +2,23 @@ import { defaultCamera, type Camera } from '../core/camera.ts'
+ import type { VillageTab } from './ui-contract.ts'
+ import type { CharacterId } from '../core/roster.ts'
+ export type Overlay = null | 'more' | 'view' | 'notifications' | 'settings' | 'resident'
++export type Page = 'quick' | 'residents' | 'admissions' | 'activities' | 'bonds' | 'wishes' | 'furniture' | 'hanging' | 'atmosphere' | 'memories' | 'album' | 'appearance' | 'controls' | 'status'
++export interface NavEntry { tab: VillageTab; drawer: PresentationState['drawer']; overlay: Overlay; page: Page; scrollTop: number; focusKey: string; accessoryTarget: CharacterId | null; residentTarget: CharacterId | null; subpages: PresentationState['subpages']; noticeTarget: string | null }
+ export interface PresentationState {
++  page: Page; history: NavEntry[]; scrollTop: number; focusKey: string; residentTarget: CharacterId | null
+   tab: VillageTab; drawer: 'closed' | 'half' | 'full'; overlay: Overlay; camera: Camera; expanded: boolean;
+   selectedFurniture: 'work' | 'eat' | 'bench' | 'corner'; accessoryTarget: CharacterId | null;
+   subpages: { wishes: 'wishes' | 'activities'; decor: 'furniture' | 'hanging' | 'atmosphere'; journal: 'memories' | 'album' };
+-  confirmClose: boolean; zoomHint: number; toastIds: string[]; noticeTarget: string | null
++  confirmClose: boolean; confirmTarget: 'plugin' | 'arrangement'; zoomHint: number; toastIds: string[]; noticeTarget: string | null
+ }
+-export const initialPresentation = (): PresentationState => ({ tab: 'residents', drawer: 'closed', overlay: null, camera: { ...defaultCamera }, expanded: false, selectedFurniture: 'work', accessoryTarget: null, subpages: { wishes: 'wishes', decor: 'furniture', journal: 'memories' }, confirmClose: false, zoomHint: 0, toastIds: [], noticeTarget: null })
+-export type UIAction = { type: 'tab'; tab: VillageTab; short?: boolean } | { type: 'overlay'; overlay: Overlay } | { type: 'close' } | { type: 'patch'; patch: Partial<PresentationState> }
++export const initialPresentation = (): PresentationState => ({ page: 'quick', history: [], scrollTop: 0, focusKey: '', residentTarget: null, tab: 'residents', drawer: 'closed', overlay: null, camera: { ...defaultCamera }, expanded: false, selectedFurniture: 'work', accessoryTarget: null, subpages: { wishes: 'wishes', decor: 'furniture', journal: 'memories' }, confirmClose: false, confirmTarget: 'plugin', zoomHint: 0, toastIds: [], noticeTarget: null })
++export type UIAction = { type: 'tab'; tab: VillageTab; short?: boolean } | { type: 'overlay'; overlay: Overlay } | { type: 'close' } | { type: 'back' } | { type: 'push'; patch: Partial<NavEntry> } | { type: 'patch'; patch: Partial<PresentationState> }
++const entry = (s: PresentationState): NavEntry => ({ tab:s.tab,drawer:s.drawer,overlay:s.overlay,page:s.page,scrollTop:s.scrollTop,focusKey:s.focusKey,accessoryTarget:s.accessoryTarget,residentTarget:s.residentTarget,subpages:{...s.subpages},noticeTarget:s.noticeTarget })
+ export function presentationReducer(state: PresentationState, action: UIAction): PresentationState {
+-  if (action.type === 'tab') return { ...state, tab: action.tab, overlay: null, drawer: state.tab === action.tab && state.drawer !== 'closed' ? 'closed' : action.short ? 'full' : state.drawer === 'closed' ? 'half' : state.drawer }
+-  if (action.type === 'overlay') return { ...state, drawer: 'closed', overlay: state.overlay === action.overlay ? null : action.overlay }
+-  if (action.type === 'close') return { ...state, drawer: 'closed', overlay: null }
++  if (action.type === 'tab') return { ...state, tab: action.tab, overlay: null, page:'quick', residentTarget:null, history:[],scrollTop:0,focusKey:'',drawer: state.tab === action.tab && state.drawer !== 'closed' ? 'closed' : 'half' }
++  if (action.type === 'overlay') return state.overlay === action.overlay ? presentationReducer(state,{type:'back'}) : presentationReducer(state,{type:'push',patch:{drawer:'closed',overlay:action.overlay,page:'quick'}})
++  if (action.type === 'push') return {...state,...action.patch,history:[...state.history,entry(state)].slice(-8),scrollTop:0,focusKey:''}
++  if (action.type === 'back') { const previous=state.history.at(-1); return previous?{...state,...previous,history:state.history.slice(0,-1)}:presentationReducer(state,{type:'close'}) }
++  if (action.type === 'close') return { ...state, drawer: 'closed', overlay: null, page:'quick',history:[],scrollTop:0,focusKey:'' }
+   return { ...state, ...action.patch }
+ }
+diff --git a/packages/ai-village/src/core/preferences.ts b/packages/ai-village/src/core/preferences.ts
+index fbd002c..3d19d24 100644
+--- a/packages/ai-village/src/core/preferences.ts
++++ b/packages/ai-village/src/core/preferences.ts
+@@ -1,22 +1,25 @@
++import { contract } from './ui-v11-contract.ts'
+ export interface Preferences {
+-  schemaVersion: 2; theme: 'system' | 'light' | 'dark'; language: 'system' | 'zh' | 'en'; reducedMotion: boolean; bubbles: boolean
++  schemaVersion: 3; theme: 'host' | 'system' | 'light' | 'dark'; textScale: number; language: 'system' | 'zh' | 'en'; reducedMotion: boolean; bubbles: boolean
+   reducedTransparency: boolean; noticeReadIds: string[]; noticesInitialized: boolean
+ }
+-export const defaultPreferences: Preferences = { schemaVersion: 2, theme: 'system', language: 'system', reducedMotion: false, bubbles: true, reducedTransparency: false, noticeReadIds: [], noticesInitialized: false }
++export const defaultPreferences: Preferences = { schemaVersion: 3, theme: 'host', textScale: 1, language: 'system', reducedMotion: false, bubbles: true, reducedTransparency: false, noticeReadIds: [], noticesInitialized: false }
+ export function validatePreferences(value: unknown): Preferences {
+   if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('INVALID_PREFERENCES')
+   const p = value as Preferences
+-  if (Object.keys(p).sort().join() !== 'bubbles,language,noticeReadIds,noticesInitialized,reducedMotion,reducedTransparency,schemaVersion,theme' || p.schemaVersion !== 2
+-    || !['system', 'light', 'dark'].includes(p.theme) || !['system', 'zh', 'en'].includes(p.language)
++  if (Object.keys(p).sort().join() !== 'bubbles,language,noticeReadIds,noticesInitialized,reducedMotion,reducedTransparency,schemaVersion,textScale,theme' || p.schemaVersion !== 3
++    || !(contract.typography.textScaleValues as readonly number[]).includes(p.textScale)
++    || !['host', 'system', 'light', 'dark'].includes(p.theme) || !['system', 'zh', 'en'].includes(p.language)
+     || typeof p.reducedMotion !== 'boolean' || typeof p.bubbles !== 'boolean' || typeof p.reducedTransparency !== 'boolean' || typeof p.noticesInitialized !== 'boolean'
+     || !Array.isArray(p.noticeReadIds) || p.noticeReadIds.length > 64 || new Set(p.noticeReadIds).size !== p.noticeReadIds.length
+     || p.noticeReadIds.some(id => typeof id !== 'string' || !id.length || new TextEncoder().encode(id).length > 96)) throw Error('INVALID_PREFERENCES')
+   return { ...p, noticeReadIds: [...p.noticeReadIds] }
+ }
+ export function decodePreferences(value: unknown): Preferences {
+-  if ((value as { schemaVersion?: number } | null)?.schemaVersion !== 1) return validatePreferences(value)
+   const p = value as Record<string, unknown>
+-  if (Object.keys(p).sort().join() !== 'bubbles,language,reducedMotion,schemaVersion,theme') throw Error('INVALID_PREFERENCES')
+-  return validatePreferences({ ...defaultPreferences, ...p, schemaVersion: 2 })
++  if (p?.schemaVersion !== 1 && p?.schemaVersion !== 2) return validatePreferences(value)
++  const keys = p.schemaVersion === 1 ? 'bubbles,language,reducedMotion,schemaVersion,theme' : 'bubbles,language,noticeReadIds,noticesInitialized,reducedMotion,reducedTransparency,schemaVersion,theme'
++  if (Object.keys(p).sort().join() !== keys || !['light','dark','system'].includes(p.theme as string)) throw Error('INVALID_PREFERENCES')
++  return validatePreferences({ ...defaultPreferences, ...p, schemaVersion: 3 })
+ }
+-export const preferencesCodec = { decode: decodePreferences, validate: validatePreferences, needsUpgrade: (value: unknown) => (value as { schemaVersion?: number } | null)?.schemaVersion === 1 }
++export const preferencesCodec = { decode: decodePreferences, validate: validatePreferences, needsUpgrade: (value: unknown) => [1,2].includes((value as { schemaVersion?: number } | null)?.schemaVersion ?? 0) }
+diff --git a/packages/ai-village/src/frame/input-router.ts b/packages/ai-village/src/frame/input-router.ts
+index 6ebd8ef..faf6861 100644
+--- a/packages/ai-village/src/frame/input-router.ts
++++ b/packages/ai-village/src/frame/input-router.ts
+@@ -22,7 +22,7 @@ export function routeInput(canvas: HTMLCanvasElement, state: () => InputState, s
+     const s = state(); if (s.photo) return
+     const pt = s.local(css(e)), object = s.objects.find(o => pt.x >= o.rect.x && pt.x <= o.rect.x + o.rect.width && pt.y >= o.rect.y && pt.y <= o.rect.y + o.rect.height)
+     const resident = s.actor(pt)
+-    const type = object ? 'arrange' : s.objects.length || s.overlay ? 'dismiss' : e.button === 1 || space ? 'pan' : resident ? s.paused ? 'resident' : 'actor' : s.dismiss ? 'dismiss' : 'pan'
++    const type = object ? 'arrange' : s.objects.length || s.overlay || s.dismiss ? 'dismiss' : e.button === 1 || space ? 'pan' : resident ? s.paused ? 'resident' : 'actor' : 'pan'
+     gesture = { id: e.pointerId, start: css(e), previous: css(e), type, resident, object, camera: s.camera, moved: false }
+     canvas.focus({ preventScroll: true }); canvas.setPointerCapture(e.pointerId); e.preventDefault()
+     if (type === 'actor') actor('down', e)
+diff --git a/packages/ai-village/tests/host.spec.ts b/packages/ai-village/tests/host.spec.ts
+index 29cf34c..4fd9452 100644
+--- a/packages/ai-village/tests/host.spec.ts
++++ b/packages/ai-village/tests/host.spec.ts
+@@ -27,7 +27,7 @@ it('official authenticated Connection routes, profile lease, CAS, recovery, unlo
+     const world = createWorld(scene), operationId = randomUUID()
+     const ack = (await call('save', { ...owner, expectedRevision: 0, operationId, world })).value
+     expect(ack.revision).toBe(1); expect(ack.profileId).toBe(owner.profileId); expect(ack.epoch).toBe(owner.epoch)
+-    const preferences = { schemaVersion: 2, theme: 'dark', language: 'en', reducedMotion: true, bubbles: false, reducedTransparency: false, noticeReadIds: [], noticesInitialized: false }
++    const preferences = { schemaVersion: 3, textScale: 1, theme: 'dark', language: 'en', reducedMotion: true, bubbles: false, reducedTransparency: false, noticeReadIds: [], noticesInitialized: false }
+     expect((await call('preferences-state')).value.saved).toBeNull()
+     const preferenceAck = (await call('preferences-save', { ...owner, expectedRevision: 0, operationId: randomUUID(), world: preferences })).value
+     expect(preferenceAck.revision).toBe(1)
+diff --git a/packages/ai-village/tests/input-router.client.spec.ts b/packages/ai-village/tests/input-router.client.spec.ts
+index c9de454..407aa1b 100644
+--- a/packages/ai-village/tests/input-router.client.spec.ts
++++ b/packages/ai-village/tests/input-router.client.spec.ts
+@@ -13,3 +13,5 @@ it('a paused resident selects on pointer-up only; overlays consume the click wit
+ it('blank drag clamps camera, ignores sub-threshold movement, and cancellation commits no world intent',()=>{
+  const f=setup();try{f.pointer('pointerdown',10,150);f.pointer('pointermove',13,150);expect(f.send).not.toHaveBeenCalled();f.pointer('pointermove',200,150);expect(f.send.mock.calls.at(-1)![0].kind).toBe('camera');expect(f.send.mock.calls.at(-1)![0].camera.panX).toBeCloseTo(85,8);expect(f.send.mock.calls.at(-1)![0].camera.panY).toBe(0);f.router.cancel();expect(f.send).toHaveBeenLastCalledWith({kind:'camera',camera:{zoom:1.5,panX:0,panY:0}});f.pointer('pointerup',200,150);expect(f.send.mock.calls.every(c=>c[0].kind==='camera')).toBe(true)}finally{f.dispose()}
+ })
++
++it.each([false,true])('drawer dismissal consumes a resident click before actor or selection when paused=%s',paused=>{const f=setup(paused);try{f.state.dismiss=true;f.pointer('pointerdown');f.pointer('pointerup');expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'scene'});expect(f.actor).not.toHaveBeenCalled();f.send.mockClear();f.pointer('pointerdown');f.pointer('pointermove',140,180);f.pointer('pointerup',140,180);expect(f.send).not.toHaveBeenCalled();expect(f.actor).not.toHaveBeenCalled()}finally{f.dispose()}})
+diff --git a/packages/ai-village/tests/preferences.spec.ts b/packages/ai-village/tests/preferences.spec.ts
+index d4640b5..ff0e234 100644
+--- a/packages/ai-village/tests/preferences.spec.ts
++++ b/packages/ai-village/tests/preferences.spec.ts
+@@ -4,7 +4,7 @@ import { villageTime, bellReaction } from '../src/core/dialogue.ts'
+ import { characterIds } from '../src/core/roster.ts'
+ it('bounds profile preferences and rejects game data or future schemas', () => {
+   expect(validatePreferences(defaultPreferences)).toEqual(defaultPreferences)
+-  for (const patch of [{ schemaVersion: 3 }, { theme: 'night' }, { language: 'script' }, { bubbles: 1 }, { reward: true }])
++  for (const patch of [{ schemaVersion: 4 }, { theme: 'night' }, { language: 'script' }, { bubbles: 1 }, { reward: true }])
+     expect(() => validatePreferences({ ...defaultPreferences, ...patch })).toThrow('INVALID_PREFERENCES')
+ })
+ it('derives a fixed 30-minute day without mutating simulation state, with seven bilingual reactions', () => {
+diff --git a/packages/ai-village/tests/runtime.client.spec.ts b/packages/ai-village/tests/runtime.client.spec.ts
+index b7d39f1..88cb1c9 100644
+--- a/packages/ai-village/tests/runtime.client.spec.ts
++++ b/packages/ai-village/tests/runtime.client.spec.ts
+@@ -11,14 +11,16 @@ function fixture(initialWorld?: ContentWorld, initialPrefs?: unknown) {
+   vi.stubGlobal('requestAnimationFrame', () => 1); vi.stubGlobal('cancelAnimationFrame', () => {})
+   let profileId = crypto.randomUUID(), epoch = crypto.randomUUID(), saved: Saved<ContentWorld> | null = initialWorld ? {revision:1,operationId:crypto.randomUUID(),world:initialWorld} : null, uncertain = false
+   let release = 0, mutations = 0, preferences: any = initialPrefs ? {revision:1,operationId:crypto.randomUUID(),world:initialPrefs} : null
+-  let stateUnavailable = false, gate: Promise<void> | null = null
++  let stateGate: Promise<void> | null = null
++  let stateUnavailable = false, heartbeatFailure = false, heartbeats = 0, gate: Promise<void> | null = null
+   const runtime = new VillageRuntime(async (path, init) => {
+     const data = init?.body ? JSON.parse(String(init.body)) : null
+     let result: unknown
+-    if (path.endsWith('/acquire')) result = { profileId, epoch, lease: crypto.randomUUID() }
++    if (path.endsWith('/heartbeat')) { heartbeats++; if (heartbeatFailure) throw new TypeError('Failed to fetch'); result = { ok: true } }
++    else if (path.endsWith('/acquire')) result = { profileId, epoch, lease: crypto.randomUUID() }
+     else if (path.endsWith('/preferences-state')) result = { profileId, epoch, saved: preferences }
+     else if (path.endsWith('/preferences-save')) { preferences = { revision: (preferences?.revision ?? 0) + 1, operationId: data.operationId, world: data.world }; result = { ...preferences, profileId, epoch } }
+-    else if (path.endsWith('/state')) { if (stateUnavailable) throw Error('STATE_OFFLINE'); result = { profileId, epoch, saved } }
++    else if (path.endsWith('/state')) { if (stateUnavailable) throw Error('STATE_OFFLINE'); result = { profileId, epoch, saved }; const pending = stateGate; stateGate = null; if(pending) await pending }
+     else if (path.endsWith('/save')) {
+       mutations++; if (gate) await gate
+       saved = { revision: (saved?.revision ?? 0) + 1, operationId: data.operationId, world: data.world }
+@@ -33,10 +35,42 @@ function fixture(initialWorld?: ContentWorld, initialPrefs?: unknown) {
+   runtime.images = {} // Resource integrity is exercised by browser/Host tests.
+   return { runtime, loseAck: () => { uncertain = true }, foreignProfile: () => { profileId = crypto.randomUUID(); epoch = crypto.randomUUID(); saved = null },
+     stateOffline: (value: boolean) => { stateUnavailable = value }, restart: () => { epoch = crypto.randomUUID() },
++    holdState: () => { let done!: () => void; stateGate = new Promise<void>(resolve => { done = resolve }); return () => done() },
+     holdSave: () => { let done!: () => void; gate = new Promise<void>(resolve => { done = resolve }); return () => { gate = null; done() } },
+     changeRevision: () => { saved = { revision: (saved?.revision ?? 0) + 1, operationId: crypto.randomUUID(), world: createWorld(scene) } },
+-    stats: () => ({ release, mutations }) }
++    heartbeatOffline: (value: boolean) => { heartbeatFailure = value },
++    stats: () => ({ release, mutations, heartbeats }) }
+ }
++
++it('recovers same-transport heartbeat failure after authority checks, preserving user pause, draft, undo and frame gate', async () => {
++  vi.useFakeTimers();const f=fixture(), r=f.runtime
++  try {
++    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.pause('user',true);await r.flush()
++    r.beginHome();r.homeTemplate('reading');const draft=structuredClone(r.homeDraft), world=r.controller!.world,writes=f.stats().mutations
++    f.heartbeatOffline(true);await vi.advanceTimersByTimeAsync(4000)
++    expect(r.errorCode).toBe('CONNECTION_TEMPORARY');expect(r.connected).toBe(true);expect(r.reasons.has('disconnected')).toBe(true)
++    f.heartbeatOffline(false);await vi.advanceTimersByTimeAsync(1000)
++    expect(r.error).toBe('');expect(r.reasons.has('disconnected')).toBe(false);expect(r.reasons.has('user')).toBe(true);expect(r.reasons.has('arrange')).toBe(true)
++    expect(r.homeDraft).toEqual(draft);expect(r.canUndoHome).toBe(true);expect(r.controller!.world).toBe(world);expect(r.frameReady).toBe(false);expect(f.stats().mutations).toBe(writes)
++  } finally {await r.dispose();vi.useRealTimers()}
++})
++it('bounds recovery to 1/2/4 seconds and cancels hidden attempts without losing drafts',async()=>{
++ vi.useFakeTimers();const f=fixture(),r=f.runtime
++ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await r.flush();r.beginHome();const draft=structuredClone(r.homeDraft)
++ f.heartbeatOffline(true);await vi.advanceTimersByTimeAsync(4000);await vi.advanceTimersByTimeAsync(7000)
++ expect(r.recoveryState).toBe('blocked');const count=f.stats().heartbeats;await vi.advanceTimersByTimeAsync(2000);expect(f.stats().heartbeats-count).toBeLessThanOrEqual(1)
++ expect(r.errorCode).toBe('CONNECTION_TEMPORARY');expect(r.homeDraft).toEqual(draft)
++ }finally{await r.dispose();vi.useRealTimers()}
++})
++it('read-only recovery confirms a lost ACK once and refuses foreign revision without taking over',async()=>{
++ vi.useFakeTimers();const f=fixture(),r=f.runtime
++ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await r.flush();r.beginHome();r.homeTemplate('reading')
++ const count=f.stats().mutations;f.loseAck();f.stateOffline(true);await r.confirmHome();expect(r.saveReceipt.status).toBe('unknown');const draft=structuredClone(r.homeDraft)
++ f.stateOffline(false);await r.checkRecovery();expect(r.saveReceipt.status).toBe('committed');expect(f.stats().mutations).toBe(count+1);expect(r.homeDraft).toEqual(draft)
++ f.heartbeatOffline(true);await vi.advanceTimersByTimeAsync(4000);f.heartbeatOffline(false);f.changeRevision();await vi.advanceTimersByTimeAsync(1000)
++ expect(r.errorCode).toBe('REVISION_CONFLICT');expect(r.reasons.has('disconnected')).toBe(true);expect(f.stats().mutations).toBe(count+1)
++ }finally{await r.dispose();vi.useRealTimers()}
++})
+ it('arrangement previews never mutate the world; undo, cancellation and reconnect discard only the draft', async () => {
+   const f = fixture(), r = f.runtime
+   try {
+@@ -280,3 +314,15 @@ it('initializes twelve existing facts as read when legacy preferences migrate, w
+  const f=fixture(world,{schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}),r=f.runtime
+  try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(6)}finally{await r.dispose()}
+ })
++
++
++it('late automatic recovery reads cannot publish into a new connection generation',async()=>{
++ vi.useFakeTimers();const f=fixture(),r=f.runtime
++ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.pause('user',true);await r.flush();f.heartbeatOffline(true);await vi.advanceTimersByTimeAsync(4000);f.heartbeatOffline(false)
++ const release=f.holdState();await vi.advanceTimersByTimeAsync(1000);expect(r.recoveryState).toBe('checking')
++ r.setConnection(false);r.setConnection(true);await vi.waitFor(()=>expect(r.ready).toBe(true));const controller=r.controller,world=r.controller!.snapshot(),writes=f.stats().mutations;r.setFrameReady(false);release();await vi.advanceTimersByTimeAsync(20)
++ expect(r.controller).toBe(controller);expect(r.controller!.snapshot()).toEqual(world);expect(r.frameReady).toBe(false);expect(f.stats().mutations).toBe(writes);expect(r.error).toBe('');expect(r.reasons.has('user')).toBe(true)
++ }finally{await r.dispose();vi.useRealTimers()}
++})
++
++it('parent navigation consumes stale iframe resident and actor intents before render delivery',async()=>{const f=fixture(),r=f.runtime;try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.setCharacterPresent('claude',true);await r.flush();r.setFrameReady(true);const world=r.controller!.snapshot(),writes=f.stats().mutations;r.present({type:'tab',tab:'residents'});r.input({kind:'resident',id:'claude'});expect(r.presentation.drawer).toBe('closed');expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);r.present({type:'tab',tab:'residents'});r.input({kind:'camera',camera:{zoom:1.5,panX:0,panY:0}});expect(r.presentation.camera.zoom).toBe(1);for(const type of ['down','move','up']as const)r.pointer({type,id:7,point:world.actor.position,css:{x:100,y:100}});expect(r.controller!.drag).toBeNull();expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);expect(f.stats().mutations).toBe(writes)}finally{await r.dispose()}})
+diff --git a/packages/ai-village/tests/ui-v1.spec.ts b/packages/ai-village/tests/ui-v1.spec.ts
+index 417713b..578dac0 100644
+--- a/packages/ai-village/tests/ui-v1.spec.ts
++++ b/packages/ai-village/tests/ui-v1.spec.ts
+@@ -16,7 +16,7 @@ it('keeps one presentation model through tab, overlay, close and short-height tr
+   p = presentationReducer(p, { type: 'tab', tab: 'residents' }); expect(p.drawer).toBe('half')
+   p = presentationReducer(p, { type: 'tab', tab: 'journal' }); expect(p.drawer).toBe('half')
+   p = presentationReducer(p, { type: 'overlay', overlay: 'notifications' }); expect(p.drawer).toBe('closed')
+-  p = presentationReducer(p, { type: 'tab', tab: 'decor', short: true }); expect(p.drawer).toBe('full'); expect(p.overlay).toBeNull()
++  p = presentationReducer(p, { type: 'tab', tab: 'decor', short: true }); expect(p.drawer).toBe('half'); expect(p.overlay).toBeNull()
+   p = presentationReducer(p, { type: 'close' }); expect(p.drawer).toBe('closed'); expect(p.tab).toBe('decor')
+ })
+ it.each([[340,720],[580,720],[1080,760],[320,360],[800,600]])('round trips full world and seat points at %s × %s with camera clamping', (width,height) => {
+@@ -32,20 +32,20 @@ it.each([[340,720],[580,720],[1080,760],[320,360],[800,600]])('round trips full
+   }
+   const next=zoomCamera(w,defaultCamera,1.5); expect(next.zoom).toBe(1.5)
+ })
+-it('migrates only legacy preferences, rejects unknown or unbounded fields and writes only schema 2', () => {
++it('migrates only legacy preferences, rejects unknown or unbounded fields and writes only schema 3', () => {
+   const old={schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}
+   const before=JSON.stringify(old), p=decodePreferences(old)
+-  expect(p).toEqual({...defaultPreferences,...old,schemaVersion:2});expect(JSON.stringify(old)).toBe(before)
++  expect(p).toEqual({...defaultPreferences,...old,schemaVersion:3});expect(JSON.stringify(old)).toBe(before)
+   expect(()=>validatePreferences(old)).toThrow()
+-  for(const patch of [{schemaVersion:3},{noticeReadIds:Array(65).fill('x')},{noticeReadIds:['中'.repeat(33)]},{noticeReadIds:['a','a']},{noticesInitialized:1},{reducedTransparency:0}]) expect(()=>decodePreferences({...p,...patch})).toThrow()
++  for(const patch of [{schemaVersion:4},{noticeReadIds:Array(65).fill('x')},{noticeReadIds:['中'.repeat(33)]},{noticeReadIds:['a','a']},{noticesInitialized:1},{reducedTransparency:0}]) expect(()=>decodePreferences({...p,...patch})).toThrow()
+ })
+-it('protects original legacy preference snapshot bytes through the existing migration codec', async () => {
+-  const root=await mkdtemp(resolve('.build/ui-v1-prefs-')), old={schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}
++it.each([1,2])('protects schema %s original preference snapshot bytes through the existing migration codec', async schemaVersion => {
++  const root=await mkdtemp(resolve('.build/ui-v1-prefs-')), old={schemaVersion,theme:'dark',language:'en',reducedMotion:true,bubbles:false,...(schemaVersion===2?{reducedTransparency:true,noticeReadIds:['first-memory'],noticesInitialized:true}:{})}
+   const legacy=await SaveStore.open(root,scene,{decode:(v:unknown)=>v,validate:(v:unknown)=>v,needsUpgrade:()=>false})
+   await legacy.save(0,old,randomUUID());const path=join(legacy.directory,'current.json'), pointer=await readFile(path,'utf8'), file=JSON.parse(pointer).snapshot, bytes=await readFile(join(legacy.directory,'snapshots',file))
+   const next=await SaveStore.open(root,scene,preferencesCodec); expect((await next.read())!.world.theme).toBe('dark')
+   await next.save(1,{...decodePreferences(old),noticesInitialized:true},randomUUID())
+-  expect(await readFile(join(legacy.directory,'snapshots',file))).toEqual(bytes); expect((await next.read())!.world.schemaVersion).toBe(2)
++  expect(await readFile(join(legacy.directory,'snapshots',file))).toEqual(bytes); expect((await next.read())!.world.schemaVersion).toBe(3)
+ })
+ it('derives stable bounded first-fact notices independent of repeat counts and presentation', () => {
+   const w=createHomeWorld(scene);expect(deriveNotices(w)).toEqual([])
+diff --git a/scripts/ai-village-ui-v1-navigation.mjs b/scripts/ai-village-ui-v1-navigation.mjs
+index 0b88b66..1248e1b 100644
+--- a/scripts/ai-village-ui-v1-navigation.mjs
++++ b/scripts/ai-village-ui-v1-navigation.mjs
+@@ -6,13 +6,16 @@ export function villageUI(page) {
+   const click = async original => {
+     let name=({'编辑我的小院':'开始布置','撤销上一步':'撤销','确认我的布置':'保存布置','确认布局':'保存布置','保存装饰':'保存布置','取消我的布置':'取消'}[original]??original)
+     if(name==='开始布置'){await tab('布置');await raw('家具')}
+-    if(name==='请一位朋友入住') {await tab('居民');await raw('安排入住');await page.getByLabel('入住 Claude',{exact:true}).click();await settled();await tab('心愿');await raw('一起活动');return}
+-    if(name==='全员入住'||name==='仅留当前'){await tab('居民');if(!await page.getByRole('button',{name,exact:true}).isVisible())await raw('安排入住')}
++    if(name==='请一位朋友入住') {await tab('居民');if(await page.getByRole('button',{name:'全部居民',exact:true}).isVisible())await raw('全部居民');await raw('安排入住');await page.getByLabel('入住 Claude',{exact:true}).click();await settled();await tab('心愿');await raw('一起活动');return}
++    if(name==='全员入住'||name==='仅留当前'){await tab('居民');if(!await page.getByRole('button',{name,exact:true}).isVisible()){if(await page.getByRole('button',{name:'全部居民',exact:true}).isVisible())await raw('全部居民');await raw('安排入住')}}
+     if(['长椅小谈','分享一页书','聊聊花草','交换小点子','安静地坐一会儿','邀请同桌'].includes(name)){await tab('心愿');await raw('一起活动')}
+     if(['展开小院','收起小院','小院设置','拍照','关闭小院','视角'].includes(name)&&!await page.getByRole('button',{name,exact:true}).isVisible())await raw('更多')
+     if(name.endsWith(' · 模板')){const details=page.locator('.village-edit-options details');if(await details.getAttribute('open')===null)await details.locator('summary').click()}
+     if(name.includes(' · 替代锚点')||name.includes(' · 原位')){const id=({'书桌':'work','餐桌':'eat','长椅':'bench','生活角落':'corner'})[name.split(' · ')[0]];await page.getByLabel('选中家具',{exact:true}).selectOption(id);const details=page.locator('.village-edit-options details');if(await details.getAttribute('open')!==null)await details.locator('summary').click()}
++    if(['安排入住'].includes(name)&&await page.getByRole('button',{name:'全部居民',exact:true}).isVisible())await raw('全部居民')
++    if(['打个招呼','舒展一下','记下灵感','整理书桌','翻开一本书','照料盆栽','听一会儿风','看看天空'].includes(name)&&await page.getByRole('button',{name:'互动',exact:true}).isVisible())await raw('互动')
+     await raw(name)
++    if(name==='取消'&&await page.getByRole('button',{name:'放弃并退出布置',exact:true}).isVisible())await raw('放弃并退出布置')
+     if(original==='编辑我的小院')await page.locator('.village-edit-options details summary').click()
+   }
+   return {click,tab,settled}
+diff --git a/scripts/ai-village-v06-browser.mjs b/scripts/ai-village-v06-browser.mjs
+index 6461801..faae8e9 100644
+--- a/scripts/ai-village-v06-browser.mjs
++++ b/scripts/ai-village-v06-browser.mjs
+@@ -33,7 +33,7 @@ try {
+  await frame().waitForFunction(()=>window.__sceneMetrics().geometry.find(h=>h.id==='eat').anchor.x===121)
+  await page.locator('.village-card').screenshot({path:join(qa,'layout-preview.png')})
+  await click('撤销上一步');assert.equal((await inspect()).homeDraft.home.positions.eat,0)
+- await click('餐桌 · 替代锚点');await page.keyboard.press('Escape');assert.equal((await inspect()).homeDraft,null);assert.deepEqual((await inspect()).world,original)
++ await click('餐桌 · 替代锚点');await page.keyboard.press('Escape');if(await page.getByRole('button',{name:'放弃并退出布置',exact:true}).isVisible())await click('放弃并退出布置');assert.equal((await inspect()).homeDraft,null);assert.deepEqual((await inspect()).world,original)
+  await frame().waitForFunction(()=>window.__sceneMetrics().geometry.find(h=>h.id==='eat').anchor.x===175)
+  checks.push('preview, undo and Escape without world mutation')
+  await click('编辑我的小院');await click('阅读角落 · 模板');await page.getByLabel('环境主题',{exact:true}).selectOption('twilight');await page.getByLabel('居民配饰',{exact:true}).selectOption('ribbon')
+diff --git a/scripts/ai-village-v06-neighborhood-browser.mjs b/scripts/ai-village-v06-neighborhood-browser.mjs
+index 2b57b55..eefd6d5 100644
+--- a/scripts/ai-village-v06-neighborhood-browser.mjs
++++ b/scripts/ai-village-v06-neighborhood-browser.mjs
+@@ -41,13 +41,13 @@ try{
+  await click('暂停');await page.evaluate(()=>window.__villageHostFixture.flush())
+  const noticeWorld=(await inspect()).world;assert.equal((await inspect()).notices.length,12);assert.ok((await inspect()).presentation.toastIds.length<=16)
+  await page.getByRole('button',{name:/^消息，/}).click();const beforeRead=(await inspect()).preferences.noticeReadIds.length;assert.equal(beforeRead,0)
+- const noticeQA=join(root,'packages/ai-village/art/QA/ui-v1/visual'),noticeBox=await page.locator('.village-card').boundingBox(),noticeName=Math.round(noticeBox.width)+'x'+Math.round(noticeBox.height)+'-notifications-populated';await page.screenshot({path:join(noticeQA,noticeName+'.png')});await writeFile(join(noticeQA,'notifications-metadata.json'),JSON.stringify({name:noticeName,css:noticeBox,dpr:1,kind:'RUNTIME',build:JSON.parse(await readFile(join(noticeQA,'metadata.json'),'utf8'))[0].build},null,2))
++ const noticeQA=join(root,'packages/ai-village/art/QA/ui-v11/visual'),noticeBox=await page.locator('.village-card').boundingBox(),noticeName=Math.round(noticeBox.width)+'x'+Math.round(noticeBox.height)+'-notifications-populated';await page.screenshot({path:join(noticeQA,noticeName+'.png')});await writeFile(join(noticeQA,'notifications-metadata.json'),JSON.stringify({name:noticeName,css:noticeBox,dpr:1,kind:'RUNTIME',build:JSON.parse(await readFile(join(noticeQA,'metadata.json'),'utf8'))[0].build},null,2))
+  await page.locator('.village-notice-list button').first().click();await page.waitForFunction(()=>window.__villageHostFixture.inspect().preferences.noticeReadIds.length===1);assert.deepEqual((await inspect()).world,noticeWorld)
+  await page.getByRole('button',{name:/^消息，/}).click();await click('全部已读');await page.waitForFunction(()=>window.__villageHostFixture.inspect().preferences.noticeReadIds.length===12);assert.deepEqual((await inspect()).world,noticeWorld);await page.getByRole('button',{name:'查看手账',exact:true}).press('Escape');checks.push('12 confirmed notices; open does not mark read; target navigation and mark all read preserve world')
+  await tab('布置');await click('挂饰')
+  for(const [name,slot] of [['纸灯笼','窗边'],['花叶挂饰','院墙']]){
+   const choose=async()=>{await tab('布置');await click('挂饰');await page.getByText(name,{exact:true}).locator('..').getByRole('button',{name:'调整位置',exact:true}).click()}
+-  await choose();await page.locator('.village-arrangement').getByRole('button',{name:slot,exact:true}).click();await page.keyboard.press('Escape')
++  await choose();await page.locator('.village-arrangement').getByRole('button',{name:slot,exact:true}).click();await page.keyboard.press('Escape');if(await page.getByRole('button',{name:'放弃并退出布置',exact:true}).isVisible())await click('放弃并退出布置')
+   assert.equal((await inspect()).world.neighborhood.decorations[name==='纸灯笼'?'lantern':'planter'],null)
+   await choose();await page.locator('.village-arrangement').getByRole('button',{name:slot,exact:true}).click();await click('保存装饰');await page.evaluate(()=>window.__villageHostFixture.flush())
+  }
+diff --git a/scripts/ai-village-v061-browser.mjs b/scripts/ai-village-v061-browser.mjs
+index 0cc2803..fd4ec8c 100644
+--- a/scripts/ai-village-v061-browser.mjs
++++ b/scripts/ai-village-v061-browser.mjs
+@@ -64,10 +64,13 @@ try {
+   for (const button of await page.locator('.village-hud button').all()) {
+     const box = await button.boundingBox(); assert.ok(box.width >= 40 && box.height >= 40)
+   }
+-  assert.ok(await page.locator('.village-hud svg').count() >= 3)
++  assert.equal(await page.locator('.village-hud svg').count(), 1)
+   assert.equal(await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true, cancelable: true }))), true)
+   assert.deepEqual((await inspect()).homeDraft, draft)
+   await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })))
++  if(await page.locator('.village-edit-options details[open]').count())await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })))
++  if(!(await inspect()).presentation.confirmClose)await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })))
++  assert.ok((await inspect()).presentation.confirmClose);assert.deepEqual((await inspect()).homeDraft,draft);await click('放弃并退出布置')
+   await page.waitForFunction(() => !window.__villageHostFixture.inspect().homeDraft)
+   assert.equal(await page.getByRole('tab', { name: '布置', exact: true }).evaluate(e => document.activeElement === e), true)
+   checks.push('synthetic IME Escape preserved; ordinary frame Escape cancels once and returns focus')

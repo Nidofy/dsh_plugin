@@ -1,0 +1,1200 @@
+[
+  {
+    "name": "fallback-light-340",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "light",
+    "themeSource": "preference",
+    "materialMode": "reduced-transparency",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "light",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "fallback-light-1080",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "light",
+    "themeSource": "preference",
+    "materialMode": "reduced-transparency",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "light",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "fallback-dark-340",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "reduced-transparency",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "fallback-dark-1080",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "reduced-transparency",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "palette-fixture-only-ocean",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "quick",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "palette-fixture-only-urban",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "quick",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "dpr-1",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "dpr-1.25",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "dpr-1.5",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "dpr-2",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "return-scroll-focus",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "residents",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "half",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "全部居民",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 128,
+      "focusKey": "resident-detail-qwen",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "full",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "dirty-confirm-focus",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "decor",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": true,
+      "confirmTarget": "arrangement",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "album-loading",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "album",
+      "history": [
+        {
+          "tab": "journal",
+          "drawer": "half",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "相册",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "journal",
+      "drawer": "full",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "album"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "album-error",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "album",
+      "history": [
+        {
+          "tab": "journal",
+          "drawer": "half",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "相册",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "journal",
+      "drawer": "full",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "album"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "album-empty-after-delete",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "software-renderer",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "album",
+      "history": [
+        {
+          "tab": "journal",
+          "drawer": "half",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "相册",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "album"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "确认删除照片",
+      "residentTarget": null,
+      "tab": "journal",
+      "drawer": "full",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "album"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  }
+]

@@ -33,7 +33,7 @@ try {
  await frame().waitForFunction(()=>window.__sceneMetrics().geometry.find(h=>h.id==='eat').anchor.x===121)
  await page.locator('.village-card').screenshot({path:join(qa,'layout-preview.png')})
  await click('撤销上一步');assert.equal((await inspect()).homeDraft.home.positions.eat,0)
- await click('餐桌 · 替代锚点');await page.keyboard.press('Escape');assert.equal((await inspect()).homeDraft,null);assert.deepEqual((await inspect()).world,original)
+ await click('餐桌 · 替代锚点');await page.keyboard.press('Escape');if(await page.getByRole('button',{name:'放弃并退出布置',exact:true}).isVisible())await click('放弃并退出布置');assert.equal((await inspect()).homeDraft,null);assert.deepEqual((await inspect()).world,original)
  await frame().waitForFunction(()=>window.__sceneMetrics().geometry.find(h=>h.id==='eat').anchor.x===175)
  checks.push('preview, undo and Escape without world mutation')
  await click('编辑我的小院');await click('阅读角落 · 模板');await page.getByLabel('环境主题',{exact:true}).selectOption('twilight');await page.getByLabel('居民配饰',{exact:true}).selectOption('ribbon')

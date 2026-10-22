@@ -1,0 +1,28 @@
+{
+  "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+  "version": "0.6.2",
+  "initialUntracked": [
+    {
+      "path": "docs/ai-village/NEXT_FEATURES_2026-10-21.md",
+      "sha256": "96a5d3e87dcdd00989195f5f6c634ce602f962a891a1c3a655e84cee26de6dd8"
+    },
+    {
+      "path": "docs/ai-village/UI_VISUAL_DIRECTION_REVIEW_2026-10-22.md",
+      "sha256": "127e7704dffa665a452bbfd4f7df4a79ef27e96561a6490dea0935b553f8d9ec"
+    }
+  ],
+  "bundles": [
+    {
+      "path": "packages/ai-village/lib/client.js",
+      "sha256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a"
+    },
+    {
+      "path": "packages/ai-village/lib/frame.js",
+      "sha256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+    }
+  ],
+  "tests": "28 files / 121 PASS",
+  "typecheck": "PASS",
+  "gpu": "NOT RUN",
+  "userIncident": "现场根因未确认"
+}

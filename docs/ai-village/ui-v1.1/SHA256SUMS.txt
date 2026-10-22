@@ -1,0 +1,3 @@
+fa73f490530d195f45e0e12ddc5abaab3ede7e90743d2e7afa56e50ec0efa1ec  dist/nidofy-dsh-ai-village-0.6.3.tgz
+0649057e723780030ef25e7c050b6445830c7433cf9141885666859762a83356  dist/ai-village-0.6.3-ui-v1.1-source-delta.tgz
+bd970fd80efd1fbdb220526c43b158136e9b31ac72384489aaeec9c456f34209  dist/ai-village-0.6.3-ui-v1.1-evidence.tgz

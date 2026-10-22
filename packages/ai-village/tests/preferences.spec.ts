@@ -4,7 +4,7 @@ import { villageTime, bellReaction } from '../src/core/dialogue.ts'
 import { characterIds } from '../src/core/roster.ts'
 it('bounds profile preferences and rejects game data or future schemas', () => {
   expect(validatePreferences(defaultPreferences)).toEqual(defaultPreferences)
-  for (const patch of [{ schemaVersion: 3 }, { theme: 'night' }, { language: 'script' }, { bubbles: 1 }, { reward: true }])
+  for (const patch of [{ schemaVersion: 4 }, { theme: 'night' }, { language: 'script' }, { bubbles: 1 }, { reward: true }])
     expect(() => validatePreferences({ ...defaultPreferences, ...patch })).toThrow('INVALID_PREFERENCES')
 })
 it('derives a fixed 30-minute day without mutating simulation state, with seven bilingual reactions', () => {

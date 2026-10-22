@@ -1,0 +1,11 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'resident' !== null\n",
+  "checks": [
+    "host markers and system media resolve separately; explicit selection remains unchanged",
+    "four explicit reduced-transparency fallback captures; zero reduced-motion and 180ms normal surface",
+    "ocean/urban token substitution in test fixture only; no scene, world or preference added",
+    "emulated DPR 1/1.25/1.5/2 retains 13 CSS px; actual Windows DPI NOT RUN",
+    "resident Qwen target, scrolled list and exact focus restored through settings; no world write or camera wheel leakage"
+  ],
+  "errors": []
+}

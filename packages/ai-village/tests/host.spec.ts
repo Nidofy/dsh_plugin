@@ -27,7 +27,7 @@ it('official authenticated Connection routes, profile lease, CAS, recovery, unlo
     const world = createWorld(scene), operationId = randomUUID()
     const ack = (await call('save', { ...owner, expectedRevision: 0, operationId, world })).value
     expect(ack.revision).toBe(1); expect(ack.profileId).toBe(owner.profileId); expect(ack.epoch).toBe(owner.epoch)
-    const preferences = { schemaVersion: 2, theme: 'dark', language: 'en', reducedMotion: true, bubbles: false, reducedTransparency: false, noticeReadIds: [], noticesInitialized: false }
+    const preferences = { schemaVersion: 3, textScale: 1, theme: 'dark', language: 'en', reducedMotion: true, bubbles: false, reducedTransparency: false, noticeReadIds: [], noticesInitialized: false }
     expect((await call('preferences-state')).value.saved).toBeNull()
     const preferenceAck = (await call('preferences-save', { ...owner, expectedRevision: 0, operationId: randomUUID(), world: preferences })).value
     expect(preferenceAck.revision).toBe(1)

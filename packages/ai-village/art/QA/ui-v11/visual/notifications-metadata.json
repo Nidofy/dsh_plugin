@@ -1,0 +1,19 @@
+{
+  "name": "1080x722-notifications-populated",
+  "css": {
+    "x": 212,
+    "y": 92,
+    "width": 1080,
+    "height": 722
+  },
+  "dpr": 1,
+  "kind": "RUNTIME",
+  "build": {
+    "version": "0.6.3",
+    "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+    "dirty": true,
+    "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+    "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+    "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": [
+    "96 actual component screenshots: 6 sizes × 2 themes × 2 languages × 4 states; bounded cards, transparent HUD, same iframe",
+    "resident→settings→appearance→back twice, more→settings→back, no world writes",
+    "open detail survives all height/HUD/wide breakpoints",
+    "720×960 photo bytes identical across 340/580/1080; UI absent and user pause retained",
+    "full composer avoidance and draft preserved"
+  ],
+  "errors": [],
+  "external": [],
+  "manual": "GPU glass and Windows visual approval NOT RUN; one hour DEFERRED"
+}

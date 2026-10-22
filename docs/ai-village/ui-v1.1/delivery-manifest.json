@@ -1,0 +1,28 @@
+{
+  "version": "0.6.3",
+  "build": {
+    "version": "0.6.3",
+    "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+    "dirty": true,
+    "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+    "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+    "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+  },
+  "artifacts": [
+    {
+      "path": "dist/nidofy-dsh-ai-village-0.6.3.tgz",
+      "bytes": 29349498,
+      "sha256": "fa73f490530d195f45e0e12ddc5abaab3ede7e90743d2e7afa56e50ec0efa1ec"
+    },
+    {
+      "path": "dist/ai-village-0.6.3-ui-v1.1-source-delta.tgz",
+      "bytes": 154190,
+      "sha256": "0649057e723780030ef25e7c050b6445830c7433cf9141885666859762a83356"
+    },
+    {
+      "path": "dist/ai-village-0.6.3-ui-v1.1-evidence.tgz",
+      "bytes": 85862602,
+      "sha256": "bd970fd80efd1fbdb220526c43b158136e9b31ac72384489aaeec9c456f34209"
+    }
+  ]
+}

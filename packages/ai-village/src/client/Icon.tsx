@@ -1,4 +1,5 @@
 const paths = {
+  back: 'M15 4 7 12l8 8M7 12h14',
   residents: 'M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0M5 21v-3a7 7 0 0 1 14 0v3',
   wishes: 'm12 3 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z',
   decor: 'M4 12h16v8H4ZM6 12V5h12v7M7 20v2M17 20v2',

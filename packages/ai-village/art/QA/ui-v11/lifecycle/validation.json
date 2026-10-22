@@ -1,0 +1,173 @@
+{
+  "passed": true,
+  "checks": [
+    "50 real sidebar unmount/remount cycles preserve draft and committed world",
+    "50 compact/expanded cycles keep the same frame/profile and never cover the composer or navigation",
+    "synthetic IME Escape preserved; ordinary frame Escape cancels once and returns focus",
+    "exclusive arrange mode hides ordinary tabs; explicit cancel preserves committed world",
+    "small expanded viewport pauses visibly, retains controls and leaves the chat composer usable",
+    "missing resource fails visibly offline; intact resources restore without data reset"
+  ],
+  "metrics": {
+    "frames": 810,
+    "actors": 7,
+    "textures": 128,
+    "tickerStarted": false,
+    "atmosphereTextureSources": 1,
+    "atmosphereCacheSize": [
+      256,
+      256
+    ],
+    "geometry": [
+      {
+        "id": "work",
+        "activity": "work",
+        "seat": "main",
+        "hit": {
+          "x": 46,
+          "y": 273,
+          "width": 112,
+          "height": 16
+        },
+        "anchor": {
+          "x": 102,
+          "y": 283
+        }
+      },
+      {
+        "id": "eat",
+        "activity": "eat",
+        "seat": "left",
+        "hit": {
+          "x": 123,
+          "y": 316,
+          "width": 100,
+          "height": 64
+        },
+        "anchor": {
+          "x": 175,
+          "y": 374
+        }
+      },
+      {
+        "id": "eat",
+        "activity": "eat",
+        "seat": "right",
+        "hit": {
+          "x": 225,
+          "y": 316,
+          "width": 102,
+          "height": 64
+        },
+        "anchor": {
+          "x": 273,
+          "y": 374
+        }
+      },
+      {
+        "id": "rest",
+        "seat": "main",
+        "activity": "rest",
+        "hit": {
+          "x": 233,
+          "y": 211,
+          "width": 90,
+          "height": 44
+        },
+        "anchor": {
+          "x": 274,
+          "y": 245
+        }
+      },
+      {
+        "id": "bench",
+        "seat": "left",
+        "activity": "sit",
+        "hit": {
+          "x": 35,
+          "y": 211,
+          "width": 70,
+          "height": 40
+        },
+        "anchor": {
+          "x": 70,
+          "y": 239
+        }
+      },
+      {
+        "id": "bench",
+        "seat": "right",
+        "activity": "sit",
+        "hit": {
+          "x": 135,
+          "y": 211,
+          "width": 70,
+          "height": 40
+        },
+        "anchor": {
+          "x": 170,
+          "y": 239
+        }
+      }
+    ],
+    "environment": "afternoon",
+    "viewport": {
+      "world": {
+        "scale": 0.9444444444444444,
+        "x": 0,
+        "y": 133.33333333333334
+      },
+      "background": {
+        "x": 0,
+        "y": 133.33333333333334,
+        "width": 340,
+        "height": 453.3333333333333
+      }
+    },
+    "arrangementObjects": [],
+    "gesture": null,
+    "paused": false,
+    "meanPaintMs": 0.6685185158694232,
+    "maxPaintMs": 58.09999990463257,
+    "paintSampleCount": 600,
+    "p50PaintMs": 0.5,
+    "p95PaintMs": 0.7000000476837158
+  },
+  "resourceSamples": [
+    {
+      "cycle": 0,
+      "documents": 2,
+      "nodes": 424,
+      "jsEventListeners": 634,
+      "frames": 1,
+      "textures": 32
+    },
+    {
+      "cycle": 10,
+      "documents": 2,
+      "nodes": 423,
+      "jsEventListeners": 634,
+      "frames": 1,
+      "textures": 32
+    },
+    {
+      "cycle": 25,
+      "documents": 2,
+      "nodes": 423,
+      "jsEventListeners": 634,
+      "frames": 1,
+      "textures": 32
+    },
+    {
+      "cycle": 50,
+      "documents": 2,
+      "nodes": 423,
+      "jsEventListeners": 634,
+      "frames": 1,
+      "textures": 32
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "limitations": "Synthetic composition events do not verify the physical Windows IME candidate window. Browser software-rendering timings are not native GPU completion."
+}

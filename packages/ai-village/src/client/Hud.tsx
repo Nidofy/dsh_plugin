@@ -1,3 +1,4 @@
+import { PanelShell } from './PanelShell.tsx'
 import { useEffect, useRef, useState } from 'react'
 import type { VillageRuntime } from './runtime.ts'
 import { VillageIcon } from './Icon.tsx'
@@ -16,14 +17,15 @@ export function Hud({ runtime: r, cn, compact, close }: { runtime: VillageRuntim
     { icon: 'settings' as const, label: t('小院设置', 'Courtyard settings'), disabled: mode, run: () => r.present({ type: 'overlay', overlay: 'settings' }) },
     { icon: 'close' as const, label: t('关闭小院', 'Close courtyard'), run: close },
   ]
+  if (mode) return <header className="village-hud village-mode-hud"><button disabled={['pending','unknown'].includes(r.saveReceipt.status)||r.homeSaving} onClick={()=>{if(r.arrangementDirty)r.present({type:'patch',patch:{confirmClose:true,confirmTarget:'arrangement'}});else r.cancelArrangements()}}>{t('退出布置','Exit arrangement')}</button><span className="village-hud-spacer"/><button aria-label={actions[2]!.label} onClick={actions[2]!.run}><VillageIcon name={actions[2]!.icon}/></button></header>
   return <><header className="village-hud">
     <button disabled={mode} aria-label={t(`消息，${unread} 条未读`, `Notifications, ${unread} unread`)} onClick={() => r.present({ type: 'overlay', overlay: 'notifications' })}><VillageIcon name="notifications" />{unread > 0 && <b className="village-badge">{unread > 9 ? '9+' : unread}</b>}</button>
-    <span className="village-time">{t(`第${time.day}天`, `Day ${time.day}`)} · {String(time.hour).padStart(2, '0')}:{String(time.minute).padStart(2, '0')}</span>
+    <span className="village-time">{t(`第${time.day}天`, `Day ${time.day}`)} · {String(time.hour).padStart(2, '0')}:{String(time.minute).padStart(2, '0')}{world?.userPaused && <span aria-label={t('已暂停','Paused')}> · Ⅱ</span>}</span>
     <span className="village-hud-spacer" />
-    <button disabled={locked || mode} aria-label={world?.userPaused ? t('继续', 'Resume') : t('暂停', 'Pause')} onClick={() => r.pause('user', !world?.userPaused)}><VillageIcon name={world?.userPaused ? 'play' : 'pause'} /></button>
-    {compact ? <button aria-label={t('更多', 'More')} onClick={() => r.present({ type: 'overlay', overlay: 'more' })}><VillageIcon name="more" /></button> : actions.map(a => <button key={a.icon} title={a.label} aria-label={a.label} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} /></button>)}
+    <button disabled={!r.ready || r.reasons.has('commit-pending') || mode} aria-label={world?.userPaused ? t('继续', 'Resume') : t('暂停', 'Pause')} onClick={() => r.pause('user', !world?.userPaused)}><VillageIcon name={world?.userPaused ? 'play' : 'pause'} /></button>
+    {compact ? <button aria-label={t('更多', 'More')} onClick={() => r.present({ type: 'overlay', overlay: 'more' })}><VillageIcon name="more" /></button> : actions.map(a => <button key={a.icon} aria-label={a.label} data-disabled-reason={a.disabled?t('当前保存、连接或模式尚未就绪','Save, connection or mode is not ready'):undefined} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} /></button>)}
   </header>
-  {p.overlay === 'more' && <section className="village-popover village-more" aria-label={t('更多', 'More')}>{actions.map(a => <button key={a.icon} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} />{a.label}</button>)}</section>}
-  {(p.overlay === 'view' || (hint || viewFocused) && !p.overlay && p.drawer === 'closed' && !mode) && <section ref={viewRef} className="village-popover village-view" onFocus={()=>setViewFocused(true)} onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget))setViewFocused(false)}} aria-label={t('视角', 'View')}><button aria-label={t('缩小', 'Zoom out')} onClick={() => r.setCamera({ ...p.camera, zoom: Math.max(1, p.camera.zoom - .1) })}>−</button><output>{Math.round(p.camera.zoom * 100)}%</output><button aria-label={t('放大', 'Zoom in')} onClick={() => r.setCamera({ ...p.camera, zoom: Math.min(1.5, p.camera.zoom + .1) })}>+</button><button onClick={() => r.resetCamera()}>{t('恢复全景', 'Reset view')}</button></section>}
+  {p.overlay === 'more' && <PanelShell runtime={r} cn={cn} className="village-popover village-more" title={t('更多', 'More')}>{actions.map(a => <button key={a.icon} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} />{a.label}</button>)}</PanelShell>}
+  {(p.overlay === 'view' || (hint || viewFocused) && !p.overlay && p.drawer === 'closed' && !mode) && <PanelShell runtime={r} cn={cn} className="village-popover village-view" title={t('视角','View')}><div className="choices"><button aria-label={t('缩小', 'Zoom out')} onClick={() => r.setCamera({ ...p.camera, zoom: Math.max(1, p.camera.zoom - .1) })}>−</button><output>{Math.round(p.camera.zoom * 100)}%</output><button aria-label={t('放大', 'Zoom in')} onClick={() => r.setCamera({ ...p.camera, zoom: Math.min(1.5, p.camera.zoom + .1) })}>+</button><button onClick={() => r.resetCamera()}>{t('恢复全景', 'Reset view')}</button></div></PanelShell>}
   </>
 }

@@ -1,0 +1,241 @@
+{
+  "build": {
+    "version": "0.6.3",
+    "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+    "dirty": true,
+    "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+    "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+    "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+  },
+  "baseline": "e85ccc704f07edada1b59a574354fad859e44d79",
+  "originalUserFiles": [
+    {
+      "path": "docs/ai-village/NEXT_FEATURES_2026-10-21.md",
+      "sha256": "96a5d3e87dcdd00989195f5f6c634ce602f962a891a1c3a655e84cee26de6dd8"
+    },
+    {
+      "path": "docs/ai-village/UI_VISUAL_DIRECTION_REVIEW_2026-10-22.md",
+      "sha256": "127e7704dffa665a452bbfd4f7df4a79ef27e96561a6490dea0935b553f8d9ec"
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/ai-village/ui-v1.1/ACCEPTANCE.md",
+      "sha256": "d67817a9912b8c3e6241e083be19dffb70431aa6847c807e5a943ba9f6a2e305"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/BUILD_RESULTS.md",
+      "sha256": "8c10b65235afd44131cb3e275d9a7b1cc670c435053cd54d3e62d8aad4a2d204"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/DECISION_LOG.md",
+      "sha256": "d76adb1dafde1dd8c8b18f1e67b8dcda52abda2a492d2cbf454d89de78ff3e35"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/FEATURE_MAP.md",
+      "sha256": "2c618c7762f92d0738e1238833f86273841a8d33cdfdb3bc0fc5939e125f8b6d"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/MANUAL_REVIEW.md",
+      "sha256": "278845ecf518678f607e49bce46d649379f3ec7e0ae86e47e0d5d8fd493f643f"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/MIGRATION.md",
+      "sha256": "1d0d835eb7cbc7d4f10f8b8f11525d70a1e684c8da3065104509733679f4a8d0"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/RESULTS.md",
+      "sha256": "98040c2565e9df2c9caace4c813836b67291c54f1d05d82bd2572e626072a5f9"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/baseline.json",
+      "sha256": "b7d0a55f1330a71bdbae116a39c6f3652dd8f673f30c7dcac0a7bbead04d92eb"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/changes.patch",
+      "sha256": "ffcbdb2ba494c54b1aca3faa3184d52d08dc896eff65d3e34687070c14755e71"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/package-manifest.json",
+      "sha256": "0ea8476ddaa510985188e1d198056ef25a43db49bcedbbfa7b05815c65977815"
+    },
+    {
+      "path": "docs/ai-village/ui-v1.1/ui-contract.json",
+      "sha256": "1adbc81c631cf63a5a1a78974267add3edab45e0c3c6840e625c73751d945489"
+    },
+    {
+      "path": "docs/ai-village/ui-v1/DESIGN_SPEC.md",
+      "sha256": "4def5adece6a221bf85f37cc8ba0fd29d319d30091be7734f736e372de0679d0"
+    },
+    {
+      "path": "packages/ai-village/README.md",
+      "sha256": "5f6bb3791a01ff5d9e25472a35763e013449d43a9ff83d9ba58e0aae2e4677a8"
+    },
+    {
+      "path": "packages/ai-village/experiments/phase4-client.tsx",
+      "sha256": "a24655f41c90232ae37cc26bdfeaffdf03999ddbb90b636096ee874ab4eaaaa8"
+    },
+    {
+      "path": "packages/ai-village/package.json",
+      "sha256": "8aae3fc2772de05ec9956e2db205ed2968bebe34c82005d1d51142a5ce8273c3"
+    },
+    {
+      "path": "packages/ai-village/src/client/ArrangementControls.tsx",
+      "sha256": "d8e2a4004bf3b56cc37b5c6c83194e6082a329c9db37688b3895dbfa1a867deb"
+    },
+    {
+      "path": "packages/ai-village/src/client/Floating.tsx",
+      "sha256": "9fe513569d53952c29b71cc90dd13b29532d4de6c2da715133b0a7ea1c023d07"
+    },
+    {
+      "path": "packages/ai-village/src/client/Hud.tsx",
+      "sha256": "0c611099e742559ef7bc43c0d6fb015f12311304f947b66ce703b25929bd1aef"
+    },
+    {
+      "path": "packages/ai-village/src/client/Icon.tsx",
+      "sha256": "10c3426cc706fcec57e1dce4cd20dbf149cd10a12ef01ed1f0c374ec967a3226"
+    },
+    {
+      "path": "packages/ai-village/src/client/ManagementPanel.tsx",
+      "sha256": "c0eb13e5cf78fed5517c38cc58511d462345b0d09f54785370d748ffbff23cc8"
+    },
+    {
+      "path": "packages/ai-village/src/client/Notifications.tsx",
+      "sha256": "4f5470307d5b2907fc26c05899211e2ed9fda402e855a7b79ef4708871e7c983"
+    },
+    {
+      "path": "packages/ai-village/src/client/PanelShell.tsx",
+      "sha256": "bf66996e949e2aba72ad8d2aeada9eef725d704c7fd4952757823dee9340f964"
+    },
+    {
+      "path": "packages/ai-village/src/client/PhotoPanel.tsx",
+      "sha256": "dd1cfdac4ff10e9e229d6f6f778febf56832e5985ac7390b2f4ba6fd190fcdfc"
+    },
+    {
+      "path": "packages/ai-village/src/client/SettingsPanel.tsx",
+      "sha256": "dc5dbf0f0c36e5aaac842ea725235b4760b404c96bd25d6b97003ba41ebf1b96"
+    },
+    {
+      "path": "packages/ai-village/src/client/content-style.ts",
+      "sha256": "44aef889f4a521d2556e9dc4b6fef9959d324305f3e5ab55ab82fcca4b5dc671"
+    },
+    {
+      "path": "packages/ai-village/src/client/diagnostic-trace.ts",
+      "sha256": "1129c1c0c725e54e861375cb91df29340b949d1c7f4ec556ac6860dd31b4dff0"
+    },
+    {
+      "path": "packages/ai-village/src/client/index.ts",
+      "sha256": "05de9285eb2e2fb2be1d56fd265cbb1bd02d8086271f8b717ec0c602d9ef8347"
+    },
+    {
+      "path": "packages/ai-village/src/client/json-response.ts",
+      "sha256": "2a3d52b6a17ffc31b0a0d2131ada4611339e40fbab3f330ccabc36a448ff99d9"
+    },
+    {
+      "path": "packages/ai-village/src/client/messages.ts",
+      "sha256": "316fcb91ed425ee737d08c4bd71d3c329eddf3a1c708b7b4c32f2c9f5b0131dd"
+    },
+    {
+      "path": "packages/ai-village/src/client/recovery-policy.ts",
+      "sha256": "cc8af9dfc187b42b0b0dab341cc9ac2e02872301de98c043c758c0f48c50fa93"
+    },
+    {
+      "path": "packages/ai-village/src/client/runtime.ts",
+      "sha256": "85f142f6c63d8c0881598fbf8ffe5036e1ec8c01030baac4eb31e486fe0b45ac"
+    },
+    {
+      "path": "packages/ai-village/src/client/theme-bridge.ts",
+      "sha256": "888f615fefdb4673af66a219987b8067fb41b74878d8ba89232df8eac4c43d0f"
+    },
+    {
+      "path": "packages/ai-village/src/client/ui-contract.ts",
+      "sha256": "1eeb8dd9757a00c24e3b7a43ad416b43c059edeba1d27a9e96af498cd66b6ba4"
+    },
+    {
+      "path": "packages/ai-village/src/client/ui-state.ts",
+      "sha256": "279e6ed140201a56d49479f4612df18d4538f8333a2bde3089104f356a66fcce"
+    },
+    {
+      "path": "packages/ai-village/src/client/ui-theme.ts",
+      "sha256": "5c8b95adb651176f12352ea4b46fe20905a25e569e29c602e371b75215cdcc48"
+    },
+    {
+      "path": "packages/ai-village/src/core/preferences.ts",
+      "sha256": "f27e9bdd0c61393ff5fadab8f4a460f46ad35d9b618a197438bf09996c891f5a"
+    },
+    {
+      "path": "packages/ai-village/src/core/ui-v11-contract.ts",
+      "sha256": "0a2f9a0783c37213ac6c136dac606799e0e0f84e3f765161ed2bb9b1a65317b4"
+    },
+    {
+      "path": "packages/ai-village/src/frame/input-router.ts",
+      "sha256": "8c69519f5ede6190dd1033a71ac30395bbf6f5fc4a7d7cf20602dd02c870144d"
+    },
+    {
+      "path": "packages/ai-village/tests/host.spec.ts",
+      "sha256": "2681b60a86effed6d44d3932098b2c238754716bbb0da62ad56c29aab68cc49c"
+    },
+    {
+      "path": "packages/ai-village/tests/input-router.client.spec.ts",
+      "sha256": "c80eedc07a2767620446d23d25be31a377e61ce6a41f72a77024f303208b2631"
+    },
+    {
+      "path": "packages/ai-village/tests/preferences.spec.ts",
+      "sha256": "977d4943d51ec0d7ccc919b4d302afc6de8cc06dcf9041df62b8fc6aa7193248"
+    },
+    {
+      "path": "packages/ai-village/tests/runtime.client.spec.ts",
+      "sha256": "6e5542116a35fd16b62da788f53d86b1d64d6f43b07d8d38a191ca0e14379353"
+    },
+    {
+      "path": "packages/ai-village/tests/ui-v1.spec.ts",
+      "sha256": "8a7abbc7142fc418d6d8bfaa48f42627d265255fd1b7f245ad6fc00952ce38d5"
+    },
+    {
+      "path": "packages/ai-village/tests/ui-v11.spec.ts",
+      "sha256": "66c769ba9455278ee60015527883e419f183ab47638d83b8f244cb5425d82d41"
+    },
+    {
+      "path": "scripts/ai-village-ui-v1-navigation.mjs",
+      "sha256": "749068bf3f40e8d89f73ed891f47db411fc61c291745ea91739035409ba035c2"
+    },
+    {
+      "path": "scripts/ai-village-ui-v11-browser.mjs",
+      "sha256": "df9985de8ec987cf0ebc87b8933a82fd714b6f6461697dd60ffb72b3a555cd7b"
+    },
+    {
+      "path": "scripts/ai-village-ui-v11-delivery.mjs",
+      "sha256": "225bf08e6660c0da4a40a462702afd291efe363c516b4da2112c107372a2c791"
+    },
+    {
+      "path": "scripts/ai-village-ui-v11-interaction.mjs",
+      "sha256": "a1e3aaa792a8db75059ca4f04c895e336bfccd30190bd365792f50b81c4de7c0"
+    },
+    {
+      "path": "scripts/ai-village-ui-v11-performance.mjs",
+      "sha256": "877c9e50f79fe1339cd639e559572a27cabac73b71f5b692c423511ffeeeb49d"
+    },
+    {
+      "path": "scripts/ai-village-ui-v11-recovery.mjs",
+      "sha256": "e8f61a1429757b06312fcb7b2cc9fe770377d002f175102e1fa7e2fb626df274"
+    },
+    {
+      "path": "scripts/ai-village-ui-v11-rollback.mjs",
+      "sha256": "ca8abec38b7034180249e33e55edd68b7aeb2b2eab8c56ccba199926a5959b1b"
+    },
+    {
+      "path": "scripts/ai-village-v06-browser.mjs",
+      "sha256": "45b332df44192ffe7e047b2104dfa8f918ec27abf916db326f4e5f8627df944c"
+    },
+    {
+      "path": "scripts/ai-village-v06-neighborhood-browser.mjs",
+      "sha256": "9faa8190dfe15fc1867bfb85f152d978adb0092308371ec5f0e3546c34cc2ae2"
+    },
+    {
+      "path": "scripts/ai-village-v061-browser.mjs",
+      "sha256": "5b5eef630bde487ba603c6f80925d26e6379c4dd6805992bacc0c97704ed67ab"
+    }
+  ],
+  "sourceArchive": "delta over e85ccc7; original user files and generated evidence excluded",
+  "frameChange": "input dismissal priority only; protocol3, scene geometry and photo pipeline retained"
+}

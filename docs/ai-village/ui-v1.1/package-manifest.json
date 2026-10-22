@@ -1,0 +1,46 @@
+{
+  "package": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.6.3",
+    "file": "nidofy-dsh-ai-village-0.6.3.tgz",
+    "bytes": 29349498,
+    "sha256": "fa73f490530d195f45e0e12ddc5abaab3ede7e90743d2e7afa56e50ec0efa1ec",
+    "files": 267,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "build": {
+    "version": "0.6.3",
+    "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+    "dirty": true,
+    "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+    "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5",
+    "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+  },
+  "photos": [
+    {
+      "path": "packages/ai-village/art/QA/ui-v11/visual/capture-340.png",
+      "sha256": "f01ed7c947ba6bbdc0bfb15c28602005c8d68513c8d44add9e38314ec47e205a"
+    },
+    {
+      "path": "packages/ai-village/art/QA/ui-v11/visual/capture-580.png",
+      "sha256": "f01ed7c947ba6bbdc0bfb15c28602005c8d68513c8d44add9e38314ec47e205a"
+    },
+    {
+      "path": "packages/ai-village/art/QA/ui-v11/visual/capture-1080.png",
+      "sha256": "f01ed7c947ba6bbdc0bfb15c28602005c8d68513c8d44add9e38314ec47e205a"
+    }
+  ],
+  "screenshotsWithMetadata": 132,
+  "tests": {
+    "baseline": "28 files / 121 PASS",
+    "final": "29 files / 133 PASS"
+  },
+  "softwarePerformance": "PASS",
+  "realGPU": "NOT RUN",
+  "manual": "NEEDS_REVIEW",
+  "soak": "DEFERRED",
+  "siteIncident": "NOT CONFIRMED",
+  "dailyProfileTouched": false
+}

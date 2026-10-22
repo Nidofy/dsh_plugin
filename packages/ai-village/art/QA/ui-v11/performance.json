@@ -1,0 +1,690 @@
+{
+  "status": "PASS",
+  "baseline": "e85ccc7 / retained 0.6.2 tgz",
+  "current": "0.6.3 UI-v1.1 working tree",
+  "builds": {
+    "baseline": {
+      "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+      "fixtureSHA256": "6fc616d1227a353f24f27e71715805fe136db7e229108fea70a77ae11b71dfee"
+    },
+    "current": {
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9"
+    }
+  },
+  "sampleSeconds": 10,
+  "rounds": 3,
+  "forcedGcBeforeSamples": false,
+  "results": [
+    {
+      "sample": 1,
+      "scenario": "single",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.018,
+      "fps": 22.160111798762227,
+      "p50": 0.2999999523162842,
+      "p95": 0.5,
+      "parentCPU": 39.09658614493911,
+      "heap": 7902464,
+      "textures": 32
+    },
+    {
+      "sample": 1,
+      "scenario": "single",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.02,
+      "fps": 22.654690618762476,
+      "p50": 0.2999999523162842,
+      "p95": 0.5,
+      "parentCPU": 38.79869261477046,
+      "heap": 9202484,
+      "textures": 32
+    },
+    {
+      "sample": 1,
+      "scenario": "seven",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.014,
+      "fps": 22.069103255442382,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 44.07438585979629,
+      "heap": 11010300,
+      "textures": 128
+    },
+    {
+      "sample": 1,
+      "scenario": "seven",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.008,
+      "fps": 21.882494004796165,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 43.04895083932854,
+      "heap": 12436072,
+      "textures": 128
+    },
+    {
+      "sample": 1,
+      "scenario": "activity",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.006,
+      "fps": 22.3865680591645,
+      "p50": 0.6000001430511475,
+      "p95": 0.8000001907348633,
+      "parentCPU": 45.693703777733354,
+      "heap": 14136632,
+      "textures": 128
+    },
+    {
+      "sample": 1,
+      "scenario": "activity",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.014,
+      "fps": 22.168963451168366,
+      "p50": 0.6000001430511475,
+      "p95": 0.8999998569488525,
+      "parentCPU": 44.64478729778311,
+      "heap": 15299548,
+      "textures": 128
+    },
+    {
+      "sample": 1,
+      "scenario": "expanded",
+      "variant": "baseline",
+      "viewport": {
+        "width": 1080,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.146,
+      "fps": 18.23378671397595,
+      "p50": 0.5,
+      "p95": 0.9000000953674316,
+      "parentCPU": 91.86643997634535,
+      "heap": 11393716,
+      "textures": 128
+    },
+    {
+      "sample": 1,
+      "scenario": "expanded",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 1080,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.12,
+      "fps": 19.861660079051386,
+      "p50": 0.5,
+      "p95": 1,
+      "parentCPU": 99.9551185770751,
+      "heap": 10939704,
+      "textures": 128
+    },
+    {
+      "sample": 1,
+      "scenario": "menu",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.015,
+      "fps": 22.066899650524213,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 45.02223664503245,
+      "heap": 12212112,
+      "textures": 128
+    },
+    {
+      "sample": 1,
+      "scenario": "menu",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.012,
+      "fps": 22.073511785856972,
+      "p50": 0.5,
+      "p95": 0.7999999523162842,
+      "parentCPU": 43.7407411106672,
+      "heap": 11279748,
+      "textures": 128
+    },
+    {
+      "sample": 1,
+      "scenario": "hidden",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.004,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.06858256697321072,
+      "heap": 9040188,
+      "textures": 0
+    },
+    {
+      "sample": 1,
+      "scenario": "hidden",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.021,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.06800718491168546,
+      "heap": 8896436,
+      "textures": 0
+    },
+    {
+      "sample": 2,
+      "scenario": "single",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.017,
+      "fps": 22.262154337626036,
+      "p50": 0.2999999523162842,
+      "p95": 0.5,
+      "parentCPU": 38.22752321054208,
+      "heap": 11901056,
+      "textures": 32
+    },
+    {
+      "sample": 2,
+      "scenario": "single",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.033,
+      "fps": 22.226652048240805,
+      "p50": 0.2999999523162842,
+      "p95": 0.5,
+      "parentCPU": 37.85081231934616,
+      "heap": 10277052,
+      "textures": 32
+    },
+    {
+      "sample": 2,
+      "scenario": "seven",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.025,
+      "fps": 22.344139650872815,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 44.43563092269327,
+      "heap": 12998432,
+      "textures": 128
+    },
+    {
+      "sample": 2,
+      "scenario": "seven",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.015,
+      "fps": 22.166749875187218,
+      "p50": 0.5,
+      "p95": 0.7999999523162842,
+      "parentCPU": 43.252880678981526,
+      "heap": 10719392,
+      "textures": 128
+    },
+    {
+      "sample": 2,
+      "scenario": "activity",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.008,
+      "fps": 22.482014388489212,
+      "p50": 0.6000001430511475,
+      "p95": 0.8999998569488525,
+      "parentCPU": 45.52449040767386,
+      "heap": 16066236,
+      "textures": 128
+    },
+    {
+      "sample": 2,
+      "scenario": "activity",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.031,
+      "fps": 22.72953843086432,
+      "p50": 0.5999999046325684,
+      "p95": 0.8999998569488525,
+      "parentCPU": 46.18936297477819,
+      "heap": 10681992,
+      "textures": 128
+    },
+    {
+      "sample": 2,
+      "scenario": "expanded",
+      "variant": "baseline",
+      "viewport": {
+        "width": 1080,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.064,
+      "fps": 18.481717011128776,
+      "p50": 0.5,
+      "p95": 0.7999999523162842,
+      "parentCPU": 90.43616852146265,
+      "heap": 13717432,
+      "textures": 128
+    },
+    {
+      "sample": 2,
+      "scenario": "expanded",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 1080,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.024,
+      "fps": 19.154030327214688,
+      "p50": 0.5,
+      "p95": 0.9000000953674316,
+      "parentCPU": 97.15607541899442,
+      "heap": 14099224,
+      "textures": 128
+    },
+    {
+      "sample": 2,
+      "scenario": "menu",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.028,
+      "fps": 22.437175907459114,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 45.4407159952134,
+      "heap": 10220392,
+      "textures": 128
+    },
+    {
+      "sample": 2,
+      "scenario": "menu",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.03,
+      "fps": 21.73479561316052,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 42.77206380857428,
+      "heap": 12022844,
+      "textures": 128
+    },
+    {
+      "sample": 2,
+      "scenario": "hidden",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.01,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.061388611388611396,
+      "heap": 6224264,
+      "textures": 0
+    },
+    {
+      "sample": 2,
+      "scenario": "hidden",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.014,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.06225284601557819,
+      "heap": 8922208,
+      "textures": 0
+    },
+    {
+      "sample": 3,
+      "scenario": "single",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.011,
+      "fps": 22.774947557686545,
+      "p50": 0.2999999523162842,
+      "p95": 0.40000009536743164,
+      "parentCPU": 38.55084407152133,
+      "heap": 12120308,
+      "textures": 32
+    },
+    {
+      "sample": 3,
+      "scenario": "single",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.01,
+      "fps": 22.377622377622377,
+      "p50": 0.2999999523162842,
+      "p95": 0.40000009536743164,
+      "parentCPU": 38.194355644355646,
+      "heap": 10668556,
+      "textures": 32
+    },
+    {
+      "sample": 3,
+      "scenario": "seven",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.012,
+      "fps": 22.073511785856972,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 43.479334798242114,
+      "heap": 12392832,
+      "textures": 128
+    },
+    {
+      "sample": 3,
+      "scenario": "seven",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.017,
+      "fps": 22.06249376060697,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 42.68674253768594,
+      "heap": 11738972,
+      "textures": 128
+    },
+    {
+      "sample": 3,
+      "scenario": "activity",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.032,
+      "fps": 22.428229665071772,
+      "p50": 0.6000001430511475,
+      "p95": 0.9000000953674316,
+      "parentCPU": 45.26350677830941,
+      "heap": 15540660,
+      "textures": 128
+    },
+    {
+      "sample": 3,
+      "scenario": "activity",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.012,
+      "fps": 22.273272073511784,
+      "p50": 0.6000001430511475,
+      "p95": 0.8000001907348633,
+      "parentCPU": 44.713613663603674,
+      "heap": 15440224,
+      "textures": 128
+    },
+    {
+      "sample": 3,
+      "scenario": "expanded",
+      "variant": "baseline",
+      "viewport": {
+        "width": 1080,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.014,
+      "fps": 18.474136209306973,
+      "p50": 0.5,
+      "p95": 0.9000000953674316,
+      "parentCPU": 91.64315957659278,
+      "heap": 11512124,
+      "textures": 128
+    },
+    {
+      "sample": 3,
+      "scenario": "expanded",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 1080,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.062,
+      "fps": 18.485390578413835,
+      "p50": 0.5,
+      "p95": 0.9000000953674316,
+      "parentCPU": 92.58737825482012,
+      "heap": 11277408,
+      "textures": 128
+    },
+    {
+      "sample": 3,
+      "scenario": "menu",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.03,
+      "fps": 22.233300099700898,
+      "p50": 0.5,
+      "p95": 0.7999999523162842,
+      "parentCPU": 44.994995014955144,
+      "heap": 12985344,
+      "textures": 128
+    },
+    {
+      "sample": 3,
+      "scenario": "menu",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.015,
+      "fps": 22.166749875187218,
+      "p50": 0.5,
+      "p95": 0.7000000476837158,
+      "parentCPU": 43.418062905641534,
+      "heap": 11446764,
+      "textures": 128
+    },
+    {
+      "sample": 3,
+      "scenario": "hidden",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.008,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.06103117505995204,
+      "heap": 8585740,
+      "textures": 0
+    },
+    {
+      "sample": 3,
+      "scenario": "hidden",
+      "variant": "ui-v11",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 10.008,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.06202038369304557,
+      "heap": 8880748,
+      "textures": 0
+    }
+  ],
+  "gates": [
+    {
+      "scenario": "single",
+      "p95Before": 0.5,
+      "p95After": 0.5,
+      "p95Pass": true,
+      "cpuBefore": 38.55084407152133,
+      "cpuAfter": 38.194355644355646,
+      "cpuPass": true
+    },
+    {
+      "scenario": "seven",
+      "p95Before": 0.7000000476837158,
+      "p95After": 0.7000000476837158,
+      "p95Pass": true,
+      "cpuBefore": 44.07438585979629,
+      "cpuAfter": 43.04895083932854,
+      "cpuPass": true
+    },
+    {
+      "scenario": "activity",
+      "p95Before": 0.8999998569488525,
+      "p95After": 0.8999998569488525,
+      "p95Pass": true,
+      "cpuBefore": 45.52449040767386,
+      "cpuAfter": 44.713613663603674,
+      "cpuPass": true
+    },
+    {
+      "scenario": "expanded",
+      "p95Before": 0.9000000953674316,
+      "p95After": 0.9000000953674316,
+      "p95Pass": true,
+      "cpuBefore": 91.64315957659278,
+      "cpuAfter": 97.15607541899442,
+      "cpuPass": true
+    },
+    {
+      "scenario": "menu",
+      "p95Before": 0.7000000476837158,
+      "p95After": 0.7000000476837158,
+      "p95Pass": true,
+      "cpuBefore": 45.02223664503245,
+      "cpuAfter": 43.418062905641534,
+      "cpuPass": true
+    },
+    {
+      "scenario": "hidden",
+      "p95Before": 0,
+      "p95After": 0,
+      "p95Pass": true,
+      "cpuBefore": 0.061388611388611396,
+      "cpuAfter": 0.06225284601557819,
+      "cpuPass": true
+    }
+  ],
+  "errors": [],
+  "limitations": "Software renderer CPU submission, parent CDP CPU/heap only; native GPU completion NOT RUN. The old wrapper alone is overridden to match actual scene CSS viewport; no old/new viewport mismatch. One-hour soak DEFERRED."
+}

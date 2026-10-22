@@ -1,0 +1,302 @@
+[
+  {
+    "name": "recovery-heartbeat-pending",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 1088,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 1428,
+      "bottom": 812,
+      "left": 1088
+    },
+    "mode": "light",
+    "themeSource": "host-unavailable-system-fallback",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "host",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "system",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "decor",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": false,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "recovery-heartbeat-restored",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 1088,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 1428,
+      "bottom": 812,
+      "left": 1088
+    },
+    "mode": "light",
+    "themeSource": "host-unavailable-system-fallback",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "host",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "system",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "decor",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": false,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "recovery-save-unknown",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 1088,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 1428,
+      "bottom": 812,
+      "left": 1088
+    },
+    "mode": "light",
+    "themeSource": "host-unavailable-system-fallback",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "host",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "system",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "decor",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": false,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "recovery-save-still-unknown",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 1088,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 1428,
+      "bottom": 812,
+      "left": 1088
+    },
+    "mode": "light",
+    "themeSource": "host-unavailable-system-fallback",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "host",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "system",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "decor",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": false,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "recovery-save-confirmed",
+    "build": {
+      "version": "0.6.3",
+      "head": "e85ccc704f07edada1b59a574354fad859e44d79",
+      "dirty": true,
+      "fixtureSHA256": "995507e70badd9b2adbc6ce66917d4a14ebaa6853fd3567c209d058e0894b9d9",
+      "clientSHA256": "3d84a6f1ae3d161d20d95e9ddbdb0567dffe97f77632e400480d9d229cc1f8a5",
+      "frameSHA256": "79c599d642052caab2a71af4fe8f80051c0be8449b796521354e3859df4c51d5"
+    },
+    "css": {
+      "x": 1088,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 1428,
+      "bottom": 812,
+      "left": 1088
+    },
+    "mode": "light",
+    "themeSource": "host-unavailable-system-fallback",
+    "materialMode": "software-renderer",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "host",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "system",
+    "route": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "decor",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": false,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  }
+]

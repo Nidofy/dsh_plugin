@@ -22,7 +22,7 @@ export function routeInput(canvas: HTMLCanvasElement, state: () => InputState, s
     const s = state(); if (s.photo) return
     const pt = s.local(css(e)), object = s.objects.find(o => pt.x >= o.rect.x && pt.x <= o.rect.x + o.rect.width && pt.y >= o.rect.y && pt.y <= o.rect.y + o.rect.height)
     const resident = s.actor(pt)
-    const type = object ? 'arrange' : s.objects.length || s.overlay ? 'dismiss' : e.button === 1 || space ? 'pan' : resident ? s.paused ? 'resident' : 'actor' : s.dismiss ? 'dismiss' : 'pan'
+    const type = object ? 'arrange' : s.objects.length || s.overlay || s.dismiss ? 'dismiss' : e.button === 1 || space ? 'pan' : resident ? s.paused ? 'resident' : 'actor' : 'pan'
     gesture = { id: e.pointerId, start: css(e), previous: css(e), type, resident, object, camera: s.camera, moved: false }
     canvas.focus({ preventScroll: true }); canvas.setPointerCapture(e.pointerId); e.preventDefault()
     if (type === 'actor') actor('down', e)

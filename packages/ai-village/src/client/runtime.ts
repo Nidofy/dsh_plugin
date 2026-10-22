@@ -1,4 +1,6 @@
 import { arrangementObjects } from '../core/arrangement.ts'
+import { canRecover, recoveryCode, recoveryDelays } from './recovery-policy.ts'
+import { DiagnosticTrace } from './diagnostic-trace.ts'
 import type { UIInput } from '../core/frame-protocol.ts'
 import { initialPresentation, presentationReducer, type UIAction } from './ui-state.ts'
 import { defaultCamera, validCamera, type Camera } from '../core/camera.ts'
@@ -24,15 +26,77 @@ interface State { profileId: string; epoch: string; saved: Saved<ContentWorld> |
 export type Request = (path: string, init?: RequestInit) => Promise<Response>
 /** One instance per plugin lifetime, deliberately independent of session selection and React mounts. */
 export class VillageRuntime {
+  private dismissedPointer: number | null = null
   softwareRendering = false
+  readonly diagnostics = new DiagnosticTrace()
+  recoveryState: 'idle' | 'waiting' | 'checking' | 'blocked' = 'idle'
+  errorCode = ''
+  private recoveryCount = 0
+  private recoveryTimer: ReturnType<typeof setTimeout> | undefined
+  private recoveryAttempt: AbortController | null = null
+  private trace() { this.diagnostics.record({ reasons: [...this.reasons], code: this.errorCode, connected: this.connected, frameReady: this.frameReady, receipt: this.saveReceipt.status, ticks: this.controller?.world.ticks ?? 0 }) }
+  private foreground() { return this.open && this.connected && !this.disposing && !this.recovering && !['closed','hidden','sidebar','other-panel','insufficient-space'].some(reason => this.reasons.has(reason as PauseReason)) }
+  private cancelRecovery() { clearTimeout(this.recoveryTimer); this.recoveryTimer = undefined; this.recoveryAttempt?.abort(); this.recoveryAttempt = null }
+  private queueRecovery() {
+    if (!this.foreground() || !canRecover(this.errorCode) || this.recoveryTimer || this.recoveryAttempt || this.recoveryCount >= recoveryDelays.length) return
+    this.recoveryState = 'waiting'
+    this.recoveryTimer = setTimeout(() => { this.recoveryTimer = undefined; void this.checkRecovery() }, recoveryDelays[this.recoveryCount])
+  }
+  /** Same-authority read-only reconciliation. Never reacquire, replay writes or reset drafts. */
+  async checkRecovery() {
+    if (!this.foreground() || !canRecover(this.errorCode) || this.recoveryAttempt) return
+    clearTimeout(this.recoveryTimer); this.recoveryTimer = undefined
+    const attempt = new AbortController(), generation = this.generation, code = this.errorCode
+    this.recoveryAttempt = attempt; this.recoveryCount++; this.recoveryState = 'checking'; this.emit()
+    const current = () => !attempt.signal.aborted && generation === this.generation && this.errorCode === code && this.foreground()
+    const signal = AbortSignal.any([attempt.signal, this.attempt.signal])
+    try {
+      await this.saving; await this.preferenceSaving
+      if (!current()) return
+      await this.api('heartbeat', this.credentials(), signal)
+      const state = await this.api<State>('state', undefined, signal)
+      const prefs = await this.api<{ profileId: string; epoch: string; saved: Saved<Preferences> | null }>('preferences-state', undefined, signal)
+      if (!current()) return
+      if (state.profileId !== this.profileId || prefs.profileId !== this.profileId) throw Error('PROFILE_CHANGED')
+      if (state.epoch !== this.epoch || prefs.epoch !== this.epoch) throw Error('HOST_CHANGED')
+      // Validate all observations before publishing any reconciliation.
+      if (state.saved) validateContentWorld(state.saved.world, scene)
+      if (prefs.saved) decodePreferences(prefs.saved.world)
+      if (!this.transaction.pending && (state.saved?.revision ?? 0) !== this.revision) throw Error('REVISION_CONFLICT')
+      if (!this.preferenceTransaction.pending && (prefs.saved?.revision ?? 0) !== this.preferenceRevision) throw Error('PREFERENCES_CONFLICT')
+      if (this.transaction.pending) {
+        const receipt = this.transaction.reconcile(state)
+        if (receipt.status !== 'committed') throw Error('SAVE_UNCONFIRMED')
+        this.revision = receipt.revision
+        if (this.criticalCandidate && this.controller && state.saved) {
+          this.controller.world = validateContentWorld(state.saved.world, scene); this.controller.syncScene()
+          if (this.controller.world.userPaused) { this.reasons.add('user'); this.controller.pauseReasons.add('user') }
+          else { this.reasons.delete('user'); this.controller.pauseReasons.delete('user') }
+          this.criticalCandidate = null; this.pause('commit-pending', false)
+        }
+        if (state.saved) this.confirmed(state.saved.world)
+      }
+      if (this.preferenceTransaction.pending) {
+        if (this.preferenceTransaction.reconcile(prefs).status !== 'committed') throw Error('PREFERENCES_UNCONFIRMED')
+        this.preferences = decodePreferences(prefs.saved!.world); this.preferenceRevision = prefs.saved!.revision
+      }
+      this.revalidateHome()
+      this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.recoveryCount = 0
+      this.pause('disconnected', false) // schedule still requires frameReady and every other reason cleared
+    } catch (error) {
+      if (current()) { const next = recoveryCode(error, 'heartbeat'); if (!canRecover(next)) { this.errorCode = next; this.error = String(error) }; this.recoveryState = 'blocked'; this.trace() }
+    } finally {
+      if (this.recoveryAttempt === attempt) { this.recoveryAttempt = null; this.queueRecovery(); this.emit() }
+    }
+  }
   setSoftwareRendering(value: boolean) { this.softwareRendering = value; this.emit() }
   presentation = initialPresentation()
   notices: Notice[] = []
   present(action: UIAction) { this.presentation = presentationReducer(this.presentation, action); this.emit() }
   input(input: UIInput) {
     if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.transaction.pending || this.photoMode) return
-    if (input.kind === 'camera') { this.setCamera(input.camera); return }
-    if (input.kind === 'resident') { if (!this.arranging && this.controller && actors(this.controller.world).some(a => a.id === input.id)) { this.selectCharacter(input.id); this.sceneClick(true) }; return }
+    if (input.kind === 'camera') { if(this.presentation.drawer==='closed'&&!this.presentation.overlay)this.setCamera(input.camera); return }
+    if (input.kind === 'resident') { if(!this.arranging&&(this.presentation.drawer!=='closed'||this.presentation.overlay)){this.sceneClick();return}; if (!this.arranging && this.controller && actors(this.controller.world).some(a => a.id === input.id)) { this.selectCharacter(input.id); this.sceneClick(true) }; return }
     if (input.kind === 'scene') { if (!this.arranging) this.sceneClick(); return }
     if (!this.arranging) return
     if (this.homeDraft && ['work', 'eat', 'bench', 'corner'].includes(input.id)) {
@@ -48,7 +112,7 @@ export class VillageRuntime {
   }
   setCamera(camera: Camera) { if (validCamera(camera) && !this.arranging && !this.photoMode && !this.controller?.drag && !this.error) this.present({ type: 'patch', patch: { camera, zoomHint: Date.now() } }) }
   resetCamera() { this.setCamera({ ...defaultCamera }) }
-  sceneClick(resident = false) { this.present({ type: 'patch', patch: { drawer: 'closed', overlay: resident ? 'resident' : null } }) }
+  sceneClick(resident = false) { this.present({ type: 'close' }); if (resident) this.present({ type: 'overlay', overlay: 'resident' }) }
   private confirmed(world: ContentWorld) {
     const previous = new Set(this.notices.map(n => n.id)), next = deriveNotices(world)
     if (this.preferences.noticesInitialized) this.presentation.toastIds = [...new Set([...this.presentation.toastIds, ...next.filter(n => !previous.has(n.id) && !this.preferences.noticeReadIds.includes(n.id)).map(n => n.id)])].slice(-16)
@@ -185,13 +249,19 @@ export class VillageRuntime {
     return readJsonResponse<T>(response)
   }
   private credentials() { return { lease: this.lease, epoch: this.epoch } }
-  private fail(error: unknown) { this.error = String(error); this.pause('disconnected', true); this.emit() }
+  private fail(error: unknown, source: 'heartbeat' | 'operation' = 'operation') {
+    if (source === 'heartbeat' && this.error) return
+    this.cancelRecovery(); this.errorCode = recoveryCode(error, source); this.recoveryCount = 0
+    this.error = String(error); this.recoveryState = canRecover(this.errorCode) ? 'waiting' : 'blocked'
+    this.pause('disconnected', true); this.trace(); this.queueRecovery(); this.emit()
+  }
   pause(reason: PauseReason, active: boolean) {
     if (reason === 'user' && this.criticalCandidate) return
     if (!active && this.reasons.has(reason) && ['sidebar', 'hidden', 'other-panel'].includes(reason)) this.revalidateHome()
     if (active) this.reasons.add(reason); else this.reasons.delete(reason)
     if (this.controller?.pauseReasons.has(reason) !== active) this.controller?.pause(reason, active)
-    this.schedule(); this.emit()
+    if (!this.foreground()) this.cancelRecovery(); else this.queueRecovery()
+    this.trace(); this.schedule(); this.emit()
   }
   show() {
     this.open = true; this.pause('closed', false); this.pause('other-panel', false)
@@ -208,6 +278,7 @@ export class VillageRuntime {
   }
   setConnection(connected: boolean, reset = false) {
     if (!reset && connected === this.connected) return
+    this.cancelRecovery()
     if (this.arranging) this.cancelArrangements()
     this.connected = connected; this.generation++; this.attempt.abort(); this.attempt = new AbortController()
     clearInterval(this.heartbeat); this.heartbeat = undefined
@@ -235,7 +306,7 @@ export class VillageRuntime {
         this.heartbeat = setInterval(() => {
           void this.api<{ retention?: { diagnostic?: string } }>('heartbeat', this.credentials()).then(value => {
             if (current() && this.retentionWarning !== !!value.retention?.diagnostic) { this.retentionWarning = !!value.retention?.diagnostic; this.emit() }
-          }).catch(e => { if (current()) this.fail(e) })
+          }).catch(e => { if (current()) this.fail(e, 'heartbeat') })
         }, 4000)
         const state = await this.api<State>('state', undefined, signal)
         if (!current()) return
@@ -281,7 +352,7 @@ export class VillageRuntime {
         }
         this.trimAssets()
         if (state.saved) { this.notices = deriveNotices(validateContentWorld(state.saved.world, scene)) }
-        this.error = ''; this.ready = true
+        this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.ready = true
         this.pause('disconnected', false); this.pause('ownership', false)
         if (!this.preferences.noticesInitialized) await this.setPreferences({ noticeReadIds: this.notices.map(n => n.id), noticesInitialized: true })
         if (!state.saved) this.save()
@@ -291,9 +362,12 @@ export class VillageRuntime {
     await work
     if (this.loading === work) this.loading = null
   }
-  setFrameReady(value: boolean) { this.frameReady = value; if (!value) this.controller?.cancelDrag(); this.schedule(); this.emit() }
+  setFrameReady(value: boolean) { this.frameReady = value; if (!value) { this.dismissedPointer=null; this.controller?.cancelDrag() }; this.trace(); this.schedule(); this.emit() }
   pointer(intent: PointerIntent) {
     if (!this.frameReady || !this.ready || this.criticalCandidate || this.error) return
+    // Parent presentation is authoritative even before the iframe receives its next render.
+    if(this.dismissedPointer===intent.id){if(intent.type==='up'||intent.type==='cancel')this.dismissedPointer=null;return}
+    if(!this.arranging&&(this.presentation.drawer!=='closed'||this.presentation.overlay)){this.controller?.cancelDrag();if(intent.type==='down')this.dismissedPointer=intent.id;if(intent.type==='down'||intent.type==='up')this.sceneClick();return}
     const active = this.controller?.drag?.active
     const before = intent.type === 'up' ? this.controller?.snapshot() : undefined
     this.changingDraft = intent.type === 'up'
@@ -515,7 +589,7 @@ export class VillageRuntime {
   retry() { this.setConnection(this.connected, true) }
   async recoverPreferences() {
     if (!this.lease || !this.connected || this.recovering) return
-    this.recovering = true
+    this.recovering = true; this.cancelRecovery()
     try {
       await this.preferenceSaving
       const saved = await this.api<Saved<Preferences>>('preferences-recover', this.credentials())
@@ -526,7 +600,7 @@ export class VillageRuntime {
   }
   async recover() {
     if (!this.lease || !this.connected || this.recovering) return
-    this.recovering = true
+    this.recovering = true; this.cancelRecovery()
     const generation = this.generation
     this.pause('ownership', true)
     this.cancelArrangements()
@@ -536,7 +610,7 @@ export class VillageRuntime {
       if (generation !== this.generation) return
       this.controller = new ContentController(validateContentWorld(saved.world, scene), scene, () => { if (!this.changingDraft) this.save() })
       if (saved.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
-      this.revision = saved.revision; this.transaction.reset(); this.criticalCandidate = null; this.pause('commit-pending', false); this.error = ''
+      this.revision = saved.revision; this.transaction.reset(); this.criticalCandidate = null; this.pause('commit-pending', false); this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.recoveryCount = 0
       for (const reason of this.reasons) this.controller.pause(reason, true)
       await this.ensureAssets(this.controller.world)
       if (generation !== this.generation) return
@@ -548,6 +622,7 @@ export class VillageRuntime {
   async dispose() {
     if (this.lifetime.signal.aborted) return
     this.disposing = true
+    this.cancelRecovery()
     this.pause('closed', true); this.frameReady = false
     clearInterval(this.heartbeat)
     await this.saving

@@ -16,7 +16,7 @@ it('keeps one presentation model through tab, overlay, close and short-height tr
   p = presentationReducer(p, { type: 'tab', tab: 'residents' }); expect(p.drawer).toBe('half')
   p = presentationReducer(p, { type: 'tab', tab: 'journal' }); expect(p.drawer).toBe('half')
   p = presentationReducer(p, { type: 'overlay', overlay: 'notifications' }); expect(p.drawer).toBe('closed')
-  p = presentationReducer(p, { type: 'tab', tab: 'decor', short: true }); expect(p.drawer).toBe('full'); expect(p.overlay).toBeNull()
+  p = presentationReducer(p, { type: 'tab', tab: 'decor', short: true }); expect(p.drawer).toBe('half'); expect(p.overlay).toBeNull()
   p = presentationReducer(p, { type: 'close' }); expect(p.drawer).toBe('closed'); expect(p.tab).toBe('decor')
 })
 it.each([[340,720],[580,720],[1080,760],[320,360],[800,600]])('round trips full world and seat points at %s × %s with camera clamping', (width,height) => {
@@ -32,20 +32,20 @@ it.each([[340,720],[580,720],[1080,760],[320,360],[800,600]])('round trips full 
   }
   const next=zoomCamera(w,defaultCamera,1.5); expect(next.zoom).toBe(1.5)
 })
-it('migrates only legacy preferences, rejects unknown or unbounded fields and writes only schema 2', () => {
+it('migrates only legacy preferences, rejects unknown or unbounded fields and writes only schema 3', () => {
   const old={schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}
   const before=JSON.stringify(old), p=decodePreferences(old)
-  expect(p).toEqual({...defaultPreferences,...old,schemaVersion:2});expect(JSON.stringify(old)).toBe(before)
+  expect(p).toEqual({...defaultPreferences,...old,schemaVersion:3});expect(JSON.stringify(old)).toBe(before)
   expect(()=>validatePreferences(old)).toThrow()
-  for(const patch of [{schemaVersion:3},{noticeReadIds:Array(65).fill('x')},{noticeReadIds:['中'.repeat(33)]},{noticeReadIds:['a','a']},{noticesInitialized:1},{reducedTransparency:0}]) expect(()=>decodePreferences({...p,...patch})).toThrow()
+  for(const patch of [{schemaVersion:4},{noticeReadIds:Array(65).fill('x')},{noticeReadIds:['中'.repeat(33)]},{noticeReadIds:['a','a']},{noticesInitialized:1},{reducedTransparency:0}]) expect(()=>decodePreferences({...p,...patch})).toThrow()
 })
-it('protects original legacy preference snapshot bytes through the existing migration codec', async () => {
-  const root=await mkdtemp(resolve('.build/ui-v1-prefs-')), old={schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}
+it.each([1,2])('protects schema %s original preference snapshot bytes through the existing migration codec', async schemaVersion => {
+  const root=await mkdtemp(resolve('.build/ui-v1-prefs-')), old={schemaVersion,theme:'dark',language:'en',reducedMotion:true,bubbles:false,...(schemaVersion===2?{reducedTransparency:true,noticeReadIds:['first-memory'],noticesInitialized:true}:{})}
   const legacy=await SaveStore.open(root,scene,{decode:(v:unknown)=>v,validate:(v:unknown)=>v,needsUpgrade:()=>false})
   await legacy.save(0,old,randomUUID());const path=join(legacy.directory,'current.json'), pointer=await readFile(path,'utf8'), file=JSON.parse(pointer).snapshot, bytes=await readFile(join(legacy.directory,'snapshots',file))
   const next=await SaveStore.open(root,scene,preferencesCodec); expect((await next.read())!.world.theme).toBe('dark')
   await next.save(1,{...decodePreferences(old),noticesInitialized:true},randomUUID())
-  expect(await readFile(join(legacy.directory,'snapshots',file))).toEqual(bytes); expect((await next.read())!.world.schemaVersion).toBe(2)
+  expect(await readFile(join(legacy.directory,'snapshots',file))).toEqual(bytes); expect((await next.read())!.world.schemaVersion).toBe(3)
 })
 it('derives stable bounded first-fact notices independent of repeat counts and presentation', () => {
   const w=createHomeWorld(scene);expect(deriveNotices(w)).toEqual([])
