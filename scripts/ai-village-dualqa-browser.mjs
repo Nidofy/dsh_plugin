@@ -10,7 +10,7 @@ const pnpm=join(source,'node_modules/.pnpm'),pw=(await readdir(pnpm)).find(n=>n.
 const {chromium}=await import(pathToFileURL(join(pnpm,pw,'node_modules/playwright/index.mjs')))
 const cache=join(process.env.LOCALAPPDATA,'ms-playwright'),folder=(await readdir(cache)).filter(n=>n.startsWith('chromium_headless_shell-')).sort().at(-1)
 const browser=await chromium.launch({headless:true,executablePath:join(cache,folder,'chrome-headless-shell-win64/chrome-headless-shell.exe'),args:['--enable-unsafe-swiftshader']})
-const results=[],args=process.argv.slice(2),scenarios=args.length?args:['normal','late-paint','decode-reject','wrong-hash','truncated-png','missing-core','slow-skip','disconnect','reduced-motion','reduced-transparency','matrix','stress']
+const results=[],args=process.argv.slice(2),scenarios=args.length?args:['normal','late-paint','decode-reject','wrong-hash','truncated-png','missing-core','slow-skip','disconnect','reduced-motion','reduced-transparency','matrix','stress','close-stress']
 const report={baseSHA:git('rev-parse','HEAD'),build:JSON.parse(await readFile(join(out,'build.json'),'utf8')),command:['node',...process.argv.slice(1)].join(' '),node:process.version,backend:'Chromium headless / software rendering; inspect renderer metrics',performanceStatus:'CONTENDED',art:'ART_PENDING',results,notRun:['real Windows GPU / DPI','human art approval','formal uncontended performance baseline'],oneHour:'DEFERRED'}
 try{for(const scenario of scenarios){
  const h=await harness({profile:await mkdtemp(join(generated,'profile-browser-')),plugin,html:await readFile(join(out,'index.html'),'utf8')})
@@ -62,7 +62,7 @@ try{for(const scenario of scenarios){
    await entered();trace.push({startedAtInPage,coldElapsedMs:Date.now()-start,state:await safeState(),screenshot:await shot('entered')})
    if(scenario==='reduced-transparency'){await page.evaluate(()=>window.__dualqaActions.preferences({reducedTransparency:true}));await page.waitForFunction(()=>document.querySelector('.village-card').dataset.material==='reduced-transparency');trace.push({material:await page.locator('.village-card').getAttribute('data-material')})}
    const s=await inspect();assert.equal(s.error,'');assert.equal(s.entrance.firstFrame,true);assert.equal(s.resourceKeys.length,32)
-   if(['disconnect','stress'].includes(scenario)){
+   if(['disconnect','stress','close-stress'].includes(scenario)){
     await page.getByRole('button',{name:'暂停',exact:true}).click();await page.evaluate(()=>window.__villageHostFixture.flush())
     const before=(await inspect()).world
     if(scenario==='disconnect'){await page.evaluate(()=>window.__villageHostFixture.connection(false));await page.waitForTimeout(100);await page.evaluate(()=>window.__villageHostFixture.connection(true));await entered();assert.equal((await inspect()).world.userPaused,true);assert.equal((await inspect()).entrance.full,false)}
@@ -71,9 +71,9 @@ try{for(const scenario of scenarios){
      await page.mouse.move(1,1);await page.waitForTimeout(350);await cdp.send('HeapProfiler.collectGarbage')
      const initial=await cdp.send('Memory.getDOMCounters'),cycles=[],checkpoints=[]
      for(let i=0;i<100;i++){
-      const t=Date.now();await page.evaluate(()=>window.__villageHostFixture.sidebar(true));await page.waitForFunction(()=>document.querySelectorAll('.village-canvas iframe').length===0)
+      const t=Date.now();await page.evaluate(close=>close?window.__dualqaActions.hide():window.__villageHostFixture.sidebar(true),scenario==='close-stress');await page.waitForFunction(()=>document.querySelectorAll('.village-canvas iframe').length===0)
       await page.setViewportSize({width:[1000,1200,1440][i%3],height:[850,960][i%2]})
-      await page.evaluate(()=>window.__villageHostFixture.sidebar(false));await entered()
+      await page.evaluate(close=>close?window.__dualqaActions.show():window.__villageHostFixture.sidebar(false),scenario==='close-stress');await entered()
       const state=await inspect();assert.equal(state.entrance.full,false);assert.equal(state.world.userPaused,true);assert.equal(state.world.ticks,before.ticks);assert.equal(await page.locator('.village-canvas iframe').count(),1)
       cycles.push(Date.now()-t)
       if(i%20===19){await page.setViewportSize({width:1440,height:960});await page.mouse.move(1,1);await page.waitForTimeout(350);await cdp.send('HeapProfiler.collectGarbage');checkpoints.push({cycle:i+1,...await cdp.send('Memory.getDOMCounters')});console.log('stress '+(i+1)+'/100 '+JSON.stringify(checkpoints.at(-1)))}
@@ -81,7 +81,7 @@ try{for(const scenario of scenarios){
      await cdp.send('HeapProfiler.collectGarbage');const after=await cdp.send('Memory.getDOMCounters')
      await page.mouse.move(1,1);await page.waitForFunction(()=>document.querySelector('.village-card').getAnimations({subtree:true}).filter(a=>a.playState==='running').length===0,{},{timeout:3000})
      const animations=await page.locator('.village-card').evaluate(el=>el.getAnimations({subtree:true}).filter(a=>a.playState==='running').length)
-     assert.equal(animations,0);trace.push({cycles:100,warmMs:cycles,initialDOM:initial,checkpoints,afterGC:after,animations,initialListenerDelta:after.jsEventListeners-initial.jsEventListeners,leakVerdict:checkpoints.every(p=>p.jsEventListeners===checkpoints[0].jsEventListeners)&&after.jsEventListeners===checkpoints[0].jsEventListeners?'STABLE_AFTER_WARMUP':'FAIL'})
+     assert.equal(animations,0);trace.push({lifecycle:scenario,cycles:100,warmMs:cycles,initialDOM:initial,checkpoints,afterGC:after,animations,initialListenerDelta:after.jsEventListeners-initial.jsEventListeners,leakVerdict:checkpoints.every(p=>p.jsEventListeners===checkpoints[0].jsEventListeners)&&after.jsEventListeners===checkpoints[0].jsEventListeners?'STABLE_AFTER_WARMUP':'FAIL'})
      assert.ok(checkpoints.every(p=>p.jsEventListeners===checkpoints[0].jsEventListeners)&&after.jsEventListeners===checkpoints[0].jsEventListeners,'listeners accumulated between warm checkpoints')
     }
    }
