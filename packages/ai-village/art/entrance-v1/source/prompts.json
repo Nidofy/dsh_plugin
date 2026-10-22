@@ -1,0 +1,20 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-22",
+  "status": "ART_REVIEW",
+  "prompts": [
+    {
+      "id": "closed-master",
+      "prompt": "Use case: stylized-concept.\nCreate ONE complete cohesive CLOSED GATE MASTER painting for an original Japanese anime cozy courtyard game, portrait 3:4 canvas preferably 1080x1440 or larger exact 3:4. Full bleed, no text, no borders, no UI, no characters.\nArt direction: dream garden vestibule, warm healing sophisticated hand painted anime background illustration. Honey oak double gate, subtly carved flowing leaf patterns, small aged brass hinges and paired handles, pale cream limestone arch, lush sage/olive leaves and small ivory flowers, pale blue distant sky and soft trees. Sunlight from upper left. Understated tiny whale tail relief on keystone. Rich painterly material detail and elegant delicate rendering, compatible with warm cozy chibi courtyard games. Original design, no recognizable game motifs. No temple, no tall columns, no aerial walkway, no photorealism, no flat vector look, no magic circle.\nAnimation-minded composition: rigorously frontal symmetric gate plane with vertical straight outer hinge edges and straight central meeting seam; path recedes centrally but gate facade itself must not be skewed. The double closed wooden door occupies approximately x=30% to 70%, top arch apex y=23%, arch shoulder y=34%, flat door bottom y=65%. Both doors meet tightly at x=50%. Gate frame limestone arch outer extent roughly x=24% to 76%, y=17% to 68%, bottom threshold around y=67%. Door aperture is a simple rounded Roman arch (semicircular top), no branches or plants or architecture crossing the wooden leaves. The entire door face and both handles clearly visible. A small inward jamb reveal, no glass windows. Door must be wide enough for an inviting entrance.\nLow curving garden walls extend left and right with ivy, a small warm garden lamp at each side. Soft far tree canopy and sky behind arch. Stone path fills foreground, broad pale uncluttered quiet area across central bottom 22% reserved for future seven portrait loading UI. Near foreground leaves restricted to bottom extreme corners, never obstruct gate. Stone threshold must be above lower 28% UI safe zone. Keep gate centrally framed with plenty of environment above and below, no cropping gate.\nDeliver one finished scene illustration, not an asset grid. Every later layer will be derived from this exact master.",
+      "output": "master-closed-original.png"
+    },
+    {
+      "id": "environment-clean-plate",
+      "prompt": "Use case: precise-object-edit. Edit the supplied closed-gate master to create its HIDDEN ENVIRONMENT CLEAN PLATE for very small 2.5D parallax. Exactly preserve the input canvas aspect ratio, camera perspective, lighting, color palette, distant tree canopy and blue sky, stone path geometry, left and right garden walls/lamps, planting borders. Remove ONLY the central double wooden gate together with its cream stone arch frame and its attached wreath, and the two very close blurred foreground leaf/flower clusters at extreme bottom corners. Fill the removed central architecture region with distant soft garden trees and low garden wall matching the existing background, fill removed bottom corner foliage with continuation of the existing stone paving. This is an inpaint of the same composition, NOT a new scene. Keep all unmasked surrounding elements precisely aligned. No people, no text, no checkerboard. The original door and arch will be extracted from original image and overlaid, so this image supplies only hidden edge bleed and background.",
+      "input": "master-closed-original.png",
+      "output": "environment-clean-original.png"
+    }
+  ],
+  "postprocessing": "Pillow / NumPy: resize 1086x1448 to1080x1440, manually traced selections, masking, 2.5D perspective QA, compression, OpenRaster packaging; user explicitly authorized image processing.",
+  "references": "Existing repository courtyard and bluewhale artwork were visually reviewed only; no third-party web media downloaded."
+}

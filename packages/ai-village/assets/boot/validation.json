@@ -1,0 +1,278 @@
+{
+  "status": "PASS",
+  "scope": "Offline asset geometry and alpha; not game runtime, GPU performance, or human art approval",
+  "primaryPngBytes": 5747338,
+  "compatPngBytes": 2749401,
+  "checks": [
+    {
+      "check": "Exactly eleven required named assets",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity bg-far",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity bg-mid",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity path",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity gate-frame",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity gate-left",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity gate-right",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity fg-left",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity fg-right",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity portal-mask",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity glow",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary integrity ambient",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "bg-far dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "bg-far portal clear",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "bg-mid dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "bg-mid portal clear",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "path dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "path portal clear",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "gate-frame dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "gate-frame portal clear",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "gate-left dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "gate-right dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "fg-left dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "fg-left portal clear",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "fg-right dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "fg-right portal clear",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "portal-mask dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "glow dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "ambient dimensions / RGBA / sRGB",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "ambient portal clear",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Closed aperture fully covered",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "82 degree safe reveal rectangle fully transparent",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "No painted door remains when leaves hidden",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Door sweep has no left/right collision",
+      "passed": true,
+      "details": [
+        {
+          "progress": 0,
+          "overlapPixels": 0
+        },
+        {
+          "progress": 0.1,
+          "overlapPixels": 0
+        },
+        {
+          "progress": 0.25,
+          "overlapPixels": 0
+        },
+        {
+          "progress": 0.4,
+          "overlapPixels": 0
+        },
+        {
+          "progress": 0.5,
+          "overlapPixels": 0
+        },
+        {
+          "progress": 0.75,
+          "overlapPixels": 0
+        },
+        {
+          "progress": 1,
+          "overlapPixels": 0
+        }
+      ]
+    },
+    {
+      "check": "340x720 structural gate and threshold clear of loading UI",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "580x720 structural gate and threshold clear of loading UI",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "1080x760 structural gate and threshold clear of loading UI",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Primary eleven PNGs <= 12 MiB",
+      "passed": true,
+      "details": {
+        "bytes": 5747338
+      }
+    },
+    {
+      "check": "Compatibility PNGs <= 4 MiB and <= 8M pixels",
+      "passed": true,
+      "details": {
+        "bytes": 2749401,
+        "pixels": 1773738,
+        "layers": 8
+      }
+    },
+    {
+      "check": "Compatibility hash entrance/entrance-bg-far.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Compatibility hash entrance/entrance-bg-mid.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Compatibility hash entrance/entrance-path.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Compatibility hash entrance/entrance-gate-frame.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Compatibility hash entrance/entrance-gate-left.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Compatibility hash entrance/entrance-gate-right.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Compatibility hash entrance/entrance-fg-left.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Compatibility hash entrance/entrance-fg-right.png",
+      "passed": true,
+      "details": null
+    }
+  ]
+}

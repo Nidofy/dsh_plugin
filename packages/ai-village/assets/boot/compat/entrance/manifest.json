@@ -1,0 +1,176 @@
+{
+  "status": "ART_REVIEW",
+  "source": "Original dream-garden master; pending human approval. Rect aperture is bounding box ONLY: use supplied curved alpha mask for actual reveal.",
+  "designSize": {
+    "width": 1080,
+    "height": 1440
+  },
+  "aperture": {
+    "x": 0.2814814814814815,
+    "y": 0.2298611111111111,
+    "width": 0.44074074074074077,
+    "height": 0.36944444444444446
+  },
+  "safeApertureRect": {
+    "x": 0.35185185185185186,
+    "y": 0.3819444444444444,
+    "width": 0.30092592592592593,
+    "height": 0.1909722222222222
+  },
+  "layers": [
+    {
+      "key": "entrance/entrance-bg-far.png",
+      "kind": "far",
+      "rect": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1.0,
+        "height": 1.0
+      }
+    },
+    {
+      "key": "entrance/entrance-bg-mid.png",
+      "kind": "mid",
+      "rect": {
+        "x": 0.0,
+        "y": 0.121875,
+        "width": 1.0,
+        "height": 0.5447916666666667
+      }
+    },
+    {
+      "key": "entrance/entrance-path.png",
+      "kind": "near",
+      "rect": {
+        "x": 0.0,
+        "y": 0.6145833333333334,
+        "width": 1.0,
+        "height": 0.3854166666666667
+      }
+    },
+    {
+      "key": "entrance/entrance-gate-frame.png",
+      "kind": "frame",
+      "rect": {
+        "x": 0.17222222222222222,
+        "y": 0.12395833333333334,
+        "width": 0.6486111111111111,
+        "height": 0.5166666666666667
+      }
+    },
+    {
+      "key": "entrance/entrance-gate-left.png",
+      "kind": "left",
+      "rect": {
+        "x": 0.2763888888888889,
+        "y": 0.22604166666666667,
+        "width": 0.22777777777777777,
+        "height": 0.3770833333333333
+      },
+      "pivot": [
+        0.0236154157121681,
+        0.5268917310216417
+      ]
+    },
+    {
+      "key": "entrance/entrance-gate-right.png",
+      "kind": "right",
+      "rect": {
+        "x": 0.49583333333333335,
+        "y": 0.22604166666666667,
+        "width": 0.23055555555555557,
+        "height": 0.3770833333333333
+      },
+      "pivot": [
+        0.9766025427677559,
+        0.5268917310216417
+      ]
+    },
+    {
+      "key": "entrance/entrance-fg-left.png",
+      "kind": "near",
+      "rect": {
+        "x": 0.0,
+        "y": 0.7822916666666667,
+        "width": 0.29444444444444445,
+        "height": 0.21770833333333334
+      }
+    },
+    {
+      "key": "entrance/entrance-fg-right.png",
+      "kind": "near",
+      "rect": {
+        "x": 0.6916666666666667,
+        "y": 0.7927083333333333,
+        "width": 0.30833333333333335,
+        "height": 0.20729166666666668
+      }
+    }
+  ],
+  "files": [
+    {
+      "key": "entrance/entrance-bg-far.png",
+      "file": "entrance/entrance-bg-far.png",
+      "sha256": "df5915f205aeb5889e7073b495141b350b07ddb2ad0f03b6694a7d5a630aac58",
+      "bytes": 1240220,
+      "width": 720,
+      "height": 960
+    },
+    {
+      "key": "entrance/entrance-bg-mid.png",
+      "file": "entrance/entrance-bg-mid.png",
+      "sha256": "fbae2db6632c8bc82f9be69e05ac17e6d64eccbd07a8d9bbb0d7ef5e7d6384f9",
+      "bytes": 470726,
+      "width": 720,
+      "height": 523
+    },
+    {
+      "key": "entrance/entrance-path.png",
+      "file": "entrance/entrance-path.png",
+      "sha256": "0cb39228d4706b94a46d10866708fc88113b0c7cfeb30c02b33454f3cd606a0b",
+      "bytes": 473776,
+      "width": 720,
+      "height": 370
+    },
+    {
+      "key": "entrance/entrance-gate-frame.png",
+      "file": "entrance/entrance-gate-frame.png",
+      "sha256": "f672563eba2a7548fe1e61771d2fa7335d59472f9ee8e19e22f050c184106126",
+      "bytes": 257887,
+      "width": 467,
+      "height": 496
+    },
+    {
+      "key": "entrance/entrance-gate-left.png",
+      "file": "entrance/entrance-gate-left.png",
+      "sha256": "6165c0792dc80be90211815b7ab18d286e73537bf20b88fb99239a36501216ab",
+      "bytes": 106284,
+      "width": 164,
+      "height": 362
+    },
+    {
+      "key": "entrance/entrance-gate-right.png",
+      "file": "entrance/entrance-gate-right.png",
+      "sha256": "4837f86437718bfcbd45242dbd086a47239b9f6ea0152c8dc0a864c1fe3df6dc",
+      "bytes": 104404,
+      "width": 166,
+      "height": 362
+    },
+    {
+      "key": "entrance/entrance-fg-left.png",
+      "file": "entrance/entrance-fg-left.png",
+      "sha256": "458666929752fe29be1955c053368135c46b53e9d09a524195dd77c0f9c3d577",
+      "bytes": 47417,
+      "width": 212,
+      "height": 209
+    },
+    {
+      "key": "entrance/entrance-fg-right.png",
+      "file": "entrance/entrance-fg-right.png",
+      "sha256": "f1043be83cd3e8da0be3d02e05d83826c292e1f25f1d8a051168a0b96439debd",
+      "bytes": 48687,
+      "width": 222,
+      "height": 199
+    }
+  ]
+}
