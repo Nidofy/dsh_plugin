@@ -55,6 +55,8 @@ try{for(const test of cases.filter(t=>!selected.length||selected.includes(t.kind
   }
 
   if(test.kind==='seam-probe'){
+   let vh=page.viewportSize().height;for(let i=0;i<6;i++){await page.setViewportSize({width:test.width+224,height:vh});await page.waitForTimeout(80);const box=await page.locator('.village-card').boundingBox();if(Math.abs(box.width-test.width)<1&&Math.abs(box.height-test.height)<1)break;vh+=Math.round(test.height-box.height)}
+   record.actualCard=await page.locator('.village-card').boundingBox()
    const manifest=JSON.parse(await readFile(join(out,'assets/entrance/manifest.json'),'utf8')),r=manifest.safeApertureRect
    const bounds=await page.evaluate(r=>{const camera=document.querySelector('.entrance-camera').getBoundingClientRect(),card=document.querySelector('.village-card').getBoundingClientRect();const plane=document.createElement('div');plane.id='dualqa-plane';Object.assign(plane.style,{position:'absolute',inset:'0',zIndex:'24',pointerEvents:'none'});document.querySelector('.village-card').append(plane);return {x:camera.x-card.x+r.x*camera.width,y:camera.y-card.y+r.y*camera.height,width:r.width*camera.width,height:r.height*camera.height}},r)
    const images=[]

@@ -1,0 +1,17 @@
+{
+  "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+  "QA_SHA": "75abafdab896f7728d6c8bc23722fe0750c48440",
+  "base": "bc230e7f662f47efb497529a276d09aad90ad4ac",
+  "qaOnlyCommits": [
+    "75abafdab896f7728d6c8bc23722fe0750c48440"
+  ],
+  "evaluationDirectory": "dsh_plugin-entrance-eval-3bd04fae1d85-75abafda",
+  "status": "EVALUATION_READY",
+  "DSH_HOME": "tools/ai-village-dualqa/.generated/profile-eval",
+  "productionOwnership": "A; no production changes permitted",
+  "commands": [
+    "node scripts/ai-village-dualqa-test.mjs",
+    "node scripts/ai-village-dualqa-build.mjs",
+    "node scripts/ai-village-dualqa-browser.mjs"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+  "scope": "Independent QA with the committed local ART_REVIEW alias; keyframes manually seek DOM doors while valid ACK held",
+  "rows": [
+    {
+      "kind": "seam-probe",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "seam-probe-580x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "seam-probe-580x720-light-blue.png",
+        "seam-probe-580x720-light-pink.png",
+        "seam-probe-580x720-light-failure.png"
+      ],
+      "seam": {
+        "method": "Closed production DOM doors, two solid diagnostic colors beneath entrance; safe rectangle inset 2 screen px",
+        "bounds": {
+          "x": 200.64888961226853,
+          "y": 289.19443723890515,
+          "width": 181.49444297507958,
+          "height": 153.57221709357367
+        },
+        "testedPixels": 26522,
+        "changedOver2": 298,
+        "maxDelta": 56,
+        "thresholdExplanation": "RGB difference >2 exceeds 8-bit screenshot rounding; art approval still human"
+      },
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Closed door seam transmits underlying scene color\n\n298 !== 0\n",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 173.5,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1314.8999998569489,
+          "canReveal": false
+        }
+      ]
+    }
+  ]
+}

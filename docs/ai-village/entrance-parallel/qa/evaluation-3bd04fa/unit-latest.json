@@ -1,0 +1,8 @@
+{
+  "sha": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+  "command": "node D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin-entrance-eval-3bd04fae1d85-75abafda\\scripts\\ai-village-dualqa-test.mjs",
+  "status": "PASS",
+  "exitCode": 0,
+  "stdout": "\n RUN  v4.1.8 D:/Documents/FeiyangChen/devApps/dsh_plugin-entrance-eval-3bd04fae1d85-75abafda\n\n\n Test Files  8 passed (8)\n      Tests  58 passed (58)\n   Start at  23:20:13\n   Duration  6.53s (transform 458ms, setup 106ms, import 595ms, tests 6.11s, environment 2.11s)\n\n",
+  "stderr": ""
+}
