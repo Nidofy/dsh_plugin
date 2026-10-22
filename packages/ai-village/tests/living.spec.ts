@@ -11,7 +11,7 @@ import { scene } from '../src/definitions.ts'
 import { LivingController } from '../src/core/living-controller.ts'
 import { createLivingWorld, validateLivingWorld, migrateLivingWorld, livingWorldCodec, homeProjection, type LivingWorld } from '../src/core/living-state.ts'
 import { createHomeWorld, homeWorldCodec } from '../src/core/home-state.ts'
-import { playAction, startPlay, stepLiving, settleTea, cancelPlay, placePlayDecoration, whalePlace, inviteTea } from '../src/core/living-engine.ts'
+import { playAction, startPlay, stepLiving, settleTea, cancelPlay, placePlayDecoration, whalePlace, inviteTea, setTableMode } from '../src/core/living-engine.ts'
 import { playDefinitions } from '../src/core/play-catalog.ts'
 import { actors, available } from '../src/core/world.ts'
 import { SaveStore } from '../src/host/save-store.ts'
@@ -26,17 +26,18 @@ function ready(w:LivingWorld){
   }
   expect(w.play.active?.phase).toBe('ready');return w
 }
-function act(w:LivingWorld,action:string,value?:string){return playAction(w,scene,action,value,`${w.play.active!.id}:${w.play.active!.stage}`)}
+function act(w:LivingWorld,action:string,value?:string){return playAction(w,scene,action,value,w.play.active!.definitionId==='table-game'?`${w.play.active!.id}:${w.play.active!.stage}:${w.play.active!.choices.length}`:`${w.play.active!.id}:${w.play.active!.stage}`)}
 function finish(w:LivingWorld){
   while(w.play.active){w=ready(w);const e=w.play.active!,s=playDefinitions.find(d=>d.id===e.definitionId)!.stages[e.stage]!
-    if(s.action==='find')w=act(w,'find',whalePlace(e))
+    if(s.action==='move')w=act(w,'move',String(e.board.indexOf(-1)))
+    else if(s.action==='find')w=act(w,'find',whalePlace(e))
     else if(s.action==='place'){w=act(w,'place','0:0');w=act(w,'place','1:1');w=act(w,'place','2:2')}
     else if(s.action==='choose'){w=act(w,'choose','rice');w=act(w,'choose','tea');w=act(w,'choose','fruit')}
     else w=act(w,s.action)
   }return w
 }
-it('plays all seven definitions through movement, observation, input, shared memory and visible placement',()=>{
-  for(const d of playDefinitions){let w=world(d.count);const rng=w.rng;w=startPlay(w,scene,d.id,actors(w).map(a=>a.id),crypto.randomUUID());w=finish(w)
+it('plays all current definitions through movement, observation, input, shared memory and visible placement',()=>{
+  for(const d of playDefinitions){let w=world(d.count);if(d.id==='table-game')w=setTableMode(w,scene,'game');const rng=w.rng;w=startPlay(w,scene,d.id,actors(w).map(a=>a.id),crypto.randomUUID());w=finish(w)
     expect(w.neighborhood.memories).toHaveLength(1);expect(w.neighborhood.memories[0]!.id).toBe(d.id);expect(w.rng).toBe(rng)
     w=placePlayDecoration(w,scene,d.reward,'window');expect(w.play.decorations[d.reward]).toBe('window')
     const first=structuredClone(w.neighborhood.memories[0]);const copy=validateLivingWorld(w,scene);copy.neighborhood.memories[0]!.count++;expect(w.neighborhood.memories[0]).toEqual(first);w.ticks=w.play.nextTick
@@ -69,7 +70,7 @@ it('migrates v6 byte-preservingly, retains old activities, protects original dis
   const old=createHomeWorld(scene),raw=JSON.stringify(old),migrated=migrateLivingWorld(old,scene);expect(homeProjection(migrated)).toEqual(old);expect(JSON.stringify(old)).toBe(raw)
   const dir=await mkdtemp(join(tmpdir(),'village-living-')),v6=await SaveStore.open(dir,scene,homeWorldCodec(scene))
   await v6.save(0,old,crypto.randomUUID());const pointer=await readFile(join(v6.directory,'current.json'),'utf8')
-  const store=await SaveStore.open(dir,scene,livingWorldCodec(scene));expect((await store.read())?.world.schemaVersion).toBe(7)
+  const store=await SaveStore.open(dir,scene,livingWorldCodec(scene));expect((await store.read())?.world.schemaVersion).toBe(8)
   const snapshot=JSON.parse(pointer).snapshot, bytes=await readFile(join(v6.directory,'snapshots',snapshot));let saved=await store.save(1,migrated,crypto.randomUUID());expect((await store.read())?.world).toEqual(migrated)
   for(let i=0;i<42;i++)saved=await store.save(saved.revision,saved.world,crypto.randomUUID())
   expect(await readFile(join(v6.directory,'snapshots',snapshot))).toEqual(bytes)
@@ -88,9 +89,9 @@ it('runs seven residents deterministically with current social state and bounded
 it('reads every historical schema 1–6 without mutating raw input, refusing future fields and forged play clicks',()=>{
  const v3=createWorld(legacySceneV1),v1={...v3,schemaVersion:1};delete (v1 as any).companions
  for(const old of [v1,{...v3,schemaVersion:2},v3,createContentWorld(scene),createNeighborhoodWorld(scene),createHomeWorld(scene)]){
-  const raw=JSON.stringify(old),next=migrateLivingWorld(old,scene);expect(next.schemaVersion).toBe(7);expect(next.play.active).toBeNull();expect(JSON.stringify(old)).toBe(raw)
+  const raw=JSON.stringify(old),next=migrateLivingWorld(old,scene);expect(next.schemaVersion).toBe(8);expect(next.play.active).toBeNull();expect(JSON.stringify(old)).toBe(raw)
  }
- expect(()=>migrateLivingWorld({...createLivingWorld(scene),schemaVersion:8},scene)).toThrow()
+ expect(()=>migrateLivingWorld({...createLivingWorld(scene),schemaVersion:9},scene)).toThrow()
  const token=crypto.randomUUID()+':0';expect(validUIInput({kind:'play-find',token,point:{x:100,y:200}})).toBe(true)
  for(const bad of [{kind:'play-find',token:'bad',point:{x:1,y:2}},{kind:'play-find',token,point:{x:NaN,y:2}},{kind:'play-find',token,point:{x:1,y:2},extra:true}])expect(validUIInput(bad)).toBe(false)
 })

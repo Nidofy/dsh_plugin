@@ -1,3 +1,4 @@
+import { tableCellAt } from '../core/table-geometry.ts'
 import { arrangementObjects } from '../core/arrangement.ts'
 import { EntranceCoordinator } from './entrance-state.ts'
 import { canRecover, recoveryCode, recoveryDelays } from './recovery-policy.ts'
@@ -14,7 +15,7 @@ import { inviteTea, cancelTea, settleTea, placeBell, startNeighborhoodEvent, cha
 import type { CharacterId } from '../core/roster.ts'
 import { createLivingWorld as createContentWorld, validateLivingWorld as validateContentWorld, migrateLivingWorld, homeProjection, type LivingWorld as ContentWorld } from '../core/living-state.ts'
 import { homeTemplates, type Home } from '../core/home-state.ts'
-import { arrangeHome, startPlay as beginPlay, playAction as actPlay, cancelPlay as stopPlay, placePlayDecoration as putPlayDecoration, whalePlace, whalePoint } from '../core/living-engine.ts'
+import { arrangeHome, setTableMode as chooseTableMode, startPlay as beginPlay, playAction as actPlay, cancelPlay as stopPlay, placePlayDecoration as putPlayDecoration, whalePlace, whalePoint } from '../core/living-engine.ts'
 import type { LayoutId, ExtraDecoration } from '../core/neighborhood-catalog.ts'
 import type { Food, BellSlot } from '../core/content-state.ts'
 import { characterIds } from '../core/roster.ts'
@@ -115,6 +116,7 @@ export class VillageRuntime {
   input(input: UIInput) {
     if (this.entrance.blocking) return
     if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.transaction.pending || this.photoMode) return
+    if (input.kind === 'table-move') { const w=this.controller?.world; if(w && tableCellAt(w.home,input.point)===input.cell) void this.playAction('move',String(input.cell),input.token); return }
     if (input.kind === 'play-find') { const w=this.controller?.world, target=w&&whalePoint(w,scene); if(w?.play.active && target && Math.hypot(input.point.x-target.x,input.point.y-target.y)<=18) void this.playAction('find',whalePlace(w.play.active),input.token); return }
     if (input.kind === 'camera') { if(this.presentation.drawer==='closed'&&!this.presentation.overlay)this.setCamera(input.camera); return }
     if (input.kind === 'resident') { if(!this.arranging&&(this.presentation.drawer!=='closed'||this.presentation.overlay)){this.sceneClick();return}; if (!this.arranging && this.controller && actors(this.controller.world).some(a => a.id === input.id)) { this.selectCharacter(input.id); this.sceneClick(true) }; return }
@@ -447,6 +449,10 @@ export class VillageRuntime {
   async interact(definition: string, participants: CharacterId[]) {
     if (this.arranging) return
     await this.neighborhoodCommand(() => startNeighborhoodEvent(this.controller!.world, scene, definition, participants, crypto.randomUUID()))
+  }
+  async setTableMode(mode: 'dining' | 'game') {
+    if (this.arranging || this.photoMode) return
+    await this.neighborhoodCommand(() => chooseTableMode(this.controller!.world,scene,mode))
   }
   async startPlay(id: string, participants: CharacterId[]) {
     if (this.arranging || this.photoMode) return

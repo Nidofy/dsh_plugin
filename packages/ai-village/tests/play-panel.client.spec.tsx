@@ -10,7 +10,7 @@ function fixture(id = 'lost-rice', phase = 'ready') {
   const world = {
     ticks: 100, actor: { id: 'claude' }, companions: [{ id: 'bluewhale' }, { id: 'kimi' }], activeEvent: null,
     neighborhood: { event: null, memories: [] as { id: string; participants: string[]; completedTick: number; count: number }[] },
-    play: { nextTick: 0, lastEventId: null as string | null, decorations: Object.fromEntries(playDecorationIds.map(id => [id, null])), active: { id: 'test-event', definitionId: id, participants: ['bluewhale', 'claude'], stage: 0, phase, choices: [] as string[], board: [-1, -1, -1], target: 'bench' } },
+    play: { nextTick: 0, tableMode: 'dining' as 'dining' | 'game', lastEventId: null as string | null, decorations: Object.fromEntries(playDecorationIds.map(id => [id, null])), active: { id: 'test-event', definitionId: id, participants: ['bluewhale', 'claude'], stage: 0, phase, choices: [] as string[], board: [-1, -1, -1], target: 'bench' } },
   }
   const runtime = { controller: { world, pauseReasons: new Set<string>() }, arranging: false, actionError: '', startPlay: vi.fn().mockResolvedValue(undefined), playAction: vi.fn().mockResolvedValue(undefined), cancelPlay: vi.fn().mockResolvedValue(undefined), placePlayDecoration: vi.fn().mockResolvedValue(undefined) }
   const view = (tab = 'residents', locale: 'zh' | 'en' = 'zh', locked = false) => <PlayPanel runtime={runtime as unknown as VillageRuntime} tab={tab} locale={locale} locked={locked}/>
@@ -90,9 +90,29 @@ it('keeps decoration placement as an explicit save and never grants a locked rew
 })
 it('authors every scene and control in both languages with a pause before interaction', () => {
   expect(playDefinitions.filter(d => d.kind === 'story')).toHaveLength(3)
-  expect(playDefinitions.filter(d => d.kind === 'game')).toHaveLength(3)
+  expect(playDefinitions.filter(d => d.kind === 'game' && d.id !== 'table-game')).toHaveLength(3)
   for (const d of playDefinitions) {
     expect(d.name.zh).toBeTruthy(); expect(d.name.en).toBeTruthy(); expect(d.stages.length).toBeGreaterThan(1)
     for (const s of d.stages) { expect(s.text.zh).toBeTruthy(); expect(s.text.en).toBeTruthy(); expect(s.actionLabel.zh).toBeTruthy(); expect(s.actionLabel.en).toBeTruthy(); expect(s.observeTicks).toBeGreaterThan(0) }
   }
+})
+it('keeps the table preview behind the confirmed furniture mode and uses move-count tokens', () => {
+  const { world, runtime, view } = fixture('table-game'), active = world.play.active
+  active.board = Array(9).fill(-1)
+  world.play.active = null as never
+  const ui = render(view('wishes', 'en'))
+  const start = () => screen.getByRole('button', { name: 'Begin · Three in a row at the table (development preview)' }) as HTMLButtonElement
+  expect(start().disabled).toBe(true)
+  world.play.tableMode = 'game'; ui.rerender(view('wishes', 'en')); fireEvent.click(start())
+  expect(runtime.startPlay).toHaveBeenCalledWith('table-game', ['claude', 'bluewhale'])
+  world.play.active = active; ui.rerender(view('wishes', 'en'))
+  fireEvent.click(screen.getByRole('button', { name: 'Row 1, column 1 · empty' }))
+  expect(runtime.playAction).toHaveBeenLastCalledWith('move', '0', 'test-event:0:0')
+  active.board = [0, 1, -1, -1, -1, -1, -1, -1, -1]; active.choices = ['0', '1']; ui.rerender(view('wishes', 'en'))
+  fireEvent.click(screen.getByRole('button', { name: 'Row 1, column 3 · empty' }))
+  expect(runtime.playAction).toHaveBeenLastCalledWith('move', '2', 'test-event:0:2')
+  active.board = [0, 0, 0, 1, 1, -1, -1, -1, -1]; active.choices = ['0', '3', '1', '4', '2']; active.stage = 1; ui.rerender(view('wishes', 'en'))
+  expect(screen.getByText(/Three in a row! That was a lovely move/)).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: 'Remember this game' }))
+  expect(runtime.playAction).toHaveBeenLastCalledWith('finish', undefined, 'test-event:1:5')
 })

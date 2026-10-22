@@ -18,6 +18,8 @@ Host 从 `ProfileContext.dir` 获取可信存档根，通过官方已认证 `con
 
 0.7.0-preview.1 在上述历史模型之上使用 `LivingWorld`（schema7/rules4/content4，scene3）。旧1–6 codec与规则保留；新故事和小游戏使用有界阶段/路径/操作令牌，完成事实沿用原neighbor memories；当前短社交与永久回忆分离。UI仍四入口，frame5仅增加受校验的找鲸点击。数据原子性、恢复和回退详见 [本轮数据契约](ai-village/living-v07-v09/DATA_AND_RECOVERY.md)。没有改变门庭ART_REVIEW、生产静态入口或首帧回执门控。M5新增家具及M6第二区域尚未通过资源/阶段门禁。
 
+0.7.0-preview.2 的当前小院使用world8/scene3/rules4/content5/frame6。旧7格式及内容目录冻结在living-state-v7/play-catalog-v4；新增有界play.tableMode、九格棋局与最多九步的可重演历史。桌面变体复用eat原两席/障碍/锚点，输入和绘制共用table-geometry，玩家与居民每轮同一次CAS。未知结果、暂停、照片和旧快照保护沿用原事务。该棋盘为显式开发预览，不等同新增正式家具原画或完成0.8/0.9；详见 [桌面棋局记录](ai-village/table-preview/IMPLEMENTATION.md)。
+
 ## Live2D 浮动伙伴
 
 `live2d` 使用 `shell.overlay` 与会话工具栏入口，独立拥有资产路由、展示参数、渲染生命周期；不注册 `sidebar.right.pane.tab`、`rightbar`、`shell.accessory` 或 `nidofy.companion`，不依赖 desktop-extras。它与小院通过展示专用 `nidofy:floating-panel-open` 事件互斥，与 Git 共享按内容高度分配的右侧位置，事件不携带业务数据。几何适配只触碰自身的对话留白标记，退出时撤销。

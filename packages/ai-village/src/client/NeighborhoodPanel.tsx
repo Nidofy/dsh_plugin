@@ -1,4 +1,4 @@
-import { playDefinition } from '../core/play-catalog.ts'
+import { playDefinition, playDefinitions } from '../core/play-catalog.ts'
 import { useState } from 'react'
 import type { VillageRuntime } from './runtime.ts'
 import { actors } from '../core/world.ts'
@@ -39,7 +39,7 @@ export function NeighborhoodPanel({ runtime, tab, locale, locked }: { runtime: V
       {decorDraft && <div className="choices">{(['window','door','wall',null] as const).map(slot=><button disabled={locked} key={slot??'away'} aria-pressed={decorDraft.slot===slot} onClick={()=>setDecorDraft({...decorDraft,slot})}>{slot===null?t('收起','Put away'):slot==='window'?t('窗边','Window'):slot==='door'?t('门旁','Door'):t('院墙','Wall')}</button>)}
         <button disabled={locked} onClick={()=>void runtime.decorateExtra(decorDraft.id,decorDraft.slot).then(()=>{if(!runtime.actionError)setDecorDraft(null)})}>{t('保存装饰','Save decoration')}</button><button disabled={locked} onClick={()=>setDecorDraft(null)}>{t('取消','Cancel')}</button></div>}
     </>}
-    {tab==='journal' && <>{[...n.memories].reverse().map(m=><article className="village-journal" key={m.id}><small>{t('小院第 ','Day ')}{villageTime(m.completedTick).day}{cn?' 天':''} · ×{m.count}</small><h3>{(stories.find(s=>s.id===m.id)?.name[locale] ?? playDefinition(m.id)?.name[locale])}</h3><p>{m.participants.map(id=>characterNames[id]).join(' & ')}</p><p>{t('这是第一次发生时留下的回忆，再次体验只累计次数。','This keeps the first moment. Later visits add to the count.')}</p></article>)}<p>{t('已发现的手账','Discovered memories')}：{world.journal.length+n.memories.length}/19</p></>}
+    {tab==='journal' && <>{[...n.memories].reverse().map(m=><article className="village-journal" key={m.id}><small>{t('小院第 ','Day ')}{villageTime(m.completedTick).day}{cn?' 天':''} · ×{m.count}</small><h3>{(stories.find(s=>s.id===m.id)?.name[locale] ?? playDefinition(m.id)?.name[locale])}</h3><p>{m.participants.map(id=>characterNames[id]).join(' & ')}</p><p>{t('这是第一次发生时留下的回忆，再次体验只累计次数。','This keeps the first moment. Later visits add to the count.')}</p></article>)}<p>{t('已发现的手账','Discovered memories')}：{world.journal.length+n.memories.length}/{stories.length+playDefinitions.length+1}</p></>}
     {runtime.actionError && <p role="alert">{runtime.actionError==='INTERACTION_COOLDOWN'?t('让这句话停留一会儿，再开始下一件小事。','Let the moment settle before the next activity.'):runtime.actionError==='LAYOUT_REQUIRED'?t('请先在布置中选择相应布局。','Choose the matching layout in Decor first.'):t('暂时无法开始。请结束当前活动，或挪开座位和路线旁的居民。','Cannot start yet. Finish the current activity, or clear the seats and path.')}<small>{residentLine(selected,3,Math.floor(world.ticks/90),locale)}</small></p>}
   </div>
 }

@@ -8,9 +8,18 @@ import { uuid, type Food, type BellSlot } from './content-state.ts'
 import type { CharacterId } from './roster.ts'
 import type { LayoutId, ExtraDecoration } from './neighborhood-catalog.ts'
 import { cancelLifeSocial, stepLifeSocial, settleLifeSocial } from './life-engine.ts'
+import { blankTableBoard, tableRound, tableResult } from './table-game.ts'
 
 const geometry = (w: LivingWorld, base: Scene) => homeScene(base,w.neighborhood.layout,w.home)
 function availableForCommand(w: LivingWorld) { if(w.play.active)throw Error('EVENT_ACTIVE'); cancelLifeSocial(w) }
+export function setTableMode(source: LivingWorld, base: Scene, mode: 'dining' | 'game'): LivingWorld {
+  const w = validateLivingWorld(source,base)
+  if (!['dining','game'].includes(mode)) throw Error('INVALID_TABLE_MODE')
+  if (w.play.active || w.activeEvent || w.neighborhood.event) throw Error('EVENT_ACTIVE')
+  if (actors(w).some(a=>a.intent?.furnitureId==='eat')) throw Error('FURNITURE_OCCUPIED')
+  cancelLifeSocial(w); w.play.tableMode = mode
+  return validateLivingWorld(w,base)
+}
 export function inviteTea(w:LivingWorld,b:Scene,p:[CharacterId,CharacterId],f:Food,id:string) { const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(home.inviteTea(homeProjection(n),b,p,f,id),n) }
 export function startNeighborhoodEvent(w:LivingWorld,b:Scene,d:string,p:CharacterId[],id:string) { const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(home.startNeighborhoodEvent(homeProjection(n),b,d,p,id),n) }
 export function placeBell(w:LivingWorld,b:Scene,s:BellSlot|null) { return withLiving(home.placeBell(homeProjection(w),b,s),w) }
@@ -45,7 +54,8 @@ function prepareStage(w:LivingWorld,base:Scene) {
   // Participants walk in stable sequence. Planning checks existing bodies and already reserved targets.
   for(const a of members){
     let found=false
-    for(const target of candidates){
+    const tableSeat = e.definitionId==='table-game' ? g.hotspots.filter(h=>h.id==='eat')[targets.length]?.anchor : null
+    for(const target of tableSeat ? [tableSeat] : candidates){
       if(!walkable(g,target)||[...outsiders,...targets].some(p=>Math.hypot(p.x-target.x,p.y-target.y)<24))continue
       const occupied=[...outsiders,...targets,...members.filter(other=>other.id!==a.id&&!members.slice(0,targets.length).includes(other)).map(other=>other.position)]
       const path=residentRoute(g,a.position,target,occupied)
@@ -55,15 +65,17 @@ function prepareStage(w:LivingWorld,base:Scene) {
     if(!found)throw Error('PATH_BLOCKED')
   }
   e.targets=targets;e.routes=routes
-  members.forEach((a,i)=>{abandon(a);a.behavior='walk';a.destination=e.routes[i]![0]??null})
+  members.forEach((a,i)=>{abandon(a);a.behavior=e.routes[i]!.length?'walk':'idle';a.destination=e.routes[i]![0]??null})
 }
 export function startPlay(source:LivingWorld,base:Scene,definitionId:string,participants:CharacterId[],id:string):LivingWorld {
   const w=validateLivingWorld(source,base),d=playDefinition(definitionId)
   if(w.activeEvent||w.neighborhood.event||w.play.active)throw Error('EVENT_ACTIVE')
   if(w.ticks<w.play.nextTick)throw Error('INTERACTION_COOLDOWN')
+  if(definitionId==='table-game'&&w.play.tableMode!=='game')throw Error('GAME_TABLE_REQUIRED')
+  if(definitionId==='table-game'&&actors(w).some(a=>!participants.includes(a.id)&&a.intent?.furnitureId==='eat'))throw Error('FURNITURE_OCCUPIED')
   if(!d||!uuid(id)||usedId(w,id)||participants.length!==d.count||new Set(participants).size!==d.count||participants.some(id=>!actors(w).some(a=>a.id===id))||(d.id==='lost-rice'&&participants[0]!=='bluewhale'))throw Error('INVALID_INVITATION')
   cancelLifeSocial(w)
-  w.play.active={id,definitionId:d.id,participants:[...participants],stage:0,phase:'approaching',remainingTicks:0,approachRemainingTicks:1800,target:null,choices:[],board:[-1,-1,-1],targets:[],routes:[]}
+  w.play.active={id,definitionId:d.id,participants:[...participants],stage:0,phase:'approaching',remainingTicks:0,approachRemainingTicks:1800,target:null,choices:[],board:d.id==='table-game'?blankTableBoard():[-1,-1,-1],targets:[],routes:[]}
   prepareStage(w,base);return validateLivingWorld(w,base)
 }
 export function stepLiving(w:LivingWorld,base:Scene) {
@@ -90,11 +102,16 @@ export function stepLiving(w:LivingWorld,base:Scene) {
 }
 export function playAction(source:LivingWorld,base:Scene,action:string,value?:string,token?:string):LivingWorld {
   const w=validateLivingWorld(source,base),e=w.play.active
-  if(!e||token!==`${e.id}:${e.stage}`)throw Error('STALE_PLAY_ACTION')
+  if(!e||token!==(e.definitionId==='table-game'?`${e.id}:${e.stage}:${e.choices.length}`:`${e.id}:${e.stage}`))throw Error('STALE_PLAY_ACTION')
   if(e.phase!=='ready')throw Error('PLAY_NOT_READY')
   const d=playDefinition(e.definitionId)!,s=d.stages[e.stage]!
   let advance=false
-  if(s.action==='find'){
+  if(s.action==='move'){
+    if(action!=='move'||!value||!/^[0-8]$/.test(value))throw Error('INVALID_TABLE_MOVE')
+    const round=tableRound(e.board,Number(value),e.participants[1]!)
+    e.board=round.board;e.choices.push(...round.choices);advance=!!tableResult(e.board)
+    if(!advance){e.phase='observing';e.remainingTicks=s.observeTicks;for(const a of actors(w))if(e.participants.includes(a.id))a.phase=0}
+  }else if(s.action==='find'){
     if(action==='hint'){if(e.choices.filter(v=>v==='hint').length>=2)throw Error('HINT_LIMIT');e.choices.push('hint')}
     else if(action==='find'){if(value!==whalePlace(e))throw Error('NOT_HERE');advance=true}
     else throw Error('INVALID_PLAY_ACTION')

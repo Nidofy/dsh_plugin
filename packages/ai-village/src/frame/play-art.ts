@@ -19,6 +19,8 @@ export class PlayArt {
         for(const dx of [-5,0,5])g.ellipse(x+dx,y-4,3,2).fill(0xffffff)
         g.moveTo(x-10,y).quadraticCurveTo(x-8,y+12,x,y+12).quadraticCurveTo(x+8,y+12,x+10,y).closePath().fill(0x90bdcb).stroke(outline)
         g.ellipse(x,y+12,5,1.5).fill(0x6b94aa)
+      }else if(id==='table-stones'){
+        g.roundRect(x-13,y-6,26,18,3).fill(0xf1dfb4).stroke(outline);g.circle(x-5,y+2,4).stroke({color:0x487967,width:1.5});g.moveTo(x+3,y-2).lineTo(x+10,y+5).moveTo(x+10,y-2).lineTo(x+3,y+5).stroke({color:0x916658,width:1.5})
       }else if(id==='whale-token'){
         g.ellipse(x,y,12,8).fill(0x72b6ca).stroke(outline)
         g.moveTo(x+8,y).quadraticCurveTo(x+19,y-10,x+18,y+2).lineTo(x+9,y+6).fill(0x72b6ca).stroke(outline)

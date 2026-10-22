@@ -25,3 +25,13 @@ it('game click is released once, is blocked by drawers/pauses, and cannot cross 
   f.state.paused=false;f.state.dismiss=true;f.pointer('pointerdown',40,250);f.pointer('pointerup',40,250);expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'scene'})
  }finally{f.dispose()}
 })
+
+it('table hits precede actor dragging and retain the same cell and move revision until release',()=>{
+ const f=setup(),state=f.state as typeof f.state & {tableAt?:()=>{token:string;cell:number}|null};let hit={token:crypto.randomUUID()+':0:0',cell:0};state.tableAt=()=>hit
+ try{
+  f.pointer('pointerdown');f.pointer('pointerup');expect(f.actor).not.toHaveBeenCalled();expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'table-move',...hit,point:{x:110,y:150}})
+  f.send.mockClear();f.pointer('pointerdown');hit={...hit,token:hit.token.slice(0,-1)+'2'};f.pointer('pointerup');expect(f.send).not.toHaveBeenCalled()
+  f.pointer('pointerdown');hit={...hit,cell:1};f.pointer('pointerup');expect(f.send).not.toHaveBeenCalled()
+  f.pointer('pointerdown');f.state.paused=true;f.pointer('pointerup');expect(f.send).not.toHaveBeenCalled()
+ }finally{f.dispose()}
+})

@@ -2,9 +2,9 @@ import { words, type Words } from './neighborhood-catalog.ts'
 import { residentLife } from './life-catalog.ts'
 import type { CharacterId } from './roster.ts'
 
-export const playIds = ['lost-rice', 'quiet-page', 'wind-notes', 'find-whale', 'tidy-desk', 'snack-table', 'stargazing'] as const
+export const playIds = ['lost-rice', 'quiet-page', 'wind-notes', 'find-whale', 'tidy-desk', 'snack-table', 'stargazing', 'table-game'] as const
 export type PlayId = typeof playIds[number]
-export const playDecorationIds = ['rice-bowl', 'page-marker', 'wind-ribbon', 'whale-token', 'desk-star', 'snack-tray', 'star-mobile'] as const
+export const playDecorationIds = ['rice-bowl', 'page-marker', 'wind-ribbon', 'whale-token', 'desk-star', 'snack-tray', 'star-mobile', 'table-stones'] as const
 export type PlayDecorationId = typeof playDecorationIds[number]
 export interface PlayStage {
   id: string
@@ -61,11 +61,15 @@ export const playDefinitions: readonly PlayDefinition[] = [
     stage('constellation', 'corner', '一个看见鲸鱼，一个看见书页，还有一个看见茶杯。原来同一片天空能装下这么多故事。', 'One sees a whale, one sees a page, and one sees a teacup. The same sky can hold so many stories.', 'help', '把三颗星连起来', 'Join the three stars'),
     stage('shared-sky', 'bench', '把这片想象的星空折成小挂饰。无论什么时候抬头，都能想起今晚的朋友。', 'Fold the imaginary sky into a tiny mobile, a reminder of the friends who shared it.', 'finish', '留下三人的星空', 'Keep our constellation'),
   ] },
+  { id: 'table-game', kind: 'game', name: words('餐桌上的三连棋（开发预览）', 'Three in a row at the table (development preview)'), summary: words('和一位朋友在餐桌上下三连棋。不计分，输赢都能留下一段回忆。', 'Play three in a row with a friend at the table. No scores; every result can become a memory.'), count: 2, reward: 'table-stones', stages: [
+    stage('a-friendly-game', 'eat', '先让两位朋友来到餐桌旁。你执圆圈，朋友执叉号；每次落子后，朋友会接着走一步。', 'Let both friends settle by the table. You play circles and your friend plays crosses. Your friend replies after each move.', 'move', '落下一颗棋子', 'Place a piece'),
+    stage('a-game-to-remember', 'eat', '把这一局慢慢收好。棋盘上的输赢很快过去，一起坐过的时光会留下。', 'Put the pieces away gently. A result passes quickly; time spent together stays.', 'finish', '记下这一局', 'Remember this game'),
+  ] },
 ]
 export const playDecorationNames: Record<PlayDecorationId, Words> = {
   'rice-bowl': words('团圆饭碗', 'Togetherness bowl'), 'page-marker': words('安静书签', 'Quiet bookmark'),
   'wind-ribbon': words('风语纸带', 'Breeze ribbon'), 'whale-token': words('小鲸记号', 'Whale token'),
-  'desk-star': words('书桌小星', 'Desk star'), 'snack-tray': words('午后茶盘', 'Afternoon tray'), 'star-mobile': words('三颗星挂饰', 'Three-star mobile'),
+  'desk-star': words('书桌小星', 'Desk star'), 'snack-tray': words('午后茶盘', 'Afternoon tray'), 'star-mobile': words('三颗星挂饰', 'Three-star mobile'), 'table-stones': words('同桌棋子', 'Shared-table pieces'),
 }
 export const snackChoices = ['rice', 'tea', 'fruit'] as const
 export const snackNames = { rice: words('米饭', 'Rice'), tea: words('热茶', 'Tea'), fruit: words('水果', 'Fruit') }

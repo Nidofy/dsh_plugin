@@ -39,7 +39,7 @@ export interface World {
   companions: Actor[]
 }
 /** Shared simulation fields; schema-specific state is owned by its controller. */
-export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 | 6 | 7 }
+export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 | 6 | 7 | 8 }
 export const behaviors: Behavior[] = ['idle', 'walk', 'put_down', 'work', 'eat', 'rest', 'sit', 'read', 'tend']
 export function contains(rect: Rect, point: Point): boolean {
   return point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height
@@ -153,7 +153,7 @@ function stepActor(world: SimulationWorld, scene: Scene, actor: Actor): void {
   } else if (actor.behavior === 'idle' && actor.remaining === 0) {
     const preferred: Record<CharacterId, Activity> = { bluewhale: 'eat', claude: 'work', gemini: 'rest', gpt: 'work', grok: 'eat', kimi: 'rest', qwen: 'work' }
     const candidates = scene.hotspots.filter(h => seatAvailable(world, h, actor.id) && available(world, h.anchor, actor.id))
-    const weighted = candidates.flatMap(h => world.schemaVersion === 7 ? Array.from({ length: activityWeight(actor.id, activityOf(h), world.ticks) }, () => h) : activityOf(h) === preferred[actor.id] ? [h, h] : [h])
+    const weighted = candidates.flatMap(h => world.schemaVersion >= 7 ? Array.from({ length: activityWeight(actor.id, activityOf(h), world.ticks) }, () => h) : activityOf(h) === preferred[actor.id] ? [h, h] : [h])
     const choice = random(world)
     const hotspot = weighted[Math.floor(choice * (weighted.length + 2))]
     const route = hotspot && routeTo(scene, actor.position, hotspot.anchor)

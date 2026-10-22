@@ -7,6 +7,7 @@ import { type Locale } from '../core/neighborhood-catalog.ts'
 import { villageTime } from '../core/dialogue.ts'
 import { playDefinitions, playDefinition, playDecorationNames, deskItems, deskSlots, snackChoices, snackNames, snackReaction, whalePlaces, whalePlaceNames, whalePlace, type PlayDecorationId, type PlayDefinition } from '../core/play-catalog.ts'
 import { residentLife, lifeClock } from '../core/life-catalog.ts'
+import { TableGamePanel } from './TableGamePanel.tsx'
 
 /** Content lives inside the existing four drawers; it never creates another top-level entrance. */
 export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRuntime; tab: string; locale: Locale; locked: boolean }) {
@@ -22,7 +23,7 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
   const busy = locked || runtime.arranging || !!world.activeEvent || !!world.neighborhood.event || !!active
   const ready = !!active && active.phase === 'ready' && !locked && !runtime.arranging && !runtime.controller?.pauseReasons.size
   const clock = lifeClock(world.ticks)
-  const token = active ? `${active.id}:${active.stage}` : ''
+  const token = active ? `${active.id}:${active.stage}${active.definitionId === 'table-game' ? `:${active.choices.length}` : ''}` : ''
   const act = (action: string, value?: string) => { if (ready) void runtime.playAction(action, value, token) }
   const participants = (d: PlayDefinition): CharacterId[] => {
     const lead = d.id === 'lost-rice' ? 'bluewhale' : selected
@@ -36,14 +37,15 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
       <h3>{t('今天想一起做什么', 'What shall we do together?')}</h3>
       <p>{t('没有期限，也不用每天完成。重玩保留第一次的回忆，只增加体验次数。', 'No deadlines or daily chores. Replaying keeps your first memory and adds to its count.')}</p>
       <div aria-label={t('慢慢完成的小心愿', 'Little wishes to take slowly')}><h3>{t('慢慢完成的小心愿', 'Little wishes to take slowly')}</h3>{(['story', 'game', 'group'] as const).map(kind => {
-        const content = playDefinitions.filter(d => d.kind === kind), completed = content.filter(d => world.neighborhood.memories.some(m => m.id === d.id)).length
+        const content = playDefinitions.filter(d => d.kind === kind && d.id !== 'table-game'), completed = content.filter(d => world.neighborhood.memories.some(m => m.id === d.id)).length
         return <p key={kind}>{completed === content.length ? '✓ ' : '○ '}{kind === 'story' ? t('收集三个小故事', 'Discover three little stories') : kind === 'game' ? t('试过三种小游戏', 'Try all three little games') : t('和两位朋友一起看星星', 'Watch the stars with two friends')} · {completed}/{content.length}</p>
       })}</div>
       <fieldset disabled={busy}><legend>{t('优先邀请的朋友（最多两位）', 'Preferred friends (up to two)')}</legend><div className="choices">{ids.filter(id => id !== selected).map(id => <button key={id} aria-pressed={guests.includes(id)} onClick={() => setGuests(old => old.includes(id) ? old.filter(g => g !== id) : [...old.slice(-1), id])}>{characterNames[id]}</button>)}</div></fieldset>
-      {(['story', 'game', 'group'] as const).map(kind => <div key={kind}><h3>{kind === 'story' ? t('慢慢发生的小故事', 'Stories to take slowly') : kind === 'game' ? t('动手玩一会儿', 'A little time to play') : t('三个人的相聚', 'A gathering of three')}</h3>{playDefinitions.filter(d => d.kind === kind).map(d => {
+      {(['story', 'game', 'group', 'preview'] as const).map(kind => <div key={kind}><h3>{kind === 'story' ? t('慢慢发生的小故事', 'Stories to take slowly') : kind === 'game' ? t('动手玩一会儿', 'A little time to play') : kind === 'group' ? t('三个人的相聚', 'A gathering of three') : t('一起试试：开发预览', 'Try together: development preview')}</h3>{playDefinitions.filter(d => kind === 'preview' ? d.id === 'table-game' : d.kind === kind && d.id !== 'table-game').map(d => {
         const chosen = participants(d), available = chosen.length === d.count && chosen.every(id => ids.includes(id))
         return <article className="village-journal" key={d.id}><strong>{d.name[locale]}</strong><p>{d.summary[locale]}</p><small>{names(chosen)} · {t(`${d.stages.length} 个片段`, `${d.stages.length} moments`)}</small>
-          <div className="choices"><button disabled={busy || !available || world.ticks < world.play.nextTick} onClick={() => void runtime.startPlay(d.id, chosen)}>{world.neighborhood.memories.some(m => m.id === d.id) ? t('再体验一次', 'Play again') : t('开始', 'Begin')} · {d.name[locale]}</button></div>
+          <div className="choices"><button disabled={busy || !available || world.ticks < world.play.nextTick || d.id === 'table-game' && world.play.tableMode !== 'game'} onClick={() => void runtime.startPlay(d.id, chosen)}>{world.neighborhood.memories.some(m => m.id === d.id) ? t('再体验一次', 'Play again') : t('开始', 'Begin')} · {d.name[locale]}</button></div>
+          {d.id === 'table-game' && world.play.tableMode !== 'game' && <p>{t('先到“布置 → 家具”，选择棋局桌面并确认，就能邀请朋友下棋。', 'First open Decor → Furniture, choose Game surface, and confirm. Then invite a friend to play.')}</p>}
           {!available && <p>{d.id === 'lost-rice' ? t('请先让蓝鲸和另一位朋友来到小院。', 'Bring Bluewhale and a friend into the courtyard first.') : t(`需要 ${d.count} 位在场居民。`, `Needs ${d.count} residents in the courtyard.`)}</p>}
         </article>
       })}</div>)}
@@ -53,7 +55,8 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
       {!!runtime.controller?.pauseReasons.size && <p role="status">{t('小院已暂停，恢复后可继续；也可以取消活动。', 'The courtyard is paused. Resume to continue, or cancel the activity.')}</p>}
       <p>{names(active.participants)}</p><p role="status">{active.phase === 'approaching' ? t('朋友正在走向观察点。到齐后会先停留一会儿。', 'Friends are walking to the observation spot. They will pause together before continuing.') : active.phase === 'observing' ? t('先一起看看眼前的小细节……', 'Take a moment to notice the little details…') : t('准备好了，可以继续这个片段。', 'Ready to continue this moment.')}</p>
       <p>{stage.text[locale]}</p>
-      {stage.action === 'find' ? <>
+      {active.definitionId === 'table-game' && <TableGamePanel active={active} locale={locale} ready={ready} onMove={cell => act('move', String(cell))} />}
+      {stage.action === 'move' ? null : stage.action === 'find' ? <>
         <p>{t('可以收起抽屉，在场景里点选小鲸鱼；下面的按钮也可用键盘操作。', 'Close the drawer to click the whale in the scene, or use the keyboard-accessible buttons below.')}</p>
         <div className="choices">{whalePlaces.map(value => <button key={value} disabled={!ready} onClick={() => act('find', value)}>{t('找找', 'Search')} · {whalePlaceNames[value][locale]}</button>)}<button disabled={!ready || active.choices.filter(c => c === 'hint').length >= 2} onClick={() => act('hint')}>{t('提示（最多两次）', 'Hint (up to two)')}</button></div>
         {active.choices.includes('hint') && <p role="status">{active.choices.filter(c => c === 'hint').length >= 2 ? whalePlaceNames[whalePlace(active)][locale] : t('看看家具下方的小小蓝色记号。', 'Look for a little blue token near the base of the furniture.')}</p>}

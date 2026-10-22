@@ -1,3 +1,4 @@
+import { TableModePanel } from './TableGamePanel.tsx'
 import { PlayPanel } from './PlayPanel.tsx'
 import { playDefinition } from '../core/play-catalog.ts'
 import { PanelShell } from './PanelShell.tsx'
@@ -51,6 +52,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
         {p.tab === 'journal' && <><p>{r.notices.length ? (r.notices[0]!.story==='first-table'?t('今天，我们坐到了一起','Today, we shared a table'):(stories.find(s=>s.id===r.notices[0]!.story)?.name[locale] ?? playDefinition(r.notices[0]!.story)?.name[locale])) : t('回忆将留在这里。','Memories will stay here.')}</p><div className="choices"><button onClick={()=>sub('journal','memories')}>{t('回忆','Memories')}</button><button onClick={()=>sub('journal','album')}>{t('相册','Album')}</button></div></>}
       </>}
       {p.page !== 'quick' && <>
+      {p.tab==='decor'&&p.subpages.decor==='furniture'&&<TableModePanel runtime={r} locale={locale} locked={busy}/>}
       {(p.tab==='wishes'||p.tab==='residents'||(p.tab==='decor'&&p.subpages.decor==='hanging')) && <PlayPanel runtime={r} tab={p.tab} locale={locale} locked={busy}/>}
       {(p.tab === 'wishes' || p.tab === 'residents') && (w.activeEvent || w.neighborhood.event) && <article className="village-status"><strong>{w.activeEvent ? t('同桌的午后', 'An afternoon together') : neighborhoodEvents.find(d => d.id === w.neighborhood.event?.definitionId)?.name[locale]}</strong><p>{(w.activeEvent ?? w.neighborhood.event)!.participants.map(id => characterNames[id]).join(' · ')} · {(w.activeEvent ?? w.neighborhood.event)!.phase}</p><button disabled={busy} onClick={() => void r.cancelEvent()}>{t('取消活动', 'Cancel activity')}</button></article>}
       {p.tab === 'residents' && (p.page==='residents'||p.page==='admissions') && <><header><strong>{t('在场', 'Present')} {members.length}/7</strong><button onClick={() => go('admissions')}>{t('安排入住', 'Manage residents')}</button></header>
