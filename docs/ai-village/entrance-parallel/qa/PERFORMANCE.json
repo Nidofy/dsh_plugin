@@ -1,0 +1,384 @@
+{
+  "baseSHA": "bc230e7f662f47efb497529a276d09aad90ad4ac",
+  "status": "CONTENDED / NOT_COMPARABLE",
+  "reason": "Concurrent Thread A work was not reserved/quiesced. Software Chromium only.",
+  "coldOpenToEnteredMs": {
+    "n": 10,
+    "p50": 819,
+    "p95": 953,
+    "min": 777,
+    "max": 953,
+    "values": [
+      822,
+      777,
+      850,
+      792,
+      784,
+      872,
+      819,
+      821,
+      811,
+      953
+    ]
+  },
+  "coldOpenToFirstFrameMs": {
+    "n": 10,
+    "p50": 639.6999998092651,
+    "p95": 786,
+    "min": 601.5,
+    "max": 786,
+    "values": [
+      657.5,
+      617,
+      682.7000000476837,
+      621.7999999523163,
+      601.5,
+      709.4000000953674,
+      650.2000000476837,
+      636.5,
+      639.6999998092651,
+      786
+    ]
+  },
+  "warmSidebarReturnMs": {
+    "n": 100,
+    "p50": 617,
+    "p95": 661,
+    "min": 568,
+    "max": 684,
+    "values": [
+      672,
+      614,
+      620,
+      598,
+      633,
+      639,
+      595,
+      585,
+      599,
+      620,
+      616,
+      599,
+      601,
+      583,
+      601,
+      631,
+      586,
+      599,
+      586,
+      612,
+      677,
+      585,
+      599,
+      618,
+      635,
+      598,
+      634,
+      601,
+      633,
+      585,
+      596,
+      602,
+      619,
+      601,
+      632,
+      583,
+      617,
+      602,
+      596,
+      620,
+      662,
+      617,
+      616,
+      651,
+      598,
+      652,
+      601,
+      620,
+      635,
+      592,
+      605,
+      597,
+      601,
+      614,
+      583,
+      617,
+      617,
+      598,
+      638,
+      612,
+      658,
+      600,
+      599,
+      615,
+      613,
+      656,
+      615,
+      615,
+      600,
+      632,
+      621,
+      579,
+      599,
+      568,
+      615,
+      618,
+      654,
+      647,
+      632,
+      618,
+      669,
+      617,
+      598,
+      617,
+      630,
+      652,
+      649,
+      618,
+      684,
+      613,
+      635,
+      655,
+      661,
+      617,
+      620,
+      619,
+      627,
+      637,
+      649,
+      635
+    ]
+  },
+  "longTasks": [
+    [
+      {
+        "start": 286.2999999523163,
+        "duration": 67
+      },
+      {
+        "start": 365.2000000476837,
+        "duration": 51
+      },
+      {
+        "start": 624.3999998569489,
+        "duration": 54
+      },
+      {
+        "start": 680.2000000476837,
+        "duration": 69
+      }
+    ],
+    [
+      {
+        "start": 236.90000009536743,
+        "duration": 72
+      },
+      {
+        "start": 563.9000000953674,
+        "duration": 53
+      },
+      {
+        "start": 618.5999999046326,
+        "duration": 71
+      }
+    ],
+    [
+      {
+        "start": 273,
+        "duration": 78
+      },
+      {
+        "start": 630,
+        "duration": 58
+      },
+      {
+        "start": 689.0999999046326,
+        "duration": 70
+      }
+    ],
+    [
+      {
+        "start": 254.39999985694885,
+        "duration": 64
+      },
+      {
+        "start": 327.09999990463257,
+        "duration": 63
+      },
+      {
+        "start": 586.2999999523163,
+        "duration": 50
+      },
+      {
+        "start": 637.5999999046326,
+        "duration": 68
+      }
+    ],
+    [
+      {
+        "start": 231.79999995231628,
+        "duration": 65
+      },
+      {
+        "start": 308.60000014305115,
+        "duration": 58
+      },
+      {
+        "start": 614.5,
+        "duration": 67
+      }
+    ],
+    [
+      {
+        "start": 319.89999985694885,
+        "duration": 72
+      },
+      {
+        "start": 401.89999985694885,
+        "duration": 50
+      },
+      {
+        "start": 668.2999999523163,
+        "duration": 52
+      },
+      {
+        "start": 721.8999998569489,
+        "duration": 69
+      }
+    ],
+    [
+      {
+        "start": 274.89999985694885,
+        "duration": 77
+      },
+      {
+        "start": 360.2000000476837,
+        "duration": 57
+      },
+      {
+        "start": 612.2999999523163,
+        "duration": 50
+      },
+      {
+        "start": 663.7999999523163,
+        "duration": 68
+      }
+    ],
+    [
+      {
+        "start": 265,
+        "duration": 73
+      },
+      {
+        "start": 350.60000014305115,
+        "duration": 55
+      },
+      {
+        "start": 596.8000001907349,
+        "duration": 50
+      },
+      {
+        "start": 648.1000001430511,
+        "duration": 67
+      }
+    ],
+    [
+      {
+        "start": 269.09999990463257,
+        "duration": 68
+      },
+      {
+        "start": 592.5,
+        "duration": 51
+      },
+      {
+        "start": 644.7000000476837,
+        "duration": 72
+      }
+    ],
+    [
+      {
+        "start": 295,
+        "duration": 87
+      },
+      {
+        "start": 394.5,
+        "duration": 81
+      },
+      {
+        "start": 731.4000000953674,
+        "duration": 64
+      },
+      {
+        "start": 797.2999999523163,
+        "duration": 78
+      }
+    ]
+  ],
+  "transferBytes": [
+    13044209,
+    13044209,
+    13044209,
+    13044209,
+    13044209,
+    13044209,
+    13044209,
+    13044209,
+    13044209,
+    13044209
+  ],
+  "stress": {
+    "cycles": 100,
+    "initialDOM": {
+      "documents": 2,
+      "nodes": 173,
+      "jsEventListeners": 602
+    },
+    "checkpoints": [
+      {
+        "cycle": 20,
+        "documents": 2,
+        "nodes": 249,
+        "jsEventListeners": 640
+      },
+      {
+        "cycle": 40,
+        "documents": 2,
+        "nodes": 249,
+        "jsEventListeners": 640
+      },
+      {
+        "cycle": 60,
+        "documents": 2,
+        "nodes": 249,
+        "jsEventListeners": 640
+      },
+      {
+        "cycle": 80,
+        "documents": 2,
+        "nodes": 249,
+        "jsEventListeners": 640
+      },
+      {
+        "cycle": 100,
+        "documents": 2,
+        "nodes": 249,
+        "jsEventListeners": 640
+      }
+    ],
+    "afterGC": {
+      "documents": 2,
+      "nodes": 249,
+      "jsEventListeners": 640
+    },
+    "animations": 0,
+    "initialListenerDelta": 38,
+    "leakVerdict": "STABLE_AFTER_WARMUP"
+  },
+  "missing": [
+    "uncontended formal baseline",
+    "hardware GPU",
+    "direct texture decode CPU duration",
+    "one-hour run (DEFERRED)"
+  ]
+}

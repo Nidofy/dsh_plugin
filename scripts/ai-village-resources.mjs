@@ -1,20 +1,27 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { readFile, writeFile, lstat, realpath } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
 import { createHash } from 'node:crypto'
+import { validateEntranceTheme } from '../packages/ai-village/src/client/entrance-theme.ts'
 const pkg = resolve(import.meta.dirname, '../packages/ai-village'), root = join(pkg, 'assets')
 const read = async p => JSON.parse(await readFile(join(root, p), 'utf8'))
 const character = await read('characters/bluewhale/character.json'), animations = await read('characters/bluewhale/animations.json'), scene = await read('scenes/courtyard/scene.json')
 const files = []
 const entrance = await read('entrance/manifest.json')
 if (!['ART_PENDING','ART_REVIEW','APPROVED'].includes(entrance.status)) throw Error('Invalid entrance review status')
+if (!Array.isArray(entrance.files) || !Array.isArray(entrance.layers) || entrance.files.length > 8 || new Set(entrance.files.map(e=>e.key)).size !== entrance.files.length) throw Error('Invalid entrance closure')
+if (entrance.status === 'ART_PENDING' ? entrance.files.length || entrance.layers.length : !validateEntranceTheme(entrance)) throw Error('Invalid entrance theme')
 let entranceBytes = 0, entrancePixels = 0
 for (const entry of entrance.files) {
   if (!/^entrance\/[a-z-]+\.png$/.test(entry.key) || entry.file !== entry.key) throw Error('Invalid entrance asset path')
-  const bytes = await readFile(join(root,entry.file)), hash = createHash('sha256').update(bytes).digest('hex')
-  if (bytes.length !== entry.bytes || hash !== entry.sha256 || bytes.length > 8*1024*1024 || bytes.subarray(0,8).toString('hex') !== '89504e470d0a1a0a') throw Error('Entrance integrity mismatch')
+  const path=join(root,entry.file), info=await lstat(path)
+  if(!info.isFile() || info.isSymbolicLink() || (await realpath(path)) !== join(await realpath(root),entry.file)) throw Error('Linked entrance asset refused')
+  const bytes = await readFile(path), hash = createHash('sha256').update(bytes).digest('hex')
+  if (bytes.length !== entry.bytes || hash !== entry.sha256 || bytes.length < 33 || bytes.length > 8*1024*1024 || bytes.subarray(0,8).toString('hex') !== '89504e470d0a1a0a') throw Error('Entrance integrity mismatch')
+  if(bytes.readUInt32BE(12)!==0x49484452 || bytes[24]!==8 || bytes[25]!==6 || bytes.readUInt32BE(16)<1 || bytes.readUInt32BE(20)<1 || bytes.readUInt32BE(16)>4096 || bytes.readUInt32BE(20)>4096)throw Error('Invalid entrance PNG dimensions/format')
   entranceBytes += bytes.length; entrancePixels += bytes.readUInt32BE(16)*bytes.readUInt32BE(20)
   files.push(entry)
 }
+if(entrance.files.some(entry=>!entrance.layers.some(layer=>layer.key===entry.key)))throw Error('Unused entrance resource')
 if (entranceBytes > 4*1024*1024 || entrancePixels > 8000000) throw Error('Entrance exceeds art budget')
 for (const layer of entrance.layers) if (!entrance.files.some(entry=>entry.key===layer.key)) throw Error('Entrance layer is not whitelisted')
 await writeFile(join(pkg,'src/entrance-manifest.ts'), `// Generated from the local entrance asset manifest.\nexport const entranceManifest = ${JSON.stringify(entrance,null,2)}\n`)

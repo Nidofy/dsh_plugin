@@ -1,0 +1,23 @@
+normal PASS
+late-paint PASS
+decode-reject PASS
+wrong-hash PASS
+truncated-png PASS
+missing-core PASS
+slow-skip PASS
+disconnect PASS
+reduced-motion PASS
+reduced-transparency PASS
+matrix PASS
+stress 20/100 {"cycle":20,"documents":2,"nodes":249,"jsEventListeners":640}
+stress 40/100 {"cycle":40,"documents":2,"nodes":249,"jsEventListeners":640}
+stress 60/100 {"cycle":60,"documents":2,"nodes":249,"jsEventListeners":640}
+stress 80/100 {"cycle":80,"documents":2,"nodes":249,"jsEventListeners":640}
+stress 100/100 {"cycle":100,"documents":2,"nodes":249,"jsEventListeners":640}
+stress PASS
+stress 20/100 {"cycle":20,"documents":2,"nodes":218,"jsEventListeners":610}
+stress 40/100 {"cycle":40,"documents":2,"nodes":218,"jsEventListeners":610}
+stress 60/100 {"cycle":60,"documents":2,"nodes":218,"jsEventListeners":610}
+stress 80/100 {"cycle":80,"documents":2,"nodes":218,"jsEventListeners":610}
+stress 100/100 {"cycle":100,"documents":2,"nodes":218,"jsEventListeners":610}
+close-stress PASS

@@ -5,7 +5,8 @@
 
 0.6.4 增加入场展示协调器、七位完整头像的真实准备进度和 protocol4 首帧回执。ready-to-render 后仍先发送 view，只有对应启动、iframe、资源版本与快照成功 render 才揭幕。入口不改 userPaused、世界坐标或游戏 camera；跳过不跳过加载，隐藏和关闭重开使用简版。世界 schema6、偏好 schema3 不变。
 
-**ART_PENDING**：本次没有批准的分层门庭母版，安装包默认使用暖调静态入口和七头像，不把占位门作为正式美术。已接好本地 PNG 清单、统一门洞、双门旋转与按安全门洞计算的穿门接口；正式推门演出与真实 GPU 尚未验收。实现、证据和限制见 [Entrance-v1 交付记录](../../docs/ai-village/entrance-v1/RESULTS.md)。
+**ART_REVIEW（本地内部候选）**：已接入原创梦境门庭的八层候选、圆拱透明门洞、内开双门和按高度布局的镜头。候选尚未获得用户美术签收；安装包继续使用暖调静态入口和七头像。只有本地鉴权实验夹具可预览候选，生产选择器仍要求 APPROVED。来源、预算、复验命令和证据见 [双线程集成记录](../../docs/ai-village/entrance-parallel/integration/README.md)。真实 GPU/DPI、人工观感及独立 QA 未完成时不视为正式发布；版本号保留 0.6.4，内部候选须按 SHA 区分。
+
 ## 开始游玩
 
 1. 在 DSH Plugins → Add plugin 中选择本地 `dist/nidofy-dsh-ai-village-0.6.4.tgz`，安装启用后完整重启 DSH。验证基线为官方 DSH 0.2.1-rc.2、Windows x64，运行依赖离线内嵌。

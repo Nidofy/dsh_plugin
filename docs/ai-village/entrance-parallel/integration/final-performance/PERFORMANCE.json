@@ -1,0 +1,119 @@
+{
+  "status": "MEASURED_SERIAL_SOFTWARE_BASELINE",
+  "head": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
+  "environment": {
+    "node": "v24.16.0",
+    "platform": "win32",
+    "arch": "x64",
+    "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+    "logicalCpus": 16,
+    "totalMemory": 33820106752
+  },
+  "method": "10 fresh Chromium processes, new authenticated temporary profile per run, production ART_REVIEW static fallback, one run at a time after all builds/regressions completed; wall time from open action to entrance unblocked",
+  "limits": [
+    "SwiftShader only; not hardware GPU acceptance",
+    "OS filesystem cache is not flushed",
+    "Other desktop processes are not suspended; host aggregate/max-core load recorded, cannot certify exclusive machine access",
+    "No before/after improvement or hardware SLA claim",
+    "B tool historical performanceStatus is conservative CONTENDED; this supplemental run records actual serial scheduling"
+  ],
+  "summary": {
+    "count": 10,
+    "minMs": 725,
+    "p50Ms": 753,
+    "p95Ms": 774,
+    "maxMs": 774
+  },
+  "samples": [
+    {
+      "sample": 1,
+      "coldElapsedMs": 743,
+      "hostCpuBusyPercent": 14.118225793227843,
+      "maxCoreBusyPercent": 46.40738299274884,
+      "freeMemoryBefore": 16326012928,
+      "freeMemoryAfter": 16293801984,
+      "evidence": "../performance-cold-1/browser-latest.json"
+    },
+    {
+      "sample": 2,
+      "coldElapsedMs": 753,
+      "hostCpuBusyPercent": 17.470966729441304,
+      "maxCoreBusyPercent": 49.534450651769085,
+      "freeMemoryBefore": 16293801984,
+      "freeMemoryAfter": 16296251392,
+      "evidence": "../performance-cold-2/browser-latest.json"
+    },
+    {
+      "sample": 3,
+      "coldElapsedMs": 774,
+      "hostCpuBusyPercent": 17.553470012486407,
+      "maxCoreBusyPercent": 41.40826873385013,
+      "freeMemoryBefore": 16296185856,
+      "freeMemoryAfter": 16283242496,
+      "evidence": "../performance-cold-3/browser-latest.json"
+    },
+    {
+      "sample": 4,
+      "coldElapsedMs": 755,
+      "hostCpuBusyPercent": 15.818528972272954,
+      "maxCoreBusyPercent": 42.28232189973615,
+      "freeMemoryBefore": 16283242496,
+      "freeMemoryAfter": 16295682048,
+      "evidence": "../performance-cold-4/browser-latest.json"
+    },
+    {
+      "sample": 5,
+      "coldElapsedMs": 725,
+      "hostCpuBusyPercent": 16.292204825781802,
+      "maxCoreBusyPercent": 45.382585751978894,
+      "freeMemoryBefore": 16295682048,
+      "freeMemoryAfter": 16275517440,
+      "evidence": "../performance-cold-5/browser-latest.json"
+    },
+    {
+      "sample": 6,
+      "coldElapsedMs": 739,
+      "hostCpuBusyPercent": 20.63012337501035,
+      "maxCoreBusyPercent": 47.93333333333333,
+      "freeMemoryBefore": 16275517440,
+      "freeMemoryAfter": 16272424960,
+      "evidence": "../performance-cold-6/browser-latest.json"
+    },
+    {
+      "sample": 7,
+      "coldElapsedMs": 742,
+      "hostCpuBusyPercent": 18.37943061075513,
+      "maxCoreBusyPercent": 51.51906916612799,
+      "freeMemoryBefore": 16272293888,
+      "freeMemoryAfter": 16248041472,
+      "evidence": "../performance-cold-7/browser-latest.json"
+    },
+    {
+      "sample": 8,
+      "coldElapsedMs": 773,
+      "hostCpuBusyPercent": 17.41317365269461,
+      "maxCoreBusyPercent": 43.9820742637644,
+      "freeMemoryBefore": 16247975936,
+      "freeMemoryAfter": 16263987200,
+      "evidence": "../performance-cold-8/browser-latest.json"
+    },
+    {
+      "sample": 9,
+      "coldElapsedMs": 758,
+      "hostCpuBusyPercent": 16.529359502463453,
+      "maxCoreBusyPercent": 41.43503555268261,
+      "freeMemoryBefore": 16263987200,
+      "freeMemoryAfter": 16262189056,
+      "evidence": "../performance-cold-9/browser-latest.json"
+    },
+    {
+      "sample": 10,
+      "coldElapsedMs": 774,
+      "hostCpuBusyPercent": 15.558499959849032,
+      "maxCoreBusyPercent": 36.02047344849648,
+      "freeMemoryBefore": 16262123520,
+      "freeMemoryAfter": 16286048256,
+      "evidence": "../performance-cold-10/browser-latest.json"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "scope": "New dualqa test files; imported types resolved, not a full production typecheck",
+  "files": [
+    "packages\\ai-village\\tests\\dualqa-art-contract.spec.ts",
+    "packages\\ai-village\\tests\\dualqa-protocol.spec.ts",
+    "packages\\ai-village\\tests\\dualqa-runtime.spec.ts"
+  ],
+  "diagnostics": ""
+}

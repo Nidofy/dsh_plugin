@@ -1,0 +1,47 @@
+ℹ entry: packages\ai-village\src\index.ts, packages\ai-village\src\host\service.ts
+ℹ target: es2024
+ℹ Build start
+ℹ tools\ai-village-dualqa\.generated\preview-review\lib\index.mjs               1.56 kB │ gzip:  0.73 kB
+ℹ tools\ai-village-dualqa\.generated\preview-review\lib\service.mjs             0.14 kB │ gzip:  0.12 kB
+ℹ tools\ai-village-dualqa\.generated\preview-review\lib\service-WCBNs6jJ.mjs  107.69 kB │ gzip: 32.77 kB
+ℹ 3 files, total: 109.38 kB
+✔ Build complete in 31ms
+ℹ entry: packages\ai-village\experiments\phase4-host.ts
+ℹ target: es2024
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ tools\ai-village-dualqa\.generated\preview-review\harness.mjs  629.57 kB │ gzip: 98.49 kB
+ℹ 1 files, total: 629.57 kB
+✔ Build complete in 66ms
+ℹ entry: packages\ai-village\experiments\phase4-client.tsx
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- react
+- scheduler
+- react-dom
+ℹ tools\ai-village-dualqa\.generated\preview-review\fixture.js  713.36 kB │ gzip: 160.30 kB
+ℹ 1 files, total: 713.36 kB
+✔ Build complete in 60ms
+ℹ entry: packages\ai-village\src\frame\scene.ts
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- pixi.js
+- eventemitter3
+- @pixi/colord
+- ismobilejs
+- earcut
+- parse-svg-path
+- tiny-lru
+ℹ tools\ai-village-dualqa\.generated\preview-review\lib\frame.js  628.51 kB │ gzip: 186.84 kB
+ℹ 1 files, total: 628.51 kB
+✔ Build complete in 250ms
+DUALQA_BUILD_READY D:\Documents\FeiyangChen\devApps\dsh_plugin-entrance-integration\tools\ai-village-dualqa\.generated\preview-review

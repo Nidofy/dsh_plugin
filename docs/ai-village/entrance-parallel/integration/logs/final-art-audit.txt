@@ -1,0 +1,45 @@
+{
+  "sourceHead": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
+  "groups": [
+    {
+      "name": "runtime",
+      "provenance": "Original dream-garden art commit 42ee9f46eb0b772fb556631b9a75669c9ea49edf; cropped 2x compatibility export, unchanged PNG bytes; hinge-preserving 6px leaf overlap; human approval pending.",
+      "status": "PASS",
+      "artStatus": "ART_REVIEW",
+      "bytes": 2749401,
+      "pixels": 1773738,
+      "rgbaBytes": 7094952,
+      "layers": 8,
+      "failures": []
+    }
+  ],
+  "geometry": {
+    "status": "PASS",
+    "method": "Independent nearest-neighbor reconstruction of cropped door alpha in safe rectangle (2 design px inset); not full polygon/antialias acceptance",
+    "safePixels": 86991,
+    "closedLeaks": 0,
+    "maxTransmission": 0,
+    "over10Percent": 0,
+    "over50Percent": 0,
+    "leakX": null,
+    "exteriorOcclusionsBeforeKnockout": 0,
+    "pivots": [
+      {
+        "kind": "left",
+        "designPixels": [
+          304.30939226519337,
+          611.6022099447514
+        ]
+      },
+      {
+        "kind": "right",
+        "designPixels": [
+          778.6740331491712,
+          611.6022099447514
+        ]
+      }
+    ]
+  },
+  "pngs": 8,
+  "decodeFailures": 0
+}

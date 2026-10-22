@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "head": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
+  "build": {
+    "head": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
+    "dirty": "?? docs/ai-village/entrance-parallel/integration/final-production/\n?? docs/ai-village/entrance-parallel/integration/final-review/\n?? docs/ai-village/entrance-parallel/integration/logs/b-review-build-after.txt\n?? docs/ai-village/entrance-parallel/integration/logs/b-review-build.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-b-build.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-b-review-build.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-b-review.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-release.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-tests.txt\n?? docs/ai-village/entrance-parallel/integration/seam-after/\n?? docs/ai-village/entrance-parallel/integration/seam-before/",
+    "hashes": {
+      "fixture.js": "0c5705eab1927b5205026e881109a461eed84b39e6155af65066bd4d778c0a75",
+      "lib/index.mjs": "fcc3ffadf75d30fc4eb111a38fa555f10e109cb98d4c816fb160014b1b6f8bcb",
+      "lib/frame.js": "57ee4268590cd3a6af0d57dd734579af5c6f61d9c10330173ec6ec766a4e7a82"
+    },
+    "official": "687f282e8625c6b8d11ff58211a90524be2e4317",
+    "productionFilesModified": false,
+    "reviewMode": false
+  },
+  "checks": [
+    "Real Git/Live2D client components: Git above village, Live2D excludes village, return preserves paused world",
+    "720x960 PNG bytes identical at 340/580/1080; HTTP413 retains photo and world; read-only reconciliation does not repeat upload; explicit retry saves once",
+    "Album and paused world survive reload; confirmed photo deletion leaves world unchanged"
+  ],
+  "uploads": 2,
+  "errors": [],
+  "external": [],
+  "scope": "A execution; real plugin client components with isolated authenticated Village Host; not full Desktop/native GPU verification"
+}

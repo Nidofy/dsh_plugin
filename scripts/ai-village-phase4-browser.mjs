@@ -5,7 +5,7 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import assert from 'node:assert/strict'
-export async function runPreview({ root, pkg, out, serve, buildOnly = false }) {
+export async function runPreview({ root, pkg, out, serve, buildOnly = false, entranceReview = false }) {
   const { source } = JSON.parse(await readFile(join(root, '.local/environment.json'), 'utf8'))
   const dependency = createRequire(join(source, 'packages/client/connection/package.json'))
   const baseline = JSON.parse(await readFile(join(root, '.build/sandbox-enhanced/baseline.json'), 'utf8'))
@@ -17,7 +17,7 @@ export async function runPreview({ root, pkg, out, serve, buildOnly = false }) {
     deps: { alwaysBundle: [/^@deepseek-ai\/dsh-/, 'zod'], neverBundle: ['@deepseek-ai/cordis', '@deepseek-ai/schemastery'] } })
   const browserDependency = createRequire(join(root, '.build/live2d-official-deps/package.json'))
   await build({ config: false, entry: { fixture: join(pkg, 'experiments/phase4-client.tsx') }, outDir: out,
-    alias: { 'use-sync-external-store/shim/with-selector': browserDependency.resolve('use-sync-external-store/shim/with-selector') },
+    alias: { 'use-sync-external-store/shim/with-selector': browserDependency.resolve('use-sync-external-store/shim/with-selector'), ...(entranceReview ? { './entrance-art.ts': join(pkg,'experiments/entrance-review-art.ts') } : {}) },
     format: 'iife', platform: 'browser', target: 'es2022', clean: false, dts: false, deps: { alwaysBundle: [/./] },
     define: { 'process.env.NODE_ENV': '\"production\"' }, outputOptions: { entryFileNames: 'fixture.js' } })
   const code = await readFile(join(out, 'fixture.js'), 'utf8')

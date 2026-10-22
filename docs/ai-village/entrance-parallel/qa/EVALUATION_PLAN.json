@@ -1,0 +1,22 @@
+{
+  "A_SHA": "123d1697e033456101e541a093eebd64fd192007",
+  "QA_SHA": "b6311d0cb8f65e1bceaba67dc1e7b7df0133dae1",
+  "base": "bc230e7f662f47efb497529a276d09aad90ad4ac",
+  "qaOnlyCommits": [
+    "75abafdab896f7728d6c8bc23722fe0750c48440",
+    "5ca6e8fd28b897329939cf19d3cd6782a98994e1",
+    "8c8361c263c7b251e16105ac34d84beb53d3badc",
+    "f87dd0a2ff5b2ab0f7fdcc1da82d0b2c05c4f2bb",
+    "b6311d0cb8f65e1bceaba67dc1e7b7df0133dae1"
+  ],
+  "evaluationDirectory": "dsh_plugin-entrance-eval-123d1697e033-b6311d0c",
+  "status": "EVALUATED_WITH_FINDINGS",
+  "DSH_HOME": "tools/ai-village-dualqa/.generated/profile-eval",
+  "productionOwnership": "A; no production changes permitted",
+  "commands": [
+    "node scripts/ai-village-dualqa-test.mjs",
+    "node scripts/ai-village-dualqa-build.mjs",
+    "node scripts/ai-village-dualqa-browser.mjs"
+  ],
+  "openIssue": "DQ-SEAM-01"
+}

@@ -1,0 +1,525 @@
+{
+  "previewSHA": "ab16f70dec4e88ecef73236dc4cf8ca69bf4410cc1bf3e7dd0a058558aa2209b",
+  "backend": "Chromium headless / SwiftShader",
+  "status": "PASS",
+  "scope": "Source preview only; door keyframes CAPTURED require human review",
+  "rows": [
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "light",
+      "percent": 0,
+      "screenshot": "340x720-light-0.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "light",
+      "percent": 25,
+      "screenshot": "340x720-light-25.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "light",
+      "percent": 50,
+      "screenshot": "340x720-light-50.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "light",
+      "percent": 75,
+      "screenshot": "340x720-light-75.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "light",
+      "percent": 100,
+      "screenshot": "340x720-light-100.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "case": "ART05",
+      "width": 340,
+      "height": 720,
+      "theme": "light",
+      "samples": [
+        {
+          "point": {
+            "x": 171,
+            "y": 344
+          },
+          "color": [
+            13,
+            97,
+            173
+          ],
+          "pixel": [
+            13,
+            97,
+            173
+          ]
+        },
+        {
+          "point": {
+            "x": 171,
+            "y": 344
+          },
+          "color": [
+            219,
+            43,
+            111
+          ],
+          "pixel": [
+            219,
+            43,
+            111
+          ]
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "dark",
+      "percent": 0,
+      "screenshot": "340x720-dark-0.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "dark",
+      "percent": 25,
+      "screenshot": "340x720-dark-25.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "dark",
+      "percent": 50,
+      "screenshot": "340x720-dark-50.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "dark",
+      "percent": 75,
+      "screenshot": "340x720-dark-75.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 340,
+      "height": 720,
+      "theme": "dark",
+      "percent": 100,
+      "screenshot": "340x720-dark-100.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "case": "ART05",
+      "width": 340,
+      "height": 720,
+      "theme": "dark",
+      "samples": [
+        {
+          "point": {
+            "x": 171,
+            "y": 344
+          },
+          "color": [
+            13,
+            97,
+            173
+          ],
+          "pixel": [
+            13,
+            97,
+            173
+          ]
+        },
+        {
+          "point": {
+            "x": 171,
+            "y": 344
+          },
+          "color": [
+            219,
+            43,
+            111
+          ],
+          "pixel": [
+            219,
+            43,
+            111
+          ]
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "percent": 0,
+      "screenshot": "580x720-light-0.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "percent": 25,
+      "screenshot": "580x720-light-25.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "percent": 50,
+      "screenshot": "580x720-light-50.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "percent": 75,
+      "screenshot": "580x720-light-75.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "percent": 100,
+      "screenshot": "580x720-light-100.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "case": "ART05",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "samples": [
+        {
+          "point": {
+            "x": 291,
+            "y": 344
+          },
+          "color": [
+            13,
+            97,
+            173
+          ],
+          "pixel": [
+            13,
+            97,
+            173
+          ]
+        },
+        {
+          "point": {
+            "x": 291,
+            "y": 344
+          },
+          "color": [
+            219,
+            43,
+            111
+          ],
+          "pixel": [
+            219,
+            43,
+            111
+          ]
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "dark",
+      "percent": 0,
+      "screenshot": "580x720-dark-0.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "dark",
+      "percent": 25,
+      "screenshot": "580x720-dark-25.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "dark",
+      "percent": 50,
+      "screenshot": "580x720-dark-50.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "dark",
+      "percent": 75,
+      "screenshot": "580x720-dark-75.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 580,
+      "height": 720,
+      "theme": "dark",
+      "percent": 100,
+      "screenshot": "580x720-dark-100.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "case": "ART05",
+      "width": 580,
+      "height": 720,
+      "theme": "dark",
+      "samples": [
+        {
+          "point": {
+            "x": 291,
+            "y": 344
+          },
+          "color": [
+            13,
+            97,
+            173
+          ],
+          "pixel": [
+            13,
+            97,
+            173
+          ]
+        },
+        {
+          "point": {
+            "x": 291,
+            "y": 344
+          },
+          "color": [
+            219,
+            43,
+            111
+          ],
+          "pixel": [
+            219,
+            43,
+            111
+          ]
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "light",
+      "percent": 0,
+      "screenshot": "1080x760-light-0.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "light",
+      "percent": 25,
+      "screenshot": "1080x760-light-25.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "light",
+      "percent": 50,
+      "screenshot": "1080x760-light-50.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "light",
+      "percent": 75,
+      "screenshot": "1080x760-light-75.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "light",
+      "percent": 100,
+      "screenshot": "1080x760-light-100.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "case": "ART05",
+      "width": 1080,
+      "height": 760,
+      "theme": "light",
+      "samples": [
+        {
+          "point": {
+            "x": 541,
+            "y": 363
+          },
+          "color": [
+            13,
+            97,
+            173
+          ],
+          "pixel": [
+            13,
+            97,
+            173
+          ]
+        },
+        {
+          "point": {
+            "x": 541,
+            "y": 363
+          },
+          "color": [
+            219,
+            43,
+            111
+          ],
+          "pixel": [
+            219,
+            43,
+            111
+          ]
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "dark",
+      "percent": 0,
+      "screenshot": "1080x760-dark-0.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "dark",
+      "percent": 25,
+      "screenshot": "1080x760-dark-25.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "dark",
+      "percent": 50,
+      "screenshot": "1080x760-dark-50.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "dark",
+      "percent": 75,
+      "screenshot": "1080x760-dark-75.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "width": 1080,
+      "height": 760,
+      "theme": "dark",
+      "percent": 100,
+      "screenshot": "1080x760-dark-100.png",
+      "status": "CAPTURED",
+      "scope": "standalone source art preview, not production integration"
+    },
+    {
+      "case": "ART05",
+      "width": 1080,
+      "height": 760,
+      "theme": "dark",
+      "samples": [
+        {
+          "point": {
+            "x": 541,
+            "y": 363
+          },
+          "color": [
+            13,
+            97,
+            173
+          ],
+          "pixel": [
+            13,
+            97,
+            173
+          ]
+        },
+        {
+          "point": {
+            "x": 541,
+            "y": 363
+          },
+          "color": [
+            219,
+            43,
+            111
+          ],
+          "pixel": [
+            219,
+            43,
+            111
+          ]
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

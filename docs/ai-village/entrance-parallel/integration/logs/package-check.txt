@@ -1,0 +1,12 @@
+Progress: resolved 0, reused 0, downloaded 1, added 0
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+Packages: +1
++
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: D:\Documents\FeiyangChen\devApps\dsh_plugin-entrance-integration\.build\entrance-package-bcQbRQ\empty-store\v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 1, reused 0, downloaded 1, added 1, done
+Done in 728ms using pnpm v11.25.0
+Offline plugin native dependency and isolated Host smoke PASS
+{"status":"PASS","file":"nidofy-dsh-ai-village-0.6.4.tgz","sha256":"bcb4d5c5757a5c7b3c9643d6f8751c4ee4d418524d228f206e009497d7ca01aa","bytes":32114525,"entries":276,"art_status":"ART_REVIEW","offline_empty_store":true,"registry":"http://127.0.0.1:9","lifecycle_scripts":false,"isolated_host_smoke":true,"real_profile_touched":false,"preview_modules_packaged":false,"host_peers":"Existing pinned host installation, provided only after offline plugin install"}

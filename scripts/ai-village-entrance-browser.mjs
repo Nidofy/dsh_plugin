@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url'
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { runPreview } from './ai-village-phase4-browser.mjs'
-const root=resolve(import.meta.dirname,'..'),out=join(root,'.build/ai-village-phase4'),qa=join(root,'packages/ai-village/art/QA/entrance-v1')
+const root=resolve(import.meta.dirname,'..'),out=join(root,'.build/ai-village-phase4'),qa=process.env.VILLAGE_QA_DIR?resolve(process.env.VILLAGE_QA_DIR):join(root,'packages/ai-village/art/QA/entrance-v1')
 await mkdir(qa,{recursive:true});await runPreview({root,pkg:join(root,'packages/ai-village'),out,buildOnly:true})
 const {harness}=await import(pathToFileURL(join(out,'harness.mjs'))),plugin=await import(pathToFileURL(join(out,'lib/index.js')))
 const {source}=JSON.parse(await readFile(join(root,'.local/environment.json'),'utf8')),pnpm=join(source,'node_modules/.pnpm'),pw=(await readdir(pnpm)).find(n=>n.startsWith('playwright@1.61.'))
@@ -72,6 +72,8 @@ try {for(const scenario of scenarios){
      await page.getByRole('alert').waitFor();const state=await inspect();assert.equal(state.entrance.blocking,true);assert.equal(state.entrance.canReveal,false);await shot('error');trace.push({event:'failure',state})
    } else {
      await entered();const elapsedMs=Date.now()-start,state=await inspect();await page.waitForTimeout(260);assert.equal(state.error,'');assert.equal(state.entrance.firstFrame,true);assert.equal(state.entrance.progress,1)
+     assert.ok(requests.every(key=>!key.startsWith('entrance/')),'Production must not request ART_REVIEW layers');
+     assert.equal(await page.locator('.entrance-camera').count(),0);
      assert.equal(state.resourceKeys.length,32);assert.ok(state.resourceKeys.every(key=>!key.startsWith('claude/')&&!key.startsWith('gpt/')))
      assert.equal(await page.locator('.village-canvas iframe').count(),1);await shot('entered');trace.push({event:'entered',elapsedMs,state})
      if(scenario==='restore'){
@@ -85,7 +87,7 @@ try {for(const scenario of scenarios){
      assert.equal(await page.locator('.village-card').evaluate(el=>el.getAnimations({subtree:true}).filter(a=>a.playState==='running').length),0)
    }
    trace.push({event:'protocol',messages:await page.evaluate(()=>window.__entranceEvents)})
-   results.push({scenario,status:'PASS',requests,trace,renderer:'SwiftShader',art:'ART_PENDING'});console.log(scenario+' PASS')
+   results.push({scenario,status:'PASS',requests,trace,renderer:'SwiftShader',art:JSON.parse(await readFile(join(root,'packages/ai-village/assets/entrance/manifest.json'),'utf8')).status});console.log(scenario+' PASS')
  }catch(error){results.push({scenario,status:'FAIL',error:String(error),state:await inspect().catch(()=>null),requests,trace});await shot('failed').catch(()=>{});throw error}
  finally{
    await page.evaluate(()=>window.__villageHostFixture?.dispose()).catch(()=>{});const video=page.video();await context.close();if(video)await copyFile(await video.path(),join(qa,scenario+'.webm'));await h.close();await writeFile(join(qa,'validation.json'),JSON.stringify({build,results,errors,gpu:'NOT RUN',visual:'USER_VISUAL_REVIEW',oneHour:'DEFERRED'},null,2))

@@ -1,0 +1,689 @@
+{
+  "baseSHA": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
+  "build": {
+    "head": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
+    "dirty": "?? docs/ai-village/entrance-parallel/integration/final-production/\n?? docs/ai-village/entrance-parallel/integration/final-review/\n?? docs/ai-village/entrance-parallel/integration/logs/b-review-build-after.txt\n?? docs/ai-village/entrance-parallel/integration/logs/b-review-build.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-b-build.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-b-review-build.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-b-review.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-release.txt\n?? docs/ai-village/entrance-parallel/integration/logs/final-tests.txt\n?? docs/ai-village/entrance-parallel/integration/seam-after/\n?? docs/ai-village/entrance-parallel/integration/seam-before/",
+    "hashes": {
+      "fixture.js": "0c5705eab1927b5205026e881109a461eed84b39e6155af65066bd4d778c0a75",
+      "lib/index.mjs": "fcc3ffadf75d30fc4eb111a38fa555f10e109cb98d4c816fb160014b1b6f8bcb",
+      "lib/frame.js": "57ee4268590cd3a6af0d57dd734579af5c6f61d9c10330173ec6ec766a4e7a82"
+    },
+    "official": "687f282e8625c6b8d11ff58211a90524be2e4317",
+    "productionFilesModified": false,
+    "reviewMode": false
+  },
+  "command": "node D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin-entrance-integration\\scripts\\ai-village-dualqa-browser.mjs normal",
+  "node": "v24.16.0",
+  "backend": "Chromium headless / software rendering; inspect renderer metrics",
+  "performanceStatus": "CONTENDED",
+  "art": "ART_PENDING",
+  "results": [
+    {
+      "case": "normal",
+      "status": "PASS",
+      "trace": [
+        {
+          "startedAtInPage": 82.5,
+          "coldElapsedMs": 725,
+          "state": {
+            "entrance": {
+              "blocking": false,
+              "full": false,
+              "firstFrame": true,
+              "progress": 1,
+              "canReveal": true
+            },
+            "errorCode": "",
+            "reasons": [],
+            "ticks": 0,
+            "userPaused": false,
+            "revision": 1,
+            "resourceCount": 32
+          },
+          "screenshot": "normal-entered.png"
+        },
+        {
+          "metrics": {
+            "frames": 7,
+            "actors": 1,
+            "textures": 32,
+            "tickerStarted": false,
+            "atmosphereTextureSources": 1,
+            "atmosphereCacheSize": [
+              256,
+              256
+            ],
+            "geometry": [
+              {
+                "id": "work",
+                "activity": "work",
+                "seat": "main",
+                "hit": {
+                  "x": 46,
+                  "y": 273,
+                  "width": 112,
+                  "height": 16
+                },
+                "anchor": {
+                  "x": 102,
+                  "y": 283
+                }
+              },
+              {
+                "id": "eat",
+                "activity": "eat",
+                "seat": "left",
+                "hit": {
+                  "x": 123,
+                  "y": 316,
+                  "width": 100,
+                  "height": 64
+                },
+                "anchor": {
+                  "x": 175,
+                  "y": 374
+                }
+              },
+              {
+                "id": "eat",
+                "activity": "eat",
+                "seat": "right",
+                "hit": {
+                  "x": 225,
+                  "y": 316,
+                  "width": 102,
+                  "height": 64
+                },
+                "anchor": {
+                  "x": 273,
+                  "y": 374
+                }
+              },
+              {
+                "id": "rest",
+                "seat": "main",
+                "activity": "rest",
+                "hit": {
+                  "x": 233,
+                  "y": 211,
+                  "width": 90,
+                  "height": 44
+                },
+                "anchor": {
+                  "x": 274,
+                  "y": 245
+                }
+              },
+              {
+                "id": "bench",
+                "seat": "left",
+                "activity": "sit",
+                "hit": {
+                  "x": 35,
+                  "y": 211,
+                  "width": 70,
+                  "height": 40
+                },
+                "anchor": {
+                  "x": 70,
+                  "y": 239
+                }
+              },
+              {
+                "id": "bench",
+                "seat": "right",
+                "activity": "sit",
+                "hit": {
+                  "x": 135,
+                  "y": 211,
+                  "width": 70,
+                  "height": 40
+                },
+                "anchor": {
+                  "x": 170,
+                  "y": 239
+                }
+              }
+            ],
+            "environment": "afternoon",
+            "viewport": {
+              "world": {
+                "scale": 0.9444444444444444,
+                "x": 0,
+                "y": 133.33333333333334
+              },
+              "background": {
+                "x": 0,
+                "y": 133.33333333333334,
+                "width": 340,
+                "height": 453.3333333333333
+              }
+            },
+            "arrangementObjects": [],
+            "gesture": null,
+            "paused": false,
+            "meanPaintMs": 8.328571421759468,
+            "maxPaintMs": 55,
+            "paintSampleCount": 7,
+            "p50PaintMs": 0.5999999046325684,
+            "p95PaintMs": 55
+          }
+        },
+        {
+          "protocol": {
+            "messages": [
+              {
+                "type": "frame-resource-progress",
+                "at": 340.09999990463257,
+                "assetRevision": 1,
+                "progress": 0.042251209709970476
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 344.09999990463257,
+                "assetRevision": 1,
+                "progress": 0.07120341281261407
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 346.2000000476837,
+                "assetRevision": 1,
+                "progress": 0.0840376582231246
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 348.09999990463257,
+                "assetRevision": 1,
+                "progress": 0.09588309042751514
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 351.09999990463257,
+                "assetRevision": 1,
+                "progress": 0.11909561934907643
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 352.2000000476837,
+                "assetRevision": 1,
+                "progress": 0.12268436633266513
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 353.5,
+                "assetRevision": 1,
+                "progress": 0.12615811867993504
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 357.5,
+                "assetRevision": 1,
+                "progress": 0.16090548878815972
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 365.5,
+                "assetRevision": 1,
+                "progress": 0.23053569057619933
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 367.40000009536743,
+                "assetRevision": 1,
+                "progress": 0.24045448787375112
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 368.90000009536743,
+                "assetRevision": 1,
+                "progress": 0.2505634659031721
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 370.7999999523163,
+                "assetRevision": 1,
+                "progress": 0.26078033492471114
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 373,
+                "assetRevision": 1,
+                "progress": 0.2709494477639502
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 375.40000009536743,
+                "assetRevision": 1,
+                "progress": 0.2835560248944827
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 378.7000000476837,
+                "assetRevision": 1,
+                "progress": 0.2973752855231248
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 381.5,
+                "assetRevision": 1,
+                "progress": 0.32080071277137545
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 383.7000000476837,
+                "assetRevision": 1,
+                "progress": 0.3408512056931684
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 386.2999999523163,
+                "assetRevision": 1,
+                "progress": 0.3643331104294704
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 389.90000009536743,
+                "assetRevision": 1,
+                "progress": 0.3838636306623918
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 392.40000009536743,
+                "assetRevision": 1,
+                "progress": 0.39988713098658835
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 393.5,
+                "assetRevision": 1,
+                "progress": 0.40456871384731574
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 397.7000000476837,
+                "assetRevision": 1,
+                "progress": 0.4423209957855619
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 398.90000009536743,
+                "assetRevision": 1,
+                "progress": 0.4470244522437786
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 404.2000000476837,
+                "assetRevision": 1,
+                "progress": 0.48241677697894125
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 408.59999990463257,
+                "assetRevision": 1,
+                "progress": 0.5164146071243222
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 411.40000009536743,
+                "assetRevision": 1,
+                "progress": 0.5284363644377348
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 414.2000000476837,
+                "assetRevision": 1,
+                "progress": 0.5459020452009022
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 416.2000000476837,
+                "assetRevision": 1,
+                "progress": 0.5630427166586083
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 418.40000009536743,
+                "assetRevision": 1,
+                "progress": 0.5822124983657321
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 421.2999999523163,
+                "assetRevision": 1,
+                "progress": 0.6010607170898284
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 435.2000000476837,
+                "assetRevision": 1,
+                "progress": 0.7429852685736266
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 510.7000000476837,
+                "assetRevision": 1,
+                "progress": 0.9
+              },
+              {
+                "type": "frame-resource-progress",
+                "at": 524,
+                "assetRevision": 1,
+                "progress": 1
+              },
+              {
+                "type": "ready-to-render",
+                "at": 524.4000000953674
+              },
+              {
+                "type": "first-frame-rendered",
+                "at": 648.7999999523163,
+                "assetRevision": 1,
+                "viewRevision": 1
+              }
+            ],
+            "longtasks": [
+              {
+                "start": 527.0999999046326,
+                "duration": 56
+              },
+              {
+                "start": 584.5,
+                "duration": 64
+              }
+            ]
+          },
+          "resources": [
+            {
+              "key": "portraits/bluewhale.png",
+              "duration": 15,
+              "transferSize": 32988,
+              "decodedBodySize": 32688
+            },
+            {
+              "key": "portraits/gpt.png",
+              "duration": 14.200000047683716,
+              "transferSize": 30671,
+              "decodedBodySize": 30371
+            },
+            {
+              "key": "portraits/gemini.png",
+              "duration": 15.600000143051147,
+              "transferSize": 35572,
+              "decodedBodySize": 35272
+            },
+            {
+              "key": "portraits/claude.png",
+              "duration": 16.600000143051147,
+              "transferSize": 35865,
+              "decodedBodySize": 35565
+            },
+            {
+              "key": "portraits/grok.png",
+              "duration": 23.899999856948853,
+              "transferSize": 33138,
+              "decodedBodySize": 32838
+            },
+            {
+              "key": "portraits/kimi.png",
+              "duration": 20.5,
+              "transferSize": 35174,
+              "decodedBodySize": 34874
+            },
+            {
+              "key": "portraits/qwen.png",
+              "duration": 21.40000009536743,
+              "transferSize": 34952,
+              "decodedBodySize": 34652
+            },
+            {
+              "key": "parts/back-hair.png",
+              "duration": 14.900000095367432,
+              "transferSize": 601030,
+              "decodedBodySize": 600730
+            },
+            {
+              "key": "parts/front-hair.png",
+              "duration": 12.5,
+              "transferSize": 411944,
+              "decodedBodySize": 411644
+            },
+            {
+              "key": "parts/curl-left.png",
+              "duration": 13.900000095367432,
+              "transferSize": 182778,
+              "decodedBodySize": 182478
+            },
+            {
+              "key": "parts/curl-right.png",
+              "duration": 14,
+              "transferSize": 168719,
+              "decodedBodySize": 168419
+            },
+            {
+              "key": "parts/headband.png",
+              "duration": 11.5,
+              "transferSize": 330337,
+              "decodedBodySize": 330037
+            },
+            {
+              "key": "parts/ear-left.png",
+              "duration": 15.299999952316284,
+              "transferSize": 51325,
+              "decodedBodySize": 51025
+            },
+            {
+              "key": "parts/ear-right.png",
+              "duration": 17.40000009536743,
+              "transferSize": 49690,
+              "decodedBodySize": 49390
+            },
+            {
+              "key": "parts/torso.png",
+              "duration": 18.699999809265137,
+              "transferSize": 494340,
+              "decodedBodySize": 494040
+            },
+            {
+              "key": "parts/leg-left.png",
+              "duration": 18.799999952316284,
+              "transferSize": 141326,
+              "decodedBodySize": 141026
+            },
+            {
+              "key": "parts/leg-right.png",
+              "duration": 19.59999990463257,
+              "transferSize": 144030,
+              "decodedBodySize": 143730
+            },
+            {
+              "key": "parts/skirt.png",
+              "duration": 25.699999809265137,
+              "transferSize": 990306,
+              "decodedBodySize": 990006
+            },
+            {
+              "key": "parts/arm-left.png",
+              "duration": 20,
+              "transferSize": 145564,
+              "decodedBodySize": 145264
+            },
+            {
+              "key": "parts/arm-right.png",
+              "duration": 23,
+              "transferSize": 144885,
+              "decodedBodySize": 144585
+            },
+            {
+              "key": "parts/tail-root.png",
+              "duration": 24.5,
+              "transferSize": 179541,
+              "decodedBodySize": 179241
+            },
+            {
+              "key": "parts/tail-fin.png",
+              "duration": 25,
+              "transferSize": 196783,
+              "decodedBodySize": 196483
+            },
+            {
+              "key": "parts/face-neutral.png",
+              "duration": 26.300000190734863,
+              "transferSize": 333364,
+              "decodedBodySize": 333064
+            },
+            {
+              "key": "parts/face-happy.png",
+              "duration": 27.799999952316284,
+              "transferSize": 285379,
+              "decodedBodySize": 285079
+            },
+            {
+              "key": "parts/face-surprised.png",
+              "duration": 28.59999990463257,
+              "transferSize": 334167,
+              "decodedBodySize": 333867
+            },
+            {
+              "key": "parts/face-sleepy.png",
+              "duration": 29.59999990463257,
+              "transferSize": 277986,
+              "decodedBodySize": 277686
+            },
+            {
+              "key": "parts/ahoge.png",
+              "duration": 30.600000143051147,
+              "transferSize": 228123,
+              "decodedBodySize": 227823
+            },
+            {
+              "key": "scene/desk-back.png",
+              "duration": 30.700000047683716,
+              "transferSize": 66863,
+              "decodedBodySize": 66563
+            },
+            {
+              "key": "scene/desk-front.png",
+              "duration": 33.40000009536743,
+              "transferSize": 537064,
+              "decodedBodySize": 536764
+            },
+            {
+              "key": "scene/table-back.png",
+              "duration": 33.799999952316284,
+              "transferSize": 67174,
+              "decodedBodySize": 66874
+            },
+            {
+              "key": "scene/table-front.png",
+              "duration": 36.39999985694885,
+              "transferSize": 503510,
+              "decodedBodySize": 503210
+            },
+            {
+              "key": "scene/bowl.png",
+              "duration": 34.40000009536743,
+              "transferSize": 171226,
+              "decodedBodySize": 170926
+            },
+            {
+              "key": "scene/work-left.png",
+              "duration": 35.5,
+              "transferSize": 248628,
+              "decodedBodySize": 248328
+            },
+            {
+              "key": "scene/cushion.png",
+              "duration": 44.700000047683716,
+              "transferSize": 483683,
+              "decodedBodySize": 483383
+            },
+            {
+              "key": "scene/eat-right.png",
+              "duration": 43.200000047683716,
+              "transferSize": 268285,
+              "decodedBodySize": 267985
+            },
+            {
+              "key": "scene/work-right.png",
+              "duration": 39.5,
+              "transferSize": 244007,
+              "decodedBodySize": 243707
+            },
+            {
+              "key": "scene/eat-left.png",
+              "duration": 40.40000009536743,
+              "transferSize": 272857,
+              "decodedBodySize": 272557
+            },
+            {
+              "key": "scene/rest-pose.png",
+              "duration": 49.5,
+              "transferSize": 2018191,
+              "decodedBodySize": 2017891
+            },
+            {
+              "key": "scene/background.png",
+              "duration": 58.39999985694885,
+              "transferSize": 2232744,
+              "decodedBodySize": 2232444
+            }
+          ]
+        }
+      ],
+      "requests": [
+        "portraits/bluewhale.png",
+        "portraits/claude.png",
+        "portraits/gemini.png",
+        "portraits/gpt.png",
+        "portraits/grok.png",
+        "portraits/kimi.png",
+        "portraits/qwen.png",
+        "parts/back-hair.png",
+        "parts/front-hair.png",
+        "parts/curl-left.png",
+        "parts/curl-right.png",
+        "parts/headband.png",
+        "parts/ear-left.png",
+        "parts/ear-right.png",
+        "parts/torso.png",
+        "parts/skirt.png",
+        "parts/leg-left.png",
+        "parts/leg-right.png",
+        "parts/arm-left.png",
+        "parts/arm-right.png",
+        "parts/tail-root.png",
+        "parts/tail-fin.png",
+        "parts/face-neutral.png",
+        "parts/face-happy.png",
+        "parts/face-surprised.png",
+        "parts/face-sleepy.png",
+        "parts/ahoge.png",
+        "scene/desk-back.png",
+        "scene/desk-front.png",
+        "scene/table-back.png",
+        "scene/table-front.png",
+        "scene/cushion.png",
+        "scene/bowl.png",
+        "scene/work-left.png",
+        "scene/work-right.png",
+        "scene/eat-left.png",
+        "scene/eat-right.png",
+        "scene/rest-pose.png",
+        "scene/background.png",
+        "portraits/bluewhale.png",
+        "portraits/claude.png",
+        "portraits/gemini.png",
+        "portraits/gpt.png",
+        "portraits/grok.png",
+        "portraits/kimi.png",
+        "portraits/qwen.png"
+      ]
+    }
+  ],
+  "notRun": [
+    "real Windows GPU / DPI",
+    "human art approval",
+    "formal uncontended performance baseline"
+  ],
+  "oneHour": "DEFERRED"
+}

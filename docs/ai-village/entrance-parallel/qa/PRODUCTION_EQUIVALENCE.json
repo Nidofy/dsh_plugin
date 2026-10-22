@@ -1,0 +1,25 @@
+{
+  "older": "4d9cd1ab06ec506cc28f2d574b4c7c3a8c40d503",
+  "latest": "123d1697e033456101e541a093eebd64fd192007",
+  "trees": {
+    "packages/ai-village/src": {
+      "older": "cc9a9e7d36d0c16a303995504b5c0dd6b0c56cd3",
+      "latest": "cc9a9e7d36d0c16a303995504b5c0dd6b0c56cd3"
+    },
+    "packages/ai-village/assets": {
+      "older": "b446c8eeee60909a41c61fc9d9ba87088ed6835b",
+      "latest": "b446c8eeee60909a41c61fc9d9ba87088ed6835b"
+    },
+    "packages/ai-village/experiments": {
+      "older": "ac25474c47f54132fc8b1c0da01f0bd3dfd324c0",
+      "latest": "ac25474c47f54132fc8b1c0da01f0bd3dfd324c0"
+    }
+  },
+  "verdict": "IDENTICAL_PRODUCTION_TREES",
+  "exactLatestRerun": [
+    "58 tests PASS",
+    "review build PASS",
+    "DQ-SEAM-01 FAIL (300 pixels)"
+  ],
+  "broaderResults": "evaluation-4d9cd1a/SUMMARY.json"
+}

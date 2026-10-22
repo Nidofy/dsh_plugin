@@ -1,0 +1,60 @@
+{
+  "A_SHA": "123d1697e033456101e541a093eebd64fd192007",
+  "scope": "Independent QA with the committed local ART_REVIEW alias; keyframes manually seek DOM doors while valid ACK held",
+  "rows": [
+    {
+      "kind": "seam-probe",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "seam-probe-580x720-light",
+      "A_SHA": "123d1697e033456101e541a093eebd64fd192007",
+      "buildHashes": {
+        "fixture.js": "68658605959cda7a9196d9c1d7c8c2b674c75e78a0821b0631bf402af636d09c",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "seam-probe-580x720-light-blue.png",
+        "seam-probe-580x720-light-pink.png",
+        "seam-probe-580x720-light-failure.png"
+      ],
+      "actualCard": {
+        "x": 212,
+        "y": 92,
+        "width": 580,
+        "height": 720
+      },
+      "seam": {
+        "method": "Closed production DOM doors, two solid diagnostic colors beneath entrance; safe rectangle inset 2 screen px",
+        "bounds": {
+          "x": 200.39998033311633,
+          "y": 290.0000093248155,
+          "width": 181.99997795952692,
+          "height": 154.00000466240775
+        },
+        "testedPixels": 26700,
+        "changedOver2": 300,
+        "maxDelta": 56,
+        "thresholdExplanation": "RGB difference >2 exceeds 8-bit screenshot rounding; art approval still human"
+      },
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Closed door seam transmits underlying scene color\n\n300 !== 0\n",
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 200.5,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1318.9000000953674,
+          "canReveal": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+
+ RUN  v4.1.8 D:/Documents/FeiyangChen/devApps/dsh_plugin-entrance-integration
+
+
+ Test Files  33 passed (33)
+      Tests  159 passed (159)
+   Start at  23:28:19
+   Duration  9.42s (transform 5.08s, setup 685ms, import 6.95s, tests 28.95s, environment 9.95s)

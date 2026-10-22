@@ -1,0 +1,684 @@
+{
+  "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+  "scope": "Independent QA with the committed local ART_REVIEW alias; keyframes manually seek DOM doors while valid ACK held",
+  "rows": [
+    {
+      "kind": "keyframes",
+      "width": 320,
+      "height": 360,
+      "theme": "light",
+      "language": "zh",
+      "id": "keyframes-320x360-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "keyframes-320x360-light-door-0.png",
+        "keyframes-320x360-light-door-25.png",
+        "keyframes-320x360-light-door-50.png",
+        "keyframes-320x360-light-door-75.png",
+        "keyframes-320x360-light-door-100.png",
+        "keyframes-320x360-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 184.29999995231628,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1307.5999999046326,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1954.2999999523163,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2623.699999809265,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3173.2999999523163,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "keyframes",
+      "width": 320,
+      "height": 360,
+      "theme": "dark",
+      "language": "en",
+      "id": "keyframes-320x360-dark",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "keyframes-320x360-dark-door-0.png",
+        "keyframes-320x360-dark-door-25.png",
+        "keyframes-320x360-dark-door-50.png",
+        "keyframes-320x360-dark-door-75.png",
+        "keyframes-320x360-dark-door-100.png",
+        "keyframes-320x360-dark-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 159.20000004768372,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1261.9000000953674,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1924.9000000953674,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2595.5999999046326,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3161.5,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "keyframes",
+      "width": 340,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "keyframes-340x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "keyframes-340x720-light-door-0.png",
+        "keyframes-340x720-light-door-25.png",
+        "keyframes-340x720-light-door-50.png",
+        "keyframes-340x720-light-door-75.png",
+        "keyframes-340x720-light-door-100.png",
+        "keyframes-340x720-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 167.59999990463257,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1285,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 2071.399999856949,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2767.899999856949,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3335.2999999523163,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "keyframes",
+      "width": 340,
+      "height": 720,
+      "theme": "dark",
+      "language": "en",
+      "id": "keyframes-340x720-dark",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "keyframes-340x720-dark-door-0.png",
+        "keyframes-340x720-dark-door-25.png",
+        "keyframes-340x720-dark-door-50.png",
+        "keyframes-340x720-dark-door-75.png",
+        "keyframes-340x720-dark-door-100.png",
+        "keyframes-340x720-dark-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 177.20000004768372,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1306.1000001430511,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 2099.5,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2772.5,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3322.5,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "keyframes",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "keyframes-580x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "keyframes-580x720-light-door-0.png",
+        "keyframes-580x720-light-door-25.png",
+        "keyframes-580x720-light-door-50.png",
+        "keyframes-580x720-light-door-75.png",
+        "keyframes-580x720-light-door-100.png",
+        "keyframes-580x720-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 156.59999990463257,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1278.5999999046326,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 2191.199999809265,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2860,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3427.5,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "keyframes",
+      "width": 580,
+      "height": 720,
+      "theme": "dark",
+      "language": "en",
+      "id": "keyframes-580x720-dark",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "keyframes-580x720-dark-door-0.png",
+        "keyframes-580x720-dark-door-25.png",
+        "keyframes-580x720-dark-door-50.png",
+        "keyframes-580x720-dark-door-75.png",
+        "keyframes-580x720-dark-door-100.png",
+        "keyframes-580x720-dark-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 167.59999990463257,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1280.2999999523163,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 2207.5999999046326,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 2905.0999999046326,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3471.899999856949,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "keyframes",
+      "width": 1080,
+      "height": 760,
+      "theme": "light",
+      "language": "zh",
+      "id": "keyframes-1080x760-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "keyframes-1080x760-light-door-0.png",
+        "keyframes-1080x760-light-door-25.png",
+        "keyframes-1080x760-light-door-50.png",
+        "keyframes-1080x760-light-door-75.png",
+        "keyframes-1080x760-light-door-100.png",
+        "keyframes-1080x760-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 168,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1270.2999999523163,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 2462.7999999523163,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 3171.4000000953674,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3737.7000000476837,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "keyframes",
+      "width": 1080,
+      "height": 760,
+      "theme": "dark",
+      "language": "en",
+      "id": "keyframes-1080x760-dark",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "keyframes-1080x760-dark-door-0.png",
+        "keyframes-1080x760-dark-door-25.png",
+        "keyframes-1080x760-dark-door-50.png",
+        "keyframes-1080x760-dark-door-75.png",
+        "keyframes-1080x760-dark-door-100.png",
+        "keyframes-1080x760-dark-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 166,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1296.5999999046326,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 2490.2000000476837,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 3196,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 3762.7000000476837,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "hide-approach",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "hide-approach-580x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "hide-approach-580x720-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 167.29999995231628,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 814.3999998569489,
+          "canReveal": false
+        },
+        {
+          "phase": "reveal",
+          "at": 1294.2999999523163,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "hide-open",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "hide-open-580x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "hide-open-580x720-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 169.69999980926514,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1299,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1308.6999998092651,
+          "canReveal": true
+        },
+        {
+          "phase": "wait",
+          "at": 1312.0999999046326,
+          "canReveal": false
+        },
+        {
+          "phase": "reveal",
+          "at": 1800.0999999046326,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "hide-cross",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "hide-cross-580x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "hide-cross-580x720-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 168.40000009536743,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1292.0999999046326,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1302.4000000953674,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 1987.7000000476837,
+          "canReveal": true
+        },
+        {
+          "phase": "wait",
+          "at": 1991,
+          "canReveal": false
+        },
+        {
+          "phase": "reveal",
+          "at": 2439.7999999523163,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "resize-open",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "resize-open-580x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "resize-open-580x720-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 161.29999995231628,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1284.2000000476837,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1294.1000001430511,
+          "canReveal": true
+        },
+        {
+          "phase": "cross",
+          "at": 1979.2999999523163,
+          "canReveal": true
+        },
+        {
+          "phase": "reveal",
+          "at": 2545.7000000476837,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "disconnect-open",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "disconnect-open-580x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "disconnect-open-580x720-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "approach",
+          "at": 165.39999985694885,
+          "canReveal": false
+        },
+        {
+          "phase": "wait",
+          "at": 1300.2999999523163,
+          "canReveal": false
+        },
+        {
+          "phase": "open",
+          "at": 1310.0999999046326,
+          "canReveal": true
+        },
+        {
+          "phase": "wait",
+          "at": 1344.2999999523163,
+          "canReveal": false
+        },
+        {
+          "phase": "reveal",
+          "at": 1918.5999999046326,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "kind": "art-404",
+      "width": 580,
+      "height": 720,
+      "theme": "light",
+      "language": "zh",
+      "id": "art-404-580x720-light",
+      "A_SHA": "3bd04fae1d859b5acc38ed4348a9b11a45c12184",
+      "buildHashes": {
+        "fixture.js": "431e8a985057a033c18b10350ba1de8c38383b2305d649d05a0bc4caa70eeb69",
+        "lib/index.mjs": "55d12b321161c279c4a684529061aed35f0c0533acd649d46b70da0d08736082",
+        "lib/frame.js": "e0788a2959e9e2d5238b31267ee1d65229e12b20458c6d7043c0dfc6df0d1ee8"
+      },
+      "backend": "SwiftShader + explicit reviewMotion DOM animation override; NOT hardware GPU",
+      "artStatus": "ART_REVIEW",
+      "screenshots": [
+        "art-404-580x720-light-entered.png"
+      ],
+      "phases": [
+        {
+          "phase": "wait",
+          "at": 142,
+          "canReveal": false
+        },
+        {
+          "phase": "reveal",
+          "at": 836.1999998092651,
+          "canReveal": true
+        }
+      ],
+      "status": "PASS"
+    }
+  ]
+}

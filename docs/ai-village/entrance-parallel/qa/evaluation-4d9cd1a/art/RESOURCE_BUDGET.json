@@ -1,0 +1,32 @@
+{
+  "sourceHead": "4d9cd1ab06ec506cc28f2d574b4c7c3a8c40d503",
+  "budget": {
+    "bytes": 4194304,
+    "pixels": 8000000,
+    "layers": 8,
+    "perFile": 8388608,
+    "sourceSHA": "fbb591fd8a7c9670e56b2d1fc64e9b96e3e79067543eb0f77fa2eacb8514657a",
+    "themeSHA": "98c9659e6183ba1236ec0cf9ce66adf3ee8f9516fb56d194a2816be1a4af7037"
+  },
+  "groups": [
+    {
+      "name": "runtime",
+      "provenance": "Original dream-garden art commit 42ee9f46eb0b772fb556631b9a75669c9ea49edf; cropped 2x compatibility export, unchanged PNG bytes; human approval pending.",
+      "status": "PASS",
+      "artStatus": "ART_REVIEW",
+      "bytes": 2749401,
+      "pixels": 1773738,
+      "rgbaBytes": 7094952,
+      "layers": 8,
+      "limits": {
+        "bytes": 4194304,
+        "pixels": 8000000,
+        "layers": 8,
+        "perFile": 8388608,
+        "sourceSHA": "fbb591fd8a7c9670e56b2d1fc64e9b96e3e79067543eb0f77fa2eacb8514657a",
+        "themeSHA": "98c9659e6183ba1236ec0cf9ce66adf3ee8f9516fb56d194a2816be1a4af7037"
+      },
+      "failures": []
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "stage": "ART_PREVIEW_READY",
+  "base_sha": "bc230e7f662f47efb497529a276d09aad90ad4ac",
+  "art_source_sha": "42ee9f46eb0b772fb556631b9a75669c9ea49edf",
+  "art_status": "ART_REVIEW",
+  "verified": [
+    "8 size/theme preview cases; real game behind curved aperture; 0/25/50/100 door snapshots",
+    "150 behavior tests across 30 files",
+    "15 existing startup/browser regression cases",
+    "strict official Host/Client typecheck and build",
+    "offline empty-store candidate install and isolated Host smoke (initial candidate; rebuild required after final lifecycle fix)"
+  ],
+  "not_run": [
+    "Independent B verification",
+    "Real GPU / Windows DPI / visual approval",
+    "One-hour run: DEFERRED"
+  ],
+  "remaining": [
+    "UI/recovery regressions",
+    "Final rebuild, package and committed-source evidence index"
+  ],
+  "source_sha256": {
+    "packages/ai-village/assets/entrance/manifest.json": "e9b9072adfef614f682e11c157df18390e55ddd3923bda0af0ed8d0b2bd8494e",
+    "packages/ai-village/src/client/EntranceOverlay.tsx": "4ed90e40261bbb9515d879f8da776c9717ec96f778245edb51d24582612c69dd",
+    "packages/ai-village/src/client/entrance-theme.ts": "2d91ee911ad83eada31ad0e9b7964c3ff0eda50f5feca32c4640be2c70efb30b",
+    "packages/ai-village/src/client/entrance-art.ts": "9fa9ca4037c1f36c2a6fb2fe53c73a79a6df2d2e56c7c97a6605f643d0b22a37",
+    "packages/ai-village/src/client/entrance-state.ts": "274c81357c97ec35b52e86673bd6b2f7f813c790488f0f3729758ed106871391",
+    "packages/ai-village/src/client/frame-bridge.ts": "94ac26b1f3c049156d3706d7823398c8a6fe1bd091cc173c40a8f1a6671c6910"
+  }
+}
