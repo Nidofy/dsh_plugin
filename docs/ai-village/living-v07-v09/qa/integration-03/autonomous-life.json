@@ -1,0 +1,255 @@
+{
+  "seconds": 90.51416820000001,
+  "observedInteractions": 1,
+  "observations": [
+    {
+      "tick": 12613,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12631,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12647,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12662,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12677,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12693,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12708,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12724,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12739,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12755,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12770,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12786,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12801,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12817,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12832,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12847,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12863,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12879,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    },
+    {
+      "tick": 12895,
+      "social": {
+        "pair": [
+          "grok",
+          "kimi"
+        ],
+        "kind": "chat",
+        "startTick": 12600,
+        "endTick": 12900
+      },
+      "initiatorBehavior": "idle"
+    }
+  ],
+  "status": "OBSERVED",
+  "note": "Natural 90s seven-resident run; no state placement, forced social command or simulation time acceleration."
+}

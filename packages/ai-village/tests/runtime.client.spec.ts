@@ -2,10 +2,10 @@ import { stories, neighborhoodEvents } from '../src/core/neighborhood-catalog.ts
 // @vitest-environment jsdom
 import { it, expect, vi, afterEach } from 'vitest'
 import { VillageRuntime } from '../src/client/runtime.ts'
-import { createHomeWorld as createWorld, type HomeWorld as ContentWorld } from '../src/core/home-state.ts'
+import { createLivingWorld as createWorld, type LivingWorld as ContentWorld } from '../src/core/living-state.ts'
 import { scene } from '../src/definitions.ts'
 import type { Saved } from '../src/host/save-store.ts'
-import { stepHome as stepTea, settleTea } from '../src/core/home-engine.ts'
+import { stepLiving as stepTea, settleTea } from '../src/core/living-engine.ts'
 afterEach(() => vi.unstubAllGlobals())
 function reveal(r: VillageRuntime) {
   // This fixture stubs resource IO; emulate the validated resource and renderer boundaries explicitly.
@@ -331,7 +331,7 @@ it('initializes twelve existing facts as read when legacy preferences migrate, w
  world.progress={completedWishes:['first-tea'],discovered:['first-table'],unlocked:['wind-chime'],lastCompletedEventId:world.journal[0]!.eventId};world.decorations.windChime={id:'first-wind-chime',slot:null}
  world.neighborhood.memories=stories.map(s=>({id:s.id,eventId:crypto.randomUUID(),participants:neighborhoodEvents.find(d=>d.story===s.id)!.count===2?['bluewhale','claude']:['bluewhale'],completedTick:0,count:1}));world.neighborhood.lastEventId=world.neighborhood.memories.at(-1)!.eventId
  const f=fixture(world,{schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}),r=f.runtime
- try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(6)}finally{await r.dispose()}
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(7)}finally{await r.dispose()}
 })
 
 

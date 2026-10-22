@@ -9,10 +9,12 @@ import { deriveNotices, type Notice } from '../core/notifications.ts'
 import { AlbumClient } from './album-client.ts'
 import { residentAssets } from './asset-selection.ts'
 import { actors } from '../core/world.ts'
-import { HomeController as ContentController } from '../core/home-controller.ts'
-import { inviteTea, cancelTea, settleTea, placeBell, startNeighborhoodEvent, changeLayout, decorateExtra } from '../core/home-engine.ts'
+import { LivingController as ContentController } from '../core/living-controller.ts'
+import { inviteTea, cancelTea, settleTea, placeBell, startNeighborhoodEvent, changeLayout, decorateExtra } from '../core/living-engine.ts'
 import type { CharacterId } from '../core/roster.ts'
-import { createHomeWorld as createContentWorld, validateHomeWorld as validateContentWorld, arrangeHome, homeTemplates, type Home, type HomeWorld as ContentWorld } from '../core/home-state.ts'
+import { createLivingWorld as createContentWorld, validateLivingWorld as validateContentWorld, migrateLivingWorld, homeProjection, type LivingWorld as ContentWorld } from '../core/living-state.ts'
+import { homeTemplates, type Home } from '../core/home-state.ts'
+import { arrangeHome, startPlay as beginPlay, playAction as actPlay, cancelPlay as stopPlay, placePlayDecoration as putPlayDecoration, whalePlace, whalePoint } from '../core/living-engine.ts'
 import type { LayoutId, ExtraDecoration } from '../core/neighborhood-catalog.ts'
 import type { Food, BellSlot } from '../core/content-state.ts'
 import { characterIds } from '../core/roster.ts'
@@ -76,7 +78,7 @@ export class VillageRuntime {
       if (state.profileId !== this.profileId || prefs.profileId !== this.profileId) throw Error('PROFILE_CHANGED')
       if (state.epoch !== this.epoch || prefs.epoch !== this.epoch) throw Error('HOST_CHANGED')
       // Validate all observations before publishing any reconciliation.
-      if (state.saved) validateContentWorld(state.saved.world, scene)
+      if (state.saved) migrateLivingWorld(state.saved.world, scene)
       if (prefs.saved) decodePreferences(prefs.saved.world)
       if (!this.transaction.pending && (state.saved?.revision ?? 0) !== this.revision) throw Error('REVISION_CONFLICT')
       if (!this.preferenceTransaction.pending && (prefs.saved?.revision ?? 0) !== this.preferenceRevision) throw Error('PREFERENCES_CONFLICT')
@@ -85,7 +87,7 @@ export class VillageRuntime {
         if (receipt.status !== 'committed') throw Error('SAVE_UNCONFIRMED')
         this.revision = receipt.revision
         if (this.criticalCandidate && this.controller && state.saved) {
-          this.controller.world = validateContentWorld(state.saved.world, scene); this.controller.syncScene()
+          this.controller.world = migrateLivingWorld(state.saved.world, scene); this.controller.syncScene()
           if (this.controller.world.userPaused) { this.reasons.add('user'); this.controller.pauseReasons.add('user') }
           else { this.reasons.delete('user'); this.controller.pauseReasons.delete('user') }
           this.criticalCandidate = null; this.pause('commit-pending', false)
@@ -113,6 +115,7 @@ export class VillageRuntime {
   input(input: UIInput) {
     if (this.entrance.blocking) return
     if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.transaction.pending || this.photoMode) return
+    if (input.kind === 'play-find') { const w=this.controller?.world, target=w&&whalePoint(w,scene); if(w?.play.active && target && Math.hypot(input.point.x-target.x,input.point.y-target.y)<=18) void this.playAction('find',whalePlace(w.play.active),input.token); return }
     if (input.kind === 'camera') { if(this.presentation.drawer==='closed'&&!this.presentation.overlay)this.setCamera(input.camera); return }
     if (input.kind === 'resident') { if(!this.arranging&&(this.presentation.drawer!=='closed'||this.presentation.overlay)){this.sceneClick();return}; if (!this.arranging && this.controller && actors(this.controller.world).some(a => a.id === input.id)) { this.selectCharacter(input.id); this.sceneClick(true) }; return }
     if (input.kind === 'scene') { if (!this.arranging) this.sceneClick(); return }
@@ -187,7 +190,7 @@ export class VillageRuntime {
   get canUndoHome() { return this.homeHistory.length > 0 }
   beginHome() {
     const world = this.controller?.world
-    if (!world || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event) return
+    if (!world || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event || world.play.active) return
     this.cancelArrangements()
     this.homeDraft = { home: structuredClone(world.home), layout: world.neighborhood.layout }
     this.homeHistory = []; this.homeDraftError = ''; this.homePreview = null; this.pause('arrange', true)
@@ -357,24 +360,24 @@ export class VillageRuntime {
           else throw Error('REVISION_CONFLICT')
         }
         if (this.criticalCandidate && state.saved && this.saveReceipt.status === 'committed') {
-          this.controller!.world = validateContentWorld(state.saved.world, scene)
+          this.controller!.world = migrateLivingWorld(state.saved.world, scene)
           this.controller!.syncScene()
           if (this.controller!.world.userPaused) { this.reasons.add('user'); this.controller!.pauseReasons.add('user') }
           else { this.reasons.delete('user'); this.controller!.pauseReasons.delete('user') }
           this.criticalCandidate = null; this.pause('commit-pending', false); this.cancelArrangements(); this.confirmed(this.controller!.world)
         }
-        const initialWorld = state.saved ? validateContentWorld(state.saved.world, scene) : createContentWorld(scene)
+        const initialWorld = state.saved ? migrateLivingWorld(state.saved.world, scene) : createContentWorld(scene)
         this.entrance.metadata = true; this.emit()
         await this.ensureAssets(initialWorld, signal)
         if (!current()) return
         if (!this.controller) {
-          this.controller = new ContentController(state.saved ? validateContentWorld(state.saved.world, scene) : createContentWorld(scene), scene, () => { if (!this.changingDraft) this.save() })
+          this.controller = new ContentController(state.saved ? migrateLivingWorld(state.saved.world, scene) : createContentWorld(scene), scene, () => { if (!this.changingDraft) this.save() })
           if (this.controller.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
           for (const reason of this.reasons) this.controller.pause(reason, true)
           this.revision = state.saved?.revision ?? 0
         }
         this.trimAssets()
-        if (state.saved) { this.notices = deriveNotices(validateContentWorld(state.saved.world, scene)) }
+        if (state.saved) { this.notices = deriveNotices(migrateLivingWorld(state.saved.world, scene)) }
         this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.ready = true
         this.pause('disconnected', false); this.pause('ownership', false)
         if (!this.preferences.noticesInitialized) await this.setPreferences({ noticeReadIds: this.notices.map(n => n.id), noticesInitialized: true })
@@ -445,6 +448,20 @@ export class VillageRuntime {
     if (this.arranging) return
     await this.neighborhoodCommand(() => startNeighborhoodEvent(this.controller!.world, scene, definition, participants, crypto.randomUUID()))
   }
+  async startPlay(id: string, participants: CharacterId[]) {
+    if (this.arranging || this.photoMode) return
+    await this.neighborhoodCommand(() => beginPlay(this.controller!.world, scene, id, participants, crypto.randomUUID()))
+  }
+  async playAction(action: string, value?: string, token?: string) {
+    if (this.arranging || this.photoMode || this.controller?.pauseReasons.size) return
+    await this.neighborhoodCommand(() => actPlay(this.controller!.world, scene, action, value, token))
+  }
+  async cancelPlay() {
+    await this.neighborhoodCommand(() => { const world=this.controller!.snapshot(); stopPlay(world); return world })
+  }
+  async placePlayDecoration(id: string, slot: BellSlot | null) {
+    await this.neighborhoodCommand(() => putPlayDecoration(this.controller!.world, scene, id, slot))
+  }
   async chooseLayout(layout: LayoutId) { if (!this.arranging) await this.neighborhoodCommand(() => changeLayout(this.controller!.world, scene, layout)) }
   async decorateExtra(id: ExtraDecoration, slot: BellSlot | null) { await this.neighborhoodCommand(() => decorateExtra(this.controller!.world, scene, id, slot)) }
   private async neighborhoodCommand(candidate: () => ContentWorld) {
@@ -458,7 +475,7 @@ export class VillageRuntime {
     if (value) {
       if (!this.ready || !this.controller || this.error || this.criticalCandidate || this.photoMode) return
       try { decorateExtra(this.controller.world, scene, value.id, value.slot) } catch { return }
-      if (this.homeDraft || this.decorationDraft !== undefined || (this.extraDecorationDraft && this.extraDecorationDraft.id !== value.id) || this.controller.world.activeEvent || this.controller.world.neighborhood.event) return
+      if (this.homeDraft || this.decorationDraft !== undefined || (this.extraDecorationDraft && this.extraDecorationDraft.id !== value.id) || this.controller.world.activeEvent || this.controller.world.neighborhood.event || this.controller.world.play.active) return
     }
     this.extraDecorationDraft = value; this.syncArrangementPause()
   }
@@ -466,7 +483,7 @@ export class VillageRuntime {
     if (slot !== undefined) {
       if (!this.ready || !this.controller || this.error || this.criticalCandidate || this.photoMode) return
       try { placeBell(this.controller.world, scene, slot) } catch { return }
-      if (this.homeDraft || this.extraDecorationDraft || this.controller.world.activeEvent || this.controller.world.neighborhood.event) return
+      if (this.homeDraft || this.extraDecorationDraft || this.controller.world.activeEvent || this.controller.world.neighborhood.event || this.controller.world.play.active) return
     }
     this.decorationDraft = slot; this.syncArrangementPause()
   }
@@ -490,7 +507,7 @@ export class VillageRuntime {
   }
   view() {
     const c = this.controller
-    return c ? { arrangementObjects: this.homeDraft ? arrangementObjects(scene, c.world, this.homeDraft) : this.arranging ? [{ id: this.extraDecorationDraft?.id ?? 'windChime', rect: { x: 60, y: 90, width: 210, height: 65 }, anchors: (this.extraDecorationDraft ? [{x:166,y:101},{x:250,y:115},{x:76,y:104}] : [{x:185,y:105},{x:234,y:130},{x:96,y:117}]).map(a => ({ ...a, legal: true })) }] : [], camera: this.presentation.camera, overlayOpen: this.presentation.overlay !== null || this.presentation.confirmClose, dismissLayer: this.presentation.drawer !== 'closed' || this.presentation.overlay !== null, selectedFurniture: this.presentation.selectedFurniture, world: this.homePreview ?? c.world, arranging: !!this.homeDraft, position: c.drag?.active ? c.drag.position : c.world.actor.position,
+    return c ? { arrangementObjects: this.homeDraft ? arrangementObjects(scene, homeProjection(c.world), this.homeDraft) : this.arranging ? [{ id: this.extraDecorationDraft?.id ?? 'windChime', rect: { x: 60, y: 90, width: 210, height: 65 }, anchors: (this.extraDecorationDraft ? [{x:166,y:101},{x:250,y:115},{x:76,y:104}] : [{x:185,y:105},{x:234,y:130},{x:96,y:117}]).map(a => ({ ...a, legal: true })) }] : [], camera: this.presentation.camera, overlayOpen: this.presentation.overlay !== null || this.presentation.confirmClose, dismissLayer: this.presentation.drawer !== 'closed' || this.presentation.overlay !== null, selectedFurniture: this.presentation.selectedFurniture, world: this.homePreview ?? c.world, arranging: !!this.homeDraft, position: c.drag?.active ? c.drag.position : c.world.actor.position,
       dragging: c.drag?.active ?? false, dragTime: this.dragTime, paused: this.entrance.blocking || !!c.pauseReasons.size, debug: false,
       locale: this.preferences.language === 'system' ? this.locale : this.preferences.language,
       photo: this.photoMode ? this.photoOptions : null, reducedMotion: this.preferences.reducedMotion, bubbles: this.preferences.bubbles, decorationDraft: this.decorationDraft, extraDecorationDraft: this.extraDecorationDraft } : null
@@ -640,7 +657,7 @@ export class VillageRuntime {
       await this.saving; this.dirty = false
       const saved = await this.api<Saved<ContentWorld>>('recover', this.credentials())
       if (generation !== this.generation) return
-      this.controller = new ContentController(validateContentWorld(saved.world, scene), scene, () => { if (!this.changingDraft) this.save() })
+      this.controller = new ContentController(migrateLivingWorld(saved.world, scene), scene, () => { if (!this.changingDraft) this.save() })
       if (saved.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
       this.revision = saved.revision; this.transaction.reset(); this.criticalCandidate = null; this.pause('commit-pending', false); this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.recoveryCount = 0
       for (const reason of this.reasons) this.controller.pause(reason, true)

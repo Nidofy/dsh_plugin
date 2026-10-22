@@ -1,0 +1,248 @@
+{
+  "world": {
+    "schemaVersion": 7,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 7579,
+    "rng": 1497548132,
+    "userPaused": true,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 102,
+        "y": 283
+      },
+      "safe": {
+        "x": 102,
+        "y": 283
+      },
+      "behavior": "idle",
+      "phase": 0.16666666666666666,
+      "remaining": 2.833333333333334,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 134,
+          "y": 283
+        },
+        "safe": {
+          "x": 134,
+          "y": 283
+        },
+        "behavior": "idle",
+        "phase": 0.16666666666666666,
+        "remaining": 2.833333333333334,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 4,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [
+        {
+          "id": "lost-rice",
+          "eventId": "bca042e6-7d4a-4296-a1cb-9e3bc4a02449",
+          "participants": [
+            "bluewhale",
+            "claude"
+          ],
+          "completedTick": 2918,
+          "count": 1
+        },
+        {
+          "id": "find-whale",
+          "eventId": "f34a1329-ed56-434a-8c4e-57ef511a03a8",
+          "participants": [
+            "bluewhale"
+          ],
+          "completedTick": 3499,
+          "count": 1
+        },
+        {
+          "id": "tidy-desk",
+          "eventId": "0c71e114-ed1d-4b45-8d45-9699df083f25",
+          "participants": [
+            "bluewhale"
+          ],
+          "completedTick": 3859,
+          "count": 1
+        },
+        {
+          "id": "snack-table",
+          "eventId": "0ce5aaa9-192f-4ebd-b7c9-588b7b0824d7",
+          "participants": [
+            "bluewhale",
+            "claude"
+          ],
+          "completedTick": 4678,
+          "count": 1
+        },
+        {
+          "id": "quiet-page",
+          "eventId": "9351851c-5351-4d5d-a5b6-19d6e49aaf8d",
+          "participants": [
+            "bluewhale",
+            "claude"
+          ],
+          "completedTick": 5922,
+          "count": 1
+        },
+        {
+          "id": "wind-notes",
+          "eventId": "453f6985-de1d-49c2-80d0-db6f8964a33c",
+          "participants": [
+            "bluewhale",
+            "claude"
+          ],
+          "completedTick": 7574,
+          "count": 1
+        }
+      ],
+      "bonds": [
+        {
+          "pair": [
+            "bluewhale",
+            "claude"
+          ],
+          "count": 4,
+          "lastTick": 7574
+        }
+      ],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "active": null,
+      "decorations": {
+        "rice-bowl": "window",
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null
+      },
+      "nextTick": 7664,
+      "lastEventId": "453f6985-de1d-49c2-80d0-db6f8964a33c"
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "presentation": {
+    "page": "admissions",
+    "history": [
+      {
+        "tab": "residents",
+        "drawer": "half",
+        "overlay": null,
+        "page": "quick",
+        "scrollTop": 0,
+        "focusKey": "全部居民",
+        "accessoryTarget": null,
+        "residentTarget": null,
+        "subpages": {
+          "wishes": "activities",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "noticeTarget": null
+      },
+      {
+        "tab": "residents",
+        "drawer": "full",
+        "overlay": null,
+        "page": "residents",
+        "scrollTop": 0,
+        "focusKey": "安排入住",
+        "accessoryTarget": null,
+        "residentTarget": null,
+        "subpages": {
+          "wishes": "activities",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "noticeTarget": null
+      }
+    ],
+    "scrollTop": 0,
+    "focusKey": "入住 Gemini",
+    "residentTarget": null,
+    "tab": "residents",
+    "drawer": "full",
+    "overlay": null,
+    "camera": {
+      "zoom": 1,
+      "panX": 0,
+      "panY": 0
+    },
+    "expanded": false,
+    "selectedFurniture": "work",
+    "accessoryTarget": null,
+    "subpages": {
+      "wishes": "activities",
+      "decor": "furniture",
+      "journal": "memories"
+    },
+    "confirmClose": false,
+    "confirmTarget": "plugin",
+    "zoomHint": 0,
+    "toastIds": [
+      "memory:wind-notes:453f6985-de1d-49c2-80d0-db6f8964a33c"
+    ],
+    "noticeTarget": null
+  },
+  "reasons": [
+    "user",
+    "commit-pending"
+  ],
+  "error": "",
+  "actionError": "",
+  "frameReady": true
+}

@@ -1,3 +1,11 @@
+import { keepsakeObservation } from '../core/keepsake-observation.ts'
+import { PlayArt } from './play-art.ts'
+import { validateLivingWorld, homeProjection, type LivingWorld } from '../core/living-state.ts'
+import { whalePoint } from '../core/living-engine.ts'
+import { playDefinition } from '../core/play-catalog.ts'
+import { lifePresentation } from '../core/life-engine.ts'
+import { lifeDialogue } from '../core/life-dialogue.ts'
+import { applyLifePose } from '../art/animation.ts'
 import { cachedAtmosphere, backgroundSurface } from './atmosphere.ts'
 import { frameChannel as channel, frameVersion as version } from '../core/frame-protocol.ts'
 import { defaultCamera, projectCamera, validCamera, type Camera } from '../core/camera.ts'
@@ -22,7 +30,7 @@ import { dialogue, bellReaction } from '../core/dialogue.ts'
 import { hitActor, orderedActors, validateWorld } from '../core/world.ts'
 import type { Action, AnimationSet, Character } from '../art/types.ts'
 import type { Actor, Point, Rect, World } from '../core/world.ts'
-interface View { overlayOpen: boolean; camera: Camera; dismissLayer: boolean; arrangementObjects: ArrangementObject[]; selectedFurniture: string; extraDecorationDraft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null; arranging?: boolean; world: World | ContentWorld | NeighborhoodWorld | HomeWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean;
+interface View { overlayOpen: boolean; camera: Camera; dismissLayer: boolean; arrangementObjects: ArrangementObject[]; selectedFurniture: string; extraDecorationDraft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null; arranging?: boolean; world: World | ContentWorld | NeighborhoodWorld | HomeWorld | LivingWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean;
   photo?: { zoom:number;x:number;y:number;date:boolean;border:boolean } | null; locale: 'zh' | 'en'; reducedMotion: boolean; bubbles: boolean; decorationDraft: 'window' | 'door' | 'wall' | null | undefined }
 
 let token = '', received = 0, sent = 0, initialized = false, disposed = false, pointer: number | null = null
@@ -34,6 +42,7 @@ type AvatarArt = { character: Character; animations: AnimationSet; activityPrefi
 let roster: Record<string, AvatarArt> = {}
 let view: View | undefined, shadow: Graphics, hints: Graphics, backdrop: Sprite
 let atmosphere: Container, atmosphereCache: ReturnType<typeof cachedAtmosphere> | undefined, backgroundCache: ReturnType<typeof backgroundSurface> | undefined, atmosphereImage: HTMLImageElement | undefined
+const playArt = new PlayArt()
 let neighborhoodArt: NeighborhoodArt, cushion: Sprite
 let bell: Graphics, tea: Graphics, viewportRevision = 0, reactionUntil = 0
 const bubbleNodes: HTMLDivElement[] = []
@@ -166,7 +175,7 @@ async function init(message: { character: Character; animations: AnimationSet; r
     intent: { type, id: event.pointerId, point: local(event), css: { x: event.clientX, y: event.clientY } },
   })
   ghostLabel = document.createElement('div'); ghostLabel.style.cssText='display:none;position:absolute;left:12px;top:64px;max-width:calc(100% - 24px);padding:6px 10px;background:#fffcf5;color:#34473c;border-radius:12px;font:12px/1.5 system-ui;pointer-events:none';document.body.append(ghostLabel)
-  inputRouter = routeInput(app.canvas, () => ({ camera: view?.camera ?? defaultCamera, workspace: workspace(), scale: stage.scale.x,
+  inputRouter = routeInput(app.canvas, () => ({ playAt: point => { if(view?.world.schemaVersion!==7||view.world.play.active?.phase!=='ready')return null;const p=whalePoint(view.world,scene);return p&&Math.hypot(point.x-p.x,point.y-p.y)<=18?`${view.world.play.active.id}:0`:null }, camera: view?.camera ?? defaultCamera, workspace: workspace(), scale: stage.scale.x,
     local: p => local({clientX:p.x,clientY:p.y}), actor: p => view ? hitActor(view.world,p)?.id ?? null : null, paused: view?.paused ?? true,
     photo: !!view?.photo, overlay: view?.overlayOpen ?? false, dismiss: view?.dismissLayer ?? false, objects: view?.arrangementObjects ?? [], selected: view?.selectedFurniture ?? 'work' }),
     input => send('ui-input', { viewportRevision, input }), (type, event) => send('pointer', { viewportRevision, intent: { type, id:event.pointerId, point:local(event), css:{x:event.clientX,y:event.clientY} } }),
@@ -184,7 +193,8 @@ function paint() {
   applyProjection()
   const members = orderedActors(view.world), ids = new Set(members.map(a => a.id))
   for (const [id, rig] of rigs) if (!ids.has(id as Actor['id'])) removeRig(id, rig)
-  const home = view.world.schemaVersion === 6 ? view.world : null
+  const living = view.world.schemaVersion === 7 ? view.world : null
+  const home = living ? homeProjection(living) : view.world.schemaVersion === 6 ? view.world : null
   const neighborhood = home ? neighborhoodProjection(home) : view.world.schemaVersion === 5 ? view.world : null
   const nextScene = home ? homeScene(scene, home.neighborhood.layout, home.home) : scene
   if (renderScene !== nextScene) {
@@ -198,6 +208,8 @@ function paint() {
   if (keepAssets) for(const [key,texture] of textures) if(!keepAssets.has(key)) { texture.destroy(true);textures.delete(key);const url=urls.get(key);if(url)URL.revokeObjectURL(url);urls.delete(key) }
   const content = neighborhood ? legacyContent(neighborhood) : view.world.schemaVersion === 4 ? view.world : null
   if (neighborhood) { neighborhoodArt.paint(neighborhood, view.reducedMotion, view.extraDecorationDraft, home?.home); cushion.visible = neighborhood.neighborhood.layout === 'courtyard' }
+  if(playArt.root.parent!==worldContent)worldContent.addChild(playArt.root)
+  playArt.paint(living,scene,view.reducedMotion)
   const servingTea = content?.activeEvent?.food === 'tea'
   for (const prop of props) prop.sprite.visible = !servingTea && propVisible(prop.definition, members, view.dragging ? view.world.actor.id : undefined)
   tea.clear()
@@ -230,6 +242,9 @@ function paint() {
     const e = neighborhood.neighborhood.event
     for (const [i, id] of e.participants.entries()) lines.push({ actor: id, text: residentLine(id, e.participants.length === 2 ? 4 : ['listen','sky'].includes(e.definitionId) ? 5 : 2, Math.floor((180-e.remainingTicks)/90)+i, view.locale) })
   }
+  if(living&&view.bubbles){const observation=keepsakeObservation(living,view.locale);if(observation)lines.push({actor:observation.actor,text:observation.text})}
+  if(living && view.bubbles && !living.play.active)lines.push(...lifeDialogue(living,view.locale))
+  if(living?.play.active && view.bubbles && living.play.active.phase==='observing'){const e=living.play.active;lines.unshift({actor:e.participants[0]!,text:playDefinition(e.definitionId)!.stages[e.stage]!.text[view.locale]})}
   if (view.dragging && view.bubbles) lines.unshift({actor:view.world.actor.id,text:residentLine(view.world.actor.id,1,Math.floor(view.dragTime/2),view.locale)})
   for (let i = 0; i < bubbleNodes.length; i++) {
     const node = bubbleNodes[i]!, row = lines[i], resident = row && members.find(a => a.id === row.actor)
@@ -318,6 +333,8 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
   doll.root.zIndex = dragging ? 10000 : pos.y * 10 + depth
   doll.root.visible = state !== 'rest'
   if (view.world.schemaVersion === 5 || view.world.schemaVersion === 6) microPose(pose, actor, view.world.schemaVersion === 6 ? neighborhoodProjection(view.world) : view.world, view.reducedMotion)
+  if(view.world.schemaVersion===7&&!dragging){const w=view.world;microPose(pose,actor,neighborhoodProjection(homeProjection(w)),view.reducedMotion);const life=lifePresentation(w,actor.id);if(life&&!w.play.active&&!w.neighborhood.event&&!w.activeEvent)applyLifePose(pose,actor.id,life.motion,life.elapsed,view.reducedMotion);if(w.play.active?.participants.includes(actor.id)&&actor.behavior==='idle')applyLifePose(pose,actor.id,w.play.active.phase==='observing'?'point':'waiting',actor.phase,view.reducedMotion)}
+  if(view.world.schemaVersion===7&&!dragging){const observation=keepsakeObservation(view.world,view.locale);if(observation?.actor===actor.id)applyLifePose(pose,actor.id,'point',observation.elapsed,view.reducedMotion)}
   doll.apply(pose)
   const teaGuest = state === 'eat' && view.world.schemaVersion !== 3 && view.world.activeEvent?.food === 'tea' && view.world.activeEvent.participants.includes(actor.id)
   const busy = (state === 'work' || state === 'eat') && !teaGuest
@@ -340,7 +357,7 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
   }
 }
 Object.assign(window, { __sceneMetrics: () => { const samples = [...paintSamples].sort((a, b) => a - b); return ({ frames, actors: rigs.size, textures: textures.size, tickerStarted: app?.ticker.started ?? false, atmosphereTextureSources: atmosphereCache ? 1 : 0, atmosphereCacheSize: [256,256],
-  geometry: renderScene?.hotspots, environment: view?.world.schemaVersion === 6 ? view.world.home.environment : null, viewport: { ...sceneViewport(innerWidth, innerHeight), world: projection() }, arrangementObjects: view?.arrangementObjects, gesture: inputRouter?.inspect(),
+  playTarget: view?.world.schemaVersion===7?whalePoint(view.world,scene):null, geometry: renderScene?.hotspots, environment: view?.world.schemaVersion === 6 || view?.world.schemaVersion === 7 ? view.world.home.environment : null, viewport: { ...sceneViewport(innerWidth, innerHeight), world: projection() }, arrangementObjects: view?.arrangementObjects, gesture: inputRouter?.inspect(),
   paused: view?.paused ?? true, meanPaintMs: frames ? paintMs / frames : 0, maxPaintMs,
   paintSampleCount: samples.length, p50PaintMs: samples[Math.ceil(samples.length * .5) - 1] ?? 0,
   p95PaintMs: samples[Math.ceil(samples.length * .95) - 1] ?? 0 }) } })
@@ -366,7 +383,7 @@ window.addEventListener('message', event => {
     } else if (message.type === 'render' && !assetLoading) {
       if (message.bootAttemptId !== bootAttemptId || message.assetRevision !== assetRevision || !Number.isSafeInteger(message.viewRevision) || message.viewRevision < 1) return
       try {
-        const world = message.view.world?.schemaVersion === 6 ? validateHomeWorld(message.view.world, scene) : message.view.world?.schemaVersion === 5 ? validateNeighborhoodWorld(message.view.world, scene) : message.view.world?.schemaVersion === 4 ? validateContentWorld(message.view.world, scene) : validateWorld(message.view.world, scene), p = message.view.position
+        const world = message.view.world?.schemaVersion === 7 ? validateLivingWorld(message.view.world,scene) : message.view.world?.schemaVersion === 6 ? validateHomeWorld(message.view.world, scene) : message.view.world?.schemaVersion === 5 ? validateNeighborhoodWorld(message.view.world, scene) : message.view.world?.schemaVersion === 4 ? validateContentWorld(message.view.world, scene) : validateWorld(message.view.world, scene), p = message.view.position
         if (!p || !Number.isFinite(p.x) || !Number.isFinite(p.y) || Math.abs(p.x) > 5000 || Math.abs(p.y) > 5000) return
         if (!Number.isFinite(message.view.dragTime) || message.view.dragTime < 0) return
         if (world.schemaVersion === 4 && view?.world.schemaVersion === 4 && world.decorations.layoutRevision > view.world.decorations.layoutRevision) reactionUntil = world.ticks + 150

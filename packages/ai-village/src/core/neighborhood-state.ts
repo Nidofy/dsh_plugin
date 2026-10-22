@@ -92,7 +92,7 @@ export function validateNeighborhoodWorld(value: unknown, baseScene: Scene): Nei
   }
   return { ...base, schemaVersion: 5, simulationRulesVersion: 2, contentRevision: 2, neighborhood: structuredClone(n) as Neighborhood }
 }
-export function extraUnlocked(n: Neighborhood, id: ExtraDecoration): boolean { return n.memories.some(m => m.id === (id === 'lantern' ? 'shared-book' : 'water')) }
+export function extraUnlocked(n: { memories: readonly { id: string }[] }, id: ExtraDecoration): boolean { return n.memories.some(m => m.id === (id === 'lantern' ? 'shared-book' : 'water')) }
 export function migrateNeighborhoodWorld(value: unknown, scene: Scene): NeighborhoodWorld {
   if ((value as { schemaVersion?: number })?.schemaVersion === 5) return validateNeighborhoodWorld(value, scene)
   const old = migrateContentWorld(value, scene)

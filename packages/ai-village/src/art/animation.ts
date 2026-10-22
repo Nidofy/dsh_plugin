@@ -1,4 +1,6 @@
 import type { Action, AnimationSet, Character, Clip, Keyframe, Pose, Transform } from './types.ts'
+import type { CharacterId } from '../core/roster.ts'
+import type { LifeMotion } from '../core/life-catalog.ts'
 
 const rest = (): Transform => ({ x: 0, y: 0, rotation: 0, scaleX: 1, scaleY: 1 })
 export function sampleKeys(keys: Keyframe[], time: number): number {
@@ -63,4 +65,64 @@ export class Animator {
     return this.from && this.transitionElapsed < clip.transition
       ? blendPose(this.from, pose, this.transitionElapsed / clip.transition) : pose
   }
+}
+
+/**
+ * Additive, finite part performances using the approved rigs. World movement remains
+ * in the simulator. No whole-picture bounce/scale, textures, timers or mutable caches.
+ */
+export function applyLifePose(pose: Pose, _id: CharacterId, motion: LifeMotion, elapsed: number, reduced = false): void {
+  if (!Number.isFinite(elapsed) || elapsed < 0) throw Error('INVALID_ANIMATION_TIME')
+  if (reduced) return
+  const duration = motion === 'farewell' ? 1.5 : motion === 'interrupted' ? 1.2 : 3.6
+  if (elapsed >= duration) return
+  const t = elapsed / duration
+  const smooth = (n: number) => { const v = Math.min(1, Math.max(0, n)); return v * v * (3 - 2 * v) }
+  const envelope = smooth(t / .18) * (1 - smooth((t - .76) / .24))
+  const pulse = Math.sin(t * Math.PI * 4) * envelope
+  const add = (part: string, property: keyof Transform, value: number) => { const transform = pose.transforms[part]; if (transform) transform[property] += value }
+  switch (motion) {
+    case 'whale-tail':
+      add('tail-root', 'rotation', 12 * envelope); add('tail-fin', 'rotation', -18 * pulse)
+      add('arm-left', 'rotation', -12 * envelope); add('head', 'rotation', 4 * envelope); break
+    case 'thoughtful-note':
+      add('arm-right', 'rotation', -24 * envelope); add('arm-right', 'y', -15 * envelope)
+      add('head', 'rotation', 7 * envelope); add('arm-left', 'rotation', 6 * pulse); break
+    case 'cloud-frame':
+      add('arm-left', 'rotation', 34 * envelope); add('arm-right', 'rotation', -34 * envelope)
+      add('arm-left', 'y', -18 * envelope); add('arm-right', 'y', -18 * envelope); add('head', 'rotation', -4 * pulse); break
+    case 'neat-cuffs':
+      add('arm-left', 'rotation', 24 * envelope); add('arm-right', 'rotation', -12 * envelope)
+      add('arm-right', 'y', -12 * pulse); add('head', 'rotation', 5 * envelope); break
+    case 'playful-salute':
+      add('arm-right', 'rotation', -48 * envelope); add('arm-right', 'y', -16 * envelope)
+      add('head', 'rotation', -8 * envelope); add('arm-left', 'rotation', 10 * pulse); break
+    case 'quiet-stretch':
+      add('arm-left', 'rotation', 38 * envelope); add('arm-right', 'rotation', -30 * envelope)
+      add('body', 'rotation', 3 * envelope); add('head', 'rotation', -5 * envelope); break
+    case 'leaf-greeting':
+      add('arm-left', 'rotation', 26 * envelope); add('arm-left', 'x', 12 * envelope)
+      add('arm-right', 'rotation', -8 * pulse); add('head', 'rotation', 6 * envelope); break
+    case 'wave':
+      add('arm-right', 'rotation', (-30 + 12 * Math.sin(t * Math.PI * 8)) * envelope)
+      add('arm-right', 'y', -12 * envelope); add('head', 'rotation', -3 * envelope); break
+    case 'listen':
+      add('head', 'rotation', 5 * envelope); add('head', 'y', 5 * pulse)
+      add('arm-left', 'rotation', 8 * envelope); break
+    case 'offer':
+      add('arm-left', 'rotation', 21 * envelope); add('arm-right', 'rotation', -21 * envelope)
+      add('arm-left', 'y', -9 * envelope); add('arm-right', 'y', -9 * envelope); add('head', 'rotation', 3 * pulse); break
+    case 'point':
+      add('arm-left', 'rotation', 38 * envelope); add('arm-left', 'y', -12 * envelope)
+      add('head', 'rotation', -7 * envelope); add('arm-right', 'rotation', -5 * envelope); break
+    case 'farewell':
+      add('body', 'rotation', 3 * envelope); add('head', 'y', 12 * envelope)
+      add('head', 'rotation', 6 * envelope); add('arm-right', 'rotation', -12 * envelope); break
+    case 'waiting':
+      add('head', 'rotation', 6 * envelope); add('arm-left', 'rotation', 5 * pulse); break
+    case 'interrupted':
+      add('head', 'y', -6 * envelope); add('arm-left', 'rotation', 10 * envelope)
+      add('arm-right', 'rotation', -10 * envelope); break
+  }
+  if (envelope > .2) pose.expression = motion === 'interrupted' ? 'surprised' : motion === 'waiting' ? 'neutral' : motion === 'quiet-stretch' ? 'sleepy' : 'happy'
 }

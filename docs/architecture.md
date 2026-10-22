@@ -16,6 +16,8 @@ Host 从 `ProfileContext.dir` 获取可信存档根，通过官方已认证 `con
 
 三个启动入口统一从 `shell.overlay` 挂载，再通过 React Portal 放到官方 `[data-conversation-header-corner]` 标记内、sidebar 按钮左侧。官方 corner 插槽为 single，保持原 sidebar owner 不变；适配器仅管理各自的 DOM 子节点，按 Git / Live2D / 小院排序，跟随新会话、已有会话的 header 重建迁移，卸载移除节点并断开观察。删除 hero/options 与 header/utilities 的重复入口。三个独立包保持相同的小型 header-launcher 适配器，不引入共享库的原生依赖；标记随 DSH 版本复验。
 
+0.7.0-preview.1 在上述历史模型之上使用 `LivingWorld`（schema7/rules4/content4，scene3）。旧1–6 codec与规则保留；新故事和小游戏使用有界阶段/路径/操作令牌，完成事实沿用原neighbor memories；当前短社交与永久回忆分离。UI仍四入口，frame5仅增加受校验的找鲸点击。数据原子性、恢复和回退详见 [本轮数据契约](ai-village/living-v07-v09/DATA_AND_RECOVERY.md)。没有改变门庭ART_REVIEW、生产静态入口或首帧回执门控。M5新增家具及M6第二区域尚未通过资源/阶段门禁。
+
 ## Live2D 浮动伙伴
 
 `live2d` 使用 `shell.overlay` 与会话工具栏入口，独立拥有资产路由、展示参数、渲染生命周期；不注册 `sidebar.right.pane.tab`、`rightbar`、`shell.accessory` 或 `nidofy.companion`，不依赖 desktop-extras。它与小院通过展示专用 `nidofy:floating-panel-open` 事件互斥，与 Git 共享按内容高度分配的右侧位置，事件不携带业务数据。几何适配只触碰自身的对话留白标记，退出时撤销。

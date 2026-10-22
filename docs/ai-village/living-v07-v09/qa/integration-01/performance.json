@@ -1,0 +1,34 @@
+{
+  "backend": "Chromium headless / SwiftShader",
+  "samples": [
+    {
+      "scenario": "single",
+      "seconds": 20.0012271,
+      "fps": 22.39862573231819,
+      "p50PaintMs": 0.2999999523162842,
+      "p95PaintMs": 0.40000009536743164,
+      "textures": 32,
+      "paintSampleCount": 500,
+      "parentTaskPercentOfOneCore": 39.70391896605184,
+      "parentHeapUsedBytes": 12099680,
+      "documents": 2,
+      "nodes": 186,
+      "jsEventListeners": 600
+    },
+    {
+      "scenario": "seven",
+      "seconds": 20.009686099999993,
+      "fps": 22.489108412350365,
+      "p50PaintMs": 0.5999999046325684,
+      "p95PaintMs": 0.9000000953674316,
+      "textures": 128,
+      "paintSampleCount": 596,
+      "parentTaskPercentOfOneCore": 49.55592981541076,
+      "parentHeapUsedBytes": 22492072,
+      "documents": 2,
+      "nodes": 290,
+      "jsEventListeners": 600
+    }
+  ],
+  "limitations": "20s software samples; JS submission p95 is not GPU completion, parent CDP CPU/heap is not process-wide. Not an uncontended hardware comparison."
+}

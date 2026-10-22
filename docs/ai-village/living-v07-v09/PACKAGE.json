@@ -1,0 +1,75 @@
+{
+  "name": "@nidofy/dsh-ai-village",
+  "version": "0.7.0-preview.1",
+  "file": "nidofy-dsh-ai-village-0.7.0-preview.1.tgz",
+  "bytes": 32154137,
+  "sha256": "c58e61c2d7aa8a2854be0dc0158ce0521d88bff3f2bc09e2cc2ff31275b73445",
+  "files": 276,
+  "platform": "win32-x64",
+  "dsh": "0.2.1-rc.2",
+  "offline": true,
+  "verifiedSha256": "c58e61c2d7aa8a2854be0dc0158ce0521d88bff3f2bc09e2cc2ff31275b73445",
+  "baselineHead": "963a501947b74498d0924a1c6892aecd3ef116bc",
+  "branch": "codex/feature-ai-village-entrance",
+  "status": "LOCAL_PREVIEW_NOT_PUBLISHED",
+  "entranceStatus": "ART_REVIEW; production static fallback",
+  "worldContract": {
+    "schema": 7,
+    "scene": 3,
+    "rules": 4,
+    "content": 4,
+    "preferences": 3,
+    "frame": 5
+  },
+  "checks": [
+    {
+      "command": "node scripts/typecheck.mjs",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/test.mjs --config scripts/ai-village-official.vitest.mjs",
+      "result": "PASS",
+      "files": 37,
+      "tests": 188
+    },
+    {
+      "command": "node scripts/ai-village-release.mjs",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/pack.mjs --only=ai-village",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/smoke-packed.mjs --exclude-sandbox",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/offline-install-check.mjs --exclude-sandbox",
+      "result": "PASS"
+    }
+  ],
+  "unrun": [
+    "Native Desktop install of preview",
+    "Hardware GPU/DPI and mixed monitor acceptance",
+    "One-hour real GUI soak",
+    "Full unrelated plugins test suite",
+    "New scene artwork approval"
+  ],
+  "bundles": {
+    "index.js": "fe87c7f3b380018cc1c17da913794917ada7bc82c0d475fc214aa66a9105ef0b",
+    "client.js": "27e28065911c8bd4eee03c2ffe08143e07cbac871b9ec82324f02bd40dbf1879",
+    "frame.js": "06192d1f9d8cfcf62134580df1c619978f27433babcb7ee12ed3baf15d875e1e"
+  },
+  "browserEvidence": {
+    "report": "qa/RESULTS.md",
+    "gameplay": "integration-02 retained six completed activities; integration-03 PASS same-build continuation",
+    "matrix": "matrix-04 PASS; four sizes, two themes, fully visible panels",
+    "recovery": "recovery-01 PASS; unchanged existing assertions",
+    "historicalFailedRuns": [
+      "integration-01",
+      "integration-02"
+    ],
+    "backend": "Chromium headless / SwiftShader; not native GPU acceptance"
+  }
+}

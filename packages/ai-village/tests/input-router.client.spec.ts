@@ -15,3 +15,13 @@ it('blank drag clamps camera, ignores sub-threshold movement, and cancellation c
 })
 
 it.each([false,true])('drawer dismissal consumes a resident click before actor or selection when paused=%s',paused=>{const f=setup(paused);try{f.state.dismiss=true;f.pointer('pointerdown');f.pointer('pointerup');expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'scene'});expect(f.actor).not.toHaveBeenCalled();f.send.mockClear();f.pointer('pointerdown');f.pointer('pointermove',140,180);f.pointer('pointerup',140,180);expect(f.send).not.toHaveBeenCalled();expect(f.actor).not.toHaveBeenCalled()}finally{f.dispose()}})
+
+it('game click is released once, is blocked by drawers/pauses, and cannot cross event generations',()=>{
+ const f=setup(),state=f.state as typeof f.state & {playAt?:()=>string|null};let token=crypto.randomUUID()+':0';state.playAt=()=>token
+ try{
+  f.pointer('pointerdown',40,250);expect(f.send).not.toHaveBeenCalled();f.pointer('pointerup',40,250);expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'play-find',token,point:{x:40,y:250}})
+  f.send.mockClear();f.pointer('pointerdown',40,250);token=crypto.randomUUID()+':0';f.pointer('pointerup',40,250);expect(f.send).not.toHaveBeenCalled()
+  f.pointer('pointerdown',40,250);f.state.paused=true;f.pointer('pointerup',40,250);expect(f.send).not.toHaveBeenCalled()
+  f.state.paused=false;f.state.dismiss=true;f.pointer('pointerdown',40,250);f.pointer('pointerup',40,250);expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'scene'})
+ }finally{f.dispose()}
+})

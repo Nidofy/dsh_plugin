@@ -1,4 +1,5 @@
 import { isCharacterId, type CharacterId } from './roster.ts'
+import { activityWeight } from './life-catalog.ts'
 export interface Point { x: number; y: number }
 export interface Rect { x: number; y: number; width: number; height: number }
 export type Activity = 'work' | 'eat' | 'rest' | 'sit' | 'read' | 'tend'
@@ -38,7 +39,7 @@ export interface World {
   companions: Actor[]
 }
 /** Shared simulation fields; schema-specific state is owned by its controller. */
-export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 | 6 }
+export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 | 6 | 7 }
 export const behaviors: Behavior[] = ['idle', 'walk', 'put_down', 'work', 'eat', 'rest', 'sit', 'read', 'tend']
 export function contains(rect: Rect, point: Point): boolean {
   return point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height
@@ -131,10 +132,10 @@ export function orderedActors(world: SimulationWorld): Actor[] {
 export function hitActor(world: SimulationWorld, point: Point): Actor | undefined {
   return orderedActors(world).reverse().find(a => Math.abs(point.x - a.position.x) <= 54 && point.y >= a.position.y - 115 && point.y <= a.position.y + 4)
 }
-export function step(world: SimulationWorld, scene: Scene, held?: string): void {
+export function step(world: SimulationWorld, scene: Scene, held?: string, excluded?: ReadonlySet<string>): void {
   world.ticks++
   for (const actor of actors(world).sort((a, b) => a.id.localeCompare(b.id))) {
-    if (actor.id !== held) stepActor(world, scene, actor)
+    if (actor.id !== held && !excluded?.has(actor.id)) stepActor(world, scene, actor)
     else if (actor.intent) actor.intent.expires++ // Drag freezes this resident's simulation time.
   }
 }
@@ -152,7 +153,7 @@ function stepActor(world: SimulationWorld, scene: Scene, actor: Actor): void {
   } else if (actor.behavior === 'idle' && actor.remaining === 0) {
     const preferred: Record<CharacterId, Activity> = { bluewhale: 'eat', claude: 'work', gemini: 'rest', gpt: 'work', grok: 'eat', kimi: 'rest', qwen: 'work' }
     const candidates = scene.hotspots.filter(h => seatAvailable(world, h, actor.id) && available(world, h.anchor, actor.id))
-    const weighted = candidates.flatMap(h => activityOf(h) === preferred[actor.id] ? [h, h] : [h])
+    const weighted = candidates.flatMap(h => world.schemaVersion === 7 ? Array.from({ length: activityWeight(actor.id, activityOf(h), world.ticks) }, () => h) : activityOf(h) === preferred[actor.id] ? [h, h] : [h])
     const choice = random(world)
     const hotspot = weighted[Math.floor(choice * (weighted.length + 2))]
     const route = hotspot && routeTo(scene, actor.position, hotspot.anchor)

@@ -1,0 +1,20 @@
+{
+  "backend": "Chromium headless / SwiftShader",
+  "samples": [
+    {
+      "scenario": "single",
+      "seconds": 19.9996581,
+      "fps": 22.150378660723202,
+      "p50PaintMs": 0.2999999523162842,
+      "p95PaintMs": 0.5,
+      "textures": 32,
+      "paintSampleCount": 495,
+      "parentTaskPercentOfOneCore": 39.01000187598207,
+      "parentHeapUsedBytes": 9341832,
+      "documents": 2,
+      "nodes": 186,
+      "jsEventListeners": 600
+    }
+  ],
+  "limitations": "20s software samples; JS submission p95 is not GPU completion, parent CDP CPU/heap is not process-wide. Not an uncontended hardware comparison."
+}

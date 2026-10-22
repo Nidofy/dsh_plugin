@@ -1,0 +1,24 @@
+[
+  {
+    "at": 1705.9000000953674,
+    "iframe": 1,
+    "reasons": [
+      "user"
+    ]
+  },
+  {
+    "at": 12682.599999904633,
+    "iframe": null,
+    "reasons": [
+      "user",
+      "insufficient-space"
+    ]
+  },
+  {
+    "at": 12806.099999904633,
+    "iframe": 2,
+    "reasons": [
+      "user"
+    ]
+  }
+]
