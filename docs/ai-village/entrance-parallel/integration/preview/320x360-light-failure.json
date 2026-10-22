@@ -1,0 +1,409 @@
+{
+  "phases": [
+    {
+      "phase": "approach",
+      "at": 178.40000009536743,
+      "canReveal": false
+    },
+    {
+      "phase": "wait",
+      "at": 819.4000000953674,
+      "canReveal": false
+    }
+  ],
+  "state": {
+    "entrance": {
+      "attempted": true,
+      "full": false,
+      "skipped": true,
+      "blocking": true,
+      "attemptId": "7da5865e-5348-4601-8747-68eeae6f3d74",
+      "metadata": true,
+      "verified": 1,
+      "decoded": 1,
+      "firstFrame": true,
+      "openedAt": 137.20000004768372,
+      "phase": "wait",
+      "frame": "ef93d2cc-39cd-4a8f-8a74-61a8aee75b79",
+      "assets": 1,
+      "view": 1,
+      "canReveal": true,
+      "progress": 1
+    },
+    "resourceKeys": [
+      "parts/back-hair.png",
+      "parts/front-hair.png",
+      "parts/curl-left.png",
+      "parts/curl-right.png",
+      "parts/headband.png",
+      "parts/ear-left.png",
+      "parts/ear-right.png",
+      "parts/torso.png",
+      "parts/skirt.png",
+      "parts/leg-left.png",
+      "parts/leg-right.png",
+      "parts/arm-left.png",
+      "parts/arm-right.png",
+      "parts/tail-root.png",
+      "parts/tail-fin.png",
+      "parts/face-neutral.png",
+      "parts/face-happy.png",
+      "parts/face-surprised.png",
+      "parts/face-sleepy.png",
+      "parts/ahoge.png",
+      "scene/desk-back.png",
+      "scene/desk-front.png",
+      "scene/table-back.png",
+      "scene/table-front.png",
+      "scene/cushion.png",
+      "scene/bowl.png",
+      "scene/work-left.png",
+      "scene/work-right.png",
+      "scene/eat-left.png",
+      "scene/eat-right.png",
+      "scene/rest-pose.png",
+      "scene/background.png"
+    ],
+    "errorCode": "",
+    "recoveryState": "idle",
+    "diagnostics": [
+      {
+        "ms": 1,
+        "reasons": [
+          "closed",
+          "disconnected"
+        ],
+        "code": "",
+        "connected": false,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 12,
+        "reasons": [
+          "closed",
+          "disconnected"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 20,
+        "reasons": [
+          "closed",
+          "disconnected",
+          "sidebar"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 23,
+        "reasons": [
+          "closed",
+          "disconnected",
+          "sidebar"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 26,
+        "reasons": [
+          "closed",
+          "disconnected",
+          "sidebar"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 81,
+        "reasons": [
+          "disconnected",
+          "sidebar"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 81,
+        "reasons": [
+          "disconnected",
+          "sidebar"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 82,
+        "reasons": [
+          "disconnected"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 193,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 193,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "idle",
+        "ticks": 0
+      },
+      {
+        "ms": 497,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": true,
+        "receipt": "committed",
+        "ticks": 0
+      },
+      {
+        "ms": 658,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": true,
+        "receipt": "committed",
+        "ticks": 0
+      },
+      {
+        "ms": 687,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "committed",
+        "ticks": 0
+      },
+      {
+        "ms": 688,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "committed",
+        "ticks": 0
+      },
+      {
+        "ms": 688,
+        "reasons": [
+          "insufficient-space"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "committed",
+        "ticks": 0
+      },
+      {
+        "ms": 757,
+        "reasons": [
+          "insufficient-space"
+        ],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "committed",
+        "ticks": 0
+      },
+      {
+        "ms": 761,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "committed",
+        "ticks": 0
+      },
+      {
+        "ms": 763,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": false,
+        "receipt": "committed",
+        "ticks": 0
+      },
+      {
+        "ms": 1427,
+        "reasons": [],
+        "code": "",
+        "connected": true,
+        "frameReady": true,
+        "receipt": "committed",
+        "ticks": 0
+      }
+    ],
+    "presentation": {
+      "page": "quick",
+      "history": [],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": null,
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "notices": [],
+    "world": {
+      "schemaVersion": 6,
+      "worldId": "bluewhale-courtyard",
+      "sceneVersion": 3,
+      "avatarDefinitionVersion": 1,
+      "ticks": 0,
+      "rng": 2387716937,
+      "userPaused": false,
+      "actor": {
+        "id": "bluewhale",
+        "facing": "right",
+        "position": {
+          "x": 174,
+          "y": 340
+        },
+        "safe": {
+          "x": 174,
+          "y": 340
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 4,
+        "intent": null,
+        "destination": null
+      },
+      "companions": [],
+      "simulationRulesVersion": 3,
+      "contentRevision": 3,
+      "activeEvent": null,
+      "progress": {
+        "completedWishes": [],
+        "discovered": [],
+        "unlocked": [],
+        "lastCompletedEventId": null
+      },
+      "journal": [],
+      "decorations": {
+        "layoutRevision": 0,
+        "windChime": null
+      },
+      "neighborhood": {
+        "layout": "courtyard",
+        "layoutRevision": 0,
+        "event": null,
+        "memories": [],
+        "bonds": [],
+        "decorations": {
+          "lantern": null,
+          "planter": null
+        },
+        "nextInteractionTick": 0,
+        "lastEventId": null
+      },
+      "home": {
+        "revision": 0,
+        "positions": {
+          "work": 0,
+          "eat": 0,
+          "bench": 0,
+          "corner": 0
+        },
+        "environment": "afternoon",
+        "accessories": {
+          "bluewhale": "none",
+          "claude": "none",
+          "gemini": "none",
+          "gpt": "none",
+          "grok": "none",
+          "kimi": "none",
+          "qwen": "none"
+        }
+      }
+    },
+    "revision": 1,
+    "ready": true,
+    "frameReady": true,
+    "drag": null,
+    "reasons": [],
+    "error": "",
+    "generation": 1,
+    "profileId": "6f9c6feb-a607-45c5-af63-13ccfde9f32c",
+    "homeDraft": null,
+    "extraDecorationDraft": null,
+    "homeDraftError": "",
+    "album": null,
+    "albumError": "",
+    "photoMode": false,
+    "actionError": "",
+    "preferences": {
+      "schemaVersion": 3,
+      "theme": "light",
+      "textScale": 1,
+      "language": "system",
+      "reducedMotion": false,
+      "bubbles": true,
+      "reducedTransparency": false,
+      "noticeReadIds": [],
+      "noticesInitialized": true
+    },
+    "preferencesSaving": false,
+    "saveReceipt": {
+      "status": "committed",
+      "operationId": "e0550e2b-835f-4046-be38-5743f45d6243",
+      "profileId": "6f9c6feb-a607-45c5-af63-13ccfde9f32c",
+      "epoch": "a18c3e87-a7a6-45b2-afd7-7fb15b8806d7",
+      "revision": 1
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { it, expect } from 'vitest'
 import { EntranceCoordinator, portraitFill } from '../src/client/entrance-state.ts'
-import { crossTransform, validateEntranceArt, entranceArt } from '../src/client/entrance-theme.ts'
+import { crossTransform, validateEntranceArt } from '../src/client/entrance-theme.ts'
+import { entranceArt } from '../src/client/entrance-art.ts'
 import { EntranceMotion } from '../src/client/entrance-motion.ts'
 
 it('uses verified work only; time and skip do not finish loading', () => {
@@ -44,4 +45,24 @@ it('cancels a running WAAPI operation and refuses subsequent stages after unmoun
   const finished=new Promise<void>((_,r)=>{reject=r}),node={animate:()=>({finished,cancel:()=>{cancelled++;reject(Error('cancel'))}})} as unknown as Element
   const motion=new EntranceMotion(),pending=motion.animate(node,[{opacity:1},{opacity:0}],650)
   motion.cancel();expect(await pending).toBe(false);expect(cancelled).toBeGreaterThan(0);expect(await motion.animate(node,[],550)).toBe(false)
+})
+
+import { entranceManifest } from '../src/entrance-manifest.ts'
+import { validateEntranceTheme, entranceLayout, entranceKnockout, doorAngle } from '../src/client/entrance-theme.ts'
+it('accepts bounded review geometry while keeping the production approval gate closed',()=>{
+  const art=validateEntranceTheme(entranceManifest)!
+  expect(art).not.toBeNull();expect(art.status).toBe('ART_REVIEW');expect(validateEntranceArt(art)).toBeNull()
+  expect(art.layers.findIndex(l=>l.kind==='frame')).toBeGreaterThan(art.layers.findIndex(l=>l.kind==='right'))
+  expect(entranceKnockout(art)).toContain('polygon(evenodd,')
+  for(const bad of [null,{}, {...art,layers:[null]}, {...art,portalPolygon:[[0,0],[1,1],[0,1],[1,0]]}, {...art,portalPolygon:[[0,0],[.1,0],[0,.1]]}, {...art,layers:art.layers.map(l=>({...l,parallax:100}))}])expect(validateEntranceTheme(bad)).toBeNull()
+  expect(doorAngle('left',1)).toBe(82);expect(doorAngle('right',1)).toBe(-82)
+})
+it.each([[320,360],[340,720],[580,720],[1080,760]])('keeps portrait master and cross-safe corners at %i x %i',(width,height)=>{
+  const art=validateEntranceTheme(entranceManifest)!,l=entranceLayout(width,height,art),s=art.safeApertureRect
+  expect(l.height).toBe(height);expect(l.width/l.height).toBe(.75)
+  const [x,y,scale]=l.cross.match(/-?\d+(?:\.\d+)?/g)!.map(Number) as [number,number,number]
+  expect(l.left+x+s.x*l.width*scale).toBeLessThanOrEqual(-16+1e-6)
+  expect(l.top+y+s.y*l.height*scale).toBeLessThanOrEqual(-16+1e-6)
+  expect(l.left+x+(s.x+s.width)*l.width*scale).toBeGreaterThanOrEqual(width+16-1e-6)
+  expect(l.top+y+(s.y+s.height)*l.height*scale).toBeGreaterThanOrEqual(height+16-1e-6)
 })
