@@ -35,7 +35,7 @@ for(const path of files.sort()){
  }catch(error){rows.push({path:name,sha256:hash,bytes:bytes.length,status:'FAIL',error:String(error)})}
 }
 const groups=[]
-for(const [name,dir,manifestName] of [['raw','', 'entrance-art-manifest.json'],['compat','compat/entrance','manifest.json']]){
+for(const [name,dir,manifestName] of [['raw','', 'entrance-art-manifest.json'],['compat','compat/entrance','manifest.json'],['runtime','','manifest.json']]){
  let manifest
  try{manifest=JSON.parse(await readFile(join(input,dir,manifestName),'utf8'))}catch{continue}
  const selected=rows.filter(r=>relative(dir||'.',r.path).replaceAll('\\','/').indexOf('/')<0&&(!dir||r.path.startsWith(dir+'/')))
