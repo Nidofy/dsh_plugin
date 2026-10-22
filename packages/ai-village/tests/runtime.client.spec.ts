@@ -1,3 +1,4 @@
+import { stories, neighborhoodEvents } from '../src/core/neighborhood-catalog.ts'
 // @vitest-environment jsdom
 import { it, expect, vi, afterEach } from 'vitest'
 import { VillageRuntime } from '../src/client/runtime.ts'
@@ -6,16 +7,17 @@ import { scene } from '../src/definitions.ts'
 import type { Saved } from '../src/host/save-store.ts'
 import { stepHome as stepTea, settleTea } from '../src/core/home-engine.ts'
 afterEach(() => vi.unstubAllGlobals())
-function fixture() {
+function fixture(initialWorld?: ContentWorld, initialPrefs?: unknown) {
   vi.stubGlobal('requestAnimationFrame', () => 1); vi.stubGlobal('cancelAnimationFrame', () => {})
-  let profileId = crypto.randomUUID(), epoch = crypto.randomUUID(), saved: Saved<ContentWorld> | null = null, uncertain = false
-  let release = 0, mutations = 0
+  let profileId = crypto.randomUUID(), epoch = crypto.randomUUID(), saved: Saved<ContentWorld> | null = initialWorld ? {revision:1,operationId:crypto.randomUUID(),world:initialWorld} : null, uncertain = false
+  let release = 0, mutations = 0, preferences: any = initialPrefs ? {revision:1,operationId:crypto.randomUUID(),world:initialPrefs} : null
   let stateUnavailable = false, gate: Promise<void> | null = null
   const runtime = new VillageRuntime(async (path, init) => {
     const data = init?.body ? JSON.parse(String(init.body)) : null
     let result: unknown
     if (path.endsWith('/acquire')) result = { profileId, epoch, lease: crypto.randomUUID() }
-    else if (path.endsWith('/preferences-state')) result = { profileId, epoch, saved: null }
+    else if (path.endsWith('/preferences-state')) result = { profileId, epoch, saved: preferences }
+    else if (path.endsWith('/preferences-save')) { preferences = { revision: (preferences?.revision ?? 0) + 1, operationId: data.operationId, world: data.world }; result = { ...preferences, profileId, epoch } }
     else if (path.endsWith('/state')) { if (stateUnavailable) throw Error('STATE_OFFLINE'); result = { profileId, epoch, saved } }
     else if (path.endsWith('/save')) {
       mutations++; if (gate) await gate
@@ -68,7 +70,7 @@ it('retains drafts across sidebar and panel hiding, revalidates on return and cl
     expect(r.homeDraftError).toBe('LAYOUT_CONFLICT'); expect(r.view()!.world).toEqual(r.controller!.world)
     await r.confirmHome(); expect(f.stats().mutations).toBe(writes); expect(r.homeDraft).toEqual(draft)
     r.undoHome(); expect(r.homeDraftError).toBe('LAYOUT_CONFLICT')
-    r.hide(); expect(r.homeDraft).toBeNull(); expect(r.reasons.has('arrange')).toBe(false)
+    r.hide(); expect(r.presentation.confirmClose).toBe(true); expect(r.homeDraft).not.toBeNull(); r.cancelArrangements(); r.hide(); expect(r.homeDraft).toBeNull(); expect(r.reasons.has('arrange')).toBe(false)
     r.show(); r.beginHome(); r.homeTemplate('garden'); await r.recover()
     expect(r.homeDraft).toBeNull(); expect(r.reasons.has('arrange')).toBe(false); expect(r.error).toBe('')
   } finally { await r.dispose() }
@@ -90,6 +92,8 @@ it('keeps all decoration previews in one paused runtime draft across hiding, blo
     expect(r.decorationDraft).toBe('wall'); expect(r.controller!.snapshot()).toEqual(saved)
     r.setFrameReady(true); await r.enterPhoto(); expect(r.photoMode).toBe(false)
     r.previewExtraDecoration({ id: 'planter', slot: 'door' })
+    expect(r.decorationDraft).toBe('wall'); expect(r.extraDecorationDraft).toBeNull()
+    r.cancelArrangements(); r.previewExtraDecoration({ id: 'planter', slot: 'door' })
     expect(r.decorationDraft).toBeUndefined(); expect(r.extraDecorationDraft).toEqual({ id: 'planter', slot: 'door' })
     r.pause('sidebar', true); r.pause('sidebar', false)
     expect(r.extraDecorationDraft?.slot).toBe('door'); r.setCharacterPresent('gpt', true)
@@ -239,4 +243,40 @@ it('publishes tea reward, journal and unlock together only after a lost ACK is r
     expect(r.controller!.world.progress.unlocked).toEqual(['wind-chime'])
     expect(settleTea(r.controller!.world, scene)).toBeNull()
   } finally { await r.dispose() }
+})
+
+it('publishes notices only after durable confirmation, keeps repeat IDs stable, and serializes read/theme intentions', async () => {
+  const f=fixture(),r=f.runtime
+  try {
+    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.pause('user',true);await r.flush()
+    await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true))
+    const candidate=r.controller!.snapshot(),id=crypto.randomUUID()
+    candidate.neighborhood.memories.push({id:'hello',eventId:id,participants:['bluewhale'],completedTick:candidate.ticks,count:1});candidate.neighborhood.lastEventId=id
+    const release=f.holdSave(),pending=r.commitWorld(candidate)
+    await vi.waitFor(()=>expect(r.reasons.has('commit-pending')).toBe(true));expect(r.notices).toEqual([]);expect(r.presentation.toastIds).toEqual([])
+    release();await pending;expect(r.notices).toHaveLength(1);expect(r.presentation.toastIds).toHaveLength(1)
+    const notice=r.notices[0]!.id,writes=f.stats().mutations,world=r.controller!.snapshot()
+    await Promise.all([r.setPreferences({theme:'dark'}),r.markNoticesRead([notice]),r.setPreferences({language:'en'})])
+    expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.preferences.noticeReadIds).toContain(notice);expect(f.stats().mutations).toBe(writes);expect(r.controller!.snapshot()).toEqual(world)
+    r.present({type:'patch',patch:{toastIds:[]}});world.neighborhood.memories[0]!.count++
+    f.loseAck();await r.commitWorld(world);expect(r.notices[0]!.id).toBe(notice);expect(r.notices[0]!.count).toBe(2);expect(r.presentation.toastIds).toEqual([])
+  } finally {await r.dispose()}
+})
+
+it('caps Home undo at twenty valid edits and cancel leaves the durable world untouched', async()=>{
+ const f=fixture(),r=f.runtime
+ try {r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.pause('user',true);await r.flush();const before=r.controller!.snapshot(),writes=f.stats().mutations;r.beginHome()
+ for(let i=0;i<25;i++)r.updateHome({...r.homeDraft!.home,environment:i%2?'afternoon':'twilight'})
+ for(let i=0;i<20;i++){expect(r.canUndoHome).toBe(true);r.undoHome()}
+ expect(r.canUndoHome).toBe(false);expect(r.homeDraft!.home.environment).toBe('twilight');r.cancelArrangements();expect(r.controller!.snapshot()).toEqual(before);expect(f.stats().mutations).toBe(writes)
+ }finally{await r.dispose()}
+})
+
+it('initializes twelve existing facts as read when legacy preferences migrate, without replaying history toasts',async()=>{
+ const world=createWorld(scene)
+ world.journal.push({id:crypto.randomUUID(),eventId:crypto.randomUUID(),templateId:'first-table',participants:['bluewhale','claude'],food:'tea',completedTick:0,count:1})
+ world.progress={completedWishes:['first-tea'],discovered:['first-table'],unlocked:['wind-chime'],lastCompletedEventId:world.journal[0]!.eventId};world.decorations.windChime={id:'first-wind-chime',slot:null}
+ world.neighborhood.memories=stories.map(s=>({id:s.id,eventId:crypto.randomUUID(),participants:neighborhoodEvents.find(d=>d.story===s.id)!.count===2?['bluewhale','claude']:['bluewhale'],completedTick:0,count:1}));world.neighborhood.lastEventId=world.neighborhood.memories.at(-1)!.eventId
+ const f=fixture(world,{schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}),r=f.runtime
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(6)}finally{await r.dispose()}
 })

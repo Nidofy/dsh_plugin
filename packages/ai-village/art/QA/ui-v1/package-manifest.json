@@ -1,0 +1,1348 @@
+{
+  "version": "0.6.2",
+  "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+  "dirty": true,
+  "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+  "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403",
+  "file": "nidofy-dsh-ai-village-0.6.2.tgz",
+  "bytes": 29340315,
+  "sha256": "faee4674e38976bf94e99d89f9663f882917598f7c0991f538d7f28e5a49c4a7",
+  "files": [
+    {
+      "path": "package/LICENSE",
+      "bytes": 1091,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-api-headers/LICENSE",
+      "bytes": 1064,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/arm64_asm.asm",
+      "bytes": 4016,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/x64win_asm.asm",
+      "bytes": 4822,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/x86_asm.asm",
+      "bytes": 3969,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/arm64.cc",
+      "bytes": 51950,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/lib/native/base/base.cc",
+      "bytes": 316379,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/call.cc",
+      "bytes": 69095,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/ffi.cc",
+      "bytes": 108101,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/loong64.cc",
+      "bytes": 273,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/parser.cc",
+      "bytes": 6271,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/riscv64.cc",
+      "bytes": 49435,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/type.cc",
+      "bytes": 22882,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/util.cc",
+      "bytes": 36273,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/uv.cc",
+      "bytes": 6388,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/win32.cc",
+      "bytes": 5776,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/x64sysv.cc",
+      "bytes": 52530,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/x64win.cc",
+      "bytes": 39661,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/x86.cc",
+      "bytes": 44078,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/cnoke.cjs",
+      "bytes": 29837,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/index.cjs",
+      "bytes": 50,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/index.cjs",
+      "bytes": 10502,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/indirect.cjs",
+      "bytes": 53,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/indirect.cjs",
+      "bytes": 10436,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/static.cjs",
+      "bytes": 2747,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/trampolines.cjs",
+      "bytes": 2033,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-api-headers/def/js_native_api.def",
+      "bytes": 2734,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-api-headers/def/node_api.def",
+      "bytes": 3550,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/uv.def",
+      "bytes": 134,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-api-headers/include/js_native_api_types.h",
+      "bytes": 6744,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-api-headers/include/js_native_api.h",
+      "bytes": 31081,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-addon-api/napi-inl.deprecated.h",
+      "bytes": 6323,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-addon-api/napi-inl.h",
+      "bytes": 242214,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-addon-api/napi.h",
+      "bytes": 124039,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-api-headers/include/node_api_types.h",
+      "bytes": 1930,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-api-headers/include/node_api.h",
+      "bytes": 10370,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/lib/native/base/base.hh",
+      "bytes": 173566,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/call.hh",
+      "bytes": 5513,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/ffi.hh",
+      "bytes": 11077,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/parser.hh",
+      "bytes": 1253,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/type.hh",
+      "bytes": 2102,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/util.hh",
+      "bytes": 14412,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/uv.hh",
+      "bytes": 2536,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/win32.hh",
+      "bytes": 3690,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/errno.inc",
+      "bytes": 8776,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/primitives.inc",
+      "bytes": 857,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/lib/native/base/unicode.inc",
+      "bytes": 36653,
+      "type": "File"
+    },
+    {
+      "path": "package/lib/client.js",
+      "bytes": 360852,
+      "type": "File"
+    },
+    {
+      "path": "package/lib/frame.js",
+      "bytes": 627475,
+      "type": "File"
+    },
+    {
+      "path": "package/lib/index.js",
+      "bytes": 1556,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/@koromix/koffi-win32-x64/index.js",
+      "bytes": 206,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/index.js",
+      "bytes": 85,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/index.js",
+      "bytes": 9147,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/indirect.js",
+      "bytes": 91,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/indirect.js",
+      "bytes": 9091,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/static.js",
+      "bytes": 2830,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/animations.json",
+      "bytes": 16649,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/animations.json",
+      "bytes": 14251,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/animations.json",
+      "bytes": 14251,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/animations.json",
+      "bytes": 14251,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/animations.json",
+      "bytes": 14251,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/animations.json",
+      "bytes": 14251,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/animations.json",
+      "bytes": 14251,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/character.json",
+      "bytes": 6052,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/character.json",
+      "bytes": 3359,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/character.json",
+      "bytes": 3360,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/character.json",
+      "bytes": 3357,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/character.json",
+      "bytes": 3357,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/character.json",
+      "bytes": 3357,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/character.json",
+      "bytes": 3358,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/manifest.json",
+      "bytes": 13860,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/manifest.json",
+      "bytes": 7676,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/manifest.json",
+      "bytes": 7677,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/manifest.json",
+      "bytes": 7625,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/manifest.json",
+      "bytes": 7644,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/manifest.json",
+      "bytes": 7655,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/manifest.json",
+      "bytes": 7648,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/portraits/manifest.json",
+      "bytes": 1434,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/manifest.json",
+      "bytes": 5984,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/thumbnails/manifest.json",
+      "bytes": 1281,
+      "type": "File"
+    },
+    {
+      "path": "package/OFFLINE-DEPENDENCIES.json",
+      "bytes": 267,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/@koromix/koffi-win32-x64/package.json",
+      "bytes": 668,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/package.json",
+      "bytes": 1226,
+      "type": "File"
+    },
+    {
+      "path": "package/package.json",
+      "bytes": 1941,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/scene.json",
+      "bytes": 2286,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.lib",
+      "bytes": 1688,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/benchmarks.md",
+      "bytes": 2898,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/callbacks.md",
+      "bytes": 7909,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/CHANGELOG.md",
+      "bytes": 30835,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/composites.md",
+      "bytes": 16327,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/contribute.md",
+      "bytes": 5744,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/index.md",
+      "bytes": 2916,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-addon-api/LICENSE.md",
+      "bytes": 1150,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/load.md",
+      "bytes": 7526,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/migration.md",
+      "bytes": 8908,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/misc.md",
+      "bytes": 3790,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/output.md",
+      "bytes": 9366,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/pointers.md",
+      "bytes": 15051,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/primitives.md",
+      "bytes": 7561,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/@koromix/koffi-win32-x64/README.md",
+      "bytes": 271,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/README.md",
+      "bytes": 2436,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-addon-api/README.md",
+      "bytes": 4994,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/vendor/node-api-headers/README.md",
+      "bytes": 2741,
+      "type": "File"
+    },
+    {
+      "path": "package/README.md",
+      "bytes": 14207,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/start.md",
+      "bytes": 3008,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/types.md",
+      "bytes": 2828,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/unions.md",
+      "bytes": 0,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/doc/values.md",
+      "bytes": 6324,
+      "type": "File"
+    },
+    {
+      "path": "package/lib/index.mjs",
+      "bytes": 1556,
+      "type": "File"
+    },
+    {
+      "path": "package/lib/service-CNHMbS9I.mjs",
+      "bytes": 100305,
+      "type": "File"
+    },
+    {
+      "path": "package/lib/service.mjs",
+      "bytes": 135,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node",
+      "bytes": 1042944,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/ahoge.png",
+      "bytes": 227823,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/arm-left.png",
+      "bytes": 145264,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/arm-left.png",
+      "bytes": 89414,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/arm-left.png",
+      "bytes": 87025,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/arm-left.png",
+      "bytes": 92792,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/arm-left.png",
+      "bytes": 85531,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/arm-left.png",
+      "bytes": 92147,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/arm-left.png",
+      "bytes": 110170,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/arm-right.png",
+      "bytes": 144585,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/arm-right.png",
+      "bytes": 91211,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/arm-right.png",
+      "bytes": 95541,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/arm-right.png",
+      "bytes": 97581,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/arm-right.png",
+      "bytes": 88550,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/arm-right.png",
+      "bytes": 91620,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/arm-right.png",
+      "bytes": 112440,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/back-hair.png",
+      "bytes": 600730,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/back-hair.png",
+      "bytes": 228464,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/back-hair.png",
+      "bytes": 215685,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/back-hair.png",
+      "bytes": 195529,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/back-hair.png",
+      "bytes": 234096,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/back-hair.png",
+      "bytes": 225147,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/back-hair.png",
+      "bytes": 197770,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/background.png",
+      "bytes": 2232444,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/thumbnails/bench.png",
+      "bytes": 1028,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/portraits/bluewhale.png",
+      "bytes": 32688,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/thumbnails/books.png",
+      "bytes": 1213,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/bowl.png",
+      "bytes": 170926,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/portraits/claude.png",
+      "bytes": 35565,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/curl-left.png",
+      "bytes": 182478,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/curl-right.png",
+      "bytes": 168419,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/cushion.png",
+      "bytes": 483383,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/desk-back.png",
+      "bytes": 66563,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/desk-front.png",
+      "bytes": 536764,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/desk.png",
+      "bytes": 601888,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/ear-left.png",
+      "bytes": 51025,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/ear-right.png",
+      "bytes": 49390,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/eat-left.png",
+      "bytes": 87858,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/eat-left.png",
+      "bytes": 80574,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/eat-left.png",
+      "bytes": 95207,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/eat-left.png",
+      "bytes": 102100,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/eat-left.png",
+      "bytes": 1155079,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/eat-left.png",
+      "bytes": 107510,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/eat-left.png",
+      "bytes": 272557,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/eat-right.png",
+      "bytes": 99301,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/eat-right.png",
+      "bytes": 118992,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/eat-right.png",
+      "bytes": 90786,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/eat-right.png",
+      "bytes": 105064,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/eat-right.png",
+      "bytes": 123882,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/eat-right.png",
+      "bytes": 139113,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/eat-right.png",
+      "bytes": 267985,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/thumbnails/eat.png",
+      "bytes": 18723,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/face-happy.png",
+      "bytes": 285079,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/face-happy.png",
+      "bytes": 168953,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/face-happy.png",
+      "bytes": 191400,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/face-happy.png",
+      "bytes": 185963,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/face-happy.png",
+      "bytes": 192394,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/face-happy.png",
+      "bytes": 198689,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/face-happy.png",
+      "bytes": 199930,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/face-neutral.png",
+      "bytes": 333064,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/face-neutral.png",
+      "bytes": 167783,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/face-neutral.png",
+      "bytes": 192282,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/face-neutral.png",
+      "bytes": 188224,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/face-neutral.png",
+      "bytes": 190144,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/face-neutral.png",
+      "bytes": 200348,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/face-neutral.png",
+      "bytes": 196089,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/face-sleepy.png",
+      "bytes": 277686,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/face-sleepy.png",
+      "bytes": 163070,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/face-sleepy.png",
+      "bytes": 184815,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/face-sleepy.png",
+      "bytes": 178124,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/face-sleepy.png",
+      "bytes": 185064,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/face-sleepy.png",
+      "bytes": 190679,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/face-sleepy.png",
+      "bytes": 190586,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/face-surprised.png",
+      "bytes": 333867,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/face-surprised.png",
+      "bytes": 168235,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/face-surprised.png",
+      "bytes": 192355,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/face-surprised.png",
+      "bytes": 186297,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/face-surprised.png",
+      "bytes": 192179,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/face-surprised.png",
+      "bytes": 197258,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/face-surprised.png",
+      "bytes": 202747,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/front-hair.png",
+      "bytes": 411644,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/portraits/gemini.png",
+      "bytes": 35272,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/portraits/gpt.png",
+      "bytes": 30371,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/portraits/grok.png",
+      "bytes": 32838,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/headband.png",
+      "bytes": 330037,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/portraits/kimi.png",
+      "bytes": 34874,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/leg-left.png",
+      "bytes": 141026,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/leg-left.png",
+      "bytes": 65890,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/leg-left.png",
+      "bytes": 83659,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/leg-left.png",
+      "bytes": 55905,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/leg-left.png",
+      "bytes": 58127,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/leg-left.png",
+      "bytes": 59798,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/leg-left.png",
+      "bytes": 56964,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/leg-right.png",
+      "bytes": 143730,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/leg-right.png",
+      "bytes": 65974,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/leg-right.png",
+      "bytes": 78921,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/leg-right.png",
+      "bytes": 53800,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/leg-right.png",
+      "bytes": 55169,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/leg-right.png",
+      "bytes": 59247,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/leg-right.png",
+      "bytes": 54150,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/ornament.png",
+      "bytes": 102812,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/ornament.png",
+      "bytes": 93972,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/ornament.png",
+      "bytes": 101967,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/ornament.png",
+      "bytes": 41429,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/ornament.png",
+      "bytes": 108195,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/ornament.png",
+      "bytes": 82592,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/thumbnails/plant.png",
+      "bytes": 2024,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/portraits/qwen.png",
+      "bytes": 34652,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/rest-pose.png",
+      "bytes": 232005,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/rest-pose.png",
+      "bytes": 245997,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/rest-pose.png",
+      "bytes": 234205,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/rest-pose.png",
+      "bytes": 244576,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/rest-pose.png",
+      "bytes": 256006,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/rest-pose.png",
+      "bytes": 240981,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/rest-pose.png",
+      "bytes": 2017891,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/thumbnails/rest.png",
+      "bytes": 22588,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/skirt.png",
+      "bytes": 990006,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/table-back.png",
+      "bytes": 66874,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/table-front.png",
+      "bytes": 503210,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/table.png",
+      "bytes": 568171,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/tail-fin.png",
+      "bytes": 196483,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/tail-root.png",
+      "bytes": 179241,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/bluewhale/parts/torso.png",
+      "bytes": 494040,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/torso.png",
+      "bytes": 177840,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/torso.png",
+      "bytes": 180407,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/torso.png",
+      "bytes": 151110,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/torso.png",
+      "bytes": 157743,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/torso.png",
+      "bytes": 199477,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/torso.png",
+      "bytes": 178988,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/work-left.png",
+      "bytes": 84089,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/work-left.png",
+      "bytes": 98083,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/work-left.png",
+      "bytes": 78657,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/work-left.png",
+      "bytes": 84786,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/work-left.png",
+      "bytes": 83747,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/work-left.png",
+      "bytes": 109950,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/work-left.png",
+      "bytes": 248328,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/claude/parts/work-right.png",
+      "bytes": 92017,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gemini/parts/work-right.png",
+      "bytes": 83838,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/gpt/parts/work-right.png",
+      "bytes": 68285,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/grok/parts/work-right.png",
+      "bytes": 78784,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/kimi/parts/work-right.png",
+      "bytes": 77622,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/characters/qwen/parts/work-right.png",
+      "bytes": 100905,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/scenes/courtyard/work-right.png",
+      "bytes": 243707,
+      "type": "File"
+    },
+    {
+      "path": "package/assets/thumbnails/work.png",
+      "bytes": 18975,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/arm64_asm.S",
+      "bytes": 4978,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/loong64_asm.S",
+      "bytes": 4496,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/riscv64_asm.S",
+      "bytes": 4221,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/x64sysv_asm.S",
+      "bytes": 5198,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/x64win_asm.S",
+      "bytes": 3966,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/src/abi/x86_asm.S",
+      "bytes": 4718,
+      "type": "File"
+    },
+    {
+      "path": "package/lib/types/index.d.ts",
+      "bytes": 200,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/index.d.ts",
+      "bytes": 12815,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/src/koffi/CMakeLists.txt",
+      "bytes": 9375,
+      "type": "File"
+    },
+    {
+      "path": "package/node_modules/koffi/LICENSE.txt",
+      "bytes": 1117,
+      "type": "File"
+    },
+    {
+      "path": "package/THIRD-PARTY-NOTICES.txt",
+      "bytes": 17074,
+      "type": "File"
+    },
+    {
+      "path": "package/cordis.patch.yml",
+      "bytes": 75,
+      "type": "File"
+    }
+  ],
+  "verified": "Packed client/frame hashes equal final runtime screenshot build and release lib. Offline install tested this hash."
+}

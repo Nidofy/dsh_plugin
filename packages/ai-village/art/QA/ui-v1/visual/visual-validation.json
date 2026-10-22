@@ -1,0 +1,1134 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "340x720-light-zh-default",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "system",
+      "language": "system",
+      "state": {
+        "tab": "residents",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 0,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 355029,
+        "sha256": "44848dca8ad1d73a79ad3d25c91f77d4f4aa10fb31afe40db4d74404735679c1"
+      }
+    },
+    {
+      "name": "340x720-residents",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "system",
+      "language": "system",
+      "state": {
+        "tab": "residents",
+        "drawer": "half",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 0,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 244643,
+        "sha256": "4eb0af9e104361278c664983c9ca62f43eea0459e6dc905bbf4b45fdf8a01eb1"
+      }
+    },
+    {
+      "name": "340x720-wishes",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "system",
+      "language": "system",
+      "state": {
+        "tab": "wishes",
+        "drawer": "half",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 0,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 236488,
+        "sha256": "10e47dbcd7e0b2db1d814189cce80d9877f403e2ad39a756e52468f60392b3b9"
+      }
+    },
+    {
+      "name": "340x720-decor",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "system",
+      "language": "system",
+      "state": {
+        "tab": "decor",
+        "drawer": "half",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 0,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 243409,
+        "sha256": "4a7b4b2a0eded2cd36bd81aa4d85764eff32bb340b2ba0f272d1685610fadab7"
+      }
+    },
+    {
+      "name": "340x720-journal",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "system",
+      "language": "system",
+      "state": {
+        "tab": "journal",
+        "drawer": "half",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 0,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 232749,
+        "sha256": "d71320764f084bfc7d0c87f30fe32139434371d7e1906ce763f35ad2320d703b"
+      }
+    },
+    {
+      "name": "340x720-notifications",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "system",
+      "language": "system",
+      "state": {
+        "tab": "residents",
+        "drawer": "closed",
+        "overlay": "notifications",
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 0,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 299210,
+        "sha256": "b7e346cfe58af634619b854eeac07b27cb7f4452364dbf4c964e1560b414afe8"
+      }
+    },
+    {
+      "name": "340x720-settings",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "system",
+      "language": "system",
+      "state": {
+        "tab": "residents",
+        "drawer": "closed",
+        "overlay": "settings",
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 0,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 104903,
+        "sha256": "1a9826ecd9f6c2fa21032892482288ff3635a08963eb65f88e0c218e565bdc04"
+      }
+    },
+    {
+      "name": "340x720-dark-zh-default",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "system",
+      "state": {
+        "tab": "residents",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 0,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 354279,
+        "sha256": "78c706417ba158de14175b308e485fb45440facb40c4f38b9c62df980ac3c8c3"
+      }
+    },
+    {
+      "name": "340x720-seven-residents",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "system",
+      "state": {
+        "tab": "residents",
+        "drawer": "half",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 237048,
+        "sha256": "f3493152cccdf94e843768b7a183c7e920fb6e1786c5b81b47b39a885d358970"
+      }
+    },
+    {
+      "name": "340x720-arrange",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "system",
+      "state": {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 351694,
+        "sha256": "59aba83d5d6fbe07872708f74886aa880088216fa080ddfb9662107e0c2cf82c"
+      }
+    },
+    {
+      "name": "340x720-arrange-legal",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "system",
+      "state": {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 343244,
+        "sha256": "122d9b15b6612f72671f1ca985238ff9beffe6ebb76e0845b433210f53477636"
+      }
+    },
+    {
+      "name": "340x720-arrange-illegal",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "system",
+      "state": {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 344244,
+        "sha256": "d838402b02539431101f963a255b08e39cf79cff4c93daea9fd6a60acbd5027a"
+      }
+    },
+    {
+      "name": "340x720-photo",
+      "css": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "system",
+      "state": {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": false,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 258278,
+        "sha256": "839bf8a0d5559e77a9997a7045110f846e34f676a4c391e796d2a312aa88ef53"
+      }
+    },
+    {
+      "name": "1080x760-dark-default",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 1080,
+        "height": 760
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "system",
+      "state": {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1304,
+        "height": 998,
+        "bytes": 808438,
+        "sha256": "9dbf35d5866fb80350d150e8f3880d3e801285bbe33b4e8d6f433ae36672783b"
+      }
+    },
+    {
+      "name": "1080x760-dark-inspector",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 1080,
+        "height": 760
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "system",
+      "state": {
+        "tab": "residents",
+        "drawer": "half",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1304,
+        "height": 998,
+        "bytes": 676771,
+        "sha256": "445e1fdef52a8eddf43f022cbcb25ecac951adb49f901816cc33f9737c71453e"
+      }
+    },
+    {
+      "name": "1080x760-light-default",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 1080,
+        "height": 760
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "light",
+      "language": "system",
+      "state": {
+        "tab": "residents",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1304,
+        "height": 998,
+        "bytes": 808585,
+        "sha256": "07c6905ffbe76510dcd75ccf6bb656e12de32381304e2440c66eff244aee7d51"
+      }
+    },
+    {
+      "name": "1080x760-album",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 1080,
+        "height": 760
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "light",
+      "language": "system",
+      "state": {
+        "tab": "journal",
+        "drawer": "half",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "album"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 1304,
+        "height": 998,
+        "bytes": 665825,
+        "sha256": "9bf4c5990cd388d9baf44ffb09c7262bc4e6e06858249246f70fdbcbaabfb5d2"
+      }
+    },
+    {
+      "name": "580x720-en-default",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 580,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "light",
+      "language": "en",
+      "state": {
+        "tab": "journal",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "album"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 804,
+        "height": 958,
+        "bytes": 619300,
+        "sha256": "998b5e5a68095bbd955058b0e690a161679ca8f95f33927f1e1906b6432502fa"
+      }
+    },
+    {
+      "name": "580x720-en-journal",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 580,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "light",
+      "language": "en",
+      "state": {
+        "tab": "journal",
+        "drawer": "half",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "album"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 804,
+        "height": 958,
+        "bytes": 409021,
+        "sha256": "879343c63935be19d3275489a7e0cbd171495fec8e6a2f50644de5c2f2109d64"
+      }
+    },
+    {
+      "name": "580x720-en-dark-default",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 580,
+        "height": 720
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "en",
+      "state": {
+        "tab": "journal",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "album"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 804,
+        "height": 958,
+        "bytes": 619194,
+        "sha256": "a583802ce04f3814ba3b28ff132b348e1e557229e9a71a23cbaf81c1303e0393"
+      }
+    },
+    {
+      "name": "320x360-short",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 320,
+        "height": 360
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "zh",
+      "state": {
+        "tab": "residents",
+        "drawer": "full",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "album"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 544,
+        "height": 598,
+        "bytes": 79524,
+        "sha256": "19393fc9d45e585232dddc574d13eb06286da3c31a324f0c9661e647d2610917"
+      }
+    },
+    {
+      "name": "320x360-short-arrange-options",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 320,
+        "height": 360
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "zh",
+      "state": {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "album"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 544,
+        "height": 598,
+        "bytes": 75182,
+        "sha256": "491807244ba6dc4123700f5879e4e7c8434f17240f4fd730f918261ae55a4b5d"
+      }
+    },
+    {
+      "name": "340x480-default",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 340,
+        "height": 480
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "theme": "dark",
+      "language": "zh",
+      "state": {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": null,
+        "camera": {
+          "zoom": 1,
+          "panX": 0,
+          "panY": 0
+        },
+        "expanded": true,
+        "selectedFurniture": "work",
+        "accessoryTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "album"
+        },
+        "confirmClose": false,
+        "zoomHint": 1792647583379,
+        "toastIds": [],
+        "noticeTarget": null
+      },
+      "png": {
+        "width": 564,
+        "height": 718,
+        "bytes": 257933,
+        "sha256": "17a4ce9506d875a30d55db84e0a8c51b7dac9298697f6e855ad0bea97e9872b4"
+      }
+    },
+    {
+      "name": "1080x722-notifications-populated",
+      "css": {
+        "x": 212,
+        "y": 92,
+        "width": 1080,
+        "height": 722
+      },
+      "dpr": 1,
+      "kind": "RUNTIME",
+      "build": {
+        "version": "0.6.2",
+        "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+        "dirty": true,
+        "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+        "frameSHA256": "31388336f713b1cdad5d845ee0ba2b47603d3ea0aed0e6f0560d74320add4403"
+      },
+      "png": {
+        "width": 1440,
+        "height": 960,
+        "bytes": 723007,
+        "sha256": "a17a2b1b2955a406e43808753493f9cf2d9d535f1e5f3979557b1fa3fda47ed7"
+      }
+    }
+  ],
+  "scope": "Runtime metadata, whole-host screenshot bounds and dimensions; photo dimensions. Pixel review is recorded separately; no claim of automatic semantic visual approval."
+}

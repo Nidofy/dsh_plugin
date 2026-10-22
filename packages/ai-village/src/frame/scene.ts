@@ -1,10 +1,15 @@
+import { cachedAtmosphere, backgroundSurface } from './atmosphere.ts'
+import { frameChannel as channel, frameVersion as version } from '../core/frame-protocol.ts'
+import { defaultCamera, projectCamera, validCamera, type Camera } from '../core/camera.ts'
+import { routeInput } from './input-router.ts'
+import type { ArrangementObject } from '../core/arrangement.ts'
 import { homeScene, validateHomeWorld, neighborhoodProjection, type HomeWorld } from '../core/home-state.ts'
 import { villageTime } from '../core/dialogue.ts'
 import { photoLimits } from '../core/photo.ts'
 import { NeighborhoodArt, microPose } from './neighborhood-art.ts'
 import { validateNeighborhoodWorld, legacyContent, neighborhoodScene, type NeighborhoodWorld } from '../core/neighborhood-state.ts'
 import { residentLine } from '../core/neighborhood-catalog.ts'
-import { Application, Container, Graphics, Sprite, Texture } from 'pixi.js'
+import { Application, Container, Graphics, Sprite, Texture, RenderTexture, Matrix, Text } from 'pixi.js'
 import 'pixi.js/unsafe-eval'
 import { renderResolution } from './quality.ts'
 import { sceneViewport } from './viewport.ts'
@@ -17,23 +22,30 @@ import { dialogue, bellReaction } from '../core/dialogue.ts'
 import { hitActor, orderedActors, validateWorld } from '../core/world.ts'
 import type { Action, AnimationSet, Character } from '../art/types.ts'
 import type { Actor, Point, Rect, World } from '../core/world.ts'
-interface View { extraDecorationDraft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null; arranging?: boolean; world: World | ContentWorld | NeighborhoodWorld | HomeWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean;
+interface View { overlayOpen: boolean; camera: Camera; dismissLayer: boolean; arrangementObjects: ArrangementObject[]; selectedFurniture: string; extraDecorationDraft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null; arranging?: boolean; world: World | ContentWorld | NeighborhoodWorld | HomeWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean;
   photo?: { zoom:number;x:number;y:number;date:boolean;border:boolean } | null; locale: 'zh' | 'en'; reducedMotion: boolean; bubbles: boolean; decorationDraft: 'window' | 'door' | 'wall' | null | undefined }
-const channel = 'nidofy-ai-village', version = 2
+
 let token = '', received = 0, sent = 0, initialized = false, disposed = false, pointer: number | null = null
 let app: Application | undefined, scene: SceneArt, character: Character, animations: AnimationSet
 type AvatarArt = { character: Character; animations: AnimationSet; activityPrefix: string }
 let roster: Record<string, AvatarArt> = {}
 let view: View | undefined, shadow: Graphics, hints: Graphics, backdrop: Sprite
+let atmosphere: Container, atmosphereCache: ReturnType<typeof cachedAtmosphere> | undefined, backgroundCache: ReturnType<typeof backgroundSurface> | undefined, atmosphereImage: HTMLImageElement | undefined
 let neighborhoodArt: NeighborhoodArt, cushion: Sprite
 let bell: Graphics, tea: Graphics, viewportRevision = 0, reactionUntil = 0
 const bubbleNodes: HTMLDivElement[] = []
 const props: { definition: SeatProp; sprite: Sprite }[] = []
-const stage = new Container(), textures = new Map<string, Texture>(), urls = new Map<string, string>()
+let inputRouter: ReturnType<typeof routeInput> | undefined
+let projectionKey = ''
+let ghostLabel: HTMLDivElement
+let ghostObject: ArrangementObject | null = null, ghostPoint: Point | undefined, ghostIndex: number | undefined
+const stage = new Container(), worldContent = new Container(), textures = new Map<string, Texture>(), urls = new Map<string, string>()
 let renderScene: SceneArt
 const furnitureSprites: {id: string; back: Sprite; front: Sprite}[] = []
 const accessories = new Map<string, Graphics>()
-const twilight = new Graphics()
+const photoDate = new Text({text:'',style:{fontFamily:'system-ui',fontSize:20,fill:0x4e5c43}})
+photoDate.anchor.set(.5,1)
+const twilight = new Graphics(), photoMask = new Graphics(), photoPaper = new Graphics()
 let keepAssets: Set<string> | null = null, assetLoading = false
 interface Rig { doll: PaperDoll; resting: Sprite; activity: Container; arms: Map<string, Sprite>; art: AvatarArt }
 const rigs = new Map<string, Rig>()
@@ -47,7 +59,7 @@ function rigFor(id: string): Rig {
   if (!art) throw Error('CHARACTER_UNAVAILABLE')
   const doll = new PaperDoll(art.character, textures), activity = new Container(), arms = new Map<string, Sprite>()
   const resting = new Sprite(textures.get(art.activityPrefix + 'rest-pose.png')!)
-  resting.anchor.set(.5, 1); stage.addChild(doll.root, resting, activity)
+  resting.anchor.set(.5, 1); worldContent.addChild(doll.root, resting, activity)
   for (const name of ['work-left', 'work-right', 'eat-left', 'eat-right']) {
     const sprite = new Sprite(textures.get(art.activityPrefix + name + '.png')!)
     sprite.visible = false; activity.addChild(sprite); arms.set(name, sprite)
@@ -58,29 +70,38 @@ const send = (type: string, data: object = {}) => parent.postMessage({ channel, 
 function rectangleSprite(file: string, rect: Rect, z: number): Sprite {
   const sprite = new Sprite(textures.get(file)!)
   sprite.position.set(rect.x, rect.y); sprite.width = rect.width; sprite.height = rect.height; sprite.zIndex = z
-  stage.addChild(sprite)
+  worldContent.addChild(sprite)
   return sprite
+}
+function workspace() { return { x: 0, y: 0, width: innerWidth, height: view?.arrangementObjects.length ? innerHeight - (innerHeight < 480 ? 134 : 194) : innerHeight } }
+function photoRect() {
+  const k=Math.min((innerWidth-24)/720,(innerHeight*.55-24)/960), margin=view?.photo?.border?24:0,bottom=view?.photo?.date?64:margin
+  return { k, x:(innerWidth-720*k)/2, y:12, margin, bottom, width:720-margin*2, height:960-margin-bottom }
+}
+function projection() {
+  const w = workspace(), photo = view?.photo
+  if (photo) {
+    const r=photoRect(), scale=Math.max(r.width/360,r.height/480)*r.k*photo.zoom
+    return {scale,x:r.x+r.margin*r.k+(r.width*r.k-360*scale)/2*(1+photo.x),y:r.y+r.margin*r.k+(r.height*r.k-480*scale)/2*(1+photo.y)}
+  }
+  return projectCamera(w, view?.arrangementObjects.length ? defaultCamera : view?.camera ?? defaultCamera)
+}
+function applyProjection() {
+  const p = projection(), key = JSON.stringify([p, innerWidth, innerHeight, devicePixelRatio])
+  stage.scale.set(p.scale); stage.position.set(p.x, p.y)
+  backgroundCache?.update(p.scale,!!view?.photo);atmosphereCache?.update(innerWidth,innerHeight,p,!!view?.photo)
+  photoPaper.clear();photoMask.clear();stage.mask=null;photoDate.visible=!!view?.photo?.date
+  if(view?.photo){const r=photoRect();photoPaper.rect(r.x,r.y,720*r.k,960*r.k).fill(0xf8f0dd);photoMask.rect(r.x+r.margin*r.k,r.y+r.margin*r.k,r.width*r.k,r.height*r.k).fill(0xffffff);stage.mask=photoMask;const time=villageTime(view.world.ticks);photoDate.text=(view.locale==='zh'?'小院第 '+time.day+' 天':'Courtyard · Day '+time.day)+'  '+String(time.hour).padStart(2,'0')+':'+String(time.minute).padStart(2,'0');photoDate.scale.set(r.k);photoDate.position.set(r.x+360*r.k,r.y+940*r.k)}
+  if (key !== projectionKey) { projectionKey = key; viewportRevision++; send('viewport', { viewportRevision, projection: { ...p, width: innerWidth, height: innerHeight } }) }
 }
 function layout() {
   if (!app) return
+  inputRouter?.cancel()
   app.renderer.resize(innerWidth, innerHeight, renderResolution(devicePixelRatio, innerWidth, innerHeight))
-  const { world, background } = sceneViewport(innerWidth, innerHeight)
-  stage.scale.set(world.scale); stage.position.set(world.x, world.y)
-  backdrop.position.set(background.x, background.y)
-  backdrop.width = background.width; backdrop.height = background.height
-  viewportRevision++
-  send('viewport', { viewportRevision, projection: { ...world, width: innerWidth, height: innerHeight } })
-  paint()
+  applyProjection(); paint()
 }
-function local(event: PointerEvent): Point {
-  return { x: (event.clientX - stage.x) / stage.scale.x, y: (event.clientY - stage.y) / stage.scale.y }
-}
-function cancel() {
-  if (pointer === null) return
-  const id = pointer; pointer = null
-  send('pointer', { viewportRevision, intent: { type: 'cancel', id, point: { x: 0, y: 0 }, css: { x: 0, y: 0 } } })
-  if (app?.canvas.hasPointerCapture(id)) app.canvas.releasePointerCapture(id)
-}
+function local(event: { clientX: number; clientY: number }): Point { return { x: (event.clientX - stage.x) / stage.scale.x, y: (event.clientY - stage.y) / stage.scale.y } }
+function cancel() { inputRouter?.cancel() }
 async function loadAssets(images: Record<string, ArrayBuffer>) {
   if (!images || Object.keys(images).length > 160 || Object.values(images).some(b=>!(b instanceof ArrayBuffer)||b.byteLength>8*1024*1024)) throw Error('INVALID_ASSETS')
   for (const [file, bytes] of Object.entries(images)) {
@@ -88,7 +109,8 @@ async function loadAssets(images: Record<string, ArrayBuffer>) {
     const url=URL.createObjectURL(new Blob([bytes],{type:'image/png'})); urls.set(file,url)
     const image=new Image();image.src=url;await image.decode()
     if(disposed){URL.revokeObjectURL(url);return}
-    textures.set(file,Texture.from(image))
+    if (file === 'scene/background.png') { atmosphereImage = image; backgroundCache = backgroundSurface(image) }
+    textures.set(file,file==='scene/background.png' ? backgroundCache!.texture : Texture.from(image))
   }
   keepAssets=new Set(Object.keys(images))
 }
@@ -101,14 +123,19 @@ async function init(message: { character: Character; animations: AnimationSet; r
     preference: 'webgl', autoStart: false, sharedTicker: false, background: 0xf0eadb })
   if (disposed) { instance.destroy(true, { children: true }); return }
   app = instance
+  const gl=(app.canvas as HTMLCanvasElement).getContext('webgl2') ?? (app.canvas as HTMLCanvasElement).getContext('webgl'), debug=gl?.getExtension('WEBGL_debug_renderer_info')
+  send('capabilities',{softwareRendering:!!gl && /swiftshader|llvmpipe|software/i.test(String(debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER)))})
+  atmosphereCache = cachedAtmosphere(atmosphereImage!); atmosphere = atmosphereCache.root; app.stage.addChild(atmosphere)
   backdrop = new Sprite(textures.get('scene/background.png')!)
-  stage.sortableChildren = true; app.stage.addChild(backdrop, stage)
+  backdrop.width = 360; backdrop.height = 480; backdrop.zIndex = -100
+  worldContent.sortableChildren = true; stage.addChild(backdrop,worldContent); app.stage.addChild(photoPaper,stage,photoMask,photoDate)
+  document.body.style.background = 'radial-gradient(ellipse at 50% 25%,#c9cbb4,#8e9b7b 65%,#59674f)'
   document.body.append(app.canvas)
   app.canvas.style.touchAction = 'none'
   app.canvas.tabIndex = 0
   app.canvas.style.outline = 'none'
   cushion = rectangleSprite('scene/cushion.png', scene.cushion, 0)
-  neighborhoodArt = new NeighborhoodArt(stage)
+  neighborhoodArt = new NeighborhoodArt(worldContent)
   for (const item of scene.furniture) {
     const back = rectangleSprite(`scene/${item.asset}-back.png`, { ...item.rect, height: item.rect.height * item.split }, item.rect.y * 10)
     const front = rectangleSprite(`scene/${item.asset}-front.png`, { ...item.rect, y: item.rect.y + item.rect.height * item.split, height: item.rect.height * (1 - item.split) }, (item.rect.y + item.rect.height) * 10)
@@ -116,35 +143,24 @@ async function init(message: { character: Character; animations: AnimationSet; r
   }
   for (const definition of seatProps(scene)) props.push({ definition,
     sprite: rectangleSprite(definition.asset, definition.rect, furnitureDepth(scene, definition.furnitureId) ?? 0) })
-  shadow = new Graphics(); shadow.zIndex = 1; stage.addChild(shadow)
-  hints = new Graphics(); hints.zIndex = 11000; stage.addChild(hints)
-  bell = new Graphics(); bell.zIndex = 2; tea = new Graphics(); tea.zIndex = 4100; stage.addChild(bell, tea); twilight.zIndex=2; stage.addChild(twilight)
+  shadow = new Graphics(); shadow.zIndex = 1; worldContent.addChild(shadow)
+  hints = new Graphics(); hints.zIndex = 11000; worldContent.addChild(hints)
+  bell = new Graphics(); bell.zIndex = 2; tea = new Graphics(); tea.zIndex = 4100; worldContent.addChild(bell, tea); twilight.zIndex=2; worldContent.addChild(twilight)
   for (let i = 0; i < 2; i++) {
     const bubble = document.createElement('div')
-    bubble.style.cssText = 'display:none;position:absolute;pointer-events:none;box-sizing:border-box;background:#fff9e9;color:#394c36;padding:6px 8px;border:1px solid #bec6a8;border-radius:10px;font:11px/1.4 system-ui;max-height:82px;overflow:hidden;box-shadow:0 3px 12px #243b2020'
+    bubble.style.cssText = 'display:none;position:absolute;pointer-events:none;box-sizing:border-box;background:#fff9e9;color:#394c36;padding:6px 8px;border:1px solid #bec6a8;border-radius:10px;font:12px/1.5 system-ui;max-height:82px;overflow:hidden;box-shadow:0 3px 12px #243b2020'
     document.body.append(bubble); bubbleNodes.push(bubble)
   }
   const emit = (type: 'down' | 'move' | 'up', event: PointerEvent) => send('pointer', {
     viewportRevision,
     intent: { type, id: event.pointerId, point: local(event), css: { x: event.clientX, y: event.clientY } },
   })
-  app.canvas.addEventListener('pointerdown', event => {
-    if (pointer !== null || !view || view.paused || event.button !== 0) return
-    if (!hitActor(view.world, local(event))) return
-    pointer = event.pointerId
-    app!.canvas.focus({ preventScroll: true })
-    app!.canvas.setPointerCapture(pointer)
-    event.preventDefault()
-    emit('down', event)
-  })
-  app.canvas.addEventListener('pointermove', event => { if (pointer === event.pointerId) emit('move', event) })
-  app.canvas.addEventListener('pointerup', event => {
-    if (pointer !== event.pointerId) return
-    pointer = null; emit('up', event)
-    if (app!.canvas.hasPointerCapture(event.pointerId)) app!.canvas.releasePointerCapture(event.pointerId)
-  })
-  app.canvas.addEventListener('pointercancel', cancel)
-  app.canvas.addEventListener('lostpointercapture', event => { if (pointer === event.pointerId) cancel() })
+  ghostLabel = document.createElement('div'); ghostLabel.style.cssText='display:none;position:absolute;left:12px;top:64px;max-width:calc(100% - 24px);padding:6px 10px;background:#fffcf5;color:#34473c;border-radius:12px;font:12px/1.5 system-ui;pointer-events:none';document.body.append(ghostLabel)
+  inputRouter = routeInput(app.canvas, () => ({ camera: view?.camera ?? defaultCamera, workspace: workspace(), scale: stage.scale.x,
+    local: p => local({clientX:p.x,clientY:p.y}), actor: p => view ? hitActor(view.world,p)?.id ?? null : null, paused: view?.paused ?? true,
+    photo: !!view?.photo, overlay: view?.overlayOpen ?? false, dismiss: view?.dismissLayer ?? false, objects: view?.arrangementObjects ?? [], selected: view?.selectedFurniture ?? 'work' }),
+    input => send('ui-input', { viewportRevision, input }), (type, event) => send('pointer', { viewportRevision, intent: { type, id:event.pointerId, point:local(event), css:{x:event.clientX,y:event.clientY} } }),
+    (object, point, index) => { ghostObject=object;ghostPoint=point;ghostIndex=index;paint() })
   layout()
   send('ready-to-render')
 }
@@ -154,8 +170,7 @@ const paintSamples: number[] = []
 function paint() {
   if (!app || !view || disposed) return
   const began = performance.now()
-  const photo=view.photo,zoom=photo?.zoom??1
-  app.stage.scale.set(zoom);app.stage.position.set(-(zoom-1)*innerWidth/2*(1+(photo?.x??0)),-(zoom-1)*innerHeight/2*(1+(photo?.y??0)))
+  applyProjection()
   const members = orderedActors(view.world), ids = new Set(members.map(a => a.id))
   for (const [id, rig] of rigs) if (!ids.has(id as Actor['id'])) removeRig(id, rig)
   const home = view.world.schemaVersion === 6 ? view.world : null
@@ -167,7 +182,7 @@ function paint() {
     cushion.position.set(renderScene.cushion.x,renderScene.cushion.y)
     const definitions=seatProps(renderScene);for(let i=0;i<props.length;i++){const p=props[i]!,d=definitions[i]!;p.definition=d;p.sprite.position.set(d.rect.x,d.rect.y);p.sprite.zIndex=furnitureDepth(renderScene,d.furnitureId)??0}
   }
-  const dusk = home?.home.environment === 'twilight'; backdrop.tint=dusk?0x9eaccd:0xffffff; stage.tint=dusk?0xd2dcf0:0xffffff;stage.alpha=view.arranging?.85:1
+  const dusk = home?.home.environment === 'twilight'; atmosphere.tint=dusk?0x9eaccd:0xffffff; backdrop.tint=dusk?0x9eaccd:0xffffff; worldContent.tint=dusk?0xd2dcf0:0xffffff;stage.alpha=1
   twilight.clear();if(dusk){for(const [x,y] of [[178,110],[250,132]])twilight.circle(x!,y!,25).fill({color:0xffdf9d,alpha:.18})}
   if (keepAssets) for(const [key,texture] of textures) if(!keepAssets.has(key)) { texture.destroy(true);textures.delete(key);const url=urls.get(key);if(url)URL.revokeObjectURL(url);urls.delete(key) }
   const content = neighborhood ? legacyContent(neighborhood) : view.world.schemaVersion === 4 ? view.world : null
@@ -224,7 +239,7 @@ function paint() {
     if (selected && members.length > 1 && !view.photo) shadow.ellipse(ground.x, ground.y, 25, 6).stroke({ color: 0x377d68, width: 1.5, alpha: .85 })
   }
   for (const [id,g] of accessories) if(!ids.has(id as Actor['id'])){g.destroy();accessories.delete(id)}
-  for(const actor of members){let g=accessories.get(actor.id);if(!g){g=new Graphics();stage.addChild(g);accessories.set(actor.id,g)}g.clear();const choice=home?.home.accessories[actor.id];const p=actor.id===view.world.actor.id&&view.dragging?view.position:actor.position;g.position.set(p.x,p.y);g.zIndex=view.dragging&&actor.id===view.world.actor.id?10001:p.y*10+2
+  for(const actor of members){let g=accessories.get(actor.id);if(!g){g=new Graphics();worldContent.addChild(g);accessories.set(actor.id,g)}g.clear();const choice=home?.home.accessories[actor.id];const p=actor.id===view.world.actor.id&&view.dragging?view.position:actor.position;g.position.set(p.x,p.y);g.zIndex=view.dragging&&actor.id===view.world.actor.id?10001:p.y*10+2
     if(actor.behavior!=='rest'&&choice==='ribbon') {g.poly([20,-82,30,-87,30,-76]).fill(0xc37f81);g.poly([40,-82,30,-87,30,-76]).fill(0xd69491);g.circle(30,-82,3).fill(0xf1c59d)}
     if(actor.behavior!=='rest'&&choice==='leaf'){g.ellipse(17,-45,5,3).fill(0x8da66e).stroke({color:0xd7be7f,width:.8});g.moveTo(13,-43).lineTo(21,-47).stroke({color:0xe7d7a6,width:.7})}
   }
@@ -233,7 +248,24 @@ function paint() {
     for (const hotspot of (home ? renderScene : neighborhood ? neighborhoodScene(scene,neighborhood.neighborhood.layout) : scene).hotspots) hints.roundRect(hotspot.hit.x, hotspot.hit.y, hotspot.hit.width, hotspot.hit.height, 8).stroke({ color: 0x4a9989, alpha: .7, width: 1.5 })
     if (view.debug) for (const rect of scene.obstacles) hints.rect(rect.x, rect.y, rect.width, rect.height).stroke({ color: 0xb35846, width: 1 })
   }
-  app.render(); frames++
+  if (!view.photo && view.arrangementObjects.length) {
+    const object = view.arrangementObjects.find(o => o.id === view!.selectedFurniture) ?? view.arrangementObjects[0]!
+    for (const [i, a] of object.anchors.entries()) hints.circle(a.x,a.y,26/stage.scale.x).stroke({color:a.legal?0x456740:0xa33d32,width:2/stage.scale.x}).moveTo(a.x-3,a.y).lineTo(a.x+3,a.y).stroke({color:0xffffff,width:2/stage.scale.x})
+    if (ghostObject && ghostPoint) { const r=ghostObject.rect, a=ghostIndex === undefined ? undefined : ghostObject.anchors[ghostIndex]; hints.rect((a?.x??ghostPoint.x)-r.width/2,(a?.y??ghostPoint.y)-r.height/2,r.width,r.height).stroke({color:a?.legal?0x456740:0xa33d32,width:2/stage.scale.x}) }
+  }
+  const moved: {node: Container;x:number;y:number;alpha:number}[] = []
+  if (ghostLabel) ghostLabel.style.display = ghostObject ? 'block' : 'none'
+  if (ghostObject && ghostPoint) {
+    const anchor = ghostIndex === undefined ? undefined : ghostObject.anchors[ghostIndex], id=ghostObject.id, rect=ghostObject.rect
+    if (ghostLabel) ghostLabel.textContent = view.locale==='zh' ? anchor ? anchor.legal ? '✓ 可放置 · 松开选择锚点' : '× 此处被占用' : '× 请靠近合法锚点' : anchor ? anchor.legal ? '✓ Release at this anchor' : '× This spot is occupied' : '× Move closer to a legal anchor'
+    const furniture=furnitureSprites.find(f=>f.id===id)
+    const nodes: Container[] = furniture ? [furniture.back,furniture.front] : id==='bench' ? [neighborhoodArt.bench,neighborhoodArt.benchBack] : id==='corner' ? [neighborhoodArt.corner,cushion] : id==='windChime' ? [bell] : [neighborhoodArt.decorations[id as 'lantern' | 'planter']]
+    const dx=(anchor?.x??ghostPoint.x)-rect.x-rect.width/2,dy=(anchor?.y??ghostPoint.y)-rect.y-rect.height/2
+    for(const node of nodes){moved.push({node,x:node.x,y:node.y,alpha:node.alpha});node.x+=dx;node.y+=dy;node.alpha=.78}
+  }
+  app.render()
+  for(const row of moved){row.node.position.set(row.x,row.y);row.node.alpha=row.alpha}
+  frames++
   const elapsed = performance.now() - began
   paintMs += elapsed; maxPaintMs = Math.max(maxPaintMs, elapsed)
   paintSamples[(frames - 1) % 600] = elapsed
@@ -244,8 +276,16 @@ async function capturePhoto(id:string) {
   const canvas=document.createElement('canvas');canvas.width=720;canvas.height=960
   const context=canvas.getContext('2d')!;context.fillStyle='#f8f0dd';context.fillRect(0,0,720,960)
   const margin=view.photo.border?24:0,bottom=view.photo.date?64:margin
-  const width=720-margin*2,height=960-margin-bottom,scale=Math.max(width/app.canvas.width,height/app.canvas.height),sw=width/scale,sh=height/scale
-  context.drawImage(app.canvas,(app.canvas.width-sw)/2,(app.canvas.height-sh)/2,sw,sh,margin,margin,width,height)
+  const width=720-margin*2,height=960-margin-bottom
+  const target = RenderTexture.create({ width, height, resolution: 1 }), oldMask=stage.mask
+  const old = { x: stage.x, y: stage.y, scale: stage.scale.x }, photo = view.photo
+  try {
+    stage.mask=null; stage.scale.set(1); stage.position.set(0,0)
+    const z = Math.max(width/360,height/480)*photo.zoom, transform = new Matrix(z,0,0,z,(width-360*z)/2*(1+photo.x),(height-480*z)/2*(1+photo.y))
+    app.renderer.render({ container: stage, target, transform, clear: true })
+    const source = app.renderer.extract.canvas(target)
+    context.drawImage(source as HTMLCanvasElement,margin,margin)
+  } finally { target.destroy(true); stage.mask=oldMask; stage.scale.set(old.scale); stage.position.set(old.x,old.y); app.render() }
   if(view.photo.date){const time=villageTime(view.world.ticks);context.fillStyle='#4e5c43';context.font='20px system-ui';context.textAlign='center';context.fillText((view.locale==='zh'?'小院第 '+time.day+' 天':'Courtyard · Day '+time.day)+'  '+String(time.hour).padStart(2,'0')+':'+String(time.minute).padStart(2,'0'),360,935)}
   const blob=await new Promise<Blob>((resolve,reject)=>canvas.toBlob(value=>value?resolve(value):reject(Error('PHOTO_FAILED')),'image/png'))
   if(blob.size>photoLimits.bytes)throw Error('PHOTO_TOO_LARGE')
@@ -287,8 +327,8 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
     else sprite.rotation = 0
   }
 }
-Object.assign(window, { __sceneMetrics: () => { const samples = [...paintSamples].sort((a, b) => a - b); return ({ frames, actors: rigs.size, textures: textures.size, tickerStarted: app?.ticker.started ?? false,
-  geometry: renderScene?.hotspots, environment: view?.world.schemaVersion === 6 ? view.world.home.environment : null, viewport: sceneViewport(innerWidth, innerHeight),
+Object.assign(window, { __sceneMetrics: () => { const samples = [...paintSamples].sort((a, b) => a - b); return ({ frames, actors: rigs.size, textures: textures.size, tickerStarted: app?.ticker.started ?? false, atmosphereTextureSources: atmosphereCache ? 1 : 0, atmosphereCacheSize: [256,256],
+  geometry: renderScene?.hotspots, environment: view?.world.schemaVersion === 6 ? view.world.home.environment : null, viewport: { ...sceneViewport(innerWidth, innerHeight), world: projection() }, arrangementObjects: view?.arrangementObjects, gesture: inputRouter?.inspect(),
   paused: view?.paused ?? true, meanPaintMs: frames ? paintMs / frames : 0, maxPaintMs,
   paintSampleCount: samples.length, p50PaintMs: samples[Math.ceil(samples.length * .5) - 1] ?? 0,
   p95PaintMs: samples[Math.ceil(samples.length * .95) - 1] ?? 0 }) } })
@@ -321,10 +361,13 @@ window.addEventListener('message', event => {
         if(extra&&(!['lantern','planter'].includes(extra.id)||!(extra.slot===null||['window','door','wall'].includes(extra.slot))))return
         const photo=message.view.photo
         if(photo && (![photo.zoom,photo.x,photo.y].every(Number.isFinite)||photo.zoom<1||photo.zoom>1.5||Math.abs(photo.x)>1||Math.abs(photo.y)>1))return
-        view = { arranging: message.view.arranging === true, extraDecorationDraft:extra??null, photo:photo?{zoom:photo.zoom,x:photo.x,y:photo.y,date:photo.date===true,border:photo.border===true}:null, world, position: p, dragging: message.view.dragging === true, dragTime: message.view.dragTime, paused: message.view.paused === true, debug: message.view.debug === true,
+        if (message.view.camera !== undefined && !validCamera(message.view.camera)) return
+        const objects = message.view.arrangementObjects ?? []
+        if (!Array.isArray(objects) || objects.length > 4 || objects.some((o: ArrangementObject) => !o || !['work','eat','bench','corner','windChime','lantern','planter'].includes(o.id) || !o.rect || ![o.rect.x,o.rect.y,o.rect.width,o.rect.height].every(Number.isFinite) || !Array.isArray(o.anchors) || o.anchors.length > 3 || o.anchors.some(a => ![a.x,a.y].every(Number.isFinite) || typeof a.legal !== 'boolean'))) return
+        view = { overlayOpen: message.view.overlayOpen === true, camera: message.view.camera ?? defaultCamera, dismissLayer: message.view.dismissLayer === true, arrangementObjects: objects, selectedFurniture: message.view.selectedFurniture, arranging: message.view.arranging === true, extraDecorationDraft:extra??null, photo:photo?{zoom:photo.zoom,x:photo.x,y:photo.y,date:photo.date===true,border:photo.border===true}:null, world, position: p, dragging: message.view.dragging === true, dragTime: message.view.dragTime, paused: message.view.paused === true, debug: message.view.debug === true,
           locale: message.view.locale === 'en' ? 'en' : 'zh', reducedMotion: message.view.reducedMotion === true || matchMedia('(prefers-reduced-motion: reduce)').matches,
           bubbles: message.view.bubbles !== false, decorationDraft: draft }
-        if (view.paused) cancel()
+        if (view.paused && !view.arrangementObjects.length && !validCamera(message.view.camera)) cancel()
         paint()
       } catch { send('failed', { error: 'INVALID_RENDER_STATE' }) }
     } else if (message.type === 'inspect') send('metrics', { frames, textures: textures.size, tickerStarted: app.ticker.started })
@@ -333,14 +376,14 @@ window.addEventListener('message', event => {
 window.addEventListener('resize', layout)
 window.addEventListener('blur', cancel)
 window.addEventListener('keydown', event => { if (event.key === 'Escape' && !event.isComposing) {
-  if (pointer !== null) cancel(); else send('escape')
+  if (!inputRouter?.cancel()) send('escape')
   event.preventDefault(); event.stopPropagation()
 } })
 function dispose() {
   if (disposed) return
-  disposed = true; cancel()
+  inputRouter?.dispose(); disposed = true; cancel()
   for (const [id, rig] of rigs) removeRig(id, rig)
-  app?.destroy(true, { children: true })
+  app?.destroy(true, { children: true }); atmosphereCache?.destroy()
   for (const texture of textures.values()) texture.destroy(true)
   for (const url of urls.values()) URL.revokeObjectURL(url)
 }

@@ -1,3 +1,4 @@
+import { villageUI } from './ai-village-ui-v1-navigation.mjs'
 import assert from 'node:assert/strict'
 import { readFile,readdir,mkdir,mkdtemp,writeFile } from 'node:fs/promises'
 import {join,resolve} from 'node:path'
@@ -12,8 +13,8 @@ const {chromium}=await import(pathToFileURL(join(pnpm,name,'node_modules/playwri
 const browser=await chromium.launch({headless:true,executablePath:join(cache,folder,'chrome-headless-shell-win64/chrome-headless-shell.exe'),args:['--enable-unsafe-swiftshader']})
 const context=await browser.newContext({viewport:{width:1440,height:960},deviceScaleFactor:1}),page=await context.newPage(),errors=[],external=[],checks=[]
 page.on('pageerror',e=>errors.push(e.message));await context.route('**/*',route=>{if(route.request().url().startsWith(h.url+'/')||route.request().url().startsWith('blob:'))return route.continue();external.push(route.request().url());return route.abort()})
-const inspect=()=>page.evaluate(()=>window.__villageHostFixture.inspect()),ready=()=>page.waitForFunction(()=>window.__villageHostFixture.inspect().frameReady),tab=name=>page.getByRole('tab',{name,exact:true}).click()
-const click=name=>page.getByRole('button',{name,exact:true}).click()
+const inspect=()=>page.evaluate(()=>window.__villageHostFixture.inspect()),ready=()=>page.waitForFunction(()=>window.__villageHostFixture.inspect().frameReady)
+const {click,tab}=villageUI(page)
 
 const frame = () => page.frames().find(f=>f.url().includes('/api/nidofy-ai-village/frame'))
 const finish = async (name, story) => {
@@ -59,7 +60,7 @@ try {
  await page.getByLabel('照片标题',{exact:true}).fill('我的小院 · 暮色花草');await click('保存到相册');await page.waitForFunction(()=>window.__villageHostFixture.inspect().album?.world.photos.length===1)
  assert.deepEqual((await inspect()).world,saved);await click('退出拍照');await page.reload();await click('打开 AI 小院');await ready();assert.deepEqual((await inspect()).world,saved)
  await frame().waitForFunction(()=>window.__sceneMetrics().environment==='twilight'&&window.__sceneMetrics().geometry.some(h=>h.id==='plant'&&h.anchor.y===307))
- await tab('手账');await page.getByText('我的小院 · 暮色花草',{exact:true}).waitFor();await page.locator('.village-card').screenshot({path:join(qa,'cold-restored.png')})
+ await tab('手账');await click('相册');await page.getByText('我的小院 · 暮色花草',{exact:true}).waitFor();await page.locator('.village-card').screenshot({path:join(qa,'cold-restored.png')})
  checks.push('actual PNG export, independent album and exact cold restore');assert.deepEqual(errors,[]);assert.deepEqual(external,[])
  await writeFile(join(qa,'validation.json'),JSON.stringify({passed:true,checks,schema:6,geometry:true,photo:{width:720,height:960,bytes:png.length},coldRestore:true,errors,external},null,2));console.log('0.6 actual furniture preview/undo/confirm, moved reading/watering, themes/accessories, PNG and cold restore passed')
 } catch(e) {await writeFile(join(qa,'failure.json'),JSON.stringify({error:String(e),state:await inspect().catch(()=>null),errors},null,2));await page.screenshot({path:join(qa,'failure.png')}).catch(()=>{});throw e}

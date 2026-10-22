@@ -36,7 +36,7 @@ function show() {
 }
 show()
 const api = {
-  inspect: () => ({ world: runtime.controller?.snapshot(), revision: runtime.revision, ready: runtime.ready, frameReady: runtime.frameReady,
+  inspect: () => ({ presentation: runtime.presentation, notices: runtime.notices, world: runtime.controller?.snapshot(), revision: runtime.revision, ready: runtime.ready, frameReady: runtime.frameReady,
     drag: runtime.controller?.drag, reasons: [...runtime.reasons], error: runtime.error, generation: runtime.generation, profileId: runtime.profileId,
     homeDraft: runtime.homeDraft, decorationDraft: runtime.decorationDraft, extraDecorationDraft: runtime.extraDecorationDraft, homeDraftError: runtime.homeDraftError, album: runtime.album.state, albumError: runtime.album.error, photoMode: runtime.photoMode, actionError: runtime.actionError, preferences: runtime.preferences, preferencesSaving: runtime.preferencesSaving, saveReceipt: runtime.saveReceipt }),
   session: () => { selection.set({ key: selection.getSnapshot().key === 'session-a' ? 'session-b' : 'session-a' }) },

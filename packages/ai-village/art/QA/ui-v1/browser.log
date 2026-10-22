@@ -1,0 +1,23 @@
+ℹ entry: packages\ai-village\experiments\phase4-host.ts
+ℹ target: es2024
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ .build\ai-village-phase4\harness.mjs  629.57 kB │ gzip: 98.49 kB
+ℹ 1 files, total: 629.57 kB
+✔ Build complete in 77ms
+ℹ entry: packages\ai-village\experiments\phase4-client.tsx
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- react
+- scheduler
+- react-dom
+ℹ .build\ai-village-phase4\fixture.js  642.33 kB │ gzip: 141.16 kB
+ℹ 1 files, total: 642.33 kB
+✔ Build complete in 57ms
+{"status":"PASS","checks":["50 drawer open/close cycles preserve frame, frozen world and projection","100 pointer moves do not mutate draft; valid drop is one undo; invalid drop preserves draft","Home draft preview, one undo, hidden recovery and explicit CAS save preserve user pause","Canonical PNG byte equality at 340 and 1080 widths; album save; user pause retained","340/580/1080 canonical photos match; 20 consecutive captures retain the same frame, asset texture count and stopped ticker","Composer draft retained and expanded geometry avoids full composer"],"screenshots":23}

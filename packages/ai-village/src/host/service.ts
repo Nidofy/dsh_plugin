@@ -9,7 +9,7 @@ import { ensureDurableDirectory, writeFileDurable } from '@nidofy/dsh-plugin-sha
 import { SaveStore } from './save-store.ts'
 import { homeWorldCodec as contentWorldCodec } from '../core/home-state.ts'
 import type { HomeWorld as ContentWorld } from '../core/home-state.ts'
-import { validatePreferences, type Preferences } from '../core/preferences.ts'
+import { preferencesCodec, type Preferences } from '../core/preferences.ts'
 import { resources, scene } from '../definitions.ts'
 export const prefix = '/api/nidofy-ai-village/'
 export const framePolicy = "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob:; connect-src 'none'; frame-ancestors 'self'; base-uri 'none'; form-action 'none'; sandbox allow-scripts"
@@ -72,7 +72,7 @@ export class VillageHost {
       const preferencesInfo = await lstat(preferencesRoot)
       if (!preferencesInfo.isDirectory() || preferencesInfo.isSymbolicLink()) throw Error('PROFILE_DIRECTORY_REFUSED')
       const preferences = await SaveStore.open(preferencesRoot, scene,
-        { decode: validatePreferences, validate: validatePreferences, needsUpgrade: () => false })
+        preferencesCodec)
       const host = new VillageHost(store, profileId, preferences, await PhotoStore.open(store.directory, scene)); host.release = release; host.lifetime = lifetime
       host.assetRoot = assetRoot
       const code = (await contained(frameRoot, 'frame.js', 1200 * 1024)).toString('utf8')

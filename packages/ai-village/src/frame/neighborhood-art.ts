@@ -6,11 +6,11 @@ import type { Pose } from '../art/types.ts'
 import { actors } from '../core/world.ts'
 /** Small original vector props, in the same world coordinates as the residents. */
 export class NeighborhoodArt {
-  readonly benchBack = new Graphics(); readonly bench = new Graphics(); readonly corner = new Graphics(); readonly props = new Graphics(); readonly decorations = new Graphics()
+  readonly benchBack = new Graphics(); readonly bench = new Graphics(); readonly corner = new Graphics(); readonly props = new Graphics(); readonly decorations = {lantern: new Graphics(), planter: new Graphics()}
   private layout = ''
   constructor(stage: Container) {
-    this.benchBack.zIndex = 2050; this.bench.zIndex = 2410; this.corner.zIndex = 2460; this.props.zIndex = 5000; this.decorations.zIndex = 3
-    stage.addChild(this.benchBack,this.bench,this.corner,this.props,this.decorations)
+    this.benchBack.zIndex = 2050; this.bench.zIndex = 2410; this.corner.zIndex = 2460; this.props.zIndex = 5000; this.decorations.lantern.zIndex = 3; this.decorations.planter.zIndex = 3
+    stage.addChild(this.benchBack,this.bench,this.corner,this.props,...Object.values(this.decorations))
   }
   paint(world: NeighborhoodWorld, reduced: boolean, draft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null, home?: Home) {
     if (this.layout !== world.neighborhood.layout) {
@@ -40,9 +40,9 @@ export class NeighborhoodArt {
       if(reading){p.poly([a.position.x-20,a.position.y-39,a.position.x,a.position.y-35,a.position.x+20,a.position.y-39,a.position.x+20,a.position.y-20,a.position.x,a.position.y-16,a.position.x-20,a.position.y-20]).fill(0xf5e8c7).stroke({color:0xa38a61,width:1});p.moveTo(a.position.x,a.position.y-35).lineTo(a.position.x,a.position.y-16).stroke({color:0xc7b18a,width:1})}
       if(tending){const x=a.position.x+21,y=a.position.y-25;p.roundRect(x-7,y,14,15,3).fill(0x789fa0).stroke({color:0x466c70,width:1});p.moveTo(x+6,y+4).lineTo(x+18,y-3).stroke({color:0x789fa0,width:4});if(!reduced)for(let i=0;i<3;i++)p.circle(x+18+i,y+((world.ticks/3+i*4)%12),1.1).fill(0x96c6ce)}
     }
-    const d=this.decorations;d.clear()
+    for(const d of Object.values(this.decorations))d.clear()
     for(const [id,slot] of Object.entries({...world.neighborhood.decorations,...(draft?{[draft.id]:draft.slot}:{})})){
-      if(!slot)continue;const [x,y]=({window:[166,101],door:[250,115],wall:[76,104]} as const)[slot]
+      if(!slot)continue;const d=this.decorations[id as 'lantern'|'planter'];const [x,y]=({window:[166,101],door:[250,115],wall:[76,104]} as const)[slot]
       if(id==='lantern'){d.moveTo(x,y).lineTo(x,y+8).stroke({color:0x827150,width:1});d.roundRect(x-9,y+8,18,24,7).fill(0xe2ae70).stroke({color:0xa77d47,width:1});d.moveTo(x,y+10).lineTo(x,y+30).stroke({color:0xf3d79d,width:2});d.rect(x-4,y+32,8,3).fill(0x947248)}
       else {d.moveTo(x-13,y+3).quadraticCurveTo(x,y+20,x+13,y+3).stroke({color:0x8d9764,width:1});for(let i=0;i<5;i++)d.ellipse(x-12+i*6,y+6+(2-Math.abs(i-2))*3,5,3).fill(i%2?0x8ba87a:0x61876c)}
     }

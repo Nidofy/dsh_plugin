@@ -785,5 +785,83 @@ export const resources = [
     "file": "characters/qwen/parts/ornament.png",
     "bytes": 82592,
     "sha256": "e39d99c8a1a6e604cb884d3fdfd227fae6c28fceb737c8181475d1a13f601f7d"
+  },
+  {
+    "key": "portraits/bluewhale.png",
+    "file": "portraits/bluewhale.png",
+    "bytes": 32688,
+    "sha256": "c2b5f342ac03ac19612c0cb5f5450534fcbfd7526a37dece89a0a299cd43e68b"
+  },
+  {
+    "key": "portraits/claude.png",
+    "file": "portraits/claude.png",
+    "bytes": 35565,
+    "sha256": "2613cb3d3cd03b4d53ff0c86b93afb3a3df677b04915ff0472f4220de14cacbd"
+  },
+  {
+    "key": "portraits/gemini.png",
+    "file": "portraits/gemini.png",
+    "bytes": 35272,
+    "sha256": "d25b5b368bd7161e625742545e1d1ee3824c71d9c914157576f5d4b7ac5f8cc3"
+  },
+  {
+    "key": "portraits/gpt.png",
+    "file": "portraits/gpt.png",
+    "bytes": 30371,
+    "sha256": "1adf1bf17fbb0d4d8faadabeb1e34b2b380d2fbcb1b7895a32f1ef7c421a4476"
+  },
+  {
+    "key": "portraits/grok.png",
+    "file": "portraits/grok.png",
+    "bytes": 32838,
+    "sha256": "d857f4d75b5da717608f31fe3409f4d4f59df837fd25427bf2b4bc608ae74f67"
+  },
+  {
+    "key": "portraits/kimi.png",
+    "file": "portraits/kimi.png",
+    "bytes": 34874,
+    "sha256": "1e49a295539b96499cf8df90df5c2c95b248395e23158a763483d2c18c1f85f4"
+  },
+  {
+    "key": "portraits/qwen.png",
+    "file": "portraits/qwen.png",
+    "bytes": 34652,
+    "sha256": "d927c9d574cd75d7846e0d1ea3d07f8c7820c694e7fc70bda21a5c72e63141cf"
+  },
+  {
+    "key": "thumbnails/work.png",
+    "file": "thumbnails/work.png",
+    "bytes": 18975,
+    "sha256": "32fbdb2bbec173fa08b193f85b9b803e223354cf478e88228c8b28830249e72f"
+  },
+  {
+    "key": "thumbnails/eat.png",
+    "file": "thumbnails/eat.png",
+    "bytes": 18723,
+    "sha256": "515e69bca653e94de19ad586944603fa612e4252343783d66e8badb131eecc32"
+  },
+  {
+    "key": "thumbnails/rest.png",
+    "file": "thumbnails/rest.png",
+    "bytes": 22588,
+    "sha256": "a4ccf746e8cd7eea93e3623e313311587317da14586de86f2c50cdb77ee71779"
+  },
+  {
+    "key": "thumbnails/bench.png",
+    "file": "thumbnails/bench.png",
+    "bytes": 1028,
+    "sha256": "dac291ea688173065516cc2d5fbae0c776b1e0ef76671dde59776e978715b6ea"
+  },
+  {
+    "key": "thumbnails/books.png",
+    "file": "thumbnails/books.png",
+    "bytes": 1213,
+    "sha256": "6c0b3f35adfa2c0fe0b3aa1598ac614ba8651c4426ed803d6426dcb48e88829f"
+  },
+  {
+    "key": "thumbnails/plant.png",
+    "file": "thumbnails/plant.png",
+    "bytes": 2024,
+    "sha256": "821035bf5fc90141f23456bf4d2f58c45eae3c6eead8dd02bda8a9fdf5957719"
   }
 ]

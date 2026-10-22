@@ -1,12 +1,12 @@
 import { expect, it } from 'vitest'
 import { sceneViewport } from '../src/frame/viewport.ts'
 
-it.each([[340, 1100], [340, 600], [360, 480], [900, 300]])('fills a %s by %s viewport without clipping residents or stretching their coordinates', (width, height) => {
+it.each([[340, 1100], [340, 600], [360, 480], [900, 300]])('fits the entire world and real backdrop with one projection at %s by %s', (width, height) => {
   const { world, background } = sceneViewport(width, height)
-  expect(background.x).toBeLessThanOrEqual(0)
-  expect(background.y).toBeLessThanOrEqual(0)
-  expect(background.x + background.width).toBeGreaterThanOrEqual(width)
-  expect(background.y + background.height).toBeGreaterThanOrEqual(height)
+  expect(background.x).toBe(world.x)
+  expect(background.y).toBe(world.y)
+  expect(background.width).toBe(360 * world.scale)
+  expect(background.height).toBe(480 * world.scale)
   expect(background.width / background.height).toBeCloseTo(3 / 4)
   expect(world.x).toBeGreaterThanOrEqual(0)
   expect(world.y).toBeGreaterThanOrEqual(0)

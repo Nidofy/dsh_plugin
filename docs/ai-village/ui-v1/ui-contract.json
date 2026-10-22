@@ -1,0 +1,216 @@
+{
+  "document": "AV-UI-20261022",
+  "revision": "1.0",
+  "status": "DESIGN_NOT_IMPLEMENTED",
+  "baseline": {
+    "repository": "Nidofy/dsh_plugin",
+    "commit": "2cab99a",
+    "pluginVersion": "0.6.1",
+    "hostVersion": "0.2.1-rc.2"
+  },
+  "units": "CSS px; plugin-inner viewport, not screenshot physical pixels",
+  "tabs": [
+    {
+      "id": "residents",
+      "zh": "居民",
+      "en": "Residents"
+    },
+    {
+      "id": "wishes",
+      "zh": "心愿",
+      "en": "Wishes"
+    },
+    {
+      "id": "decor",
+      "zh": "布置",
+      "en": "Decor"
+    },
+    {
+      "id": "journal",
+      "zh": "手账",
+      "en": "Journal"
+    }
+  ],
+  "breakpoints": {
+    "minimumWidth": 320,
+    "minimumHeight": 360,
+    "fullHudWidth": 560,
+    "inspectorWidthThreshold": 900,
+    "shortHeightBelow": 480
+  },
+  "layout": {
+    "gutter": 12,
+    "shortGutter": 8,
+    "iconSize": 20,
+    "iconStroke": 1.7,
+    "hitSize": 40,
+    "primaryHeight": 44,
+    "hudGap": 6,
+    "timeMaxWidthCompact": 124,
+    "dockHeight": 56,
+    "dockMaxWidth": 352,
+    "drawerMaxWidth": 480,
+    "drawerHalfHeight": "min(360, floor(0.48 * H))",
+    "drawerFullHeight": "H - 84",
+    "drawerHeaderHeight": 40,
+    "inspectorWidth": 360,
+    "inspectorTop": 72,
+    "settingsMaxWidth": 360,
+    "settingsMaxHeight": "H - 24",
+    "noticeMaxWidth": 320,
+    "noticeMaxHeight": "min(360,H-96)",
+    "editTrayHeight": 170,
+    "shortEditTrayHeight": 110
+  },
+  "typography": {
+    "body": 14,
+    "auxiliary": 12,
+    "title": 18,
+    "bodyLineHeight": 1.5
+  },
+  "tokens": {
+    "light": {
+      "ink": "#34473C",
+      "muted": "#626E60",
+      "accent": "#456740",
+      "hud": "rgba(250,247,240,.90)",
+      "panel": "rgba(255,252,245,.96)",
+      "solid": "#FFFCF5",
+      "line": "#D5D5C5",
+      "soft": "#E9EEDD",
+      "danger": "#A33D32",
+      "focus": "#946A20"
+    },
+    "dark": {
+      "ink": "#EEF0DF",
+      "muted": "#BAC5B3",
+      "accent": "#B8CCA2",
+      "hud": "rgba(36,47,42,.92)",
+      "panel": "rgba(40,53,46,.96)",
+      "solid": "#28352E",
+      "line": "#54624F",
+      "soft": "#35473A",
+      "danger": "#FFB4A8",
+      "focus": "#E2C16E"
+    }
+  },
+  "material": {
+    "hudBlur": 8,
+    "panelBlur": 12,
+    "border": 1,
+    "buttonRadius": 12,
+    "popoverRadius": 16,
+    "drawerRadius": 20,
+    "cachedAtmosphereMaxSide": 512,
+    "edgeBlend": 24,
+    "atmosphereInteractive": false
+  },
+  "motionMs": {
+    "panel": 180,
+    "toast": 140,
+    "cameraReset": 180,
+    "tooltipDelay": 350,
+    "reducedMotion": 0,
+    "zoomControlsIdleHide": 2000
+  },
+  "camera": {
+    "worldWidth": 360,
+    "worldHeight": 480,
+    "fit": "contain",
+    "zoomMin": 1,
+    "zoomMax": 1.5,
+    "buttonZoomStep": 0.1,
+    "persistent": false,
+    "drawerResizesWorld": false,
+    "ctrlMetaWheelCaptured": false,
+    "gestureCancelOnProjectionChange": true
+  },
+  "arrangement": {
+    "furnitureIds": [
+      "work",
+      "eat",
+      "bench",
+      "corner"
+    ],
+    "legalPositionValues": [
+      0,
+      1
+    ],
+    "layouts": 3,
+    "boundedCombinations": 48,
+    "dragThresholdCssPx": 5,
+    "anchorSnapRadiusCssPx": 26,
+    "ghostAlpha": 0.78,
+    "ghostBlur": 0,
+    "undoMax": 20,
+    "updatePerValidDrop": 1,
+    "updatePerPointerMove": 0,
+    "blankClickSaves": false,
+    "freeXY": false,
+    "homeAndHangingDraftsMayCoexist": false
+  },
+  "notifications": {
+    "source": "confirmed first durable story facts",
+    "badgeMaxLabel": "9+",
+    "stableIdMaxUtf8Bytes": 96,
+    "readIdMax": 64,
+    "pendingToastIdsMax": 16,
+    "toastVisibleMax": 1,
+    "toastDurationMs": 5000,
+    "mergeWindowMs": 3000,
+    "popoverOpenMarksRead": false,
+    "historySeededReadOnUpgrade": true,
+    "ordinaryBehaviorLogged": false
+  },
+  "versions": {
+    "world": 6,
+    "scene": 3,
+    "rules": 3,
+    "content": 3,
+    "preferencesBefore": 1,
+    "preferencesAfter": 2,
+    "frameBefore": 2,
+    "frameAfter": 3
+  },
+  "newPreferenceFields": {
+    "reducedTransparency": "boolean",
+    "noticeReadIds": "bounded string[]",
+    "noticesInitialized": "boolean"
+  },
+  "photos": {
+    "width": 720,
+    "height": 960,
+    "render": "same renderer canonical 3:4 offscreen",
+    "observationCameraAffectsOutput": false,
+    "maxCount": 20,
+    "maxTotalMiB": 40,
+    "maxSingleMiB": 4
+  },
+  "zIndex": {
+    "atmosphere": 0,
+    "world": 10,
+    "labels": 20,
+    "hudDock": 30,
+    "management": 40,
+    "popover": 50,
+    "settingsPhotoPreview": 60,
+    "confirmError": 70,
+    "tooltip": 80
+  },
+  "safety": {
+    "singleWorldWriter": true,
+    "sameFrameAcrossExpand": true,
+    "preserveFullComposer": true,
+    "offlineOnly": true,
+    "pendingUnknownReadOnlyVerification": true,
+    "worldSchemaUpgradeAllowed": false,
+    "newPaidApiCallAllowed": false,
+    "oneHourNativeSoak": "DEFERRED_BY_USER"
+  },
+  "demo": {
+    "isProductionGame": false,
+    "externalNetwork": false,
+    "background": "cropped user screenshot, layout reference only",
+    "fixtureDoesNotVerifyBusinessRules": true
+  }
+}

@@ -1,17 +1,12 @@
+import { frameChannel as channel, frameVersion as version, validPointer as pointer, validUIInput, type UIInput } from '../core/frame-protocol.ts'
 import { pngInfo } from '../core/photo.ts'
 import type { VillageRuntime } from './runtime.ts'
 import type { SimulationWorld, Point } from '../core/world.ts'
 import type { PointerIntent } from '../core/controller.ts'
-const channel = 'nidofy-ai-village', version = 2
-function pointer(value: unknown): value is PointerIntent {
-  if (!value || typeof value !== 'object') return false
-  const p = value as PointerIntent
-  return ['down', 'move', 'up', 'cancel'].includes(p.type) && Number.isSafeInteger(p.id) && p.id >= 0
-    && !!p.css && !!p.point && [p.point.x, p.point.y, p.css.x, p.css.y].every(n => Number.isFinite(n) && Math.abs(n) < 50000)
-}
-export type FrameRuntime = Pick<VillageRuntime, 'bundle' | 'subscribe' | 'setFrameReady' | 'pointer' | 'cancelDrag'> & { assetRevision?: number; bindCapture?(handler: (() => Promise<ArrayBuffer>) | null): void; view(): { world: SimulationWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean; locale?: 'zh' | 'en'; reducedMotion?: boolean; bubbles?: boolean; decorationDraft?: 'window' | 'door' | 'wall' | null | undefined } | null }
+export type FrameRuntime = Pick<VillageRuntime, 'bundle' | 'subscribe' | 'setFrameReady' | 'pointer' | 'cancelDrag'> & { setSoftwareRendering?(value: boolean): void; input?(input: UIInput): void; assetRevision?: number; bindCapture?(handler: (() => Promise<ArrayBuffer>) | null): void; view(): { world: SimulationWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean; locale?: 'zh' | 'en'; reducedMotion?: boolean; bubbles?: boolean; decorationDraft?: 'window' | 'door' | 'wall' | null | undefined } | null }
 export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, failed: () => void): () => void {
   const token = crypto.randomUUID()
+  let gesture: { pointerId: number; id: string } | null = null, actorPointer: number | null = null
   let sent = 0, received = 0, initialized = false, ready = false, disposed = false
   let viewportRevision = 0, assetRevision = -1, loadingAssets = false
   const send = (type: string, data = {}) => frame.contentWindow?.postMessage({ channel, version, token, sequence: ++sent, type, ...data }, '*')
@@ -45,6 +40,7 @@ export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, fai
     if (m.token !== token) return
     received = m.sequence
     if (m.type === 'ready-to-render') { ready = true; clearTimeout(timer); runtime.setFrameReady(true); render() }
+    else if (m.type === 'capabilities' && typeof m.softwareRendering === 'boolean') runtime.setSoftwareRendering?.(m.softwareRendering)
     else if (m.type === 'photo' && capture && capture.id === m.id) {
       const pending=capture;capture=null;clearTimeout(pending.timer)
       try { if(!(m.bytes instanceof ArrayBuffer))throw Error('INVALID_PHOTO');pngInfo(new Uint8Array(m.bytes));pending.resolve(m.bytes) } catch { pending.reject(Error('INVALID_PHOTO')) }
@@ -53,9 +49,23 @@ export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, fai
     else if (m.type === 'assets-ready' && m.assetRevision === assetRevision) { loadingAssets = false; runtime.setFrameReady(true); render() }
     else if (m.type === 'viewport' && Number.isSafeInteger(m.viewportRevision) && m.viewportRevision > viewportRevision) {
       const p = m.projection
-      if (p && [p.x, p.y, p.scale, p.width, p.height].every(Number.isFinite) && p.scale > 0 && p.scale < 20 && p.width > 0 && p.height > 0) viewportRevision = m.viewportRevision
+      if (p && [p.x, p.y, p.scale, p.width, p.height].every(Number.isFinite) && p.scale > 0 && p.scale < 20 && p.width > 0 && p.height > 0) { viewportRevision = m.viewportRevision; gesture = null; actorPointer = null }
     }
-    else if (m.type === 'pointer' && m.viewportRevision === viewportRevision && pointer(m.intent)) runtime.pointer(m.intent)
+    else if (m.type === 'pointer' && m.viewportRevision === viewportRevision && pointer(m.intent)) {
+      if (m.intent.type === 'down' && actorPointer === null) actorPointer = m.intent.id
+      else if (actorPointer !== m.intent.id) return
+      runtime.pointer(m.intent)
+      if (m.intent.type === 'up' || m.intent.type === 'cancel') actorPointer = null
+    }
+    else if (m.type === 'ui-input' && m.viewportRevision === viewportRevision && validUIInput(m.input)) {
+      const input = m.input
+      if (input.kind === 'arrange') {
+        if (input.phase === 'down' && !gesture) gesture = { pointerId: input.pointerId, id: input.id }
+        else if (!gesture || gesture.pointerId !== input.pointerId || gesture.id !== input.id) return
+        if (input.phase !== 'down') gesture = null
+      } else if (actorPointer !== null || gesture) return
+      runtime.input?.(input)
+    }
     else if (m.type === 'escape') frame.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
     else if (m.type === 'failed') failed()
   }

@@ -1,3 +1,4 @@
+import { villageUI } from './ai-village-ui-v1-navigation.mjs'
 import assert from 'node:assert/strict'
 import { readFile, readdir, mkdir, mkdtemp, writeFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
@@ -21,7 +22,7 @@ await context.route('**/*', route => {
 })
 const inspect = () => page.evaluate(() => window.__villageHostFixture.inspect())
 const ready = () => page.waitForFunction(() => window.__villageHostFixture.inspect().frameReady)
-const click = name => page.getByRole('button', { name, exact: true }).click()
+const {click,tab,settled}=villageUI(page)
 const frame = () => page.frames().find(f => f.url().includes('/api/nidofy-ai-village/frame'))
 try {
   await page.goto(h.entry); await click('打开 AI 小院'); await ready(); await click('暂停'); await page.evaluate(() => window.__villageHostFixture.flush())
@@ -60,20 +61,20 @@ try {
   }
   assert.equal((await inspect()).profileId, identity); assert.deepEqual((await inspect()).world, original)
   checks.push('50 compact/expanded cycles keep the same frame/profile and never cover the composer or navigation')
-  for (const button of await page.locator('.village-header button').all()) {
+  for (const button of await page.locator('.village-hud button').all()) {
     const box = await button.boundingBox(); assert.ok(box.width >= 40 && box.height >= 40)
   }
-  assert.ok(await page.locator('.village-header svg').count() >= 5)
+  assert.ok(await page.locator('.village-hud svg').count() >= 3)
   assert.equal(await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true, cancelable: true }))), true)
   assert.deepEqual((await inspect()).homeDraft, draft)
   await frame().evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })))
   await page.waitForFunction(() => !window.__villageHostFixture.inspect().homeDraft)
-  assert.equal(await page.getByRole('button', { name: '编辑我的小院', exact: true }).evaluate(e => document.activeElement === e), true)
+  assert.equal(await page.getByRole('tab', { name: '布置', exact: true }).evaluate(e => document.activeElement === e), true)
   checks.push('synthetic IME Escape preserved; ordinary frame Escape cancels once and returns focus')
-  await click('编辑我的小院'); await click('阅读角落 · 模板'); await page.getByRole('tab', { name: '居民', exact: true }).click()
+  await click('编辑我的小院'); await click('阅读角落 · 模板'); assert.equal(await page.getByRole('tab').count(),0); await click('取消');await tab('居民')
   assert.equal((await inspect()).homeDraft, null); assert.deepEqual((await inspect()).world, original)
-  checks.push('explicit tab navigation cancels its draft without saving')
-  await page.locator('.village-members summary').click(); await click('全员入住'); await page.locator('.village-members summary').click()
+  checks.push('exclusive arrange mode hides ordinary tabs; explicit cancel preserves committed world')
+  await click('全员入住');await settled();await click('安排入住');await tab('居民')
   await ready(); await frame().waitForFunction(() => window.__sceneMetrics().actors === 7); await click('继续')
   await page.waitForTimeout(22000)
   const metrics = await frame().evaluate(() => window.__sceneMetrics())
@@ -86,7 +87,7 @@ try {
   await page.locator('.village-card').screenshot({ path: join(qa, 'narrow-expanded.png') })
   await page.setViewportSize({ width: 800, height: 440 })
   await page.waitForFunction(() => window.__villageHostFixture.inspect().reasons.includes('insufficient-space'))
-  await page.getByText('当前空间不足，已暂停。切换展开／收起或调整窗口后继续；聊天输入区保持可用。', { exact: true }).waitFor()
+  await page.getByText('当前空间不足，已暂停。请调整窗口或展开小院。聊天输入区保持可用。', { exact: true }).waitFor()
   const small = await page.locator('.village-card').boundingBox(), composer = await page.locator('[data-composer-card]').boundingBox()
   assert.ok(small.y + small.height <= composer.y || small.y >= composer.y + composer.height)
   await page.locator('.village-card').screenshot({ path: join(qa, 'limited-space.png') })

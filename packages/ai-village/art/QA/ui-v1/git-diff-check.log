@@ -1,0 +1,12 @@
+warning: in the working copy of 'packages/ai-village/README.md', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/experiments/phase4-client.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/package-lock.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/package.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/src/client/Floating.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/src/client/PhotoPanel.tsx', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/src/client/content-style.ts', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/src/frame/neighborhood-art.ts', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/tests/frame-bridge.client.spec.ts', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'packages/ai-village/tests/runtime.client.spec.ts', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'scripts/ai-village-v06-browser.mjs', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'scripts/ai-village-v06-neighborhood-browser.mjs', CRLF will be replaced by LF the next time Git touches it

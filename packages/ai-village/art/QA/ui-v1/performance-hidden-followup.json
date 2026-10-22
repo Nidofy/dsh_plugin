@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "baseline": "2cab99a / retained 0.6.1 tgz",
+  "current": "0.6.2 UI-v1 working tree",
+  "sampleSeconds": 30,
+  "rounds": 3,
+  "forcedGcBeforeSamples": true,
+  "results": [
+    {
+      "sample": 1,
+      "scenario": "hidden",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 30.019,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.051460741530364104,
+      "heap": 3813668,
+      "textures": 0
+    },
+    {
+      "sample": 1,
+      "scenario": "hidden",
+      "variant": "ui-v1",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 30.018,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.059880738223732445,
+      "heap": 4033388,
+      "textures": 0
+    },
+    {
+      "sample": 2,
+      "scenario": "hidden",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 30.01,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.050043318893702095,
+      "heap": 3810320,
+      "textures": 0
+    },
+    {
+      "sample": 2,
+      "scenario": "hidden",
+      "variant": "ui-v1",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 30.007,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.05586363181924217,
+      "heap": 4035176,
+      "textures": 0
+    },
+    {
+      "sample": 3,
+      "scenario": "hidden",
+      "variant": "baseline",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 30.014,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.05126274405277537,
+      "heap": 3826100,
+      "textures": 0
+    },
+    {
+      "sample": 3,
+      "scenario": "hidden",
+      "variant": "ui-v1",
+      "viewport": {
+        "width": 340,
+        "height": 720
+      },
+      "renderer": "Chromium SwiftShader WebGL",
+      "seconds": 30.02,
+      "fps": 0,
+      "p50": 0,
+      "p95": 0,
+      "parentCPU": 0.05584943371085942,
+      "heap": 4036184,
+      "textures": 0
+    }
+  ],
+  "gates": [
+    {
+      "scenario": "hidden",
+      "p95Before": 0,
+      "p95After": 0,
+      "p95Pass": true,
+      "cpuBefore": 0.05126274405277537,
+      "cpuAfter": 0.05586363181924217,
+      "cpuPass": true
+    }
+  ],
+  "errors": [],
+  "limitations": "Software renderer CPU submission, parent CDP CPU/heap only; native GPU completion NOT RUN. The old wrapper alone is overridden to match actual scene CSS viewport; no old/new viewport mismatch. One-hour soak DEFERRED."
+}

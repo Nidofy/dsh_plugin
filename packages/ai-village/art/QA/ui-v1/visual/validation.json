@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "checks": [
+    "50 drawer open/close cycles preserve frame, frozen world and projection",
+    "100 pointer moves do not mutate draft; valid drop is one undo; invalid drop preserves draft",
+    "Home draft preview, one undo, hidden recovery and explicit CAS save preserve user pause",
+    "Canonical PNG byte equality at 340 and 1080 widths; album save; user pause retained",
+    "340/580/1080 canonical photos match; 20 consecutive captures retain the same frame, asset texture count and stopped ticker",
+    "Composer draft retained and expanded geometry avoids full composer"
+  ],
+  "errors": [],
+  "external": [],
+  "manual": "Windows scaling, IME, GPU, sleep NOT RUN; one hour DEFERRED"
+}

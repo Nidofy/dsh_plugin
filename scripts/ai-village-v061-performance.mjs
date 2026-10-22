@@ -1,3 +1,4 @@
+import { villageUI } from './ai-village-ui-v1-navigation.mjs'
 import assert from 'node:assert/strict'
 import { readFile, readdir, mkdir, mkdtemp, writeFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
@@ -16,7 +17,7 @@ try {
     const h = await harness({ profile: await mkdtemp(join(qa, 'profile-')), plugin, html: await readFile(join(out, 'index.html'), 'utf8') })
     const context = await browser.newContext({ viewport: { width: 1440, height: 960 }, ...(scenario === 'seven-tea' ? { recordVideo: { dir: join(qa, 'video'), size: { width: 960, height: 640 } } } : {}) })
     const page = await context.newPage(); page.on('pageerror', e => errors.push(e.message))
-    const click = name => page.getByRole('button', { name, exact: true }).click(), inspect = () => page.evaluate(() => window.__villageHostFixture.inspect())
+    const {click,tab,settled}=villageUI(page);const inspect = () => page.evaluate(() => window.__villageHostFixture.inspect())
     const ready = () => page.waitForFunction(() => window.__villageHostFixture.inspect().frameReady)
     try {
       await page.goto(h.entry)
@@ -27,7 +28,7 @@ try {
           await page.getByLabel('环境主题', { exact: true }).selectOption('twilight'); await page.getByLabel('居民配饰', { exact: true }).selectOption('ribbon')
           await click('确认我的布置'); await page.waitForFunction(() => !window.__villageHostFixture.inspect().homeDraft)
         }
-        if (scenario !== 'single') { await page.locator('.village-members summary').click(); await click('全员入住'); await page.locator('.village-members summary').click(); await ready() }
+        if (scenario !== 'single') { await click('全员入住');await settled();await click('安排入住');await tab('居民'); await ready() }
         if (scenario === 'seven-tea') { await click('邀请同桌'); await page.waitForFunction(() => !!window.__villageHostFixture.inspect().world.activeEvent) }
         if (scenario === 'seven-expanded') await click('展开小院')
         await click('继续')

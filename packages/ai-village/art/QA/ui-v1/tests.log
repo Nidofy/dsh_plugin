@@ -1,0 +1,8 @@
+
+ RUN  v4.1.8 D:/Documents/FeiyangChen/devApps/dsh_plugin
+
+
+ Test Files  28 passed (28)
+      Tests  121 passed (121)
+   Start at  13:39:16
+   Duration  9.53s (transform 4.29s, setup 619ms, import 5.87s, tests 26.10s, environment 7.17s)

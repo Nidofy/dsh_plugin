@@ -1,3 +1,4 @@
+import { villageUI } from './ai-village-ui-v1-navigation.mjs'
 import assert from 'node:assert/strict'
 import { readFile,readdir,mkdir,mkdtemp,writeFile } from 'node:fs/promises'
 import {join,resolve} from 'node:path'
@@ -12,9 +13,9 @@ const {chromium}=await import(pathToFileURL(join(pnpm,name,'node_modules/playwri
 const browser=await chromium.launch({headless:true,executablePath:join(cache,folder,'chrome-headless-shell-win64/chrome-headless-shell.exe'),args:['--enable-unsafe-swiftshader']})
 const context=await browser.newContext({viewport:{width:1440,height:960},deviceScaleFactor:1}),page=await context.newPage(),errors=[],external=[],checks=[]
 page.on('pageerror',e=>errors.push(e.message));await context.route('**/*',route=>{if(route.request().url().startsWith(h.url+'/')||route.request().url().startsWith('blob:'))return route.continue();external.push(route.request().url());return route.abort()})
-const inspect=()=>page.evaluate(()=>window.__villageHostFixture.inspect()),ready=()=>page.waitForFunction(()=>window.__villageHostFixture.inspect().frameReady),tab=name=>page.getByRole('tab',{name,exact:true}).click()
-const click=name=>page.getByRole('button',{name,exact:true}).click()
-const layout=async name=>{await tab('布置');await click(name);await click('确认布局');await page.waitForFunction(()=>!document.querySelector('.village-neighborhood [role="status"]'));await ready()}
+const inspect=()=>page.evaluate(()=>window.__villageHostFixture.inspect()),ready=()=>page.waitForFunction(()=>window.__villageHostFixture.inspect().frameReady)
+const {click,tab}=villageUI(page)
+const layout=async name=>{await tab('布置');await click('家具');await click(name);await click('保存布置');await page.waitForFunction(()=>!window.__villageHostFixture.inspect().homeDraft);await ready()}
 const run=async(name,story,duo=false)=>{
  await tab(duo?'心愿':'居民');await page.waitForFunction(()=>{const w=window.__villageHostFixture.inspect().world;return w.ticks>=w.neighborhood.nextInteractionTick})
  const before=(await inspect()).world.neighborhood.memories.find(m=>m.id===story)?.count??0
@@ -38,12 +39,17 @@ try{
  await layout('花草角落');await run('照料盆栽','water');await run('聊聊花草','plant-care',true)
  assert.equal((await inspect()).world.neighborhood.memories.length,11)
  await click('暂停');await page.evaluate(()=>window.__villageHostFixture.flush())
- await tab('布置')
+ const noticeWorld=(await inspect()).world;assert.equal((await inspect()).notices.length,12);assert.ok((await inspect()).presentation.toastIds.length<=16)
+ await page.getByRole('button',{name:/^消息，/}).click();const beforeRead=(await inspect()).preferences.noticeReadIds.length;assert.equal(beforeRead,0)
+ const noticeQA=join(root,'packages/ai-village/art/QA/ui-v1/visual'),noticeBox=await page.locator('.village-card').boundingBox(),noticeName=Math.round(noticeBox.width)+'x'+Math.round(noticeBox.height)+'-notifications-populated';await page.screenshot({path:join(noticeQA,noticeName+'.png')});await writeFile(join(noticeQA,'notifications-metadata.json'),JSON.stringify({name:noticeName,css:noticeBox,dpr:1,kind:'RUNTIME',build:JSON.parse(await readFile(join(noticeQA,'metadata.json'),'utf8'))[0].build},null,2))
+ await page.locator('.village-notice-list button').first().click();await page.waitForFunction(()=>window.__villageHostFixture.inspect().preferences.noticeReadIds.length===1);assert.deepEqual((await inspect()).world,noticeWorld)
+ await page.getByRole('button',{name:/^消息，/}).click();await click('全部已读');await page.waitForFunction(()=>window.__villageHostFixture.inspect().preferences.noticeReadIds.length===12);assert.deepEqual((await inspect()).world,noticeWorld);await page.getByRole('button',{name:'查看手账',exact:true}).press('Escape');checks.push('12 confirmed notices; open does not mark read; target navigation and mark all read preserve world')
+ await tab('布置');await click('挂饰')
  for(const [name,slot] of [['纸灯笼','窗边'],['花叶挂饰','院墙']]){
-  const choose=()=>page.getByText(name,{exact:true}).locator('..').getByRole('button',{name:'调整位置',exact:true}).click()
-  await choose();await page.locator('.village-neighborhood').getByRole('button',{name:slot,exact:true}).click();await page.keyboard.press('Escape')
+  const choose=async()=>{await tab('布置');await click('挂饰');await page.getByText(name,{exact:true}).locator('..').getByRole('button',{name:'调整位置',exact:true}).click()}
+  await choose();await page.locator('.village-arrangement').getByRole('button',{name:slot,exact:true}).click();await page.keyboard.press('Escape')
   assert.equal((await inspect()).world.neighborhood.decorations[name==='纸灯笼'?'lantern':'planter'],null)
-  await choose();await page.locator('.village-neighborhood').getByRole('button',{name:slot,exact:true}).click();await click('保存装饰');await page.evaluate(()=>window.__villageHostFixture.flush())
+  await choose();await page.locator('.village-arrangement').getByRole('button',{name:slot,exact:true}).click();await click('保存装饰');await page.evaluate(()=>window.__villageHostFixture.flush())
  }
  assert.equal((await inspect()).world.neighborhood.decorations.lantern,'window');assert.equal((await inspect()).world.neighborhood.decorations.planter,'wall')
  await page.locator('.village-card').screenshot({path:join(qa,'decorations.png')})
@@ -57,8 +63,8 @@ try{
  await page.getByLabel('照片标题',{exact:true}).fill('邻里小日常 · 真实照片');await click('保存到相册')
  await page.waitForFunction(()=>window.__villageHostFixture.inspect().album?.world.photos.length===1,null,{timeout:20000})
  assert.deepEqual((await inspect()).world,beforePhoto);await click('退出拍照');assert.equal((await inspect()).world.userPaused,true)
- const saved=(await inspect()).world;await page.reload();await click('打开 AI 小院');await ready();assert.deepEqual((await inspect()).world,saved)
- await tab('手账');await page.getByText('邻里小日常 · 真实照片',{exact:true}).waitFor();await page.locator('.village-card').screenshot({path:join(qa,'album-restored.png')})
+ const saved=(await inspect()).world;await page.reload();await click('打开 AI 小院');await ready();assert.deepEqual((await inspect()).world,saved);assert.equal((await inspect()).preferences.noticeReadIds.length,12)
+ await tab('手账');await click('相册');await page.getByText('邻里小日常 · 真实照片',{exact:true}).waitFor();await page.locator('.village-card').screenshot({path:join(qa,'album-restored.png')})
  await click('删除照片');await click('确认删除照片');await page.waitForFunction(()=>window.__villageHostFixture.inspect().album?.world.photos.length===0)
  assert.deepEqual((await inspect()).world,saved)
  assert.deepEqual(errors,[]);assert.deepEqual(external,[])

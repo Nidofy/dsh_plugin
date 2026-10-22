@@ -1,0 +1,41 @@
+{
+  "source": "Original approved furniture PNGs and production NeighborhoodArt renderer; no demo/reference pixels",
+  "files": [
+    {
+      "key": "thumbnails/work.png",
+      "file": "thumbnails/work.png",
+      "bytes": 18975,
+      "sha256": "32fbdb2bbec173fa08b193f85b9b803e223354cf478e88228c8b28830249e72f"
+    },
+    {
+      "key": "thumbnails/eat.png",
+      "file": "thumbnails/eat.png",
+      "bytes": 18723,
+      "sha256": "515e69bca653e94de19ad586944603fa612e4252343783d66e8badb131eecc32"
+    },
+    {
+      "key": "thumbnails/rest.png",
+      "file": "thumbnails/rest.png",
+      "bytes": 22588,
+      "sha256": "a4ccf746e8cd7eea93e3623e313311587317da14586de86f2c50cdb77ee71779"
+    },
+    {
+      "key": "thumbnails/bench.png",
+      "file": "thumbnails/bench.png",
+      "bytes": 1028,
+      "sha256": "dac291ea688173065516cc2d5fbae0c776b1e0ef76671dde59776e978715b6ea"
+    },
+    {
+      "key": "thumbnails/books.png",
+      "file": "thumbnails/books.png",
+      "bytes": 1213,
+      "sha256": "6c0b3f35adfa2c0fe0b3aa1598ac614ba8651c4426ed803d6426dcb48e88829f"
+    },
+    {
+      "key": "thumbnails/plant.png",
+      "file": "thumbnails/plant.png",
+      "bytes": 2024,
+      "sha256": "821035bf5fc90141f23456bf4d2f58c45eae3c6eead8dd02bda8a9fdf5957719"
+    }
+  ]
+}

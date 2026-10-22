@@ -1,0 +1,351 @@
+{
+  "date": "2026-10-22",
+  "version": "0.6.2",
+  "completeAcceptance": false,
+  "rows": [
+    {
+      "id": "A01",
+      "status": "PASS",
+      "evidence": "UI运行图：340x720-light-zh-default；单一场景与收起Dock"
+    },
+    {
+      "id": "A02",
+      "status": "PASS",
+      "evidence": "320x360-short、short-arrange-options、340x480-default；短高滚动区与保存按钮可达"
+    },
+    {
+      "id": "A03",
+      "status": "PASS",
+      "evidence": "lifecycle.json：不足空间暂停、控件与composer仍可用"
+    },
+    {
+      "id": "A04",
+      "status": "PASS",
+      "evidence": "UI运行与lifecycle：340/580/1080切换、50次展开同iframe"
+    },
+    {
+      "id": "A05",
+      "status": "PASS",
+      "evidence": "UI_V1_BASELINE.md旧功能映射；content/neighborhood真实动作回归"
+    },
+    {
+      "id": "A06",
+      "status": "PASS",
+      "evidence": "23张运行图中的zh/en、light/dark；人工文案观感仍见G05"
+    },
+    {
+      "id": "A07",
+      "status": "PASS",
+      "evidence": "SVG源、七张完整PaperDoll头像及资产manifest；截图检查"
+    },
+    {
+      "id": "A08",
+      "status": "PASS",
+      "evidence": "偏好验证、减少动态CSS、软件渲染实色回退；正常GPU见G03"
+    },
+    {
+      "id": "A09",
+      "status": "PASS",
+      "evidence": "ui-v1.spec presentation reducer；50次抽屉开关；方向键实现代码审阅"
+    },
+    {
+      "id": "A10",
+      "status": "NOT RUN",
+      "evidence": "按钮替代与aria实现已审阅、Escape焦点回归PASS；所有控件逐项纯键盘巡检未执行"
+    },
+    {
+      "id": "B01",
+      "status": "PASS",
+      "evidence": "viewport.spec、ui-v1.spec：五尺寸含DPR和世界投影往返"
+    },
+    {
+      "id": "B02",
+      "status": "PASS",
+      "evidence": "五尺寸投影测试与窄宽运行图；真实背景和worldContent同一stage"
+    },
+    {
+      "id": "B03",
+      "status": "PASS",
+      "evidence": "camera纯函数及input-router：1–1.5缩放、夹紧、取消平移恢复；camera不写World"
+    },
+    {
+      "id": "B04",
+      "status": "NOT RUN",
+      "evidence": "actor capture和Ctrl/Meta+Wheel单测PASS；列表/slider/设置全部实机滚轮路径未逐一执行"
+    },
+    {
+      "id": "B05",
+      "status": "PASS",
+      "evidence": "input-router.client：抬起选择、5px阈值和手势所有权；原拖动回归"
+    },
+    {
+      "id": "B06",
+      "status": "PASS",
+      "evidence": "input-router.client：actor capture期间wheel锁定、blur/cancel"
+    },
+    {
+      "id": "B07",
+      "status": "NOT RUN",
+      "evidence": "协议viewport过期拒绝和resize取消自动化PASS；物理DPR变化途中拖动未执行（G01）"
+    },
+    {
+      "id": "B08",
+      "status": "PASS",
+      "evidence": "visual/validation.json：50次抽屉开关同frame、world、投影"
+    },
+    {
+      "id": "B09",
+      "status": "PASS",
+      "evidence": "camera/viewport边界、布置非法drop与输入路由纯测试；非世界延展不可交互"
+    },
+    {
+      "id": "B10",
+      "status": "PASS",
+      "evidence": "lifecycle.json：合成isComposing保护、普通Escape只取消一层；真实IME另记G02"
+    },
+    {
+      "id": "B11",
+      "status": "NOT RUN",
+      "evidence": "frame遮罩点击消费单测PASS；所有悬浮层外点击与宿主发送组合未逐项执行"
+    },
+    {
+      "id": "B12",
+      "status": "NOT RUN",
+      "evidence": "安全区夹紧已实现；全部居民/气泡边缘位置和保存按钮遮挡组合未穷举"
+    },
+    {
+      "id": "C01",
+      "status": "PASS",
+      "evidence": "roster/runtime单测及全员/单人浏览器路径"
+    },
+    {
+      "id": "C02",
+      "status": "PASS",
+      "evidence": "neighborhood.json：13种邻里动作＋首次同桌；原条件/取消单测"
+    },
+    {
+      "id": "C03",
+      "status": "PASS",
+      "evidence": "ui-v1.spec和原home-state测试：三布局×16锚点组合"
+    },
+    {
+      "id": "C04",
+      "status": "NOT RUN",
+      "evidence": "四组两锚点纯几何和按钮路径PASS；实际pointer拖动只覆盖代表家具，未穷举四组"
+    },
+    {
+      "id": "C05",
+      "status": "PASS",
+      "evidence": "visual/validation.json：100次move不改草稿，合法drop只加一步undo"
+    },
+    {
+      "id": "C06",
+      "status": "NOT RUN",
+      "evidence": "非法实际drop和原占用几何单测PASS；居民占用落点的完整UI手势未单独执行"
+    },
+    {
+      "id": "C07",
+      "status": "PASS",
+      "evidence": "runtime.client：20步上限、取消世界不变；UI一次undo"
+    },
+    {
+      "id": "C08",
+      "status": "PASS",
+      "evidence": "content.json及runtime草稿测试：环境/目标配饰在同一Home草稿"
+    },
+    {
+      "id": "C09",
+      "status": "PASS",
+      "evidence": "runtime单草稿锁与lifecycle排他模式回归"
+    },
+    {
+      "id": "C10",
+      "status": "NOT RUN",
+      "evidence": "两种额外挂饰真实保存/取消、原风铃和锁定单测PASS；三挂饰×三挂点UI组合未穷举"
+    },
+    {
+      "id": "C11",
+      "status": "PASS",
+      "evidence": "原runtime/controller活动锁与拒绝测试，模式入口沿用原命令"
+    },
+    {
+      "id": "C12",
+      "status": "PASS",
+      "evidence": "runtime.client：pending/rejected/unknown与丢ACK只读核对；无自动重放"
+    },
+    {
+      "id": "C13",
+      "status": "PASS",
+      "evidence": "UI实际CAS后相机恢复、arrange清除、user暂停保留"
+    },
+    {
+      "id": "C14",
+      "status": "PASS",
+      "evidence": "runtime脏草稿关闭确认；10次UI隐藏及50次sidebar恢复，取消不改世界"
+    },
+    {
+      "id": "C15",
+      "status": "PASS",
+      "evidence": "neighborhood重复活动、first-fact稳定ID与原count测试"
+    },
+    {
+      "id": "D01",
+      "status": "PASS",
+      "evidence": "runtime.client：durable confirmation gating、丢ACK核对后唯一通知"
+    },
+    {
+      "id": "D02",
+      "status": "PASS",
+      "evidence": "deriveNotices稳定首次事实、repeat count不改变ID、toastIds上限16"
+    },
+    {
+      "id": "D03",
+      "status": "PASS",
+      "evidence": "旧偏好迁移单测与SaveStore原字节保护；世界仍schema6"
+    },
+    {
+      "id": "D04",
+      "status": "PASS",
+      "evidence": "runtime.client：12条历史事实迁移静默已读、无历史toast；错误保护沿原事务"
+    },
+    {
+      "id": "D05",
+      "status": "PASS",
+      "evidence": "neighborhood.json：打开不读、点击定位后读、全部已读、冷启动保持12条"
+    },
+    {
+      "id": "D06",
+      "status": "PASS",
+      "evidence": "runtime.client：已读/主题并发串行合并，world不变"
+    },
+    {
+      "id": "D07",
+      "status": "PASS",
+      "evidence": "空消息与12条消息运行图、首屏滚动和已读数真实"
+    },
+    {
+      "id": "D08",
+      "status": "NOT RUN",
+      "evidence": "3秒合并/5秒和hover/focus暂停已实现；真实计时组合未自动化执行"
+    },
+    {
+      "id": "D09",
+      "status": "NOT RUN",
+      "evidence": "关键模式blocked延后逻辑已实现；拖动/编辑/照片/错误期间逐种注入新事实未执行"
+    },
+    {
+      "id": "D10",
+      "status": "PASS",
+      "evidence": "preferences/ui-v1/host测试：严格白名单、限长、未来schema拒绝和原件保护"
+    },
+    {
+      "id": "E01",
+      "status": "PASS",
+      "evidence": "UI与neighborhood：进入、20次拍摄、退出后user暂停保持"
+    },
+    {
+      "id": "E02",
+      "status": "PASS",
+      "evidence": "photo-narrow/medium/wide.png：720×960且三个文件字节完全一致"
+    },
+    {
+      "id": "E03",
+      "status": "NOT RUN",
+      "evidence": "1.25×真实PNG与默认边框/日期构图PASS；全部日期/边框/缩放组合未穷举"
+    },
+    {
+      "id": "E04",
+      "status": "PASS",
+      "evidence": "实际PNG与运行场景目视核对；仅真实world stage进图，无HUD/ghost/延展"
+    },
+    {
+      "id": "E05",
+      "status": "PASS",
+      "evidence": "visual/validation.json：20次实际拍摄同frame/asset纹理数/停止ticker；finally清理代码审阅"
+    },
+    {
+      "id": "E06",
+      "status": "PASS",
+      "evidence": "原photo-store/album限额测试及真实保存/查看/导出/确认删除；世界未变"
+    },
+    {
+      "id": "E07",
+      "status": "PASS",
+      "evidence": "原album/runtime CAS与unknown只读核对单测、neighborhood照片冷恢复"
+    },
+    {
+      "id": "F01",
+      "status": "PASS",
+      "evidence": "lifecycle.json：50次sidebar隐藏/恢复草稿和世界；runtime按profile持有"
+    },
+    {
+      "id": "F02",
+      "status": "PASS",
+      "evidence": "lifecycle.json：50次展开/收起同iframe且完整composer避让"
+    },
+    {
+      "id": "F03",
+      "status": "NOT RUN",
+      "evidence": "夹具未发送文字与composer几何自动化PASS；真实Desktop附件/审批组合未执行"
+    },
+    {
+      "id": "F04",
+      "status": "PASS",
+      "evidence": "既有协调/浮层几何回归、Host smoke共存；实际用户Desktop现场仍NOT RUN"
+    },
+    {
+      "id": "F05",
+      "status": "PASS",
+      "evidence": "lifecycle缺资源/不足空间、runtime隐藏断连暂停与无离线补算；错误不清user"
+    },
+    {
+      "id": "F06",
+      "status": "PASS",
+      "evidence": "全部专项内历史schema/迁移/SaveStore保护测试；controller/home-state无diff"
+    },
+    {
+      "id": "F07",
+      "status": "PASS",
+      "evidence": "host双实例lease、runtime冲突/epoch/只读核对测试"
+    },
+    {
+      "id": "F08",
+      "status": "PASS",
+      "evidence": "frame-bridge.client：source/origin/token/sequence/viewport/version与新UI配对手势"
+    },
+    {
+      "id": "F09",
+      "status": "PASS",
+      "evidence": "offline-validation.json空store离线无lifecycle scripts；浏览器阻断外网且external=[]"
+    },
+    {
+      "id": "F10",
+      "status": "PASS",
+      "evidence": "50次隐藏和展开、20次照片、Host unload等待在途写入；资源数量有界"
+    },
+    {
+      "id": "F11",
+      "status": "PASS",
+      "evidence": "performance.json：同设备同视口三次×五场景×旧/新，p50/p95/父CPU/heap/纹理均记录"
+    },
+    {
+      "id": "F12",
+      "status": "PASS",
+      "evidence": "performance.json四活动场景通过，隐藏初测FAIL保留；performance-hidden-followup.json同条件30秒×3独立复核PASS（CPU +8.98%，门槛未改）。仅软件渲染短时范围"
+    },
+    {
+      "id": "F13",
+      "status": "PASS",
+      "evidence": "0.6.2 build/pack/smoke/offline-install；package-manifest.json及SHA256SUMS.txt"
+    }
+  ],
+  "manual": {
+    "G01": "NOT RUN",
+    "G02": "NOT RUN",
+    "G03": "NOT RUN",
+    "G04": "NOT RUN",
+    "G05": "NOT RUN",
+    "G06": "DEFERRED",
+    "frozenHtmlBrowser": "NOT RUN"
+  }
+}

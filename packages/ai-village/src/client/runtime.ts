@@ -1,3 +1,8 @@
+import { arrangementObjects } from '../core/arrangement.ts'
+import type { UIInput } from '../core/frame-protocol.ts'
+import { initialPresentation, presentationReducer, type UIAction } from './ui-state.ts'
+import { defaultCamera, validCamera, type Camera } from '../core/camera.ts'
+import { deriveNotices, type Notice } from '../core/notifications.ts'
 import { AlbumClient } from './album-client.ts'
 import { residentAssets } from './asset-selection.ts'
 import { actors } from '../core/world.ts'
@@ -13,12 +18,46 @@ import type { PauseReason, PointerIntent } from '../core/controller.ts'
 import type { Saved } from '../host/save-store.ts'
 import { readJsonResponse } from './json-response.ts'
 import { SaveTransaction, type SaveReceipt } from './save-transaction.ts'
-import { defaultPreferences, validatePreferences, type Preferences } from '../core/preferences.ts'
+import { defaultPreferences, decodePreferences, validatePreferences, type Preferences } from '../core/preferences.ts'
 const prefix = '/api/nidofy-ai-village/'
 interface State { profileId: string; epoch: string; saved: Saved<ContentWorld> | null; retention?: { diagnostic?: string } }
 export type Request = (path: string, init?: RequestInit) => Promise<Response>
 /** One instance per plugin lifetime, deliberately independent of session selection and React mounts. */
 export class VillageRuntime {
+  softwareRendering = false
+  setSoftwareRendering(value: boolean) { this.softwareRendering = value; this.emit() }
+  presentation = initialPresentation()
+  notices: Notice[] = []
+  present(action: UIAction) { this.presentation = presentationReducer(this.presentation, action); this.emit() }
+  input(input: UIInput) {
+    if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.transaction.pending || this.photoMode) return
+    if (input.kind === 'camera') { this.setCamera(input.camera); return }
+    if (input.kind === 'resident') { if (!this.arranging && this.controller && actors(this.controller.world).some(a => a.id === input.id)) { this.selectCharacter(input.id); this.sceneClick(true) }; return }
+    if (input.kind === 'scene') { if (!this.arranging) this.sceneClick(); return }
+    if (!this.arranging) return
+    if (this.homeDraft && ['work', 'eat', 'bench', 'corner'].includes(input.id)) {
+      const id = input.id as typeof this.presentation.selectedFurniture
+      if (input.phase === 'down') this.present({ type: 'patch', patch: { selectedFurniture: id } })
+      if (input.phase === 'up' && (input.index === 0 || input.index === 1)) this.updateHome({ ...this.homeDraft.home, positions: { ...this.homeDraft.home.positions, [id]: input.index } })
+    } else if (input.phase === 'up' && input.index !== undefined) {
+      const slot = (['window', 'door', 'wall'] as const)[input.index]
+      if (!slot) return
+      if (input.id === 'windChime' && this.decorationDraft !== undefined) this.previewDecoration(slot)
+      if (this.extraDecorationDraft?.id === input.id) this.previewExtraDecoration({ ...this.extraDecorationDraft, slot })
+    }
+  }
+  setCamera(camera: Camera) { if (validCamera(camera) && !this.arranging && !this.photoMode && !this.controller?.drag && !this.error) this.present({ type: 'patch', patch: { camera, zoomHint: Date.now() } }) }
+  resetCamera() { this.setCamera({ ...defaultCamera }) }
+  sceneClick(resident = false) { this.present({ type: 'patch', patch: { drawer: 'closed', overlay: resident ? 'resident' : null } }) }
+  private confirmed(world: ContentWorld) {
+    const previous = new Set(this.notices.map(n => n.id)), next = deriveNotices(world)
+    if (this.preferences.noticesInitialized) this.presentation.toastIds = [...new Set([...this.presentation.toastIds, ...next.filter(n => !previous.has(n.id) && !this.preferences.noticeReadIds.includes(n.id)).map(n => n.id)])].slice(-16)
+    this.notices = next
+  }
+  async markNoticesRead(ids: string[]) {
+    await this.setPreferences({ noticeReadIds: [...new Set([...this.preferences.noticeReadIds, ...ids.filter(id => this.notices.some(n => n.id === id))])].slice(-64) })
+  }
+  get arrangementDirty() { const w = this.controller?.world; return !!w && (this.homeDraft ? JSON.stringify(this.homeDraft) !== JSON.stringify({ home: w.home, layout: w.neighborhood.layout }) : this.decorationDraft !== undefined ? this.decorationDraft !== (w.decorations.windChime?.slot ?? null) : this.extraDecorationDraft ? this.extraDecorationDraft.slot !== w.neighborhood.decorations[this.extraDecorationDraft.id] : false) }
   controller: ContentController | undefined
   readonly clientId = crypto.randomUUID()
   readonly reasons = new Set<PauseReason>(['closed', 'disconnected'])
@@ -60,18 +99,20 @@ export class VillageRuntime {
   get arranging() { return !!this.homeDraft || this.decorationDraft !== undefined || !!this.extraDecorationDraft }
   private syncArrangementPause() { this.pause('arrange', this.arranging) }
   cancelArrangements() {
+    if (this.homeSaving || this.criticalCandidate || this.transaction.pending) return
     this.decorationDraft = undefined; this.extraDecorationDraft = null; this.cancelHome()
   }
   get canUndoHome() { return this.homeHistory.length > 0 }
   beginHome() {
     const world = this.controller?.world
-    if (!world || this.homeDraft || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event) return
+    if (!world || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event) return
     this.cancelArrangements()
     this.homeDraft = { home: structuredClone(world.home), layout: world.neighborhood.layout }
     this.homeHistory = []; this.homeDraftError = ''; this.homePreview = null; this.pause('arrange', true)
   }
   updateHome(home: Home, layout = this.homeDraft?.layout) {
     if (!this.homeDraft || !layout || !this.controller || this.homeSaving) return
+    if (JSON.stringify(this.homeDraft) === JSON.stringify({ home, layout })) return
     try {
       const preview = arrangeHome(this.controller.world, scene, home, layout, this.homeDraft.home.revision)
       this.homeHistory.push(structuredClone(this.homeDraft)); if (this.homeHistory.length > 20) this.homeHistory.shift()
@@ -95,7 +136,7 @@ export class VillageRuntime {
     const previous = this.homeHistory.pop(); if (!previous) return
     this.homeDraft = previous; this.revalidateHome(); this.emit()
   }
-  cancelHome() { this.homeDraft = null; this.homePreview = null; this.homeHistory = []; this.homeDraftError = ''; this.syncArrangementPause() }
+  cancelHome() { if (this.criticalCandidate || this.transaction.pending) return; this.homeDraft = null; this.homePreview = null; this.homeHistory = []; this.homeDraftError = ''; this.syncArrangementPause() }
   async confirmHome() {
     if (!this.homeDraft || !this.controller || this.homeSaving) return
     this.homeSaving = true; this.homeDraftError = ''; this.emit()
@@ -157,7 +198,10 @@ export class VillageRuntime {
     if (this.connected && !this.ready) void this.connect()
   }
   hide(other = false) {
+    if (!other && (this.criticalCandidate || this.transaction.pending)) return
+    if (this.arranging && !other && this.arrangementDirty) { this.present({ type: 'patch', patch: { confirmClose: true } }); return }
     if (this.arranging && !other) this.cancelArrangements()
+    if (!other) this.present({ type: 'close' })
     if (this.photoMode) this.exitPhoto()
     this.open = false; this.pause(other ? 'other-panel' : 'closed', true)
     this.setFrameReady(false)
@@ -206,7 +250,7 @@ export class VillageRuntime {
           const result = this.preferenceTransaction.reconcile(preferences, owner, true)
           if (result.status !== 'committed' && result.status !== 'rejected') throw Error('PREFERENCES_UNCONFIRMED')
         }
-        this.preferences = preferences.saved ? validatePreferences(preferences.saved.world) : { ...defaultPreferences }
+        this.preferences = preferences.saved ? decodePreferences(preferences.saved.world) : { ...defaultPreferences }
         this.preferenceRevision = preferences.saved?.revision ?? 0
         if (this.transaction.pending) {
           const result = this.transaction.reconcile(state, owner, true)
@@ -225,7 +269,7 @@ export class VillageRuntime {
           this.controller!.syncScene()
           if (this.controller!.world.userPaused) { this.reasons.add('user'); this.controller!.pauseReasons.add('user') }
           else { this.reasons.delete('user'); this.controller!.pauseReasons.delete('user') }
-          this.criticalCandidate = null; this.pause('commit-pending', false)
+          this.criticalCandidate = null; this.pause('commit-pending', false); this.cancelArrangements(); this.confirmed(this.controller!.world)
         }
         await this.ensureAssets(state.saved ? validateContentWorld(state.saved.world, scene) : createContentWorld(scene), signal)
         if (!current()) return
@@ -236,8 +280,10 @@ export class VillageRuntime {
           this.revision = state.saved?.revision ?? 0
         }
         this.trimAssets()
+        if (state.saved) { this.notices = deriveNotices(validateContentWorld(state.saved.world, scene)) }
         this.error = ''; this.ready = true
         this.pause('disconnected', false); this.pause('ownership', false)
+        if (!this.preferences.noticesInitialized) await this.setPreferences({ noticeReadIds: this.notices.map(n => n.id), noticesInitialized: true })
         if (!state.saved) this.save()
       } catch (e) { if (current()) this.fail(e) }
     })()
@@ -256,6 +302,7 @@ export class VillageRuntime {
       const candidate = this.controller.snapshot(); this.controller.world = before
       void this.commitWorld(candidate)
     }
+    if (intent.type === 'up' && this.controller?.lastPlacement === 'selected') this.sceneClick(true)
     if (!active && this.controller?.drag?.active) this.dragTime = 0
     this.emit()
   }
@@ -312,7 +359,7 @@ export class VillageRuntime {
     if (value) {
       if (!this.ready || !this.controller || this.error || this.criticalCandidate || this.photoMode) return
       try { decorateExtra(this.controller.world, scene, value.id, value.slot) } catch { return }
-      this.cancelArrangements()
+      if (this.homeDraft || this.decorationDraft !== undefined || (this.extraDecorationDraft && this.extraDecorationDraft.id !== value.id) || this.controller.world.activeEvent || this.controller.world.neighborhood.event) return
     }
     this.extraDecorationDraft = value; this.syncArrangementPause()
   }
@@ -320,14 +367,16 @@ export class VillageRuntime {
     if (slot !== undefined) {
       if (!this.ready || !this.controller || this.error || this.criticalCandidate || this.photoMode) return
       try { placeBell(this.controller.world, scene, slot) } catch { return }
-      this.cancelArrangements()
+      if (this.homeDraft || this.extraDecorationDraft || this.controller.world.activeEvent || this.controller.world.neighborhood.event) return
     }
     this.decorationDraft = slot; this.syncArrangementPause()
   }
   setLocale(locale: 'zh' | 'en') { if (this.locale !== locale) { this.locale = locale; this.emit(false) } }
   get preferencesSaving(): boolean { return !!this.preferenceSaving }
   async setPreferences(patch: Partial<Omit<Preferences, 'schemaVersion'>>): Promise<void> {
-    if (!this.ready || this.error || this.preferenceSaving || this.preferenceTransaction.pending || this.disposing) return
+    while (this.preferenceSaving) await this.preferenceSaving
+    if (!this.ready || this.error || this.preferenceTransaction.pending || this.disposing) return
+    if (patch.noticeReadIds) patch = { ...patch, noticeReadIds: [...new Set([...this.preferences.noticeReadIds, ...patch.noticeReadIds])].slice(-64) }
     const candidate = validatePreferences({ ...this.preferences, ...patch }), generation = this.generation, signal = this.attempt.signal
     const work = (async () => {
       const result = await this.preferenceTransaction.submit({ ...this.credentials(), profileId: this.profileId,
@@ -342,7 +391,7 @@ export class VillageRuntime {
   }
   view() {
     const c = this.controller
-    return c ? { world: this.homePreview ?? c.world, arranging: !!this.homeDraft, position: c.drag?.active ? c.drag.position : c.world.actor.position,
+    return c ? { arrangementObjects: this.homeDraft ? arrangementObjects(scene, c.world, this.homeDraft) : this.arranging ? [{ id: this.extraDecorationDraft?.id ?? 'windChime', rect: { x: 60, y: 90, width: 210, height: 65 }, anchors: (this.extraDecorationDraft ? [{x:166,y:101},{x:250,y:115},{x:76,y:104}] : [{x:185,y:105},{x:234,y:130},{x:96,y:117}]).map(a => ({ ...a, legal: true })) }] : [], camera: this.presentation.camera, overlayOpen: this.presentation.overlay !== null || this.presentation.confirmClose, dismissLayer: this.presentation.drawer !== 'closed' || this.presentation.overlay !== null, selectedFurniture: this.presentation.selectedFurniture, world: this.homePreview ?? c.world, arranging: !!this.homeDraft, position: c.drag?.active ? c.drag.position : c.world.actor.position,
       dragging: c.drag?.active ?? false, dragTime: this.dragTime, paused: !!c.pauseReasons.size, debug: false,
       locale: this.preferences.language === 'system' ? this.locale : this.preferences.language,
       photo: this.photoMode ? this.photoOptions : null, reducedMotion: this.preferences.reducedMotion, bubbles: this.preferences.bubbles, decorationDraft: this.decorationDraft, extraDecorationDraft: this.extraDecorationDraft } : null
@@ -416,7 +465,7 @@ export class VillageRuntime {
     this.emit()
     const receipt = await pending
     if (generation === this.generation) {
-      if (receipt.status === 'committed') this.revision = receipt.revision
+      if (receipt.status === 'committed') { this.revision = receipt.revision; this.confirmed(world) }
       else this.fail(Error(receipt.status === 'rejected' ? receipt.reason : 'SAVE_UNCONFIRMED'))
       this.emit()
     }

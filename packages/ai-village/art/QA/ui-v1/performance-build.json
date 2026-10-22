@@ -1,0 +1,8 @@
+{
+  "version": "0.6.2",
+  "head": "2cab99ab8b78de49b3c444ee4df388bf7a246634",
+  "dirty": true,
+  "clientSHA256": "23ff7e237485f7472d811b07cd0cd4b3392f153fe47bea421097f6b02af0ab1a",
+  "frameSHA256": "2dae8e6a09d1e31254722fd32abcf0b0dfb5ad06583bde635da5018c4b6ccd9a",
+  "note": "Main paired measurements use this built frame. The later input-only change restores camera on cancelled pan; renderer/cadence/viewport are unchanged. Hidden follow-up uses the final bundle."
+}
