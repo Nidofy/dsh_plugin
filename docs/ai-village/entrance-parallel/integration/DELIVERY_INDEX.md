@@ -1,29 +1,51 @@
-# 线程 A 内部候选交接
+# 线程 A 最终内部候选交接
 
-代码提交 `b7018ee15173c79ad324a0b19b3446626c9eda98`；公共基线 `bc230e7f662f47efb497529a276d09aad90ad4ac`。
+生产修复提交 `ea8708d458643d3360eb1e9783431ca1dd7fece7`；B 最新 QA `c9677550d6e443d1bd3af57c55ef62c0b70de609` 已完整选择性合入。所有 B 所属测试、工具和历史报告与 B 提交一致。
 
-- 候选入口：**ART_REVIEW**，可进入人工美术审查，未批准正式启用。
-- 代码与包：A 自检通过的内部候选；B 独立 QA、可比性能/压力和真实 GPU 待完成。
-- 包：`dist/nidofy-dsh-ai-village-0.6.4.tgz`，32,114,558 bytes。
-- SHA-256：`93d7b3d7c0ce5d59622043e15f51925714e9188d3352961454087b38c33fe027`。
-- 0.6.4 为保留的包版本；通过上述 SHA 区分本内部候选，不等同原0.6.4发布产物。
+候选保持 **ART_REVIEW**，尚未人工批准。正式安装包仍使用静态入口；门庭动画仅在受限本地预览中启用。
 
-## 证据
+## 已处理问题与验证
 
-- `FINAL_RESULTS.json`：代码、bundle hash 和真实验证结果。
-- `ART_IMPORT.json`：源提交、原母版/图层hash、裁剪/pivot、资源预算。
-- `preview/validation.json`：16组尺寸×主题×语言；真实小院透过门洞，门态0/25/50/100%截图，动态完整揭幕；热恢复0新增门图请求。
-- `preview-missing-art/validation.json`：候选门图404后安全降级。
-- `regression/validation.json`：15组生产入口场景；ART_REVIEW没有生产资源请求。
-- `ui-regression/validation.json`、`recovery-regression/recovery-validation.json`：9项交互、4项恢复与事务检查。
-- `logs/tests-with-b.txt`：合入 B 测试后33文件/159测试；`logs/b-png-validator.txt`：独立 PNG 校验器2测试；`logs/build-final.txt`：严格类型和正式构建。
-- `PACKAGE_CHECK.json`：空缓存、不可达registry、禁生命周期脚本的离线安装与临时Host smoke。pnpm的“downloaded 1”计数是本地tgz导入，不是联网下载；DSH/React仅在安装后作为已有宿主peer提供。
-- `TASK_LEDGER.md`：完整45项归属/状态；`THEME_AUTHORING.md`：未来主题替换契约。
+- **DQ-SEAM-01 已修复并由 A 复测通过**：门扇保持原门轴，横向各增加6设计像素重叠。原 PNG 字节不变；闭门双色探针从300透色像素变为0，最大RGB差0；86,991设计像素Alpha重建0漏光。开门时重叠随门扇转开，没有固定遮挡补丁。
+- B 的独立评估覆盖旧候选 `123d169`；其发现及失败证据原样保留。修复后由 A 执行 B 原断言，只重定向证据路径，不改断言、容差或生产门禁。不能称为 B 已独立复测新提交。
+- 33文件/159测试、严格官方类型/构建通过。
+- 15项候选预览通过：四尺寸/浅深色关键帧、阶段隐藏/断连/缩放、404回退和闭门探针。
+- 13项生产场景通过，含100次侧栏恢复及另外100次真实关闭/重开；热态监听器640/610保持稳定，结束时无运行中的WAAPI动画。
+- Git/Live2D客户端组件共存、340/580/1080下720×960照片字节一致、相册413拒绝保留照片且不重放、显式重试、冷恢复及删除不改世界通过。
+- 单独串行10次软件后端启动：中位数753ms，P95 774ms。主机CPU/内存采样已记录；其他桌面进程没有停止，不作独占机器或真实GPU结论，也不作改善比例宣称。
+- 确定性导入复验、空缓存离线安装、包资源hash与隔离Host smoke通过。
 
-早期 `*-failure` 文件是修复前/夹具调试证据，最终结论以对应 validation.json 为准。所有性能与真实 GPU 指标须由独立实验补充，当前没有声称“性能改善百分比”。
+## 当前离线包
 
-## B 接收方法
+`dist/nidofy-dsh-ai-village-0.6.4.tgz`，32,114,727 bytes。
 
-从共享 `coord/A_CHECKPOINT.json` 取已提交 SHA，在自己创建的独立 eval worktree 运行。先按 README 初始化隔离依赖，再运行候选预览/常规测试。不要在 A 工作树安装依赖、生成截图或运行构建。已有 `entranceArt` 和 `entranceArtStatus` 的选择导出现在位于 `src/client/entrance-art.ts`；几何验证函数仍在 `entrance-theme.ts`。
+SHA-256：`0837998272c44d76c0d571dde04852dbce90ad8d8ea63aea74d41115d67e4068`。
 
-已收到 B 的 QA_HARNESS_READY，核对106个文件均属于 QA 后，将 `75abafdab896f7728d6c8bc23722fe0750c48440` cherry-pick 为 `d1e56d091269bd1d3c612503b3dd2dd386d3dd94`。B 测试保持原样，A 重跑159测试全过，旧基线 DQ-ART-01 空图层异常在当前 A 不再复现。`B_ACCEPTANCE.json` 与 `B_PNG_RECHECK.json` 记录接收和8张接入图的复核。B 的历史报告保留原始基线结果；仍需 B 在独立 eval worktree 复测最终 A 候选。B 已交付100次侧栏/尺寸循环证据，10次冷启动计时为 CONTENDED，不能用作正式性能结论。用户批准美术以后，才可记录批准依据并改APPROVED，重新构建与验收。一小时真实运行继续DEFERRED。未推送、合并main或安装实际用户profile。
+版本仍为0.6.4，请按SHA区分内部候选。空缓存安装使用不可达registry与禁用生命周期脚本；pnpm的“downloaded 1”计数为本地tgz导入。DSH/React宿主peer在离线安装后才使用本机已固定依赖提供。没有安装到实际用户profile。
+
+## 证据与复现
+
+- `FINAL_RESULTS.json`：当前代码与bundle hash、完整结果和未测项。
+- `final-review/integrated-review.json`：最新15项候选及截图；`seam-before/`保存300像素失败复现，`final-review/art/ART_AUDIT.json`保存Alpha复验。
+- `final-production/browser-full.json`：13生产场景及200次生命周期循环。
+- `final-product/validation.json`：照片、相册413、冷恢复和插件组件共存。
+- `final-performance/PERFORMANCE.json`：10次串行软件基线、CPU/内存、测量边界。
+- `PACKAGE_CHECK.json`、`logs/final-*.txt`：最终测试、构建、打包和离线安装。
+- `ART_IMPORT.json`：母版来源hash、源裁剪矩形及修复后的渲染矩形/门轴。
+- `B_ACCEPTANCE.json`、`TASK_LEDGER.md`、`THEME_AUTHORING.md`：QA接收、45项状态和后续主题契约。
+
+```powershell
+node scripts/ai-village-entrance-qa-recheck.mjs build final-review --review
+node scripts/ai-village-entrance-qa-recheck.mjs review final-review
+node scripts/ai-village-entrance-qa-recheck.mjs art final-review --input packages/ai-village/assets/entrance
+node scripts/ai-village-entrance-qa-recheck.mjs build final-production
+node scripts/ai-village-entrance-qa-recheck.mjs browser final-production
+node scripts/ai-village-entrance-final-product.mjs
+node scripts/ai-village-entrance-serial-performance.mjs
+```
+
+旧 `preview/`、`regression/`、`ui-regression/` 与 B 的报告属于先前版本/执行记录。最新结论以上述 final-* 为准，不把历史失败删去或改成通过。
+
+## 尚未签收
+
+人工美术观感、真实Windows GPU/DPI/多屏仍需验收。独占硬件性能、直接纹理解码CPU、retaining-path归因、低内存与系统休眠未运行；一小时真实运行继续DEFERRED。修复后的B独立执行尚未发生，A复测已完整标明。未推送、合并main、正式发布或擅自批准美术。

@@ -1,0 +1,10 @@
+{
+  "executed_by": "A",
+  "head": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
+  "original_QA_source_sha256": {
+    "scripts/ai-village-dualqa-browser.mjs": "7ab7da7f84981d03fcd348c5ca7b1638450fe984ebecd2481935a8d16da2acaa",
+    "tools/ai-village-dualqa/env.mjs": "3bbf6fafa1430d89ffeb034635a93e30bf8b94105a0c0ecbb826c5c2032ac3e5"
+  },
+  "adaptation": "Only QA output paths redirected to A integration evidence. Assertions, test inputs, tolerances and production code unchanged by adapter.",
+  "args": []
+}

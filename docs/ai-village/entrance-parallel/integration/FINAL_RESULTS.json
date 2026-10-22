@@ -1,8 +1,9 @@
 {
-  "code_commit": "b7018ee15173c79ad324a0b19b3446626c9eda98",
+  "status": "INTERNAL_CANDIDATE_B_FINDING_FIXED_A_RETESTED",
+  "code_commit": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
   "base_commit": "bc230e7f662f47efb497529a276d09aad90ad4ac",
   "art_status": "ART_REVIEW",
-  "status": "INTERNAL_CANDIDATE_A_SELF_CHECKED",
+  "art_revision": 2,
   "release_approved": false,
   "source_sha256": {
     "packages/ai-village/assets/entrance/entrance-bg-far.png": "df5915f205aeb5889e7073b495141b350b07ddb2ad0f03b6694a7d5a630aac58",
@@ -13,7 +14,7 @@
     "packages/ai-village/assets/entrance/entrance-gate-left.png": "6165c0792dc80be90211815b7ab18d286e73537bf20b88fb99239a36501216ab",
     "packages/ai-village/assets/entrance/entrance-gate-right.png": "4837f86437718bfcbd45242dbd086a47239b9f6ea0152c8dc0a864c1fe3df6dc",
     "packages/ai-village/assets/entrance/entrance-path.png": "0cb39228d4706b94a46d10866708fc88113b0c7cfeb30c02b33454f3cd606a0b",
-    "packages/ai-village/assets/entrance/manifest.json": "e9b9072adfef614f682e11c157df18390e55ddd3923bda0af0ed8d0b2bd8494e",
+    "packages/ai-village/assets/entrance/manifest.json": "c5de0288cf6284b3012419f094957de1f5ce7f44f89cc1e00dd59f12ab78d9fa",
     "packages/ai-village/experiments/entrance-review-art.ts": "6bba0b846181775cd1daa6c4decd0528b51c201dc3f5c7754aef741d19791579",
     "packages/ai-village/experiments/phase4-client.tsx": "dcab2acc134e4082a2031077e446a2a0e9f0c4cb598d2f8671911d292ad64bba",
     "packages/ai-village/src/art/animation.ts": "64d073adbe3b11e815f48e8f23e2715da9464e5fcf92fd07bcc9be4d0c495ef8",
@@ -77,7 +78,7 @@
     "packages/ai-village/src/core/ui-v11-contract.ts": "0a2f9a0783c37213ac6c136dac606799e0e0f84e3f765161ed2bb9b1a65317b4",
     "packages/ai-village/src/core/world.ts": "05fe4c76aa399c14f1afe810f17a65302015b6709320d3c843e27c908c2f9b96",
     "packages/ai-village/src/definitions.ts": "ed03d8259275fc3254a449c0f5353e2dfe00271b0b5af2e3d90d01f2ac49576b",
-    "packages/ai-village/src/entrance-manifest.ts": "26125cddda24244bc6123798426f561a45e9abd59f7423807e0c15c3b47c2fe6",
+    "packages/ai-village/src/entrance-manifest.ts": "ce8c04e75081cde5b85d64bdc479e4040332f8920e87c7c4733196e5d85dc934",
     "packages/ai-village/src/frame/atmosphere.ts": "bc3d1f0b87cc59ca6551bdc7eaf0b18bbe4d1a15b9ad34503966c0269b612cd3",
     "packages/ai-village/src/frame/furniture.ts": "6b8d2accacbe35d98776a4fdf48dc8c3e633790f6a68d5a9fa27a6413e8b8f50",
     "packages/ai-village/src/frame/input-router.ts": "8c69519f5ede6190dd1033a71ac30395bbf6f5fc4a7d7cf20602dd02c870144d",
@@ -89,57 +90,84 @@
     "packages/ai-village/src/host/save-store.ts": "f9c081051d70e231023237294c45110bf34d2857c61be283b0b2421da34ff127",
     "packages/ai-village/src/host/service.ts": "34f271d82e95e904a0518b91840d01d3b75007ddf681287d2f35ffc9b5dee130",
     "packages/ai-village/src/index.ts": "af572955db4c83e47d9d6b8d2a88f357e33b2a4e660ebf32e68fd539f6f0992f",
-    "scripts/ai-village-entrance-import.mjs": "d13700a9998d56161d624ea497e3ae993042a3ce7f105ceec10858ec63f83eb2",
+    "scripts/ai-village-entrance-import.mjs": "b23e9e320260d27848d4efbda984cd7c0467dd07130dbe223b6163af22a718bf",
     "scripts/ai-village-entrance-review.mjs": "80c88b4063508b23354b19e61c5d325436c3459c2e7146b81c1ac7d31c3912df",
     "scripts/ai-village-resources.mjs": "65b8a07c3aa4f62e210c036ac503f5a5e683bd3ce67afe309857082fb302b3ca"
   },
   "build_sha256": {
-    "packages/ai-village/lib/client.js": "6f068b652dcb919c67a6f4f087ec2b1898c861ac0751ddbf81123e7c418c30b6",
+    "packages/ai-village/lib/client.js": "c6cc47196247a6e1561463344033dbfbaddb6862d4bf5eb2fad1f8c7d64ac9e8",
     "packages/ai-village/lib/frame.js": "57ee4268590cd3a6af0d57dd734579af5c6f61d9c10330173ec6ec766a4e7a82",
-    "packages/ai-village/lib/index.js": "fcc3ffadf75d30fc4eb111a38fa555f10e109cb98d4c816fb160014b1b6f8bcb",
-    ".build/entrance-integration-review/fixture.js": "6d2da739e0eccb74766b827adb7efa0974dbf18f2b9cdba0aff2634d1fb5f548"
+    "packages/ai-village/lib/index.js": "fcc3ffadf75d30fc4eb111a38fa555f10e109cb98d4c816fb160014b1b6f8bcb"
+  },
+  "accepted_qa": {
+    "latest_commit": "c9677550d6e443d1bd3af57c55ef62c0b70de609",
+    "B_evaluated_A": "123d1697e033456101e541a093eebd64fd192007",
+    "final_fix_retest_executor": "A using unchanged B assertions; only evidence paths redirected",
+    "QA_owned_files_identical_to_B": true
   },
   "checks": {
-    "deterministic_import_repeat": "PASS, no tracked diff after reimport and resource generation",
+    "deterministic_import_repeat": "PASS; tracked bytes unchanged",
     "strict_official_types_and_build": "PASS",
     "behavior_tests": {
       "files": 33,
       "tests": 159,
-      "status": "PASS",
-      "includes_unmodified_B_regressions": true
+      "status": "PASS"
     },
-    "review_matrix": {
-      "cases": 16,
+    "candidate_review": {
+      "cases": 15,
       "status": "PASS",
-      "sizes": [
-        "320x360",
-        "340x720",
-        "580x720",
-        "1080x760"
+      "evidence": "final-review/integrated-review.json"
+    },
+    "closed_door_seam": {
+      "case_id": "DQ-SEAM-01",
+      "status": "FIXED_A_RETESTED",
+      "before_changed_pixels": 300,
+      "after_changed_pixels": 0,
+      "max_delta": 0,
+      "tested_pixels": 26700,
+      "cropped_alpha_leaks": 0,
+      "safe_design_pixels": 86991,
+      "source_PNG_bytes": "unchanged",
+      "fix": "6 design pixels added per leaf width, preserving absolute hinges",
+      "alpha_evidence": "final-review/art/ART_AUDIT.json"
+    },
+    "production_browser": {
+      "cases": 13,
+      "status": "PASS",
+      "sidebar_cycles": 100,
+      "real_close_show_cycles": 100,
+      "evidence": "final-production/browser-full.json"
+    },
+    "product_regression": {
+      "status": "PASS",
+      "checks": [
+        "Real Git/Live2D client components: Git above village, Live2D excludes village, return preserves paused world",
+        "720x960 PNG bytes identical at 340/580/1080; HTTP413 retains photo and world; read-only reconciliation does not repeat upload; explicit retry saves once",
+        "Album and paused world survive reload; confirmed photo deletion leaves world unchanged"
       ],
-      "themes": [
-        "light",
-        "dark"
-      ],
-      "languages": [
-        "zh",
-        "en"
+      "evidence": "final-product/validation.json"
+    },
+    "serial_software_performance": {
+      "status": "MEASURED_SERIAL_SOFTWARE_BASELINE",
+      "count": 10,
+      "minMs": 725,
+      "p50Ms": 753,
+      "p95Ms": 774,
+      "maxMs": 774,
+      "evidence": "final-performance/PERFORMANCE.json",
+      "limits": [
+        "SwiftShader only; not hardware GPU acceptance",
+        "OS filesystem cache is not flushed",
+        "Other desktop processes are not suspended; host aggregate/max-core load recorded, cannot certify exclusive machine access",
+        "No before/after improvement or hardware SLA claim",
+        "B tool historical performanceStatus is conservative CONTENDED; this supplemental run records actual serial scheduling"
       ]
     },
-    "warm_review_reopen": "PASS; no new entrance PNG requests",
-    "candidate_missing_door_404": "PASS; static fallback and real first frame",
-    "production_startup_regression": {
-      "scenarios": 15,
-      "status": "PASS",
-      "review_art_requests": 0
-    },
-    "ui_regression": "PASS; 9 checks",
-    "recovery_regression": "PASS; 4 checks",
     "offline_package": {
       "status": "PASS",
       "file": "nidofy-dsh-ai-village-0.6.4.tgz",
-      "sha256": "93d7b3d7c0ce5d59622043e15f51925714e9188d3352961454087b38c33fe027",
-      "bytes": 32114558,
+      "sha256": "0837998272c44d76c0d571dde04852dbce90ad8d8ea63aea74d41115d67e4068",
+      "bytes": 32114727,
       "entries": 276,
       "art_status": "ART_REVIEW",
       "offline_empty_store": true,
@@ -149,21 +177,20 @@
       "real_profile_touched": false,
       "preview_modules_packaged": false,
       "host_peers": "Existing pinned host installation, provided only after offline plugin install"
-    },
-    "B_png_validator_unit_tests": "PASS; 2 tests",
-    "adopted_PNG_B_validator": "PASS; 8 files / 2749401 bytes / 1773738 pixels, executed by A"
+    }
+  },
+  "historical_evidence": {
+    "preview/validation.json": "Original 16-case A matrix before seam geometry fix; latest candidate matrix is final-review",
+    "regression/validation.json": "Original 15 production startup tests; final independent-authored suite rerun in final-production",
+    "ui-regression/validation.json": "Previous UI-wide 9 checks; product checks rerun in final-product",
+    "recovery-regression/recovery-validation.json": "Previous 4 recovery/transaction checks, runtime production code unchanged",
+    "qa/LATEST_EVALUATION.md": "B original report preserved; its FAIL refers to pre-fix A123d169"
   },
   "not_run": [
-    "B independent evaluation of final A candidate: PENDING",
-    "Formal uncontended performance and 100 real close/show cycles: NOT_RUN; B baseline sidebar/resize stress delivered, timing CONTENDED",
-    "Real hardware GPU, actual Windows DPI/multi-monitor and visual approval: NEEDS_HUMAN_REVIEW",
+    "Independent B execution after seam fix: not claimed; A reran unchanged B assertions with output-path adapter",
+    "Real hardware GPU / actual Windows DPI / multi-monitor / human art approval: NEEDS_HUMAN_REVIEW",
+    "Exclusive hardware performance comparison / direct texture CPU profiling / retained-heap paths / low-memory / OS suspend-resume: NOT_RUN",
     "One-hour real runtime: DEFERRED"
   ],
-  "evidence_note": "Browser fixtures include tested bundle SHA. Some scripts were run before source commit; this index fixes source-byte hashes to the code commit. Temporary fixture UUIDs are not user profile identities. Timing samples under concurrent validation are not performance claims.",
-  "accepted_qa": {
-    "original_commit": "75abafdab896f7728d6c8bc23722fe0750c48440",
-    "cherry_pick_commit": "d1e56d091269bd1d3c612503b3dd2dd386d3dd94",
-    "tests_modified_by_A": false,
-    "final_candidate_independent_evaluation": "PENDING"
-  }
+  "evidence_note": "Current results above bind code commit and bundle hashes. B report labels are preserved, including hardcoded ART_PENDING/CONTENDED in its browser runner; actual manifest is ART_REVIEW. Current A evidence executor and source hashes are recorded by adapter-*.json. No art approval, main merge, push, release or real profile install."
 }

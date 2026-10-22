@@ -4,7 +4,7 @@
 
 ## 接入内容
 
-- 确定性导入器从已提交美术读取八层 2x 裁剪版，逐文件比对 Git blob、SHA-256、PNG/RGBA/ICC、尺寸和预算，保留原始 PNG 字节。默认 dry-run；`--write` 才写入本 worktree。来源、原母版 hash、裁剪 rect 和门轴见 `ART_IMPORT.json`。
+- 确定性导入器从已提交美术读取八层 2x 裁剪版，逐文件比对 Git blob、SHA-256、PNG/RGBA/ICC、尺寸和预算，保留原始 PNG 字节。默认 dry-run；`--write` 才写入本 worktree。来源、原母版 hash、源裁剪 rect 和门轴见 `ART_IMPORT.json`。导入器v2保持原PNG字节及绝对门轴，将左右门扇渲染宽度各增加6设计像素，修复降采样边缘闭门透色；源裁剪矩形与渲染矩形分别记录。
 - 候选保持 `ART_REVIEW`。生产 `entrance-art.ts` 始终调用只接受 APPROVED 的选择器。只有本地鉴权实验夹具的显式构建 alias 使用 `experiments/entrance-review-art.ts`；没有查询参数、localStorage 或运行时开关可以在发行入口中启用候选。
 - 使用源美术的圆拱 polygon；数值坐标、凸性及整个安全矩形受校验，不接收任意 SVG/URL。门扇向内旋转，石框在门前，框/轴不做相对视差。画布按高度保比例，宽屏两侧氛围随穿门淡出。
 - 一次入场只启动一次 approach。首帧回执只唤醒等待，不重启镜头；阶段边界重新读真实 readiness，动画期间失去 readiness 时转简版等待。隐藏/卸载取消动画和等待；迟到 ResizeObserver 回调不访问已卸载节点。
@@ -30,3 +30,5 @@ node scripts/ai-village-entrance-review.mjs
 `preview/validation.json` 记录实际结果，`logs/` 保存命令输出。关键帧截图在真实组件中通过测试夹具定位门角度；随后释放真实首帧消息队列，验证完整生产动画、首帧门控和同一个 iframe 揭幕。它们不是手工批准美术。
 
 后端为 Chromium SwiftShader；夹具显式选择 DOM 动画用于审查，不能宣称真实 GPU 合格。尺寸/主题矩阵不作为性能基线。早期失败截图/日志保留，仅最终 validation 的 PASS 才表示本轮通过。A 的自检不替代 B 的独立 QA。真实 GPU/DPI、人工观感待验，一小时运行 DEFERRED。
+
+最新修复、B报告接收、复验及候选包索引见 `DELIVERY_INDEX.md`。

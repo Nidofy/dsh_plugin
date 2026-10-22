@@ -19,5 +19,20 @@
   "historical_B_evidence": "Preserved unchanged; baseline failures and unavailable-A notes describe the earlier B run, not current candidate",
   "independent_final_A_evaluation": "PENDING",
   "performance": "B baseline timings CONTENDED; no formal comparison claimed",
-  "source_hashes_and_package_unchanged": "PASS"
+  "source_hashes_and_package_unchanged": "PASS",
+  "followup": {
+    "latest_qa_commit": "c9677550d6e443d1bd3af57c55ef62c0b70de609",
+    "all_remaining_QA_commits_accepted": true,
+    "QA_paths_identical_to_B": true,
+    "B_independently_verified": "A123d169 / production-equivalent4d9cd1a",
+    "DQ-ART-01": "FIXED_VERIFIED_BY_B",
+    "DQ-SEAM-01": {
+      "before": "FAIL, 300 pixels, maximum RGB delta56",
+      "fix_commit": "ea8708d458643d3360eb1e9783431ca1dd7fece7",
+      "after": "A reran B assertion: 0 changed pixels / max0; Alpha 86991 pixels zero leaks",
+      "B_after_fix_execution": "NOT_CLAIMED"
+    },
+    "final_retests": "159 tests,15 candidate cases,13 production cases with200 cycles PASS",
+    "memory": "Warm sidebar640 and close/show610 listeners stable through100 cycles each; retained-path attribution NOT_RUN"
+  }
 }
