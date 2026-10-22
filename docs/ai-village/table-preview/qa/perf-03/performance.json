@@ -1,0 +1,286 @@
+{
+  "backend": "Chromium headless / SwiftShader",
+  "samples": [
+    {
+      "scenario": "seven-natural-visible",
+      "seconds": 20.014654300000004,
+      "fps": 22.483525983259174,
+      "p50PaintMs": 0.5999999046325684,
+      "p95PaintMs": 0.7999999523162842,
+      "textures": 128,
+      "paintSampleCount": 528,
+      "parentTaskPercentOfOneCore": 46.326660760760674,
+      "parentHeapUsedBytes": 13278572,
+      "tableVisibleBefore": true,
+      "tableVisibleAfter": true,
+      "worldBefore": {
+        "ticks": 1281,
+        "active": null,
+        "members": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 175,
+              "y": 374
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "claude",
+            "position": {
+              "x": 273,
+              "y": 374
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "gemini",
+            "position": {
+              "x": 124,
+              "y": 350
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "gpt",
+            "position": {
+              "x": 252,
+              "y": 350
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "grok",
+            "position": {
+              "x": 60,
+              "y": 414
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "kimi",
+            "position": {
+              "x": 124,
+              "y": 414
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "qwen",
+            "position": {
+              "x": 188,
+              "y": 414
+            },
+            "behavior": "idle"
+          }
+        ]
+      },
+      "worldAfter": {
+        "ticks": 1882,
+        "active": null,
+        "members": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 196.41119336945917,
+              "y": 345.0662197709131
+            },
+            "behavior": "walk"
+          },
+          {
+            "id": "claude",
+            "position": {
+              "x": 217.62574412173797,
+              "y": 364.36944801522793
+            },
+            "behavior": "walk"
+          },
+          {
+            "id": "gemini",
+            "position": {
+              "x": 164.12714291201075,
+              "y": 317.3047611731896
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "gpt",
+            "position": {
+              "x": 180.1977929566648,
+              "y": 299.4120814012866
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "grok",
+            "position": {
+              "x": 90.38169305264319,
+              "y": 393.1758032159842
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "kimi",
+            "position": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "qwen",
+            "position": {
+              "x": 240.73016296005054,
+              "y": 414.2601975356136
+            },
+            "behavior": "walk"
+          }
+        ]
+      },
+      "documents": 2,
+      "nodes": 596,
+      "jsEventListeners": 629
+    },
+    {
+      "scenario": "seven-natural-hidden",
+      "seconds": 20.014087800000002,
+      "fps": 0,
+      "p50PaintMs": null,
+      "p95PaintMs": null,
+      "textures": 0,
+      "paintSampleCount": 0,
+      "parentTaskPercentOfOneCore": 0.21591291310313926,
+      "parentHeapUsedBytes": 4900104,
+      "tableVisibleBefore": false,
+      "tableVisibleAfter": false,
+      "worldBefore": {
+        "ticks": 1882,
+        "active": null,
+        "members": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 196.41119336945917,
+              "y": 345.0662197709131
+            },
+            "behavior": "walk"
+          },
+          {
+            "id": "claude",
+            "position": {
+              "x": 217.62574412173797,
+              "y": 364.36944801522793
+            },
+            "behavior": "walk"
+          },
+          {
+            "id": "gemini",
+            "position": {
+              "x": 164.12714291201075,
+              "y": 317.3047611731896
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "gpt",
+            "position": {
+              "x": 180.1977929566648,
+              "y": 299.4120814012866
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "grok",
+            "position": {
+              "x": 90.38169305264319,
+              "y": 393.1758032159842
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "kimi",
+            "position": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "qwen",
+            "position": {
+              "x": 240.73016296005054,
+              "y": 414.2601975356136
+            },
+            "behavior": "walk"
+          }
+        ]
+      },
+      "worldAfter": {
+        "ticks": 1882,
+        "active": null,
+        "members": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 196.41119336945917,
+              "y": 345.0662197709131
+            },
+            "behavior": "walk"
+          },
+          {
+            "id": "claude",
+            "position": {
+              "x": 217.62574412173797,
+              "y": 364.36944801522793
+            },
+            "behavior": "walk"
+          },
+          {
+            "id": "gemini",
+            "position": {
+              "x": 164.12714291201075,
+              "y": 317.3047611731896
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "gpt",
+            "position": {
+              "x": 180.1977929566648,
+              "y": 299.4120814012866
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "grok",
+            "position": {
+              "x": 90.38169305264319,
+              "y": 393.1758032159842
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "kimi",
+            "position": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "behavior": "idle"
+          },
+          {
+            "id": "qwen",
+            "position": {
+              "x": 240.73016296005054,
+              "y": 414.2601975356136
+            },
+            "behavior": "walk"
+          }
+        ]
+      },
+      "documents": 1,
+      "nodes": 387,
+      "jsEventListeners": 592
+    }
+  ],
+  "limitations": "20s software samples; JS submission p95 is not GPU completion; parent CDP CPU/heap is not process-wide or uncontended hardware comparison."
+}

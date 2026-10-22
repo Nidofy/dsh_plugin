@@ -1,0 +1,12 @@
+{
+  "mode": "dismiss-welcome",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-table-desktop",
+  "cdp": 18765,
+  "checks": [
+    "Dismissed official first-run welcome through Add API Key / Set up later; no credentials configured"
+  ],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": true
+}

@@ -1,0 +1,24 @@
+{
+  "mode": "install",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-table-desktop",
+  "cdp": 18765,
+  "checks": [
+    "Official plugin manager installed local pinned tarball into isolated profile"
+  ],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": true,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.7.0-preview.2",
+    "file": "nidofy-dsh-ai-village-0.7.0-preview.2.tgz",
+    "bytes": 32165883,
+    "sha256": "cff972c6bffb91d62d78148cc4df3a46edd0d48dffbcb137c4b34a86a96c08d4",
+    "files": 276,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "restartRequired": true
+}

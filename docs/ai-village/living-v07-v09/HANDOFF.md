@@ -1,5 +1,7 @@
 # 0.7 本地预览交接
 
+后续已在同一entrance分支实现 **0.7.0-preview.2 桌面棋局开发预览**（生产提交`de862de4dfb2c8621715ed8c3ff6682fcbfc6117`，world8）。当前交接以[table-preview/HANDOFF.md](../table-preview/HANDOFF.md)及其包/验收记录为准；下文保留preview.1历史，不再把游戏桌当成尚未开始的任务。
+
 工作目录 `D:\Documents\FeiyangChen\devApps\dsh_plugin`，分支必须继续使用已有的 `codex/feature-ai-village-entrance`。实施基线HEAD为 `963a501947b74498d0924a1c6892aecd3ef116bc`；本次最终提交身份由交付回复和 `git log -1 --format=%H -- docs/ai-village/living-v07-v09` 确定，不能把基线HEAD当成含新增代码的提交。
 
 起始两份用户未跟踪文档保留在原处，不纳入本轮提交：`NEXT_FEATURES_2026-10-21.md`、`UI_VISUAL_DIRECTION_REVIEW_2026-10-22.md`。其SHA分别仍为 `96a5d3e87dcdd00989195f5f6c634ce602f962a891a1c3a655e84cee26de6dd8`、`127e7704dffa665a452bbfd4f7df4a79ef27e96561a6490dea0935b553f8d9ec`。没有修改Desktop宿主、实际DSH_HOME或远端。

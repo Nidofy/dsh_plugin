@@ -1,0 +1,346 @@
+{
+  "mode": "check-continue",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-table-desktop",
+  "cdp": 18765,
+  "checks": [
+    "Installed version and source build bytes match pinned artifact",
+    "Continued actual persisted game surface after prior navigation attempt; did not reset world"
+  ],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": false,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.7.0-preview.2",
+    "file": "nidofy-dsh-ai-village-0.7.0-preview.2.tgz",
+    "bytes": 32165883,
+    "sha256": "cff972c6bffb91d62d78148cc4df3a46edd0d48dffbcb137c4b34a86a96c08d4",
+    "files": 276,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "failure": {
+    "message": "Both actors must arrive and observe through actual simulation",
+    "stack": "Error: Both actors must arrive and observe through actual simulation\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-table-desktop.mjs:28:143)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-table-desktop.mjs:102:83"
+  },
+  "world": {
+    "schemaVersion": 8,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 300,
+    "rng": 2387716937,
+    "userPaused": false,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 175,
+        "y": 374
+      },
+      "safe": {
+        "x": 175,
+        "y": 374
+      },
+      "behavior": "idle",
+      "phase": 6.866666666666652,
+      "remaining": 3,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 176.64724579571677,
+          "y": 349.42021576421354
+        },
+        "safe": {
+          "x": 176.64724579571677,
+          "y": 349.42021576421354
+        },
+        "behavior": "walk",
+        "phase": 8.899999999999979,
+        "remaining": 3,
+        "intent": null,
+        "destination": {
+          "x": 273,
+          "y": 374
+        }
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 5,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "tableMode": "game",
+      "active": {
+        "id": "2dc92268-3488-486d-8012-3a6a3aec481d",
+        "definitionId": "table-game",
+        "participants": [
+          "bluewhale",
+          "claude"
+        ],
+        "stage": 0,
+        "phase": "approaching",
+        "remainingTicks": 60,
+        "approachRemainingTicks": 1533,
+        "target": "eat",
+        "choices": [],
+        "board": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "targets": [
+          {
+            "x": 175,
+            "y": 374
+          },
+          {
+            "x": 273,
+            "y": 374
+          }
+        ],
+        "routes": [
+          [],
+          [
+            {
+              "x": 273,
+              "y": 374
+            }
+          ]
+        ]
+      },
+      "decorations": {
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "buttons": [
+    {
+      "name": "New session",
+      "disabled": false
+    },
+    {
+      "name": "Collapse sidebar",
+      "disabled": false
+    },
+    {
+      "name": "New session",
+      "disabled": false
+    },
+    {
+      "name": "Plugins",
+      "disabled": false
+    },
+    {
+      "name": "Automation tasks",
+      "disabled": false
+    },
+    {
+      "name": "Search sessions",
+      "disabled": false
+    },
+    {
+      "name": "View options",
+      "disabled": false
+    },
+    {
+      "name": "Add workspace",
+      "disabled": false
+    },
+    {
+      "name": "Account menu",
+      "disabled": false
+    },
+    {
+      "name": "Open AI Village",
+      "disabled": false
+    },
+    {
+      "name": "Open right sidebar",
+      "disabled": false
+    },
+    {
+      "name": "Choose workspace",
+      "disabled": false
+    },
+    {
+      "name": "Standard mode",
+      "disabled": false
+    },
+    {
+      "name": "Add files or run commands",
+      "disabled": false
+    },
+    {
+      "name": "Access mode, current: Workspace Write",
+      "disabled": false
+    },
+    {
+      "name": "Select model",
+      "disabled": false
+    },
+    {
+      "name": "Send message",
+      "disabled": true
+    },
+    {
+      "name": "Notifications, 0 unread",
+      "disabled": false
+    },
+    {
+      "name": "Pause",
+      "disabled": false
+    },
+    {
+      "name": "More",
+      "disabled": false
+    },
+    {
+      "name": "Back",
+      "disabled": false
+    },
+    {
+      "name": "Close panel",
+      "disabled": false
+    },
+    {
+      "name": "Row 1, column 1 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Row 1, column 2 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Row 1, column 3 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Row 2, column 1 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Row 2, column 2 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Row 2, column 3 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Row 3, column 1 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Row 3, column 2 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Row 3, column 3 · empty",
+      "disabled": false
+    },
+    {
+      "name": "Cancel this activity",
+      "disabled": false
+    },
+    {
+      "name": "Wishes",
+      "disabled": false
+    },
+    {
+      "name": "Together",
+      "disabled": false
+    },
+    {
+      "name": "Explore",
+      "disabled": false
+    },
+    {
+      "name": "Explore",
+      "disabled": false
+    },
+    {
+      "name": "Explore",
+      "disabled": false
+    },
+    {
+      "name": "Explore",
+      "disabled": false
+    },
+    {
+      "name": "Explore",
+      "disabled": false
+    },
+    {
+      "name": "Explore",
+      "disabled": false
+    }
+  ]
+}

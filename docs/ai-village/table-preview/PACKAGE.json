@@ -1,0 +1,87 @@
+{
+  "name": "@nidofy/dsh-ai-village",
+  "version": "0.7.0-preview.2",
+  "file": "nidofy-dsh-ai-village-0.7.0-preview.2.tgz",
+  "bytes": 32165883,
+  "sha256": "cff972c6bffb91d62d78148cc4df3a46edd0d48dffbcb137c4b34a86a96c08d4",
+  "files": 276,
+  "platform": "win32-x64",
+  "dsh": "0.2.1-rc.2",
+  "offline": true,
+  "verifiedSha256": "cff972c6bffb91d62d78148cc4df3a46edd0d48dffbcb137c4b34a86a96c08d4",
+  "implementationCommit": "de862de4dfb2c8621715ed8c3ff6682fcbfc6117",
+  "baselineHead": "f9a05621ed5cb4762a79e9d35766772a701a8bcc",
+  "branch": "codex/feature-ai-village-entrance",
+  "status": "LOCAL_DEVELOPMENT_PREVIEW_NOT_PUBLISHED",
+  "worldContract": {
+    "schema": 8,
+    "scene": 3,
+    "rules": 4,
+    "content": 5,
+    "preferences": 3,
+    "frame": 6
+  },
+  "entranceStatus": "ART_REVIEW; unchanged production selector and first-frame gate",
+  "checks": [
+    {
+      "command": "node scripts/typecheck.mjs",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/ai-village-release.mjs",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/test.mjs --config scripts/ai-village-official.vitest.mjs",
+      "result": "PASS",
+      "files": 40,
+      "tests": 211
+    },
+    {
+      "command": "node scripts/pack.mjs --only=ai-village",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/smoke-packed.mjs --exclude-sandbox",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/offline-install-check.mjs --exclude-sandbox",
+      "result": "PASS"
+    },
+    {
+      "command": "node scripts/ai-village-table-qa.mjs surface-02 --surface-only",
+      "result": "PASS",
+      "scope": "Final renderer: actual tea reservation/meal hides board, natural completion restores it, canvas round and both actual PNG album writes",
+      "evidence": "qa/surface-02/validation.json"
+    },
+    {
+      "command": "node scripts/ai-village-table-qa.mjs perf-02 --perf-only",
+      "result": "PASS",
+      "scope": "Final renderer: seven rendered residents with an active table game, 20s visible/hidden software samples; not seven simultaneous autonomous schedules",
+      "evidence": "qa/perf-02/performance.json"
+    },
+    {
+      "result": "PASS",
+      "scope": "Final renderer: normal UI cancels table game, seven residents run autonomous schedules for 20s then hidden for 20s; 22.4835 FPS visible, zero hidden, unchanged hidden world",
+      "evidence": "qa/perf-03/performance.json"
+    },
+    {
+      "result": "PASS",
+      "scope": "Pinned package installed through actual official Desktop manager in a new isolated profile; real canvas move and PNG album write; full process cold restore, legal completion and second completed-state cold restore",
+      "evidence": ["native/install-01/result.json", "native/check-05/result.json", "native/restored-01/result.json", "native/final-restored-01/result.json"]
+    }
+  ],
+  "supersededCandidates": [{
+    "sha256": "3e57a0013f2144caefea0842156d3366b8d0dd4a12d403b3919740661ec6ae38",
+    "bytes": 32165680,
+    "reason": "Added non-participant reserved eat-seat guard before final validation",
+    "preservedLocally": ".build/ai-village-table-candidate-01.tgz"
+  }, {
+    "sha256": "1ca036b45bd73347868439d96f898cf9e6e1b701f6938f65a522354507593544",
+    "bytes": 32165749,
+    "reason": "Renderer now temporarily stows the enabled board for existing meals, tea and eat-target stories; rules4 and persisted state unchanged",
+    "preservedLocally": ".build/ai-village-table-candidate-02.tgz",
+    "evidence": ["qa/integration-04", "qa/integration-05", "qa/integration-06", "qa/perf-01"]
+  }]
+}

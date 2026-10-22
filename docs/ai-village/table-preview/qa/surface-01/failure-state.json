@@ -1,0 +1,178 @@
+{
+  "world": {
+    "schemaVersion": 8,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 445,
+    "rng": 2387716937,
+    "userPaused": true,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 175,
+        "y": 374
+      },
+      "safe": {
+        "x": 175,
+        "y": 374
+      },
+      "behavior": "eat",
+      "phase": 12.766666666666632,
+      "remaining": 30,
+      "intent": {
+        "furnitureId": "eat",
+        "seat": "left",
+        "activity": "eat",
+        "stage": "use",
+        "expires": 2245,
+        "route": []
+      },
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 273,
+          "y": 374
+        },
+        "safe": {
+          "x": 273,
+          "y": 374
+        },
+        "behavior": "eat",
+        "phase": 0.03333333333333333,
+        "remaining": 30,
+        "intent": {
+          "furnitureId": "eat",
+          "seat": "right",
+          "activity": "eat",
+          "stage": "use",
+          "expires": 2245,
+          "route": []
+        },
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 5,
+    "activeEvent": {
+      "id": "86f7c864-1ad0-493c-9520-8fc5c83c7d71",
+      "definitionId": "first-tea",
+      "definitionVersion": 1,
+      "participants": [
+        "bluewhale",
+        "claude"
+      ],
+      "food": "tea",
+      "seats": [
+        "eat/left",
+        "eat/right"
+      ],
+      "phase": "talking",
+      "remainingTicks": 149,
+      "approachRemainingTicks": 637,
+      "retryCount": 0,
+      "branch": "tea"
+    },
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "tableMode": "game",
+      "active": null,
+      "decorations": {
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "error": "",
+  "actionError": "",
+  "reasons": [
+    "user",
+    "photo"
+  ],
+  "presentation": {
+    "page": "quick",
+    "history": [],
+    "scrollTop": 0,
+    "focusKey": "",
+    "residentTarget": null,
+    "tab": "wishes",
+    "drawer": "closed",
+    "overlay": null,
+    "camera": {
+      "zoom": 1,
+      "panX": 0,
+      "panY": 0
+    },
+    "expanded": false,
+    "selectedFurniture": "work",
+    "accessoryTarget": null,
+    "subpages": {
+      "wishes": "activities",
+      "decor": "furniture",
+      "journal": "memories"
+    },
+    "confirmClose": false,
+    "confirmTarget": "plugin",
+    "zoomHint": 0,
+    "toastIds": [],
+    "noticeTarget": null
+  }
+}

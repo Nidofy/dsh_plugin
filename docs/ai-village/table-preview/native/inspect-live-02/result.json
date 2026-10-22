@@ -1,0 +1,226 @@
+{
+  "mode": "inspect",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-table-desktop",
+  "cdp": 18765,
+  "checks": [],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": true,
+  "pages": [
+    {
+      "kind": "welcome",
+      "buttons": [
+        "Sign in",
+        "Add API Key"
+      ]
+    },
+    {
+      "kind": "app",
+      "buttons": [
+        "",
+        "",
+        "New SessionCtrl+N",
+        "Plugins",
+        "Automation tasks",
+        "",
+        "",
+        "",
+        "More",
+        "",
+        "",
+        "Default workspace",
+        "Standard mode",
+        "",
+        "Workspace Write",
+        "Select model",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "·",
+        "·",
+        "·",
+        "·",
+        "·",
+        "·",
+        "·",
+        "·",
+        "·",
+        "Cancel this activity",
+        "Wishes",
+        "Together",
+        "Explore",
+        "Explore",
+        "Explore",
+        "Explore",
+        "Explore",
+        "Explore"
+      ]
+    }
+  ],
+  "world": {
+    "schemaVersion": 8,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 300,
+    "rng": 2387716937,
+    "userPaused": false,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 175,
+        "y": 374
+      },
+      "safe": {
+        "x": 175,
+        "y": 374
+      },
+      "behavior": "idle",
+      "phase": 6.866666666666652,
+      "remaining": 3,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 176.64724579571677,
+          "y": 349.42021576421354
+        },
+        "safe": {
+          "x": 176.64724579571677,
+          "y": 349.42021576421354
+        },
+        "behavior": "walk",
+        "phase": 8.899999999999979,
+        "remaining": 3,
+        "intent": null,
+        "destination": {
+          "x": 273,
+          "y": 374
+        }
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 5,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "tableMode": "game",
+      "active": {
+        "id": "2dc92268-3488-486d-8012-3a6a3aec481d",
+        "definitionId": "table-game",
+        "participants": [
+          "bluewhale",
+          "claude"
+        ],
+        "stage": 0,
+        "phase": "approaching",
+        "remainingTicks": 60,
+        "approachRemainingTicks": 1533,
+        "target": "eat",
+        "choices": [],
+        "board": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "targets": [
+          {
+            "x": 175,
+            "y": 374
+          },
+          {
+            "x": 273,
+            "y": 374
+          }
+        ],
+        "routes": [
+          [],
+          [
+            {
+              "x": 273,
+              "y": 374
+            }
+          ]
+        ]
+      },
+      "decorations": {
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "card": "Day 1 · 14:14\nWishes\nThree in a row at the table (development preview) · 1/2\n\nDeepSeek & Claude\n\nTake a moment to notice the little details…\n\nLet both friends settle by the table. You play circles and your friend plays crosses. Your friend replies after each move.\n\nYou play ○ and your friend plays ×. Make a row of three horizontally, vertically, or diagonally.\n\nWait for everyone to settle before playing.\n\n·\n·\n·\n·\n·\n·\n·\n·\n·\nUse Tab or arrow keys to choose an empty square, then Enter or Space to play. There are no scores or losses to worry about.\nCancel this activity\nCanceling costs nothing. Existing memories stay with you.\nWishes\nTogether\n\n○ An afternoon together\n\nExplore\n\n○ Meet a neighbor\n\nExplore\n\n○ Keep a small idea\n\nExplore\n\n○ Save a seat for a friend\n\nExplore\n\n○ Share a story\n\nExplore\n\n○ A little fresh green\n\nExplore\nResidents\nWishes\nDecor\nJournal",
+  "visibility": {
+    "hidden": false,
+    "visibility": "visible"
+  },
+  "metrics": null
+}

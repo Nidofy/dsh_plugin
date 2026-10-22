@@ -1,0 +1,204 @@
+{
+  "world": {
+    "schemaVersion": 8,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 2032,
+    "rng": 2613082211,
+    "userPaused": false,
+    "actor": {
+      "id": "claude",
+      "facing": "left",
+      "position": {
+        "x": 121,
+        "y": 374
+      },
+      "safe": {
+        "x": 121,
+        "y": 374
+      },
+      "behavior": "idle",
+      "phase": 2.5666666666666673,
+      "remaining": 3,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "bluewhale",
+        "facing": "right",
+        "position": {
+          "x": 219,
+          "y": 374
+        },
+        "safe": {
+          "x": 219,
+          "y": 374
+        },
+        "behavior": "idle",
+        "phase": 2.333333333333335,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 5,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 1,
+      "event": null,
+      "memories": [
+        {
+          "id": "table-game",
+          "eventId": "1d378a23-7be6-427e-b983-a44ba0723497",
+          "participants": [
+            "claude",
+            "bluewhale"
+          ],
+          "completedTick": 1849,
+          "count": 1
+        }
+      ],
+      "bonds": [
+        {
+          "pair": [
+            "bluewhale",
+            "claude"
+          ],
+          "count": 1,
+          "lastTick": 1849
+        }
+      ],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 1,
+      "positions": {
+        "work": 0,
+        "eat": 1,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "tableMode": "game",
+      "active": {
+        "id": "180769d0-b008-4a57-897b-147585cd9a7b",
+        "definitionId": "table-game",
+        "participants": [
+          "claude",
+          "bluewhale"
+        ],
+        "stage": 0,
+        "phase": "ready",
+        "remainingTicks": 0,
+        "approachRemainingTicks": 1784,
+        "target": "eat",
+        "choices": [],
+        "board": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "targets": [
+          {
+            "x": 121,
+            "y": 374
+          },
+          {
+            "x": 219,
+            "y": 374
+          }
+        ],
+        "routes": [
+          [],
+          []
+        ]
+      },
+      "decorations": {
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 1939,
+      "lastEventId": "1d378a23-7be6-427e-b983-a44ba0723497"
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "error": "Error: SAVE_UNCONFIRMED",
+  "actionError": "SAVE_UNCONFIRMED",
+  "reasons": [
+    "commit-pending",
+    "disconnected"
+  ],
+  "presentation": {
+    "page": "quick",
+    "history": [],
+    "scrollTop": 0,
+    "focusKey": "",
+    "residentTarget": null,
+    "tab": "wishes",
+    "drawer": "closed",
+    "overlay": null,
+    "camera": {
+      "zoom": 1,
+      "panX": 0,
+      "panY": 0
+    },
+    "expanded": false,
+    "selectedFurniture": "work",
+    "accessoryTarget": null,
+    "subpages": {
+      "wishes": "activities",
+      "decor": "furniture",
+      "journal": "album"
+    },
+    "confirmClose": false,
+    "confirmTarget": "plugin",
+    "zoomHint": 0,
+    "toastIds": [],
+    "noticeTarget": null
+  }
+}

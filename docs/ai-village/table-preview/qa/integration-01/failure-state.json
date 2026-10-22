@@ -1,0 +1,181 @@
+{
+  "world": {
+    "schemaVersion": 8,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 1127,
+    "rng": 2387716937,
+    "userPaused": false,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 175,
+        "y": 374
+      },
+      "safe": {
+        "x": 175,
+        "y": 374
+      },
+      "behavior": "idle",
+      "phase": 35.30000000000056,
+      "remaining": 3,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 273,
+          "y": 374
+        },
+        "safe": {
+          "x": 273,
+          "y": 374
+        },
+        "behavior": "idle",
+        "phase": 22.566666666666947,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 5,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "tableMode": "game",
+      "active": {
+        "id": "566a99cf-73ee-4f80-ba9d-8daa39d6ca16",
+        "definitionId": "table-game",
+        "participants": [
+          "bluewhale",
+          "claude"
+        ],
+        "stage": 0,
+        "phase": "ready",
+        "remainingTicks": 0,
+        "approachRemainingTicks": 1356,
+        "target": "eat",
+        "choices": [],
+        "board": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "targets": [
+          {
+            "x": 175,
+            "y": 374
+          },
+          {
+            "x": 273,
+            "y": 374
+          }
+        ],
+        "routes": [
+          [],
+          []
+        ]
+      },
+      "decorations": {
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "error": "",
+  "actionError": "",
+  "reasons": [],
+  "presentation": {
+    "page": "quick",
+    "history": [],
+    "scrollTop": 0,
+    "focusKey": "",
+    "residentTarget": null,
+    "tab": "wishes",
+    "drawer": "closed",
+    "overlay": null,
+    "camera": {
+      "zoom": 1,
+      "panX": 0,
+      "panY": 0
+    },
+    "expanded": false,
+    "selectedFurniture": "work",
+    "accessoryTarget": null,
+    "subpages": {
+      "wishes": "activities",
+      "decor": "furniture",
+      "journal": "memories"
+    },
+    "confirmClose": false,
+    "confirmTarget": "plugin",
+    "zoomHint": 0,
+    "toastIds": [],
+    "noticeTarget": null
+  }
+}

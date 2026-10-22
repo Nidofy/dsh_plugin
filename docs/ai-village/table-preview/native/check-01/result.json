@@ -1,0 +1,137 @@
+{
+  "mode": "check",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-table-desktop",
+  "cdp": 18765,
+  "checks": [
+    "Installed version and source build bytes match pinned artifact"
+  ],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": false,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.7.0-preview.2",
+    "file": "nidofy-dsh-ai-village-0.7.0-preview.2.tgz",
+    "bytes": 32165883,
+    "sha256": "cff972c6bffb91d62d78148cc4df3a46edd0d48dffbcb137c4b34a86a96c08d4",
+    "files": 276,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "failure": {
+    "message": "locator.getAttribute: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('tab', { name: 'Decor', exact: true })\u001b[22m\n",
+    "stack": "locator.getAttribute: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('tab', { name: 'Decor', exact: true })\u001b[22m\n\n    at tab (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-table-desktop.mjs:59:84)\n    at D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-table-desktop.mjs:91:22"
+  },
+  "buttons": [
+    {
+      "name": "New session",
+      "disabled": false
+    },
+    {
+      "name": "Collapse sidebar",
+      "disabled": false
+    },
+    {
+      "name": "New session",
+      "disabled": false
+    },
+    {
+      "name": "Plugins",
+      "disabled": false
+    },
+    {
+      "name": "Automation tasks",
+      "disabled": false
+    },
+    {
+      "name": "Search sessions",
+      "disabled": false
+    },
+    {
+      "name": "View options",
+      "disabled": false
+    },
+    {
+      "name": "Add workspace",
+      "disabled": false
+    },
+    {
+      "name": "Account menu",
+      "disabled": false
+    },
+    {
+      "name": "Open AI Village",
+      "disabled": false
+    },
+    {
+      "name": "Open right sidebar",
+      "disabled": false
+    },
+    {
+      "name": "Choose workspace",
+      "disabled": false
+    },
+    {
+      "name": "Standard mode",
+      "disabled": false
+    },
+    {
+      "name": "Add files or run commands",
+      "disabled": false
+    },
+    {
+      "name": "Access mode, current: Workspace Write",
+      "disabled": false
+    },
+    {
+      "name": "Select model",
+      "disabled": false
+    },
+    {
+      "name": "Send message",
+      "disabled": true
+    },
+    {
+      "name": "Notifications, 0 unread",
+      "disabled": false
+    },
+    {
+      "name": "Resume",
+      "disabled": false
+    },
+    {
+      "name": "More",
+      "disabled": false
+    },
+    {
+      "name": "Back",
+      "disabled": false
+    },
+    {
+      "name": "Close panel",
+      "disabled": false
+    },
+    {
+      "name": "Photo mode",
+      "disabled": false
+    },
+    {
+      "name": "View",
+      "disabled": false
+    },
+    {
+      "name": "Expand courtyard",
+      "disabled": false
+    },
+    {
+      "name": "Courtyard settings",
+      "disabled": false
+    },
+    {
+      "name": "Close courtyard",
+      "disabled": false
+    }
+  ]
+}

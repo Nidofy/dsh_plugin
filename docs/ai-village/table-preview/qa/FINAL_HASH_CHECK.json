@@ -1,0 +1,29 @@
+{
+  "sourceCount": 89,
+  "matches": {
+    "integration-04": {
+      "sources": true,
+      "bundles": true
+    },
+    "integration-05": {
+      "sources": true,
+      "bundles": true
+    },
+    "integration-06": {
+      "sources": true,
+      "bundles": true
+    },
+    "perf-01": {
+      "sources": true,
+      "bundles": true
+    }
+  },
+  "currentSource": true,
+  "currentBundle": true,
+  "bundles": {
+    "index.js": "cc5988c6a5a09fb258dca8493e2d444c9a1a63358685334624c9a8dd5051febb",
+    "client.js": "78e010a5aadb878bfabf7d9f312cdfb2af913db73c1601a82ff4003d042510cd",
+    "frame.js": "4e743209caea83359a3d011fdbff6702dd6d2ff1a0c49e484a53fa53797fd60c"
+  },
+  "scope": "Read-only final equivalence check; no browser process launched"
+}

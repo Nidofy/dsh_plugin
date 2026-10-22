@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-10-22T18:01:41.563Z",
+  "head": "de862de4dfb2c8621715ed8c3ff6682fcbfc6117",
+  "sourceCount": 89,
+  "matches": {
+    "surface-01": {
+      "sources": true,
+      "bundles": true
+    },
+    "surface-02": {
+      "sources": true,
+      "bundles": true
+    },
+    "perf-02": {
+      "sources": true,
+      "bundles": true
+    },
+    "perf-03": {
+      "sources": true,
+      "bundles": true
+    }
+  },
+  "currentSource": true,
+  "currentBundle": true,
+  "bundles": {
+    "index.js": "cc5988c6a5a09fb258dca8493e2d444c9a1a63358685334624c9a8dd5051febb",
+    "client.js": "86ac57431f4ec891b975458cc7901fb70a8114bf24197c71f52d3e14fa436b41",
+    "frame.js": "9c498d59adb0f56c3a8fbbd39a565bebb4fba3a8ef0668e0a6390f1bb834d82f"
+  },
+  "changedSinceCandidateB": [
+    "client/TableGamePanel.tsx",
+    "core/table-geometry.ts",
+    "frame/scene.ts",
+    "frame/table-art.ts"
+  ]
+}

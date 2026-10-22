@@ -1,0 +1,276 @@
+{
+  "mode": "check-continue",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-table-desktop",
+  "cdp": 18765,
+  "checks": [
+    "Installed version and source build bytes match pinned artifact",
+    "Continued actual persisted game surface after prior navigation attempt; did not reset world",
+    "Continued the already-created real table game after earlier arrival timeout",
+    "Both residents reached actual reserved table seats before input",
+    "Physical canvas click at production-projected cell committed one player + resident round"
+  ],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": false,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.7.0-preview.2",
+    "file": "nidofy-dsh-ai-village-0.7.0-preview.2.tgz",
+    "bytes": 32165883,
+    "sha256": "cff972c6bffb91d62d78148cc4df3a46edd0d48dffbcb137c4b34a86a96c08d4",
+    "files": 276,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "failure": {
+    "message": "Cannot read properties of null (reading 'world')",
+    "stack": "TypeError: Cannot read properties of null (reading 'world')\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-table-desktop.mjs:119:31"
+  },
+  "world": {
+    "schemaVersion": 8,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 1188,
+    "rng": 2387716937,
+    "userPaused": true,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 175,
+        "y": 374
+      },
+      "safe": {
+        "x": 175,
+        "y": 374
+      },
+      "behavior": "idle",
+      "phase": 0.19999999999999998,
+      "remaining": 3,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 273,
+          "y": 374
+        },
+        "safe": {
+          "x": 273,
+          "y": 374
+        },
+        "behavior": "idle",
+        "phase": 0.19999999999999998,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 5,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "tableMode": "game",
+      "active": {
+        "id": "2dc92268-3488-486d-8012-3a6a3aec481d",
+        "definitionId": "table-game",
+        "participants": [
+          "bluewhale",
+          "claude"
+        ],
+        "stage": 0,
+        "phase": "observing",
+        "remainingTicks": 54,
+        "approachRemainingTicks": 1356,
+        "target": "eat",
+        "choices": [
+          "0",
+          "4"
+        ],
+        "board": [
+          0,
+          -1,
+          -1,
+          -1,
+          1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "targets": [
+          {
+            "x": 175,
+            "y": 374
+          },
+          {
+            "x": 273,
+            "y": 374
+          }
+        ],
+        "routes": [
+          [],
+          []
+        ]
+      },
+      "decorations": {
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "buttons": [
+    {
+      "name": "New session",
+      "disabled": false
+    },
+    {
+      "name": "Collapse sidebar",
+      "disabled": false
+    },
+    {
+      "name": "New session",
+      "disabled": false
+    },
+    {
+      "name": "Plugins",
+      "disabled": false
+    },
+    {
+      "name": "Automation tasks",
+      "disabled": false
+    },
+    {
+      "name": "Search sessions",
+      "disabled": false
+    },
+    {
+      "name": "View options",
+      "disabled": false
+    },
+    {
+      "name": "Add workspace",
+      "disabled": false
+    },
+    {
+      "name": "Account menu",
+      "disabled": false
+    },
+    {
+      "name": "Open AI Village",
+      "disabled": false
+    },
+    {
+      "name": "Open right sidebar",
+      "disabled": false
+    },
+    {
+      "name": "Choose workspace",
+      "disabled": false
+    },
+    {
+      "name": "Standard mode",
+      "disabled": false
+    },
+    {
+      "name": "Add files or run commands",
+      "disabled": false
+    },
+    {
+      "name": "Access mode, current: Workspace Write",
+      "disabled": false
+    },
+    {
+      "name": "Select model",
+      "disabled": false
+    },
+    {
+      "name": "Send message",
+      "disabled": true
+    },
+    {
+      "name": "Back",
+      "disabled": false
+    },
+    {
+      "name": "Back to camera",
+      "disabled": false
+    },
+    {
+      "name": "Reset crop",
+      "disabled": false
+    },
+    {
+      "name": "Take photo",
+      "disabled": false
+    },
+    {
+      "name": "Save to album",
+      "disabled": false
+    },
+    {
+      "name": "Export PNG",
+      "disabled": false
+    }
+  ]
+}
