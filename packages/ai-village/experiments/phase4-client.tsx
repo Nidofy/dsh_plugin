@@ -46,6 +46,7 @@ const api = {
   panel: (value: boolean) => panel.set(value ? 'settings' : null),
   // Harness-only opt-in to exercise DOM motion on a software test backend. Never bundled in lib.
   reviewMotion: () => { Object.defineProperty(runtime, 'softwareRendering', { configurable: true, get: () => false, set: () => {} }) },
+  reviewLanguage: (language: 'zh'|'en') => runtime.setPreferences({language}),
   entranceViewport: () => runtime.present({type:'patch',patch:{expanded:true}}),
   preference: (theme: 'light' | 'dark') => runtime.setPreferences({theme}),
   flush: () => runtime.flush(),

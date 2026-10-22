@@ -72,6 +72,8 @@ try {for(const scenario of scenarios){
      await page.getByRole('alert').waitFor();const state=await inspect();assert.equal(state.entrance.blocking,true);assert.equal(state.entrance.canReveal,false);await shot('error');trace.push({event:'failure',state})
    } else {
      await entered();const elapsedMs=Date.now()-start,state=await inspect();await page.waitForTimeout(260);assert.equal(state.error,'');assert.equal(state.entrance.firstFrame,true);assert.equal(state.entrance.progress,1)
+     assert.ok(requests.every(key=>!key.startsWith('entrance/')),'Production must not request ART_REVIEW layers');
+     assert.equal(await page.locator('.entrance-camera').count(),0);
      assert.equal(state.resourceKeys.length,32);assert.ok(state.resourceKeys.every(key=>!key.startsWith('claude/')&&!key.startsWith('gpt/')))
      assert.equal(await page.locator('.village-canvas iframe').count(),1);await shot('entered');trace.push({event:'entered',elapsedMs,state})
      if(scenario==='restore'){

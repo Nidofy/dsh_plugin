@@ -36,7 +36,7 @@ export function EntranceOverlay({ runtime: r, cn, close }: { runtime: VillageRun
     setArtReady(false)
     if (showArt && stage.current) void Promise.all([...stage.current.querySelectorAll('img')].map(img => img.decode())).then(() => { if (!cancelled) setArtReady(true) }, () => { if (!cancelled) setArtFailed(true) })
     return () => { cancelled = true }
-  }, [showArt, e.attemptId])
+  }, [showArt])
   useEffect(() => {
     setHint(0)
     const slow = setTimeout(() => setHint(1), 5000), details = setTimeout(() => setHint(2), 15000)
@@ -100,7 +100,7 @@ export function EntranceOverlay({ runtime: r, cn, close }: { runtime: VillageRun
     }
     void run()
     return () => { cancelled = true; unsubscribe(); motion.cancel(); resume?.() }
-  }, [r, simple, artReady, reduced, e.attemptId, e.skipped])
+  }, [r, simple, artReady, reduced, e.skipped])
   const phaseText = canReveal ? (!simple && !artReady ? (cn ? '正在准备入口画面…' : 'Preparing the entrance…') : (cn ? '小院已就绪，欢迎回来。' : 'The courtyard is ready. Welcome back.')) : hint ? (cn ? '仍在准备小院…' : 'Still preparing the courtyard…') : !e.metadata ? (cn ? '正在准备小院…' : 'Preparing the courtyard…') : e.verified < 1 ? (cn ? '正在准备场景素材…' : 'Preparing scene resources…') : e.decoded < 1 ? (cn ? '正在布置场景…' : 'Preparing the scene…') : (cn ? '正在确认小院画面…' : 'Checking the courtyard frame…')
   const art = entranceArt, knockout = art ? entranceKnockout(art) : undefined
   return <div ref={root} className="village-entrance" data-phase={e.phase} data-art={entranceArtStatus} data-simple={simple || !artReady} aria-label={cn ? '进入小院' : 'Entering the courtyard'} onKeyDown={event => {
