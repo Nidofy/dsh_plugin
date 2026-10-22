@@ -1,0 +1,385 @@
+{
+  "A_SHA": "4d9cd1ab06ec506cc28f2d574b4c7c3a8c40d503",
+  "QA_CODE_SHA": "b6311d0cb8f65e1bceaba67dc1e7b7df0133dae1",
+  "qaOnlyCommits": [
+    "75abafdab896f7728d6c8bc23722fe0750c48440",
+    "5ca6e8fd28b897329939cf19d3cd6782a98994e1",
+    "8c8361c263c7b251e16105ac34d84beb53d3badc",
+    "f87dd0a2ff5b2ab0f7fdcc1da82d0b2c05c4f2bb",
+    "b6311d0cb8f65e1bceaba67dc1e7b7df0133dae1"
+  ],
+  "evaluation": "dsh_plugin-entrance-eval-4d9cd1ab06ec-f87dd0a2",
+  "tests": 58,
+  "browser": [
+    {
+      "case": "normal",
+      "status": "PASS"
+    },
+    {
+      "case": "late-paint",
+      "status": "PASS"
+    },
+    {
+      "case": "decode-reject",
+      "status": "PASS"
+    },
+    {
+      "case": "wrong-hash",
+      "status": "PASS"
+    },
+    {
+      "case": "truncated-png",
+      "status": "PASS"
+    },
+    {
+      "case": "missing-core",
+      "status": "PASS"
+    },
+    {
+      "case": "slow-skip",
+      "status": "PASS"
+    },
+    {
+      "case": "disconnect",
+      "status": "PASS"
+    },
+    {
+      "case": "reduced-motion",
+      "status": "PASS"
+    },
+    {
+      "case": "reduced-transparency",
+      "status": "PASS"
+    },
+    {
+      "case": "matrix",
+      "status": "PASS"
+    },
+    {
+      "case": "stress",
+      "status": "PASS"
+    },
+    {
+      "case": "close-stress",
+      "status": "PASS"
+    }
+  ],
+  "stress": [
+    {
+      "case": "stress",
+      "lifecycle": "stress",
+      "cycles": 100,
+      "warmMs": [
+        674,
+        596,
+        600,
+        584,
+        600,
+        618,
+        632,
+        616,
+        617,
+        667,
+        601,
+        602,
+        616,
+        599,
+        600,
+        619,
+        600,
+        586,
+        616,
+        598,
+        672,
+        616,
+        632,
+        618,
+        602,
+        616,
+        632,
+        601,
+        634,
+        601,
+        579,
+        621,
+        615,
+        613,
+        636,
+        602,
+        615,
+        601,
+        631,
+        621,
+        633,
+        600,
+        599,
+        616,
+        636,
+        614,
+        604,
+        615,
+        597,
+        640,
+        595,
+        617,
+        601,
+        633,
+        632,
+        618,
+        602,
+        615,
+        616,
+        603,
+        646,
+        634,
+        617,
+        631,
+        651,
+        649,
+        600,
+        602,
+        616,
+        633,
+        635,
+        599,
+        597,
+        616,
+        604,
+        629,
+        636,
+        598,
+        602,
+        599,
+        680,
+        595,
+        617,
+        636,
+        620,
+        630,
+        667,
+        602,
+        632,
+        615,
+        636,
+        582,
+        616,
+        601,
+        612,
+        652,
+        667,
+        601,
+        617,
+        654
+      ],
+      "initialDOM": {
+        "documents": 2,
+        "nodes": 173,
+        "jsEventListeners": 602
+      },
+      "checkpoints": [
+        {
+          "cycle": 20,
+          "documents": 2,
+          "nodes": 249,
+          "jsEventListeners": 640
+        },
+        {
+          "cycle": 40,
+          "documents": 2,
+          "nodes": 249,
+          "jsEventListeners": 640
+        },
+        {
+          "cycle": 60,
+          "documents": 2,
+          "nodes": 249,
+          "jsEventListeners": 640
+        },
+        {
+          "cycle": 80,
+          "documents": 2,
+          "nodes": 249,
+          "jsEventListeners": 640
+        },
+        {
+          "cycle": 100,
+          "documents": 2,
+          "nodes": 249,
+          "jsEventListeners": 640
+        }
+      ],
+      "afterGC": {
+        "documents": 2,
+        "nodes": 249,
+        "jsEventListeners": 640
+      },
+      "animations": 0,
+      "initialListenerDelta": 38,
+      "leakVerdict": "STABLE_AFTER_WARMUP"
+    },
+    {
+      "case": "close-stress",
+      "lifecycle": "close-stress",
+      "cycles": 100,
+      "warmMs": [
+        634,
+        632,
+        603,
+        600,
+        617,
+        598,
+        588,
+        580,
+        598,
+        587,
+        602,
+        615,
+        600,
+        619,
+        601,
+        583,
+        615,
+        584,
+        616,
+        603,
+        660,
+        618,
+        600,
+        598,
+        636,
+        600,
+        616,
+        600,
+        600,
+        617,
+        598,
+        616,
+        618,
+        638,
+        599,
+        577,
+        588,
+        632,
+        634,
+        616,
+        627,
+        633,
+        584,
+        582,
+        616,
+        622,
+        580,
+        616,
+        599,
+        619,
+        616,
+        600,
+        600,
+        618,
+        583,
+        598,
+        585,
+        598,
+        601,
+        639,
+        644,
+        637,
+        576,
+        622,
+        629,
+        672,
+        565,
+        652,
+        613,
+        603,
+        597,
+        583,
+        630,
+        607,
+        576,
+        621,
+        599,
+        618,
+        599,
+        585,
+        627,
+        620,
+        632,
+        581,
+        617,
+        597,
+        617,
+        651,
+        634,
+        596,
+        605,
+        636,
+        613,
+        630,
+        619,
+        616,
+        600,
+        601,
+        605,
+        597
+      ],
+      "initialDOM": {
+        "documents": 2,
+        "nodes": 173,
+        "jsEventListeners": 602
+      },
+      "checkpoints": [
+        {
+          "cycle": 20,
+          "documents": 2,
+          "nodes": 218,
+          "jsEventListeners": 610
+        },
+        {
+          "cycle": 40,
+          "documents": 2,
+          "nodes": 218,
+          "jsEventListeners": 610
+        },
+        {
+          "cycle": 60,
+          "documents": 2,
+          "nodes": 218,
+          "jsEventListeners": 610
+        },
+        {
+          "cycle": 80,
+          "documents": 2,
+          "nodes": 218,
+          "jsEventListeners": 610
+        },
+        {
+          "cycle": 100,
+          "documents": 2,
+          "nodes": 218,
+          "jsEventListeners": 610
+        }
+      ],
+      "afterGC": {
+        "documents": 2,
+        "nodes": 218,
+        "jsEventListeners": 610
+      },
+      "animations": 0,
+      "initialListenerDelta": 8,
+      "leakVerdict": "STABLE_AFTER_WARMUP"
+    }
+  ],
+  "productionDiff": "",
+  "verdict": "QA_EVALUATED_WITH_FINDINGS",
+  "openIssues": [
+    "DQ-SEAM-01 P2"
+  ],
+  "fixed": [
+    "DQ-ART-01"
+  ],
+  "performance": "CONTENDED",
+  "gpu": "NOT_RUN",
+  "humanArt": "NEEDS_HUMAN_REVIEW",
+  "oneHour": "DEFERRED"
+}

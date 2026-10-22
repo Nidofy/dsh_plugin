@@ -22,7 +22,7 @@ tools/ai-village-dualqa/.generated 是唯一构建/cache/profile 目录，已忽
 
 基线的单测预期 52 PASS / 1 FAIL：DQ-ART-01 是保留的生产校验器复现，未使用 skip、todo 或 expected-failure 隐藏。资源审计退出 1 表示 raw 母版超预算；兼容候选单独 PASS，不代表可以发布 raw 资源。
 
-浏览器可指定场景：normal、late-paint、decode-reject、wrong-hash、truncated-png、missing-core、slow-skip、disconnect、reduced-motion、reduced-transparency、matrix、stress。缺浏览器时应记录 NOT_RUN，不安装在线依赖。每场景使用独立临时 profile，外网请求拒绝。stress 默认 100 次 sidebar 隐藏/恢复和尺寸轮转；100 次真实关闭重开未被它替代。
+浏览器可指定场景：normal、late-paint、decode-reject、wrong-hash、truncated-png、missing-core、slow-skip、disconnect、reduced-motion、reduced-transparency、matrix、stress、close-stress。缺浏览器时应记录 NOT_RUN，不安装在线依赖。每场景使用独立临时 profile，外网请求拒绝。stress 默认 100 次 sidebar 隐藏/恢复和尺寸轮转；close-stress 另跑100次真正关闭/重开；两类结果分开记录。
 
 截图对比：
 
@@ -49,3 +49,11 @@ A 未提供 checkpoint 时只报告缺失，不轮询、不读取其 dirty 生�
 ## 范围限制
 
 PNG 检测包括 CRC、截断/多余字节、解压长度、滤波标记、尺寸上限、Alpha 边界、ICC 元数据及逐文件哈希。Adam7 的像素解码交给 sharp，不能将本工具作为通用安全 PNG 解码器。门洞闭合检查使用原始 full-canvas Alpha；兼容裁剪图层和最终产品的透视/门轴仍需 A checkpoint 集成验证。联系图不修改原图。
+
+## A候选受限预览
+
+    node scripts/ai-village-dualqa-build.mjs --review
+    node scripts/ai-village-dualqa-review.mjs
+    node scripts/ai-village-dualqa-review.mjs seam-probe
+
+仅在具有A已提交review接口的eval中执行。沿用A的受限模块alias；不改APPROVED门槛。默认14项预览/中断测试加1项闭门透色探针；当前候选探针FAIL应保留。最终精确SHA、已修问题与未运行范围见QA目录LATEST_EVALUATION.md。

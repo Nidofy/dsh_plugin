@@ -1,3 +1,7 @@
+# Thread B · 当前结论
+
+最新 A 123d169 已独立重测：58项行为测试通过，闭门P2缝隙仍失败。完整生产代码相同的4d9cd1a完成13场景、200次生命周期与14项候选预览验证。详见 [最新独立评估](LATEST_EVALUATION.md)。下文保留首批基线时点记录，不能替代最新结论。
+
 # Thread B · QA_HARNESS_READY
 
 共同 Base / 被测生产 SHA：bc230e7f662f47efb497529a276d09aad90ad4ac。

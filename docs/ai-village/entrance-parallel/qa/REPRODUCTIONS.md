@@ -4,7 +4,9 @@
 QA_SHA：本文件所在 QA_HARNESS_READY 提交，完整 SHA 由 coord/B_CHECKPOINT.json 指明。
 环境：Windows x64 / 本机 Node（精确版本见 BASELINE.json）；本地固定依赖，离线。
 
-## DQ-ART-01 — P2 / FAIL / 未修复
+## DQ-ART-01 — FIXED_VERIFIED on A 3bd04fa / 4d9cd1a / 123d169
+
+以下为共同Base上的历史复现；当前A已通过原样测试。
 
 范围：src/client/entrance-theme.ts 的 validateEntranceArt(value: unknown)。
 
@@ -40,3 +42,7 @@ QA_SHA：本文件所在 QA_HARNESS_READY 提交，完整 SHA 由 coord/B_CHECKP
 证据：PERFORMANCE.json / browser-full.json。首版 harness 使用未经产品定义的 +20 绝对阈值而失败，已保留校准记录；之后依据同尺寸时间序列验证热态是否继续增长。不能把该改动解释成修改产品断言使产品变绿，也不能把稳定计数解释为完全没有内存保留。
 
 下一步：在真实 GPU、独占测量窗口与最终 A candidate 上采 heap retaining paths，对一次性增长归因；目前没有 P0/P1 已证实产品缺陷。
+
+## DQ-SEAM-01 — P2 / FAIL / 当前未修复
+
+A_SHA 123d1697e033456101e541a093eebd64fd192007，QA_CODE_SHA b6311d0cb8f65e1bceaba67dc1e7b7df0133dae1。精确580×720闭门双底色诊断：安全区300个像素透色，最大RGB差56。复现、截图和期望/实际见 [最新独立评估](LATEST_EVALUATION.md)。

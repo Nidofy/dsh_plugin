@@ -1,0 +1,13 @@
+{
+  "before": "packages\\ai-village\\art\\QA\\entrance-dual\\qa\\evaluation-4d9cd1a\\integrated-review\\seam-probe-580x720-light-blue.png",
+  "after": "packages\\ai-village\\art\\QA\\entrance-dual\\qa\\evaluation-4d9cd1a\\integrated-review\\seam-probe-580x720-light-pink.png",
+  "beforeSHA": "45d92f286691bf157a007c1b122db04c9d2f790bf93b49e741da449e31115e0c",
+  "afterSHA": "5655e787b4d457ff805534efb9f059ffda189e94253a933f2226f1579b319276",
+  "width": 580,
+  "height": 720,
+  "meanAbsoluteRGB": 0.05355842911877395,
+  "changedFraction": 0.0020833333333333333,
+  "maxChannelDelta": 74,
+  "status": "MEASURED",
+  "approval": "NEEDS_HUMAN_REVIEW; metric alone is not a visual acceptance threshold"
+}

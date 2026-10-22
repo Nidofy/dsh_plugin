@@ -1,0 +1,8 @@
+{
+  "sha": "4d9cd1ab06ec506cc28f2d574b4c7c3a8c40d503",
+  "command": "node <EVAL_ROOT>\\scripts\\ai-village-dualqa-test.mjs",
+  "status": "PASS",
+  "exitCode": 0,
+  "stdout": "\n RUN  v4.1.8 <EVAL_ROOT>\n\n\n Test Files  8 passed (8)\n      Tests  58 passed (58)\n   Start at  23:34:51\n   Duration  6.45s (transform 426ms, setup 111ms, import 605ms, tests 6.03s, environment 2.13s)\n\n",
+  "stderr": ""
+}
