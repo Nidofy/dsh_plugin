@@ -1,0 +1,69 @@
+{
+  "capturedAt": "2026-10-21T15:58:11.677Z",
+  "head": "301cc0feb6bbf3dd71ac8c2f6c7e8817ef49a875",
+  "package": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.3.2",
+    "dsh": "0.2.1-rc.2"
+  },
+  "installedDesktop": "Not inspected; an existing dist archive is not evidence of the installed package",
+  "archive": {
+    "file": "dist/nidofy-dsh-ai-village-0.3.2.tgz",
+    "bytes": 28956910,
+    "sha256": "3edfb45ea6b56b8ac3fdb8769edeb631e18a40cdd32b3ea1050eb1d032d401a0"
+  },
+  "identity": [
+    {
+      "file": "lib/index.js",
+      "localHash": "ee7d1ec67ab3a357d54e01aaf29ccfce66763a29eb964ebe58e8f812905b876c",
+      "archiveHash": "ee7d1ec67ab3a357d54e01aaf29ccfce66763a29eb964ebe58e8f812905b876c",
+      "matches": true
+    },
+    {
+      "file": "lib/client.js",
+      "localHash": "475f19eae2ac800e0cac40b4da63409fad96aae1982e411a4e299311fa4e81d0",
+      "archiveHash": "391a0011afc7a179897d386a58621c960581e6205210f105755b4fc7f5379ef7",
+      "matches": false
+    },
+    {
+      "file": "lib/frame.js",
+      "localHash": "b5451551215ed2a5d733ce4c9971fa30180c30aa5ccdd2efff0b1fc6ec6cff0d",
+      "archiveHash": "b5451551215ed2a5d733ce4c9971fa30180c30aa5ccdd2efff0b1fc6ec6cff0d",
+      "matches": true
+    },
+    {
+      "file": "assets/scenes/courtyard/scene.json",
+      "localHash": "827abac0ad8007e5bc1c450d9ec58e7df396d8e74c484e12a65613fdf26a5db0",
+      "archiveHash": "827abac0ad8007e5bc1c450d9ec58e7df396d8e74c484e12a65613fdf26a5db0",
+      "matches": true
+    }
+  ],
+  "fixtures": [
+    {
+      "file": "saved-schema1.json",
+      "sha256": "24938981d4a9b1c15c4a314228a00f39cfb925fc20e6a6a86302b11aed29063e",
+      "source": ".build/ai-village-phase3/store-zFfakB/nidofy-ai-village/snapshots/583eec14-294d-477f-aee1-bd6f35edd7a6.json",
+      "actors": 1,
+      "provenance": "Prior isolated browser/storage acceptance profile; exact snapshot bytes, no user profile"
+    },
+    {
+      "file": "saved-schema2.json",
+      "sha256": "de7897620313eebaeb7544152a7dae230f3863d68ea40fa780941d052567e725",
+      "source": ".build/ai-village-phase4/browser-profile-XcANVu/nidofy-ai-village/snapshots/07e72230-4852-4bd0-b18e-a9e37c271295.json",
+      "actors": 7,
+      "provenance": "Prior isolated browser/storage acceptance profile; exact snapshot bytes, no user profile"
+    },
+    {
+      "file": "saved-schema3.json",
+      "sha256": "0e02346d42aa6a7b5fe961bed5d40a28f9e78d8ccbaf542ecb21931fc7ba970e",
+      "source": ".build/ai-village-phase4/browser-profile-YRlFgD/nidofy-ai-village/snapshots/managed-v1-0fe3032f-38bf-4c89-aa29-c2938855d64c.json",
+      "actors": 7,
+      "provenance": "Prior isolated browser/storage acceptance profile; exact snapshot bytes, no user profile"
+    },
+    {
+      "file": "scene-v1.json",
+      "sha256": "827abac0ad8007e5bc1c450d9ec58e7df396d8e74c484e12a65613fdf26a5db0",
+      "source": "packages/ai-village/assets/scenes/courtyard/scene.json at baseline 301cc0f"
+    }
+  ]
+}

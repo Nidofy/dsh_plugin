@@ -1,10 +1,10 @@
 import { it, expect } from 'vitest'
 import { mkdtemp, readdir, readFile, writeFile, link } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
-import { randomUUID } from 'node:crypto'
+import { randomUUID, createHash } from 'node:crypto'
 import { SaveStore, retainedSnapshots } from '../src/host/save-store.ts'
 import { createWorld } from '../src/core/world.ts'
-import { scene } from '../src/definitions.ts'
+import { legacySceneV1 as scene } from '../src/core/migrations.ts'
 
 it('bounds new snapshots while preserving legacy and unknown files and both recovery pointers', async () => {
   const profile = await mkdtemp(resolve('.build/ai-village-phase4/retention-')), store = await SaveStore.open(profile, scene)
@@ -31,7 +31,7 @@ it('keeps snapshots referenced by preserved recovery evidence even outside the r
   for (let i = 1; i < 40; i++) { world.ticks++; await store.save(i, world, randomUUID()) }
   expect(await readFile(join(store.directory, 'snapshots', JSON.parse(bytes).snapshot), 'utf8')).toContain('"revision":1')
   const operationId = randomUUID(); let checks = 0
-  const saved = await store.save(40, world, operationId, () => ++checks <= 3)
+  const saved = await store.save(40, world, operationId, () => ++checks <= 5)
   expect(saved.revision).toBe(41); expect(store.retention.diagnostic).toBe('OWNER_LOST')
   expect((await store.read())!.operationId).toBe(operationId)
   expect((await store.save(40, world, operationId)).revision).toBe(41)
@@ -44,4 +44,22 @@ it('refuses ambiguous cleanup without misreporting a durable save or replaying i
   await link(join(store.directory, 'snapshots', p.snapshot), join(store.directory, 'snapshots', 'external-alias'))
   // A linked current snapshot refuses publication before anything is overwritten.
   await expect(store.save(first.revision, world, randomUUID())).rejects.toThrow('SAVE_FILE_REFUSED')
+})
+
+it('reads a real schema-1 snapshot without facing through save, previous, recovery and pruning', async () => {
+  const profile = await mkdtemp(resolve('.build/ai-village-phase4/legacy-facing-')), store = await SaveStore.open(profile, scene)
+  const bytes = await readFile(new URL('./fixtures/legacy/saved-schema1.json', import.meta.url))
+  const original = JSON.parse(bytes.toString()), name = randomUUID() + '.json'
+  await writeFile(join(store.directory, 'snapshots', name), bytes)
+  await writeFile(join(store.directory, 'current.json'), JSON.stringify({ schemaVersion: 1, revision: original.revision,
+    operationId: original.operationId, snapshot: name, hash: createHash('sha256').update(bytes).digest('hex') }))
+  const loaded = (await store.read())!
+  expect(loaded.world.actor.facing).toBe('right')
+  await store.save(loaded.revision, loaded.world, randomUUID())
+  expect((await store.read('previous.json'))!.world.actor.facing).toBe('right')
+  await writeFile(join(store.directory, 'current.json'), 'broken')
+  let saved = await store.recover(() => true)
+  for (let i = 0; i < 35; i++) saved = await store.save(saved.revision, saved.world, randomUUID())
+  expect(await readFile(join(store.directory, 'snapshots', name))).toEqual(bytes)
+  expect((await store.read())!.world.schemaVersion).toBe(3)
 })

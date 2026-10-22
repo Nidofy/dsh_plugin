@@ -1,0 +1,26 @@
+{
+  "dsh": "0.2.1-rc.2",
+  "platform": "win32-x64",
+  "passed": true,
+  "packageManager": "pnpm",
+  "emptyStore": true,
+  "offline": true,
+  "lifecycleScripts": false,
+  "nativeChecks": [
+    "koffi",
+    "sharp PNG encoding"
+  ],
+  "artifacts": [
+    {
+      "name": "@nidofy/dsh-ai-village",
+      "version": "0.5.0",
+      "file": "nidofy-dsh-ai-village-0.5.0.tgz",
+      "bytes": 29013077,
+      "sha256": "5940e6176331614e1213988d4729069fce4e2a90cf0f3ac2160dc65eb2f904a6",
+      "files": 252,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    }
+  ]
+}

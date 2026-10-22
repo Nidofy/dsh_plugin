@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url'
 import { randomUUID } from 'node:crypto'
 import { request } from 'node:http'
 import { harness } from '../experiments/phase4-host.ts'
-import { createWorld } from '../src/core/world.ts'
+import { createNeighborhoodWorld as createWorld, type NeighborhoodWorld as ContentWorld } from '../src/core/neighborhood-state.ts'
 import { scene } from '../src/definitions.ts'
 const out = resolve('.build/ai-village-phase4')
 it('official authenticated Connection routes, profile lease, CAS, recovery, unload and cold reenable', async () => {
@@ -25,7 +25,15 @@ it('official authenticated Connection routes, profile lease, CAS, recovery, unlo
     const owner = (await call('acquire', { clientId: randomUUID() })).value
     expect((await call('acquire', { clientId: randomUUID() })).value.error).toBe('WORLD_IN_USE')
     const world = createWorld(scene), operationId = randomUUID()
-    expect((await call('save', { ...owner, expectedRevision: 0, operationId, world })).value.revision).toBe(1)
+    const ack = (await call('save', { ...owner, expectedRevision: 0, operationId, world })).value
+    expect(ack.revision).toBe(1); expect(ack.profileId).toBe(owner.profileId); expect(ack.epoch).toBe(owner.epoch)
+    const preferences = { schemaVersion: 1, theme: 'dark', language: 'en', reducedMotion: true, bubbles: false }
+    expect((await call('preferences-state')).value.saved).toBeNull()
+    const preferenceAck = (await call('preferences-save', { ...owner, expectedRevision: 0, operationId: randomUUID(), world: preferences })).value
+    expect(preferenceAck.revision).toBe(1)
+    expect((await call('preferences-state')).value.saved.world).toEqual(preferences)
+    expect((await call('state')).value.saved.world).toEqual(world)
+    expect((await call('preferences-save', { ...owner, expectedRevision: 1, operationId: randomUUID(), world: { ...preferences, reward: true } })).value.error).toBe('INVALID_PREFERENCES')
     expect((await call('save', { ...owner, expectedRevision: 0, operationId, world })).value.revision).toBe(1)
     expect((await call('save', { ...owner, expectedRevision: 0, operationId: randomUUID(), world })).value.error).toBe('REVISION_CONFLICT')
     world.userPaused = true
@@ -41,6 +49,7 @@ it('official authenticated Connection routes, profile lease, CAS, recovery, unlo
       const next = (await call('state')).value
       expect(next.profileId).toBe(state.profileId); expect(next.epoch).not.toBe(owner.epoch)
       expect(next.saved.revision).toBe(3)
+      expect((await call('preferences-state')).value.saved.world).toEqual(preferences)
       expect((await call('heartbeat', owner)).value.error).toBe('OWNER_LOST')
     }
     for (const path of ['assets/../../package.json', 'assets/%2e%2e/package.json', 'assets/toString', 'frame/extra'])

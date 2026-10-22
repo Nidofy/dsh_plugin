@@ -1,0 +1,28 @@
+[
+  {
+    "file": "saved-schema1.json",
+    "sha256": "24938981d4a9b1c15c4a314228a00f39cfb925fc20e6a6a86302b11aed29063e",
+    "source": ".build/ai-village-phase3/store-zFfakB/nidofy-ai-village/snapshots/583eec14-294d-477f-aee1-bd6f35edd7a6.json",
+    "actors": 1,
+    "provenance": "Prior isolated browser/storage acceptance profile; exact snapshot bytes, no user profile"
+  },
+  {
+    "file": "saved-schema2.json",
+    "sha256": "de7897620313eebaeb7544152a7dae230f3863d68ea40fa780941d052567e725",
+    "source": ".build/ai-village-phase4/browser-profile-XcANVu/nidofy-ai-village/snapshots/07e72230-4852-4bd0-b18e-a9e37c271295.json",
+    "actors": 7,
+    "provenance": "Prior isolated browser/storage acceptance profile; exact snapshot bytes, no user profile"
+  },
+  {
+    "file": "saved-schema3.json",
+    "sha256": "0e02346d42aa6a7b5fe961bed5d40a28f9e78d8ccbaf542ecb21931fc7ba970e",
+    "source": ".build/ai-village-phase4/browser-profile-YRlFgD/nidofy-ai-village/snapshots/managed-v1-0fe3032f-38bf-4c89-aa29-c2938855d64c.json",
+    "actors": 7,
+    "provenance": "Prior isolated browser/storage acceptance profile; exact snapshot bytes, no user profile"
+  },
+  {
+    "file": "scene-v1.json",
+    "sha256": "827abac0ad8007e5bc1c450d9ec58e7df396d8e74c484e12a65613fdf26a5db0",
+    "source": "packages/ai-village/assets/scenes/courtyard/scene.json at baseline 301cc0f"
+  }
+]

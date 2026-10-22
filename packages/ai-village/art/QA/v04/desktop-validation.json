@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.4.0",
+    "file": "nidofy-dsh-ai-village-0.4.0.tgz",
+    "bytes": 28981449,
+    "sha256": "be551da119ab00594dd626a1a27757624e6c55e1ce18aa7dd20c67c8dc759390",
+    "files": 252,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "metrics": {
+    "frames": 2,
+    "actors": 2,
+    "textures": 130,
+    "tickerStarted": false,
+    "viewport": {
+      "world": {
+        "scale": 1.2472222222222222,
+        "x": 0,
+        "y": 0.16666666666668561
+      },
+      "background": {
+        "x": -0.12499999999997158,
+        "y": 0,
+        "width": 449.24999999999994,
+        "height": 599
+      }
+    },
+    "paused": true,
+    "meanPaintMs": 35.449999928474426,
+    "maxPaintMs": 69.89999985694885
+  },
+  "errors": [],
+  "screenshotIssues": [
+    {
+      "file": "desktop-journal.png",
+      "reason": "SCREENSHOT_TIMEOUT"
+    }
+  ],
+  "checks": [
+    "Official plugin-manager local tgz installation",
+    "Installed bytes match release",
+    "Visible tea invitation and real arrival",
+    "Atomic first journal and chime",
+    "Confirmed placement",
+    "Paused snapshot ready for process restart"
+  ],
+  "viewport": {
+    "width": 1279,
+    "height": 821,
+    "dpr": 1.75
+  }
+}

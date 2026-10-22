@@ -1,0 +1,58 @@
+import type { CharacterId } from './roster.ts'
+export type Locale = 'zh' | 'en'
+export type Words = { zh: string; en: string }
+export const words = (zh: string, en: string): Words => ({ zh, en })
+export const layouts = ['courtyard', 'reading', 'garden'] as const
+export type LayoutId = typeof layouts[number]
+export const furnitureCatalog = [
+  { id: 'work', name: words('书桌', 'Writing desk') }, { id: 'eat', name: words('餐桌', 'Dining table') },
+  { id: 'rest', name: words('坐垫', 'Cushion') }, { id: 'bench', name: words('双人长椅', 'Garden bench') },
+  { id: 'books', name: words('书架', 'Bookshelf') }, { id: 'plant', name: words('盆栽', 'Potted garden') },
+] as const
+export const layoutNames: Record<LayoutId, Words> = { courtyard: words('午后小院', 'Afternoon courtyard'), reading: words('阅读角落', 'Reading corner'), garden: words('花草角落', 'Garden corner') }
+export const stories = [
+  { id: 'hello', name: words('一句问候', 'A little hello') }, { id: 'ideas', name: words('纸上的灵光', 'An idea on paper') },
+  { id: 'tidy', name: words('整齐的小角落', 'A tidy little corner') }, { id: 'read', name: words('书页之间', 'Between the pages') },
+  { id: 'water', name: words('给绿叶一点水', 'A drink for the leaves') }, { id: 'listen', name: words('风的来信', 'A letter from the breeze') },
+  { id: 'sky', name: words('抬头的片刻', 'A moment looking up') }, { id: 'bench', name: words('长椅留一半', 'Half a bench for you') },
+  { id: 'shared-book', name: words('同一页故事', 'The same page') }, { id: 'plant-care', name: words('一起照料', 'Growing together') },
+  { id: 'idea-swap', name: words('两个点子', 'Two small ideas') },
+] as const
+export type StoryId = typeof stories[number]['id']
+export interface NeighborhoodEventDefinition { id: string; name: Words; count: 1 | 2; furniture: 'here' | 'work' | 'books' | 'plant' | 'bench'; story: StoryId; ticks: number }
+export const neighborhoodEvents: readonly NeighborhoodEventDefinition[] = [
+  { id: 'greet', name: words('打个招呼', 'Say hello'), count: 1, furniture: 'here', story: 'hello', ticks: 90 },
+  { id: 'stretch', name: words('舒展一下', 'A little stretch'), count: 1, furniture: 'here', story: 'hello', ticks: 120 },
+  { id: 'ideas', name: words('记下灵感', 'Note an idea'), count: 1, furniture: 'work', story: 'ideas', ticks: 150 },
+  { id: 'tidy', name: words('整理书桌', 'Tidy the desk'), count: 1, furniture: 'work', story: 'tidy', ticks: 150 },
+  { id: 'read', name: words('翻开一本书', 'Open a book'), count: 1, furniture: 'books', story: 'read', ticks: 180 },
+  { id: 'water', name: words('照料盆栽', 'Water the plant'), count: 1, furniture: 'plant', story: 'water', ticks: 150 },
+  { id: 'listen', name: words('听一会儿风', 'Listen to the breeze'), count: 1, furniture: 'here', story: 'listen', ticks: 150 },
+  { id: 'sky', name: words('看看天空', 'Look at the sky'), count: 1, furniture: 'here', story: 'sky', ticks: 150 },
+  { id: 'bench-chat', name: words('长椅小谈', 'A bench conversation'), count: 2, furniture: 'bench', story: 'bench', ticks: 180 },
+  { id: 'shared-book', name: words('分享一页书', 'Share a page'), count: 2, furniture: 'bench', story: 'shared-book', ticks: 180 },
+  { id: 'plant-care', name: words('聊聊花草', 'Talk about the garden'), count: 2, furniture: 'bench', story: 'plant-care', ticks: 180 },
+  { id: 'idea-swap', name: words('交换小点子', 'Exchange ideas'), count: 2, furniture: 'bench', story: 'idea-swap', ticks: 180 },
+  { id: 'quiet-company', name: words('安静地坐一会儿', 'Quiet company'), count: 2, furniture: 'bench', story: 'bench', ticks: 180 },
+]
+export const wishes = [
+  { id: 'hello', title: words('认识一位邻居', 'Meet a neighbor'), story: 'hello' },
+  { id: 'ideas', title: words('留住一个点子', 'Keep a small idea'), story: 'ideas' },
+  { id: 'bench', title: words('给朋友留个位置', 'Save a seat for a friend'), story: 'bench' },
+  { id: 'shared-book', title: words('把故事分享出去', 'Share a story'), story: 'shared-book' },
+  { id: 'water', title: words('一片新鲜的绿意', 'A little fresh green'), story: 'water' },
+] as const
+export type ExtraDecoration = 'lantern' | 'planter'
+export const decorationNames: Record<ExtraDecoration, Words> = { lantern: words('纸灯笼', 'Paper lantern'), planter: words('花叶挂饰', 'Leaf garland') }
+// Each resident has twelve authored lines: two variants for six situations.
+const lines: Record<CharacterId, readonly Words[]> = {
+ bluewhale: [words('慢慢来，我在这里。','Take your time. I am here.'),words('今天也一起待一会儿吧。','Stay a little while today.'),words('轻一点，我会痒。','Gently, that tickles.'),words('换个地方看看也好。','A new view sounds nice.'),words('把小事做好就很开心。','Small things done well make me happy.'),words('不着急，这一页还很长。','No rush. This page has room.'),words('这里有点挤，等一会儿。','A little crowded. I can wait.'),words('我们先找个空位置。','Let us find a clear spot.'),words('给你留了半边长椅。','I saved half the bench for you.'),words('有你在，风也温柔。','The breeze feels softer with you.'),words('像一朵藏起来的小浪花。','Like a tiny wave in hiding.'),words('这个瞬间想好好记住。','I want to remember this moment.')],
+ claude: [words('今天想从哪一页开始？','Which page shall we start with?'),words('你来了，故事就接上了。','You are here. The story continues.'),words('让我给这一段换个位置。','Let me move this paragraph.'),words('落下之前，先留个逗号。','A comma before I land.'),words('这句话还可以再温柔一点。','This sentence could be gentler.'),words('整理完，思路就亮了。','A tidy desk clears my thoughts.'),words('留白也是故事的一部分。','White space belongs in a story.'),words('这一席还在上一段里。','This seat is in the previous chapter.'),words('你说，我替风记下来。','Tell me. I will write it for the breeze.'),words('同一页，也能读出两种意思。','One page can hold two meanings.'),words('今天的云像个省略号。','The clouds look like an ellipsis.'),words('这个句号可以晚一点。','The full stop can wait.')],
+ gemini: [words('看那边！又有新发现。','Look over there! Something new.'),words('今天想试哪一种可能？','Which possibility shall we try?'),words('哇，视角变了！','Wow, a different viewpoint!'),words('从这里看，小院不一样了。','The courtyard looks different here.'),words('我想到两种做法。','I can think of two ways.'),words('翻一页，会不会有惊喜？','Could the next page hold a surprise?'),words('那边忙着，我们换条路。','Busy over there. Another route?'),words('等等也可以观察小细节。','Waiting is a chance to notice details.'),words('你的点子和我的刚好接上。','Your idea fits right into mine.'),words('两个人看，风景会加倍。','Two people, twice the view.'),words('叶子也在偷偷打招呼。','The leaves are secretly waving.'),words('这朵云有两个名字。','This cloud has two names.')],
+ gpt: [words('今日安排：先问声好。','Today’s plan: say hello first.'),words('欢迎回来，空位还在。','Welcome back. Your place is here.'),words('正在更新我的观察位置。','Updating my observation spot.'),words('稳稳落地，再继续。','A steady landing, then onward.'),words('先做一件小事。','One small thing at a time.'),words('记下来，就不会漏掉。','Write it down so it stays.'),words('这个位置暂时有人。','This spot is occupied for now.'),words('调整一下顺序就好。','We can change the order.'),words('你的想法我记住了。','I will remember your idea.'),words('一起休息也算好安排。','Resting together is a good plan.'),words('备注：今天很适合发呆。','Note: a good day for daydreaming.'),words('这条发现值得收藏。','This discovery is worth keeping.')],
+ grok: [words('我先宣布：今天不赶路。','Announcement: no rushing today.'),words('来了？好戏还没开始。','You made it. The show has not started.'),words('这算免费观光吗？','Is this a free sightseeing ride?'),words('着陆要帅一点。','Let me land with style.'),words('认真三秒，也很认真。','Three serious seconds still count.'),words('看好了，这叫灵感。','Watch this. It is called inspiration.'),words('这条路正在开小会。','This path is holding a meeting.'),words('我可没有插队哦。','I am definitely not cutting in.'),words('你的点子居然不错。','Your idea is surprisingly good.'),words('这半边长椅归笑话。','This half of the bench is for jokes.'),words('风没有意见，我问过了。','The breeze approves. I checked.'),words('今天的最佳配角：一片叶子。','Best supporting role: a leaf.')],
+ kimi: [words('坐一会儿，什么都不用急。','Sit a while. Nothing needs rushing.'),words('安静的时候也可以陪着。','Company can be quiet too.'),words('让我慢慢飘过去。','Let me drift over slowly.'),words('这里的光正好。','The light is just right here.'),words('再看完这一小段。','Just this little passage.'),words('一页书，够一个午后。','One page can fill an afternoon.'),words('不赶，我等风过去。','No hurry. I will wait for the breeze.'),words('我们晚一点再过去。','We can go a little later.'),words('不用说很多，也很舒服。','Few words can be enough.'),words('再多坐一会儿，好吗？','Shall we sit a little longer?'),words('影子也在慢慢休息。','Even the shadows are resting.'),words('轻轻记住，就很好。','A gentle memory is enough.')],
+ qwen: [words('先坐下，话可以慢慢说。','Sit first. There is time to talk.'),words('今天的茶香正好。','The tea smells just right today.'),words('轻拿轻放，邻居同款。','Handle with care, like a good neighbor.'),words('换个角落也有好风景。','Another corner, another lovely view.'),words('给花一点水，给心一点闲。','Water for the plant, rest for the heart.'),words('把小角落照料妥当。','Let us care for this little corner.'),words('有人在忙，咱们等等。','Someone is busy. Let us wait.'),words('好位置值得慢慢找。','A good spot is worth finding.'),words('好朋友，坐近一点。','Come a little closer, friend.'),words('你说故事，我听风声。','You tell the story; I will hear the breeze.'),words('一片新叶，也算好消息。','A new leaf is good news too.'),words('满院清风，留一份给你。','A courtyard breeze, and a share for you.')],
+}
+export const residentLines = lines
+export function residentLine(id: CharacterId, context: number, variant: number, locale: Locale): string { return lines[id][context * 2 + variant % 2]![locale] }

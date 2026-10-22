@@ -1,10 +1,15 @@
+import { PhotoStore } from './photo-store.ts'
+import { photoLimits } from '../core/photo.ts'
 import { readFile, realpath, stat, lstat } from 'node:fs/promises'
 import { join, relative, isAbsolute } from 'node:path'
 import { randomUUID, createHash } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { withFileLock } from '@deepseek-ai/dsh-atomic-write'
-import { writeFileDurable } from '@nidofy/dsh-plugin-shared/durable-file'
+import { ensureDurableDirectory, writeFileDurable } from '@nidofy/dsh-plugin-shared/durable-file'
 import { SaveStore } from './save-store.ts'
+import { neighborhoodWorldCodec as contentWorldCodec } from '../core/neighborhood-state.ts'
+import type { NeighborhoodWorld as ContentWorld } from '../core/neighborhood-state.ts'
+import { validatePreferences, type Preferences } from '../core/preferences.ts'
 import { resources, scene } from '../definitions.ts'
 export const prefix = '/api/nidofy-ai-village/'
 export const framePolicy = "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob:; connect-src 'none'; frame-ancestors 'self'; base-uri 'none'; form-action 'none'; sandbox allow-scripts"
@@ -25,7 +30,7 @@ async function body(req: IncomingMessage, signal: AbortSignal): Promise<Record<s
     if (size > 65536) throw Error('BODY_TOO_LARGE')
     chunks.push(chunk)
   }
-  const value: unknown = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+  const value: unknown = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(chunks)))
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('INVALID_REQUEST')
   return value as Record<string, unknown>
 }
@@ -37,9 +42,10 @@ export class VillageHost {
   private release!: () => void
   private lifetime!: Promise<void>
   private files = new Map<string, Buffer>()
-  private constructor(readonly store: SaveStore, readonly profileId: string) {}
+  private assetRoot = ''
+  private constructor(readonly store: SaveStore<ContentWorld>, readonly profileId: string, readonly preferences: SaveStore<Preferences>, readonly photos: PhotoStore) {}
   static async open(profile: string, assetRoot: string, frameRoot: string, signal: AbortSignal): Promise<VillageHost> {
-    const store = await SaveStore.open(profile, scene)
+    const store = await SaveStore.open(profile, scene, contentWorldCodec(scene))
     let entered!: () => void, fail!: (e: unknown) => void, release!: () => void
     const ready = new Promise<void>((resolve, reject) => { entered = resolve; fail = reject })
     const lifetime = withFileLock(join(store.directory, 'owner'), async () => {
@@ -61,12 +67,14 @@ export class VillageHost {
         if ((e as NodeJS.ErrnoException).code !== 'ENOENT') throw e
         profileId = randomUUID(); await writeFileDurable(identity, JSON.stringify({ schemaVersion: 1, id: profileId }))
       }
-      const host = new VillageHost(store, profileId); host.release = release; host.lifetime = lifetime
-      for (const entry of resources) {
-        const bytes = await contained(assetRoot, entry.file, 8 * 1024 * 1024)
-        if (bytes.length !== entry.bytes || createHash('sha256').update(bytes).digest('hex') !== entry.sha256) throw Error('ASSET_HASH_MISMATCH')
-        host.files.set('assets/' + entry.key, bytes)
-      }
+      const preferencesRoot = join(store.directory, 'preferences')
+      await ensureDurableDirectory(preferencesRoot)
+      const preferencesInfo = await lstat(preferencesRoot)
+      if (!preferencesInfo.isDirectory() || preferencesInfo.isSymbolicLink()) throw Error('PROFILE_DIRECTORY_REFUSED')
+      const preferences = await SaveStore.open(preferencesRoot, scene,
+        { decode: validatePreferences, validate: validatePreferences, needsUpgrade: () => false })
+      const host = new VillageHost(store, profileId, preferences, await PhotoStore.open(store.directory, scene)); host.release = release; host.lifetime = lifetime
+      host.assetRoot = assetRoot
       const code = (await contained(frameRoot, 'frame.js', 1200 * 1024)).toString('utf8')
       host.files.set('frame', Buffer.from('<!doctype html><meta charset="utf-8"><style>html,body{margin:0;width:100%;height:100%;overflow:hidden}canvas{display:block;width:100%;height:100%}</style><script>' + code.replace(/<\/script/gi, '<\\/script') + '</script>'))
       signal.throwIfAborted()
@@ -88,20 +96,54 @@ export class VillageHost {
       if (this.valid(data.lease)) this.lease = null
       return { ok: true }
     })
-    if (path === 'save') return this.store.save(data.expectedRevision as number, data.world, data.operationId as string, () => this.valid(data.lease))
+    if (path === 'photo-delete') return withFileLock(join(this.store.directory, 'transaction'), async () => {
+      if (!this.valid(data.lease) || data.epoch !== this.epoch) throw Error('OWNER_LOST')
+      return this.photos.remove(data.expectedRevision as number, data.id as string, data.operationId as string, () => this.valid(data.lease))
+    })
+    if (path === 'save') return { ...await this.store.save(data.expectedRevision as number, data.world, data.operationId as string, () => this.valid(data.lease)), profileId: this.profileId, epoch: this.epoch }
+    if (path === 'preferences-save') return withFileLock(join(this.store.directory, 'transaction'), async () => {
+      if (!this.valid(data.lease)) throw Error('OWNER_LOST')
+      return { ...await this.preferences.save(data.expectedRevision as number, data.world, data.operationId as string, () => this.valid(data.lease)), profileId: this.profileId, epoch: this.epoch }
+    })
+    if (path === 'preferences-recover') return withFileLock(join(this.store.directory, 'transaction'), () => this.preferences.recover(() => this.valid(data.lease)))
     if (path === 'recover') return this.store.recover(() => this.valid(data.lease))
     throw Error('UNKNOWN_OPERATION')
   }
   async handle(req: IncomingMessage, res: ServerResponse, signal: AbortSignal): Promise<void> {
     res.setHeader('cache-control', 'no-store'); res.setHeader('x-content-type-options', 'nosniff')
     res.setHeader('cross-origin-resource-policy', 'same-origin')
-    const json = (code: number, value: unknown) => { res.writeHead(code, { 'content-type': 'application/json' }).end(JSON.stringify(value)) }
+    const json = (code: number, value: unknown) => {
+      const bytes = JSON.stringify(value)
+      if (Buffer.byteLength(bytes) > 65536) throw Error('RESPONSE_TOO_LARGE')
+      res.writeHead(code, { 'content-type': 'application/json' }).end(bytes)
+    }
     try {
       signal.throwIfAborted()
       const path = (req.url ?? '').slice(prefix.length)
+      if (req.method === 'GET' && path === 'album') { json(200, { profileId: this.profileId, epoch: this.epoch, saved: await this.photos.list() }); return }
+      if (req.method === 'GET' && path.startsWith('photos/')) {
+        const bytes = await this.photos.get(path.slice(7)); res.writeHead(200, { 'content-type': 'image/png', 'content-length': bytes.length }); res.end(bytes); return
+      }
+      if (req.method === 'POST' && path === 'photo-upload') {
+        if (req.headers['content-type'] !== 'image/png') throw Error('CONTENT_TYPE_REFUSED')
+        const lease=req.headers['x-village-lease'],epoch=req.headers['x-village-epoch']
+        if(epoch!==this.epoch||!this.valid(lease))throw Error('OWNER_LOST')
+        const chunks:Buffer[]=[];let size=0
+        for await(const chunk of req){signal.throwIfAborted();size+=chunk.length;if(size>photoLimits.bytes)throw Error('PHOTO_TOO_LARGE');chunks.push(chunk)}
+        const result=await withFileLock(join(this.store.directory,'transaction'),async()=>{
+          if(epoch!==this.epoch||!this.valid(lease))throw Error('OWNER_LOST')
+          const tick=Number(req.headers['x-village-tick']),saved=await this.store.read()
+          if(!Number.isSafeInteger(tick)||tick<0||tick>(saved?.world.ticks??0))throw Error('INVALID_PHOTO_TICK')
+          return this.photos.add(Number(req.headers['x-village-revision']),String(req.headers['x-village-photo']),decodeURIComponent(String(req.headers['x-village-title']??'')),tick,Buffer.concat(chunks),()=>this.valid(lease))
+        })
+        json(200,{profileId:this.profileId,epoch:this.epoch,saved:result});return
+      }
       if (req.method === 'GET' && path === 'state') { json(200, { profileId: this.profileId, epoch: this.epoch, saved: await this.store.read(), retention: this.store.retention }); return }
+      if (req.method === 'GET' && path === 'preferences-state') { json(200, { profileId: this.profileId, epoch: this.epoch, saved: await this.preferences.read() }); return }
       if (req.method === 'GET' || req.method === 'HEAD') {
-        const bytes = this.files.get(path)
+        const entry = path.startsWith('assets/') ? resources.find(r=>r.key===path.slice(7)) : undefined
+        const bytes = entry ? await contained(this.assetRoot, entry.file, 8 * 1024 * 1024) : this.files.get(path)
+        if (entry && bytes && (bytes.length !== entry.bytes || createHash('sha256').update(bytes).digest('hex') !== entry.sha256)) throw Error('ASSET_HASH_MISMATCH')
         if (!bytes) { json(404, { error: 'NOT_FOUND' }); return }
         if (path === 'frame') res.setHeader('content-security-policy', framePolicy)
         res.writeHead(200, { 'content-type': path === 'frame' ? 'text/html; charset=utf-8' : 'image/png', 'content-length': bytes.length })

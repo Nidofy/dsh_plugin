@@ -1,48 +1,98 @@
-import { WorldController } from '../core/controller.ts'
-import { createWorld, validateWorld } from '../core/world.ts'
+import { AlbumClient } from './album-client.ts'
+import { residentAssets } from './asset-selection.ts'
+import { actors } from '../core/world.ts'
+import { NeighborhoodController as ContentController } from '../core/neighborhood-controller.ts'
+import { inviteTea, cancelTea, settleTea, placeBell, startNeighborhoodEvent, changeLayout, decorateExtra } from '../core/neighborhood-engine.ts'
+import type { CharacterId } from '../core/roster.ts'
+import { createNeighborhoodWorld as createContentWorld, validateNeighborhoodWorld as validateContentWorld, type NeighborhoodWorld as ContentWorld } from '../core/neighborhood-state.ts'
+import type { LayoutId, ExtraDecoration } from '../core/neighborhood-catalog.ts'
+import type { Food, BellSlot } from '../core/content-state.ts'
 import { characterIds } from '../core/roster.ts'
 import { scene, resources, character, animations, roster } from '../definitions.ts'
 import type { PauseReason, PointerIntent } from '../core/controller.ts'
 import type { Saved } from '../host/save-store.ts'
+import { readJsonResponse } from './json-response.ts'
+import { SaveTransaction, type SaveReceipt } from './save-transaction.ts'
+import { defaultPreferences, validatePreferences, type Preferences } from '../core/preferences.ts'
 const prefix = '/api/nidofy-ai-village/'
-interface State { profileId: string; epoch: string; saved: Saved | null; retention?: { diagnostic?: string } }
+interface State { profileId: string; epoch: string; saved: Saved<ContentWorld> | null; retention?: { diagnostic?: string } }
 export type Request = (path: string, init?: RequestInit) => Promise<Response>
 /** One instance per plugin lifetime, deliberately independent of session selection and React mounts. */
 export class VillageRuntime {
-  controller: WorldController | undefined
+  controller: ContentController | undefined
   readonly clientId = crypto.randomUUID()
   readonly reasons = new Set<PauseReason>(['closed', 'disconnected'])
   open = false; connected = false; ready = false; frameReady = false; error = ''; revision = 0; dragTime = 0
   profileId = ''; epoch = ''; lease = ''; generation = 0
   retentionWarning = false
+  preferences: Preferences = { ...defaultPreferences }
+  locale: 'zh' | 'en' = 'zh'
+  decorationDraft: BellSlot | null | undefined
+  extraDecorationDraft: { id: ExtraDecoration; slot: BellSlot | null } | null = null
+  private preferenceRevision = 0
+  private preferenceSaving: Promise<void> | null = null
+  private readonly preferenceTransaction = new SaveTransaction(validatePreferences)
   images: Record<string, ArrayBuffer> | undefined
   private version = 0
+  private uiVersion = 0
+  private uiTick = 0
+  private uiListeners = new Set<() => void>()
   private listeners = new Set<() => void>()
   private lifetime = new AbortController()
   private attempt = new AbortController()
   private loading: Promise<void> | null = null
   private saving: Promise<void> | null = null
-  private pendingOperation: string | null = null
+  private readonly transaction = new SaveTransaction(value => validateContentWorld(value, scene))
+  private criticalCandidate: ContentWorld | null = null
+  private changingDraft = false
+  actionError = ''
+  private disposing = false
   private dirty = false; private raf = 0; private last = 0; private checkpoint = 0
   private heartbeat: ReturnType<typeof setInterval> | undefined
   private recovering = false
-  constructor(private readonly request: Request = (path, init) => fetch(path, init)) {}
+  readonly album: AlbumClient
+  photoMode = false
+  photoOptions = { zoom: 1, x: 0, y: 0, date: true, border: true }
+  private captureHandler: (()=>Promise<ArrayBuffer>) | null = null
+  constructor(private readonly request: Request = (path, init) => fetch(path, init)) {
+    this.album = new AlbumClient(request, () => ({ ...this.credentials(), profileId: this.profileId }), () => this.emit())
+  }
+  bindCapture(handler: (()=>Promise<ArrayBuffer>) | null) { this.captureHandler = handler }
+  async enterPhoto() {
+    if (!this.ready || !this.frameReady || this.error || this.criticalCandidate) return
+    this.photoMode = true; this.pause('photo', true)
+    const receipt = await this.flush()
+    if (receipt.status !== 'committed') { this.exitPhoto(); return }
+    await this.album.refresh().catch(()=>{this.album.error='PHOTO_UNAVAILABLE';this.emit()})
+  }
+  exitPhoto() { this.photoMode=false; this.photoOptions={zoom:1,x:0,y:0,date:true,border:true};this.pause('photo',false) }
+  setPhotoOptions(patch: Partial<typeof this.photoOptions>) {
+    const next={...this.photoOptions,...patch}
+    if(!Number.isFinite(next.zoom)||next.zoom<1||next.zoom>1.5||![next.x,next.y].every(v=>Number.isFinite(v)&&Math.abs(v)<=1))return
+    this.photoOptions=next;this.emit()
+  }
+  async capturePhoto() { if(!this.photoMode||!this.captureHandler||!this.frameReady)throw Error('PHOTO_UNAVAILABLE');return this.captureHandler() }
+
+  get saveReceipt(): SaveReceipt { return this.transaction.receipt }
   subscribe = (fn: () => void) => { this.listeners.add(fn); return () => { this.listeners.delete(fn) } }
   snapshot = () => this.version
-  private emit() { this.version++; for (const fn of this.listeners) fn() }
+  subscribeUI = (fn: () => void) => { this.uiListeners.add(fn); return () => { this.uiListeners.delete(fn) } }
+  snapshotUI = () => this.uiVersion
+  private emit(ui = true) {
+    this.version++; for (const fn of this.listeners) fn()
+    const tick = this.controller?.world.ticks ?? 0
+    if (ui || tick - this.uiTick >= 15) { this.uiTick = tick; this.uiVersion++; for (const fn of this.uiListeners) fn() }
+  }
   private async api<T>(path: string, data?: object, signal = this.attempt.signal): Promise<T> {
     const response = await this.request(prefix + path, { method: data ? 'POST' : 'GET', credentials: 'same-origin', redirect: 'error',
       headers: { 'content-type': 'application/json' }, ...(data ? { body: JSON.stringify(data) } : {}),
       signal: AbortSignal.any([signal, AbortSignal.timeout(10000)]) })
-    const bytes = await response.text()
-    if (bytes.length > 65536) throw Error('RESPONSE_TOO_LARGE')
-    const value = JSON.parse(bytes)
-    if (!response.ok) throw Error(value.error ?? 'REQUEST_FAILED')
-    return value as T
+    return readJsonResponse<T>(response)
   }
   private credentials() { return { lease: this.lease, epoch: this.epoch } }
   private fail(error: unknown) { this.error = String(error); this.pause('disconnected', true); this.emit() }
   pause(reason: PauseReason, active: boolean) {
+    if (reason === 'user' && this.criticalCandidate) return
     if (active) this.reasons.add(reason); else this.reasons.delete(reason)
     if (this.controller?.pauseReasons.has(reason) !== active) this.controller?.pause(reason, active)
     this.schedule(); this.emit()
@@ -52,6 +102,7 @@ export class VillageRuntime {
     if (this.connected && !this.ready) void this.connect()
   }
   hide(other = false) {
+    if (this.photoMode) this.exitPhoto()
     this.open = false; this.pause(other ? 'other-panel' : 'closed', true)
     this.setFrameReady(false)
   }
@@ -89,12 +140,144 @@ export class VillageRuntime {
         if (!current()) return
         if (owner.profileId !== state.profileId || owner.epoch !== state.epoch) throw Error('HOST_CHANGED')
         this.retentionWarning = !!state.retention?.diagnostic
-        if (this.controller && (state.saved?.revision ?? 0) !== this.revision) {
-          if (this.pendingOperation && state.saved?.operationId === this.pendingOperation) this.revision = state.saved.revision
+        await this.preferenceSaving
+        const preferences = await this.api<{ profileId: string; epoch: string; saved: Saved<Preferences> | null }>('preferences-state', undefined, signal)
+          .catch(() => { throw Error('PREFERENCES_UNAVAILABLE') })
+        if (!current()) return
+        if (preferences.profileId !== owner.profileId || preferences.epoch !== owner.epoch) throw Error('HOST_CHANGED')
+        if (this.preferenceTransaction.pending) {
+          const result = this.preferenceTransaction.reconcile(preferences, owner, true)
+          if (result.status !== 'committed' && result.status !== 'rejected') throw Error('PREFERENCES_UNCONFIRMED')
+        }
+        this.preferences = preferences.saved ? validatePreferences(preferences.saved.world) : { ...defaultPreferences }
+        this.preferenceRevision = preferences.saved?.revision ?? 0
+        if (this.transaction.pending) {
+          const result = this.transaction.reconcile(state, owner, true)
+          if (result.status !== 'committed') {
+            if (result.status === 'rejected') { this.criticalCandidate = null; this.pause('commit-pending', false) }
+            throw Error(result.status === 'rejected' ? result.reason : 'SAVE_UNCONFIRMED')
+          }
+          this.revision = result.revision
+        } else if (this.controller && (state.saved?.revision ?? 0) !== this.revision) {
+          const receipt = this.saveReceipt
+          if (receipt.status === 'committed' && this.transaction.confirms(state)) this.revision = receipt.revision
           else throw Error('REVISION_CONFLICT')
         }
-        if (!this.images) {
-          const images = await Promise.all(resources.map(async entry => {
+        if (this.criticalCandidate && state.saved && this.saveReceipt.status === 'committed') {
+          this.controller!.world = validateContentWorld(state.saved.world, scene)
+          if (this.controller!.world.userPaused) { this.reasons.add('user'); this.controller!.pauseReasons.add('user') }
+          else { this.reasons.delete('user'); this.controller!.pauseReasons.delete('user') }
+          this.criticalCandidate = null; this.pause('commit-pending', false)
+        }
+        await this.ensureAssets(state.saved ? validateContentWorld(state.saved.world, scene) : createContentWorld(scene), signal)
+        if (!current()) return
+        if (!this.controller) {
+          this.controller = new ContentController(state.saved ? validateContentWorld(state.saved.world, scene) : createContentWorld(scene), scene, () => { if (!this.changingDraft) this.save() })
+          if (this.controller.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
+          for (const reason of this.reasons) this.controller.pause(reason, true)
+          this.revision = state.saved?.revision ?? 0
+        }
+        this.trimAssets()
+        this.error = ''; this.ready = true
+        this.pause('disconnected', false); this.pause('ownership', false)
+        if (!state.saved) this.save()
+      } catch (e) { if (current()) this.fail(e) }
+    })()
+    this.loading = work
+    await work
+    if (this.loading === work) this.loading = null
+  }
+  setFrameReady(value: boolean) { this.frameReady = value; if (!value) this.controller?.cancelDrag(); this.schedule(); this.emit() }
+  pointer(intent: PointerIntent) {
+    if (!this.frameReady || !this.ready || this.criticalCandidate || this.error) return
+    const active = this.controller?.drag?.active
+    const before = intent.type === 'up' ? this.controller?.snapshot() : undefined
+    this.changingDraft = intent.type === 'up'
+    try { this.controller?.pointer(intent) } finally { this.changingDraft = false }
+    if (before && this.controller?.lastPlacement === 'accepted' && JSON.stringify(before) !== JSON.stringify(this.controller.world)) {
+      const candidate = this.controller.snapshot(); this.controller.world = before
+      void this.commitWorld(candidate)
+    }
+    if (!active && this.controller?.drag?.active) this.dragTime = 0
+    this.emit()
+  }
+  cancelDrag() { this.controller?.cancelDrag(); this.emit() }
+  selectCharacter(id: unknown) {
+    if (!this.ready || this.error || this.recovering || this.criticalCandidate) return
+    if (this.controller && !actors(this.controller.world).some(a=>a.id===id)) this.changeMembers(c=>c.selectCharacter(id))
+    else this.controller?.selectCharacter(id)
+    this.emit()
+  }
+  setCharacterPresent(id: unknown, present: boolean) {
+    if (!this.ready || this.error || this.recovering || this.criticalCandidate) return
+    this.changeMembers(c => c.setCharacterPresent(id, present))
+  }
+  setAllCharacters(present: boolean) {
+    if (!this.ready || this.error || this.recovering || this.criticalCandidate) return
+    this.changeMembers(c => { for (const id of characterIds) if (present || id !== c.world.actor.id) c.setCharacterPresent(id, present) })
+  }
+  private changeMembers(change: (controller: ContentController) => void) {
+    if (!this.controller) return
+    const draft = new ContentController(this.controller.snapshot(), scene, () => {})
+    change(draft)
+    void this.commitWorld(draft.snapshot())
+  }
+  async invite(pair: [CharacterId, CharacterId], food: Food) {
+    this.actionError = ''
+    try { if (this.controller) await this.commitWorld(inviteTea(this.controller.world, scene, pair, food, crypto.randomUUID())) }
+    catch (error) { this.actionError = error instanceof Error ? error.message : 'INVITATION_FAILED' }
+    this.emit()
+  }
+  async cancelEvent() {
+    if (!this.controller) return
+    const candidate = this.controller.snapshot(); cancelTea(candidate)
+    await this.commitWorld(candidate)
+  }
+  async decorate(slot: BellSlot | null) {
+    if (this.controller) return this.commitWorld(placeBell(this.controller.world, scene, slot))
+  }
+  async interact(definition: string, participants: CharacterId[]) {
+    await this.neighborhoodCommand(() => startNeighborhoodEvent(this.controller!.world, scene, definition, participants, crypto.randomUUID()))
+  }
+  async chooseLayout(layout: LayoutId) { await this.neighborhoodCommand(() => changeLayout(this.controller!.world, scene, layout)) }
+  async decorateExtra(id: ExtraDecoration, slot: BellSlot | null) { await this.neighborhoodCommand(() => decorateExtra(this.controller!.world, scene, id, slot)) }
+  private async neighborhoodCommand(candidate: () => ContentWorld) {
+    if (!this.controller) return
+    this.actionError = ''
+    try { const receipt = await this.commitWorld(candidate()); if (receipt.status === 'rejected') this.actionError = receipt.reason }
+    catch (e) { this.actionError = e instanceof Error ? e.message : 'INTERACTION_FAILED' }
+    this.emit()
+  }
+  previewExtraDecoration(value: typeof this.extraDecorationDraft) { this.extraDecorationDraft=value;this.emit() }
+  previewDecoration(slot: BellSlot | null | undefined) { this.decorationDraft = slot; this.emit() }
+  setLocale(locale: 'zh' | 'en') { if (this.locale !== locale) { this.locale = locale; this.emit(false) } }
+  get preferencesSaving(): boolean { return !!this.preferenceSaving }
+  async setPreferences(patch: Partial<Omit<Preferences, 'schemaVersion'>>): Promise<void> {
+    if (!this.ready || this.error || this.preferenceSaving || this.preferenceTransaction.pending || this.disposing) return
+    const candidate = validatePreferences({ ...this.preferences, ...patch }), generation = this.generation, signal = this.attempt.signal
+    const work = (async () => {
+      const result = await this.preferenceTransaction.submit({ ...this.credentials(), profileId: this.profileId,
+        expectedRevision: this.preferenceRevision, operationId: crypto.randomUUID(), world: candidate }, {
+        write: data => this.api('preferences-save', data, signal), read: () => this.api('preferences-state', undefined, signal),
+      })
+      if (generation !== this.generation) return
+      if (result.status === 'committed') { this.preferences = candidate; this.preferenceRevision = result.revision }
+      else this.fail(Error('PREFERENCES_UNCONFIRMED'))
+    })().catch(e => { if (generation === this.generation) this.fail(e) }).finally(() => { this.preferenceSaving = null; this.emit() })
+    this.preferenceSaving = work; this.emit(); await work
+  }
+  view() {
+    const c = this.controller
+    return c ? { world: c.world, position: c.drag?.active ? c.drag.position : c.world.actor.position,
+      dragging: c.drag?.active ?? false, dragTime: this.dragTime, paused: !!c.pauseReasons.size, debug: false,
+      locale: this.preferences.language === 'system' ? this.locale : this.preferences.language,
+      photo: this.photoMode ? this.photoOptions : null, reducedMotion: this.preferences.reducedMotion, bubbles: this.preferences.bubbles, decorationDraft: this.decorationDraft, extraDecorationDraft: this.extraDecorationDraft } : null
+  }
+  assetRevision = 0
+  private assetKeys = ''
+  private async ensureAssets(world: ContentWorld, signal = this.attempt.signal) {
+    const needed = residentAssets(actors(world).map(a=>a.id))
+          const images = await Promise.all(resources.filter(entry => needed.has(entry.key) && !this.images?.[entry.key]).map(async entry => {
             const response = await this.request(prefix + 'assets/' + entry.key, { credentials: 'same-origin', redirect: 'error', signal })
             if (!response.ok || !response.body) throw Error('ASSET_UNAVAILABLE')
             const reader = response.body.getReader(), chunks: Uint8Array[] = []; let size = 0
@@ -108,51 +291,15 @@ export class VillageRuntime {
             if (size !== entry.bytes || hash !== entry.sha256) throw Error('ASSET_HASH_MISMATCH')
             return [entry.key, bytes.buffer] as const
           }))
-          if (!current()) return
-          this.images = Object.fromEntries(images)
-        }
-        if (!this.controller) {
-          this.controller = new WorldController(state.saved ? validateWorld(state.saved.world, scene) : createWorld(scene), scene, () => this.save())
-          if (this.controller.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
-          for (const reason of this.reasons) this.controller.pause(reason, true)
-          this.revision = state.saved?.revision ?? 0
-        }
-        this.pendingOperation = null; this.error = ''; this.ready = true
-        this.pause('disconnected', false); this.pause('ownership', false)
-        if (!state.saved) this.save()
-      } catch (e) { if (current()) this.fail(e) }
-    })()
-    this.loading = work
-    await work
-    if (this.loading === work) this.loading = null
+    signal.throwIfAborted()
+    this.images = { ...this.images, ...Object.fromEntries(images) }
   }
-  setFrameReady(value: boolean) { this.frameReady = value; if (!value) this.controller?.cancelDrag(); this.schedule(); this.emit() }
-  pointer(intent: PointerIntent) {
-    if (!this.frameReady || !this.ready) return
-    const active = this.controller?.drag?.active
-    this.controller?.pointer(intent)
-    if (!active && this.controller?.drag?.active) this.dragTime = 0
-    this.emit()
-  }
-  cancelDrag() { this.controller?.cancelDrag(); this.emit() }
-  selectCharacter(id: unknown) {
-    if (!this.ready || this.error || this.recovering) return
-    this.controller?.selectCharacter(id)
-    this.emit()
-  }
-  setCharacterPresent(id: unknown, present: boolean) {
-    if (!this.ready || this.error || this.recovering) return
-    this.controller?.setCharacterPresent(id, present); this.emit()
-  }
-  setAllCharacters(present: boolean) {
-    if (!this.ready || this.error || this.recovering) return
-    for (const id of characterIds) if (present || id !== this.controller?.world.actor.id) this.controller?.setCharacterPresent(id, present)
-    this.emit()
-  }
-  view() {
-    const c = this.controller
-    return c ? { world: c.world, position: c.drag?.active ? c.drag.position : c.world.actor.position,
-      dragging: c.drag?.active ?? false, dragTime: this.dragTime, paused: !!c.pauseReasons.size, debug: false } : null
+  private trimAssets() {
+    if (!this.controller || !this.images) return
+    const needed = residentAssets(actors(this.controller.world).map(a=>a.id))
+    this.images = Object.fromEntries(Object.entries(this.images).filter(([key])=>needed.has(key)))
+    const keys = [...needed].sort().join('|')
+    if (keys !== this.assetKeys) { this.assetKeys = keys; this.assetRevision++ }
   }
   bundle() { return { character, animations, roster, scene, images: Object.fromEntries(Object.entries(this.images ?? {}).map(([k, v]) => [k, v.slice(0)])) } }
   private schedule() {
@@ -164,42 +311,96 @@ export class VillageRuntime {
     if (!this.ready || !this.frameReady || !this.controller || this.controller.pauseReasons.size) return
     const dt = this.last ? Math.min((now - this.last) / 1000, .1) : 0
     if (!this.last || dt >= 1 / 30) {
-      this.controller.advance(dt); if (this.controller.drag?.active) this.dragTime += dt
-      this.last = now; this.emit()
+      this.controller.advance(dt)
+      const settlement = settleTea(this.controller.world, scene)
+      if (settlement) void this.commitWorld(settlement)
+      if (this.controller.drag?.active) this.dragTime += dt
+      this.last = now; this.emit(false)
       if (this.controller.world.ticks - this.checkpoint >= 300) { this.checkpoint = this.controller.world.ticks; this.save() }
     }
     this.raf = requestAnimationFrame(this.tick)
   }
   save(): void {
-    if (!this.controller || !this.ready || this.error || this.recovering || this.lifetime.signal.aborted) return
+    if (!this.controller || !this.ready || this.error || this.recovering || this.criticalCandidate || (this.transaction.pending && !this.saving) || this.disposing || this.lifetime.signal.aborted) return
     this.dirty = true
     if (this.saving) return
     const generation = this.generation
-    this.saving = (async () => {
+    const work = (async () => {
       while (this.dirty && this.controller && generation === this.generation) {
         this.dirty = false
-        const operationId = crypto.randomUUID(), world = this.controller.snapshot()
-        this.pendingOperation = operationId
-        let saved: Saved
-        try { saved = await this.api<Saved>('save', { ...this.credentials(), expectedRevision: this.revision, operationId, world }) }
-        catch (e) {
-          if (generation !== this.generation) return
-          const observed = await this.api<State>('state').catch(() => null)
-          if (observed?.profileId !== this.profileId || observed.saved?.operationId !== operationId) throw e
-          saved = observed.saved
-        }
-        if (generation !== this.generation) return
-        this.revision = saved.revision; this.pendingOperation = null; this.emit()
+        const receipt = await this.persist(this.controller.snapshot(), generation)
+        if (receipt.status !== 'committed' || generation !== this.generation) { this.dirty = false; return }
       }
-    })().catch(e => { if (generation === this.generation) this.fail(e) }).finally(() => { this.saving = null })
+    })().catch(e => { if (generation === this.generation) this.fail(e) }).finally(() => { if (this.saving === work) this.saving = null })
+    this.saving = work
   }
-  async flush() { this.save(); await this.saving }
+  private async persist(world: ContentWorld, generation: number): Promise<SaveReceipt> {
+    const signal = this.attempt.signal
+    const pending = this.transaction.submit({ ...this.credentials(), profileId: this.profileId, expectedRevision: this.revision, operationId: crypto.randomUUID(), world }, {
+      write: data => this.api('save', data, signal), read: () => this.api<State>('state', undefined, signal),
+    })
+    this.emit()
+    const receipt = await pending
+    if (generation === this.generation) {
+      if (receipt.status === 'committed') this.revision = receipt.revision
+      else this.fail(Error(receipt.status === 'rejected' ? receipt.reason : 'SAVE_UNCONFIRMED'))
+      this.emit()
+    }
+    return receipt
+  }
+  async flush(): Promise<SaveReceipt> {
+    if (!this.saving) this.save()
+    while (this.saving) await this.saving
+    return this.saveReceipt
+  }
+  /** Atomic candidate publication for critical actions. The visible world changes only after confirmation. */
+  async commitWorld(value: unknown): Promise<SaveReceipt> {
+    if (!this.controller || !this.ready || this.error || this.recovering || this.criticalCandidate || (this.transaction.pending && !this.saving) || this.disposing)
+      return { status: 'rejected', operationId: crypto.randomUUID(), reason: 'NOT_READY' }
+    let candidate: ContentWorld
+    try { candidate = validateContentWorld(value, scene) }
+    catch { return { status: 'rejected', operationId: crypto.randomUUID(), reason: 'INVALID_WORLD' } }
+    const previous = this.saving, generation = this.generation
+    this.criticalCandidate = candidate; this.pause('commit-pending', true)
+    const work = (async () => {
+      await previous
+      if (generation !== this.generation || this.error || this.disposing) {
+        this.criticalCandidate = null; this.pause('commit-pending', false); return
+      }
+      await this.ensureAssets(candidate)
+      if (generation !== this.generation) return
+      const receipt = await this.persist(candidate, generation)
+      if (generation !== this.generation) return
+      if (receipt.status === 'committed') {
+        this.controller!.world = candidate; this.controller!.syncScene(); this.trimAssets(); this.criticalCandidate = null
+        if (candidate.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
+        // Synchronize pause state without creating a redundant checkpoint.
+        if (candidate.userPaused) this.controller!.pauseReasons.add('user'); else this.controller!.pauseReasons.delete('user')
+        this.pause('commit-pending', false)
+      } else if (receipt.status === 'rejected') { this.criticalCandidate = null; this.pause('commit-pending', false) }
+    })().catch(e => { if (generation === this.generation) this.fail(e) }).finally(() => { if (this.saving === work) this.saving = null })
+    this.saving = work
+    await work
+    return this.saveReceipt
+  }
   leavePage() {
     this.pause('closed', true)
-    if (this.lease) void this.request(prefix + 'release', { method: 'POST', credentials: 'same-origin', redirect: 'error', keepalive: true,
+    // Do not fence an in-flight publication. dispose waits; a terminated page's lease expires.
+    if (this.lease && !this.saving && !this.preferenceSaving && !this.album.busy) void this.request(prefix + 'release', { method: 'POST', credentials: 'same-origin', redirect: 'error', keepalive: true,
       headers: { 'content-type': 'application/json' }, body: JSON.stringify(this.credentials()) }).catch(() => {})
   }
   retry() { this.setConnection(this.connected, true) }
+  async recoverPreferences() {
+    if (!this.lease || !this.connected || this.recovering) return
+    this.recovering = true
+    try {
+      await this.preferenceSaving
+      const saved = await this.api<Saved<Preferences>>('preferences-recover', this.credentials())
+      this.preferences = validatePreferences(saved.world); this.preferenceRevision = saved.revision
+      this.preferenceTransaction.reset(); this.retry()
+    } catch { this.fail(Error('PREFERENCES_UNAVAILABLE')) }
+    finally { this.recovering = false }
+  }
   async recover() {
     if (!this.lease || !this.connected || this.recovering) return
     this.recovering = true
@@ -207,24 +408,29 @@ export class VillageRuntime {
     this.pause('ownership', true)
     try {
       await this.saving; this.dirty = false
-      const saved = await this.api<Saved>('recover', this.credentials())
+      const saved = await this.api<Saved<ContentWorld>>('recover', this.credentials())
       if (generation !== this.generation) return
-      this.controller = new WorldController(validateWorld(saved.world, scene), scene, () => this.save())
+      this.controller = new ContentController(validateContentWorld(saved.world, scene), scene, () => { if (!this.changingDraft) this.save() })
       if (saved.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
-      this.revision = saved.revision; this.pendingOperation = null; this.error = ''
+      this.revision = saved.revision; this.transaction.reset(); this.criticalCandidate = null; this.pause('commit-pending', false); this.error = ''
       for (const reason of this.reasons) this.controller.pause(reason, true)
-      if (!this.images) { this.retry(); return }
+      await this.ensureAssets(this.controller.world)
+      if (generation !== this.generation) return
+      this.trimAssets()
       this.pause('ownership', false); this.pause('disconnected', false); this.ready = true; this.emit()
     } catch (e) { if (generation === this.generation) this.fail(e) }
     finally { this.recovering = false }
   }
   async dispose() {
     if (this.lifetime.signal.aborted) return
+    this.disposing = true
     this.pause('closed', true); this.frameReady = false
     clearInterval(this.heartbeat)
     await this.saving
+    await this.preferenceSaving
+    await this.album.dispose()
     this.lifetime.abort(); this.attempt.abort(); await this.loading
     if (this.lease) await this.api('release', this.credentials(), AbortSignal.timeout(2000)).catch(() => {})
-    this.ready = false; this.images = undefined; this.listeners.clear()
+    this.ready = false; this.images = undefined; this.listeners.clear(); this.uiListeners.clear()
   }
 }

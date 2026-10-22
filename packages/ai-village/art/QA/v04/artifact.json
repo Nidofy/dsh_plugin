@@ -1,0 +1,11 @@
+{
+  "name": "@nidofy/dsh-ai-village",
+  "version": "0.4.0",
+  "file": "nidofy-dsh-ai-village-0.4.0.tgz",
+  "bytes": 28981449,
+  "sha256": "be551da119ab00594dd626a1a27757624e6c55e1ce18aa7dd20c67c8dc759390",
+  "files": 252,
+  "platform": "win32-x64",
+  "dsh": "0.2.1-rc.2",
+  "offline": true
+}

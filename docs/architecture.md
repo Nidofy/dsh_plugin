@@ -6,7 +6,13 @@
 
 Host 从 `ProfileContext.dir` 获取可信存档根，通过官方已认证 `connection/request` 提供固定资源及受限存档操作。跨进程 owner 锁、客户端租约/Host epoch、持久 profile 身份、CAS 与 operationId 防止重连和多窗口争写。渲染 iframe 不接触 Host API，资源由父页面校验后传入。固定源码及实际 Desktop `0.2.1-rc.2` 已通过验证，见 [阶段 5 记录](ai-village/PHASE5_RESULTS.md)。
 
-七个稳定角色 ID 使用 schemaVersion=3 世界模型，actor 表示选中角色，companions 保存其他在场成员。读取旧格式 1/2 时在内存迁移，格式 1 增加空 companions，旧持续活动获得有限时长；首次新保存写入格式 3，保留旧原件。各角色独立模拟，固定 ID 顺序消费随机数，选中角色变化不改变模拟顺序；家具独占，落点与行走避开其他人的脚下位置。每个角色拥有独立 rig，按脚下深度绘制和命中；移出角色释放 rig，纹理池仍为 130 张。公共场景复用家具，工作/吃饭的手臂和休息全身图按角色替换。自主行为保存家具实例/座位预留、路线和活动时钟；使用有限可见图绕过现有障碍。存档只回收明确标记的新周期快照，保留近期 32 份及恢复引用，清理失败不撤销已持久化保存。三个启动入口统一从 `shell.overlay` 挂载，再通过 React Portal 放到官方 `[data-conversation-header-corner]` 标记内、sidebar 按钮左侧。官方 corner 插槽为 single，保持原 sidebar owner 不变；适配器仅管理各自的 DOM 子节点，按 Git / Live2D / 小院排序，跟随新会话、已有会话的 header 重建迁移，卸载移除节点并断开观察。删除 hero/options 与 header/utilities 的重复入口。三个独立包保持相同的小型 header-launcher 适配器，不引入共享库的原生依赖；标记随 DSH 版本复验。
+0.5 的七个稳定角色 ID 使用 schemaVersion=5、sceneVersion=2、simulationRulesVersion=2、contentRevision=2 世界模型，actor 表示选中角色，companions 保存其他在场成员。schema 1–3 按冻结的历史场景迁移，schema 4 使用保留的解码器，继续保存已有茶会、手账和风铃；首次新保存保护旧指针和快照原字节，升级引用独立于近期普通快照保留窗口。各角色按固定 ID 顺序模拟，选择变化不影响随机数消费；家具独占，行走和落点避开其他居民。
+
+邻里事件在候选世界预留席位，按实际路径接近，确认完成后原子记录首次手账、共同经历和装饰奖励。三种布局、六类家具、三件装饰采用明确确认；预览可取消。主题、语言、减少动态和气泡设置使用独立 Preferences schema 1。浮卡、展开和拍照共用 owner 与 iframe；资源按在场成员准备，蓝鲸单人 32 张、其他单人 23 张、七人 128 张，新增道具和家具采用代码矢量。
+
+相册独立存储受限 PNG 与修订索引，校验格式、解压长度、hash、固定路径和文件链接。上传及删除使用 owner/CAS，回执不确定时只读对账，卸载等待在途事务。索引先发布再清理无引用托管图片，保留上一索引引用以支持恢复。拍照只冻结自己的暂停原因，输出实际渲染 PNG。实施、离线包、实际 Desktop 冷恢复和测量边界见 [0.5 验收记录](ai-village/V0_5_RESULTS_2026-10-22.md)；[0.4 记录](ai-village/V0_4_RESULTS_2026-10-22.md)作为历史基线保留。
+
+三个启动入口统一从 `shell.overlay` 挂载，再通过 React Portal 放到官方 `[data-conversation-header-corner]` 标记内、sidebar 按钮左侧。官方 corner 插槽为 single，保持原 sidebar owner 不变；适配器仅管理各自的 DOM 子节点，按 Git / Live2D / 小院排序，跟随新会话、已有会话的 header 重建迁移，卸载移除节点并断开观察。删除 hero/options 与 header/utilities 的重复入口。三个独立包保持相同的小型 header-launcher 适配器，不引入共享库的原生依赖；标记随 DSH 版本复验。
 
 ## Live2D 浮动伙伴
 

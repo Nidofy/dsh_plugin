@@ -1,0 +1,422 @@
+[
+  {
+    "pair": [
+      "bluewhale",
+      "claude"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 203
+  },
+  {
+    "pair": [
+      "bluewhale",
+      "gemini"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 425
+  },
+  {
+    "pair": [
+      "bluewhale",
+      "gpt"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 246
+  },
+  {
+    "pair": [
+      "bluewhale",
+      "grok"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 175
+  },
+  {
+    "pair": [
+      "bluewhale",
+      "kimi"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 178
+  },
+  {
+    "pair": [
+      "bluewhale",
+      "qwen"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 197
+  },
+  {
+    "pair": [
+      "claude",
+      "bluewhale"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 69
+  },
+  {
+    "pair": [
+      "claude",
+      "gemini"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 616
+  },
+  {
+    "pair": [
+      "claude",
+      "gpt"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 467
+  },
+  {
+    "pair": [
+      "claude",
+      "grok"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 416
+  },
+  {
+    "pair": [
+      "claude",
+      "kimi"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 179
+  },
+  {
+    "pair": [
+      "claude",
+      "qwen"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 197
+  },
+  {
+    "pair": [
+      "gemini",
+      "bluewhale"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 524
+  },
+  {
+    "pair": [
+      "gemini",
+      "claude"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 279
+  },
+  {
+    "pair": [
+      "gemini",
+      "gpt"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 246
+  },
+  {
+    "pair": [
+      "gemini",
+      "grok"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 175
+  },
+  {
+    "pair": [
+      "gemini",
+      "kimi"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 184
+  },
+  {
+    "pair": [
+      "gemini",
+      "qwen"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 279
+  },
+  {
+    "pair": [
+      "gpt",
+      "bluewhale"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 405
+  },
+  {
+    "pair": [
+      "gpt",
+      "claude"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 160
+  },
+  {
+    "pair": [
+      "gpt",
+      "gemini"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 160
+  },
+  {
+    "pair": [
+      "gpt",
+      "grok"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 160
+  },
+  {
+    "pair": [
+      "gpt",
+      "kimi"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 160
+  },
+  {
+    "pair": [
+      "gpt",
+      "qwen"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 160
+  },
+  {
+    "pair": [
+      "grok",
+      "bluewhale"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 423
+  },
+  {
+    "pair": [
+      "grok",
+      "claude"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 185
+  },
+  {
+    "pair": [
+      "grok",
+      "gemini"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 185
+  },
+  {
+    "pair": [
+      "grok",
+      "gpt"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 76
+  },
+  {
+    "pair": [
+      "grok",
+      "kimi"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 184
+  },
+  {
+    "pair": [
+      "grok",
+      "qwen"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 185
+  },
+  {
+    "pair": [
+      "kimi",
+      "bluewhale"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 366
+  },
+  {
+    "pair": [
+      "kimi",
+      "claude"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 366
+  },
+  {
+    "pair": [
+      "kimi",
+      "gemini"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 425
+  },
+  {
+    "pair": [
+      "kimi",
+      "gpt"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 246
+  },
+  {
+    "pair": [
+      "kimi",
+      "grok"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 175
+  },
+  {
+    "pair": [
+      "kimi",
+      "qwen"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 117
+  },
+  {
+    "pair": [
+      "qwen",
+      "bluewhale"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 389
+  },
+  {
+    "pair": [
+      "qwen",
+      "claude"
+    ],
+    "accepted": true,
+    "stage": "completed",
+    "reason": "",
+    "ticks": 389
+  },
+  {
+    "pair": [
+      "qwen",
+      "gemini"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 425
+  },
+  {
+    "pair": [
+      "qwen",
+      "gpt"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 246
+  },
+  {
+    "pair": [
+      "qwen",
+      "grok"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 175
+  },
+  {
+    "pair": [
+      "qwen",
+      "kimi"
+    ],
+    "accepted": true,
+    "stage": "cancelled",
+    "reason": "blocked",
+    "ticks": 148
+  }
+]

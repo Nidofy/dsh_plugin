@@ -62,7 +62,7 @@ it('freezes held activity time, preserves a cancelled drag, and releases a succe
   expect(c.world.actor.remaining).toBe(before); expect(() => c.snapshot()).not.toThrow()
   c.cancelDrag(); expect(c.world.actor.behavior).toBe('work')
   c.pointer({ type: 'down', id: 3, point: h.anchor, css: h.anchor })
-  c.pointer({ type: 'up', id: 3, point: scene.spawn, css: scene.spawn })
+  c.pointer({ type: 'up', id: 3, point: { x: 180, y: 425 }, css: { x: 180, y: 425 } })
   expect(c.world.actor.intent).toBeNull()
 })
 

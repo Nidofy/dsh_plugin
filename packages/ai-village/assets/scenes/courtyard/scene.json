@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "courtyard",
-  "version": 1,
+  "version": 2,
   "size": [
     360,
     480
@@ -20,19 +20,21 @@
       "height": 27
     },
     {
-      "x": 204,
-      "y": 290,
-      "width": 124,
+      "x": 115,
+      "y": 381,
+      "width": 220,
       "height": 27
     }
   ],
   "spawn": {
-    "x": 173,
-    "y": 365
+    "x": 174,
+    "y": 340
   },
   "hotspots": [
     {
       "id": "work",
+      "activity": "work",
+      "seat": "main",
       "hit": {
         "x": 46,
         "y": 225,
@@ -46,28 +48,47 @@
     },
     {
       "id": "eat",
+      "activity": "eat",
+      "seat": "left",
       "hit": {
-        "x": 212,
-        "y": 225,
-        "width": 112,
+        "x": 123,
+        "y": 316,
+        "width": 100,
         "height": 64
       },
       "anchor": {
-        "x": 268,
-        "y": 283
+        "x": 175,
+        "y": 374
+      }
+    },
+    {
+      "id": "eat",
+      "activity": "eat",
+      "seat": "right",
+      "hit": {
+        "x": 225,
+        "y": 316,
+        "width": 102,
+        "height": 64
+      },
+      "anchor": {
+        "x": 273,
+        "y": 374
       }
     },
     {
       "id": "rest",
+      "activity": "rest",
+      "seat": "main",
       "hit": {
         "x": 233,
-        "y": 370,
+        "y": 211,
         "width": 90,
-        "height": 55
+        "height": 44
       },
       "anchor": {
         "x": 274,
-        "y": 411
+        "y": 245
       }
     }
   ],
@@ -87,18 +108,42 @@
       "id": "eat",
       "asset": "table",
       "rect": {
-        "x": 212,
-        "y": 239,
-        "width": 112,
+        "x": 123,
+        "y": 330,
+        "width": 204,
         "height": 68
       },
-      "split": 0.09976798143851508
+      "split": 0.1
     }
   ],
   "cushion": {
     "x": 235,
-    "y": 385,
+    "y": 219,
     "width": 78,
     "height": 44
-  }
+  },
+  "seatProps": [
+    {
+      "furnitureId": "eat",
+      "seat": "left",
+      "asset": "scene/bowl.png",
+      "rect": {
+        "x": 184,
+        "y": 332,
+        "width": 22,
+        "height": 17
+      }
+    },
+    {
+      "furnitureId": "eat",
+      "seat": "right",
+      "asset": "scene/bowl.png",
+      "rect": {
+        "x": 282,
+        "y": 332,
+        "width": 22,
+        "height": 17
+      }
+    }
+  ]
 }

@@ -1,0 +1,45 @@
+{
+  "checks": [
+    "user pause freezes simulation",
+    "compact/expanded preserve iframe, world and chat draft; light/dark and Chinese/English",
+    "two residents walk to distinct seats, converse, unlock one journal and chime",
+    "three slot drafts; Escape discards; confirmation updates memory and shows reaction",
+    "reload intentionally resets sample; no outbound requests or browser errors"
+  ],
+  "errors": [],
+  "external": [],
+  "metrics": {
+    "frames": 183,
+    "actors": 7,
+    "textures": 130,
+    "tickerStarted": false,
+    "viewport": {
+      "world": {
+        "scale": 1.1333333333333333,
+        "x": 0,
+        "y": 0
+      },
+      "background": {
+        "x": 0,
+        "y": 0,
+        "width": 408,
+        "height": 544
+      }
+    },
+    "paused": false,
+    "meanPaintMs": 1.1770491769405012,
+    "maxPaintMs": 117.5
+  },
+  "pairProbe": {
+    "total": 42,
+    "completed": 11,
+    "blocked": 31
+  },
+  "limitations": [
+    "memory only",
+    "layout harness, not Desktop acceptance",
+    "provisional art",
+    "software WebGL timing, not GPU benchmark",
+    "crowded pair navigation is not yet release-ready"
+  ]
+}

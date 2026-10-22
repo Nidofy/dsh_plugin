@@ -1,16 +1,16 @@
 import { actors, available, hitActor, placement, step, validateWorld, walkable, seatAvailable } from './world.ts'
-import type { Point, Scene, World } from './world.ts'
+import type { Point, Scene, World, SimulationWorld } from './world.ts'
 import { isCharacterId } from './roster.ts'
-export type PauseReason = 'user' | 'hidden' | 'closed' | 'disconnected' | 'ownership' | 'sidebar' | 'other-panel' | 'insufficient-space'
+export type PauseReason = 'user' | 'hidden' | 'closed' | 'disconnected' | 'ownership' | 'sidebar' | 'other-panel' | 'insufficient-space' | 'commit-pending' | 'photo' | 'assets'
 export interface PointerIntent { type: 'down' | 'move' | 'up' | 'cancel'; id: number; point: Point; css: Point }
 interface Drag { id: number; origin: Point; offset: Point; position: Point; active: boolean }
 /** State owner survives iframe disposal. Dragging is a draft, never a saved world state. */
-export class WorldController {
+export class WorldController<W extends SimulationWorld = World> {
   readonly pauseReasons = new Set<PauseReason>()
   drag: Drag | null = null
   accumulator = 0
   lastPlacement: 'accepted' | 'rejected' | 'cancelled' | null = null
-  constructor(public world: World, readonly scene: Scene, readonly changed: () => void) {
+  constructor(public world: W, public scene: Scene, readonly changed: () => void) {
     if (world.userPaused) this.pauseReasons.add('user')
   }
   pause(reason: PauseReason, active: boolean): void {
@@ -88,7 +88,9 @@ export class WorldController {
       behavior: result.activity ?? 'put_down', phase: 0, remaining: result.activity ? 45 : .55, destination: null,
       intent: result.hotspot && result.activity ? { furnitureId: result.hotspot.id, seat: result.hotspot.seat ?? 'main', activity: result.activity,
         stage: 'use', route: [], expires: this.world.ticks + 1800 } : null })
+    this.placed()
     this.changed()
   }
-  snapshot(): World { return validateWorld(this.world, this.scene) }
+  protected placed(): void {}
+  snapshot(): W { return validateWorld(this.world, this.scene) as W }
 }

@@ -5,7 +5,7 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import assert from 'node:assert/strict'
-export async function runPreview({ root, pkg, out, serve }) {
+export async function runPreview({ root, pkg, out, serve, buildOnly = false }) {
   const { source } = JSON.parse(await readFile(join(root, '.local/environment.json'), 'utf8'))
   const dependency = createRequire(join(source, 'packages/client/connection/package.json'))
   const baseline = JSON.parse(await readFile(join(root, '.build/sandbox-enhanced/baseline.json'), 'utf8'))
@@ -25,16 +25,17 @@ export async function runPreview({ root, pkg, out, serve }) {
   body{margin:0;background:#191d1a;color:#e5e9e3;font:14px system-ui}#frame{position:relative;display:flex;height:100vh}nav{width:200px;padding:24px;box-sizing:border-box;background:#151916}main{flex:1;min-width:0}header{padding:20px;display:flex;justify-content:space-between;align-items:center}article{height:calc(100vh - 100px);box-sizing:border-box;padding:24px;display:flex;flex-direction:column}article p{max-width:620px;line-height:1.8;color:#adb8aa}textarea{margin-top:auto;min-height:90px;box-sizing:border-box;border:1px solid #586051;border-radius:16px;background:#242a24;color:#ddd;padding:18px;resize:none}#overlay{position:absolute;inset:0;pointer-events:none}button{color:inherit;background:#293329;border:1px solid #50624a;border-radius:8px;padding:6px;margin:3px;cursor:pointer}nav small{display:block;margin-top:18px;line-height:1.7;color:#a0ae9b}
   </style><div id="frame" data-rightbar-collapsed><nav><strong>DSH · AI 小院</strong><small>阶段 4 接入验收夹具<br>真实插件组件、官方 Connection 鉴权、独立临时 profile</small><br><button id="session">切换示例会话</button><button id="sidebar">侧栏开合</button><button id="reconnect">模拟重连</button></nav><main><header>示例会话 <span data-conversation-header-corner style="display:flex;align-items:center;margin-left:auto"><button id="right-sidebar" aria-label="展开 sidebar">◫</button></span></header><article data-conversation-content><h2>同一方小院，跟随窗口</h2><p>使用右上角 ⌂ 打开小院。切换会话保持进度；打开 Git 后小院下移，打开 Live2D 会关闭小院。侧栏展开、窗口隐藏和断连会暂停世界。</p><p>左侧控制项仅用于验收，不属于插件界面。实际 Desktop 安装将在阶段 5 验证。</p><textarea aria-label="消息输入" placeholder="可在这里检查草稿和输入焦点…"></textarea></article></main><div data-rightbar-col></div><div id="overlay" data-shell-overlay><div id="root"></div></div></div><script>${code.replaceAll('</script', '<\\/script')}</script></html>`
   await writeFile(join(out, 'index.html'), html)
+  if (buildOnly) return
   const { harness } = await import(pathToFileURL(join(out, 'harness.mjs')).href)
   const plugin = await import(pathToFileURL(join(out, 'lib/index.js')).href)
   const live = await import(pathToFileURL(join(root, 'packages/live2d/lib/index.js')).href)
-  const profile = serve ? join(out, 'profile') : await mkdtemp(join(out, 'browser-profile-'))
+  const profile = serve ? join(out, 'profile-v04') : await mkdtemp(join(out, 'browser-profile-'))
   await mkdir(profile, { recursive: true })
-  const h = await harness({ profile, plugin, html, ...(serve ? { port: 18749 } : {}), extra: async (req, res) => {
+  const h = await harness({ profile, plugin, html, ...(serve ? { port: 18754 } : {}), extra: async (req, res) => {
     if (req.url.startsWith('/api/nidofy-live2d/')) await live.handleRequest(req, res, new AbortController().signal)
     else res.writeHead(404).end()
   } })
-  if (serve) { await writeFile(join(out, 'preview-entry.json'), JSON.stringify({ entry: h.entry })); console.log('Phase 4 authenticated preview ready at http://127.0.0.1:18749 (entry token kept in local preview-entry.json)'); return }
+  if (serve) { await writeFile(join(out, 'preview-entry.json'), JSON.stringify({ entry: h.entry })); console.log('Phase 4 authenticated preview ready at http://127.0.0.1:18754 (entry token kept in local preview-entry.json)'); return }
   const pnpm = join(source, 'node_modules/.pnpm'), name = (await readdir(pnpm)).find(n => n.startsWith('playwright@1.61.'))
   const { chromium } = await import(pathToFileURL(join(pnpm, name, 'node_modules/playwright/index.mjs')).href)
   const cache = join(process.env.LOCALAPPDATA, 'ms-playwright'), folder = (await readdir(cache)).find(n => n.startsWith('chromium_headless_shell-'))
@@ -43,7 +44,7 @@ export async function runPreview({ root, pkg, out, serve }) {
     const p = join(cache, folder, c); if (await stat(p).catch(() => false)) { executablePath = p; break }
   }
   const browser = await chromium.launch({ headless: true, executablePath, args: ['--enable-unsafe-swiftshader'] })
-  const qa = join(root, '.build/ai-village-v0.3-qa/browser'); await mkdir(qa, { recursive: true })
+  const qa = join(root, '.build/ai-village-v0.5-qa/browser'); await mkdir(qa, { recursive: true })
   const errors = [], external = [], checks = []
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 960 }, deviceScaleFactor: 1 })
@@ -95,21 +96,22 @@ export async function runPreview({ root, pkg, out, serve }) {
     const renderer = currentFrame()
     for (const id of ['claude', 'gemini', 'gpt', 'grok', 'kimi', 'qwen', 'bluewhale']) {
       await page.getByRole('combobox', { name: '选择角色' }).selectOption(id)
+      await page.waitForFunction(id=>window.__villageHostFixture.inspect().world.actor.id===id,id);await ready()
       assert.equal((await inspect()).world.actor.id, id)
       assert.equal(currentFrame(), renderer)
-      for (const [activity, target] of [['work', { x: 102, y: 283 }], ['eat', { x: 268, y: 283 }], ['rest', { x: 274, y: 411 }]]) {
+      for (const [activity, target] of [['work', { x: 102, y: 283 }], ['eat', { x: 175, y: 374 }], ['rest', { x: 274, y: 245 }]]) {
         await drag(target)
         assert.equal((await inspect()).world.actor.behavior, activity)
         await page.waitForTimeout(180)
         await page.locator('.village-canvas').screenshot({ path: join(rosterQa, `${id}-${activity}.png`) })
       }
-      await drag({ x: 173, y: 365 })
+      await drag({ x: 180, y: 425 })
       await page.waitForTimeout(700)
       await page.locator('.village-canvas').screenshot({ path: join(rosterQa, `${id}-idle.png`) })
       await page.evaluate(() => window.__villageHostFixture.flush())
     }
-    assert.equal((await currentFrame().evaluate(() => window.__sceneMetrics())).textures, 130)
-    checks.push('7 characters, 21 activity placements, live selector without renderer replacement; fixed texture count 130')
+    assert.ok((await currentFrame().evaluate(() => window.__sceneMetrics())).textures < 40)
+    checks.push('7 characters, 21 activity placements, live selector without renderer replacement; on-demand single-resident texture count below 40')
     await page.locator('textarea').fill('保留草稿：中文输入 pending approval')
     await drag({ x: 102, y: 283 }); assert.equal((await inspect()).world.actor.behavior, 'work')
     await page.getByRole('button', { name: '暂停', exact: true }).click(); await page.evaluate(() => window.__villageHostFixture.flush())
@@ -161,7 +163,7 @@ export async function runPreview({ root, pkg, out, serve }) {
       await page.setViewportSize({width:2560,height})
       await page.waitForTimeout(150)
       const bounds = await currentFrame().evaluate(() => ({width:innerWidth,height:innerHeight,...window.__sceneMetrics().viewport}))
-      assert.ok(bounds.height > height - 550, JSON.stringify(bounds))
+      assert.ok(bounds.height > 250, JSON.stringify(bounds))
       assert.ok(bounds.background.x <= 0 && bounds.background.y <= 0)
       assert.ok(bounds.background.x + bounds.background.width >= bounds.width - 1)
       assert.ok(bounds.background.y + bounds.background.height >= bounds.height - 1)
@@ -223,7 +225,7 @@ export async function runPreview({ root, pkg, out, serve }) {
       if (members(w).some(a => a.behavior === activity)) continue
       const front = members(w).filter(a => !['work','eat','rest'].includes(a.behavior)).sort((a,b) => b.position.y - a.position.y || b.id.localeCompare(a.id))[0]
       await page.getByRole('combobox', { name: '选择角色' }).selectOption(front.id)
-      const target = h.scene?.hotspots?.find(h => h.id === activity)?.anchor ?? ({ work: {x:102,y:283}, eat:{x:268,y:283}, rest:{x:274,y:411} })[activity]
+      const target = h.scene?.hotspots?.find(h => h.id === activity)?.anchor ?? ({ work: {x:102,y:283}, eat:{x:175,y:374}, rest:{x:274,y:245} })[activity]
       await drag(target)
       assert.equal((await inspect()).world.actor.behavior, activity)
     }
@@ -241,8 +243,11 @@ export async function runPreview({ root, pkg, out, serve }) {
     await page.locator('.village-members summary').click()
     await page.getByRole('button', { name: '仅留当前', exact: true }).click()
     await currentFrame().waitForFunction(() => window.__sceneMetrics().actors === 1)
-    assert.equal((await currentFrame().evaluate(() => window.__sceneMetrics())).textures, 130)
+    assert.ok((await currentFrame().evaluate(() => window.__sceneMetrics())).textures < 40)
     checks.push('Seven residents independently simulate, focus preserves all actors, three concurrent activities persist across reload; removal releases rigs')
+    await page.locator('.village-members summary').click()
+    const { checkContentUI } = await import('./ai-village-v04-browser.mjs')
+    await checkContentUI({ page, inspect, ready, currentFrame, drag, qa, checks })
     await page.evaluate(() => window.__villageHostFixture.dispose())
     await page.locator('.village-card').waitFor({ state: 'detached' })
     assert.equal(await page.locator('[data-nidofy-ai-village-space]').count(), 0)

@@ -1,58 +1,51 @@
-启动入口统一位于右上角 sidebar 展开按钮左侧，顺序为 Git → Live2D → AI 小院；新会话与已有会话保持一致。此修改仅更新源码与本地构建，未重新制作离线包。
+# AI 小院 · 0.5.0
 
-# AI 小院 · 0.3.2
+七位居民共享一方离线小院。0.5「邻里小日常」增加个人小事、长椅小剧场、共同经历、预置布局、装饰和真实照片相册，延续同一个世界上的浮卡与展开界面。
 
-新增本地自主生活：预留家具、绕行到位、限时活动、结束释放与角色偏好。世界格式 3 保存活动意图，读取格式 1/2 时保留原快照。新周期快照保留最近 32 份及恢复所需文件，旧版或身份不明文件不会自动回收。旧版插件不能读取格式 3。当前验证及边界见 [本轮发行](../../docs/releases/notebook-village-2026-10-21.md)。
+## 开始游玩
 
-七位 Q 版伙伴：DeepSeek、Claude、Gemini、GPT、Grok、Kimi、千问。沿用已批准的 DeepSeek 画风，每位都有四种表情、待机、行走、抓起、拖动、放下，以及书桌工作、餐桌吃饭、坐垫休息。展开“在场伙伴”可逐个选择或全员入住，支持同场 1–7 位角色独立活动。单人时下拉框更换角色，多人时选择在场角色；选择不会重置各自位置与动作进度。拖动任一角色时其他伙伴继续活动，家具位置一次供一人使用。
+1. 在 DSH Plugins → Add plugin 中选择本地 `dist/nidofy-dsh-ai-village-0.5.0.tgz`，安装启用后完整重启 DSH。验证基线为官方 DSH 0.2.1-rc.2、Windows x64，运行依赖离线内嵌。
+2. 点击右上角 **⌂**。“居民”中选择伙伴，打招呼、舒展、记灵感、整理书桌、读书、浇水、听风或看天空。七人各有 12 条情境台词及微动作。
+3. “心愿”提供首次同桌和另外五条不限时心愿。邀请两位居民喝茶／吃饭，或在长椅聊天、分享书页、交流花草、交换点子、安静陪伴。双方真实到齐后才开始；共同经历累积为初次相聚、一起活动、熟悉，不因离线下降。
+4. “布置”提供午后小院、阅读角落、花草角落三个预置布局。六类目录是书桌、餐桌、坐垫、长椅、书架、盆栽；每个布局同时使用四类家具、六个活动位。阅读角落支持读书／分享书页，花草角落支持照料／交流花草。
+5. 首次同桌发现风铃，分享书页发现纸灯笼，照料盆栽发现花叶挂饰。三个装饰均可选择挂点或收起，预览可取消，保存成功后才生效。布局更换会释放被替换家具上的普通活动；剧情中需先结束或取消活动。
+6. “手账”最多记录 12 类首次回忆。重玩保留首次参与者和日期，只累计次数；不刷货币、不重复发装饰。界面支持中英文、主题、减少动态与气泡设置。
+7. 顶部 **▣** 进入拍照：暂停世界、隐藏场景气泡和选择标记，支持 1–1.5 倍有限取景、重置、日期和边框。拍摄后预览真实 720×960 PNG，可直接导出或保存到本地相册；退出只移除拍照暂停原因。
 
-已进入全仓库 typecheck/build/pack/smoke 流程。历史单人版本的官方 Desktop 安装与生命周期验收见 [阶段 5 记录](../../docs/ai-village/PHASE5_RESULTS.md)，不能代替本版多人验收；本版结果以上方发行记录为准。包仍为 `private: true`，通过本地 tgz 安装，不发布 npm。
+相册最多 20 张、总计 40 MiB，单张 PNG 不超过 4 MiB。相册在手账页，可导出和确认删除。删除照片不删除剧情或解锁；上一成功相册修订引用的文件会暂时保留，后续写入清理无引用文件。照片不发送到主聊天或网络，不在世界 JSON 中保存图像。
 
-## 安装
+座位或路线被占用时会明确拒绝邀请，可先挪开居民。主要事件至多一个，抵达期限 36 秒模拟时间；拖动暂挂，取消或无效落点继续，有效离席取消。活动间有短暂冷却，避免连点刷屏。没有强制照顾、每日清零或离线推进。
 
-1. 在 DSH 的 Plugins → Add plugin 中输入 `dist/nidofy-dsh-ai-village-0.3.1.tgz` 的完整本地路径，安装并启用。Windows x64 包内嵌原生依赖，无需联网下载或运行依赖安装脚本。
-2. 在右上角 sidebar 按钮左侧点击 **⌂ / 打开 AI 小院**。使用角色选择框切换伙伴；拖到左侧书桌、右侧餐桌或右下坐垫触发对应动作，拖回地面恢复漫步。
-3. Git/Hg 请配套更新 `dist/nidofy-dsh-source-control-0.1.3.tgz`。Git 与小院可同时打开，Git 按内容展开、小院使用下方剩余高度，共用一列对话留白；关闭 Git 后小院恢复完整高度。小院与 Live2D 互斥，显式打开后者会关闭前者。它们不是小院的运行依赖。替换更新包后完整退出并重启 DSH。
+关闭、隐藏、sidebar、断连和空间不足时暂停；聊天切换不创建新世界。↗／↙ 切换布局，Esc 先处理当前拖动或编辑草稿。主聊天输入和草稿独立保留。
 
-0.2.0 自动读取旧版单人存档，首次保存转为世界格式 2，保留旧的不可变快照；多人名单、各自位置、动作和暂停状态一起保存。旧版 0.1.0 无法读取格式 2，请使用更新版继续游戏。更新的回归和安装结果见 [0.2 记录](../../docs/ai-village/V0_2_RESULTS.md)。
+## 存档和资源
 
-暂停/继续与所选角色会保存。Esc 取消当前拖动；侧栏展开、窗口隐藏或关闭卡片会暂停，切换聊天不会创建新世界。所有资源随包离线提供，不需要模型 API key。存档位于当前 `<profile.dir>/nidofy-ai-village/`；停用和卸载插件保留存档，异常存档不会自动重置。
+正式世界使用 schema 5、scene 2、规则 2、内容 2；布局属于有界目录，frame protocol 2 增加受 token/序列保护的资源更新和照片消息。历史 schema 1/2/3/4 按对应旧定义读取，迁移时保留已有茶会、首篇手账和风铃；首次新格式保存保护升级前指针和原始字节。旧插件不能读取 schema 5，请勿直接降级覆盖新档。
 
-- [六位新增角色总览](art/QA/roster/assembled-contact.png)、[场景动作总览](art/QA/roster/activity-contact.png)
-- [官方 Desktop 截图](art/QA/phase5/desktop-courtyard.png)、[进程恢复截图](art/QA/phase5/desktop-restarted.png)
-- [实际安装验证](art/QA/phase5/validation.json)、[恢复结果](art/QA/phase5/restart-validation.json)、[本机性能样本](art/QA/phase5/performance.json)
-- [美术资源记录](../../docs/ai-village/ROSTER_ASSETS.md)、[完整生成提示词](art/prompts/roster-generation-record.json)
+世界仍在 `<profile.dir>/nidofy-ai-village/`，显示设置在 `preferences/nidofy-ai-village/`；相册在 `album/`，独立有界索引在其 `nidofy-ai-village/` 下。邀请、完成、心愿、关系、奖励和布局经同一世界 CAS 提交。结果不确定时只读核对，不自动重放写入；坏档保留原件，不自动重置。卸载不删除数据。
 
-## 构建和回归
+Host 按请求校验并读取固定白名单资源；客户端与 frame 按在场居民加载、释放图像，入场前完成准备。单蓝鲸 32 张纹理、其他单人 23 张、七人 128 张；两个未使用的整件家具贴图不进入运行纹理。新增家具、茶杯、书本、水壶和装饰使用代码矢量图形，复用批准的角色资产。无需 API key 或联网模型，无音频、自由网格装修或多场景入口。
+
+## 构建和验收
 
 ```powershell
 node scripts/ai-village-phase4.mjs check
-node scripts/ai-village-companions.mjs
+node scripts/ai-village-v05-browser.mjs
+node scripts/ai-village-v05-performance.mjs
 npm run typecheck
-npm run build
-npm run pack
-npm run smoke:packed
+npm run village:build
+node scripts/pack.mjs --only=ai-village
+node scripts/smoke-packed.mjs --exclude-sandbox
+node scripts/offline-install-check.mjs --exclude-sandbox
 ```
 
-`dist/manifest.json` 包含包大小及 SHA-256。真实安装验收脚本为 `scripts/ai-village-desktop-acceptance.mjs`，仅连接专用测试 Desktop 的本机 CDP 18751；准备方式见阶段 5 记录，不能对日常 profile 执行。
+本地鉴权预览仍使用 `node scripts/ai-village-phase4.mjs serve`，端口 18754；入口 token 保存在忽略的 `.build/ai-village-phase4/preview-entry.json`，不要提交或转发。0.5 Desktop 脚本只使用专用 `.build/ai-village-v0.5-desktop` 与本机 CDP 18757，不指向日常 DSH_HOME。
 
-## 阶段 4：接入预览
+- [0.5 范围与实施顺序](../../docs/ai-village/V05_IMPLEMENTATION_PLAN_2026-10-22.md)
+- [0.5 实施与验收记录](../../docs/ai-village/V0_5_RESULTS_2026-10-22.md)
+- [0.4 历史交付](../../docs/ai-village/V0_4_RESULTS_2026-10-22.md)、[综合实施计划](../../docs/ai-village/CONTENT_UI_IMPLEMENTATION_PLAN_2026-10-21.md)
 
-```powershell
-node scripts/ai-village-phase4.mjs serve
-```
-
-`check` 包含固定官方 `0.2.1-rc.2` 接口类型检查、真实 Cordis / Connection 鉴权回归、三个插件的实际客户端组件浏览器测试、候选归档与解包检查。浏览器 fixture 仅替代 DSH 页面布局和会话数据，使用真实 Host 插件及官方认证实现。
-
-`serve` 在 `127.0.0.1:18749` 启动验证页，认证入口保存在忽略的 `.build/ai-village-phase4/preview-entry.json`。用其中 `entry` URL 首次打开，官方 Connection 会签发本机 cookie 并重定向到干净地址。不要提交或转发该临时入口文件。
-
-- [接入页面截图](art/QA/phase4/integrated-courtyard.png)
-- [浏览器验证结果](art/QA/phase4/validation.json)
-- [完整阶段 4 记录与未覆盖项](../../docs/ai-village/PHASE4_RESULTS.md)
-
-实际 Host 入口只使用可信的 `ctx.profileContext.dir`，存档位于其 `nidofy-ai-village/` 子目录。验证页使用 `.build/ai-village-phase4/profile`，不会修改当前 DSH_HOME；不会自动迁移阶段 3 的预览进度。
-
-`.build/ai-village-phase4/phase4-integration.tgz` 是接入测试归档；正式交付使用 `dist/` 的 0.2.1 安装包。Koffi 3.1.1 是外部运行依赖，DSH/React 为宿主 peer。以下阶段 1–3 记录保留当时的技术试验与预览命令，其阶段性限制以最新结果为准。
+Git/Hg 与小院上下共存，Live2D 与小院互斥。以下阶段 1–3 以及旧 M0/M1 样板仅保留历史用途，其版本、坐标和限制不代表 0.5。
 
 ## 阶段 3：可玩小院
 

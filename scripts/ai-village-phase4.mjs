@@ -21,6 +21,8 @@ const paths = Object.fromEntries(Object.entries(official).map(([k, v]) => [k, v.
 paths['@nidofy/dsh-plugin-shared/durable-file'] = [join(root, 'packages/plugin-shared/src/durable-file.ts')]
 paths['use-sync-external-store/shim/with-selector'] = [join(root, '.build/live2d-official-deps/node_modules/@types/use-sync-external-store/shim/with-selector.d.ts')]
 const sources = (await readdir(join(pkg, 'src'), { recursive: true })).filter(n => /\.tsx?$/.test(n)).map(n => join(pkg, 'src', n))
+// Keep the isolated content study under the same strict compiler settings as production.
+sources.push(...(await readdir(join(pkg, 'experiments/content-ui'))).filter(n => /\.tsx?$/.test(n)).map(n => join(pkg, 'experiments/content-ui', n)))
 const options = ts.convertCompilerOptionsFromJson({ target: 'ES2024', module: 'ESNext', moduleResolution: 'bundler', jsx: 'react-jsx',
   strict: true, noUncheckedIndexedAccess: true, exactOptionalPropertyTypes: true, skipLibCheck: true, noEmit: true, allowImportingTsExtensions: true, types: ['node'], paths }, root)
 const diagnostics = []

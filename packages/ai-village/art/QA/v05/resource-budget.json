@@ -1,0 +1,36 @@
+{
+  "measurements": {
+    "bluewhale": {
+      "residents": [
+        "bluewhale"
+      ],
+      "textures": 32,
+      "compressedBytes": 12796249,
+      "estimatedRgbaBytes": 36553564
+    },
+    "other": {
+      "residents": [
+        "claude"
+      ],
+      "textures": 23,
+      "compressedBytes": 6145080,
+      "estimatedRgbaBytes": 14018952
+    },
+    "seven": {
+      "residents": [
+        "bluewhale",
+        "claude",
+        "gemini",
+        "gpt",
+        "grok",
+        "kimi",
+        "qwen"
+      ],
+      "textures": 128,
+      "compressedBytes": 26854705,
+      "estimatedRgbaBytes": 67084640
+    }
+  },
+  "addedRasterBytes": 0,
+  "notes": "PNG dimensions × 4 estimates a single decoded RGBA copy; excludes renderer buffers, mipmaps, duplicated CPU/GPU allocations. New furniture, props and decorations use vector Graphics. All 130 reviewed assets remain in the offline archive; runtime selects at most 128."
+}

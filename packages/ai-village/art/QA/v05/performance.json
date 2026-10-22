@@ -1,0 +1,146 @@
+{
+  "sampledAt": "2026-10-21T20:12:49.861Z",
+  "sevenResidents": {
+    "seconds": 5.124,
+    "fps": 21.46760343481655,
+    "parentRafFps": 59.00919445477709,
+    "meanPaintMs": 1.4644627945482238,
+    "maxPaintMs": 66.09999990463257,
+    "textures": 128
+  },
+  "closedStopsWorld": true,
+  "scales": [
+    {
+      "dpr": 1,
+      "backingWidth": 552,
+      "cssWidth": 276,
+      "frames": 2,
+      "actors": 7,
+      "textures": 128,
+      "tickerStarted": false,
+      "viewport": {
+        "world": {
+          "scale": 0.7666666666666667,
+          "x": 0,
+          "y": 0.5
+        },
+        "background": {
+          "x": -0.375,
+          "y": 0,
+          "width": 276.75,
+          "height": 369
+        }
+      },
+      "paused": true,
+      "meanPaintMs": 54.59999990463257,
+      "maxPaintMs": 107.89999985694885
+    },
+    {
+      "dpr": 1.25,
+      "backingWidth": 552,
+      "cssWidth": 276,
+      "frames": 2,
+      "actors": 7,
+      "textures": 128,
+      "tickerStarted": false,
+      "viewport": {
+        "world": {
+          "scale": 0.7666666666666667,
+          "x": 0,
+          "y": 0.5
+        },
+        "background": {
+          "x": -0.375,
+          "y": 0,
+          "width": 276.75,
+          "height": 369
+        }
+      },
+      "paused": true,
+      "meanPaintMs": 54.59999990463257,
+      "maxPaintMs": 107.89999985694885
+    },
+    {
+      "dpr": 1.5,
+      "backingWidth": 552,
+      "cssWidth": 276,
+      "frames": 2,
+      "actors": 7,
+      "textures": 128,
+      "tickerStarted": false,
+      "viewport": {
+        "world": {
+          "scale": 0.7666666666666667,
+          "x": 0,
+          "y": 0.5
+        },
+        "background": {
+          "x": -0.375,
+          "y": 0,
+          "width": 276.75,
+          "height": 369
+        }
+      },
+      "paused": true,
+      "meanPaintMs": 54.59999990463257,
+      "maxPaintMs": 107.89999985694885
+    },
+    {
+      "dpr": 2,
+      "backingWidth": 552,
+      "cssWidth": 276,
+      "frames": 2,
+      "actors": 7,
+      "textures": 128,
+      "tickerStarted": false,
+      "viewport": {
+        "world": {
+          "scale": 0.7666666666666667,
+          "x": 0,
+          "y": 0.5
+        },
+        "background": {
+          "x": -0.375,
+          "y": 0,
+          "width": 276.75,
+          "height": 369
+        }
+      },
+      "paused": true,
+      "meanPaintMs": 54.59999990463257,
+      "maxPaintMs": 107.89999985694885
+    }
+  ],
+  "layouts": [
+    {
+      "card": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 620
+      },
+      "scene": {
+        "x": 1157.3125,
+        "y": 226.5,
+        "width": 201.375,
+        "height": 268.5
+      }
+    },
+    {
+      "card": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 440
+      },
+      "scene": {
+        "x": 1187.5,
+        "y": 167,
+        "width": 141,
+        "height": 188
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": "Chromium headless with SwiftShader; 5-second animation sample. DPR is browser emulation, not Windows system-scale changes. Paint timing is JavaScript render submission, not GPU completion. No cross-device or long-duration GPU claim."
+}

@@ -1,6 +1,6 @@
 /** DSH 0.2.1 shared rail protocol: Git grows with content; companions use the remaining space. */
 export interface FloatingGeometry { left: number; top: number; height: number; stacked?: boolean }
-export function attachFloatingLayout(anchor: HTMLElement, publish: (geometry: FloatingGeometry | null) => void): () => void {
+export function attachFloatingLayout(anchor: HTMLElement, publish: (geometry: FloatingGeometry | null) => void, expanded = false): () => void {
   const layer = anchor.closest<HTMLElement>('[data-shell-overlay]'), frame = layer?.parentElement
   if (!layer || !frame) { publish(null); return () => {} }
   let marked: HTMLElement | null = null, previous = ''
@@ -18,12 +18,13 @@ export function attachFloatingLayout(anchor: HTMLElement, publish: (geometry: Fl
     for (const element of targets) if (!observed.has(element)) { resize.observe(element); observed.add(element) }
     const bounds = center?.getBoundingClientRect(), box = content?.getBoundingClientRect()
     const visible = frame.hasAttribute('data-rightbar-collapsed') && !frame.hasAttribute('data-rightbar-fullscreen')
-      && bounds && box && bounds.width >= 764 && box.height > 0
+      && bounds && box && (expanded ? innerWidth >= 640 && innerHeight >= 440 : bounds.width >= 764) && box.height > 0
     if (marked !== content || !visible) release()
     let geometry: FloatingGeometry | null = null
     if (visible && content) {
       marked = content
-      if (!content.hasAttribute('data-nidofy-ai-village-space')) content.setAttribute('data-nidofy-ai-village-space', '')
+      if (expanded) content.removeAttribute('data-nidofy-ai-village-space')
+      else if (!content.hasAttribute('data-nidofy-ai-village-space')) content.setAttribute('data-nidofy-ai-village-space', '')
       const origin = layer.getBoundingClientRect(), height = Math.max(0, box.height - 24), top = box.top - origin.top + 12
       const stacked = !!git && !!frame.querySelector('[data-nidofy-village-open],[data-nidofy-live2d-open]')
       const reserve = Math.min(600, height * .48), limit = Math.max(0, height - reserve - 12)

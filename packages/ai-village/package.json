@@ -1,8 +1,8 @@
 {
   "name": "@nidofy/dsh-ai-village",
-  "version": "0.3.2",
+  "version": "0.5.0",
   "private": true,
-  "description": "Offline AI Village with seven selectable chibi companions and persistent courtyard activities",
+  "description": "Offline AI courtyard with seven residents, shared tea, a persistent journal and wind chime decor",
   "type": "module",
   "license": "MIT",
   "engines": {

@@ -1,7 +1,7 @@
 import { isCharacterId, type CharacterId } from './roster.ts'
 export interface Point { x: number; y: number }
 export interface Rect { x: number; y: number; width: number; height: number }
-export type Activity = 'work' | 'eat' | 'rest'
+export type Activity = 'work' | 'eat' | 'rest' | 'sit' | 'read' | 'tend'
 export type Behavior = 'idle' | 'walk' | 'put_down' | Activity
 export interface Hotspot { id: string; activity?: Activity; seat?: string; hit: Rect; anchor: Point }
 export interface ActivityIntent { furnitureId: string; seat: string; activity: Activity; stage: 'approach' | 'use'; route: Point[]; expires: number }
@@ -37,7 +37,9 @@ export interface World {
   actor: Actor
   companions: Actor[]
 }
-export const behaviors: Behavior[] = ['idle', 'walk', 'put_down', 'work', 'eat', 'rest']
+/** Shared simulation fields; schema-specific state is owned by its controller. */
+export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 }
+export const behaviors: Behavior[] = ['idle', 'walk', 'put_down', 'work', 'eat', 'rest', 'sit', 'read', 'tend']
 export function contains(rect: Rect, point: Point): boolean {
   return point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height
 }
@@ -66,11 +68,11 @@ export function reachable(scene: Scene, from: Point, to: Point): boolean {
 }
 export function activityOf(hotspot: Hotspot): Activity {
   const activity = hotspot.activity ?? hotspot.id
-  if (activity !== 'work' && activity !== 'eat' && activity !== 'rest') throw Error('INVALID_FURNITURE_ACTIVITY')
-  return activity
+  if (!['work', 'eat', 'rest', 'sit', 'read', 'tend'].includes(activity)) throw Error('INVALID_FURNITURE_ACTIVITY')
+  return activity as Activity
 }
 export function seatKey(hotspot: Hotspot): string { return JSON.stringify([hotspot.id, hotspot.seat ?? 'main']) }
-export function seatAvailable(world: World, hotspot: Hotspot, except: string): boolean {
+export function seatAvailable(world: SimulationWorld, hotspot: Hotspot, except: string): boolean {
   return actors(world).every(a => a.id === except || (a.intent
     ? JSON.stringify([a.intent.furnitureId, a.intent.seat]) !== seatKey(hotspot)
     : !(a.behavior === activityOf(hotspot) && Math.hypot(a.position.x - hotspot.anchor.x, a.position.y - hotspot.anchor.y) < 1)))
@@ -113,35 +115,35 @@ export function createWorld(scene: Scene, seed = 0x8e51ab49): World {
     ticks: 0, rng: seed >>> 0, userPaused: false, companions: [],
     actor: { id: 'bluewhale', facing: 'right', position: { ...scene.spawn }, safe: { ...scene.spawn }, behavior: 'idle', phase: 0, remaining: 4, destination: null, intent: null } }
 }
-function random(world: World): number {
+function random(world: SimulationWorld): number {
   world.rng = (Math.imul(world.rng, 1664525) + 1013904223) >>> 0
   return world.rng / 0x100000000
 }
 /** Fixed-step, seeded simulation. No renderer, wall clock, DSH or storage imports. */
-export function actors(world: World): Actor[] { return [world.actor, ...world.companions] }
-export function available(world: World, point: Point, except?: string): boolean {
+export function actors(world: SimulationWorld): Actor[] { return [world.actor, ...world.companions] }
+export function available(world: SimulationWorld, point: Point, except?: string): boolean {
   return actors(world).every(a => a.id === except || Math.hypot(a.position.x - point.x, a.position.y - point.y) >= 24)
 }
 /** Same depth order for pointer picking and drawing. */
-export function orderedActors(world: World): Actor[] {
+export function orderedActors(world: SimulationWorld): Actor[] {
   return actors(world).sort((a, b) => a.position.y - b.position.y || a.id.localeCompare(b.id))
 }
-export function hitActor(world: World, point: Point): Actor | undefined {
+export function hitActor(world: SimulationWorld, point: Point): Actor | undefined {
   return orderedActors(world).reverse().find(a => Math.abs(point.x - a.position.x) <= 54 && point.y >= a.position.y - 115 && point.y <= a.position.y + 4)
 }
-export function step(world: World, scene: Scene, held?: string): void {
+export function step(world: SimulationWorld, scene: Scene, held?: string): void {
   world.ticks++
   for (const actor of actors(world).sort((a, b) => a.id.localeCompare(b.id))) {
     if (actor.id !== held) stepActor(world, scene, actor)
     else if (actor.intent) actor.intent.expires++ // Drag freezes this resident's simulation time.
   }
 }
-function stepActor(world: World, scene: Scene, actor: Actor): void {
+function stepActor(world: SimulationWorld, scene: Scene, actor: Actor): void {
   const dt = 1 / 30
   actor.phase += dt
   if (actor.intent && actor.intent.expires <= world.ticks) abandon(actor)
   actor.remaining = Math.max(0, actor.remaining - dt)
-  if (actor.behavior === 'work' || actor.behavior === 'eat' || actor.behavior === 'rest') {
+  if (['work', 'eat', 'rest', 'sit', 'read', 'tend'].includes(actor.behavior)) {
     if (actor.remaining === 0) { abandon(actor); wander(world, scene, actor) }
     return
   }
@@ -183,7 +185,7 @@ function stepActor(world: World, scene: Scene, actor: Actor): void {
 export function abandon(actor: Actor): void {
   actor.intent = null; actor.destination = null; actor.behavior = 'idle'; actor.remaining = 3; actor.phase = 0
 }
-function wander(world: World, scene: Scene, actor: Actor): void {
+function wander(world: SimulationWorld, scene: Scene, actor: Actor): void {
   for (let attempt = 0; attempt < 16; attempt++) {
     const target = { x: scene.walkable.x + random(world) * scene.walkable.width, y: scene.walkable.y + random(world) * scene.walkable.height }
     if (Math.hypot(target.x - actor.position.x, target.y - actor.position.y) > 24 && reachable(scene, actor.position, target) && available(world, target, actor.id)) {
@@ -204,12 +206,14 @@ export function validateWorld(value: unknown, scene: Scene): World {
   if (!Array.isArray(extra) || extra.length > 6) return invalid()
   const ids = new Set<string>(), occupied = new Set<string>()
   const canonical = (a: Actor): Actor => {
-    if (!a || !isCharacterId(a.id) || ids.has(a.id) || !['left', 'right'].includes(a.facing) || !behaviors.includes(a.behavior)
+    // The original schema-1 writer predates facing. Default only this absent legacy field.
+    const facing = w.schemaVersion === 1 && a?.facing === undefined ? 'right' : a?.facing
+    if (!a || !isCharacterId(a.id) || ids.has(a.id) || !['left', 'right'].includes(facing) || !behaviors.includes(a.behavior)
       || !Number.isFinite(a.phase) || a.phase < 0 || !Number.isFinite(a.remaining) || a.remaining < 0 || a.remaining > 60
       || !a.position || !a.safe || !walkable(scene, a.position) || !walkable(scene, a.safe)) return invalid()
     ids.add(a.id)
     let intent = w.schemaVersion === 3 ? a.intent ?? null : null
-    const using = ['work', 'eat', 'rest'].includes(a.behavior)
+    const using = ['work', 'eat', 'rest', 'sit', 'read', 'tend'].includes(a.behavior)
     if (using && !intent) {
       const h = scene.hotspots.find(h => activityOf(h) === a.behavior && Math.hypot(h.anchor.x - a.position.x, h.anchor.y - a.position.y) <= .01)
       if (!h) return invalid()
@@ -237,7 +241,7 @@ export function validateWorld(value: unknown, scene: Scene): World {
     if (a.behavior === 'walk') {
       if (!a.destination || !reachable(scene, a.position, a.destination)) return invalid()
     } else if (a.destination !== null) return invalid()
-    return { id: a.id, facing: a.facing, position: { x: a.position.x, y: a.position.y }, safe: { x: a.safe.x, y: a.safe.y },
+    return { id: a.id, facing, position: { x: a.position.x, y: a.position.y }, safe: { x: a.safe.x, y: a.safe.y },
       behavior: a.behavior, phase: a.phase, remaining: using && !a.intent ? 30 : a.remaining, intent,
       destination: a.destination ? { x: a.destination.x, y: a.destination.y } : null }
   }

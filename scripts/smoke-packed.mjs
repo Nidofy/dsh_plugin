@@ -36,7 +36,8 @@ for (const item of manifest) {
     assert.equal(registered.id, pkg.name)
     assert.equal(typeof registered.factory, 'function')
     const imports = [...code.matchAll(/require\("([^"]+)"\)/g)].map(match => match[1])
-    const allowed = new Set(['react', 'react/jsx-runtime', '@deepseek-ai/dsh-client-ui-primitives', '@deepseek-ai/dsh-client-store'])
+    // Official client/web/src/seed.ts exposes react-dom for portal-based header launchers.
+    const allowed = new Set(['react', 'react-dom', 'react/jsx-runtime', '@deepseek-ai/dsh-client-ui-primitives', '@deepseek-ai/dsh-client-store'])
     for (const imported of imports) assert.ok(allowed.has(imported), 'Unregistered browser external: ' + imported)
   }
 }

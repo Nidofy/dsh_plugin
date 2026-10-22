@@ -1,16 +1,21 @@
 export const en = {
+  saving: 'Confirming save…', saveUnknown: 'Save result unknown; reconnect to check. No write will be replayed.',
+  saveRejected: 'Save was not accepted. Progress remains in memory.', notSaved: 'No confirmed save yet', lastSaved: 'Last confirmed save',
   retentionWarning: 'Saved progress is retained. Old snapshot cleanup needs attention.',
   title: 'AI Village', open: 'Open AI Village', close: 'Close courtyard', pause: 'Pause', resume: 'Resume',
   retry: 'Reconnect', recover: 'Restore previous save', saved: 'Saved', loading: 'Preparing courtyard…',
   error: 'Paused. Progress is kept in memory.', occupied: 'This courtyard is running in another window.',
   conflict: 'The profile or saved progress changed. Memory is kept; reload explicitly to use the current host save.',
   frameFailed: 'The scene could not be displayed.', retryFrame: 'Retry scene',
-  idle: 'Taking a break', walk: 'Wandering', work: 'Writing', eat: 'Enjoying rice', rest: 'Resting', put_down: 'Settling',
+  sit: 'Sitting together', read: 'Reading', tend: 'Tending a plant', idle: 'Taking a break', walk: 'Wandering', work: 'Writing', eat: 'Enjoying rice', rest: 'Resting', put_down: 'Settling',
   dragging: 'Picked up', paused: 'Paused', rejected: 'Occupied or unsafe landing. Returned to the original position.',
   help: 'Residents choose their own activities. Drag to interrupt; Esc cancels a drag.',
   recovery: 'Recovery preserves the original file and restores the previous successful snapshot.',
 }
 export const zh: typeof en = {
+  sit: '坐一会儿', read: '读书', tend: '照料花草',
+  saving: '正在确认保存…', saveUnknown: '保存结果待确认，请重新连接核对；不会自动重发。',
+  saveRejected: '保存未被接受，进度仍保留在内存中。', notSaved: '尚无已确认存档', lastSaved: '最近已确认存档',
   retentionWarning: '当前进度已保存，旧快照清理需要检查。',
   title: 'AI 小院', open: '打开 AI 小院', close: '关闭小院', pause: '暂停', resume: '继续',
   retry: '重新连接', recover: '恢复上一成功版', saved: '已保存', loading: '正在准备小院…',

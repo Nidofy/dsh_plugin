@@ -41,7 +41,7 @@ export function registerClient(ctx: Context, runtime: VillageRuntime): void {
     return createElement(Floating, { runtime, locale: props.t('title') === zh.title ? 'zh' : 'en', active: main === null, onClose: close })
   }
   function Launcher(props: PropsLocale<'nidofy.ai-village'>) {
-    useSyncExternalStore(runtime.subscribe, runtime.snapshot)
+    useSyncExternalStore(runtime.subscribeUI, runtime.snapshotUI)
     return createElement('span', { className: 'dsh-ai-village' }, createElement('style', null, css),
       createElement('button', { 'data-nidofy-village-launcher': '', title: props.t('open'), 'aria-label': props.t('open'), 'aria-pressed': runtime.open,
         onClick: () => { if (runtime.open) close(); else { window.dispatchEvent(new CustomEvent('nidofy:floating-panel-open', { detail: 'ai-village' })); runtime.show() } },
