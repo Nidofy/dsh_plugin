@@ -59,6 +59,25 @@ if(mask&&left&&right&&[left,right].every(im=>im.width===mask.width&&im.height===
  }
  geometry={status:uncovered?'FAIL':'PASS',method:'raw alpha union(left,right,frame) inside opaque portal mask; not a visual approval',portalPixels,uncovered,overlap,frameOcclusion,maxLeak}
 }
+
+try {
+ const manifest=JSON.parse(await readFile(join(input,'manifest.json'),'utf8'))
+ const {designSize:d,safeApertureRect:s,layers}=manifest
+ if(d&&s&&Array.isArray(layers)){
+  const sample=(layer,x,y)=>{const r=layer.rect,im=images.get(basename(layer.key));if(!im)return 0;const u=(x/d.width-r.x)/r.width,v=(y/d.height-r.y)/r.height;return u>=0&&u<1&&v>=0&&v<1?im.data[(Math.floor(v*im.height)*im.width+Math.floor(u*im.width))*4+3]/255:0}
+  let safePixels=0,closedLeaks=0,exteriorOcclusions=0,maxTransmission=0,over10Percent=0,over50Percent=0,minLeakX=Infinity,maxLeakX=-1
+  for(let y=Math.ceil(s.y*d.height)+2;y<(s.y+s.height)*d.height-2;y++)for(let x=Math.ceil(s.x*d.width)+2;x<(s.x+s.width)*d.width-2;x++){
+   safePixels++;let doorTransmission=1,exteriorTransmission=1
+   for(const layer of layers){const a=sample(layer,x+.5,y+.5);if(['left','right'].includes(layer.kind))doorTransmission*=1-a;else exteriorTransmission*=1-a}
+   if(doorTransmission>.01){closedLeaks++;maxTransmission=Math.max(maxTransmission,doorTransmission);minLeakX=Math.min(minLeakX,x);maxLeakX=Math.max(maxLeakX,x)}
+   if(doorTransmission>.1)over10Percent++;if(doorTransmission>.5)over50Percent++
+   if(exteriorTransmission<.99)exteriorOcclusions++
+  }
+  const pivots=layers.filter(l=>['left','right'].includes(l.kind)).map(l=>({kind:l.kind,designPixels:[(l.rect.x+l.rect.width*l.pivot[0])*d.width,(l.rect.y+l.rect.height*l.pivot[1])*d.height]}))
+  geometry={status:closedLeaks?'FAIL':'PASS',method:'Independent nearest-neighbor reconstruction of cropped door alpha in safe rectangle (2 design px inset); not full polygon/antialias acceptance',safePixels,closedLeaks,maxTransmission,over10Percent,over50Percent,leakX:closedLeaks?[minLeakX,maxLeakX]:null,exteriorOcclusionsBeforeKnockout:exteriorOcclusions,pivots}
+ }
+}catch(error){if(error.code!=='ENOENT')throw error}
+
 const cards=[]
 for(let i=0;i<rows.length;i++){
  const im=images.get(rows[i].path);if(!im)continue
