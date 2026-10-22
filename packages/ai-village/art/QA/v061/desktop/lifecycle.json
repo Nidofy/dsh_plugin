@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.6.1",
+    "file": "nidofy-dsh-ai-village-0.6.1.tgz",
+    "bytes": 29018297,
+    "sha256": "9488b87789e89b0cd155d107a442fb5587939f9f4840b1f0173c0dfdda5d4608",
+    "files": 252,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "cycles": 3,
+  "worldUnchanged": true,
+  "profile": "upgraded-from-0.5"
+}

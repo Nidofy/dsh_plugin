@@ -1,0 +1,27 @@
+[
+  {
+    "version": "0.3.2",
+    "bytes": 28956910,
+    "sha256": "3edfb45ea6b56b8ac3fdb8769edeb631e18a40cdd32b3ea1050eb1d032d401a0"
+  },
+  {
+    "version": "0.4.0",
+    "bytes": 28981449,
+    "sha256": "be551da119ab00594dd626a1a27757624e6c55e1ce18aa7dd20c67c8dc759390"
+  },
+  {
+    "version": "0.5.0",
+    "bytes": 29013077,
+    "sha256": "5940e6176331614e1213988d4729069fce4e2a90cf0f3ac2160dc65eb2f904a6"
+  },
+  {
+    "version": "0.6.0",
+    "bytes": 29017577,
+    "sha256": "7f7420be2e8151f2fc819bb2173e220758363c415778f8b465fca0bfdeec556e"
+  },
+  {
+    "version": "0.6.1",
+    "bytes": 29018297,
+    "sha256": "9488b87789e89b0cd155d107a442fb5587939f9f4840b1f0173c0dfdda5d4608"
+  }
+]

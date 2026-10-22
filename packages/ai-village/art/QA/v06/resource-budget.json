@@ -1,0 +1,21 @@
+{
+  "measurements": {
+    "bluewhale": {
+      "textures": 32,
+      "compressedBytes": 12796249,
+      "estimatedRgbaBytes": 36553564
+    },
+    "other": {
+      "textures": 23,
+      "compressedBytes": 6145080,
+      "estimatedRgbaBytes": 14018952
+    },
+    "seven": {
+      "textures": 128,
+      "compressedBytes": 26854705,
+      "estimatedRgbaBytes": 67084640
+    }
+  },
+  "addedRasterBytes": 0,
+  "notes": "Single RGBA allocation estimate only; excludes CPU/GPU duplication and canvas buffers. Furniture, accessories and lighting use existing assets and vector Graphics."
+}

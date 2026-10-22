@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "checks": [
+    "首次同桌",
+    "打个招呼",
+    "舒展一下",
+    "记下灵感",
+    "整理书桌",
+    "听一会儿风",
+    "看看天空",
+    "长椅小谈",
+    "交换小点子",
+    "安静地坐一会儿",
+    "翻开一本书",
+    "分享一页书",
+    "照料盆栽",
+    "聊聊花草"
+  ],
+  "singleTextures": 32,
+  "memories": 12,
+  "decorations": true,
+  "photo": {
+    "width": 720,
+    "height": 960,
+    "bytes": 1175248
+  },
+  "exactWorldAfterPhoto": true,
+  "coldRestore": true,
+  "deletePreservesWorld": true,
+  "errors": [],
+  "external": []
+}

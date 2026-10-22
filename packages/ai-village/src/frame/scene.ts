@@ -1,3 +1,4 @@
+import { homeScene, validateHomeWorld, neighborhoodProjection, type HomeWorld } from '../core/home-state.ts'
 import { villageTime } from '../core/dialogue.ts'
 import { photoLimits } from '../core/photo.ts'
 import { NeighborhoodArt, microPose } from './neighborhood-art.ts'
@@ -16,7 +17,7 @@ import { dialogue, bellReaction } from '../core/dialogue.ts'
 import { hitActor, orderedActors, validateWorld } from '../core/world.ts'
 import type { Action, AnimationSet, Character } from '../art/types.ts'
 import type { Actor, Point, Rect, World } from '../core/world.ts'
-interface View { extraDecorationDraft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null; world: World | ContentWorld | NeighborhoodWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean;
+interface View { extraDecorationDraft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null; arranging?: boolean; world: World | ContentWorld | NeighborhoodWorld | HomeWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean;
   photo?: { zoom:number;x:number;y:number;date:boolean;border:boolean } | null; locale: 'zh' | 'en'; reducedMotion: boolean; bubbles: boolean; decorationDraft: 'window' | 'door' | 'wall' | null | undefined }
 const channel = 'nidofy-ai-village', version = 2
 let token = '', received = 0, sent = 0, initialized = false, disposed = false, pointer: number | null = null
@@ -29,6 +30,10 @@ let bell: Graphics, tea: Graphics, viewportRevision = 0, reactionUntil = 0
 const bubbleNodes: HTMLDivElement[] = []
 const props: { definition: SeatProp; sprite: Sprite }[] = []
 const stage = new Container(), textures = new Map<string, Texture>(), urls = new Map<string, string>()
+let renderScene: SceneArt
+const furnitureSprites: {id: string; back: Sprite; front: Sprite}[] = []
+const accessories = new Map<string, Graphics>()
+const twilight = new Graphics()
 let keepAssets: Set<string> | null = null, assetLoading = false
 interface Rig { doll: PaperDoll; resting: Sprite; activity: Container; arms: Map<string, Sprite>; art: AvatarArt }
 const rigs = new Map<string, Rig>()
@@ -88,7 +93,7 @@ async function loadAssets(images: Record<string, ArrayBuffer>) {
   keepAssets=new Set(Object.keys(images))
 }
 async function init(message: { character: Character; animations: AnimationSet; roster?: Record<string, AvatarArt>; scene: SceneArt; images: Record<string, ArrayBuffer> }) {
-  character = message.character; animations = message.animations; scene = message.scene
+  character = message.character; animations = message.animations; scene = message.scene; renderScene = scene
   roster = { ...message.roster, bluewhale: { character, animations, activityPrefix: 'scene/' } }
   await loadAssets(message.images)
   const instance = new Application()
@@ -105,14 +110,15 @@ async function init(message: { character: Character; animations: AnimationSet; r
   cushion = rectangleSprite('scene/cushion.png', scene.cushion, 0)
   neighborhoodArt = new NeighborhoodArt(stage)
   for (const item of scene.furniture) {
-    rectangleSprite(`scene/${item.asset}-back.png`, { ...item.rect, height: item.rect.height * item.split }, item.rect.y * 10)
-    rectangleSprite(`scene/${item.asset}-front.png`, { ...item.rect, y: item.rect.y + item.rect.height * item.split, height: item.rect.height * (1 - item.split) }, (item.rect.y + item.rect.height) * 10)
+    const back = rectangleSprite(`scene/${item.asset}-back.png`, { ...item.rect, height: item.rect.height * item.split }, item.rect.y * 10)
+    const front = rectangleSprite(`scene/${item.asset}-front.png`, { ...item.rect, y: item.rect.y + item.rect.height * item.split, height: item.rect.height * (1 - item.split) }, (item.rect.y + item.rect.height) * 10)
+    furnitureSprites.push({ id: item.id, back, front })
   }
   for (const definition of seatProps(scene)) props.push({ definition,
     sprite: rectangleSprite(definition.asset, definition.rect, furnitureDepth(scene, definition.furnitureId) ?? 0) })
   shadow = new Graphics(); shadow.zIndex = 1; stage.addChild(shadow)
   hints = new Graphics(); hints.zIndex = 11000; stage.addChild(hints)
-  bell = new Graphics(); bell.zIndex = 2; tea = new Graphics(); tea.zIndex = 4100; stage.addChild(bell, tea)
+  bell = new Graphics(); bell.zIndex = 2; tea = new Graphics(); tea.zIndex = 4100; stage.addChild(bell, tea); twilight.zIndex=2; stage.addChild(twilight)
   for (let i = 0; i < 2; i++) {
     const bubble = document.createElement('div')
     bubble.style.cssText = 'display:none;position:absolute;pointer-events:none;box-sizing:border-box;background:#fff9e9;color:#394c36;padding:6px 8px;border:1px solid #bec6a8;border-radius:10px;font:11px/1.4 system-ui;max-height:82px;overflow:hidden;box-shadow:0 3px 12px #243b2020'
@@ -143,6 +149,8 @@ async function init(message: { character: Character; animations: AnimationSet; r
   send('ready-to-render')
 }
 let frames = 0, paintMs = 0, maxPaintMs = 0
+// A bounded recent window; sorting happens only when diagnostics are requested.
+const paintSamples: number[] = []
 function paint() {
   if (!app || !view || disposed) return
   const began = performance.now()
@@ -150,10 +158,20 @@ function paint() {
   app.stage.scale.set(zoom);app.stage.position.set(-(zoom-1)*innerWidth/2*(1+(photo?.x??0)),-(zoom-1)*innerHeight/2*(1+(photo?.y??0)))
   const members = orderedActors(view.world), ids = new Set(members.map(a => a.id))
   for (const [id, rig] of rigs) if (!ids.has(id as Actor['id'])) removeRig(id, rig)
-  const neighborhood = view.world.schemaVersion === 5 ? view.world : null
+  const home = view.world.schemaVersion === 6 ? view.world : null
+  const neighborhood = home ? neighborhoodProjection(home) : view.world.schemaVersion === 5 ? view.world : null
+  const nextScene = home ? homeScene(scene, home.neighborhood.layout, home.home) : scene
+  if (renderScene !== nextScene) {
+    renderScene = nextScene
+    for(const item of furnitureSprites){const f=renderScene.furniture.find(f=>f.id===item.id)!;item.back.position.set(f.rect.x,f.rect.y);item.front.position.set(f.rect.x,f.rect.y+f.rect.height*f.split);item.back.zIndex=f.rect.y*10;item.front.zIndex=(f.rect.y+f.rect.height)*10}
+    cushion.position.set(renderScene.cushion.x,renderScene.cushion.y)
+    const definitions=seatProps(renderScene);for(let i=0;i<props.length;i++){const p=props[i]!,d=definitions[i]!;p.definition=d;p.sprite.position.set(d.rect.x,d.rect.y);p.sprite.zIndex=furnitureDepth(renderScene,d.furnitureId)??0}
+  }
+  const dusk = home?.home.environment === 'twilight'; backdrop.tint=dusk?0x9eaccd:0xffffff; stage.tint=dusk?0xd2dcf0:0xffffff;stage.alpha=view.arranging?.85:1
+  twilight.clear();if(dusk){for(const [x,y] of [[178,110],[250,132]])twilight.circle(x!,y!,25).fill({color:0xffdf9d,alpha:.18})}
   if (keepAssets) for(const [key,texture] of textures) if(!keepAssets.has(key)) { texture.destroy(true);textures.delete(key);const url=urls.get(key);if(url)URL.revokeObjectURL(url);urls.delete(key) }
   const content = neighborhood ? legacyContent(neighborhood) : view.world.schemaVersion === 4 ? view.world : null
-  if (neighborhood) { neighborhoodArt.paint(neighborhood, view.reducedMotion, view.extraDecorationDraft); cushion.visible = neighborhood.neighborhood.layout === 'courtyard' }
+  if (neighborhood) { neighborhoodArt.paint(neighborhood, view.reducedMotion, view.extraDecorationDraft, home?.home); cushion.visible = neighborhood.neighborhood.layout === 'courtyard' }
   const servingTea = content?.activeEvent?.food === 'tea'
   for (const prop of props) prop.sprite.visible = !servingTea && propVisible(prop.definition, members, view.dragging ? view.world.actor.id : undefined)
   tea.clear()
@@ -205,14 +223,20 @@ function paint() {
     shadow.ellipse(ground.x, ground.y, actor.behavior === 'rest' ? 27 : 23, 5).fill({ color: 0x424733, alpha: .14 })
     if (selected && members.length > 1 && !view.photo) shadow.ellipse(ground.x, ground.y, 25, 6).stroke({ color: 0x377d68, width: 1.5, alpha: .85 })
   }
+  for (const [id,g] of accessories) if(!ids.has(id as Actor['id'])){g.destroy();accessories.delete(id)}
+  for(const actor of members){let g=accessories.get(actor.id);if(!g){g=new Graphics();stage.addChild(g);accessories.set(actor.id,g)}g.clear();const choice=home?.home.accessories[actor.id];const p=actor.id===view.world.actor.id&&view.dragging?view.position:actor.position;g.position.set(p.x,p.y);g.zIndex=view.dragging&&actor.id===view.world.actor.id?10001:p.y*10+2
+    if(actor.behavior!=='rest'&&choice==='ribbon') {g.poly([20,-82,30,-87,30,-76]).fill(0xc37f81);g.poly([40,-82,30,-87,30,-76]).fill(0xd69491);g.circle(30,-82,3).fill(0xf1c59d)}
+    if(actor.behavior!=='rest'&&choice==='leaf'){g.ellipse(17,-45,5,3).fill(0x8da66e).stroke({color:0xd7be7f,width:.8});g.moveTo(13,-43).lineTo(21,-47).stroke({color:0xe7d7a6,width:.7})}
+  }
   hints.clear()
-  if (view.debug || view.dragging) {
-    for (const hotspot of (neighborhood ? neighborhoodScene(scene,neighborhood.neighborhood.layout) : scene).hotspots) hints.roundRect(hotspot.hit.x, hotspot.hit.y, hotspot.hit.width, hotspot.hit.height, 8).stroke({ color: 0x4a9989, alpha: .7, width: 1.5 })
+  if (view.debug || view.dragging || view.arranging) {
+    for (const hotspot of (home ? renderScene : neighborhood ? neighborhoodScene(scene,neighborhood.neighborhood.layout) : scene).hotspots) hints.roundRect(hotspot.hit.x, hotspot.hit.y, hotspot.hit.width, hotspot.hit.height, 8).stroke({ color: 0x4a9989, alpha: .7, width: 1.5 })
     if (view.debug) for (const rect of scene.obstacles) hints.rect(rect.x, rect.y, rect.width, rect.height).stroke({ color: 0xb35846, width: 1 })
   }
   app.render(); frames++
   const elapsed = performance.now() - began
   paintMs += elapsed; maxPaintMs = Math.max(maxPaintMs, elapsed)
+  paintSamples[(frames - 1) % 600] = elapsed
 }
 async function capturePhoto(id:string) {
   if(!app||!view?.photo||!view.paused)throw Error('PHOTO_UNAVAILABLE')
@@ -241,7 +265,7 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
   doll.root.position.set(pos.x - character.feet[0] * scale, pos.y - character.feet[1] * scale)
   doll.root.zIndex = dragging ? 10000 : pos.y * 10 + depth
   doll.root.visible = state !== 'rest'
-  if (view.world.schemaVersion === 5) microPose(pose, actor, view.world, view.reducedMotion)
+  if (view.world.schemaVersion === 5 || view.world.schemaVersion === 6) microPose(pose, actor, view.world.schemaVersion === 6 ? neighborhoodProjection(view.world) : view.world, view.reducedMotion)
   doll.apply(pose)
   const teaGuest = state === 'eat' && view.world.schemaVersion !== 3 && view.world.activeEvent?.food === 'tea' && view.world.activeEvent.participants.includes(actor.id)
   const busy = (state === 'work' || state === 'eat') && !teaGuest
@@ -252,7 +276,7 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
   resting.height = 96 * (1 + .004 * Math.sin(phase * 2))
   resting.position.set(pos.x, pos.y); resting.zIndex = pos.y * 10 + depth
   activity.position.copyFrom(doll.root.position); activity.scale.set(scale)
-  activity.zIndex = busy ? activityDepth(scene, actor, doll.root.zIndex + 1) : doll.root.zIndex + 1
+  activity.zIndex = busy ? activityDepth(renderScene, actor, doll.root.zIndex + 1) : doll.root.zIndex + 1
   for (const [name, sprite] of arms) {
     sprite.visible = name.startsWith(state + '-') && busy
     const left = name.endsWith('left')
@@ -263,9 +287,11 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
     else sprite.rotation = 0
   }
 }
-Object.assign(window, { __sceneMetrics: () => ({ frames, actors: rigs.size, textures: textures.size, tickerStarted: app?.ticker.started ?? false,
-  viewport: sceneViewport(innerWidth, innerHeight),
-  paused: view?.paused ?? true, meanPaintMs: frames ? paintMs / frames : 0, maxPaintMs }) })
+Object.assign(window, { __sceneMetrics: () => { const samples = [...paintSamples].sort((a, b) => a - b); return ({ frames, actors: rigs.size, textures: textures.size, tickerStarted: app?.ticker.started ?? false,
+  geometry: renderScene?.hotspots, environment: view?.world.schemaVersion === 6 ? view.world.home.environment : null, viewport: sceneViewport(innerWidth, innerHeight),
+  paused: view?.paused ?? true, meanPaintMs: frames ? paintMs / frames : 0, maxPaintMs,
+  paintSampleCount: samples.length, p50PaintMs: samples[Math.ceil(samples.length * .5) - 1] ?? 0,
+  p95PaintMs: samples[Math.ceil(samples.length * .95) - 1] ?? 0 }) } })
 window.addEventListener('message', event => {
   if (event.source !== parent || event.data?.channel !== channel || event.data?.version !== version || disposed) return
   const message = event.data
@@ -285,7 +311,7 @@ window.addEventListener('message', event => {
       void capturePhoto(message.id).catch(()=>send('photo-failed',{id:message.id}))
     } else if (message.type === 'render' && !assetLoading) {
       try {
-        const world = message.view.world?.schemaVersion === 5 ? validateNeighborhoodWorld(message.view.world, scene) : message.view.world?.schemaVersion === 4 ? validateContentWorld(message.view.world, scene) : validateWorld(message.view.world, scene), p = message.view.position
+        const world = message.view.world?.schemaVersion === 6 ? validateHomeWorld(message.view.world, scene) : message.view.world?.schemaVersion === 5 ? validateNeighborhoodWorld(message.view.world, scene) : message.view.world?.schemaVersion === 4 ? validateContentWorld(message.view.world, scene) : validateWorld(message.view.world, scene), p = message.view.position
         if (!p || !Number.isFinite(p.x) || !Number.isFinite(p.y) || Math.abs(p.x) > 5000 || Math.abs(p.y) > 5000) return
         if (!Number.isFinite(message.view.dragTime) || message.view.dragTime < 0) return
         if (world.schemaVersion === 4 && view?.world.schemaVersion === 4 && world.decorations.layoutRevision > view.world.decorations.layoutRevision) reactionUntil = world.ticks + 150
@@ -295,7 +321,7 @@ window.addEventListener('message', event => {
         if(extra&&(!['lantern','planter'].includes(extra.id)||!(extra.slot===null||['window','door','wall'].includes(extra.slot))))return
         const photo=message.view.photo
         if(photo && (![photo.zoom,photo.x,photo.y].every(Number.isFinite)||photo.zoom<1||photo.zoom>1.5||Math.abs(photo.x)>1||Math.abs(photo.y)>1))return
-        view = { extraDecorationDraft:extra??null, photo:photo?{zoom:photo.zoom,x:photo.x,y:photo.y,date:photo.date===true,border:photo.border===true}:null, world, position: p, dragging: message.view.dragging === true, dragTime: message.view.dragTime, paused: message.view.paused === true, debug: message.view.debug === true,
+        view = { arranging: message.view.arranging === true, extraDecorationDraft:extra??null, photo:photo?{zoom:photo.zoom,x:photo.x,y:photo.y,date:photo.date===true,border:photo.border===true}:null, world, position: p, dragging: message.view.dragging === true, dragTime: message.view.dragTime, paused: message.view.paused === true, debug: message.view.debug === true,
           locale: message.view.locale === 'en' ? 'en' : 'zh', reducedMotion: message.view.reducedMotion === true || matchMedia('(prefers-reduced-motion: reduce)').matches,
           bubbles: message.view.bubbles !== false, decorationDraft: draft }
         if (view.paused) cancel()
@@ -306,7 +332,7 @@ window.addEventListener('message', event => {
 })
 window.addEventListener('resize', layout)
 window.addEventListener('blur', cancel)
-window.addEventListener('keydown', event => { if (event.key === 'Escape') {
+window.addEventListener('keydown', event => { if (event.key === 'Escape' && !event.isComposing) {
   if (pointer !== null) cancel(); else send('escape')
   event.preventDefault(); event.stopPropagation()
 } })

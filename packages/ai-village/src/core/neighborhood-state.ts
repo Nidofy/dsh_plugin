@@ -23,6 +23,7 @@ export function legacyContent(world: NeighborhoodWorld): ContentWorld {
 const sceneCache = new WeakMap<Scene, Map<LayoutId, Scene>>()
 /** Layouts share fixed walls/table/desk. One corner swaps cushion/bookcase/plant. */
 export function neighborhoodScene(base: Scene, layout: LayoutId): Scene {
+  if (base.hotspots.some(h => h.id === 'bench')) return base // Validated schema 6 geometry adapter.
   const cache = sceneCache.get(base) ?? new Map<LayoutId, Scene>(); sceneCache.set(base, cache)
   if (cache.has(layout)) return cache.get(layout)!
   const scene = structuredClone(base)

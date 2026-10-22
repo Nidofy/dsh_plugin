@@ -9,6 +9,7 @@ import type { ConnectionHandle } from '@deepseek-ai/dsh-client-connection/client
 import type { GlobalStandardProps, PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
 import { createElement, useSyncExternalStore } from 'react'
 import { VillageRuntime } from './runtime.ts'
+import { VillageIcon } from './Icon.tsx'
 import { Floating, css } from './Floating.tsx'
 import { en, zh } from './messages.ts'
 declare module '@deepseek-ai/dsh-client-ui-slots' { interface LocaleNamespaceMap { 'nidofy.ai-village': keyof typeof en } }
@@ -45,7 +46,7 @@ export function registerClient(ctx: Context, runtime: VillageRuntime): void {
     return createElement('span', { className: 'dsh-ai-village' }, createElement('style', null, css),
       createElement('button', { 'data-nidofy-village-launcher': '', title: props.t('open'), 'aria-label': props.t('open'), 'aria-pressed': runtime.open,
         onClick: () => { if (runtime.open) close(); else { window.dispatchEvent(new CustomEvent('nidofy:floating-panel-open', { detail: 'ai-village' })); runtime.show() } },
-      }, '⌂'))
+      }, createElement(VillageIcon, { name: 'home' })))
   }
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-ai-village-floating', locale: 'nidofy.ai-village' }, Surface))
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'nidofy-ai-village-launcher', order: -10, locale: 'nidofy.ai-village' },

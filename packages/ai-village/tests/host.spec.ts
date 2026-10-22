@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url'
 import { randomUUID } from 'node:crypto'
 import { request } from 'node:http'
 import { harness } from '../experiments/phase4-host.ts'
-import { createNeighborhoodWorld as createWorld, type NeighborhoodWorld as ContentWorld } from '../src/core/neighborhood-state.ts'
+import { createHomeWorld as createWorld, type HomeWorld as ContentWorld } from '../src/core/home-state.ts'
 import { scene } from '../src/definitions.ts'
 const out = resolve('.build/ai-village-phase4')
 it('official authenticated Connection routes, profile lease, CAS, recovery, unload and cold reenable', async () => {

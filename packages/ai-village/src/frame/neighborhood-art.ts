@@ -1,4 +1,5 @@
 import { Container, Graphics } from 'pixi.js'
+import { offsets, type Home } from '../core/home-state.ts'
 import type { NeighborhoodWorld } from '../core/neighborhood-state.ts'
 import type { Actor } from '../core/world.ts'
 import type { Pose } from '../art/types.ts'
@@ -11,7 +12,7 @@ export class NeighborhoodArt {
     this.benchBack.zIndex = 2050; this.bench.zIndex = 2410; this.corner.zIndex = 2460; this.props.zIndex = 5000; this.decorations.zIndex = 3
     stage.addChild(this.benchBack,this.bench,this.corner,this.props,this.decorations)
   }
-  paint(world: NeighborhoodWorld, reduced: boolean, draft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null) {
+  paint(world: NeighborhoodWorld, reduced: boolean, draft?: { id: 'lantern' | 'planter'; slot: 'window' | 'door' | 'wall' | null } | null, home?: Home) {
     if (this.layout !== world.neighborhood.layout) {
       this.layout = world.neighborhood.layout; const b=this.bench,c=this.corner;b.clear();c.clear();this.benchBack.clear()
       this.benchBack.roundRect(37,211,168,8,3).fill(0xa58058).stroke({color:0x705638,width:1})
@@ -28,6 +29,9 @@ export class NeighborhoodArt {
         for(let i=0;i<5;i++){const x=252+i*10,y=205+(i%2)*5;c.moveTo(272,226).lineTo(x,y).stroke({color:0x637c52,width:2});c.ellipse(x,y,11,5).fill(i%2?0x91ab72:0x708e62)}
       }
     }
+    const benchOffset = home ? offsets.bench[home.positions.bench]! : {x:0,y:0}, cornerOffset = home ? offsets.corner[home.positions.corner]! : {x:0,y:0}
+    this.bench.position.set(benchOffset.x,benchOffset.y);this.benchBack.position.copyFrom(this.bench.position);this.bench.zIndex=2410+benchOffset.y*10;this.benchBack.zIndex=2050+benchOffset.y*10
+    this.corner.position.set(cornerOffset.x,cornerOffset.y);this.corner.zIndex=2460+cornerOffset.y*10
     const p=this.props;p.clear()
     const event=world.neighborhood.event
     for(const a of actors(world)){

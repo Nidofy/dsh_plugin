@@ -8,6 +8,8 @@ import { actors } from '../core/world.ts'
 import { dialogue, bellReaction, villageTime } from '../core/dialogue.ts'
 import type { BellSlot, Food } from '../core/content-state.ts'
 import { PhotoPanel } from './PhotoPanel.tsx'
+import { HomePanel } from './HomePanel.tsx'
+import { VillageIcon } from './Icon.tsx'
 import { NeighborhoodPanel } from './NeighborhoodPanel.tsx'
 import { css } from './content-style.ts'
 export { css }
@@ -26,16 +28,16 @@ export function Floating({ runtime, locale, active, onClose }: { runtime: Villag
   const [expanded, setExpanded] = useState(false), [settings, setSettings] = useState(false)
   const [tab, setTab] = useState<'residents' | 'wishes' | 'decor' | 'journal'>('wishes')
   const [first, setFirst] = useState<CharacterId>('bluewhale'), [second, setSecond] = useState<CharacterId>('claude'), [food, setFood] = useState<Food>('tea')
-  const [editing, setEditing] = useState(false), [slot, setSlot] = useState<BellSlot | null>(null)
+  const editing = runtime.decorationDraft !== undefined, slot = runtime.decorationDraft ?? null
   const [fail] = useState(() => () => { setFailed(true); runtime.setFrameReady(false) })
   useLayoutEffect(() => {
     if (!runtime.open || !active || !anchor.current) { setGeometry(null); runtime.pause('sidebar', true); return }
     return attachFloatingLayout(anchor.current, value => { setGeometry(value); runtime.pause('sidebar', !value) }, expanded)
   }, [runtime, runtime.open, active, expanded])
-  const insufficient = !!geometry && !expanded && geometry.height < 360
+  const insufficient = !!geometry && (geometry.height < 360 || (geometry.width ?? 340) < 320)
   useEffect(() => { runtime.pause('insufficient-space', insufficient); return () => runtime.pause('insufficient-space', false) }, [runtime, insufficient])
   useEffect(() => {
-    if (!runtime.open) { setEditing(false); setSettings(false); runtime.previewDecoration(undefined) }
+    if (!runtime.open) setSettings(false)
   }, [runtime, runtime.open])
   const visible = runtime.open && active && geometry && !runtime.reasons.has('hidden')
   const world = runtime.controller?.world, actor = world?.actor, members = world ? actors(world) : []
@@ -43,34 +45,36 @@ export function Floating({ runtime, locale, active, onClose }: { runtime: Villag
   const selectedFirst = memberIds.includes(first) ? first : memberIds[0]
   const selectedSecond = memberIds.includes(second) && second !== selectedFirst ? second : memberIds.find(id => id !== selectedFirst)
   const event = world?.activeEvent, time = villageTime(world?.ticks ?? 0)
-  const receipt = runtime.saveReceipt, locked = runtime.photoMode || !runtime.ready || !!runtime.error || runtime.reasons.has('commit-pending')
+  const receipt = runtime.saveReceipt, baseLocked = runtime.photoMode || !runtime.ready || !!runtime.error || runtime.reasons.has('commit-pending'), locked = baseLocked || runtime.arranging
   const status = runtime.controller?.pauseReasons.size ? t.paused : runtime.controller?.drag?.active ? t.dragging : actor ? t[actor.behavior] : t.loading
   const saveStatus = receipt.status === 'pending' || runtime.preferencesSaving ? t.saving : receipt.status === 'unknown' ? t.saveUnknown
     : receipt.status === 'rejected' ? t.saveRejected : runtime.revision ? `${t.lastSaved} r${runtime.revision}` : t.notSaved
-  const abortDraft = () => { setEditing(false); runtime.previewDecoration(undefined) }
+  const abortDraft = () => { if (!runtime.homeSaving) runtime.cancelArrangements() }
   const tabs = { residents: text('居民', 'Residents'), wishes: text('心愿', 'Wishes'), decor: text('布置', 'Decor'), journal: text('手账', 'Journal') }
   const slots: [BellSlot, string][] = [['window', text('窗边', 'Window')], ['door', text('门旁', 'Doorway')], ['wall', text('院墙', 'Garden wall')]]
   const settingsLocked = locked || runtime.preferencesSaving
   const preferenceError = runtime.error.includes('PREFERENCES_')
   const recoverLabel = preferenceError ? text('恢复上一版设置', 'Restore previous settings') : t.recover
   return <div ref={anchor} data-nidofy-ai-village-overlay="" data-nidofy-village-open={runtime.open && active ? '' : undefined} className="dsh-ai-village"><style>{css}</style>
-    {visible && <aside className="village-card" data-expanded={expanded} data-short={!expanded && geometry.height < 480} data-theme={runtime.preferences.theme} aria-label={t.title}
-      style={{ left: geometry.left, top: geometry.top, height: Math.min(720, geometry.height) }}
+    {visible && <aside className="village-card" data-expanded={expanded} data-narrow={(geometry.width ?? 340) < 900} data-short={geometry.height < 480} data-theme={runtime.preferences.theme} aria-label={t.title}
+      style={{ left: geometry.left, top: geometry.top, width: geometry.width ?? 340, height: Math.min(expanded ? 760 : 720, geometry.height) }}
       onKeyDown={e => {
         if (e.key !== 'Escape' || e.nativeEvent.isComposing) return
-        if (runtime.photoMode) runtime.exitPhoto()
-        else if (editing) abortDraft()
+        if (runtime.arranging && baseLocked) { e.preventDefault(); e.stopPropagation(); return }
+        if (runtime.homeDraft) { if (!runtime.homeSaving) runtime.cancelHome() }
+        else if (runtime.photoMode) runtime.exitPhoto()
+        else if (editing || runtime.extraDecorationDraft) abortDraft()
         else if (settings) { setSettings(false); settingsButton.current?.focus() }
         else if (expanded) { setExpanded(false); expandButton.current?.focus() }
         else return
         e.preventDefault(); e.stopPropagation()
       }}>
-      <header className="village-header"><strong>⌂ {t.title}</strong>
+      <header className="village-header"><strong><VillageIcon name="home" /> {t.title}</strong>
         <button disabled={locked} onClick={() => runtime.pause('user', !world?.userPaused)}>{world?.userPaused ? t.resume : t.pause}</button>
-        <button disabled={locked || runtime.photoMode || !runtime.frameReady} aria-label={text('拍照', 'Photo mode')} onClick={()=>void runtime.enterPhoto()}>▣</button>
-        <button ref={expandButton} aria-label={text(expanded ? '收起小院' : '展开小院', expanded ? 'Compact courtyard' : 'Expand courtyard')} aria-pressed={expanded} onClick={() => setExpanded(!expanded)}>{expanded ? '↙' : '↗'}</button>
-        <button ref={settingsButton} aria-label={text('小院设置', 'Courtyard settings')} aria-expanded={settings} onClick={() => setSettings(!settings)}>⚙</button>
-        <button aria-label={t.close} onClick={onClose}>×</button>
+        <button disabled={locked || runtime.photoMode || !runtime.frameReady} aria-label={text('拍照', 'Photo mode')} onClick={()=>void runtime.enterPhoto()}><VillageIcon name="camera" /></button>
+        <button ref={expandButton} aria-label={text(expanded ? '收起小院' : '展开小院', expanded ? 'Compact courtyard' : 'Expand courtyard')} aria-pressed={expanded} onClick={() => setExpanded(!expanded)}><VillageIcon name={expanded ? 'compact' : 'expand'} /></button>
+        <button ref={settingsButton} aria-label={text('小院设置', 'Courtyard settings')} aria-expanded={settings} onClick={() => setSettings(!settings)}><VillageIcon name="settings" /></button>
+        <button aria-label={t.close} onClick={onClose}><VillageIcon name="close" /></button>
       </header>
       <label className="village-roster">{text('小院伙伴', 'Companion')}
         <select aria-label={text('选择角色', 'Choose character')} value={actor?.id ?? 'bluewhale'} disabled={locked} onChange={e => runtime.selectCharacter(e.target.value)}>
@@ -86,7 +90,7 @@ export function Floating({ runtime, locale, active, onClose }: { runtime: Villag
       </details>
       <div className="village-footer" role="status">{status} · {saveStatus}</div>
       {runtime.retentionWarning && <div className="village-footer" role="status">{t.retentionWarning}</div>}
-      {insufficient ? <p className="village-error">{text('当前空间不足，已暂停。展开小院继续。', 'Paused for limited space. Expand the courtyard to continue.')}</p> :
+      {insufficient ? <p className="village-error">{text('当前空间不足，已暂停。切换展开／收起或调整窗口后继续；聊天输入区保持可用。', 'Paused for limited space. Switch size or resize the window to continue; the chat composer stays available.')}</p> :
       <div className="village-body"><div className="village-world">
         <span className="village-time">{text(`小院第 ${time.day} 天`, `Day ${time.day}`)} · {String(time.hour).padStart(2, '0')}:{String(time.minute).padStart(2, '0')}</span>
         {runtime.error ? <div className="village-error" role="alert"><p>{runtime.error.includes('WORLD_IN_USE') ? t.occupied : /PROFILE_CHANGED|REVISION_CONFLICT|HOST_CHANGED/.test(runtime.error) ? t.conflict : t.error}</p>
@@ -133,18 +137,19 @@ export function Floating({ runtime, locale, active, onClose }: { runtime: Villag
           {tab === 'decor' && <><p className="eyebrow">MAKE ROOM FOR THE BREEZE</p><h2>{text('风经过的地方', 'A place for the breeze')}</h2>
             {!world?.decorations.windChime ? <p>{text('完成「同桌的午后」后，会收到一枚小风铃。', 'Complete An afternoon together to receive a little wind chime.')}</p> : <>
               <p>{text('一枚小风铃，三个挂点。先看看，再决定留下。', 'One chime, three places. Preview a spot before you keep it.')}</p>
-              {editing ? <><div className="choices">{slots.map(([id, label]) => <button key={id} disabled={locked} aria-pressed={slot === id} onClick={() => { setSlot(id); runtime.previewDecoration(id) }}>{label}</button>)}</div>
-                <button disabled={locked} aria-pressed={slot === null} onClick={() => { setSlot(null); runtime.previewDecoration(null) }}>{text('暂时收起', 'Put away')}</button>
-                <button className="primary" disabled={locked} onClick={() => void runtime.decorate(slot).then(result => { if (result?.status === 'committed') abortDraft() })}>{text('确认摆放', 'Keep this placement')}</button>
-                <button disabled={locked} onClick={abortDraft}>{text('取消', 'Cancel')}</button></> : <>
+              {editing ? <><div className="choices">{slots.map(([id, label]) => <button key={id} disabled={baseLocked} aria-pressed={slot === id} onClick={() => runtime.previewDecoration(id)}>{label}</button>)}</div>
+                <button disabled={baseLocked} aria-pressed={slot === null} onClick={() => runtime.previewDecoration(null)}>{text('暂时收起', 'Put away')}</button>
+                <button className="primary" disabled={baseLocked} onClick={() => void runtime.decorate(slot).then(result => { if (result?.status === 'committed') abortDraft() })}>{text('确认摆放', 'Keep this placement')}</button>
+                <button disabled={baseLocked} onClick={abortDraft}>{text('取消', 'Cancel')}</button></> : <>
                 <p>{text('当前位置：', 'Current spot: ')}{slots.find(([id]) => id === world.decorations.windChime?.slot)?.[1] ?? text('已收好', 'Put away')}</p>
-                <button className="primary" disabled={locked} onClick={() => { const value = world.decorations.windChime?.slot ?? 'window'; setSlot(value); setEditing(true); runtime.previewDecoration(value) }}>{text('选择挂点', 'Choose a spot')}</button>
+                <button className="primary" disabled={locked} onClick={() => { const value = world.decorations.windChime?.slot ?? 'window'; runtime.previewDecoration(value) }}>{text('选择挂点', 'Choose a spot')}</button>
                 {world.decorations.windChime.slot && <div className="village-status"><strong>{characterNames[world.actor.id]}</strong><p>{bellReaction(world.actor.id, language)}</p></div>}
               </>}
             </>}
           </>}
           {tab === 'journal' && <PhotoPanel runtime={runtime} locale={language} albumOnly />}
-          <NeighborhoodPanel key={tab} runtime={runtime} tab={tab} locale={language} locked={locked} />
+          {tab === 'decor' && <HomePanel runtime={runtime} locale={language} locked={locked} />}
+          <NeighborhoodPanel key={tab} runtime={runtime} tab={tab} locale={language} locked={baseLocked || (!!runtime.homeDraft || editing)} />
           </>}
         </div>
       </section></div>}

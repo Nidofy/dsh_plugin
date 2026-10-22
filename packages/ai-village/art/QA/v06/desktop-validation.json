@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.6.0",
+    "file": "nidofy-dsh-ai-village-0.6.0.tgz",
+    "bytes": 29017577,
+    "sha256": "7f7420be2e8151f2fc819bb2173e220758363c415778f8b465fca0bfdeec556e",
+    "files": 252,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "checks": [
+    "official plugin-manager install",
+    "installed bytes match",
+    "schema5 migration and preserved memory/photo",
+    "cancelled draft without write",
+    "confirmed moved furniture/theme/accessory",
+    "actual renderer PNG and album",
+    "paused state for cold restart"
+  ],
+  "photo": {
+    "id": "9271fa32-fd3b-45a2-9fe4-1e74a8046853",
+    "title": "Native 0.6 memory",
+    "tick": 105,
+    "width": 720,
+    "height": 960,
+    "bytes": 1157275,
+    "hash": "a64b6aa5738ebf67a10690748216e8c70eee4f0239d7400fde157855fc6ee6db"
+  },
+  "errors": [],
+  "screenshotIssues": [
+    {
+      "file": "desktop-journal.png",
+      "reason": "SCREENSHOT_TIMEOUT"
+    }
+  ]
+}

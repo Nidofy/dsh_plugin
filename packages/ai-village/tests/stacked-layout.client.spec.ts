@@ -3,6 +3,31 @@ import { it, expect, vi } from 'vitest'
 import { attachFloatingLayout as village, type FloatingGeometry } from '../src/client/floating-layout.ts'
 import { attachFloatingLayout as git } from '../../source-control/src/client/floating-layout.ts'
 import { attachFloatingLayout as live } from '../../live2d/src/client/floating-layout.ts'
+it('expanded geometry stays in the conversation column and avoids the full composer as it grows', () => {
+  const callbacks = new Set<() => void>()
+  vi.stubGlobal('ResizeObserver', class { constructor(fn: () => void) { callbacks.add(fn) } observe() {} unobserve() {} disconnect() {} })
+  vi.stubGlobal('innerWidth', 1440); vi.stubGlobal('innerHeight', 960)
+  document.body.innerHTML = '<div data-rightbar-collapsed><main><div data-conversation-content><div data-composer-card></div></div></main><div data-rightbar-col></div><div data-shell-overlay><div id="game"></div></div></div>'
+  const box = (left: number, top: number, width: number, height: number) => ({ left, top, width, height, right: left + width, bottom: top + height } as DOMRect)
+  document.querySelector('main')!.getBoundingClientRect = () => box(280, 40, 1160, 920)
+  document.querySelector('[data-conversation-content]')!.getBoundingClientRect = () => box(280, 82, 1160, 878)
+  let input = box(300, 800, 1100, 140)
+  document.querySelector('[data-composer-card]')!.getBoundingClientRect = () => input
+  let value: FloatingGeometry | null = null
+  const stop = village(document.getElementById('game')!, next => { value = next })
+  stop()
+  const dispose = village(document.getElementById('game')!, next => { value = next }, true)
+  const geometry = () => value!
+  try {
+    expect(geometry().left).toBe(292); expect(geometry().width).toBe(1080)
+    expect(geometry().top + geometry().height).toBeLessThan(input.top)
+    expect(document.querySelector('[data-nidofy-ai-village-space]')).toBeNull()
+    input = box(300, 400, 1100, 400); callbacks.forEach(fn => fn())
+    expect(geometry().height).toBeLessThan(360); expect(geometry().top + geometry().height).toBeLessThan(input.top)
+    input = box(300, 100, 1100, 140); callbacks.forEach(fn => fn())
+    expect(geometry().top).toBeGreaterThan(input.bottom)
+  } finally { dispose(); document.body.replaceChildren(); vi.unstubAllGlobals() }
+})
 it.each(['village','live2d'])('expanded Git grows and pushes %s down, fills a 1440p rail and shrinks again',async companion=>{
   const callbacks=new Set<()=>void>()
   vi.stubGlobal('ResizeObserver',class{constructor(fn:()=>void){callbacks.add(fn)}observe(){}unobserve(){}disconnect(){}})

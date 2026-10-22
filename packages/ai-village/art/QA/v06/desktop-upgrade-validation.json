@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "sourceSchema": 5,
+  "targetSchema": 6,
+  "protectedPointerExact": true,
+  "protectedSnapshotHash": "36230a1663e4ea5f6c8ea49d5e32ef3b227f7edb582ca6f3905d9a6410db5ca3",
+  "previousPhotoHash": "4312cd541f8caab5134be6941021bb95b3162e1019d9a09190021b50c0593ada"
+}

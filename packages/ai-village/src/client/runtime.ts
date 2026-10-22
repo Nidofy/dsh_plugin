@@ -1,10 +1,10 @@
 import { AlbumClient } from './album-client.ts'
 import { residentAssets } from './asset-selection.ts'
 import { actors } from '../core/world.ts'
-import { NeighborhoodController as ContentController } from '../core/neighborhood-controller.ts'
-import { inviteTea, cancelTea, settleTea, placeBell, startNeighborhoodEvent, changeLayout, decorateExtra } from '../core/neighborhood-engine.ts'
+import { HomeController as ContentController } from '../core/home-controller.ts'
+import { inviteTea, cancelTea, settleTea, placeBell, startNeighborhoodEvent, changeLayout, decorateExtra } from '../core/home-engine.ts'
 import type { CharacterId } from '../core/roster.ts'
-import { createNeighborhoodWorld as createContentWorld, validateNeighborhoodWorld as validateContentWorld, type NeighborhoodWorld as ContentWorld } from '../core/neighborhood-state.ts'
+import { createHomeWorld as createContentWorld, validateHomeWorld as validateContentWorld, arrangeHome, homeTemplates, type Home, type HomeWorld as ContentWorld } from '../core/home-state.ts'
 import type { LayoutId, ExtraDecoration } from '../core/neighborhood-catalog.ts'
 import type { Food, BellSlot } from '../core/content-state.ts'
 import { characterIds } from '../core/roster.ts'
@@ -52,6 +52,60 @@ export class VillageRuntime {
   private recovering = false
   readonly album: AlbumClient
   photoMode = false
+  homeDraft: { home: Home; layout: LayoutId } | null = null
+  homeDraftError = ''
+  homeSaving = false
+  private homeHistory: { home: Home; layout: LayoutId }[] = []
+  private homePreview: ContentWorld | null = null
+  get arranging() { return !!this.homeDraft || this.decorationDraft !== undefined || !!this.extraDecorationDraft }
+  private syncArrangementPause() { this.pause('arrange', this.arranging) }
+  cancelArrangements() {
+    this.decorationDraft = undefined; this.extraDecorationDraft = null; this.cancelHome()
+  }
+  get canUndoHome() { return this.homeHistory.length > 0 }
+  beginHome() {
+    const world = this.controller?.world
+    if (!world || this.homeDraft || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event) return
+    this.cancelArrangements()
+    this.homeDraft = { home: structuredClone(world.home), layout: world.neighborhood.layout }
+    this.homeHistory = []; this.homeDraftError = ''; this.homePreview = null; this.pause('arrange', true)
+  }
+  updateHome(home: Home, layout = this.homeDraft?.layout) {
+    if (!this.homeDraft || !layout || !this.controller || this.homeSaving) return
+    try {
+      const preview = arrangeHome(this.controller.world, scene, home, layout, this.homeDraft.home.revision)
+      this.homeHistory.push(structuredClone(this.homeDraft)); if (this.homeHistory.length > 20) this.homeHistory.shift()
+      this.homeDraft = { home: structuredClone(home), layout }; this.homePreview = preview; this.homeDraftError = ''
+    } catch (e) { this.homeDraftError = e instanceof Error ? e.message : 'INVALID_LAYOUT' }
+    this.emit()
+  }
+  homeTemplate(layout: LayoutId) { if (this.homeDraft) this.updateHome({ ...this.homeDraft.home, positions: { ...homeTemplates[layout] } }, layout) }
+  private revalidateHome() {
+    if (!this.homeDraft || !this.controller) return
+    try {
+      this.homePreview = arrangeHome(this.controller.world, scene, this.homeDraft.home, this.homeDraft.layout, this.homeDraft.home.revision)
+      this.homeDraftError = ''
+    } catch (e) {
+      this.homePreview = null
+      this.homeDraftError = e instanceof Error ? e.message : 'INVALID_LAYOUT'
+    }
+  }
+  undoHome() {
+    if (this.homeSaving || !this.controller) return
+    const previous = this.homeHistory.pop(); if (!previous) return
+    this.homeDraft = previous; this.revalidateHome(); this.emit()
+  }
+  cancelHome() { this.homeDraft = null; this.homePreview = null; this.homeHistory = []; this.homeDraftError = ''; this.syncArrangementPause() }
+  async confirmHome() {
+    if (!this.homeDraft || !this.controller || this.homeSaving) return
+    this.homeSaving = true; this.homeDraftError = ''; this.emit()
+    try {
+      const receipt = await this.commitWorld(arrangeHome(this.controller.world, scene, this.homeDraft.home, this.homeDraft.layout, this.homeDraft.home.revision))
+      if (receipt.status === 'committed') this.cancelHome()
+      else this.homeDraftError = receipt.status === 'rejected' ? receipt.reason : 'SAVE_UNCONFIRMED'
+    } catch (e) { this.homeDraftError = e instanceof Error ? e.message : 'INVALID_LAYOUT' }
+    finally { this.homeSaving = false; this.emit() }
+  }
   photoOptions = { zoom: 1, x: 0, y: 0, date: true, border: true }
   private captureHandler: (()=>Promise<ArrayBuffer>) | null = null
   constructor(private readonly request: Request = (path, init) => fetch(path, init)) {
@@ -59,7 +113,7 @@ export class VillageRuntime {
   }
   bindCapture(handler: (()=>Promise<ArrayBuffer>) | null) { this.captureHandler = handler }
   async enterPhoto() {
-    if (!this.ready || !this.frameReady || this.error || this.criticalCandidate) return
+    if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.arranging) return
     this.photoMode = true; this.pause('photo', true)
     const receipt = await this.flush()
     if (receipt.status !== 'committed') { this.exitPhoto(); return }
@@ -93,6 +147,7 @@ export class VillageRuntime {
   private fail(error: unknown) { this.error = String(error); this.pause('disconnected', true); this.emit() }
   pause(reason: PauseReason, active: boolean) {
     if (reason === 'user' && this.criticalCandidate) return
+    if (!active && this.reasons.has(reason) && ['sidebar', 'hidden', 'other-panel'].includes(reason)) this.revalidateHome()
     if (active) this.reasons.add(reason); else this.reasons.delete(reason)
     if (this.controller?.pauseReasons.has(reason) !== active) this.controller?.pause(reason, active)
     this.schedule(); this.emit()
@@ -102,12 +157,14 @@ export class VillageRuntime {
     if (this.connected && !this.ready) void this.connect()
   }
   hide(other = false) {
+    if (this.arranging && !other) this.cancelArrangements()
     if (this.photoMode) this.exitPhoto()
     this.open = false; this.pause(other ? 'other-panel' : 'closed', true)
     this.setFrameReady(false)
   }
   setConnection(connected: boolean, reset = false) {
     if (!reset && connected === this.connected) return
+    if (this.arranging) this.cancelArrangements()
     this.connected = connected; this.generation++; this.attempt.abort(); this.attempt = new AbortController()
     clearInterval(this.heartbeat); this.heartbeat = undefined
     this.ready = false; this.frameReady = false; this.pause('disconnected', true)
@@ -165,6 +222,7 @@ export class VillageRuntime {
         }
         if (this.criticalCandidate && state.saved && this.saveReceipt.status === 'committed') {
           this.controller!.world = validateContentWorld(state.saved.world, scene)
+          this.controller!.syncScene()
           if (this.controller!.world.userPaused) { this.reasons.add('user'); this.controller!.pauseReasons.add('user') }
           else { this.reasons.delete('user'); this.controller!.pauseReasons.delete('user') }
           this.criticalCandidate = null; this.pause('commit-pending', false)
@@ -194,7 +252,7 @@ export class VillageRuntime {
     const before = intent.type === 'up' ? this.controller?.snapshot() : undefined
     this.changingDraft = intent.type === 'up'
     try { this.controller?.pointer(intent) } finally { this.changingDraft = false }
-    if (before && this.controller?.lastPlacement === 'accepted' && JSON.stringify(before) !== JSON.stringify(this.controller.world)) {
+    if (before && this.controller && ['accepted', 'selected'].includes(this.controller.lastPlacement ?? '') && JSON.stringify(before) !== JSON.stringify(this.controller.world)) {
       const candidate = this.controller.snapshot(); this.controller.world = before
       void this.commitWorld(candidate)
     }
@@ -203,17 +261,17 @@ export class VillageRuntime {
   }
   cancelDrag() { this.controller?.cancelDrag(); this.emit() }
   selectCharacter(id: unknown) {
-    if (!this.ready || this.error || this.recovering || this.criticalCandidate) return
+    if (!this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
     if (this.controller && !actors(this.controller.world).some(a=>a.id===id)) this.changeMembers(c=>c.selectCharacter(id))
     else this.controller?.selectCharacter(id)
     this.emit()
   }
   setCharacterPresent(id: unknown, present: boolean) {
-    if (!this.ready || this.error || this.recovering || this.criticalCandidate) return
+    if (!this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
     this.changeMembers(c => c.setCharacterPresent(id, present))
   }
   setAllCharacters(present: boolean) {
-    if (!this.ready || this.error || this.recovering || this.criticalCandidate) return
+    if (!this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
     this.changeMembers(c => { for (const id of characterIds) if (present || id !== c.world.actor.id) c.setCharacterPresent(id, present) })
   }
   private changeMembers(change: (controller: ContentController) => void) {
@@ -223,6 +281,7 @@ export class VillageRuntime {
     void this.commitWorld(draft.snapshot())
   }
   async invite(pair: [CharacterId, CharacterId], food: Food) {
+    if (this.arranging) return
     this.actionError = ''
     try { if (this.controller) await this.commitWorld(inviteTea(this.controller.world, scene, pair, food, crypto.randomUUID())) }
     catch (error) { this.actionError = error instanceof Error ? error.message : 'INVITATION_FAILED' }
@@ -237,19 +296,34 @@ export class VillageRuntime {
     if (this.controller) return this.commitWorld(placeBell(this.controller.world, scene, slot))
   }
   async interact(definition: string, participants: CharacterId[]) {
+    if (this.arranging) return
     await this.neighborhoodCommand(() => startNeighborhoodEvent(this.controller!.world, scene, definition, participants, crypto.randomUUID()))
   }
-  async chooseLayout(layout: LayoutId) { await this.neighborhoodCommand(() => changeLayout(this.controller!.world, scene, layout)) }
+  async chooseLayout(layout: LayoutId) { if (!this.arranging) await this.neighborhoodCommand(() => changeLayout(this.controller!.world, scene, layout)) }
   async decorateExtra(id: ExtraDecoration, slot: BellSlot | null) { await this.neighborhoodCommand(() => decorateExtra(this.controller!.world, scene, id, slot)) }
   private async neighborhoodCommand(candidate: () => ContentWorld) {
     if (!this.controller) return
     this.actionError = ''
-    try { const receipt = await this.commitWorld(candidate()); if (receipt.status === 'rejected') this.actionError = receipt.reason }
+    try { const receipt = await this.commitWorld(candidate()); if (receipt.status === 'rejected') this.actionError = receipt.reason; else if (receipt.status === 'unknown') this.actionError = 'SAVE_UNCONFIRMED' }
     catch (e) { this.actionError = e instanceof Error ? e.message : 'INTERACTION_FAILED' }
     this.emit()
   }
-  previewExtraDecoration(value: typeof this.extraDecorationDraft) { this.extraDecorationDraft=value;this.emit() }
-  previewDecoration(slot: BellSlot | null | undefined) { this.decorationDraft = slot; this.emit() }
+  previewExtraDecoration(value: typeof this.extraDecorationDraft) {
+    if (value) {
+      if (!this.ready || !this.controller || this.error || this.criticalCandidate || this.photoMode) return
+      try { decorateExtra(this.controller.world, scene, value.id, value.slot) } catch { return }
+      this.cancelArrangements()
+    }
+    this.extraDecorationDraft = value; this.syncArrangementPause()
+  }
+  previewDecoration(slot: BellSlot | null | undefined) {
+    if (slot !== undefined) {
+      if (!this.ready || !this.controller || this.error || this.criticalCandidate || this.photoMode) return
+      try { placeBell(this.controller.world, scene, slot) } catch { return }
+      this.cancelArrangements()
+    }
+    this.decorationDraft = slot; this.syncArrangementPause()
+  }
   setLocale(locale: 'zh' | 'en') { if (this.locale !== locale) { this.locale = locale; this.emit(false) } }
   get preferencesSaving(): boolean { return !!this.preferenceSaving }
   async setPreferences(patch: Partial<Omit<Preferences, 'schemaVersion'>>): Promise<void> {
@@ -268,7 +342,7 @@ export class VillageRuntime {
   }
   view() {
     const c = this.controller
-    return c ? { world: c.world, position: c.drag?.active ? c.drag.position : c.world.actor.position,
+    return c ? { world: this.homePreview ?? c.world, arranging: !!this.homeDraft, position: c.drag?.active ? c.drag.position : c.world.actor.position,
       dragging: c.drag?.active ?? false, dragTime: this.dragTime, paused: !!c.pauseReasons.size, debug: false,
       locale: this.preferences.language === 'system' ? this.locale : this.preferences.language,
       photo: this.photoMode ? this.photoOptions : null, reducedMotion: this.preferences.reducedMotion, bubbles: this.preferences.bubbles, decorationDraft: this.decorationDraft, extraDecorationDraft: this.extraDecorationDraft } : null
@@ -406,6 +480,7 @@ export class VillageRuntime {
     this.recovering = true
     const generation = this.generation
     this.pause('ownership', true)
+    this.cancelArrangements()
     try {
       await this.saving; this.dirty = false
       const saved = await this.api<Saved<ContentWorld>>('recover', this.credentials())

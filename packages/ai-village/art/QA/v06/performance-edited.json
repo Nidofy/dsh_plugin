@@ -1,0 +1,519 @@
+{
+  "edited": true,
+  "sampledAt": "2026-10-22T01:38:42.897Z",
+  "sevenResidents": {
+    "seconds": 5.113,
+    "fps": 22.100528065714844,
+    "parentRafFps": 59.0115082238097,
+    "meanPaintMs": 1.355479455974004,
+    "maxPaintMs": 69.29999995231628,
+    "textures": 128
+  },
+  "closedStopsWorld": true,
+  "scales": [
+    {
+      "dpr": 1,
+      "backingWidth": 552,
+      "cssWidth": 276,
+      "frames": 2,
+      "actors": 7,
+      "textures": 128,
+      "tickerStarted": false,
+      "geometry": [
+        {
+          "id": "work",
+          "activity": "work",
+          "seat": "main",
+          "hit": {
+            "x": 70,
+            "y": 237,
+            "width": 112,
+            "height": 34
+          },
+          "anchor": {
+            "x": 126,
+            "y": 265
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "left",
+          "hit": {
+            "x": 69,
+            "y": 316,
+            "width": 100,
+            "height": 64
+          },
+          "anchor": {
+            "x": 121,
+            "y": 374
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "right",
+          "hit": {
+            "x": 171,
+            "y": 316,
+            "width": 102,
+            "height": 64
+          },
+          "anchor": {
+            "x": 219,
+            "y": 374
+          }
+        },
+        {
+          "id": "books",
+          "seat": "main",
+          "activity": "read",
+          "hit": {
+            "x": 233,
+            "y": 211,
+            "width": 90,
+            "height": 44
+          },
+          "anchor": {
+            "x": 274,
+            "y": 245
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "left",
+          "activity": "sit",
+          "hit": {
+            "x": 59,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 94,
+            "y": 239
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "right",
+          "activity": "sit",
+          "hit": {
+            "x": 159,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 194,
+            "y": 239
+          }
+        }
+      ],
+      "environment": "twilight",
+      "viewport": {
+        "world": {
+          "scale": 0.7666666666666667,
+          "x": 0,
+          "y": 0.5
+        },
+        "background": {
+          "x": -0.375,
+          "y": 0,
+          "width": 276.75,
+          "height": 369
+        }
+      },
+      "paused": true,
+      "meanPaintMs": 47.950000047683716,
+      "maxPaintMs": 94.20000004768372
+    },
+    {
+      "dpr": 1.25,
+      "backingWidth": 552,
+      "cssWidth": 276,
+      "frames": 2,
+      "actors": 7,
+      "textures": 128,
+      "tickerStarted": false,
+      "geometry": [
+        {
+          "id": "work",
+          "activity": "work",
+          "seat": "main",
+          "hit": {
+            "x": 70,
+            "y": 237,
+            "width": 112,
+            "height": 34
+          },
+          "anchor": {
+            "x": 126,
+            "y": 265
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "left",
+          "hit": {
+            "x": 69,
+            "y": 316,
+            "width": 100,
+            "height": 64
+          },
+          "anchor": {
+            "x": 121,
+            "y": 374
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "right",
+          "hit": {
+            "x": 171,
+            "y": 316,
+            "width": 102,
+            "height": 64
+          },
+          "anchor": {
+            "x": 219,
+            "y": 374
+          }
+        },
+        {
+          "id": "books",
+          "seat": "main",
+          "activity": "read",
+          "hit": {
+            "x": 233,
+            "y": 211,
+            "width": 90,
+            "height": 44
+          },
+          "anchor": {
+            "x": 274,
+            "y": 245
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "left",
+          "activity": "sit",
+          "hit": {
+            "x": 59,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 94,
+            "y": 239
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "right",
+          "activity": "sit",
+          "hit": {
+            "x": 159,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 194,
+            "y": 239
+          }
+        }
+      ],
+      "environment": "twilight",
+      "viewport": {
+        "world": {
+          "scale": 0.7666666666666667,
+          "x": 0,
+          "y": 0.5
+        },
+        "background": {
+          "x": -0.375,
+          "y": 0,
+          "width": 276.75,
+          "height": 369
+        }
+      },
+      "paused": true,
+      "meanPaintMs": 47.950000047683716,
+      "maxPaintMs": 94.20000004768372
+    },
+    {
+      "dpr": 1.5,
+      "backingWidth": 552,
+      "cssWidth": 276,
+      "frames": 2,
+      "actors": 7,
+      "textures": 128,
+      "tickerStarted": false,
+      "geometry": [
+        {
+          "id": "work",
+          "activity": "work",
+          "seat": "main",
+          "hit": {
+            "x": 70,
+            "y": 237,
+            "width": 112,
+            "height": 34
+          },
+          "anchor": {
+            "x": 126,
+            "y": 265
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "left",
+          "hit": {
+            "x": 69,
+            "y": 316,
+            "width": 100,
+            "height": 64
+          },
+          "anchor": {
+            "x": 121,
+            "y": 374
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "right",
+          "hit": {
+            "x": 171,
+            "y": 316,
+            "width": 102,
+            "height": 64
+          },
+          "anchor": {
+            "x": 219,
+            "y": 374
+          }
+        },
+        {
+          "id": "books",
+          "seat": "main",
+          "activity": "read",
+          "hit": {
+            "x": 233,
+            "y": 211,
+            "width": 90,
+            "height": 44
+          },
+          "anchor": {
+            "x": 274,
+            "y": 245
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "left",
+          "activity": "sit",
+          "hit": {
+            "x": 59,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 94,
+            "y": 239
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "right",
+          "activity": "sit",
+          "hit": {
+            "x": 159,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 194,
+            "y": 239
+          }
+        }
+      ],
+      "environment": "twilight",
+      "viewport": {
+        "world": {
+          "scale": 0.7666666666666667,
+          "x": 0,
+          "y": 0.5
+        },
+        "background": {
+          "x": -0.375,
+          "y": 0,
+          "width": 276.75,
+          "height": 369
+        }
+      },
+      "paused": true,
+      "meanPaintMs": 47.950000047683716,
+      "maxPaintMs": 94.20000004768372
+    },
+    {
+      "dpr": 2,
+      "backingWidth": 552,
+      "cssWidth": 276,
+      "frames": 2,
+      "actors": 7,
+      "textures": 128,
+      "tickerStarted": false,
+      "geometry": [
+        {
+          "id": "work",
+          "activity": "work",
+          "seat": "main",
+          "hit": {
+            "x": 70,
+            "y": 237,
+            "width": 112,
+            "height": 34
+          },
+          "anchor": {
+            "x": 126,
+            "y": 265
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "left",
+          "hit": {
+            "x": 69,
+            "y": 316,
+            "width": 100,
+            "height": 64
+          },
+          "anchor": {
+            "x": 121,
+            "y": 374
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "right",
+          "hit": {
+            "x": 171,
+            "y": 316,
+            "width": 102,
+            "height": 64
+          },
+          "anchor": {
+            "x": 219,
+            "y": 374
+          }
+        },
+        {
+          "id": "books",
+          "seat": "main",
+          "activity": "read",
+          "hit": {
+            "x": 233,
+            "y": 211,
+            "width": 90,
+            "height": 44
+          },
+          "anchor": {
+            "x": 274,
+            "y": 245
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "left",
+          "activity": "sit",
+          "hit": {
+            "x": 59,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 94,
+            "y": 239
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "right",
+          "activity": "sit",
+          "hit": {
+            "x": 159,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 194,
+            "y": 239
+          }
+        }
+      ],
+      "environment": "twilight",
+      "viewport": {
+        "world": {
+          "scale": 0.7666666666666667,
+          "x": 0,
+          "y": 0.5
+        },
+        "background": {
+          "x": -0.375,
+          "y": 0,
+          "width": 276.75,
+          "height": 369
+        }
+      },
+      "paused": true,
+      "meanPaintMs": 47.950000047683716,
+      "maxPaintMs": 94.20000004768372
+    }
+  ],
+  "layouts": [
+    {
+      "card": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 620
+      },
+      "scene": {
+        "x": 1157.3125,
+        "y": 226.5,
+        "width": 201.375,
+        "height": 268.5
+      }
+    },
+    {
+      "card": {
+        "x": 1088,
+        "y": 92,
+        "width": 340,
+        "height": 440
+      },
+      "scene": {
+        "x": 1187.5,
+        "y": 167,
+        "width": 141,
+        "height": 188
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": "Chromium headless with SwiftShader; 5-second animation sample. DPR is browser emulation, not Windows system-scale changes. Paint timing is JavaScript render submission, not GPU completion. No cross-device or long-duration GPU claim."
+}

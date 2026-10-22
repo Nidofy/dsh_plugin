@@ -1,0 +1,19 @@
+{
+  "officialRevision": "687f282e8625c6b8d11ff58211a90524be2e4317",
+  "checks": [
+    "Blank/populated header remounts at 1440/2560: one Git/Live2D/Village group left of sidebar, aligned vertical centers and stable order",
+    "7 characters, 21 activity placements, live selector without renderer replacement; on-demand single-resident texture count below 40",
+    "50 sidebar cycles: one reservation, one frame, paused world unchanged",
+    "session changes preserve world and renderer instance",
+    "Git coexists above either companion; only Live2D and village exclude each other",
+    "2560x1440 at 100% uses a 2x canvas backing store",
+    "Tall 1440p/2160p courtyard: backdrop covers every edge without stretching; interactive world remains contained",
+    "Host restart and connection generation reset reconcile profile, epoch and revision, preserving user pause",
+    "narrow/main panel hiding, drag rollback, conversation focus and draft preserved",
+    "refresh restores last durable snapshot, second window cannot simulate",
+    "Seven residents independently simulate, focus preserves all actors, three concurrent activities persist across reload; removal releases rigs",
+    "0.4 visible controls: saved invitation resumes after reload; two-seat tea completes once; journal and bell unlock atomically; all three decor slots, draft Escape rollback; one frame across expanded/compact/800x600; persisted dark/en/reduced-motion settings and exact cold world restore"
+  ],
+  "errors": [],
+  "external": []
+}

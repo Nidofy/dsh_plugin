@@ -38,7 +38,7 @@ show()
 const api = {
   inspect: () => ({ world: runtime.controller?.snapshot(), revision: runtime.revision, ready: runtime.ready, frameReady: runtime.frameReady,
     drag: runtime.controller?.drag, reasons: [...runtime.reasons], error: runtime.error, generation: runtime.generation, profileId: runtime.profileId,
-    album: runtime.album.state, albumError: runtime.album.error, photoMode: runtime.photoMode, actionError: runtime.actionError, preferences: runtime.preferences, preferencesSaving: runtime.preferencesSaving, saveReceipt: runtime.saveReceipt }),
+    homeDraft: runtime.homeDraft, decorationDraft: runtime.decorationDraft, extraDecorationDraft: runtime.extraDecorationDraft, homeDraftError: runtime.homeDraftError, album: runtime.album.state, albumError: runtime.album.error, photoMode: runtime.photoMode, actionError: runtime.actionError, preferences: runtime.preferences, preferencesSaving: runtime.preferencesSaving, saveReceipt: runtime.saveReceipt }),
   session: () => { selection.set({ key: selection.getSnapshot().key === 'session-a' ? 'session-b' : 'session-a' }) },
   sidebar: (open: boolean) => document.getElementById('frame')!.toggleAttribute('data-rightbar-collapsed', !open),
   connection: (value: boolean) => connection.set(value ? 'connected' : 'disconnected'),

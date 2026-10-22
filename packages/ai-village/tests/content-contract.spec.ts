@@ -1,6 +1,7 @@
 import { it, expect } from 'vitest'
 import { contractLimits } from '../experiments/content-ui/contracts.ts'
 import { previewWorld } from '../experiments/content-ui/scene.ts'
+import { blankHome } from '../src/core/home-state.ts'
 
 it('fits bounded schema-4 structural capacity in world, save, snapshot and state UTF-8 budgets', () => {
   // Structural maximum with 64-byte future catalog IDs; not a current catalog-valid save.
@@ -24,4 +25,17 @@ it('fits bounded schema-4 structural capacity in world, save, snapshot and state
     expect(bytes(envelope)).toBeLessThanOrEqual(contractLimits.envelopeBytes)
   }
   expect(bytes({ text: '小院' })).toBeGreaterThan(JSON.stringify({ text: '小院' }).length)
+  // Upper structural bounds include the schema-6 additions; the deliberately
+  // oversized future IDs above are not claimed to be catalog-valid game data.
+  const homeWorld = { ...world, schemaVersion: 6, sceneVersion: 3, simulationRulesVersion: 3, contentRevision: 3,
+    home: { ...blankHome(), revision: Number.MAX_SAFE_INTEGER },
+    neighborhood: { layout: 'reading', layoutRevision: Number.MAX_SAFE_INTEGER, nextInteractionTick: Number.MAX_SAFE_INTEGER,
+      event: null, lastEventId: uuid, decorations: { lantern: 'window', planter: 'door' },
+      memories: Array.from({ length: 12 }, () => ({ id, eventId: uuid, participants: ['bluewhale', 'claude'], completedTick: Number.MAX_SAFE_INTEGER, count: Number.MAX_SAFE_INTEGER })),
+      bonds: Array.from({ length: 21 }, () => ({ pair: ['bluewhale', 'claude'], count: Number.MAX_SAFE_INTEGER, lastTick: Number.MAX_SAFE_INTEGER })) } }
+  expect(bytes(homeWorld)).toBeLessThanOrEqual(contractLimits.worldBytes)
+  for (const envelope of [{ ...saved, world: homeWorld }, { lease: uuid, epoch: uuid, operationId: uuid, expectedRevision: Number.MAX_SAFE_INTEGER, world: homeWorld },
+    { profileId: id, epoch: uuid, saved: { ...saved, world: homeWorld }, retention: { diagnostic: 'SAVE_RETENTION_SCAN_LIMIT' } }]) {
+    expect(bytes(envelope)).toBeLessThanOrEqual(contractLimits.envelopeBytes)
+  }
 })

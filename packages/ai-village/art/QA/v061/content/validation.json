@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    "preview, undo and Escape without world mutation",
+    "confirmed geometry, twilight and accessory",
+    "actual drag to bench beside moved desk",
+    "翻开一本书",
+    "照料盆栽",
+    "actual PNG export, independent album and exact cold restore"
+  ],
+  "schema": 6,
+  "geometry": true,
+  "photo": {
+    "width": 720,
+    "height": 960,
+    "bytes": 1127353
+  },
+  "coldRestore": true,
+  "errors": [],
+  "external": []
+}

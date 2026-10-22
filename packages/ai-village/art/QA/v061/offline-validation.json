@@ -1,0 +1,103 @@
+{
+  "dsh": "0.2.1-rc.2",
+  "platform": "win32-x64",
+  "passed": true,
+  "packageManager": "pnpm",
+  "emptyStore": true,
+  "offline": true,
+  "lifecycleScripts": false,
+  "nativeChecks": [
+    "koffi",
+    "sharp PNG encoding"
+  ],
+  "artifacts": [
+    {
+      "name": "@nidofy/dsh-plugin-shared",
+      "version": "0.1.1",
+      "file": "nidofy-dsh-plugin-shared-0.1.1.tgz",
+      "bytes": 782157,
+      "sha256": "a5d88049182e7d3b3f156e744d69956ebdd8a71419de341add6cf841a88c2094",
+      "files": 106,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-runtime-adapter",
+      "version": "0.1.1",
+      "file": "nidofy-dsh-runtime-adapter-0.1.1.tgz",
+      "bytes": 1032532,
+      "sha256": "481d3ca3c674db32db305a07922fa4648589f291bd84b9f39defa6cbd274f2c6",
+      "files": 144,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-desktop-pets",
+      "version": "0.2.1",
+      "file": "nidofy-dsh-desktop-pets-0.2.1.tgz",
+      "bytes": 16353164,
+      "sha256": "e1e4dc1c668adbaffc024034bd0bfef3837e6b9fcb970b5eb742eae3892ecda3",
+      "files": 286,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-working-notebook",
+      "version": "0.2.0",
+      "file": "nidofy-dsh-working-notebook-0.2.0.tgz",
+      "bytes": 930121,
+      "sha256": "6526dad9cef619cad915fec659f80fa90f727d776647c97ac3a63a5b795c1d6f",
+      "files": 150,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-source-control",
+      "version": "0.1.3",
+      "file": "nidofy-dsh-source-control-0.1.3.tgz",
+      "bytes": 30319,
+      "sha256": "24234212d385d6108ddde7b1f478cb24b0ae7891144bab5e371c89c267bb0f7e",
+      "files": 21,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-live2d",
+      "version": "0.1.2",
+      "file": "nidofy-dsh-live2d-0.1.2.tgz",
+      "bytes": 1430405,
+      "sha256": "88ed6b045aa2a718dd6ed25df407b0bbf1d9e81b5e1610bd5496f5bf6e517fd7",
+      "files": 35,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-whale-skin",
+      "version": "0.1.0",
+      "file": "nidofy-dsh-whale-skin-0.1.0.tgz",
+      "bytes": 657229,
+      "sha256": "bdc8f1e86783ea686e0bdd0d7124134728bfa4263b7880f92bfe04ad4c3f197f",
+      "files": 17,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-ai-village",
+      "version": "0.6.1",
+      "file": "nidofy-dsh-ai-village-0.6.1.tgz",
+      "bytes": 29018297,
+      "sha256": "9488b87789e89b0cd155d107a442fb5587939f9f4840b1f0173c0dfdda5d4608",
+      "files": 252,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.2",
+      "offline": true
+    }
+  ]
+}

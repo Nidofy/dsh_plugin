@@ -1,8 +1,8 @@
 {
   "name": "@nidofy/dsh-ai-village",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "private": true,
-  "description": "Offline AI courtyard with seven residents, shared tea, a persistent journal and wind chime decor",
+  "description": "Offline AI courtyard with seven residents, editable furniture layouts, neighborhood activities and a local photo album.",
   "type": "module",
   "license": "MIT",
   "engines": {

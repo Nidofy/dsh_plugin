@@ -38,7 +38,7 @@ export interface World {
   companions: Actor[]
 }
 /** Shared simulation fields; schema-specific state is owned by its controller. */
-export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 }
+export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 | 6 }
 export const behaviors: Behavior[] = ['idle', 'walk', 'put_down', 'work', 'eat', 'rest', 'sit', 'read', 'tend']
 export function contains(rect: Rect, point: Point): boolean {
   return point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height

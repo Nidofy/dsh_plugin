@@ -1,15 +1,15 @@
 import { actors, available, hitActor, placement, step, validateWorld, walkable, seatAvailable } from './world.ts'
 import type { Point, Scene, World, SimulationWorld } from './world.ts'
-import { isCharacterId } from './roster.ts'
-export type PauseReason = 'user' | 'hidden' | 'closed' | 'disconnected' | 'ownership' | 'sidebar' | 'other-panel' | 'insufficient-space' | 'commit-pending' | 'photo' | 'assets'
+import { isCharacterId, type CharacterId } from './roster.ts'
+export type PauseReason = 'user' | 'hidden' | 'closed' | 'disconnected' | 'ownership' | 'sidebar' | 'other-panel' | 'insufficient-space' | 'commit-pending' | 'photo' | 'assets' | 'arrange'
 export interface PointerIntent { type: 'down' | 'move' | 'up' | 'cancel'; id: number; point: Point; css: Point }
-interface Drag { id: number; origin: Point; offset: Point; position: Point; active: boolean }
+interface Drag { id: number; actorId: CharacterId; origin: Point; offset: Point; position: Point; active: boolean }
 /** State owner survives iframe disposal. Dragging is a draft, never a saved world state. */
 export class WorldController<W extends SimulationWorld = World> {
   readonly pauseReasons = new Set<PauseReason>()
   drag: Drag | null = null
   accumulator = 0
-  lastPlacement: 'accepted' | 'rejected' | 'cancelled' | null = null
+  lastPlacement: 'accepted' | 'rejected' | 'cancelled' | 'selected' | null = null
   constructor(public world: W, public scene: Scene, readonly changed: () => void) {
     if (world.userPaused) this.pauseReasons.add('user')
   }
@@ -63,21 +63,23 @@ export class WorldController<W extends SimulationWorld = World> {
       if (this.drag) return
       const picked = hitActor(this.world, input.point)
       if (!picked) return
-      this.selectCharacter(picked.id)
-      const p = this.world.actor.position
-      this.drag = { id: input.id, origin: { ...input.css },
+      const p = picked.position
+      this.lastPlacement = null
+      this.drag = { id: input.id, actorId: picked.id, origin: { ...input.css },
         offset: { x: input.point.x - p.x, y: input.point.y - p.y }, position: { ...p }, active: false }
       return
     }
     const drag = this.drag
     if (!drag || drag.id !== input.id) return
     if (input.type === 'move' || input.type === 'up') {
-      if (!drag.active && Math.hypot(input.css.x - drag.origin.x, input.css.y - drag.origin.y) >= 5) drag.active = true
+      if (!drag.active && Math.hypot(input.css.x - drag.origin.x, input.css.y - drag.origin.y) >= 5) {
+        this.drag = null; this.selectCharacter(drag.actorId); this.drag = drag; drag.active = true
+      }
       if (drag.active) drag.position = { x: input.point.x - drag.offset.x, y: input.point.y - drag.offset.y }
     }
     if (input.type !== 'up') return
     this.drag = null
-    if (!drag.active) return
+    if (!drag.active) { this.selectCharacter(drag.actorId); this.lastPlacement = 'selected'; return }
     const result = placement(this.scene, drag.position, this.world.actor.safe)
     const accepted = result.accepted && available(this.world, result.position, this.world.actor.id)
       && (!result.hotspot || seatAvailable(this.world, result.hotspot, this.world.actor.id))

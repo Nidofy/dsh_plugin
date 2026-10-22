@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "geometry": {
+    "card": {
+      "x": 292,
+      "y": 96.14286041259766,
+      "width": 975.4285888671875,
+      "height": 281.5,
+      "top": 96.14286041259766,
+      "right": 1267.4285888671875,
+      "bottom": 377.64286041259766,
+      "left": 292
+    },
+    "composer": {
+      "x": 420.4285888671875,
+      "y": 389.64288330078125,
+      "width": 712.0000610351562,
+      "height": 186.00001525878906,
+      "top": 389.64288330078125,
+      "right": 1132.4286499023438,
+      "bottom": 575.6428985595703,
+      "left": 420.4285888671875
+    },
+    "limited": "Paused for limited space. Switch size or resize the window to continue; the chat composer stays available."
+  },
+  "chatDraftPreserved": true,
+  "attachmentPreserved": true,
+  "sidebarDraftPreserved": true,
+  "localEscapeAndFocus": true,
+  "errors": [],
+  "fileInputs": [
+    {
+      "accept": "",
+      "multiple": true,
+      "label": null
+    }
+  ],
+  "buttons": [
+    "Collapse sidebar",
+    "Open right sidebar",
+    "Remove file ai-village-qa.txt",
+    "Add files or run commands"
+  ],
+  "screenshots": [],
+  "limitation": "Real Desktop DOM and input controls; physical IME candidate window and approval shortcut not exercised."
+}

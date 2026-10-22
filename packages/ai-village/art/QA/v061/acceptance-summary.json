@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-22",
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.6.1",
+    "file": "nidofy-dsh-ai-village-0.6.1.tgz",
+    "bytes": 29018297,
+    "sha256": "9488b87789e89b0cd155d107a442fb5587939f9f4840b1f0173c0dfdda5d4608",
+    "files": 252,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "gitBaseline": "8cb2b0d59d983d41b41f8d640bd7f57f7718bbdc",
+  "workingTree": "uncommitted 0.6 and 0.6.1 work",
+  "sourceHashes": {
+    "lib/index.js": "e24d81acde2afe770707e612f9d054bf54b61be8e87d49bc812956288ed2c670",
+    "lib/client.js": "6a92b15eccc3c74e15ae98ffbf79f80d4044d9c0335f512d0e1e5e81d01b0a3d",
+    "lib/frame.js": "8b2dee8efadc78db39a396d94a9be3cbd28a9f24553f727442e0056fc2e70755"
+  },
+  "tests": {
+    "official": {
+      "files": 26,
+      "passed": 103
+    },
+    "repository": {
+      "files": 60,
+      "passed": 258,
+      "skipped": 2
+    },
+    "typecheck": true,
+    "nonSandboxBuild": true,
+    "finalVillageBuild": true,
+    "packedSmoke": true,
+    "emptyCacheOfflineInstall": true
+  },
+  "finalBuildEvidence": [
+    "browser/validation.json",
+    "performance/validation.json",
+    "neighborhood/validation.json",
+    "desktop/lifecycle.json",
+    "desktop/restart-validation.json",
+    "fresh-desktop/lifecycle.json",
+    "fresh-desktop/restart-validation.json",
+    "fresh-desktop/ui-validation.json"
+  ],
+  "earlierInTurnEvidence": {
+    "files": [
+      "content/validation.json",
+      "integration/validation.json"
+    ],
+    "note": "Completed before the final shared decoration-draft change. Final behavior additionally covered by the 103 official tests, browser regression, neighborhood round trip and native checks."
+  },
+  "desktop": {
+    "baseline": "DSH 0.2.1-rc.2",
+    "isolatedProfilesOnly": true,
+    "upgradedWorldAndAlbumExact": true,
+    "freshWorldExact": true,
+    "enableDisableCyclesPerProfile": 3,
+    "chatSent": false,
+    "modelCalls": false,
+    "instancesClosed": true
+  },
+  "limitations": [
+    "One-hour continuous acceptance deferred by user; no completion claimed.",
+    "Physical Windows DPI/multimonitor, IME candidate/approval keys, sleep/wake and human playtests remain unverified.",
+    "Software-rendered browser timings measure JS paint submission, not GPU completion or native foreground performance.",
+    "Native journal screenshot timeout retained in desktop/validation.json; data and PNG recovery passed."
+  ]
+}
