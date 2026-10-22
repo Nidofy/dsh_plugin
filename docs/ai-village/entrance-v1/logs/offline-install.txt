@@ -1,0 +1,11 @@
+Progress: resolved 0, reused 0, downloaded 1, added 0
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+Packages: +8
+++++++++
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: D:\Documents\FeiyangChen\devApps\dsh_plugin\.build\offline-check-sOIYsY\empty-store\v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 8, reused 0, downloaded 8, added 8, done
+Done in 950ms using pnpm v11.25.0
+Offline installed runtime checks passed

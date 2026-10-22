@@ -1,0 +1,438 @@
+[
+  {
+    "name": "fallback-light-340",
+    "build": {
+      "version": "0.6.3",
+      "head": "2fd86dafaf771060cbef2074486ad10465d0a317",
+      "dirty": true,
+      "fixtureSHA256": "7527261b71ca2a01b062fce97b35d23853df2391588e66f8a35ca49aa8f6ea83",
+      "clientSHA256": "32411153aed5a17e7693b9fd0d90538516c32546fd7196ce03579c715a726b8d",
+      "frameSHA256": "57ee4268590cd3a6af0d57dd734579af5c6f61d9c10330173ec6ec766a4e7a82"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "light",
+    "themeSource": "preference",
+    "materialMode": "reduced-transparency",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "light",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "fallback-light-1080",
+    "build": {
+      "version": "0.6.3",
+      "head": "2fd86dafaf771060cbef2074486ad10465d0a317",
+      "dirty": true,
+      "fixtureSHA256": "7527261b71ca2a01b062fce97b35d23853df2391588e66f8a35ca49aa8f6ea83",
+      "clientSHA256": "32411153aed5a17e7693b9fd0d90538516c32546fd7196ce03579c715a726b8d",
+      "frameSHA256": "57ee4268590cd3a6af0d57dd734579af5c6f61d9c10330173ec6ec766a4e7a82"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "light",
+    "themeSource": "preference",
+    "materialMode": "reduced-transparency",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "light",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "fallback-dark-340",
+    "build": {
+      "version": "0.6.3",
+      "head": "2fd86dafaf771060cbef2074486ad10465d0a317",
+      "dirty": true,
+      "fixtureSHA256": "7527261b71ca2a01b062fce97b35d23853df2391588e66f8a35ca49aa8f6ea83",
+      "clientSHA256": "32411153aed5a17e7693b9fd0d90538516c32546fd7196ce03579c715a726b8d",
+      "frameSHA256": "57ee4268590cd3a6af0d57dd734579af5c6f61d9c10330173ec6ec766a4e7a82"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 340,
+      "height": 720,
+      "top": 92,
+      "right": 552,
+      "bottom": 812,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "reduced-transparency",
+    "fontSize": "13px",
+    "lineHeight": "18.85px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+    "name": "fallback-dark-1080",
+    "build": {
+      "version": "0.6.3",
+      "head": "2fd86dafaf771060cbef2074486ad10465d0a317",
+      "dirty": true,
+      "fixtureSHA256": "7527261b71ca2a01b062fce97b35d23853df2391588e66f8a35ca49aa8f6ea83",
+      "clientSHA256": "32411153aed5a17e7693b9fd0d90538516c32546fd7196ce03579c715a726b8d",
+      "frameSHA256": "57ee4268590cd3a6af0d57dd734579af5c6f61d9c10330173ec6ec766a4e7a82"
+    },
+    "css": {
+      "x": 212,
+      "y": 92,
+      "width": 1080,
+      "height": 760,
+      "top": 92,
+      "right": 1292,
+      "bottom": 852,
+      "left": 212
+    },
+    "mode": "dark",
+    "themeSource": "preference",
+    "materialMode": "reduced-transparency",
+    "fontSize": "15px",
+    "lineHeight": "21.75px",
+    "dpr": 1,
+    "theme": "dark",
+    "textScale": 1,
+    "environment": "afternoon",
+    "language": "zh",
+    "route": {
+      "page": "appearance",
+      "history": [
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": null,
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "more",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "小院设置",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        },
+        {
+          "tab": "residents",
+          "drawer": "closed",
+          "overlay": "settings",
+          "page": "quick",
+          "scrollTop": 0,
+          "focusKey": "外观与显示",
+          "accessoryTarget": null,
+          "residentTarget": null,
+          "subpages": {
+            "wishes": "wishes",
+            "decor": "furniture",
+            "journal": "memories"
+          },
+          "noticeTarget": null
+        }
+      ],
+      "scrollTop": 0,
+      "focusKey": "",
+      "residentTarget": null,
+      "tab": "residents",
+      "drawer": "closed",
+      "overlay": "settings",
+      "camera": {
+        "zoom": 1,
+        "panX": 0,
+        "panY": 0
+      },
+      "expanded": true,
+      "selectedFurniture": "work",
+      "accessoryTarget": null,
+      "subpages": {
+        "wishes": "wishes",
+        "decor": "furniture",
+        "journal": "memories"
+      },
+      "confirmClose": false,
+      "confirmTarget": "plugin",
+      "zoomHint": 0,
+      "toastIds": [],
+      "noticeTarget": null
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  }
+]

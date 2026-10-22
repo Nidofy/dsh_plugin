@@ -1,0 +1,162 @@
+{
+  "baseline": "2fd86da / retained 0.6.3 package",
+  "current": "0.6.4 working tree",
+  "rows": [
+    {
+      "sample": 0,
+      "variant": "baseline",
+      "firstPaintObservedMs": 564,
+      "enteredMs": 564,
+      "parentHeapBytes": 9244324,
+      "idleParentCpuPercent": 1.1603333333333334,
+      "idlePaints": 0,
+      "textures": 32,
+      "renderer": "SwiftShader"
+    },
+    {
+      "sample": 0,
+      "variant": "entrance",
+      "firstPaintObservedMs": 569,
+      "enteredMs": 699,
+      "parentHeapBytes": 8457408,
+      "idleParentCpuPercent": 1.2327333333333335,
+      "idlePaints": 0,
+      "textures": 32,
+      "renderer": "SwiftShader"
+    },
+    {
+      "sample": 1,
+      "variant": "baseline",
+      "firstPaintObservedMs": 541,
+      "enteredMs": 541,
+      "parentHeapBytes": 9147352,
+      "idleParentCpuPercent": 1.2234666666666667,
+      "idlePaints": 0,
+      "textures": 32,
+      "renderer": "SwiftShader"
+    },
+    {
+      "sample": 1,
+      "variant": "entrance",
+      "firstPaintObservedMs": 549,
+      "enteredMs": 711,
+      "parentHeapBytes": 10620004,
+      "idleParentCpuPercent": 1.0831666666666668,
+      "idlePaints": 0,
+      "textures": 32,
+      "renderer": "SwiftShader"
+    },
+    {
+      "sample": 2,
+      "variant": "baseline",
+      "firstPaintObservedMs": 575,
+      "enteredMs": 575,
+      "parentHeapBytes": 8715876,
+      "idleParentCpuPercent": 1.1887333333333334,
+      "idlePaints": 0,
+      "textures": 32,
+      "renderer": "SwiftShader"
+    },
+    {
+      "sample": 2,
+      "variant": "entrance",
+      "firstPaintObservedMs": 557,
+      "enteredMs": 714,
+      "parentHeapBytes": 8802440,
+      "idleParentCpuPercent": 1.2287333333333332,
+      "idlePaints": 0,
+      "textures": 32,
+      "renderer": "SwiftShader"
+    }
+  ],
+  "comparison": {
+    "firstPaintObservedMs": {
+      "before": 564,
+      "after": 557,
+      "delta": -7,
+      "percent": -1.2411347517730542
+    },
+    "enteredMs": {
+      "before": 564,
+      "after": 711,
+      "delta": 147,
+      "percent": 26.06382978723405
+    },
+    "parentHeapBytes": {
+      "before": 9147352,
+      "after": 8802440,
+      "delta": -344912,
+      "percent": -3.7706212683189633
+    },
+    "idleParentCpuPercent": {
+      "before": 1.1887333333333334,
+      "after": 1.2287333333333332,
+      "delta": 0.039999999999999813,
+      "percent": 3.3649262520329515
+    }
+  },
+  "files": [
+    {
+      "name": "client.js",
+      "before": 391366,
+      "after": 415670,
+      "delta": 24304,
+      "sha256": "32411153aed5a17e7693b9fd0d90538516c32546fd7196ce03579c715a726b8d"
+    },
+    {
+      "name": "frame.js",
+      "before": 627466,
+      "after": 628512,
+      "delta": 1046,
+      "sha256": "57ee4268590cd3a6af0d57dd734579af5c6f61d9c10330173ec6ec766a4e7a82"
+    }
+  ],
+  "portraits": [
+    {
+      "key": "portraits/bluewhale.png",
+      "bytes": 32688,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "portraits/claude.png",
+      "bytes": 35565,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "portraits/gemini.png",
+      "bytes": 35272,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "portraits/gpt.png",
+      "bytes": 30371,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "portraits/grok.png",
+      "bytes": 32838,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "portraits/kimi.png",
+      "bytes": 34874,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "portraits/qwen.png",
+      "bytes": 34652,
+      "width": 128,
+      "height": 128
+    }
+  ],
+  "newPortraitTransferBytes": 236260,
+  "portraitDecodedRGBAEstimate": 458752,
+  "newArtBytes": 0,
+  "notes": "Three fresh-context cold samples; successful render observed by polling, not physical display. First-frame receipt adds no renderer. Heap is parent CDP only. Decoded image estimate excludes GPU copies/cache and is NOT measured peak. Real GPU/peak decode memory NOT RUN; one hour DEFERRED."
+}

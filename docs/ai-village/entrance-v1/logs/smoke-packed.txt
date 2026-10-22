@@ -1,0 +1,3 @@
+Packed Host imports, persistence, generation guard, real verifier worker and preload passed
+Packed browser factories, bundle declarations and TypeScript consumer passed
+Actual dsh CLI composed full plugins, a single JSONL provider and Notebook preset in an isolated Web profile

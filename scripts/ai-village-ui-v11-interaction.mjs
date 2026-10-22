@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import { readFile, readdir, mkdir, mkdtemp, writeFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-const root = resolve(import.meta.dirname, '..'), out = join(root, '.build/ai-village-phase4'), qa = join(root, 'packages/ai-village/art/QA/ui-v11/interaction-checks')
+const root = resolve(import.meta.dirname, '..'), out = join(root, '.build/ai-village-phase4'), qa = process.env.VILLAGE_QA_DIR ? resolve(process.env.VILLAGE_QA_DIR) : join(root, 'packages/ai-village/art/QA/ui-v11/interaction-checks')
 await mkdir(qa, { recursive: true })
 const { runPreview } = await import('./ai-village-phase4-browser.mjs')
 await runPreview({ root, pkg: join(root, 'packages/ai-village'), out, buildOnly: true })
@@ -26,7 +26,7 @@ const ready = () => page.waitForFunction(() => window.__villageHostFixture.inspe
 const click = name => page.getByRole('button', { name, exact: true }).click()
 const frame = () => page.frames().find(f => f.url().includes('/api/nidofy-ai-village/frame'))
 
-const build={version:'0.6.3',head:execFileSync('git',['rev-parse','HEAD'],{cwd:root}).toString().trim(),dirty:true,fixtureSHA256:createHash('sha256').update(await readFile(join(out,'fixture.js'))).digest('hex'),clientSHA256:createHash('sha256').update(await readFile(join(out,'lib/client.js'))).digest('hex'),frameSHA256:createHash('sha256').update(await readFile(join(out,'lib/frame.js'))).digest('hex')}
+const build={version:JSON.parse(await readFile(join(root,'packages/ai-village/package.json'),'utf8')).version,head:execFileSync('git',['rev-parse','HEAD'],{cwd:root}).toString().trim(),dirty:true,fixtureSHA256:createHash('sha256').update(await readFile(join(out,'fixture.js'))).digest('hex'),clientSHA256:createHash('sha256').update(await readFile(join(out,'lib/client.js'))).digest('hex'),frameSHA256:createHash('sha256').update(await readFile(join(out,'lib/frame.js'))).digest('hex')}
 const metadata = [], captures = []
 const shot = async name => {
  await page.waitForTimeout(240);

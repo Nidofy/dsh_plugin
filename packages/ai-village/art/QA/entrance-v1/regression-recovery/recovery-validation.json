@@ -1,0 +1,496 @@
+{
+  "status": "PASS",
+  "checks": [
+    "real fetch failure with unchanged transport recovers after lease/state checks, retaining draft/undo/user and same iframe",
+    "hidden foreground gate cancels automatic reads; return rechecks and keeps draft",
+    "server committed but ACK lost; three bounded read checks, no second save; explicit read confirms, keeps draft and undo",
+    "second real authenticated runtime cannot take over active owner"
+  ],
+  "writes": 3,
+  "requests": [
+    {
+      "endpoint": "state",
+      "ms": 0
+    },
+    {
+      "endpoint": "save",
+      "ms": 130
+    },
+    {
+      "endpoint": "save",
+      "ms": 819
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 4015
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 5027
+    },
+    {
+      "endpoint": "state",
+      "ms": 5049
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 8004
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 12013
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 13564
+    },
+    {
+      "endpoint": "state",
+      "ms": 13581
+    },
+    {
+      "endpoint": "save",
+      "ms": 13892
+    },
+    {
+      "endpoint": "state",
+      "ms": 13966
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 14973
+    },
+    {
+      "endpoint": "state",
+      "ms": 14977
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 16002
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 16981
+    },
+    {
+      "endpoint": "state",
+      "ms": 16985
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 20013
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 20998
+    },
+    {
+      "endpoint": "state",
+      "ms": 21001
+    },
+    {
+      "endpoint": "heartbeat",
+      "ms": 22854
+    },
+    {
+      "endpoint": "state",
+      "ms": 22866
+    }
+  ],
+  "trace": [
+    {
+      "ms": 0,
+      "reasons": [
+        "closed",
+        "disconnected"
+      ],
+      "code": "",
+      "connected": false,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 12,
+      "reasons": [
+        "closed",
+        "disconnected"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 21,
+      "reasons": [
+        "closed",
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 24,
+      "reasons": [
+        "closed",
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 82,
+      "reasons": [
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 82,
+      "reasons": [
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 83,
+      "reasons": [
+        "disconnected"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 219,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 219,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 541,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 0
+    },
+    {
+      "ms": 928,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 1
+    },
+    {
+      "ms": 1127,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 1127,
+      "reasons": [
+        "user",
+        "arrange"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 4127,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected"
+      ],
+      "code": "CONNECTION_TEMPORARY",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 4128,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected"
+      ],
+      "code": "CONNECTION_TEMPORARY",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 5174,
+      "reasons": [
+        "user",
+        "arrange"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 8116,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected"
+      ],
+      "code": "CONNECTION_TEMPORARY",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 8116,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected"
+      ],
+      "code": "CONNECTION_TEMPORARY",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 8151,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "CONNECTION_TEMPORARY",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 8170,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "CONNECTION_TEMPORARY",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 12671,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected"
+      ],
+      "code": "CONNECTION_TEMPORARY",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 12985,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected"
+      ],
+      "code": "CONNECTION_TEMPORARY",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 13707,
+      "reasons": [
+        "user",
+        "arrange"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 13997,
+      "reasons": [
+        "user",
+        "arrange",
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 14079,
+      "reasons": [
+        "user",
+        "arrange",
+        "commit-pending",
+        "disconnected"
+      ],
+      "code": "SAVE_UNCONFIRMED",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "unknown",
+      "ticks": 1
+    },
+    {
+      "ms": 14079,
+      "reasons": [
+        "user",
+        "arrange",
+        "commit-pending",
+        "disconnected"
+      ],
+      "code": "SAVE_UNCONFIRMED",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "unknown",
+      "ticks": 1
+    },
+    {
+      "ms": 15088,
+      "reasons": [
+        "user",
+        "arrange",
+        "commit-pending",
+        "disconnected"
+      ],
+      "code": "SAVE_UNCONFIRMED",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "unknown",
+      "ticks": 1
+    },
+    {
+      "ms": 17097,
+      "reasons": [
+        "user",
+        "arrange",
+        "commit-pending",
+        "disconnected"
+      ],
+      "code": "SAVE_UNCONFIRMED",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "unknown",
+      "ticks": 1
+    },
+    {
+      "ms": 21113,
+      "reasons": [
+        "user",
+        "arrange",
+        "commit-pending",
+        "disconnected"
+      ],
+      "code": "SAVE_UNCONFIRMED",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "unknown",
+      "ticks": 1
+    },
+    {
+      "ms": 22989,
+      "reasons": [
+        "user",
+        "arrange",
+        "disconnected"
+      ],
+      "code": "SAVE_UNCONFIRMED",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    },
+    {
+      "ms": 22990,
+      "reasons": [
+        "user",
+        "arrange"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1
+    }
+  ],
+  "build": {
+    "version": "0.6.3",
+    "head": "2fd86dafaf771060cbef2074486ad10465d0a317",
+    "dirty": true,
+    "fixtureSHA256": "b5d7f0cebd8e3a6bd4bd35416582e2344eca99bac47dbcb749616429f397cd97",
+    "clientSHA256": "521095c0be1dfc784df0c6735cb60218a43bbe095cf7dea2a590fe0c2e9fb6b1",
+    "frameSHA256": "0e1993c9b6c98bd00c1317df0ed0f1ecde8030f46dad9368e8cad291af02c6a1"
+  },
+  "siteIncident": "NOT CONFIRMED",
+  "gpu": "NOT RUN"
+}

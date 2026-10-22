@@ -1,0 +1,23 @@
+ℹ entry: packages\ai-village\experiments\phase4-host.ts
+ℹ target: es2024
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ .build\ai-village-phase4\harness.mjs  629.57 kB │ gzip: 98.49 kB
+ℹ 1 files, total: 629.57 kB
+✔ Build complete in 163ms
+ℹ entry: packages\ai-village\experiments\phase4-client.tsx
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- react
+- scheduler
+- react-dom
+ℹ .build\ai-village-phase4\fixture.js  696.51 kB │ gzip: 154.90 kB
+ℹ 1 files, total: 696.51 kB
+✔ Build complete in 115ms
+{"status":"PASS","checks":["real fetch failure with unchanged transport recovers after lease/state checks, retaining draft/undo/user and same iframe","hidden foreground gate cancels automatic reads; return rechecks and keeps draft","server committed but ACK lost; three bounded read checks, no second save; explicit read confirms, keeps draft and undo","second real authenticated runtime cannot take over active owner"]}

@@ -5,6 +5,19 @@ const pkg = resolve(import.meta.dirname, '../packages/ai-village'), root = join(
 const read = async p => JSON.parse(await readFile(join(root, p), 'utf8'))
 const character = await read('characters/bluewhale/character.json'), animations = await read('characters/bluewhale/animations.json'), scene = await read('scenes/courtyard/scene.json')
 const files = []
+const entrance = await read('entrance/manifest.json')
+if (!['ART_PENDING','ART_REVIEW','APPROVED'].includes(entrance.status)) throw Error('Invalid entrance review status')
+let entranceBytes = 0, entrancePixels = 0
+for (const entry of entrance.files) {
+  if (!/^entrance\/[a-z-]+\.png$/.test(entry.key) || entry.file !== entry.key) throw Error('Invalid entrance asset path')
+  const bytes = await readFile(join(root,entry.file)), hash = createHash('sha256').update(bytes).digest('hex')
+  if (bytes.length !== entry.bytes || hash !== entry.sha256 || bytes.length > 8*1024*1024 || bytes.subarray(0,8).toString('hex') !== '89504e470d0a1a0a') throw Error('Entrance integrity mismatch')
+  entranceBytes += bytes.length; entrancePixels += bytes.readUInt32BE(16)*bytes.readUInt32BE(20)
+  files.push(entry)
+}
+if (entranceBytes > 4*1024*1024 || entrancePixels > 8000000) throw Error('Entrance exceeds art budget')
+for (const layer of entrance.layers) if (!entrance.files.some(entry=>entry.key===layer.key)) throw Error('Entrance layer is not whitelisted')
+await writeFile(join(pkg,'src/entrance-manifest.ts'), `// Generated from the local entrance asset manifest.\nexport const entranceManifest = ${JSON.stringify(entrance,null,2)}\n`)
 const roster = {}
 const ids = ['claude', 'gemini', 'gpt', 'grok', 'kimi', 'qwen']
 for (const id of ids) {

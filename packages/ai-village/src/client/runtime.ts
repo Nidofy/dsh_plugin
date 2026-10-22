@@ -1,4 +1,5 @@
 import { arrangementObjects } from '../core/arrangement.ts'
+import { EntranceCoordinator } from './entrance-state.ts'
 import { canRecover, recoveryCode, recoveryDelays } from './recovery-policy.ts'
 import { DiagnosticTrace } from './diagnostic-trace.ts'
 import type { UIInput } from '../core/frame-protocol.ts'
@@ -26,6 +27,21 @@ interface State { profileId: string; epoch: string; saved: Saved<ContentWorld> |
 export type Request = (path: string, init?: RequestInit) => Promise<Response>
 /** One instance per plugin lifetime, deliberately independent of session selection and React mounts. */
 export class VillageRuntime {
+  readonly entrance = new EntranceCoordinator()
+  private bootSettled = false
+  get canRevealEntrance() {
+    return this.foreground() && this.ready && this.frameReady && this.entrance.metadata && this.entrance.verified === 1 && this.entrance.decoded === 1 && this.entrance.firstFrame && this.bootSettled && !!this.lease && !this.error && !this.recovering && !this.criticalCandidate && !this.transaction.pending && !this.preferenceTransaction.pending
+  }
+  beginEntranceFrame(token: string) { this.entrance.bindFrame(token); this.schedule() }
+  expectEntranceFrame(token: string, assets: number, view: number) { this.entrance.expectFrame(token, assets, view) }
+  entranceFrame(token: string, attempt: string, assets: number, view: number) {
+    if (this.entrance.acknowledge(token, attempt, assets, view)) this.emit()
+  }
+  entranceDecode(token: string, attempt: string, assets: number, progress: number) {
+    if (this.entrance.decode(token, attempt, assets, progress)) this.emit()
+  }
+  skipEntrance() { this.entrance.skip(); this.emit() }
+  finishEntrance() { if (this.entrance.finish(this.canRevealEntrance)) { this.schedule(); this.emit() } }
   private dismissedPointer: number | null = null
   softwareRendering = false
   readonly diagnostics = new DiagnosticTrace()
@@ -82,6 +98,7 @@ export class VillageRuntime {
       }
       this.revalidateHome()
       this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.recoveryCount = 0
+      this.bootSettled = this.ready && !this.transaction.pending && !this.preferenceTransaction.pending
       this.pause('disconnected', false) // schedule still requires frameReady and every other reason cleared
     } catch (error) {
       if (current()) { const next = recoveryCode(error, 'heartbeat'); if (!canRecover(next)) { this.errorCode = next; this.error = String(error) }; this.recoveryState = 'blocked'; this.trace() }
@@ -94,6 +111,7 @@ export class VillageRuntime {
   notices: Notice[] = []
   present(action: UIAction) { this.presentation = presentationReducer(this.presentation, action); this.emit() }
   input(input: UIInput) {
+    if (this.entrance.blocking) return
     if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.transaction.pending || this.photoMode) return
     if (input.kind === 'camera') { if(this.presentation.drawer==='closed'&&!this.presentation.overlay)this.setCamera(input.camera); return }
     if (input.kind === 'resident') { if(!this.arranging&&(this.presentation.drawer!=='closed'||this.presentation.overlay)){this.sceneClick();return}; if (!this.arranging && this.controller && actors(this.controller.world).some(a => a.id === input.id)) { this.selectCharacter(input.id); this.sceneClick(true) }; return }
@@ -258,12 +276,14 @@ export class VillageRuntime {
   pause(reason: PauseReason, active: boolean) {
     if (reason === 'user' && this.criticalCandidate) return
     if (!active && this.reasons.has(reason) && ['sidebar', 'hidden', 'other-panel'].includes(reason)) this.revalidateHome()
+    if (active && !this.reasons.has(reason) && ['closed','hidden','sidebar','other-panel','insufficient-space'].includes(reason)) this.entrance.suspend()
     if (active) this.reasons.add(reason); else this.reasons.delete(reason)
     if (this.controller?.pauseReasons.has(reason) !== active) this.controller?.pause(reason, active)
     if (!this.foreground()) this.cancelRecovery(); else this.queueRecovery()
     this.trace(); this.schedule(); this.emit()
   }
   show() {
+    if (!this.open) this.entrance.open()
     this.open = true; this.pause('closed', false); this.pause('other-panel', false)
     if (this.connected && !this.ready) void this.connect()
   }
@@ -279,6 +299,7 @@ export class VillageRuntime {
   setConnection(connected: boolean, reset = false) {
     if (!reset && connected === this.connected) return
     this.cancelRecovery()
+    this.entrance.beginBoot(); this.bootSettled = false
     if (this.arranging) this.cancelArrangements()
     this.connected = connected; this.generation++; this.attempt.abort(); this.attempt = new AbortController()
     clearInterval(this.heartbeat); this.heartbeat = undefined
@@ -342,7 +363,9 @@ export class VillageRuntime {
           else { this.reasons.delete('user'); this.controller!.pauseReasons.delete('user') }
           this.criticalCandidate = null; this.pause('commit-pending', false); this.cancelArrangements(); this.confirmed(this.controller!.world)
         }
-        await this.ensureAssets(state.saved ? validateContentWorld(state.saved.world, scene) : createContentWorld(scene), signal)
+        const initialWorld = state.saved ? validateContentWorld(state.saved.world, scene) : createContentWorld(scene)
+        this.entrance.metadata = true; this.emit()
+        await this.ensureAssets(initialWorld, signal)
         if (!current()) return
         if (!this.controller) {
           this.controller = new ContentController(state.saved ? validateContentWorld(state.saved.world, scene) : createContentWorld(scene), scene, () => { if (!this.changingDraft) this.save() })
@@ -355,15 +378,17 @@ export class VillageRuntime {
         this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.ready = true
         this.pause('disconnected', false); this.pause('ownership', false)
         if (!this.preferences.noticesInitialized) await this.setPreferences({ noticeReadIds: this.notices.map(n => n.id), noticesInitialized: true })
-        if (!state.saved) this.save()
+        if (!state.saved) { this.save(); await this.saving }
+        if (current()) { this.bootSettled = !this.error && !this.transaction.pending && !this.preferenceTransaction.pending; this.emit() }
       } catch (e) { if (current()) this.fail(e) }
     })()
     this.loading = work
     await work
     if (this.loading === work) this.loading = null
   }
-  setFrameReady(value: boolean) { this.frameReady = value; if (!value) { this.dismissedPointer=null; this.controller?.cancelDrag() }; this.trace(); this.schedule(); this.emit() }
+  setFrameReady(value: boolean) { this.frameReady = value; if (!value) { this.entrance.firstFrame = false; this.entrance.blocking = true; this.dismissedPointer=null; this.controller?.cancelDrag() }; this.trace(); this.schedule(); this.emit() }
   pointer(intent: PointerIntent) {
+    if (this.entrance.blocking) return
     if (!this.frameReady || !this.ready || this.criticalCandidate || this.error) return
     // Parent presentation is authoritative even before the iframe receives its next render.
     if(this.dismissedPointer===intent.id){if(intent.type==='up'||intent.type==='cancel')this.dismissedPointer=null;return}
@@ -466,7 +491,7 @@ export class VillageRuntime {
   view() {
     const c = this.controller
     return c ? { arrangementObjects: this.homeDraft ? arrangementObjects(scene, c.world, this.homeDraft) : this.arranging ? [{ id: this.extraDecorationDraft?.id ?? 'windChime', rect: { x: 60, y: 90, width: 210, height: 65 }, anchors: (this.extraDecorationDraft ? [{x:166,y:101},{x:250,y:115},{x:76,y:104}] : [{x:185,y:105},{x:234,y:130},{x:96,y:117}]).map(a => ({ ...a, legal: true })) }] : [], camera: this.presentation.camera, overlayOpen: this.presentation.overlay !== null || this.presentation.confirmClose, dismissLayer: this.presentation.drawer !== 'closed' || this.presentation.overlay !== null, selectedFurniture: this.presentation.selectedFurniture, world: this.homePreview ?? c.world, arranging: !!this.homeDraft, position: c.drag?.active ? c.drag.position : c.world.actor.position,
-      dragging: c.drag?.active ?? false, dragTime: this.dragTime, paused: !!c.pauseReasons.size, debug: false,
+      dragging: c.drag?.active ?? false, dragTime: this.dragTime, paused: this.entrance.blocking || !!c.pauseReasons.size, debug: false,
       locale: this.preferences.language === 'system' ? this.locale : this.preferences.language,
       photo: this.photoMode ? this.photoOptions : null, reducedMotion: this.preferences.reducedMotion, bubbles: this.preferences.bubbles, decorationDraft: this.decorationDraft, extraDecorationDraft: this.extraDecorationDraft } : null
   }
@@ -474,6 +499,12 @@ export class VillageRuntime {
   private assetKeys = ''
   private async ensureAssets(world: ContentWorld, signal = this.attempt.signal) {
     const needed = residentAssets(actors(world).map(a=>a.id))
+    const selected = resources.filter(entry => needed.has(entry.key)), total = selected.reduce((n, e) => n + e.bytes, 0)
+    // Cached buffers entered this map only after the same length/hash verification.
+    let verified = selected.reduce((n, e) => n + (this.images?.[e.key] ? e.bytes : 0), 0)
+    const attempt = this.entrance.attemptId
+    const progress = () => { if (!signal.aborted && attempt === this.entrance.attemptId) { this.entrance.verified = Math.max(this.entrance.verified, total ? verified / total : 1); this.emit() } }
+    progress()
           const images = await Promise.all(resources.filter(entry => needed.has(entry.key) && !this.images?.[entry.key]).map(async entry => {
             const response = await this.request(prefix + 'assets/' + entry.key, { credentials: 'same-origin', redirect: 'error', signal })
             if (!response.ok || !response.body) throw Error('ASSET_UNAVAILABLE')
@@ -486,6 +517,7 @@ export class VillageRuntime {
             for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length }
             const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(v => v.toString(16).padStart(2, '0')).join('')
             if (size !== entry.bytes || hash !== entry.sha256) throw Error('ASSET_HASH_MISMATCH')
+            verified += entry.bytes; progress()
             return [entry.key, bytes.buffer] as const
           }))
     signal.throwIfAborted()
@@ -501,11 +533,11 @@ export class VillageRuntime {
   bundle() { return { character, animations, roster, scene, images: Object.fromEntries(Object.entries(this.images ?? {}).map(([k, v]) => [k, v.slice(0)])) } }
   private schedule() {
     cancelAnimationFrame(this.raf); this.raf = 0; this.last = 0
-    if (this.ready && this.frameReady && this.controller && !this.controller.pauseReasons.size) this.raf = requestAnimationFrame(this.tick)
+    if (!this.entrance.blocking && this.ready && this.frameReady && this.controller && !this.controller.pauseReasons.size) this.raf = requestAnimationFrame(this.tick)
   }
   private tick = (now: number) => {
     this.raf = 0
-    if (!this.ready || !this.frameReady || !this.controller || this.controller.pauseReasons.size) return
+    if (this.entrance.blocking || !this.ready || !this.frameReady || !this.controller || this.controller.pauseReasons.size) return
     const dt = this.last ? Math.min((now - this.last) / 1000, .1) : 0
     if (!this.last || dt >= 1 / 30) {
       this.controller.advance(dt)
@@ -596,7 +628,7 @@ export class VillageRuntime {
       this.preferences = validatePreferences(saved.world); this.preferenceRevision = saved.revision
       this.preferenceTransaction.reset(); this.retry()
     } catch { this.fail(Error('PREFERENCES_UNAVAILABLE')) }
-    finally { this.recovering = false }
+    finally { this.recovering = false; this.emit() }
   }
   async recover() {
     if (!this.lease || !this.connected || this.recovering) return
@@ -615,9 +647,10 @@ export class VillageRuntime {
       await this.ensureAssets(this.controller.world)
       if (generation !== this.generation) return
       this.trimAssets()
+      this.entrance.metadata = true; this.bootSettled = true
       this.pause('ownership', false); this.pause('disconnected', false); this.ready = true; this.emit()
     } catch (e) { if (generation === this.generation) this.fail(e) }
-    finally { this.recovering = false }
+    finally { this.recovering = false; this.emit() }
   }
   async dispose() {
     if (this.lifetime.signal.aborted) return

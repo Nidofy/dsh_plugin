@@ -7,6 +7,25 @@ import { scene } from '../src/definitions.ts'
 import type { Saved } from '../src/host/save-store.ts'
 import { stepHome as stepTea, settleTea } from '../src/core/home-engine.ts'
 afterEach(() => vi.unstubAllGlobals())
+function reveal(r: VillageRuntime) {
+  // This fixture stubs resource IO; emulate the validated resource and renderer boundaries explicitly.
+  r.entrance.verified = 1; r.beginEntranceFrame('test-frame'); r.expectEntranceFrame('test-frame',r.assetRevision,1)
+  r.setFrameReady(true); r.entranceFrame('test-frame',r.entrance.attemptId,r.assetRevision,1); r.finishEntrance()
+}
+it('blocks ticks and input until current first paint plus boot writes settle, and preserves saved user pause', async () => {
+  const world=createWorld(scene);world.userPaused=true;const f=fixture(world),r=f.runtime
+  try {
+    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await r.flush()
+    r.entrance.verified=1;r.setFrameReady(true);r.skipEntrance()
+    const before=r.controller!.snapshot();r.input({kind:'camera',camera:{zoom:1.5,panX:0,panY:0}})
+    expect(r.presentation.camera.zoom).toBe(1);expect(r.canRevealEntrance).toBe(false)
+    r.finishEntrance();expect(r.entrance.blocking).toBe(true);expect(r.controller!.snapshot()).toEqual(before)
+    reveal(r);expect(r.entrance.blocking).toBe(false);expect(r.reasons.has('user')).toBe(true);expect(r.controller!.world.userPaused).toBe(true)
+    r.pause('sidebar',true);r.setFrameReady(false);r.pause('sidebar',false)
+    expect(r.canRevealEntrance).toBe(false);expect(r.entrance.full).toBe(false);reveal(r)
+    expect(r.controller!.snapshot()).toEqual(before)
+  } finally {await r.dispose()}
+})
 function fixture(initialWorld?: ContentWorld, initialPrefs?: unknown) {
   vi.stubGlobal('requestAnimationFrame', () => 1); vi.stubGlobal('cancelAnimationFrame', () => {})
   let profileId = crypto.randomUUID(), epoch = crypto.randomUUID(), saved: Saved<ContentWorld> | null = initialWorld ? {revision:1,operationId:crypto.randomUUID(),world:initialWorld} : null, uncertain = false
@@ -240,7 +259,7 @@ it('commits pointer-up selection through the same acknowledged world transaction
   const f = fixture(), r = f.runtime
   try {
     r.setConnection(true); r.show(); await vi.waitFor(() => expect(r.ready).toBe(true)); await r.flush()
-    r.setCharacterPresent('claude', true); await r.flush(); r.setFrameReady(true)
+    r.setCharacterPresent('claude', true); await r.flush(); reveal(r)
     const point = r.controller!.world.companions[0]!.position, count = f.stats().mutations
     r.pointer({ type: 'down', id: 1, point, css: { x: 0, y: 0 } }); expect(r.controller!.world.actor.id).toBe('bluewhale')
     r.pointer({ type: 'up', id: 1, point, css: { x: 0, y: 0 } }); await r.flush()
@@ -325,4 +344,4 @@ it('late automatic recovery reads cannot publish into a new connection generatio
  }finally{await r.dispose();vi.useRealTimers()}
 })
 
-it('parent navigation consumes stale iframe resident and actor intents before render delivery',async()=>{const f=fixture(),r=f.runtime;try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.setCharacterPresent('claude',true);await r.flush();r.setFrameReady(true);const world=r.controller!.snapshot(),writes=f.stats().mutations;r.present({type:'tab',tab:'residents'});r.input({kind:'resident',id:'claude'});expect(r.presentation.drawer).toBe('closed');expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);r.present({type:'tab',tab:'residents'});r.input({kind:'camera',camera:{zoom:1.5,panX:0,panY:0}});expect(r.presentation.camera.zoom).toBe(1);for(const type of ['down','move','up']as const)r.pointer({type,id:7,point:world.actor.position,css:{x:100,y:100}});expect(r.controller!.drag).toBeNull();expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);expect(f.stats().mutations).toBe(writes)}finally{await r.dispose()}})
+it('parent navigation consumes stale iframe resident and actor intents before render delivery',async()=>{const f=fixture(),r=f.runtime;try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.setCharacterPresent('claude',true);await r.flush();reveal(r);const world=r.controller!.snapshot(),writes=f.stats().mutations;r.present({type:'tab',tab:'residents'});r.input({kind:'resident',id:'claude'});expect(r.presentation.drawer).toBe('closed');expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);r.present({type:'tab',tab:'residents'});r.input({kind:'camera',camera:{zoom:1.5,panX:0,panY:0}});expect(r.presentation.camera.zoom).toBe(1);for(const type of ['down','move','up']as const)r.pointer({type,id:7,point:world.actor.position,css:{x:100,y:100}});expect(r.controller!.drag).toBeNull();expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);expect(f.stats().mutations).toBe(writes)}finally{await r.dispose()}})

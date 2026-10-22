@@ -1,0 +1,31 @@
+ℹ entry: packages\ai-village\src\index.ts, packages\ai-village\src\host\service.ts
+ℹ target: es2024
+ℹ Build start
+ℹ .build\ai-village-phase4\lib\index.mjs               1.56 kB │ gzip:  0.73 kB
+ℹ .build\ai-village-phase4\lib\service.mjs             0.14 kB │ gzip:  0.12 kB
+ℹ .build\ai-village-phase4\lib\service-CZcIjCOp.mjs  105.90 kB │ gzip: 32.21 kB
+ℹ 3 files, total: 107.59 kB
+✔ Build complete in 31ms
+ℹ entry: packages\ai-village\src\client\index.ts
+ℹ target: es2022
+ℹ Build start
+ℹ .build\ai-village-phase4\lib\client.js  414.33 kB │ gzip: 81.38 kB
+ℹ 1 files, total: 414.33 kB
+✔ Build complete in 31ms
+ℹ entry: packages\ai-village\src\frame\scene.ts
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- pixi.js
+- eventemitter3
+- @pixi/colord
+- ismobilejs
+- earcut
+- parse-svg-path
+- tiny-lru
+ℹ .build\ai-village-phase4\lib\frame.js  628.49 kB │ gzip: 186.84 kB
+ℹ 1 files, total: 628.49 kB
+✔ Build complete in 240ms
+Phase 4 official types and build passed

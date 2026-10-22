@@ -1,0 +1,41 @@
+ℹ entry: packages\ai-village\experiments\phase4-host.ts
+ℹ target: es2024
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ .build\ai-village-phase4\harness.mjs  629.57 kB │ gzip: 98.49 kB
+ℹ 1 files, total: 629.57 kB
+✔ Build complete in 84ms
+ℹ entry: packages\ai-village\experiments\phase4-client.tsx
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- react
+- scheduler
+- react-dom
+ℹ .build\ai-village-phase4\fixture.js  694.94 kB │ gzip: 154.46 kB
+ℹ 1 files, total: 694.94 kB
+✔ Build complete in 68ms
+render-failure PASS
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+1 !== 0
+
+    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-entrance-browser.mjs:68:13 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.16.0

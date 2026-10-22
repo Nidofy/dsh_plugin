@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "checks": [
+    "host markers and system media resolve separately; explicit selection remains unchanged",
+    "four explicit reduced-transparency fallback captures; zero reduced-motion and 180ms normal surface",
+    "ocean/urban token substitution in test fixture only; no scene, world or preference added",
+    "emulated DPR 1/1.25/1.5/2 retains 13 CSS px; actual Windows DPI NOT RUN",
+    "resident Qwen target, scrolled list and exact focus restored through settings; no world write or camera wheel leakage",
+    "first resident click outside quick card only dismisses; no selection or drag side effect",
+    "nonmodal card Tab leaves its controls",
+    "raw exported photos preserved separately from runtime screenshots; byte identical",
+    "delayed thumbnail loading, HTTP failure placeholder, retry by reentry, view/export/delete and true empty state"
+  ],
+  "errors": [],
+  "external": []
+}

@@ -1,0 +1,39 @@
+ℹ entry: packages\ai-village\experiments\phase4-host.ts
+ℹ target: es2024
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ .build\ai-village-phase4\harness.mjs  629.57 kB │ gzip: 98.49 kB
+ℹ 1 files, total: 629.57 kB
+✔ Build complete in 82ms
+ℹ entry: packages\ai-village\experiments\phase4-client.tsx
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- react
+- scheduler
+- react-dom
+ℹ .build\ai-village-phase4\fixture.js  696.51 kB │ gzip: 154.90 kB
+ℹ 1 files, total: 696.51 kB
+✔ Build complete in 59ms
+node:internal/fs/promises:640
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: UNKNOWN: unknown error, open 'D:\Documents\FeiyangChen\devApps\dsh_plugin\packages\ai-village\art\QA\entrance-v1\regression-interaction\palette-fixture-only-ocean.png'
+    at async open (node:internal/fs/promises:640:25)
+    at async Object.writeFile (node:internal/fs/promises:1257:14)
+    at async _Page.screenshot (D:\Documents\FeiyangChen\devApps\dshWinUi\electron\node_modules\.pnpm\playwright-core@1.61.1\node_modules\playwright-core\lib\coreBundle.js:60157:11)
+    at async shot (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-ui-v11-interaction.mjs:34:2)
+    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-ui-v11-interaction.mjs:56:501 {
+  errno: -4094,
+  code: 'UNKNOWN',
+  syscall: 'open',
+  path: 'D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\packages\\ai-village\\art\\QA\\entrance-v1\\regression-interaction\\palette-fixture-only-ocean.png'
+}
+
+Node.js v24.16.0

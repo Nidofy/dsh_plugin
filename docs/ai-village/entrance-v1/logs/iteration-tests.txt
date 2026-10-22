@@ -1,0 +1,41 @@
+
+ RUN  v4.1.8 D:/Documents/FeiyangChen/devApps/dsh_plugin
+
+ ❯ packages/ai-village/tests/runtime.client.spec.ts (20 tests | 2 failed) 1970ms
+   × commits pointer-up selection through the same acknowledged world transaction 69ms
+   × parent navigation consumes stale iframe resident and actor intents before render delivery 64ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  packages/ai-village/tests/runtime.client.spec.ts > commits pointer-up selection through the same acknowledged world transaction
+AssertionError: expected 'bluewhale' to be 'claude' // Object.is equality
+
+Expected: "claude"
+Received: "bluewhale"
+
+ ❯ packages/ai-village/tests/runtime.client.spec.ts:247:42
+    245|     r.pointer({ type: 'down', id: 1, point, css: { x: 0, y: 0 } }); ex…
+    246|     r.pointer({ type: 'up', id: 1, point, css: { x: 0, y: 0 } }); awai…
+    247|     expect(r.controller!.world.actor.id).toBe('claude'); expect(f.stat…
+       |                                          ^
+    248|   } finally { await r.dispose() }
+    249| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  packages/ai-village/tests/runtime.client.spec.ts > parent navigation consumes stale iframe resident and actor intents before render delivery
+AssertionError: expected 'half' to be 'closed' // Object.is equality
+
+Expected: "closed"
+Received: "half"
+
+ ❯ packages/ai-village/tests/runtime.client.spec.ts:328:468
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 28 passed (29)
+      Tests  2 failed | 131 passed (133)
+   Start at  17:02:53
+   Duration  12.77s (transform 6.16s, setup 778ms, import 7.90s, tests 32.11s, environment 7.99s)

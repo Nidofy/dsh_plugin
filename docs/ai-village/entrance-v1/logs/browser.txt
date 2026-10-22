@@ -1,0 +1,33 @@
+ℹ entry: packages\ai-village\experiments\phase4-host.ts
+ℹ target: es2024
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ .build\ai-village-phase4\harness.mjs  629.57 kB │ gzip: 98.49 kB
+ℹ 1 files, total: 629.57 kB
+✔ Build complete in 70ms
+ℹ entry: packages\ai-village\experiments\phase4-client.tsx
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- react
+- scheduler
+- react-dom
+ℹ .build\ai-village-phase4\fixture.js  695.70 kB │ gzip: 154.72 kB
+ℹ 1 files, total: 695.70 kB
+✔ Build complete in 58ms
+normal PASS
+slow-assets PASS
+slow-decode PASS
+ready-no-paint PASS
+skip PASS
+missing-portrait PASS
+hash-failure PASS
+render-failure PASS
+restore PASS
+reduced-motion PASS
+matrix PASS

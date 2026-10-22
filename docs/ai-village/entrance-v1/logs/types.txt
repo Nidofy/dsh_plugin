@@ -1,0 +1,16 @@
+file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-phase4.mjs:35
+if (diagnostics.length) throw Error(ts.formatDiagnosticsWithColorAndContext(diagnostics, { getCanonicalFileName: f => f, getCurrentDirectory: () => root, getNewLine: () => '\n' }))
+                              ^
+
+Error: packages/ai-village/src/client/EntranceOverlay.tsx:42:99 - error TS18047: 'entranceArt' is possibly 'null'.
+
+42       const { width, height } = node.getBoundingClientRect(), end = crossTransform(width, height, entranceArt.safeApertureRect)
+                                                                                                     ~~~~~~~~~~~
+packages/ai-village/src/client/EntranceOverlay.tsx:47:102 - error TS18047: 'entranceArt' is possibly 'null'.
+
+47       const box = root.current!.getBoundingClientRect(), end = crossTransform(box.width, box.height, entranceArt.safeApertureRect)
+                                                                                                        ~~~~~~~~~~~
+
+    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-phase4.mjs:35:31
+
+Node.js v24.16.0

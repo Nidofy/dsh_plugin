@@ -1,0 +1,8 @@
+{
+  "error": "Error: UNKNOWN: unknown error, open 'D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\packages\\ai-village\\art\\QA\\entrance-v1\\regression-interaction\\palette-fixture-only-ocean.png'",
+  "checks": [
+    "host markers and system media resolve separately; explicit selection remains unchanged",
+    "four explicit reduced-transparency fallback captures; zero reduced-motion and 180ms normal surface"
+  ],
+  "errors": []
+}

@@ -1,0 +1,94 @@
+[
+  {
+    "path": "packages/ai-village/README.md",
+    "sha256": "bc45c592ba08164449059f37662d68b7fb08a46249ef79cd58c99f88be9032a3"
+  },
+  {
+    "path": "packages/ai-village/experiments/phase4-client.tsx",
+    "sha256": "bfd9022ef81090684c54b11ab23af4851c42b9bc77f3ba529fc60b1a9ad2a77e"
+  },
+  {
+    "path": "packages/ai-village/package.json",
+    "sha256": "bb5282d664081a567a82c51353756b8ae859a6c6bdbcdf1172c5c577e8d4d836"
+  },
+  {
+    "path": "packages/ai-village/src/client/Floating.tsx",
+    "sha256": "ab44249537baa1f69a30b0b6da2d39828f40e4d5b426e00283392799134af858"
+  },
+  {
+    "path": "packages/ai-village/src/client/frame-bridge.ts",
+    "sha256": "94ac26b1f3c049156d3706d7823398c8a6fe1bd091cc173c40a8f1a6671c6910"
+  },
+  {
+    "path": "packages/ai-village/src/client/runtime.ts",
+    "sha256": "24b78086f681b7b2d6c05e9c5e1466387d30969dcb5922dca8bd2e0470bc1525"
+  },
+  {
+    "path": "packages/ai-village/src/core/frame-protocol.ts",
+    "sha256": "aecdc1c371ce91048ada7c2e963a807bbf99def3b8d2243844ba37b4f7544239"
+  },
+  {
+    "path": "packages/ai-village/src/frame/scene.ts",
+    "sha256": "13bc433b74fe23f44c3cf63175e1e35b9dca313ba304244456916729207d8246"
+  },
+  {
+    "path": "packages/ai-village/tests/frame-bridge.client.spec.ts",
+    "sha256": "be8aa9864a1bba42c38af730d594f50d670756bb8a85e9a4c7a1dc36cf142fb2"
+  },
+  {
+    "path": "packages/ai-village/tests/runtime.client.spec.ts",
+    "sha256": "4656c520ffd426929cf58b03b19bfb39624c09ce1abdcafe60e6c0ea5b377d45"
+  },
+  {
+    "path": "scripts/ai-village-resources.mjs",
+    "sha256": "b82dd12e23c88ed0ab79d3fb9de15da3b845bff311f582b273313e6f53186beb"
+  },
+  {
+    "path": "scripts/ai-village-ui-v11-interaction.mjs",
+    "sha256": "4774e90d962e6b523537c03e3aa772f3aa38375cf64488334e0c367a47ce1d0b"
+  },
+  {
+    "path": "scripts/ai-village-ui-v11-recovery.mjs",
+    "sha256": "b6e10523ab6ffff0a94804136500eb94c81bef1624ad3e400599e9c17ea3ea77"
+  },
+  {
+    "path": "packages/ai-village/assets/entrance/manifest.json",
+    "sha256": "a46b426f827343f982961d998cef36abf9baac662c102e6f36a4145dc92474c2"
+  },
+  {
+    "path": "packages/ai-village/src/client/EntranceOverlay.tsx",
+    "sha256": "1b6cfe7720afcbbfbee0db4cf24ba75dd58fa524b4f6acd08e760ba203a8f1db"
+  },
+  {
+    "path": "packages/ai-village/src/client/entrance-motion.ts",
+    "sha256": "eb4c91778cbc6db1de5a6a60fefff69d370eec8c01ff26882cc1a0b15235c9e6"
+  },
+  {
+    "path": "packages/ai-village/src/client/entrance-state.ts",
+    "sha256": "274c81357c97ec35b52e86673bd6b2f7f813c790488f0f3729758ed106871391"
+  },
+  {
+    "path": "packages/ai-village/src/client/entrance-theme.ts",
+    "sha256": "5492d1e1e1530fdf29513ecf843650a59e21cbc6748ddf6f7bdf6584a4cdd208"
+  },
+  {
+    "path": "packages/ai-village/src/entrance-manifest.ts",
+    "sha256": "6c23faab880646ebb4d1929c11c5aa6dc8584643eef971a420d806ecd08cf690"
+  },
+  {
+    "path": "packages/ai-village/tests/entrance.spec.ts",
+    "sha256": "fb989674a2d934cfbb66b6835946130f874b7477de962c5293360f684e09da43"
+  },
+  {
+    "path": "scripts/ai-village-entrance-browser.mjs",
+    "sha256": "be5573138fb0952544a6181d4d1668b4f2c25182010f3fda7f6c32f2e1acf16b"
+  },
+  {
+    "path": "scripts/ai-village-entrance-delivery.mjs",
+    "sha256": "8bd9ca227e3435a02e189e46c011f9a986051cf9af118ea4c00276a90ca7b75e"
+  },
+  {
+    "path": "scripts/ai-village-entrance-performance.mjs",
+    "sha256": "359b24cc8b1b261d008820a428b860dac7d58d1d11209be44adc55e90f7ab39e"
+  }
+]

@@ -36,7 +36,7 @@ function show() {
 }
 show()
 const api = {
-  inspect: () => ({ errorCode: runtime.errorCode, recoveryState: runtime.recoveryState, diagnostics: JSON.parse(runtime.diagnostics.export()), presentation: runtime.presentation, notices: runtime.notices, world: runtime.controller?.snapshot(), revision: runtime.revision, ready: runtime.ready, frameReady: runtime.frameReady,
+  inspect: () => ({ entrance: { ...runtime.entrance, canReveal: runtime.canRevealEntrance, progress: runtime.entrance.progress(runtime.canRevealEntrance) }, resourceKeys: Object.keys(runtime.images ?? {}), errorCode: runtime.errorCode, recoveryState: runtime.recoveryState, diagnostics: JSON.parse(runtime.diagnostics.export()), presentation: runtime.presentation, notices: runtime.notices, world: runtime.controller?.snapshot(), revision: runtime.revision, ready: runtime.ready, frameReady: runtime.frameReady,
     drag: runtime.controller?.drag, reasons: [...runtime.reasons], error: runtime.error, generation: runtime.generation, profileId: runtime.profileId,
     homeDraft: runtime.homeDraft, decorationDraft: runtime.decorationDraft, extraDecorationDraft: runtime.extraDecorationDraft, homeDraftError: runtime.homeDraftError, album: runtime.album.state, albumError: runtime.album.error, photoMode: runtime.photoMode, actionError: runtime.actionError, preferences: runtime.preferences, preferencesSaving: runtime.preferencesSaving, saveReceipt: runtime.saveReceipt }),
   session: () => { selection.set({ key: selection.getSnapshot().key === 'session-a' ? 'session-b' : 'session-a' }) },
@@ -44,6 +44,8 @@ const api = {
   connection: (value: boolean) => connection.set(value ? 'connected' : 'disconnected'),
   reset: () => { for (const fn of resets) fn() },
   panel: (value: boolean) => panel.set(value ? 'settings' : null),
+  entranceViewport: () => runtime.present({type:'patch',patch:{expanded:true}}),
+  preference: (theme: 'light' | 'dark') => runtime.setPreferences({theme}),
   flush: () => runtime.flush(),
   dispose: async () => { root.render(null); for (const fn of cleanups.reverse()) await fn() },
 }

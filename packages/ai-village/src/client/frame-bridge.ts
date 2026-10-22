@@ -3,9 +3,12 @@ import { pngInfo } from '../core/photo.ts'
 import type { VillageRuntime } from './runtime.ts'
 import type { SimulationWorld, Point } from '../core/world.ts'
 import type { PointerIntent } from '../core/controller.ts'
-export type FrameRuntime = Pick<VillageRuntime, 'bundle' | 'subscribe' | 'setFrameReady' | 'pointer' | 'cancelDrag'> & { setSoftwareRendering?(value: boolean): void; input?(input: UIInput): void; assetRevision?: number; bindCapture?(handler: (() => Promise<ArrayBuffer>) | null): void; view(): { world: SimulationWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean; locale?: 'zh' | 'en'; reducedMotion?: boolean; bubbles?: boolean; decorationDraft?: 'window' | 'door' | 'wall' | null | undefined } | null }
+export type FrameRuntime = Pick<VillageRuntime, 'bundle' | 'subscribe' | 'setFrameReady' | 'pointer' | 'cancelDrag'> & Partial<Pick<VillageRuntime, 'entrance' | 'beginEntranceFrame' | 'expectEntranceFrame' | 'entranceFrame' | 'entranceDecode'>> & { setSoftwareRendering?(value: boolean): void; input?(input: UIInput): void; assetRevision?: number; bindCapture?(handler: (() => Promise<ArrayBuffer>) | null): void; view(): { world: SimulationWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean; locale?: 'zh' | 'en'; reducedMotion?: boolean; bubbles?: boolean; decorationDraft?: 'window' | 'door' | 'wall' | null | undefined } | null }
 export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, failed: () => void): () => void {
   const token = crypto.randomUUID()
+  runtime.beginEntranceFrame?.(token)
+  const bootAttemptId = runtime.entrance?.attemptId ?? crypto.randomUUID()
+  let viewRevision = 0, viewKey = '', confirmed = false
   let gesture: { pointerId: number; id: string } | null = null, actorPointer: number | null = null
   let sent = 0, received = 0, initialized = false, ready = false, disposed = false
   let viewportRevision = 0, assetRevision = -1, loadingAssets = false
@@ -14,11 +17,18 @@ export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, fai
     if (!ready || disposed || loadingAssets) return
     if ((runtime.assetRevision ?? 0) !== assetRevision) {
       const bundle = runtime.bundle()
-      assetRevision = runtime.assetRevision ?? 0; loadingAssets = true; runtime.setFrameReady(false)
-      frame.contentWindow?.postMessage({ channel, version, token, sequence: ++sent, type: 'assets', assetRevision, images: bundle.images }, '*', Object.values(bundle.images))
+      assetRevision = runtime.assetRevision ?? 0; loadingAssets = true; confirmed = false; viewKey = ''; runtime.expectEntranceFrame?.(token, assetRevision, 0); runtime.setFrameReady(false)
+      clearTimeout(timer); timer = setTimeout(() => { if (!disposed && !confirmed) failed() }, 20000)
+      frame.contentWindow?.postMessage({ channel, version, token, sequence: ++sent, type: 'assets', bootAttemptId, assetRevision, images: bundle.images }, '*', Object.values(bundle.images))
       return
     }
-    send('render', { view: runtime.view() })
+    const view = runtime.view(), key = !confirmed || runtime.entrance?.blocking ? JSON.stringify(view) : viewKey
+    if (!view) return
+    if (key !== viewKey) {
+      viewKey = key; viewRevision++
+      if (!confirmed || runtime.entrance?.blocking) { confirmed = false; runtime.expectEntranceFrame?.(token, assetRevision, viewRevision) }
+    }
+    send('render', { view, bootAttemptId, assetRevision, viewRevision, firstFrame: !confirmed })
   }
   let capture: { id: string; resolve(bytes:ArrayBuffer):void; reject(e:Error):void; timer:ReturnType<typeof setTimeout> } | null = null
   runtime.bindCapture?.(() => new Promise<ArrayBuffer>((resolve,reject)=>{
@@ -26,7 +36,7 @@ export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, fai
     const id=crypto.randomUUID(),timer=setTimeout(()=>{capture=null;reject(Error('PHOTO_TIMEOUT'))},15000)
     capture={id,resolve,reject,timer};send('capture',{id})
   }))
-  const timer = setTimeout(() => { if (!disposed && !ready) failed() }, 20000)
+  let timer = setTimeout(() => { if (!disposed && !confirmed) failed() }, 20000)
   const receive = (event: MessageEvent) => {
     const m = event.data
     if (disposed || event.source !== frame.contentWindow || event.origin !== 'null' || m?.channel !== channel || m.version !== version) return
@@ -34,12 +44,17 @@ export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, fai
     if (m.type === 'ready' && m.token === '' && !initialized) {
       initialized = true; received = m.sequence
       const bundle = runtime.bundle(); assetRevision = runtime.assetRevision ?? 0
-      frame.contentWindow?.postMessage({ channel, version, token, type: 'init', ...bundle }, '*', Object.values(bundle.images))
+      runtime.expectEntranceFrame?.(token, assetRevision, 0)
+      frame.contentWindow?.postMessage({ channel, version, token, type: 'init', bootAttemptId, assetRevision, ...bundle }, '*', Object.values(bundle.images))
       return
     }
     if (m.token !== token) return
     received = m.sequence
-    if (m.type === 'ready-to-render') { ready = true; clearTimeout(timer); runtime.setFrameReady(true); render() }
+    if (m.type === 'ready-to-render') { ready = true; runtime.setFrameReady(true); render() }
+    else if (m.type === 'frame-resource-progress' && m.bootAttemptId === bootAttemptId && m.assetRevision === assetRevision && Number.isFinite(m.progress) && m.progress >= 0 && m.progress <= 1) runtime.entranceDecode?.(token, bootAttemptId, assetRevision, m.progress)
+    else if (m.type === 'first-frame-rendered' && ready && !loadingAssets && m.bootAttemptId === bootAttemptId && m.assetRevision === assetRevision && m.viewRevision === viewRevision && viewRevision > 0 && !confirmed) {
+      confirmed = true; clearTimeout(timer); runtime.entranceFrame?.(token, bootAttemptId, assetRevision, viewRevision)
+    }
     else if (m.type === 'capabilities' && typeof m.softwareRendering === 'boolean') runtime.setSoftwareRendering?.(m.softwareRendering)
     else if (m.type === 'photo' && capture && capture.id === m.id) {
       const pending=capture;capture=null;clearTimeout(pending.timer)

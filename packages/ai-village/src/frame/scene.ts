@@ -26,6 +26,9 @@ interface View { overlayOpen: boolean; camera: Camera; dismissLayer: boolean; ar
   photo?: { zoom:number;x:number;y:number;date:boolean;border:boolean } | null; locale: 'zh' | 'en'; reducedMotion: boolean; bubbles: boolean; decorationDraft: 'window' | 'door' | 'wall' | null | undefined }
 
 let token = '', received = 0, sent = 0, initialized = false, disposed = false, pointer: number | null = null
+let bootAttemptId = '', assetRevision = -1, paintedRevision = 0
+let renderContext: WebGLRenderingContext | WebGL2RenderingContext | null = null
+const contextLost = () => { if (!disposed) send('failed', { error: 'RENDER_CONTEXT_LOST' }) }
 let app: Application | undefined, scene: SceneArt, character: Character, animations: AnimationSet
 type AvatarArt = { character: Character; animations: AnimationSet; activityPrefix: string }
 let roster: Record<string, AvatarArt> = {}
@@ -104,13 +107,18 @@ function local(event: { clientX: number; clientY: number }): Point { return { x:
 function cancel() { inputRouter?.cancel() }
 async function loadAssets(images: Record<string, ArrayBuffer>) {
   if (!images || Object.keys(images).length > 160 || Object.values(images).some(b=>!(b instanceof ArrayBuffer)||b.byteLength>8*1024*1024)) throw Error('INVALID_ASSETS')
+  const total = Object.values(images).reduce((n, b) => n + b.byteLength, 0)
+  let decoded = 0
   for (const [file, bytes] of Object.entries(images)) {
-    if (textures.has(file)) continue
+    if (disposed) return
+    if (textures.has(file)) { decoded += bytes.byteLength; continue }
     const url=URL.createObjectURL(new Blob([bytes],{type:'image/png'})); urls.set(file,url)
     const image=new Image();image.src=url;await image.decode()
     if(disposed){URL.revokeObjectURL(url);return}
     if (file === 'scene/background.png') { atmosphereImage = image; backgroundCache = backgroundSurface(image) }
     textures.set(file,file==='scene/background.png' ? backgroundCache!.texture : Texture.from(image))
+    decoded += bytes.byteLength
+    send('frame-resource-progress', { bootAttemptId, assetRevision, progress: .9 * decoded / total })
   }
   keepAssets=new Set(Object.keys(images))
 }
@@ -118,12 +126,14 @@ async function init(message: { character: Character; animations: AnimationSet; r
   character = message.character; animations = message.animations; scene = message.scene; renderScene = scene
   roster = { ...message.roster, bluewhale: { character, animations, activityPrefix: 'scene/' } }
   await loadAssets(message.images)
+  if (disposed) return
   const instance = new Application()
   await instance.init({ width: innerWidth, height: innerHeight, resolution: renderResolution(devicePixelRatio, innerWidth, innerHeight), autoDensity: true, antialias: true,
     preference: 'webgl', autoStart: false, sharedTicker: false, background: 0xf0eadb })
   if (disposed) { instance.destroy(true, { children: true }); return }
   app = instance
   const gl=(app.canvas as HTMLCanvasElement).getContext('webgl2') ?? (app.canvas as HTMLCanvasElement).getContext('webgl'), debug=gl?.getExtension('WEBGL_debug_renderer_info')
+  renderContext = gl; app.canvas.addEventListener('webglcontextlost', contextLost)
   send('capabilities',{softwareRendering:!!gl && /swiftshader|llvmpipe|software/i.test(String(debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER)))})
   atmosphereCache = cachedAtmosphere(atmosphereImage!); atmosphere = atmosphereCache.root; app.stage.addChild(atmosphere)
   backdrop = new Sprite(textures.get('scene/background.png')!)
@@ -162,6 +172,7 @@ async function init(message: { character: Character; animations: AnimationSet; r
     input => send('ui-input', { viewportRevision, input }), (type, event) => send('pointer', { viewportRevision, intent: { type, id:event.pointerId, point:local(event), css:{x:event.clientX,y:event.clientY} } }),
     (object, point, index) => { ghostObject=object;ghostPoint=point;ghostIndex=index;paint() })
   layout()
+  send('frame-resource-progress', { bootAttemptId, assetRevision, progress: 1 })
   send('ready-to-render')
 }
 let frames = 0, paintMs = 0, maxPaintMs = 0
@@ -264,6 +275,7 @@ function paint() {
     for(const node of nodes){moved.push({node,x:node.x,y:node.y,alpha:node.alpha});node.x+=dx;node.y+=dy;node.alpha=.78}
   }
   app.render()
+  if (renderContext?.isContextLost()) throw Error('RENDER_CONTEXT_LOST')
   for(const row of moved){row.node.position.set(row.x,row.y);row.node.alpha=row.alpha}
   frames++
   const elapsed = performance.now() - began
@@ -340,16 +352,19 @@ window.addEventListener('message', event => {
   if (message.type === 'init' && !initialized) {
     if (typeof message.token !== 'string' || message.token.length !== 36 || !message.images
       || Object.keys(message.images).length > 160 || Object.values(message.images).some(b => !(b instanceof ArrayBuffer) || b.byteLength > 8 * 1024 * 1024)) return
-    initialized = true; token = message.token
+    if (typeof message.bootAttemptId !== 'string' || message.bootAttemptId.length !== 36 || !Number.isSafeInteger(message.assetRevision) || message.assetRevision < 0) return
+    initialized = true; token = message.token; bootAttemptId = message.bootAttemptId; assetRevision = message.assetRevision
     void init(message).catch(error => send('failed', { error: String(error) }))
   } else if (message.token === token && Number.isSafeInteger(message.sequence) && message.sequence > received && app) {
     received = message.sequence
     if (message.type === 'assets' && !assetLoading) {
-      assetLoading=true
+      if (message.bootAttemptId !== bootAttemptId || !Number.isSafeInteger(message.assetRevision) || message.assetRevision <= assetRevision) return
+      assetLoading=true; assetRevision = message.assetRevision; paintedRevision = 0
       void loadAssets(message.images).then(()=>{assetLoading=false;if(!disposed)send('assets-ready',{assetRevision:message.assetRevision})}).catch(()=>{assetLoading=false;send('failed',{error:'ASSET_UNAVAILABLE'})})
     } else if (message.type === 'capture' && view?.photo && typeof message.id === 'string' && message.id.length===36) {
       void capturePhoto(message.id).catch(()=>send('photo-failed',{id:message.id}))
     } else if (message.type === 'render' && !assetLoading) {
+      if (message.bootAttemptId !== bootAttemptId || message.assetRevision !== assetRevision || !Number.isSafeInteger(message.viewRevision) || message.viewRevision < 1) return
       try {
         const world = message.view.world?.schemaVersion === 6 ? validateHomeWorld(message.view.world, scene) : message.view.world?.schemaVersion === 5 ? validateNeighborhoodWorld(message.view.world, scene) : message.view.world?.schemaVersion === 4 ? validateContentWorld(message.view.world, scene) : validateWorld(message.view.world, scene), p = message.view.position
         if (!p || !Number.isFinite(p.x) || !Number.isFinite(p.y) || Math.abs(p.x) > 5000 || Math.abs(p.y) > 5000) return
@@ -369,6 +384,11 @@ window.addEventListener('message', event => {
           bubbles: message.view.bubbles !== false, decorationDraft: draft }
         if (view.paused && !view.arrangementObjects.length && !validCamera(message.view.camera)) cancel()
         paint()
+        // paint calls app.render synchronously. This is a successful submission, not a physical display claim.
+        if (message.firstFrame && message.viewRevision > paintedRevision) {
+          paintedRevision = message.viewRevision
+          send('first-frame-rendered', { bootAttemptId, assetRevision, viewRevision: paintedRevision })
+        }
       } catch { send('failed', { error: 'INVALID_RENDER_STATE' }) }
     } else if (message.type === 'inspect') send('metrics', { frames, textures: textures.size, tickerStarted: app.ticker.started })
   }
@@ -382,6 +402,7 @@ window.addEventListener('keydown', event => { if (event.key === 'Escape' && !eve
 function dispose() {
   if (disposed) return
   inputRouter?.dispose(); disposed = true; cancel()
+  app?.canvas.removeEventListener('webglcontextlost', contextLost)
   for (const [id, rig] of rigs) removeRig(id, rig)
   app?.destroy(true, { children: true }); atmosphereCache?.destroy()
   for (const texture of textures.values()) texture.destroy(true)

@@ -1,0 +1,28 @@
+ℹ entry: .build\entrance-baseline\source\packages\ai-village\experiments\phase4-host.ts
+ℹ target: es2024
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ .build\entrance-baseline\preview\harness.mjs  629.60 kB │ gzip: 98.51 kB
+ℹ 1 files, total: 629.60 kB
+✔ Build complete in 71ms
+ℹ entry: .build\entrance-baseline\source\packages\ai-village\experiments\phase4-client.tsx
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- react
+- scheduler
+- react-dom
+ℹ .build\entrance-baseline\preview\fixture.js  674.46 kB │ gzip: 148.58 kB
+ℹ 1 files, total: 674.46 kB
+✔ Build complete in 54ms
+{"sample":0,"variant":"baseline","firstPaintObservedMs":564,"enteredMs":564,"parentHeapBytes":9244324,"idleParentCpuPercent":1.1603333333333334,"idlePaints":0,"textures":32,"renderer":"SwiftShader"}
+{"sample":0,"variant":"entrance","firstPaintObservedMs":569,"enteredMs":699,"parentHeapBytes":8457408,"idleParentCpuPercent":1.2327333333333335,"idlePaints":0,"textures":32,"renderer":"SwiftShader"}
+{"sample":1,"variant":"baseline","firstPaintObservedMs":541,"enteredMs":541,"parentHeapBytes":9147352,"idleParentCpuPercent":1.2234666666666667,"idlePaints":0,"textures":32,"renderer":"SwiftShader"}
+{"sample":1,"variant":"entrance","firstPaintObservedMs":549,"enteredMs":711,"parentHeapBytes":10620004,"idleParentCpuPercent":1.0831666666666668,"idlePaints":0,"textures":32,"renderer":"SwiftShader"}
+{"sample":2,"variant":"baseline","firstPaintObservedMs":575,"enteredMs":575,"parentHeapBytes":8715876,"idleParentCpuPercent":1.1887333333333334,"idlePaints":0,"textures":32,"renderer":"SwiftShader"}
+{"sample":2,"variant":"entrance","firstPaintObservedMs":557,"enteredMs":714,"parentHeapBytes":8802440,"idleParentCpuPercent":1.2287333333333332,"idlePaints":0,"textures":32,"renderer":"SwiftShader"}
