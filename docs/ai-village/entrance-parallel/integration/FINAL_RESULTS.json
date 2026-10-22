@@ -103,9 +103,10 @@
     "deterministic_import_repeat": "PASS, no tracked diff after reimport and resource generation",
     "strict_official_types_and_build": "PASS",
     "behavior_tests": {
-      "files": 30,
-      "tests": 150,
-      "status": "PASS"
+      "files": 33,
+      "tests": 159,
+      "status": "PASS",
+      "includes_unmodified_B_regressions": true
     },
     "review_matrix": {
       "cases": 16,
@@ -148,13 +149,21 @@
       "real_profile_touched": false,
       "preview_modules_packaged": false,
       "host_peers": "Existing pinned host installation, provided only after offline plugin install"
-    }
+    },
+    "B_png_validator_unit_tests": "PASS; 2 tests",
+    "adopted_PNG_B_validator": "PASS; 8 files / 2749401 bytes / 1773738 pixels, executed by A"
   },
   "not_run": [
-    "B independent QA checkpoint and QA-only merge: no B_CHECKPOINT.json available at closeout",
-    "10-run comparable performance p50/p95 and 100-cycle stress: B ownership, NOT_RUN",
+    "B independent evaluation of final A candidate: PENDING",
+    "Formal uncontended performance and 100 real close/show cycles: NOT_RUN; B baseline sidebar/resize stress delivered, timing CONTENDED",
     "Real hardware GPU, actual Windows DPI/multi-monitor and visual approval: NEEDS_HUMAN_REVIEW",
     "One-hour real runtime: DEFERRED"
   ],
-  "evidence_note": "Browser fixtures include tested bundle SHA. Some scripts were run before source commit; this index fixes source-byte hashes to the code commit. Temporary fixture UUIDs are not user profile identities. Timing samples under concurrent validation are not performance claims."
+  "evidence_note": "Browser fixtures include tested bundle SHA. Some scripts were run before source commit; this index fixes source-byte hashes to the code commit. Temporary fixture UUIDs are not user profile identities. Timing samples under concurrent validation are not performance claims.",
+  "accepted_qa": {
+    "original_commit": "75abafdab896f7728d6c8bc23722fe0750c48440",
+    "cherry_pick_commit": "d1e56d091269bd1d3c612503b3dd2dd386d3dd94",
+    "tests_modified_by_A": false,
+    "final_candidate_independent_evaluation": "PENDING"
+  }
 }

@@ -1,0 +1,23 @@
+{
+  "qa_commit": "75abafdab896f7728d6c8bc23722fe0750c48440",
+  "accepted_commit": "d1e56d091269bd1d3c612503b3dd2dd386d3dd94",
+  "qa_only_files": 106,
+  "production_changes_in_QA_commit": false,
+  "tests_modified_by_A": false,
+  "A_behavior_retest": {
+    "files": 33,
+    "tests": 159,
+    "status": "PASS"
+  },
+  "DQ-ART-01": {
+    "baseline": "FAIL at bc230e7f662f47efb497529a276d09aad90ad4ac",
+    "current_A": "PASS: unchanged null-layer regression, validation guard already implemented"
+  },
+  "DQ-MEM-01": "B baseline listeners grew once then stabilized through 100 sidebar/resize cycles; retained heap attribution and final A evaluation pending; not a confirmed leak",
+  "png_validator_unit_tests": "2 PASS",
+  "adopted_png_check": "B_PNG_RECHECK.json; A execution, unchanged B validator",
+  "historical_B_evidence": "Preserved unchanged; baseline failures and unavailable-A notes describe the earlier B run, not current candidate",
+  "independent_final_A_evaluation": "PENDING",
+  "performance": "B baseline timings CONTENDED; no formal comparison claimed",
+  "source_hashes_and_package_unchanged": "PASS"
+}
