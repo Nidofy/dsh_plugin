@@ -16,6 +16,7 @@ import type { CharacterId } from '../core/roster.ts'
 import { createLivingWorld as createContentWorld, validateLivingWorld as validateContentWorld, migrateLivingWorld, homeProjection, type LivingWorld as ContentWorld } from '../core/living-state.ts'
 import { homeTemplates, type Home } from '../core/home-state.ts'
 import { arrangeHome, setTableMode as chooseTableMode, startPlay as beginPlay, playAction as actPlay, cancelPlay as stopPlay, placePlayDecoration as putPlayDecoration, whalePlace, whalePoint } from '../core/living-engine.ts'
+import { dismissEncounter as skipEncounter } from '../core/encounter.ts'
 import type { LayoutId, ExtraDecoration } from '../core/neighborhood-catalog.ts'
 import type { Food, BellSlot } from '../core/content-state.ts'
 import { characterIds } from '../core/roster.ts'
@@ -454,9 +455,13 @@ export class VillageRuntime {
     if (this.arranging || this.photoMode) return
     await this.neighborhoodCommand(() => chooseTableMode(this.controller!.world,scene,mode))
   }
-  async startPlay(id: string, participants: CharacterId[]) {
+  async startPlay(id: string, participants: CharacterId[], encounterToken?: string) {
     if (this.arranging || this.photoMode) return
-    await this.neighborhoodCommand(() => beginPlay(this.controller!.world, scene, id, participants, crypto.randomUUID()))
+    await this.neighborhoodCommand(() => beginPlay(this.controller!.world, scene, id, participants, crypto.randomUUID(), encounterToken))
+  }
+  async dismissEncounter(token: string) {
+    if (this.arranging || this.photoMode || this.controller?.pauseReasons.size) return
+    await this.neighborhoodCommand(() => skipEncounter(this.controller!.world, scene, token))
   }
   async playAction(action: string, value?: string, token?: string) {
     if (this.arranging || this.photoMode || this.controller?.pauseReasons.size) return

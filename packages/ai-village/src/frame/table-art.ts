@@ -4,7 +4,7 @@ import { furnitureDepth, type SceneArt } from './furniture.ts'
 
 /** Structural input avoids coupling the renderer to the current persisted-world codec. */
 export interface TableArtWorld extends TableDisplayWorld {
-  schemaVersion: 8
+  schemaVersion: 9
   home: TableHome
   play: {
     tableMode: 'dining' | 'game'

@@ -8,6 +8,8 @@ import { villageTime } from '../core/dialogue.ts'
 import { playDefinitions, playDefinition, playDecorationNames, deskItems, deskSlots, snackChoices, snackNames, snackReaction, whalePlaces, whalePlaceNames, whalePlace, type PlayDecorationId, type PlayDefinition } from '../core/play-catalog.ts'
 import { residentLife, lifeClock } from '../core/life-catalog.ts'
 import { TableGamePanel } from './TableGamePanel.tsx'
+import { CollectionPanel } from './CollectionPanel.tsx'
+import { currentEncounter } from '../core/encounter.ts'
 
 /** Content lives inside the existing four drawers; it never creates another top-level entrance. */
 export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRuntime; tab: string; locale: Locale; locked: boolean }) {
@@ -31,9 +33,16 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
   }
   const names = (list: readonly CharacterId[]) => list.map(id => characterNames[id]).join(' & ')
   const place = (index: number, slot: number) => { act('place', `${index}:${slot}`); setItem(null) }
+  const encounter = currentEncounter(world), encounterDefinition = encounter && playDefinition(encounter.definitionId)
+  const encounterGuests = encounterDefinition ? participants(encounterDefinition) : []
+  const encounterAvailable = !!encounterDefinition && encounterGuests.length === encounterDefinition.count && encounterGuests.every(id => ids.includes(id))
   return <section className="village-neighborhood village-play" aria-label={t('小院故事与小游戏', 'Courtyard stories and games')}>
     {tab === 'residents' && <><p>{residentLife[selected].description[locale]}</p><small>{t('小院时间：', 'Courtyard time: ')}{clock.period === 'day' ? t('白天', 'Daytime') : clock.period === 'dusk' ? t('傍晚', 'Dusk') : t('夜晚', 'Night')} · {t('喜欢的茶点：', 'Favorite snack: ')}{snackNames[residentLife[selected].favoriteSnack][locale]}</small></>}
     {tab === 'wishes' && !active && <>
+      {encounter && encounterDefinition && <article className="village-journal" aria-label={t('此刻的小偶遇', 'A chance encounter now')}><h3>{t('此刻的小偶遇', 'A chance encounter now')} · {encounterDefinition.name[locale]}</h3><p>{encounterDefinition.summary[locale]}</p><small>{t('愿意就来帮个忙；略过也没关系，以后还会有新的偶遇。', 'Join in if you feel like it. It is fine to pass; other encounters will come along.')}</small><p>{names(encounterGuests)}</p><div className="choices">
+        <button disabled={busy || !encounterAvailable || world.ticks >= encounter.expiresTick || world.ticks < world.play.nextTick} onClick={() => { const now = currentEncounter(world); if (now?.token === encounter.token && world.ticks < now.expiresTick) void runtime.startPlay(encounter.definitionId, encounterGuests, encounter.token) }}>{t('一起帮忙', 'Lend a hand')}</button>
+        <button disabled={locked || world.ticks >= encounter.expiresTick} onClick={() => { const now = currentEncounter(world); if (now?.token === encounter.token && world.ticks < now.expiresTick) void runtime.dismissEncounter(encounter.token) }}>{t('这次先略过', 'Pass this time')}</button>
+      </div>{!encounterAvailable && <p>{t('需要两位居民在场，一起看看这件小事。', 'Two residents need to be present to join this moment.')}</p>}</article>}
       <h3>{t('今天想一起做什么', 'What shall we do together?')}</h3>
       <p>{t('没有期限，也不用每天完成。重玩保留第一次的回忆，只增加体验次数。', 'No deadlines or daily chores. Replaying keeps your first memory and adds to its count.')}</p>
       <div aria-label={t('慢慢完成的小心愿', 'Little wishes to take slowly')}><h3>{t('慢慢完成的小心愿', 'Little wishes to take slowly')}</h3>{(['story', 'game', 'group'] as const).map(kind => {
@@ -49,6 +58,7 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
           {!available && <p>{d.id === 'lost-rice' ? t('请先让蓝鲸和另一位朋友来到小院。', 'Bring Bluewhale and a friend into the courtyard first.') : t(`需要 ${d.count} 位在场居民。`, `Needs ${d.count} residents in the courtyard.`)}</p>}
         </article>
       })}</div>)}
+      <CollectionPanel runtime={runtime} locale={locale} tab="wishes"/>
     </>}
     {(tab === 'wishes' || tab === 'residents') && active && definition && stage && <article className="village-status" aria-label={t('正在进行的故事', 'Current story')}>
       <h3 ref={storyHeading}>{definition.name[locale]} · {active.stage + 1}/{definition.stages.length}</h3>

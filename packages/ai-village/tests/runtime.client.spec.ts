@@ -331,7 +331,7 @@ it('initializes twelve existing facts as read when legacy preferences migrate, w
  world.progress={completedWishes:['first-tea'],discovered:['first-table'],unlocked:['wind-chime'],lastCompletedEventId:world.journal[0]!.eventId};world.decorations.windChime={id:'first-wind-chime',slot:null}
  world.neighborhood.memories=stories.map(s=>({id:s.id,eventId:crypto.randomUUID(),participants:neighborhoodEvents.find(d=>d.story===s.id)!.count===2?['bluewhale','claude']:['bluewhale'],completedTick:0,count:1}));world.neighborhood.lastEventId=world.neighborhood.memories.at(-1)!.eventId
  const f=fixture(world,{schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}),r=f.runtime
- try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(8)}finally{await r.dispose()}
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(9)}finally{await r.dispose()}
 })
 
 

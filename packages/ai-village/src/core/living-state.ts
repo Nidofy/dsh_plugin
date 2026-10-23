@@ -1,4 +1,4 @@
-import { migrateLivingWorld as migrateV7 } from './living-state-v7.ts'
+import { migrateLivingWorld as migrateV8 } from './living-state-v8.ts'
 import { validTableHistory, tableResult } from './table-game.ts'
 import { createHomeWorld, validateHomeWorld, homeScene, type HomeWorld } from './home-state.ts'
 import { stories, type StoryId } from './neighborhood-catalog.ts'
@@ -15,13 +15,13 @@ export interface PlayEvent {
   phase: 'approaching' | 'observing' | 'ready'; remainingTicks: number; approachRemainingTicks: number
   target: string | null; choices: string[]; board: number[]; targets: Point[]; routes: Point[][]
 }
-export interface PlayState { tableMode: 'dining' | 'game'; active: PlayEvent | null; decorations: Record<PlayDecorationId, BellSlot | null>; nextTick: number; lastEventId: string | null }
+export interface PlayState { encounterWindow: number; tableMode: 'dining' | 'game'; active: PlayEvent | null; decorations: Record<PlayDecorationId, BellSlot | null>; nextTick: number; lastEventId: string | null }
 export interface LivingWorld extends Omit<HomeWorld, 'schemaVersion' | 'simulationRulesVersion' | 'contentRevision' | 'neighborhood'> {
-  schemaVersion: 8; simulationRulesVersion: 4; contentRevision: 5
+  schemaVersion: 9; simulationRulesVersion: 4; contentRevision: 6
   neighborhood: Omit<HomeWorld['neighborhood'], 'memories'> & { memories: PlayMemory[] }
   play: PlayState; life: LifeState
 }
-export const blankPlay = (): PlayState => ({ tableMode: 'dining', active: null, decorations: Object.fromEntries(playDefinitions.map(d => [d.reward, null])) as PlayState['decorations'], nextTick: 0, lastEventId: null })
+export const blankPlay = (): PlayState => ({ encounterWindow: -1, tableMode: 'dining', active: null, decorations: Object.fromEntries(playDefinitions.map(d => [d.reward, null])) as PlayState['decorations'], nextTick: 0, lastEventId: null })
 export const isPlayId = (id: unknown): id is PlayId => playDefinitions.some(d => d.id === id)
 /** Frozen v6 sees only its own content. No caller may publish this projection as current state. */
 export function homeProjection(w: LivingWorld): HomeWorld {
@@ -30,7 +30,7 @@ export function homeProjection(w: LivingWorld): HomeWorld {
     neighborhood: { ...base.neighborhood, memories: base.neighborhood.memories.filter(m => stories.some(s => s.id === m.id)) as HomeWorld['neighborhood']['memories'] } }
 }
 export function withLiving(base: HomeWorld, source?: LivingWorld): LivingWorld {
-  return { ...base, schemaVersion: 8, simulationRulesVersion: 4, contentRevision: 5,
+  return { ...base, schemaVersion: 9, simulationRulesVersion: 4, contentRevision: 6,
     neighborhood: { ...base.neighborhood, memories: structuredClone([...base.neighborhood.memories, ...source?.neighborhood.memories.filter(m => isPlayId(m.id)) ?? []]).sort((a,b) => a.completedTick-b.completedTick) },
     play: structuredClone(source?.play ?? blankPlay()), life: structuredClone(source?.life ?? { social: null }) }
 }
@@ -42,7 +42,7 @@ function exact(value: unknown, keys: string[]): Record<string, any> {
 const integer = (n: unknown, min: number, max = Number.MAX_SAFE_INTEGER): n is number => Number.isSafeInteger(n) && (n as number) >= min && (n as number) <= max
 export function validateLivingWorld(value: unknown, base: Scene): LivingWorld {
   const w = value as LivingWorld
-  if (!w || w.schemaVersion !== 8 || w.sceneVersion !== 3 || w.simulationRulesVersion !== 4 || w.contentRevision !== 5) throw Error('UNSUPPORTED_WORLD_VERSION')
+  if (!w || w.schemaVersion !== 9 || w.sceneVersion !== 3 || w.simulationRulesVersion !== 4 || w.contentRevision !== 6) throw Error('UNSUPPORTED_WORLD_VERSION')
   if (new TextEncoder().encode(JSON.stringify(w)).length > 48*1024) throw Error('SAVE_TOO_LARGE')
   // Validate the entire closed v6 structure, including unknown top-level fields.
   if (!Array.isArray(w.neighborhood?.memories) || w.neighborhood.memories.length > stories.length + playDefinitions.length) return fail()
@@ -59,8 +59,8 @@ export function validateLivingWorld(value: unknown, base: Scene): LivingWorld {
       || new Set(m.participants).size !== d.count || !integer(m.count,1,1000000) || (d.id==='lost-rice' && m.participants[0]!=='bluewhale')) return fail()
     events.add(m.eventId)
   }
-  const p = exact(w.play,['tableMode','active','decorations','nextTick','lastEventId'])
-  if (!['dining','game'].includes(p.tableMode)) return fail()
+  const p = exact(w.play,['encounterWindow','tableMode','active','decorations','nextTick','lastEventId'])
+  if (!integer(p.encounterWindow,-1,Math.floor(w.ticks/2700)) || !['dining','game'].includes(p.tableMode)) return fail()
   if (!integer(p.nextTick,0,w.ticks+900) || (p.lastEventId!==null&&!uuid(p.lastEventId)) || (w.neighborhood.memories.some(m=>isPlayId(m.id)) !== (p.lastEventId!==null))) return fail()
   const decorations = exact(p.decorations,playDefinitions.map(d=>d.reward))
   for (const d of playDefinitions) if (decorations[d.reward] !== null && (!['window','door','wall'].includes(decorations[d.reward]) || !ids.has(d.id))) return fail()
@@ -73,6 +73,7 @@ export function validateLivingWorld(value: unknown, base: Scene): LivingWorld {
       || !['approaching','observing','ready'].includes(e.phase) || !integer(e.remainingTicks,0,d.stages[e.stage]!.observeTicks) || !integer(e.approachRemainingTicks,0,1800)
       || e.target!==d.stages[e.stage]!.target
       || !Array.isArray(e.targets) || e.targets.length!==d.count || !Array.isArray(e.routes) || e.routes.length!==d.count) return fail()
+    if (d.kind==='event' && p.encounterWindow<0) return fail()
     if (d.id==='table-game') {
       if (p.tableMode!=='game' || !validTableHistory(e.board,e.choices,e.participants[1]) || (e.stage===1)!==!!tableResult(e.board)) return fail()
       const seats=scene.hotspots.filter(h=>h.id==='eat').map(h=>h.anchor)
@@ -102,11 +103,11 @@ export function validateLivingWorld(value: unknown, base: Scene): LivingWorld {
 }
 export function createLivingWorld(base: Scene): LivingWorld { return withLiving(createHomeWorld(base)) }
 export function migrateLivingWorld(value: unknown, base: Scene): LivingWorld {
-  if ((value as LivingWorld)?.schemaVersion===8) return validateLivingWorld(value,base)
-  const old = migrateV7(value,base)
-  const upgraded = { ...old, schemaVersion:8, contentRevision:5, play:{...old.play,tableMode:'dining',decorations:{...old.play.decorations,'table-stones':null}} }
+  if ((value as LivingWorld)?.schemaVersion===9) return validateLivingWorld(value,base)
+  const old = migrateV8(value,base)
+  const upgraded = { ...old, schemaVersion:9, contentRevision:6, play:{...old.play,encounterWindow:-1,decorations:{...old.play.decorations,'message-board':null,'leaf-pot':null}} }
   return validateLivingWorld(upgraded,base)
 }
 export function livingWorldCodec(base: Scene): WorldCodec<LivingWorld> {
-  return {decode:v=>migrateLivingWorld(v,base),validate:v=>validateLivingWorld(v,base),needsUpgrade:v=>(v as LivingWorld)?.schemaVersion!==8}
+  return {decode:v=>migrateLivingWorld(v,base),validate:v=>validateLivingWorld(v,base),needsUpgrade:v=>(v as LivingWorld)?.schemaVersion!==9}
 }

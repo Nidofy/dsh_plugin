@@ -9,6 +9,7 @@ import type { CharacterId } from './roster.ts'
 import type { LayoutId, ExtraDecoration } from './neighborhood-catalog.ts'
 import { cancelLifeSocial, stepLifeSocial, settleLifeSocial } from './life-engine.ts'
 import { blankTableBoard, tableRound, tableResult } from './table-game.ts'
+import { currentEncounter } from './encounter.ts'
 
 const geometry = (w: LivingWorld, base: Scene) => homeScene(base,w.neighborhood.layout,w.home)
 function availableForCommand(w: LivingWorld) { if(w.play.active)throw Error('EVENT_ACTIVE'); cancelLifeSocial(w) }
@@ -67,13 +68,18 @@ function prepareStage(w:LivingWorld,base:Scene) {
   e.targets=targets;e.routes=routes
   members.forEach((a,i)=>{abandon(a);a.behavior=e.routes[i]!.length?'walk':'idle';a.destination=e.routes[i]![0]??null})
 }
-export function startPlay(source:LivingWorld,base:Scene,definitionId:string,participants:CharacterId[],id:string):LivingWorld {
+export function startPlay(source:LivingWorld,base:Scene,definitionId:string,participants:CharacterId[],id:string,encounterToken?:string):LivingWorld {
   const w=validateLivingWorld(source,base),d=playDefinition(definitionId)
   if(w.activeEvent||w.neighborhood.event||w.play.active)throw Error('EVENT_ACTIVE')
   if(w.ticks<w.play.nextTick)throw Error('INTERACTION_COOLDOWN')
   if(definitionId==='table-game'&&w.play.tableMode!=='game')throw Error('GAME_TABLE_REQUIRED')
   if(definitionId==='table-game'&&actors(w).some(a=>!participants.includes(a.id)&&a.intent?.furnitureId==='eat'))throw Error('FURNITURE_OCCUPIED')
   if(!d||!uuid(id)||usedId(w,id)||participants.length!==d.count||new Set(participants).size!==d.count||participants.some(id=>!actors(w).some(a=>a.id===id))||(d.id==='lost-rice'&&participants[0]!=='bluewhale'))throw Error('INVALID_INVITATION')
+  if(d.kind==='event'){
+    const offer=currentEncounter(w)
+    if(!offer||offer.definitionId!==d.id||offer.token!==encounterToken)throw Error('ENCOUNTER_EXPIRED')
+    w.play.encounterWindow=offer.index
+  }
   cancelLifeSocial(w)
   w.play.active={id,definitionId:d.id,participants:[...participants],stage:0,phase:'approaching',remainingTicks:0,approachRemainingTicks:1800,target:null,choices:[],board:d.id==='table-game'?blankTableBoard():[-1,-1,-1],targets:[],routes:[]}
   prepareStage(w,base);return validateLivingWorld(w,base)

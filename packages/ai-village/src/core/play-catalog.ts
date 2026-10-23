@@ -2,9 +2,9 @@ import { words, type Words } from './neighborhood-catalog.ts'
 import { residentLife } from './life-catalog.ts'
 import type { CharacterId } from './roster.ts'
 
-export const playIds = ['lost-rice', 'quiet-page', 'wind-notes', 'find-whale', 'tidy-desk', 'snack-table', 'stargazing', 'table-game'] as const
+export const playIds = ['lost-rice', 'quiet-page', 'wind-notes', 'find-whale', 'tidy-desk', 'snack-table', 'stargazing', 'table-game', 'paper-rescue', 'leaves-gather'] as const
 export type PlayId = typeof playIds[number]
-export const playDecorationIds = ['rice-bowl', 'page-marker', 'wind-ribbon', 'whale-token', 'desk-star', 'snack-tray', 'star-mobile', 'table-stones'] as const
+export const playDecorationIds = ['rice-bowl', 'page-marker', 'wind-ribbon', 'whale-token', 'desk-star', 'snack-tray', 'star-mobile', 'table-stones', 'message-board', 'leaf-pot'] as const
 export type PlayDecorationId = typeof playDecorationIds[number]
 export interface PlayStage {
   id: string
@@ -16,7 +16,7 @@ export interface PlayStage {
 }
 export interface PlayDefinition {
   id: PlayId
-  kind: 'story' | 'game' | 'group'
+  kind: 'story' | 'game' | 'group' | 'event'
   name: Words
   summary: Words
   count: 1 | 2 | 3
@@ -28,6 +28,16 @@ const stage = (id: string, target: PlayStage['target'], zh: string, en: string, 
 
 /** Authored offline content. Rewards reuse existing bowl / code-vector vocabulary; this is not new approved raster art. */
 export const playDefinitions: readonly PlayDefinition[] = [
+  { id: 'paper-rescue', kind: 'event', name: words('飞走的留言', 'A runaway message'), summary: words('一张留言被风吹到长椅旁，和朋友把它送回去。', 'A message has blown beside the bench. Bring it back with a friend.'), count: 2, reward: 'message-board', stages: [
+    stage('catch-note', 'bench', '长椅脚边压着一张卷起的纸。等朋友走近，一起看看是谁的留言。', 'A curled note rests by the bench. Wait for your friend and see who left it.', 'search', '展开这张留言', 'Unfold the message'),
+    stage('answer-note', 'work', '纸上写着“今天想听一个好消息”。回到书桌，和朋友各添一句小小的回答。', 'It says, “I would like some good news today.” At the desk, add a little answer together.', 'help', '写下我们的好消息', 'Add our good news'),
+    stage('pin-note', 'corner', '把留言夹好，留给下一个路过的人。风带来的话，现在有了一个家。', 'Clip the note where the next passerby can find it. The wandering message has a home.', 'finish', '留下这块留言牌', 'Keep our message board'),
+  ] },
+  { id: 'leaves-gather', kind: 'event', name: words('叶子的来信', 'A letter from the leaves'), summary: words('花草旁落了几片形状不同的叶子，和朋友一起挑选收藏。', 'Different leaves have fallen beside the plants. Choose a few together.'), count: 2, reward: 'leaf-pot', stages: [
+    stage('spot-leaves', 'corner', '花草旁有几片落叶，一片像小船，一片像书签。邀请朋友一起仔细看看。', 'One fallen leaf looks like a boat, another like a bookmark. Take a closer look with a friend.', 'search', '看看叶子的形状', 'Look at the leaf shapes'),
+    stage('arrange-leaves', 'bench', '把叶子摊在长椅边，给喜欢的形状起个名字。剩下的留在花草旁，慢慢变成泥土。', 'Spread the leaves by the bench and name your favorite shape. Leave the rest by the plants to become soil.', 'help', '选出今天的叶子', 'Choose today’s leaf'),
+    stage('keep-leaf', 'corner', '把选中的叶子插进小盆里。它不会要求每天照顾，只替你记住这一阵风。', 'Place the chosen leaf in a little pot. It asks for no daily care, only remembers this breeze.', 'finish', '收藏这阵风', 'Remember this breeze'),
+  ] },
   { id: 'lost-rice', kind: 'story', name: words('蓝鲸丢失的白米饭', 'Bluewhale’s missing rice'), summary: words('蓝鲸的饭碗旁少了一份饭，和朋友沿线索解开小误会。', 'A serving is missing beside Bluewhale’s bowl. Follow the clues together.'), count: 2, reward: 'rice-bowl', stages: [
     stage('empty-table', 'eat', '蓝鲸看着饭碗旁的空位：这里刚才是不是还有一份白米饭？先问问朋友看到了什么。', 'Bluewhale notices a gap beside the bowl: was there another serving of rice here? Ask what your friend saw.', 'talk', '问问刚才发生了什么', 'Ask what happened'),
     stage('paper-clue', 'work', '书桌边留下了几枚白米形的小纸片，还有一张指向长椅的小纸条。它们真的来自饭碗吗？', 'Rice-shaped paper pieces lie beside the desk, with a note pointing to the bench. Did they really come from the bowl?', 'search', '查看纸条上的线索', 'Read the clue'),
@@ -67,6 +77,7 @@ export const playDefinitions: readonly PlayDefinition[] = [
   ] },
 ]
 export const playDecorationNames: Record<PlayDecorationId, Words> = {
+  'message-board': words('好消息留言牌', 'Good-news board'), 'leaf-pot': words('风信叶子盆', 'Breeze-leaf pot'),
   'rice-bowl': words('团圆饭碗', 'Togetherness bowl'), 'page-marker': words('安静书签', 'Quiet bookmark'),
   'wind-ribbon': words('风语纸带', 'Breeze ribbon'), 'whale-token': words('小鲸记号', 'Whale token'),
   'desk-star': words('书桌小星', 'Desk star'), 'snack-tray': words('午后茶盘', 'Afternoon tray'), 'star-mobile': words('三颗星挂饰', 'Three-star mobile'), 'table-stones': words('同桌棋子', 'Shared-table pieces'),

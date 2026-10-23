@@ -1,6 +1,8 @@
 import { TableModePanel } from './TableGamePanel.tsx'
+import { CollectionPanel } from './CollectionPanel.tsx'
 import { PlayPanel } from './PlayPanel.tsx'
 import { playDefinition } from '../core/play-catalog.ts'
+import { currentEncounter } from '../core/encounter.ts'
 import { PanelShell } from './PanelShell.tsx'
 import type { Page } from './ui-state.ts'
 import { zh, en } from './messages.ts'
@@ -19,6 +21,7 @@ export const actionErrorText = (code: string, cn: boolean) => {
     INTERACTION_COOLDOWN: ['请稍候，再开始下一次活动。', 'Wait a moment before another activity.'], LAYOUT_REQUIRED: ['请先布置所需的角落。', 'Arrange the required corner first.'],
     EVENT_ACTIVE: ['请先结束或取消当前活动。', 'Finish or cancel the current activity first.'], SAVE_UNCONFIRMED: ['保存结果尚未确认，请重新读取核对。', 'Save unconfirmed; read again to verify.'],
     FURNITURE_OCCUPIED: ['这个位置有居民，请取消布置并挪开居民后再试。', 'A resident occupies this spot. Cancel and move them first.'], LAYOUT_CONFLICT: ['布局已变化，请取消并重新开始。', 'The layout changed; cancel and start again.'],
+    ENCOUNTER_EXPIRED: ['这次偶遇已经结束，等下一次再来帮忙。', 'This encounter has ended. You can lend a hand next time.'],
   }
   return (map[code] ?? ['当前操作未完成，请检查活动、位置和连接状态。', 'Action incomplete. Check activities, positions and connection.'])[cn ? 0 : 1]
 }
@@ -43,11 +46,12 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
     return <span key={d.id} className="village-action"><button disabled={!!reason} title={reason} onClick={() => void r.interact(d.id, count === 1 ? [selected] : [guest1, guest2!])}>{d.name[locale]}</button></span>
   })}</div>
   const begin = () => { r.present({ type: 'close' }); r.beginHome() }
+  const encounter = currentEncounter(w)
   return <section className="village-management" data-snap={p.drawer}>
     {p.drawer !== 'closed' && !p.overlay && <PanelShell runtime={r} cn={cn} title={names[p.tab]} className="village-drawer">
       {p.page === 'quick' && <>
         {p.tab === 'residents' && <><div className="village-person"><img src={`/api/nidofy-ai-village/assets/portraits/${selected}.png`} alt=""/><span><strong>{characterNames[selected]}</strong><small>{t('在场','Present')} {members.length}/7 · {(cn?zh:en)[w.actor.behavior]}</small></span></div><div className="choices"><button onClick={()=>go('activities')}>{t('互动','Activities')}</button><button onClick={()=>go('residents')}>{t('全部居民','All residents')}</button></div></>}
-        {p.tab === 'wishes' && <><p>{w.activeEvent || w.neighborhood.event ? t('朋友们正在一起活动','An activity is in progress') : t('同桌的午后','An afternoon together')}</p><div className="choices"><button onClick={()=>sub('wishes','wishes')}>{t('全部心愿','All wishes')}</button><button onClick={()=>sub('wishes','activities')}>{t('一起活动','Together')}</button></div></>}
+        {p.tab === 'wishes' && <><p>{w.play.active ? playDefinition(w.play.active.definitionId)?.name[locale] : encounter ? playDefinition(encounter.definitionId)?.name[locale] : w.activeEvent || w.neighborhood.event ? t('朋友们正在一起活动','An activity is in progress') : t('同桌的午后','An afternoon together')}</p><div className="choices">{w.play.active ? <button onClick={()=>sub('wishes','wishes')}>{t('继续活动','Continue activity')}</button> : encounter && <button onClick={()=>sub('wishes','wishes')}>{t('此刻的小偶遇','A chance encounter now')}</button>}<button onClick={()=>sub('wishes','wishes')}>{t('全部心愿','All wishes')}</button><button onClick={()=>sub('wishes','activities')}>{t('一起活动','Together')}</button></div></>}
         {p.tab === 'decor' && <><small>{layoutNames[w.neighborhood.layout][locale]}</small><div className="choices">{(['furniture','hanging','atmosphere'] as const).map((v,i)=><button key={v} onClick={()=>sub('decor',v)}>{[t('家具','Furniture'),t('挂饰','Hangings'),t('氛围','Atmosphere')][i]}</button>)}</div></>}
         {p.tab === 'journal' && <><p>{r.notices.length ? (r.notices[0]!.story==='first-table'?t('今天，我们坐到了一起','Today, we shared a table'):(stories.find(s=>s.id===r.notices[0]!.story)?.name[locale] ?? playDefinition(r.notices[0]!.story)?.name[locale])) : t('回忆将留在这里。','Memories will stay here.')}</p><div className="choices"><button onClick={()=>sub('journal','memories')}>{t('回忆','Memories')}</button><button onClick={()=>sub('journal','album')}>{t('相册','Album')}</button></div></>}
       </>}
@@ -79,6 +83,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
         {!!(w.activeEvent || w.neighborhood.event) && <p>{t('请先结束或取消当前活动。', 'Finish or cancel the active event first.')}</p>}
       </>}
       {p.tab === 'journal' && <><div className="choices"><button aria-pressed={p.subpages.journal === 'memories'} onClick={() => sub('journal', 'memories')}>{t('回忆', 'Memories')}</button><button aria-pressed={p.subpages.journal === 'album'} onClick={() => sub('journal', 'album')}>{t('相册', 'Album')}</button></div>{p.subpages.journal === 'album' ? <><button disabled={busy || !r.frameReady} onClick={() => { r.present({ type: 'close' }); void r.enterPhoto() }}>{t('拍一张', 'Take a photo')}</button><PhotoPanel runtime={r} locale={locale} albumOnly /></> : <>{r.notices.map(n => <article tabIndex={-1} data-notice-id={n.id} className="village-journal" key={n.id}><small>{t('第', 'Day ')}{villageTime(n.tick).day}{cn ? '天' : ''} · ×{n.count}</small><h3>{n.story === 'first-table' ? t('今天，我们坐到了一起', 'Today, we shared a table') : (stories.find(s => s.id === n.story)?.name[locale] ?? playDefinition(n.story)?.name[locale])}</h3><p>{n.participants.map(id => characterNames[id as CharacterId]).join(' & ')}</p></article>)}{!r.notices.length && <p>{t('回忆会在第一次完成活动并保存后留下。', 'First completed activities become memories after saving.')}</p>}</>}</>}
+      {p.tab === 'journal' && p.subpages.journal === 'memories' && <CollectionPanel runtime={r} tab="journal" locale={locale}/>}
       {r.actionError && <p role="alert">{actionErrorText(r.actionError, cn)}<details><summary>{t('详情', 'Details')}</summary>{r.actionError}</details></p>}
     </>}
     </PanelShell>}
