@@ -1,3 +1,4 @@
+import { checkRosterScope, legacyCharacterIds, type RosterScope } from './roster-policy.ts'
 import { createWorld, validateWorld, actors, available, type World, type Scene } from './world.ts'
 import { isCharacterId, type CharacterId } from './roster.ts'
 
@@ -48,7 +49,8 @@ export function emptyContent(world: World): ContentWorld {
 export function createContentWorld(scene: Scene): ContentWorld { return validateContentWorld(emptyContent(createWorld(scene)), scene) }
 
 /** External-input validator. Cross-field checks keep reward, journal and layout atomic. */
-export function validateContentWorld(value: unknown, scene: Scene): ContentWorld {
+export function validateContentWorld(value: unknown, scene: Scene, scope: RosterScope = 'legacy'): ContentWorld {
+  checkRosterScope(value, scope)
   const w = object(value)
   let bytes: number
   try { bytes = new TextEncoder().encode(JSON.stringify(value)).length } catch { return invalid() }
@@ -57,7 +59,7 @@ export function validateContentWorld(value: unknown, scene: Scene): ContentWorld
     'simulationRulesVersion', 'contentRevision', 'activeEvent', 'progress', 'journal', 'decorations'])
   if (w.schemaVersion !== 4 || w.sceneVersion !== 2 || scene.version !== 2) throw Error('UNSUPPORTED_WORLD_VERSION')
   if (w.simulationRulesVersion !== 1 || w.contentRevision !== 1) throw Error('UNSUPPORTED_CONTENT_VERSION')
-  const base = validateWorld({ ...w, schemaVersion: 3 }, scene)
+  const base = validateWorld({ ...w, schemaVersion: 3 }, scene, scope)
   if (!actors(base).every(a => available(base, a.position, a.id))) return invalid()
   const p = object(w.progress); keys(p, ['completedWishes', 'discovered', 'unlocked', 'lastCompletedEventId'])
   const completedWishes = list(p.completedWishes, ['first-tea'], 1) as 'first-tea'[]

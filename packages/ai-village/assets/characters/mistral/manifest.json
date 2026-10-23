@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 1,
+  "id": "mistral",
+  "name": "Mistral",
+  "status": "art-reviewed",
+  "approvedForRelease": true,
+  "integration": "Production roster integration; original art review and source hashes retained. See tests/roster-expansion.spec.ts and scripts/ai-village-roster-production-check.mjs.",
+  "generator": "built-in image_gen",
+  "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 16,
+        "top": 39,
+        "width": 310,
+        "height": 274
+      },
+      "nativeSize": [
+        310,
+        274
+      ],
+      "bytes": 205898,
+      "sha256": "3fd48ffcbdafc8946edadcadd8642275441aba9ec3026fe7efc7564881e27110",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 327,
+        "top": 39,
+        "width": 313,
+        "height": 274
+      },
+      "nativeSize": [
+        313,
+        274
+      ],
+      "bytes": 205990,
+      "sha256": "cbad5b533d483172baa56bd973f2b7204ad6959c5cfe7ed1b61aca5f525f31cb",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 640,
+        "top": 38,
+        "width": 306,
+        "height": 275
+      },
+      "nativeSize": [
+        306,
+        275
+      ],
+      "bytes": 206438,
+      "sha256": "3db39f87d27e0d14322ed6d2a0178a0a1d8773abb12c5de4fceebcea0f9919fb",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 950,
+        "top": 39,
+        "width": 304,
+        "height": 274
+      },
+      "nativeSize": [
+        304,
+        274
+      ],
+      "bytes": 201332,
+      "sha256": "a5c51e21e5e21cbba1632b38d4042640811fde5b6283a31f2a32e25f6a263241",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 15,
+        "top": 332,
+        "width": 354,
+        "height": 299
+      },
+      "nativeSize": [
+        354,
+        299
+      ],
+      "bytes": 213641,
+      "sha256": "767a5961ebec292242da95b24c7aa5e42c8df186b5b1c027e8748b85eff2a526",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 411,
+        "top": 332,
+        "width": 203,
+        "height": 295
+      },
+      "nativeSize": [
+        203,
+        295
+      ],
+      "bytes": 102059,
+      "sha256": "dc2b2d005e4b1ced4e5acdd6800a8f29da522708b8b34c8161b569cf2863b958",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 713,
+        "top": 332,
+        "width": 206,
+        "height": 296
+      },
+      "nativeSize": [
+        206,
+        296
+      ],
+      "bytes": 102276,
+      "sha256": "63b3de9a662da7b58445b940b23873d0c60a6b362de03a642b0f30d0f8afb371",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 1046,
+        "top": 346,
+        "width": 150,
+        "height": 287
+      },
+      "nativeSize": [
+        150,
+        287
+      ],
+      "bytes": 73775,
+      "sha256": "ca8d15b18992d1af11b713d9b9efadd58b689840d2211f25296a20fb8517c720",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 90,
+        "top": 637,
+        "width": 146,
+        "height": 277
+      },
+      "nativeSize": [
+        146,
+        277
+      ],
+      "bytes": 71807,
+      "sha256": "562b0a8071f5eec1f9537808bea9bef08fff52b22fea1892016f78762f9d0c67",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster-expansion/mistral-repairs-v02.png",
+      "sourceInDelivery": "sources/mistral-repairs-v02.png",
+      "sourceSha256": "f19c1494e630df9dbe35bc3fa738c549121349c268314c41c270c346ac06f87e",
+      "crop": {
+        "left": 158,
+        "top": 92,
+        "width": 301,
+        "height": 488
+      },
+      "nativeSize": [
+        301,
+        488
+      ],
+      "bytes": 240731,
+      "sha256": "739049115b91cf546dc2714f2075c41e80b30f75dab5106dea4c6c516ea9fc7d",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 670,
+        "top": 660,
+        "width": 282,
+        "height": 223
+      },
+      "nativeSize": [
+        282,
+        223
+      ],
+      "bytes": 99280,
+      "sha256": "8f6fff50f946f88b8fa1285e6c0312c6e8e5fd8e99d376ea4ad7c1e567ad64cd",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 1019,
+        "top": 663,
+        "width": 219,
+        "height": 222
+      },
+      "nativeSize": [
+        219,
+        222
+      ],
+      "bytes": 100146,
+      "sha256": "c827c47036af2c40914a72778d36ecfbe49153b60b1e1158aaf2ba7a15063b8b",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster-expansion/mistral-repairs-v02.png",
+      "sourceInDelivery": "sources/mistral-repairs-v02.png",
+      "sourceSha256": "f19c1494e630df9dbe35bc3fa738c549121349c268314c41c270c346ac06f87e",
+      "crop": {
+        "left": 723,
+        "top": 134,
+        "width": 504,
+        "height": 385
+      },
+      "nativeSize": [
+        504,
+        385
+      ],
+      "bytes": 267530,
+      "sha256": "99c67d3134fc30254d2609060b0f08694da1345102652ab3bc5c14322d9a430d",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster-expansion/mistral-repairs-v02.png",
+      "sourceInDelivery": "sources/mistral-repairs-v02.png",
+      "sourceSha256": "f19c1494e630df9dbe35bc3fa738c549121349c268314c41c270c346ac06f87e",
+      "crop": {
+        "left": 68,
+        "top": 617,
+        "width": 642,
+        "height": 607
+      },
+      "nativeSize": [
+        642,
+        607
+      ],
+      "bytes": 803062,
+      "sha256": "a68002deb29f80d49d06627d4d6d7aedbd854b2aaad5ece259837d96ce8e7652",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster-expansion/mistral-back-hair-v02.png",
+      "sourceInDelivery": "sources/mistral-back-hair-v02.png",
+      "sourceSha256": "48ce5f12ed0dc2de377f5c0511efb6f3cd3b80cb70fda879819b4b99694e4a6a",
+      "crop": {
+        "left": 97,
+        "top": 169,
+        "width": 1083,
+        "height": 925
+      },
+      "nativeSize": [
+        1083,
+        925
+      ],
+      "bytes": 1515695,
+      "sha256": "6d208ca844d642bbad62fce3e402a47bcc264319c7ba55c9bbcf59facd9f204d",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster-expansion/mistral-v01.png",
+      "sourceInDelivery": "sources/mistral-v01.png",
+      "sourceSha256": "2e1ecb5a1c86c47f4e8fdc6bbfd67a7cb21c78db9e24269df53f9ffe37748713",
+      "crop": {
+        "left": 1074,
+        "top": 910,
+        "width": 150,
+        "height": 293
+      },
+      "nativeSize": [
+        150,
+        293
+      ],
+      "bytes": 77057,
+      "sha256": "90f797e0a791f55aa0e08cb930dda168c7925e3da452efd6c51c014ed0a2d411",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    }
+  ],
+  "definitions": [
+    {
+      "file": "character.json",
+      "sha256": "b3aa9f329bfdd62e6eec8c44b718e3e2f51e2d89f2d1b943453e82910916ad5c"
+    },
+    {
+      "file": "animations.json",
+      "sha256": "364eba024060e958cca96b5fd6899c7f3b77c0b7d898e413ae688048a937c071"
+    },
+    {
+      "file": "activities.json",
+      "sha256": "6328486e431eb690a06ae0b89b7a899f4c3dd59d391a196e870545c7698af286"
+    }
+  ],
+  "artReview": {
+    "reviewer": "assistant",
+    "scope": "Native alpha, crop boundaries, expressions, assembly, 96/108/128px and 8 motion/activity previews",
+    "evidence": "../../../art/QA/roster-expansion/validation.json"
+  }
+}

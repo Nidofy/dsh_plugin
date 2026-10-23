@@ -2,6 +2,7 @@ import { readFile, writeFile, lstat, realpath } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
 import { createHash } from 'node:crypto'
 import { validateEntranceTheme } from '../packages/ai-village/src/client/entrance-theme.ts'
+import { characterIds } from '../packages/ai-village/src/core/roster.ts'
 const pkg = resolve(import.meta.dirname, '../packages/ai-village'), root = join(pkg, 'assets')
 const read = async p => JSON.parse(await readFile(join(root, p), 'utf8'))
 const character = await read('characters/bluewhale/character.json'), animations = await read('characters/bluewhale/animations.json'), scene = await read('scenes/courtyard/scene.json')
@@ -26,7 +27,7 @@ if (entranceBytes > 4*1024*1024 || entrancePixels > 8000000) throw Error('Entran
 for (const layer of entrance.layers) if (!entrance.files.some(entry=>entry.key===layer.key)) throw Error('Entrance layer is not whitelisted')
 await writeFile(join(pkg,'src/entrance-manifest.ts'), `// Generated from the local entrance asset manifest.\nexport const entranceManifest = ${JSON.stringify(entrance,null,2)}\n`)
 const roster = {}
-const ids = ['claude', 'gemini', 'gpt', 'grok', 'kimi', 'qwen']
+const ids = characterIds.filter(id => id !== 'bluewhale')
 for (const id of ids) {
   const definition = await read(`characters/${id}/character.json`)
   for (const p of definition.parts) {

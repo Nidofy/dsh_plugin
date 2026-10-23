@@ -1,3 +1,4 @@
+import { stepBookhouseStory, cancelBookhouseStory } from './bookhouse-engine.ts'
 import * as home from './home-engine.ts'
 import { arrangeHome as arrangeV6, type Home } from './home-state.ts'
 import { homeProjection, withLiving, validateLivingWorld, regionScene, requireCourtyard, type LivingWorld, type PlayEvent } from './living-state.ts'
@@ -22,20 +23,20 @@ export function setTableMode(source: LivingWorld, base: Scene, mode: 'dining' | 
   cancelLifeSocial(w); w.play.tableMode = mode
   return validateLivingWorld(w,base)
 }
-export function inviteTea(w:LivingWorld,b:Scene,p:[CharacterId,CharacterId],f:Food,id:string) { const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(home.inviteTea(homeProjection(n),b,p,f,id),n) }
-export function startNeighborhoodEvent(w:LivingWorld,b:Scene,d:string,p:CharacterId[],id:string) { const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(home.startNeighborhoodEvent(homeProjection(n),b,d,p,id),n) }
+export function inviteTea(w:LivingWorld,b:Scene,p:[CharacterId,CharacterId],f:Food,id:string) { const n=validateLivingWorld(w,b);availableForCommand(n);if(usedId(n,id))throw Error('INVALID_INVITATION');return withLiving(home.inviteTea(homeProjection(n),b,p,f,id),n) }
+export function startNeighborhoodEvent(w:LivingWorld,b:Scene,d:string,p:CharacterId[],id:string) { const n=validateLivingWorld(w,b);availableForCommand(n);if(usedId(n,id))throw Error('INVALID_INVITATION');return withLiving(home.startNeighborhoodEvent(homeProjection(n),b,d,p,id),n) }
 export function placeBell(w:LivingWorld,b:Scene,s:BellSlot|null) { requireCourtyard(w); return withLiving(home.placeBell(homeProjection(w),b,s),w) }
 export function decorateExtra(w:LivingWorld,b:Scene,id:ExtraDecoration,s:BellSlot|null) { requireCourtyard(w); return withLiving(home.decorateExtra(homeProjection(w),b,id,s),w) }
 export function arrangeHome(w:LivingWorld,b:Scene,h:Home,l:LayoutId,r:number) {const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(arrangeV6(homeProjection(n),b,h,l,r),n)}
 export function changeLayout(w:LivingWorld,b:Scene,l:LayoutId) { return arrangeHome(w,b,w.home,l,w.home.revision) }
 export function cancelTea(w:LivingWorld) { if(w.region.active==='bookhouse'){cancelPlay(w);cancelLifeSocial(w);return}; const n=homeProjection(w);home.cancelTea(n);Object.assign(w,withLiving(n,w));cancelPlay(w);cancelLifeSocial(w) }
 export function settleTea(w:LivingWorld,b:Scene) {
-  if(w.region.active==='bookhouse')return null
+  if(w.region.active==='bookhouse'){if(w.bookhouse.active?.phase==='approaching'&&w.bookhouse.active.approachRemainingTicks===0){const n=validateLivingWorld(w,b);cancelBookhouseStory(n);return n};return null}
   if(w.play.active?.phase==='approaching'&&w.play.active.approachRemainingTicks===0){const n=validateLivingWorld(w,b);cancelPlay(n);return n}
   const n=home.settleTea(homeProjection(w),b);return n?withLiving(n,w):null
 }
 export function cancelPlay(w:LivingWorld) { for(const a of actors(w))if(w.play.active?.participants.includes(a.id))abandon(a);w.play.active=null }
-function usedId(w:LivingWorld,id:string) {return w.play.lastEventId===id||w.journal.some(m=>m.eventId===id)||w.neighborhood.memories.some(m=>m.eventId===id)||w.progress.lastCompletedEventId===id||w.neighborhood.lastEventId===id}
+function usedId(w:LivingWorld,id:string) {return w.bookhouse.lastEventId===id||w.bookhouse.memory?.eventId===id||w.play.lastEventId===id||w.journal.some(m=>m.eventId===id)||w.neighborhood.memories.some(m=>m.eventId===id)||w.progress.lastCompletedEventId===id||w.neighborhood.lastEventId===id}
 export { whalePlace } from './play-catalog.ts'
 export function whalePoint(w:LivingWorld,base:Scene):Point|null {
   const e=w.play.active;if(e?.definitionId!=='find-whale'||e.stage!==0)return null
@@ -90,6 +91,7 @@ export function startPlay(source:LivingWorld,base:Scene,definitionId:string,part
 export function stepLiving(w:LivingWorld,base:Scene) {
   const e=w.play.active,g=geometry(w,base)
   if(w.region.active==='bookhouse'){
+    if(w.bookhouse.active){stepBookhouseStory(w);return}
     const {decorations:_courtyardDecorations,...book}=w
     const held=stepLifeSocial(book,g)
     step(w,g,undefined,new Set(held));book.ticks=w.ticks;settleLifeSocial(book,g)

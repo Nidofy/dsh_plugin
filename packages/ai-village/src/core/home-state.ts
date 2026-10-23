@@ -1,3 +1,4 @@
+import { checkRosterScope, legacyCharacterIds, type RosterScope } from './roster-policy.ts'
 import { neighborhoodScene, validateNeighborhoodWorld, migrateNeighborhoodWorld, createNeighborhoodWorld, type NeighborhoodWorld } from './neighborhood-state.ts'
 import { actors, walkable, routeTo, abandon, type Scene, type Point } from './world.ts'
 import { characterIds, type CharacterId } from './roster.ts'
@@ -26,22 +27,23 @@ export const homeTemplates = {
   reading: { work: 1, eat: 1, bench: 1, corner: 0 },
   garden: { work: 0, eat: 0, bench: 1, corner: 1 },
 } as const
-export const blankHome = (): Home => ({ revision: 0, positions: { ...homeTemplates.courtyard }, environment: 'afternoon', accessories: Object.fromEntries(characterIds.map(id => [id, 'none'])) as Home['accessories'] })
+export const blankHome = (): Home => ({ revision: 0, positions: { ...homeTemplates.courtyard }, environment: 'afternoon', accessories: Object.fromEntries(legacyCharacterIds.map(id => [id, 'none'])) as Home['accessories'] })
 function exact(value: unknown, keys: readonly string[]): value is Record<string, any> {
   return !!value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key))
 }
-export function validateHome(value: unknown): Home {
+export function validateHome(value: unknown, scope: RosterScope = 'legacy'): Home {
+  const allowed = scope === 'legacy' || Object.keys((value as Home)?.accessories ?? {}).length === 7 ? legacyCharacterIds : characterIds
   if (!exact(value, ['revision', 'positions', 'environment', 'accessories']) || !Number.isSafeInteger(value.revision) || value.revision < 0
     || !exact(value.positions, furnitureIds) || !furnitureIds.every(id => value.positions[id] === 0 || value.positions[id] === 1)
-    || !['afternoon', 'twilight'].includes(value.environment) || !exact(value.accessories, characterIds)
-    || !characterIds.every(id => ['none', 'ribbon', 'leaf'].includes(value.accessories[id]))) throw Error('INVALID_HOME')
+    || !['afternoon', 'twilight'].includes(value.environment) || !exact(value.accessories, allowed)
+    || !allowed.every(id => ['none', 'ribbon', 'leaf'].includes(value.accessories[id]))) throw Error('INVALID_HOME')
   return structuredClone(value) as Home
 }
 const sceneCache = new WeakMap<Scene, Map<string, SceneArt>>()
 /** The simulation adapter retains internal scene 2 coordinates; the persisted geometry contract is scene 3. */
 export function homeScene(base: Scene, layout: LayoutId, value: Home): SceneArt {
   if (!layouts.includes(layout)) throw Error('INVALID_LAYOUT')
-  const home = validateHome(value), key = layout + furnitureIds.map(id => home.positions[id]).join('')
+  const home = validateHome(value, Object.keys(value.accessories ?? {}).length === 7 ? 'legacy' : 'current'), key = layout + furnitureIds.map(id => home.positions[id]).join('')
   const cache = sceneCache.get(base) ?? new Map<string, SceneArt>(); sceneCache.set(base, cache)
   if (cache.has(key)) return cache.get(key)!
   const result = structuredClone(neighborhoodScene(base, layout)) as SceneArt
@@ -68,12 +70,13 @@ export function neighborhoodProjection(world: HomeWorld): NeighborhoodWorld {
 export function withHome(world: NeighborhoodWorld, home: Home): HomeWorld {
   return { ...world, schemaVersion: 6, sceneVersion: 3, simulationRulesVersion: 3, contentRevision: 3, home: structuredClone(home) }
 }
-export function validateHomeWorld(value: unknown, base: Scene): HomeWorld {
+export function validateHomeWorld(value: unknown, base: Scene, scope: RosterScope = 'legacy'): HomeWorld {
+  checkRosterScope(value, scope)
   const w = value as HomeWorld
   if (!w || w.schemaVersion !== 6 || w.sceneVersion !== 3 || w.simulationRulesVersion !== 3 || w.contentRevision !== 3) throw Error('UNSUPPORTED_WORLD_VERSION')
   if (new TextEncoder().encode(JSON.stringify(w)).length > 48 * 1024) throw Error('SAVE_TOO_LARGE')
-  const home = validateHome(w.home)
-  return withHome(validateNeighborhoodWorld(neighborhoodProjection(w), homeScene(base, w.neighborhood?.layout, home)), home)
+  const home = validateHome(w.home, scope)
+  return withHome(validateNeighborhoodWorld(neighborhoodProjection(w), homeScene(base, w.neighborhood?.layout, home), scope), home)
 }
 export function createHomeWorld(base: Scene): HomeWorld { return withHome(createNeighborhoodWorld(base), blankHome()) }
 export function migrateHomeWorld(value: unknown, base: Scene): HomeWorld {
@@ -84,11 +87,11 @@ export function homeWorldCodec(base: Scene): WorldCodec<HomeWorld> {
 }
 /** Furniture edits never teleport residents or discard an active story. */
 export function arrangeHome(source: HomeWorld, base: Scene, home: Home, layout: LayoutId, expectedRevision: number): HomeWorld {
-  const world = validateHomeWorld(source, base)
+  const world = validateHomeWorld(source, base, 'current')
   if (expectedRevision !== world.home.revision || home.revision !== expectedRevision) throw Error('LAYOUT_CONFLICT')
   if (world.activeEvent || world.neighborhood.event) throw Error('EVENT_ACTIVE')
   if (!layouts.includes(layout)) throw Error('INVALID_LAYOUT')
-  const next = validateHome(home), scene = homeScene(base, layout, next)
+  const next = validateHome(home, 'current'), scene = homeScene(base, layout, next)
   if (actors(world).some(a => !walkable(scene, a.position) || !walkable(scene, a.safe))) throw Error('FURNITURE_OCCUPIED')
   const geometryChanged = layout !== world.neighborhood.layout || JSON.stringify(next.positions) !== JSON.stringify(world.home.positions)
   if (geometryChanged) {
@@ -96,5 +99,5 @@ export function arrangeHome(source: HomeWorld, base: Scene, home: Home, layout: 
     world.neighborhood.layout = layout; world.neighborhood.layoutRevision++
   }
   next.revision++; world.home = next
-  return validateHomeWorld(world, base)
+  return validateHomeWorld(world, base, 'current')
 }

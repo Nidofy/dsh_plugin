@@ -11,7 +11,7 @@ const t = (zh: string, en: string) => lang === 'zh' ? zh : en
 let lang: 'zh' | 'en' = 'zh', page = 'residents', expanded = true, ready = false, raf = 0, last = 0
 let model = new ContentPreview(), signature = '', food: Food = 'tea'
 let pair: [CharacterId, CharacterId] = ['bluewhale', 'claude']
-const names: Record<CharacterId, string> = { bluewhale: 'DeepSeek', claude: 'Claude', gemini: 'Gemini', gpt: 'GPT', grok: 'Grok', kimi: 'Kimi', qwen: '千问 · Qwen' }
+const names: Record<CharacterId, string> = { bluewhale: 'DeepSeek', claude: 'Claude', gemini: 'Gemini', gpt: 'GPT', grok: 'Grok', kimi: 'Kimi', qwen: '千问 · Qwen', seedance:'Seedance', glm:'GLM', minimax:'MiniMax', llama:'Llama', mistral:'Mistral' }
 const listeners = new Set<() => void>(), images: Record<string, ArrayBuffer> = {}
 const runtime: FrameRuntime = {
   view: () => { const c = model.controller; return { world: c.world, position: c.drag?.active ? c.drag.position : c.world.actor.position,

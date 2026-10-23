@@ -43,6 +43,7 @@ export class WorldController<W extends SimulationWorld = World> {
     if (present === !!member || (!present && !this.world.companions.length)) return
     this.cancelDrag()
     if (present) {
+      if (actors(this.world).length >= 7) return
       let position: Point | undefined
       // Deterministic free foot positions; new members never claim occupied furniture.
       for (let y = 350; y <= 430 && !position; y += 64) for (let x = 60; x <= 285; x += 64) {

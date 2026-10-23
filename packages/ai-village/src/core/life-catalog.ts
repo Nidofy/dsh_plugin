@@ -4,7 +4,7 @@ import { villageTime } from './dialogue.ts'
 
 export type LifePeriod = 'day' | 'dusk' | 'night'
 export type LifeSnack = 'rice' | 'fruit' | 'tea'
-export type SignatureMotion = 'whale-tail' | 'thoughtful-note' | 'cloud-frame' | 'neat-cuffs' | 'playful-salute' | 'quiet-stretch' | 'leaf-greeting'
+export type SignatureMotion = 'whale-tail' | 'thoughtful-note' | 'cloud-frame' | 'neat-cuffs' | 'playful-salute' | 'quiet-stretch' | 'leaf-greeting' | 'dance-count' | 'fox-listen' | 'frame-story' | 'woolly-hug' | 'feather-tip'
 export type LifeMotion = SignatureMotion | 'wave' | 'listen' | 'offer' | 'point' | 'farewell' | 'waiting' | 'interrupted'
 export interface LifeWords { zh: string; en: string }
 export interface ResidentLife {
@@ -76,6 +76,51 @@ export const residentLife: Readonly<Record<CharacterId, ResidentLife>> = {
     greeting: words('不用说什么，一起待会儿也好。', 'No need to talk. Staying a while is enough.'),
     watching: words('这里的安静，刚刚好。', 'Just the right amount of quiet.'),
     farewell: words('我再去安静的地方坐坐。', 'I will find another quiet spot for a while.'),
+  },
+  seedance: {
+    description: words('把微风数成节拍，喜欢邀朋友一起舒展。', 'Counts the breeze into beats and invites friends to stretch.'),
+    activityWeights: { work: 3, eat: 2, rest: 3, sit: 4, read: 2, tend: 3 }, activePeriod: 'day', sociability: 5,
+    favoriteSnack: 'fruit', favoriteProp: 'flower', signature: 'dance-count',
+    idle: words('一、二，给今天留个轻快的拍子。', 'One, two. A light beat for today.'),
+    greeting: words('来，把这阵风一起数完。', 'Come count this breeze with me.'),
+    watching: words('你的节奏很好，我跟着听。', 'I like your rhythm. I am listening along.'),
+    farewell: words('下一段节拍，等会儿再接。', 'We can pick up the next beat later.'),
+  },
+  glm: {
+    description: words('留意细节，喜欢在灯下慢慢读书。', 'Notices small details and enjoys reading by lamplight.'),
+    activityWeights: { work: 4, eat: 2, rest: 2, sit: 3, read: 5, tend: 2 }, activePeriod: 'night', sociability: 2,
+    favoriteSnack: 'tea', favoriteProp: 'book', signature: 'fox-listen',
+    idle: words('耳朵听见了翻页的声音。', 'My ears caught the sound of a turning page.'),
+    greeting: words('你说吧，我把这一页先折好。', 'Go ahead. Let me mark this page first.'),
+    watching: words('这个小细节，我也注意到了。', 'I noticed that little detail too.'),
+    farewell: words('我去看看书里的下一处线索。', 'Off to find the next clue in my book.'),
+  },
+  minimax: {
+    description: words('爱记录生活的小片段，也爱热闹的饭桌。', 'Collects little moments and enjoys a lively dinner table.'),
+    activityWeights: { work: 4, eat: 5, rest: 2, sit: 4, read: 2, tend: 2 }, activePeriod: 'dusk', sociability: 5,
+    favoriteSnack: 'fruit', favoriteProp: 'notebook', signature: 'frame-story',
+    idle: words('这个小片段，想留给明天看。', 'I want to save this little scene for tomorrow.'),
+    greeting: words('今天有什么值得记住的小事？', 'What little moment should we remember today?'),
+    watching: words('不用摆姿势，这样就很好。', 'No need to pose. This is lovely as it is.'),
+    farewell: words('这段先收好，下次接着聊。', 'Saving this moment. More stories next time.'),
+  },
+  llama: {
+    description: words('喜欢柔软的午后、慢慢的茶和长长的书。', 'Likes soft afternoons, slow tea and long books.'),
+    activityWeights: { work: 2, eat: 3, rest: 5, sit: 4, read: 4, tend: 2 }, activePeriod: 'day', sociability: 3,
+    favoriteSnack: 'tea', favoriteProp: 'cushion', signature: 'woolly-hug',
+    idle: words('把袖子拢一拢，暖意就留下了。', 'Gather my sleeves and keep the warmth close.'),
+    greeting: words('这里软软的，留个位置给你。', 'A soft spot here, saved just for you.'),
+    watching: words('慢一点也没关系，我陪你。', 'It is fine to go slowly. I am here.'),
+    farewell: words('带着这一点暖意去散步。', 'Taking a little of this warmth for a stroll.'),
+  },
+  mistral: {
+    description: words('喜欢追着风找新点子，也会停下来听朋友。', 'Follows the breeze to new ideas and pauses to hear friends.'),
+    activityWeights: { work: 4, eat: 2, rest: 2, sit: 3, read: 3, tend: 4 }, activePeriod: 'dusk', sociability: 4,
+    favoriteSnack: 'fruit', favoriteProp: 'flower', signature: 'feather-tip',
+    idle: words('扶好帽子，风又带来了新点子。', 'Hold my hat. The breeze brought another idea.'),
+    greeting: words('风刚好停了一下，来聊聊吧。', 'The breeze has paused. Shall we talk?'),
+    watching: words('我把帽子扶稳，认真看一会儿。', 'Hat steady. I will watch carefully for a while.'),
+    farewell: words('去下一个转角，替你看看风。', 'Off around the corner to check on the breeze.'),
   },
   qwen: {
     description: words('喜欢照料花草，也乐意以茶待友。', 'Tends the plants and welcomes friends with tea.'),

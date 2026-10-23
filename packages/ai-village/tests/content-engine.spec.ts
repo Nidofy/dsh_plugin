@@ -3,7 +3,7 @@ import { candidateScene, previewWorld } from '../experiments/content-ui/scene.ts
 import { emptyContent, validateContentWorld } from '../src/core/content-state.ts'
 import { inviteTea, placeBell, settleTea, stepTea } from '../src/core/content-engine.ts'
 import { actors, available } from '../src/core/world.ts'
-import { characterIds } from '../src/core/roster.ts'
+import { legacyCharacterIds as characterIds } from '../src/core/roster-policy.ts'
 import { ContentController } from '../src/core/content-controller.ts'
 
 describe('durable tea simulation', () => {

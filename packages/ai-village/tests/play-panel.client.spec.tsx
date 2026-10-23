@@ -8,6 +8,7 @@ import { playDefinitions, playDecorationIds, whalePlace, whalePlaceNames, snackR
 afterEach(cleanup)
 function fixture(id = 'lost-rice', phase = 'ready') {
   const world = {
+    bookhouse: {version:1,active:null,memory:null,lastEventId:null,keepsake:null},
     ticks: 100, actor: { id: 'claude' }, companions: [{ id: 'bluewhale' }, { id: 'kimi' }], activeEvent: null,
     region: { version: 1, active: 'courtyard', returns: { courtyard: null, bookhouse: null } },
     neighborhood: { event: null, memories: [] as { id: string; participants: string[]; completedTick: number; count: number }[] },

@@ -8,7 +8,7 @@ export function RegionPanel({ runtime: r, locale, locked, tab = 'decor' }: { run
   const w = r.controller?.world, t = (zh: string, en: string) => locale === 'zh' ? zh : en
   if (!w) return null
   const inside = w.region?.active === 'bookhouse', members = actors(w)
-  const busy = locked || r.regionTransition || r.arranging || r.photoMode || !!r.controller?.drag || !!w.activeEvent || !!w.neighborhood.event || !!w.play.active
+  const busy = locked || r.regionTransition || r.arranging || r.photoMode || !!r.controller?.drag || !!w.activeEvent || !!w.neighborhood.event || !!w.play.active || !!w.bookhouse.active
   const paused = !!r.controller?.pauseReasons.size
   return <section className="village-neighborhood village-region" aria-label={t('AI 书屋 · 开发样板', 'AI Bookhouse · Development preview')}>
     <h3>{t('AI 书屋 · 开发样板', 'AI Bookhouse · Development preview')}</h3>

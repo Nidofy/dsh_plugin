@@ -10,6 +10,6 @@ it('decodes the actual current owner snapshot for a first frame and upgrades pre
   for(const world of [createLivingWorld(scene),createV7(scene),createV8(scene),createV9(scene),switchRegion(createLivingWorld(scene),scene,'bookhouse')]) {
     expect(decodeFrameWorld(JSON.parse(JSON.stringify(world)),scene)).toEqual(migrateLivingWorld(world,scene))
   }
-  expect(()=>decodeFrameWorld({...createLivingWorld(scene),schemaVersion:11},scene)).toThrow()
+  expect(()=>decodeFrameWorld({...createLivingWorld(scene),schemaVersion:12},scene)).toThrow()
   expect(()=>decodeFrameWorld({...createLivingWorld(scene),extra:true},scene)).toThrow()
 })

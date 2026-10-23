@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest'
 import { actors, createWorld, hitActor, step, validateWorld } from '../src/core/world.ts'
 import { WorldController } from '../src/core/controller.ts'
-import { characterIds } from '../src/core/roster.ts'
+import { legacyCharacterIds as characterIds } from '../src/core/roster-policy.ts'
 import { scene } from '../src/definitions.ts'
 import { SaveStore } from '../src/host/save-store.ts'
 import { mkdtemp, readFile, writeFile } from 'node:fs/promises'

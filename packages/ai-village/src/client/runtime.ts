@@ -1,3 +1,5 @@
+import { startBookhouseStory, bookhouseStoryAction, cancelBookhouseStory, placeBookhouseKeepsake } from '../core/bookhouse-engine.ts'
+import type { BookTheme } from '../core/bookhouse-state.ts'
 import { tableCellAt } from '../core/table-geometry.ts'
 import { arrangementObjects } from '../core/arrangement.ts'
 import { EntranceCoordinator } from './entrance-state.ts'
@@ -230,7 +232,7 @@ export class VillageRuntime {
   get canUndoHome() { return this.homeHistory.length > 0 }
   beginHome() {
     const world = this.controller?.world
-    if (!world || world.region.active !== 'courtyard' || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event || world.play.active) return
+    if (!world || world.region.active !== 'courtyard' || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) return
     this.cancelArrangements()
     this.homeDraft = { home: structuredClone(world.home), layout: world.neighborhood.layout }
     this.homeHistory = []; this.homeDraftError = ''; this.homePreview = null; this.pause('arrange', true)
@@ -475,7 +477,7 @@ export class VillageRuntime {
   async switchRegion(id: RegionId) {
     const world = this.controller?.world
     if (!world || id === world.region.active) return
-    if (!this.foreground() || !this.ready || !this.frameReady || this.entrance.blocking || this.error || this.criticalCandidate || this.transaction.pending || this.arranging || this.photoMode || this.controller?.drag || world.activeEvent || world.neighborhood.event || world.play.active) {
+    if (!this.foreground() || !this.ready || !this.frameReady || this.entrance.blocking || this.error || this.criticalCandidate || this.transaction.pending || this.arranging || this.photoMode || this.controller?.drag || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) {
       this.actionError = 'REGION_BUSY'; this.emit(); return
     }
     await this.neighborhoodCommand(() => travelRegion(this.controller!.world, scene, id))
@@ -487,6 +489,21 @@ export class VillageRuntime {
   async cancelBookhouseActivity() {
     if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.photoMode || this.controller?.drag) return
     await this.neighborhoodCommand(() => stopBookhouse(this.controller!.world, scene))
+  }
+  async startBookhouseStory(friend: CharacterId) {
+    if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.arranging || this.photoMode || this.controller?.drag || this.controller?.pauseReasons.size) return
+    await this.neighborhoodCommand(() => startBookhouseStory(this.controller!.world, scene, friend, crypto.randomUUID()))
+  }
+  async bookhouseStoryAction(token: string, theme?: BookTheme) {
+    if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.arranging || this.photoMode || this.controller?.drag || this.controller?.pauseReasons.size) return
+    await this.neighborhoodCommand(() => bookhouseStoryAction(this.controller!.world, scene, token, theme))
+  }
+  async cancelBookhouseStory() {
+    await this.neighborhoodCommand(() => { const w=this.controller!.snapshot(); cancelBookhouseStory(w); return w })
+  }
+  async placeBookhouseKeepsake(place: 'bookhouse' | 'courtyard' | null) {
+    if (this.arranging || this.photoMode) return
+    await this.neighborhoodCommand(() => placeBookhouseKeepsake(this.controller!.world, scene, place))
   }
   async cancelEvent() {
     if (!this.controller) return

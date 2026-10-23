@@ -1,6 +1,8 @@
+import { noticeTitle } from '../core/notifications.ts'
 import { TableModePanel } from './TableGamePanel.tsx'
 import { CollectionPanel } from './CollectionPanel.tsx'
 import { RegionPanel } from './RegionPanel.tsx'
+import { BookhouseStoryPanel, BookhouseMemoryArticle } from './BookhouseStoryPanel.tsx'
 import { PlayPanel } from './PlayPanel.tsx'
 import { playDefinition } from '../core/play-catalog.ts'
 import { currentEncounter } from '../core/encounter.ts'
@@ -15,6 +17,7 @@ import { actors } from '../core/world.ts'
 import { characterIds, characterNames, type CharacterId } from '../core/roster.ts'
 import { neighborhoodEvents, stories, wishes, layouts, layoutNames, furnitureCatalog, decorationNames } from '../core/neighborhood-catalog.ts'
 import { extraUnlocked } from '../core/neighborhood-state.ts'
+import { residentLife } from '../core/life-catalog.ts'
 import { villageTime } from '../core/dialogue.ts'
 import { PhotoPanel } from './PhotoPanel.tsx'
 export const actionErrorText = (code: string, cn: boolean) => {
@@ -55,6 +58,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
   const encounter = currentEncounter(w)
   return <section className="village-management" data-snap={p.drawer}>
     {p.drawer !== 'closed' && !p.overlay && <PanelShell runtime={r} cn={cn} title={names[p.tab]} className="village-drawer">
+      <BookhouseStoryPanel runtime={r} tab={p.tab} locale={locale} locked={busy}/>
       {inBookhouse && p.tab !== 'journal' && <RegionPanel runtime={r} locale={locale} locked={busy} tab={p.tab}/>}
       {p.page === 'quick' && <>
         {!inBookhouse && <>
@@ -62,7 +66,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
         {p.tab === 'wishes' && <><p>{w.play.active ? playDefinition(w.play.active.definitionId)?.name[locale] : encounter ? playDefinition(encounter.definitionId)?.name[locale] : w.activeEvent || w.neighborhood.event ? t('朋友们正在一起活动','An activity is in progress') : t('同桌的午后','An afternoon together')}</p><div className="choices">{w.play.active ? <button onClick={()=>sub('wishes','wishes')}>{t('继续活动','Continue activity')}</button> : encounter && <button onClick={()=>sub('wishes','wishes')}>{t('此刻的小偶遇','A chance encounter now')}</button>}<button onClick={()=>sub('wishes','wishes')}>{t('全部心愿','All wishes')}</button><button onClick={()=>sub('wishes','activities')}>{t('一起活动','Together')}</button></div></>}
         {p.tab === 'decor' && <><small>{layoutNames[w.neighborhood.layout][locale]}</small><div className="choices">{(['furniture','hanging','atmosphere'] as const).map((v,i)=><button key={v} onClick={()=>sub('decor',v)}>{[t('家具','Furniture'),t('挂饰','Hangings'),t('氛围','Atmosphere')][i]}</button>)}</div></>}
         </>}
-        {p.tab === 'journal' && <><p>{r.notices.length ? (r.notices[0]!.story==='first-table'?t('今天，我们坐到了一起','Today, we shared a table'):(stories.find(s=>s.id===r.notices[0]!.story)?.name[locale] ?? playDefinition(r.notices[0]!.story)?.name[locale])) : t('回忆将留在这里。','Memories will stay here.')}</p><div className="choices"><button onClick={()=>sub('journal','memories')}>{t('回忆','Memories')}</button><button onClick={()=>sub('journal','album')}>{t('相册','Album')}</button></div></>}
+        {p.tab === 'journal' && <><p>{r.notices.length ? noticeTitle(r.notices[0]!.story,locale) : t('回忆将留在这里。','Memories will stay here.')}</p><div className="choices"><button onClick={()=>sub('journal','memories')}>{t('回忆','Memories')}</button><button onClick={()=>sub('journal','album')}>{t('相册','Album')}</button></div></>}
       </>}
       {p.page !== 'quick' && <>
       {!inBookhouse && <>
@@ -71,11 +75,11 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
       {(p.tab==='wishes'||p.tab==='residents'||(p.tab==='decor'&&p.subpages.decor==='hanging')) && <PlayPanel runtime={r} tab={p.tab} locale={locale} locked={busy}/>}
       {(p.tab === 'wishes' || p.tab === 'residents') && (w.activeEvent || w.neighborhood.event) && <article className="village-status"><strong>{w.activeEvent ? t('同桌的午后', 'An afternoon together') : neighborhoodEvents.find(d => d.id === w.neighborhood.event?.definitionId)?.name[locale]}</strong><p>{(w.activeEvent ?? w.neighborhood.event)!.participants.map(id => characterNames[id]).join(' · ')} · {(w.activeEvent ?? w.neighborhood.event)!.phase}</p><button disabled={busy} onClick={() => void r.cancelEvent()}>{t('取消活动', 'Cancel activity')}</button></article>}
       {p.tab === 'residents' && (p.page==='residents'||p.page==='admissions') && <><header><strong>{t('在场', 'Present')} {members.length}/7</strong><button onClick={() => go('admissions')}>{t('安排入住', 'Manage residents')}</button></header>
-        {p.page === 'admissions' && <div className="village-admissions">{characterIds.map(id => <label key={id}><input aria-label={t('入住 ', 'Resident ') + characterNames[id]} type="checkbox" checked={members.some(a => a.id === id)} disabled={busy || members.length === 1 && id === selected} onChange={e => r.setCharacterPresent(id, e.target.checked)} />{characterNames[id]}</label>)}<button disabled={busy} onClick={() => r.setAllCharacters(true)}>{t('全员入住', 'Invite everyone')}</button><button disabled={busy} onClick={() => r.setAllCharacters(false)}>{t('仅留当前', 'Keep selected only')}</button></div>}
+        {p.page === 'admissions' && <div className="village-admissions"><p>{t('十二位居民可供选择，最多七位同时在场。满员时，请先让一位居民离开。', 'Choose from twelve residents, with up to seven present. Make room before inviting another resident.')}</p>{characterIds.map(id => <label key={id}><input aria-label={t('入住 ', 'Resident ') + characterNames[id]} type="checkbox" checked={members.some(a => a.id === id)} disabled={busy || members.length === 1 && id === selected || members.length >= 7 && !members.some(a => a.id === id)} onChange={e => r.setCharacterPresent(id, e.target.checked)} />{characterNames[id]}</label>)}<button disabled={busy} onClick={() => r.setAllCharacters(false)}>{t('仅留当前', 'Keep selected only')}</button></div>}
         {p.page==='residents' && members.map(a => <div className="village-person" key={a.id}><img src={`/api/nidofy-ai-village/assets/portraits/${a.id}.png`} alt="" /><span><strong>{characterNames[a.id]}</strong><small>{(cn ? zh : en)[a.behavior]}</small></span><button disabled={busy} onClick={() => { r.selectCharacter(a.id); r.present({type:'close'}) }}>{t('看看', 'Look')}</button><button data-focus-key={'resident-detail-'+a.id} onClick={()=>r.present({type:'push',patch:{page:'activities',residentTarget:a.id}})}>{t('详情','Details')}</button></div>)}
       </>}
       {p.tab==='residents' && p.page==='activities' && <>
-        <h3>{characterNames[selected]} · {t('日常互动', 'Daily activities')}</h3>{activities(1)}
+        <h3>{characterNames[selected]} · {t('日常互动', 'Daily activities')}</h3><p>{residentLife[selected].description[locale]}</p>{activities(1)}
         <button onClick={() => r.present({ type: 'push', patch: { tab: 'decor', page: 'atmosphere', accessoryTarget: selected, subpages: { ...p.subpages, decor: 'atmosphere' } } })}>{t('配饰', 'Accessories')}</button>
         <button onClick={()=>go('bonds')}>{t('共同经历','Shared experiences')}</button><button onClick={()=>r.present({type:'overlay',overlay:'settings'})}>{t('小院设置','Courtyard settings')}</button></>}
       {p.tab==='residents' && p.page==='bonds' && <><h3>{t('共同经历', 'Shared experiences')}</h3>{w.neighborhood.bonds.filter(b => b.pair.includes(selected)).map(b => <p key={b.pair.join('/')}>{b.pair.map(id => characterNames[id]).join(' & ')} · {b.count >= 3 ? t('熟悉', 'Familiar') : b.count >= 2 ? t('一起活动', 'Companions') : t('初次相聚', 'First gathering')} · ×{b.count}</p>)}
@@ -94,7 +98,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
         {!!(w.activeEvent || w.neighborhood.event) && <p>{t('请先结束或取消当前活动。', 'Finish or cancel the active event first.')}</p>}
       </>}
       </>}
-      {p.tab === 'journal' && <><div className="choices"><button aria-pressed={p.subpages.journal === 'memories'} onClick={() => sub('journal', 'memories')}>{t('回忆', 'Memories')}</button><button aria-pressed={p.subpages.journal === 'album'} onClick={() => sub('journal', 'album')}>{t('相册', 'Album')}</button></div>{p.subpages.journal === 'album' ? <><button disabled={busy || !r.frameReady} onClick={() => { r.present({ type: 'close' }); void r.enterPhoto() }}>{t('拍一张', 'Take a photo')}</button><PhotoPanel runtime={r} locale={locale} albumOnly /></> : <>{r.notices.map(n => <article tabIndex={-1} data-notice-id={n.id} className="village-journal" key={n.id}><small>{t('第', 'Day ')}{villageTime(n.tick).day}{cn ? '天' : ''} · ×{n.count}</small><h3>{n.story === 'first-table' ? t('今天，我们坐到了一起', 'Today, we shared a table') : (stories.find(s => s.id === n.story)?.name[locale] ?? playDefinition(n.story)?.name[locale])}</h3><p>{n.participants.map(id => characterNames[id as CharacterId]).join(' & ')}</p></article>)}{!r.notices.length && <p>{t('回忆会在第一次完成活动并保存后留下。', 'First completed activities become memories after saving.')}</p>}</>}</>}
+      {p.tab === 'journal' && <><div className="choices"><button aria-pressed={p.subpages.journal === 'memories'} onClick={() => sub('journal', 'memories')}>{t('回忆', 'Memories')}</button><button aria-pressed={p.subpages.journal === 'album'} onClick={() => sub('journal', 'album')}>{t('相册', 'Album')}</button></div>{p.subpages.journal === 'album' ? <><button disabled={busy || !r.frameReady} onClick={() => { r.present({ type: 'close' }); void r.enterPhoto() }}>{t('拍一张', 'Take a photo')}</button><PhotoPanel runtime={r} locale={locale} albumOnly /></> : <>{r.notices.map(n => n.story === 'bookhouse-light' && w.bookhouse.memory ? <BookhouseMemoryArticle key={n.id} memory={w.bookhouse.memory} locale={locale} noticeId={n.id}/> : <article tabIndex={-1} data-notice-id={n.id} className="village-journal" key={n.id}><small>{t('第', 'Day ')}{villageTime(n.tick).day}{cn ? '天' : ''} · ×{n.count}</small><h3>{noticeTitle(n.story,locale)}</h3><p>{n.participants.map(id => characterNames[id as CharacterId]).join(' & ')}</p></article>)}{!r.notices.length && <p>{t('回忆会在第一次完成活动并保存后留下。', 'First completed activities become memories after saving.')}</p>}</>}</>}
       {p.tab === 'journal' && p.subpages.journal === 'memories' && <CollectionPanel runtime={r} tab="journal" locale={locale}/>}
     </>}
       {r.actionError && <p role="alert">{actionErrorText(r.actionError, cn)}<details><summary>{t('详情', 'Details')}</summary>{r.actionError}</details></p>}

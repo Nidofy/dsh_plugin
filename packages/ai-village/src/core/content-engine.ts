@@ -1,7 +1,9 @@
 import { abandon, actors, type Actor, type Scene } from './world.ts'
 import { residentRoute, clearSegment } from './navigation.ts'
-import { validateContentWorld, uuid, type ContentWorld, type Food, type BellSlot } from './content-state.ts'
+import { validateContentWorld as validateContentProjection, uuid, type ContentWorld, type Food, type BellSlot } from './content-state.ts'
 import type { CharacterId } from './roster.ts'
+
+const validateContentWorld = (v: unknown, s: Scene) => validateContentProjection(v, s, 'current')
 
 /** Commands return validated candidates. Only the runtime's confirmed transaction adopts them. */
 export function inviteTea(source: ContentWorld, scene: Scene, pair: [CharacterId, CharacterId], food: Food, id: string): ContentWorld {

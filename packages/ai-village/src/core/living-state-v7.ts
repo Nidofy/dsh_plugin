@@ -1,3 +1,4 @@
+import { checkRosterScope, legacyCharacterIds, type RosterScope } from './roster-policy.ts'
 import { createHomeWorld, migrateHomeWorld, validateHomeWorld, homeScene, type HomeWorld } from './home-state.ts'
 import { stories, type StoryId } from './neighborhood-catalog.ts'
 import { actors, walkable, reachable, type Scene, type Point } from './world.ts'
@@ -38,13 +39,14 @@ function exact(value: unknown, keys: string[]): Record<string, any> {
   return value as Record<string, any>
 }
 const integer = (n: unknown, min: number, max = Number.MAX_SAFE_INTEGER): n is number => Number.isSafeInteger(n) && (n as number) >= min && (n as number) <= max
-export function validateLivingWorld(value: unknown, base: Scene): LivingWorld {
+export function validateLivingWorld(value: unknown, base: Scene, scope: RosterScope = 'legacy'): LivingWorld {
+  checkRosterScope(value, scope)
   const w = value as LivingWorld
   if (!w || w.schemaVersion !== 7 || w.sceneVersion !== 3 || w.simulationRulesVersion !== 4 || w.contentRevision !== 4) throw Error('UNSUPPORTED_WORLD_VERSION')
   if (new TextEncoder().encode(JSON.stringify(w)).length > 48*1024) throw Error('SAVE_TOO_LARGE')
   // Validate the entire closed v6 structure, including unknown top-level fields.
   if (!Array.isArray(w.neighborhood?.memories) || w.neighborhood.memories.length > stories.length + playDefinitions.length) return fail()
-  const old = validateHomeWorld(homeProjection(w), base), scene = homeScene(base, old.neighborhood.layout, old.home)
+  const old = validateHomeWorld(homeProjection(w), base, scope), scene = homeScene(base, old.neighborhood.layout, old.home)
   const events = new Set([...old.journal.map(m=>m.eventId), ...old.neighborhood.memories.map(m=>m.eventId)]), ids = new Set<string>()
   let previous = 0
   for (const memory of w.neighborhood.memories) {

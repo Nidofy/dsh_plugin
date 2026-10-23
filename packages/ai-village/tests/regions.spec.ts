@@ -1,3 +1,5 @@
+import { legacyCharacterIds } from '../src/core/roster-policy.ts'
+import { blankBookhouse } from '../src/core/bookhouse-state.ts'
 import { expect, it } from 'vitest'
 import { mkdtemp, readFile, readdir } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -93,14 +95,14 @@ it('rejects unknown regions, duplicate/foreign/illegal return feet, wrong curren
     (w:any)=>w.actor.position.extra=true,(w:any)=>w.actor.extra=true,(w:any)=>delete w.actor.intent,(w:any)=>w.extra=true]
   for(const mutate of mutations){const bad=structuredClone(book);mutate(bad);expect(()=>validateLivingWorld(bad,scene)).toThrow()}
   const current=bookhouseActivity(book,scene,'bookcase');current.actor.intent!.route.push({x:0,y:0});expect(()=>validateLivingWorld(current,scene)).toThrow()
-  expect(()=>migrateLivingWorld({...book,schemaVersion:11},scene)).toThrow()
+  expect(()=>migrateLivingWorld({...book,schemaVersion:12},scene)).toThrow()
 })
 it('migrates frozen v9 in-flight gameplay exactly and protects old bytes beyond the regular snapshot retention window',async()=>{
   const w=courtyard(2),current=startPlay(setTableMode(w,scene,'game'),scene,'table-game',['bluewhale','claude'],crypto.randomUUID())
   stepLiving(current,scene)
-  const {region:_region,...rest}=current,old=codecV9(scene).validate({...rest,schemaVersion:9,contentRevision:6}),raw=JSON.stringify(old)
+  const {region:_region,bookhouse:_bookhouse,...rest}=current;rest.home.accessories=Object.fromEntries(legacyCharacterIds.map(id=>[id,rest.home.accessories[id]])) as typeof rest.home.accessories;const old=codecV9(scene).validate({...rest,schemaVersion:9,contentRevision:6}),raw=JSON.stringify(old)
   const next=migrateLivingWorld(old,scene)
-  expect(next).toEqual({...old,schemaVersion:10,contentRevision:7,region:{version:1,active:'courtyard',returns:{courtyard:null,bookhouse:null}}})
+  expect(next).toEqual({...old,schemaVersion:11,contentRevision:8,home:next.home,bookhouse:blankBookhouse(),region:{version:1,active:'courtyard',returns:{courtyard:null,bookhouse:null}}})
   expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV9(scene).validate(next)).toThrow();expect(homeProjection(migrateLivingWorld(createV9(scene),scene))).toEqual(homeProjection(createLivingWorld(scene)))
   const root=await mkdtemp(join(tmpdir(),'village-regions-')),legacy=await SaveStore.open(root,scene,codecV9(scene))
   await legacy.save(0,old,crypto.randomUUID());const pointer=await readFile(join(legacy.directory,'current.json'),'utf8'),name=JSON.parse(pointer).snapshot

@@ -18,8 +18,8 @@ function neighbors(): World & LifeWorld {
   return world
 }
 
-it('gives all seven residents bounded independent preferences and simulation-only daily rhythms', () => {
-  expect(new Set(characterIds.map(id => residentLife[id].signature)).size).toBe(7)
+it('gives all twelve residents bounded independent preferences and simulation-only daily rhythms', () => {
+  expect(new Set(characterIds.map(id => residentLife[id].signature)).size).toBe(characterIds.length)
   for (const id of characterIds) {
     const resident = residentLife[id]
     for (const weight of Object.values(resident.activityWeights)) expect(weight).toBeGreaterThan(0)
@@ -117,7 +117,7 @@ it('strictly rejects malformed, stale, duplicate or absent social participants',
   expect(() => validateLifeState({ ...world.life, unknown: true }, world, scene)).toThrow('INVALID_LIFE_STATE')
 })
 
-it('uses distinct articulated performances for seven approved rigs and distinguishes social actions without moving feet', () => {
+it('uses distinct articulated performances for twelve production rigs and distinguishes social actions without moving feet', () => {
   const poses = new Set<string>()
   for (const id of characterIds) {
     const art = id === 'bluewhale' ? { character, animations } : roster[id]!, pose = samplePose(art.character, art.animations.actions.idle, 0), base = structuredClone(pose)
@@ -132,7 +132,7 @@ it('uses distinct articulated performances for seven approved rigs and distingui
     const ended = structuredClone(base); applyLifePose(ended, id, residentLife[id].signature, 4)
     expect(ended).toEqual(base)
   }
-  expect(poses.size).toBe(7)
+  expect(poses.size).toBe(characterIds.length)
   const base = samplePose(character, animations.actions.idle, 0)
   const motions: LifeMotion[] = ['wave', 'listen', 'offer', 'point', 'farewell', 'waiting', 'interrupted']
   const socialPoses = motions.map(motion => { const pose = structuredClone(base); applyLifePose(pose, 'bluewhale', motion, .7); return pose })
@@ -142,7 +142,7 @@ it('uses distinct articulated performances for seven approved rigs and distingui
 
 it('integrates seven-resident social scheduling, cold restores and pause without changing the chosen environment or recording rewards', () => {
   const controller = new LivingController(createLivingWorld(scene), scene, () => {})
-  for (const id of characterIds) controller.setCharacterPresent(id, true)
+  for (const id of characterIds.slice(0, 7)) controller.setCharacterPresent(id, true)
   const world = controller.world, environment = world.home.environment
   let restored = validateLivingWorld(JSON.parse(JSON.stringify(world)), scene), exchanges = 0
   for (let tick = 0; tick < 108000; tick++) {

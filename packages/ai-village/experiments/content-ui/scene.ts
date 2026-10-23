@@ -2,7 +2,7 @@ import { legacySceneV1 } from '../../src/core/migrations.ts'
 import { scene as legacy } from '../../src/definitions.ts'
 import { createWorld, actors, abandon, walkable, available, routeTo, validateWorld } from '../../src/core/world.ts'
 import type { Point, World } from '../../src/core/world.ts'
-import { characterIds } from '../../src/core/roster.ts'
+import { legacyCharacterIds as characterIds } from '../../src/core/roster-policy.ts'
 import type { SceneArt } from '../../src/frame/furniture.ts'
 
 /** Candidate geometry only. This module is not imported by the installed plugin. */

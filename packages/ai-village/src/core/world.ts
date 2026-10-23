@@ -1,3 +1,4 @@
+import { checkRosterScope, legacyCharacterIds, type RosterScope } from './roster-policy.ts'
 import { isCharacterId, type CharacterId } from './roster.ts'
 import { activityWeight } from './life-catalog.ts'
 export interface Point { x: number; y: number }
@@ -39,7 +40,7 @@ export interface World {
   companions: Actor[]
 }
 /** Shared simulation fields; schema-specific state is owned by its controller. */
-export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 }
+export type SimulationWorld = Omit<World, 'schemaVersion'> & { schemaVersion: 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 }
 export const behaviors: Behavior[] = ['idle', 'walk', 'put_down', 'work', 'eat', 'rest', 'sit', 'read', 'tend']
 export function contains(rect: Rect, point: Point): boolean {
   return point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height
@@ -151,7 +152,7 @@ function stepActor(world: SimulationWorld, scene: Scene, actor: Actor): void {
   if (actor.behavior === 'put_down' && actor.remaining === 0) {
     actor.behavior = 'idle'; actor.phase = 0; actor.remaining = 3 + random(world) * 4
   } else if (actor.behavior === 'idle' && actor.remaining === 0) {
-    const preferred: Record<CharacterId, Activity> = { bluewhale: 'eat', claude: 'work', gemini: 'rest', gpt: 'work', grok: 'eat', kimi: 'rest', qwen: 'work' }
+    const preferred: Record<CharacterId, Activity> = { bluewhale: 'eat', claude: 'work', gemini: 'rest', gpt: 'work', grok: 'eat', kimi: 'rest', qwen: 'work', seedance: 'rest', glm: 'work', minimax: 'eat', llama: 'rest', mistral: 'work' }
     const candidates = scene.hotspots.filter(h => seatAvailable(world, h, actor.id) && available(world, h.anchor, actor.id))
     const weighted = candidates.flatMap(h => world.schemaVersion >= 7 ? Array.from({ length: activityWeight(actor.id, activityOf(h), world.ticks) }, () => h) : activityOf(h) === preferred[actor.id] ? [h, h] : [h])
     const choice = random(world)
@@ -195,7 +196,8 @@ function wander(world: SimulationWorld, scene: Scene, actor: Actor): void {
   }
   actor.remaining = 3
 }
-export function validateWorld(value: unknown, scene: Scene): World {
+export function validateWorld(value: unknown, scene: Scene, scope: RosterScope = 'legacy'): World {
+  checkRosterScope(value, scope)
   const invalid = (): never => { throw Error('INVALID_WORLD') }
   if (!value || typeof value !== 'object') return invalid()
   const w = value as Omit<World, 'schemaVersion'> & { schemaVersion: number }

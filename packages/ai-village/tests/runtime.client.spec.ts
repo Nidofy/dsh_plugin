@@ -1,3 +1,5 @@
+import { LivingController } from '../src/core/living-controller.ts'
+import { startBookhouseStory, bookhouseStoryAction } from '../src/core/bookhouse-engine.ts'
 import { stories, neighborhoodEvents } from '../src/core/neighborhood-catalog.ts'
 // @vitest-environment jsdom
 import { it, expect, vi, afterEach } from 'vitest'
@@ -405,7 +407,7 @@ it('initializes twelve existing facts as read when legacy preferences migrate, w
  world.progress={completedWishes:['first-tea'],discovered:['first-table'],unlocked:['wind-chime'],lastCompletedEventId:world.journal[0]!.eventId};world.decorations.windChime={id:'first-wind-chime',slot:null}
  world.neighborhood.memories=stories.map(s=>({id:s.id,eventId:crypto.randomUUID(),participants:neighborhoodEvents.find(d=>d.story===s.id)!.count===2?['bluewhale','claude']:['bluewhale'],completedTick:0,count:1}));world.neighborhood.lastEventId=world.neighborhood.memories.at(-1)!.eventId
  const f=fixture(world,{schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}),r=f.runtime
- try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(10)}finally{await r.dispose()}
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(11)}finally{await r.dispose()}
 })
 
 
@@ -419,3 +421,24 @@ it('late automatic recovery reads cannot publish into a new connection generatio
 })
 
 it('parent navigation consumes stale iframe resident and actor intents before render delivery',async()=>{const f=fixture(),r=f.runtime;try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));r.setCharacterPresent('claude',true);await r.flush();reveal(r);const world=r.controller!.snapshot(),writes=f.stats().mutations;r.present({type:'tab',tab:'residents'});r.input({kind:'resident',id:'claude'});expect(r.presentation.drawer).toBe('closed');expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);r.present({type:'tab',tab:'residents'});r.input({kind:'camera',camera:{zoom:1.5,panX:0,panY:0}});expect(r.presentation.camera.zoom).toBe(1);for(const type of ['down','move','up']as const)r.pointer({type,id:7,point:world.actor.position,css:{x:100,y:100}});expect(r.controller!.drag).toBeNull();expect(r.presentation.overlay).toBeNull();expect(r.controller!.snapshot()).toEqual(world);expect(f.stats().mutations).toBe(writes)}finally{await r.dispose()}})
+
+it('bookhouse completion with a lost ACK reconciles the memory and keepsake once without replaying the write',async()=>{
+ vi.useFakeTimers()
+ const controller=new LivingController(createWorld(scene),scene,()=>{});controller.setCharacterPresent('seedance',true)
+ let w=startBookhouseStory(switchRegion(controller.world,scene,'bookhouse'),scene,'seedance',crypto.randomUUID())
+ for(let stage=0;stage<3;stage++){
+  for(let tick=0;tick<1900&&w.bookhouse.active?.phase!=='ready';tick++)stepTea(w,scene)
+  expect(w.bookhouse.active?.phase).toBe('ready')
+  if(stage<2)w=bookhouseStoryAction(w,scene,`${w.bookhouse.active!.id}:${stage}`,stage===0?'light':undefined)
+ }
+ const f=fixture(w),r=f.runtime
+ try{
+  r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r)
+  const token=`${w.bookhouse.active!.id}:2`,writes=f.stats().mutations
+  f.loseAck();f.stateOffline(true);await r.bookhouseStoryAction(token)
+  expect(r.saveReceipt.status).toBe('unknown');expect(r.controller!.world.bookhouse.memory).toBeNull()
+  await r.bookhouseStoryAction(token);expect(f.stats().mutations).toBe(writes+1)
+  f.stateOffline(false);await r.checkRecovery()
+  expect(r.controller!.world.bookhouse.memory?.count).toBe(1);expect(r.controller!.world.bookhouse.keepsake).toBe('bookhouse');expect(r.controller!.world.bookhouse.active).toBeNull();expect(f.stats().mutations).toBe(writes+1)
+ }finally{await r.dispose();vi.useRealTimers()}
+})

@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import type { VillageRuntime } from './runtime.ts'
-import { characterIds, characterNames } from '../core/roster.ts'
+import { approvedEntranceCharacterIds, characterNames } from '../core/roster.ts'
 import { portraitFill } from './entrance-state.ts'
 import { EntranceMotion } from './entrance-motion.ts'
 import { entranceLayout, entranceKnockout, doorAngle, entranceTiming as timing } from './entrance-theme.ts'
 import { entranceArt, entranceArtStatus } from './entrance-art.ts'
 
-function Portrait({ id, fill }: { id: typeof characterIds[number]; fill: number }) {
+function Portrait({ id, fill }: { id: typeof approvedEntranceCharacterIds[number]; fill: number }) {
   const [failed, setFailed] = useState(false)
   return <span className="entrance-portrait" title={characterNames[id]}>
     {failed ? <span aria-hidden="true">○</span> : <>
@@ -144,7 +144,7 @@ export function EntranceOverlay({ runtime: r, cn, close }: { runtime: VillageRun
     </>}
     <div className="entrance-actions"><button onClick={() => r.skipEntrance()}>{cn ? '跳过动画' : 'Skip animation'}</button><button onClick={close} aria-label={cn ? '关闭小院' : 'Close courtyard'}>×</button></div>
     <div className="entrance-status" role="progressbar" aria-label={cn ? '小院整体准备进度' : 'Overall courtyard preparation'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.floor(progress*100)} aria-valuetext={phaseText}>
-      <div className="entrance-portraits">{characterIds.map((id, index) => <Portrait key={id} id={id} fill={portraitFill(Math.min(progress, portraitProgress), index)} />)}</div>
+      <div className="entrance-portraits">{approvedEntranceCharacterIds.map((id, index) => <Portrait key={id} id={id} fill={portraitFill(Math.min(progress, portraitProgress), index)} />)}</div>
       <p role="status">{phaseText}</p>
       {hint === 2 && !canReveal && <small>{cn ? '正在等待资源校验或画面确认，可以关闭后再回来。' : 'Waiting for verified resources or a rendered frame. You can close and return later.'}</small>}
     </div>

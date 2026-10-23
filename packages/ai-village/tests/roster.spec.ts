@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest'
 import { WorldController } from '../src/core/controller.ts'
 import { createWorld, validateWorld } from '../src/core/world.ts'
-import { characterIds } from '../src/core/roster.ts'
+import { approvedEntranceCharacterIds as characterIds } from '../src/core/roster.ts'
 import { scene, roster } from '../src/definitions.ts'
 import { samplePose } from '../src/art/animation.ts'
 import type { Action } from '../src/art/types.ts'

@@ -42,6 +42,36 @@
       "file": "portraits/qwen.png",
       "bytes": 34652,
       "sha256": "d927c9d574cd75d7846e0d1ea3d07f8c7820c694e7fc70bda21a5c72e63141cf"
+    },
+    {
+      "key": "portraits/seedance.png",
+      "file": "portraits/seedance.png",
+      "bytes": 22108,
+      "sha256": "00c38bd5a80b7c2d0b8a80f5ed45ff89f5568cf3d5404dca26890034015939fd"
+    },
+    {
+      "key": "portraits/glm.png",
+      "file": "portraits/glm.png",
+      "bytes": 24467,
+      "sha256": "82933b1fdba34ebb96f71292a5ce56a158f928cab38ce8dafccecaed054d83ee"
+    },
+    {
+      "key": "portraits/minimax.png",
+      "file": "portraits/minimax.png",
+      "bytes": 22338,
+      "sha256": "cdc183bc666110e534ce1c2736fc89df2041015fd54c7745310d1e7e952d68f3"
+    },
+    {
+      "key": "portraits/llama.png",
+      "file": "portraits/llama.png",
+      "bytes": 19983,
+      "sha256": "b8db7042184bc54ab3da81d6a4b0d84f99b676d2e865a9b4c945d404ebabccdb"
+    },
+    {
+      "key": "portraits/mistral.png",
+      "file": "portraits/mistral.png",
+      "bytes": 26803,
+      "sha256": "a6f67e90cafb26a70590229e4ce6fc8c44b18ee0d54d13170028bf6ba94a08cb"
     }
   ]
 }

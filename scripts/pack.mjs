@@ -52,7 +52,7 @@ for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working
   }
   if (name === 'ai-village') {
       if (!entries.includes('package/lib/frame.js')) throw Error('Missing game renderer')
-      for (const id of ['bluewhale', 'claude', 'gemini', 'gpt', 'grok', 'kimi', 'qwen']) {
+      for (const id of ['bluewhale', 'claude', 'gemini', 'gpt', 'grok', 'kimi', 'qwen', 'seedance', 'glm', 'minimax', 'llama', 'mistral']) {
         const closure = JSON.parse(await readFile(join(dir, `assets/characters/${id}/manifest.json`), 'utf8'))
         if (!closure.approvedForRelease) throw Error('Unreviewed character ' + id)
         for (const part of closure.parts) {

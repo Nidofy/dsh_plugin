@@ -1,3 +1,4 @@
+import { cancelBookhouseStory } from './bookhouse-engine.ts'
 import { isCharacterId } from './roster.ts'
 import { WorldController } from './controller.ts'
 
@@ -16,6 +17,7 @@ export class LivingController extends WorldController<LivingWorld> {
   protected override placed(){
     const w=this.world,a=w.actor
     cancelLifeSocial(w,[a.id])
+    if(w.bookhouse.active?.participants.includes(a.id))cancelBookhouseStory(w)
     if(w.play.active?.participants.includes(a.id)){const other=w.play.active.participants.filter(id=>id!==a.id);w.play.active=null;for(const id of other){const resident=actors(w).find(a=>a.id===id)!;resident.intent=null;resident.destination=null;resident.behavior='idle';resident.remaining=3}}
     const e=w.neighborhood.event
     if(e?.participants.includes(a.id)){const seat=e.seats[e.participants.indexOf(a.id)];if(!seat||a.intent?.furnitureId+'/'+a.intent?.seat!==seat)cancelTea(w)}

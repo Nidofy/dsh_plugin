@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 1,
+  "id": "minimax",
+  "name": "MiniMax",
+  "status": "art-reviewed",
+  "approvedForRelease": true,
+  "integration": "Production roster integration; original art review and source hashes retained. See tests/roster-expansion.spec.ts and scripts/ai-village-roster-production-check.mjs.",
+  "generator": "built-in image_gen",
+  "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 8,
+        "top": 9,
+        "width": 312,
+        "height": 304
+      },
+      "nativeSize": [
+        312,
+        304
+      ],
+      "bytes": 210517,
+      "sha256": "52a7f16c951d10c072e5e0d5687cec5d1b80c4e489496095339c8f75b8a52dae",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 320,
+        "top": 8,
+        "width": 310,
+        "height": 305
+      },
+      "nativeSize": [
+        310,
+        305
+      ],
+      "bytes": 211854,
+      "sha256": "be5465114ef5bfa74bd7c76b8b1d94a6331b2764fe86144970b0dcb30ac15725",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 637,
+        "top": 8,
+        "width": 305,
+        "height": 305
+      },
+      "nativeSize": [
+        305,
+        305
+      ],
+      "bytes": 209732,
+      "sha256": "37a7fa75d4b92493df9476822ce4c5476fb9413f9620fb68ebfde9868b538aca",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 949,
+        "top": 8,
+        "width": 305,
+        "height": 305
+      },
+      "nativeSize": [
+        305,
+        305
+      ],
+      "bytes": 203762,
+      "sha256": "50b71f6f17bf667132e9ccdb2fd235e2ab791246e0de42afac6b18b7fb0d75b1",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 21,
+        "top": 329,
+        "width": 295,
+        "height": 288
+      },
+      "nativeSize": [
+        295,
+        288
+      ],
+      "bytes": 189850,
+      "sha256": "41da6f36984f6b17262ad442d0381cce0c738562aacbb8f42e7f9aff878cc62a",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 398,
+        "top": 341,
+        "width": 194,
+        "height": 280
+      },
+      "nativeSize": [
+        194,
+        280
+      ],
+      "bytes": 93891,
+      "sha256": "9ff58a70c0cf99e6f91d15b6fab65cf30fcdc7f4fcff81b0e3be874af9de1ace",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 689,
+        "top": 341,
+        "width": 197,
+        "height": 277
+      },
+      "nativeSize": [
+        197,
+        277
+      ],
+      "bytes": 94259,
+      "sha256": "c1eb4c3b6e29b4caf0c32c46847043dd816efec4c0bf7ada68b9c85c0039f6a4",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 1045,
+        "top": 348,
+        "width": 124,
+        "height": 287
+      },
+      "nativeSize": [
+        124,
+        287
+      ],
+      "bytes": 68663,
+      "sha256": "a6b2cf200d1608a9ec0bfbe886b28985335986db1fc7d50f089e110c66550f53",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 87,
+        "top": 636,
+        "width": 130,
+        "height": 275
+      },
+      "nativeSize": [
+        130,
+        275
+      ],
+      "bytes": 68472,
+      "sha256": "2ce2673577915de6ab202c61c0f78527ed0e9aa74ccc2042b213df0aa961e448",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 401,
+        "top": 648,
+        "width": 215,
+        "height": 225
+      },
+      "nativeSize": [
+        215,
+        225
+      ],
+      "bytes": 94750,
+      "sha256": "7e79db39bada62bbec5fbc6d7caf36629d5be0b4708ea35175aec3ef4939b879",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 670,
+        "top": 650,
+        "width": 289,
+        "height": 224
+      },
+      "nativeSize": [
+        289,
+        224
+      ],
+      "bytes": 101070,
+      "sha256": "c42445bdb7fe59fa0eded398387694a3454e80e25a87635e9f6ae79133fffe4b",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 1007,
+        "top": 660,
+        "width": 224,
+        "height": 218
+      },
+      "nativeSize": [
+        224,
+        218
+      ],
+      "bytes": 100079,
+      "sha256": "7c61ac526b2c604d3ae15b920376c8ffe0dd0e907ec5df319e47831a13c0a832",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 48,
+        "top": 953,
+        "width": 276,
+        "height": 232
+      },
+      "nativeSize": [
+        276,
+        232
+      ],
+      "bytes": 102558,
+      "sha256": "9ac3db3a7655134fc351d633d293c258cea1edf1c59ef8f4cb1ccbf0ccbd8e6f",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 331,
+        "top": 878,
+        "width": 300,
+        "height": 371
+      },
+      "nativeSize": [
+        300,
+        371
+      ],
+      "bytes": 258839,
+      "sha256": "450c27d2647d13ab6e7f8949a5dd98691f59766917c18c4528a8b100f3976795",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 645,
+        "top": 900,
+        "width": 326,
+        "height": 338
+      },
+      "nativeSize": [
+        326,
+        338
+      ],
+      "bytes": 238520,
+      "sha256": "80c839aeb3d01b256e67a6a08bb22b817f6fcc982b20943dd0e068a3363b4444",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster-expansion/minimax-v01.png",
+      "sourceInDelivery": "sources/minimax-v01.png",
+      "sourceSha256": "b201ab7f675f2e6dc6ad0585b773356cc660a571b7c1b30cc4f80feefded6ee3",
+      "crop": {
+        "left": 991,
+        "top": 910,
+        "width": 251,
+        "height": 297
+      },
+      "nativeSize": [
+        251,
+        297
+      ],
+      "bytes": 132496,
+      "sha256": "5641ea94a8e3ac00a405712e0c8b44f6fb78ea58d3d1bc6b6e92563f762f7f7e",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    }
+  ],
+  "definitions": [
+    {
+      "file": "character.json",
+      "sha256": "d6292aa8921516da06f6f4a2bbfb900442eba346266b618a2fa577c62e24c478"
+    },
+    {
+      "file": "animations.json",
+      "sha256": "364eba024060e958cca96b5fd6899c7f3b77c0b7d898e413ae688048a937c071"
+    },
+    {
+      "file": "activities.json",
+      "sha256": "6328486e431eb690a06ae0b89b7a899f4c3dd59d391a196e870545c7698af286"
+    }
+  ],
+  "artReview": {
+    "reviewer": "assistant",
+    "scope": "Native alpha, crop boundaries, expressions, assembly, 96/108/128px and 8 motion/activity previews",
+    "evidence": "../../../art/QA/roster-expansion/validation.json"
+  }
+}

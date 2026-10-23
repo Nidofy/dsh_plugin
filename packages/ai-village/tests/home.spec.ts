@@ -8,7 +8,7 @@ import { createNeighborhoodWorld, neighborhoodWorldCodec } from '../src/core/nei
 import { inviteTea as inviteOld } from '../src/core/neighborhood-engine.ts'
 import { inviteTea, stepHome, settleTea, startNeighborhoodEvent } from '../src/core/home-engine.ts'
 import { HomeController } from '../src/core/home-controller.ts'
-import { characterIds } from '../src/core/roster.ts'
+import { legacyCharacterIds as characterIds } from '../src/core/roster-policy.ts'
 import { neighborhoodEvents } from '../src/core/neighborhood-catalog.ts'
 import { actors, walkable, available, routeTo, placement } from '../src/core/world.ts'
 import { SaveStore } from '../src/host/save-store.ts'

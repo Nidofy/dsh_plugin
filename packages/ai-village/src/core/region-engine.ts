@@ -9,7 +9,7 @@ export function switchRegion(source:LivingWorld,base:Scene,target:unknown):Livin
   const w=validateLivingWorld(source,base)
   if(!isRegionId(target))throw Error('INVALID_REGION')
   if(target===w.region.active)throw Error('REGION_UNCHANGED')
-  if(w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')
+  if(w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')
   const departing=actors(w).map(a=>({id:a.id,position:{...a.position},safe:{...a.safe},facing:a.facing}))
   cancelLifeSocial(w)
   const restored:ParkedPose[]=structuredClone(w.region.returns[target]??[])
@@ -34,6 +34,7 @@ export type BookhouseActivityId=typeof bookhouseActivityIds[number]
 export function bookhouseActivity(source:LivingWorld,base:Scene,id:BookhouseActivityId):LivingWorld {
   const w=validateLivingWorld(source,base)
   if(w.region.active!=='bookhouse')throw Error('BOOKHOUSE_REQUIRED')
+  if(w.bookhouse.active)throw Error('EVENT_ACTIVE')
   const h=bookhouseScene.hotspots.find(h=>h.id===id),a=w.actor
   if(!bookhouseActivityIds.includes(id)||!h?.activity)throw Error('INVALID_BOOKHOUSE_ACTIVITY')
   cancelLifeSocial(w)
@@ -49,6 +50,7 @@ export function bookhouseActivity(source:LivingWorld,base:Scene,id:BookhouseActi
 export function cancelBookhouseActivity(source:LivingWorld,base:Scene):LivingWorld {
   const w=validateLivingWorld(source,base)
   if(w.region.active!=='bookhouse')throw Error('BOOKHOUSE_REQUIRED')
+  if(w.bookhouse.active)throw Error('EVENT_ACTIVE')
   cancelLifeSocial(w);abandon(w.actor)
   return validateLivingWorld(w,base)
 }

@@ -103,6 +103,21 @@ export function applyLifePose(pose: Pose, _id: CharacterId, motion: LifeMotion, 
     case 'leaf-greeting':
       add('arm-left', 'rotation', 26 * envelope); add('arm-left', 'x', 12 * envelope)
       add('arm-right', 'rotation', -8 * pulse); add('head', 'rotation', 6 * envelope); break
+    case 'dance-count':
+      add('arm-left', 'rotation', 18 * pulse); add('arm-right', 'rotation', -25 * envelope)
+      add('head', 'rotation', 4 * pulse); add('ornament', 'rotation', 8 * pulse); break
+    case 'fox-listen':
+      add('head', 'rotation', -9 * envelope); add('arm-left', 'rotation', 15 * envelope)
+      add('arm-left', 'y', -8 * envelope); add('back-hair', 'rotation', 2 * pulse); break
+    case 'frame-story':
+      add('arm-left', 'rotation', 29 * envelope); add('arm-right', 'rotation', -40 * envelope)
+      add('arm-right', 'y', -22 * envelope); add('head', 'rotation', 3 * pulse); break
+    case 'woolly-hug':
+      add('arm-left', 'rotation', 20 * envelope); add('arm-right', 'rotation', -20 * envelope)
+      add('arm-left', 'x', 8 * envelope); add('arm-right', 'x', -8 * envelope); add('head', 'y', 4 * envelope); break
+    case 'feather-tip':
+      add('arm-right', 'rotation', -55 * envelope); add('arm-right', 'y', -25 * envelope)
+      add('head', 'rotation', 8 * envelope); add('ornament', 'rotation', 6 * pulse); break
     case 'wave':
       add('arm-right', 'rotation', (-30 + 12 * Math.sin(t * Math.PI * 8)) * envelope)
       add('arm-right', 'y', -12 * envelope); add('head', 'rotation', -3 * envelope); break

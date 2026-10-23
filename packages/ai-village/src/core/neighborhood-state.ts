@@ -1,3 +1,4 @@
+import { checkRosterScope, legacyCharacterIds, type RosterScope } from './roster-policy.ts'
 import { actors, activityOf, type Scene } from './world.ts'
 import { createContentWorld, validateContentWorld, uuid, contentLimits, type ContentWorld, type BellSlot } from './content-state.ts'
 import { migrateContentWorld, type WorldCodec } from './migrations.ts'
@@ -45,14 +46,15 @@ function obj(v: unknown, names: string[]): Record<string, any> {
 const integer = (v: unknown, min = 0, max = Number.MAX_SAFE_INTEGER): v is number => Number.isSafeInteger(v) && (v as number) >= min && (v as number) <= max
 const ids = (v: unknown, length?: number): v is CharacterId[] => Array.isArray(v) && (length ? v.length === length : v.length >= 1 && v.length <= 2) && v.every(isCharacterId) && new Set(v).size === v.length
 export function createNeighborhoodWorld(scene: Scene): NeighborhoodWorld { return { ...createContentWorld(scene), schemaVersion: 5, simulationRulesVersion: 2, contentRevision: 2, neighborhood: blankNeighborhood() } }
-export function validateNeighborhoodWorld(value: unknown, baseScene: Scene): NeighborhoodWorld {
+export function validateNeighborhoodWorld(value: unknown, baseScene: Scene, scope: RosterScope = 'legacy'): NeighborhoodWorld {
+  checkRosterScope(value, scope)
   if (!value || typeof value !== 'object' || (value as NeighborhoodWorld).schemaVersion !== 5) throw Error('UNSUPPORTED_WORLD_VERSION')
   const w = value as NeighborhoodWorld
   if (w.simulationRulesVersion !== 2 || w.contentRevision !== 2) throw Error('UNSUPPORTED_CONTENT_VERSION')
   if (new TextEncoder().encode(JSON.stringify(w)).length > contentLimits.worldBytes) throw Error('SAVE_TOO_LARGE')
   const n = obj(w.neighborhood, ['layout', 'layoutRevision', 'event', 'memories', 'bonds', 'decorations', 'nextInteractionTick', 'lastEventId'])
   if (!layouts.includes(n.layout) || !integer(n.layoutRevision) || !integer(n.nextInteractionTick, 0, w.ticks + 90) || (n.lastEventId !== null && !uuid(n.lastEventId))) fail()
-  const scene = neighborhoodScene(baseScene, n.layout), base = validateContentWorld(legacyContent(w), scene)
+  const scene = neighborhoodScene(baseScene, n.layout), base = validateContentWorld(legacyContent(w), scene, scope)
   if (!Array.isArray(n.memories) || n.memories.length > stories.length || new Set(n.memories.map((m: Memory) => m.id)).size !== n.memories.length) fail()
   const eventIds=new Set(base.journal.map(m=>m.eventId))
   let previousTick = 0
@@ -62,7 +64,7 @@ export function validateNeighborhoodWorld(value: unknown, baseScene: Scene): Nei
     previousTick = m.completedTick;eventIds.add(m.eventId)
   }
   if ((n.memories.length>0)!==(n.lastEventId!==null)) fail()
-  if (!Array.isArray(n.bonds) || n.bonds.length > 21) fail()
+  if (!Array.isArray(n.bonds) || n.bonds.length > (scope === 'current' ? 66 : 21)) fail()
   const pairs = new Set<string>()
   for (const bond of n.bonds) {
     const b = obj(bond, ['pair', 'count', 'lastTick'])

@@ -2,7 +2,7 @@ import { expect, it } from 'vitest'
 import { actors, createWorld, routeTo, reachable, step, validateWorld, seatAvailable } from '../src/core/world.ts'
 import { WorldController } from '../src/core/controller.ts'
 import { scene } from '../src/definitions.ts'
-import { characterIds } from '../src/core/roster.ts'
+import { legacyCharacterIds as characterIds } from '../src/core/roster-policy.ts'
 
 it('routes around the existing tables and keeps seven residents deterministic and live for an hour', () => {
   for (const h of scene.hotspots) {

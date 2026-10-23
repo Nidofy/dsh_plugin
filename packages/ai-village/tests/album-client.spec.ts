@@ -2,13 +2,14 @@ import { it, expect } from 'vitest'
 import { createHash } from 'node:crypto'
 import { AlbumClient } from '../src/client/album-client.ts'
 import { residentAssets } from '../src/client/asset-selection.ts'
-import { characterIds } from '../src/core/roster.ts'
+import { characterIds, approvedEntranceCharacterIds } from '../src/core/roster.ts'
 import { png } from './helpers/png.ts'
 import type { Saved } from '../src/host/save-store.ts'
 import type { Album } from '../src/core/photo.ts'
 it('loads only current resident assets; unused whole furniture textures never load',()=>{
  expect(residentAssets(['bluewhale']).size).toBe(32)
- expect(residentAssets(characterIds).size).toBe(128)
+ expect(residentAssets(approvedEntranceCharacterIds).size).toBe(128)
+ expect(residentAssets(characterIds).size).toBe(208)
  expect(residentAssets(['claude']).size).toBe(23)
  expect(residentAssets(characterIds).has('scene/table.png')).toBe(false)
  expect([...residentAssets(['claude'])].some(key=>key.startsWith('kimi/'))).toBe(false)

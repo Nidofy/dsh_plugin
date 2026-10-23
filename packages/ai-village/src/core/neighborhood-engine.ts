@@ -2,9 +2,11 @@ import { actors, abandon, activityOf, step, type Scene } from './world.ts'
 import { residentRoute, clearSegment } from './navigation.ts'
 import { inviteTea as teaInvite, settleTea as teaSettle, stepTea, cancelTea as teaCancel, placeBell as bellPlace } from './content-engine.ts'
 import { uuid, type Food, type BellSlot } from './content-state.ts'
-import { validateNeighborhoodWorld as validate, legacyContent, neighborhoodScene, extraUnlocked, type NeighborhoodWorld } from './neighborhood-state.ts'
+import { validateNeighborhoodWorld as validateProjection, legacyContent, neighborhoodScene, extraUnlocked, type NeighborhoodWorld } from './neighborhood-state.ts'
 import { neighborhoodEvents, type LayoutId, type ExtraDecoration } from './neighborhood-catalog.ts'
 import type { CharacterId } from './roster.ts'
+
+const validate = (v: unknown, s: Scene) => validateProjection(v, s, 'current')
 
 export function inviteTea(source: NeighborhoodWorld, base: Scene, pair: [CharacterId, CharacterId], food: Food, id: string): NeighborhoodWorld {
   if (source.neighborhood.event) throw Error('EVENT_ACTIVE')

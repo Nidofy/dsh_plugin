@@ -1,3 +1,4 @@
+import { legacyCharacterIds } from './roster-policy.ts'
 import { abandon, reachable, type Actor, type Point, type Scene } from './world.ts'
 import { clearSegment, residentRoute } from './navigation.ts'
 import { characterIds, isCharacterId, type CharacterId } from './roster.ts'
@@ -37,7 +38,8 @@ export function validateLifeState(value: unknown, world: Pick<LifeWorld, 'actor'
 /** Stable ID order and rotating tick windows distribute opportunities without consuming RNG. */
 export function chooseLifeSocial(world: Pick<LifeWorld, 'actor' | 'companions' | 'ticks' | 'decorations'>, scene: Scene, blockedIds: readonly CharacterId[] = []): LifeSocial | null {
   const all = members(world), window = Math.floor(world.ticks / lifeSocialInterval), period = lifeClock(world.ticks).period
-  const order = [...characterIds.slice(window % characterIds.length), ...characterIds.slice(0, window % characterIds.length)]
+  const catalog: readonly CharacterId[] = all.every(a => (legacyCharacterIds as readonly string[]).includes(a.id)) ? legacyCharacterIds : characterIds
+  const order = [...catalog.slice(window % catalog.length), ...catalog.slice(0, window % catalog.length)]
   for (const id of order) {
     const actor = all.find(a => a.id === id), profile = residentLife[id]
     if (!actor || !free(actor) || blockedIds.includes(id) || (window % 5 >= profile.sociability && period !== profile.activePeriod)) continue
