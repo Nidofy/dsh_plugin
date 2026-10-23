@@ -33,4 +33,3 @@ try {
   Set-Content -LiteralPath $pidFile -Value $started.Id
   Write-Output "Isolated official Desktop started: PID $($started.Id), CDP 127.0.0.1:18767."
 } finally { $env:DSH_HOME = $previousDshHome }
-
