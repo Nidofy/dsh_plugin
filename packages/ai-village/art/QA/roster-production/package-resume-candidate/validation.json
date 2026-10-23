@@ -1,0 +1,59 @@
+{
+  "recordedAt": "2026-10-23T13:50:14.967Z",
+  "archive": "dist/nidofy-dsh-ai-village-0.10.0-preview.1.tgz",
+  "bytes": 47026400,
+  "sha256": "2a44566285875f40dbda18371b9384e634c43a821f9e65ac5556fc401caa9d11",
+  "version": "0.10.0-preview.1",
+  "totalFiles": 381,
+  "comparedAssets": 282,
+  "runtimeResources": 236,
+  "characters": [
+    {
+      "id": "seedance",
+      "parts": 16,
+      "definitions": 3,
+      "portrait": "00c38bd5a80b7c2d0b8a80f5ed45ff89f5568cf3d5404dca26890034015939fd"
+    },
+    {
+      "id": "glm",
+      "parts": 16,
+      "definitions": 3,
+      "portrait": "82933b1fdba34ebb96f71292a5ce56a158f928cab38ce8dafccecaed054d83ee"
+    },
+    {
+      "id": "minimax",
+      "parts": 16,
+      "definitions": 3,
+      "portrait": "cdc183bc666110e534ce1c2736fc89df2041015fd54c7745310d1e7e952d68f3"
+    },
+    {
+      "id": "llama",
+      "parts": 16,
+      "definitions": 3,
+      "portrait": "b8db7042184bc54ab3da81d6a4b0d84f99b676d2e865a9b4c945d404ebabccdb"
+    },
+    {
+      "id": "mistral",
+      "parts": 16,
+      "definitions": 3,
+      "portrait": "a6f67e90cafb26a70590229e4ce6fc8c44b18ee0d54d13170028bf6ba94a08cb"
+    }
+  ],
+  "bundles": {
+    "index.js": {
+      "sha256": "420321bd15ffb0b9d95f241c94858dfc0e0b7811fea18b6edc7ab50d03e09a42",
+      "matches": true
+    },
+    "client.js": {
+      "sha256": "e44ca7c568ec35d17090038f4f3c8a793eb91c61d31c85bce688487836fbd812",
+      "matches": true
+    },
+    "frame.js": {
+      "sha256": "b381f1d7e332c6f3429b18de772bc6b8fc7e85001ccccf04b65eebb0094e30e6",
+      "matches": true
+    }
+  },
+  "qa": null,
+  "scope": "Current workspace asset closure only; no browser QA identity claim",
+  "installTest": false
+}

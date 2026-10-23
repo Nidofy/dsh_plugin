@@ -1,0 +1,34 @@
+{
+  "archive": "dist/nidofy-dsh-ai-village-0.10.0-preview.1.tgz",
+  "sha256": "2a44566285875f40dbda18371b9384e634c43a821f9e65ac5556fc401caa9d11",
+  "runs": [
+    {
+      "label": "final-dpr1",
+      "dpr": 1,
+      "status": "PASS",
+      "checks": 10,
+      "images": 41,
+      "sourceCommit": "7e77aabef36033c2b37486f02102982065d76a76",
+      "matchingSourceFiles": 108,
+      "matchingBundles": [
+        "index.js",
+        "client.js",
+        "frame.js"
+      ]
+    },
+    {
+      "label": "final-dpr2",
+      "dpr": 2,
+      "status": "PASS",
+      "checks": 10,
+      "images": 41,
+      "sourceCommit": "7e77aabef36033c2b37486f02102982065d76a76",
+      "matchingSourceFiles": 108,
+      "matchingBundles": [
+        "index.js",
+        "client.js",
+        "frame.js"
+      ]
+    }
+  ]
+}

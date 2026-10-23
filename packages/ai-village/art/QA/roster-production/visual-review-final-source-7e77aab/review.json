@@ -1,0 +1,173 @@
+{
+  "recordedAt": "2026-10-23T14:10:52.2294950Z",
+  "sourceRun": "final-source-7e77aab",
+  "method": "All 27 PNGs individually inspected with view_image",
+  "scope": "Captured frames only; not every animation frame, user art approval, hardware performance or native installation",
+  "sourceHead": "7e77aabef36033c2b37486f02102982065d76a76",
+  "packageIdentity": "package-final-source-7e77aab/validation.json",
+  "productArtOrRigChangesRequired": false,
+  "screenshots": [
+    {
+      "file": "glm-eat.png",
+      "sha256": "aae23b7b8011bc799d2954192bd41871eaad803a6ed17cd63eb3e70a7813014a",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "饭桌上方脸与手完整，下半身由桌体遮挡；GLM/Mistral少量尾尖在桌下可见。"
+    },
+    {
+      "file": "glm-rest.png",
+      "sha256": "72f8ad2f42c46163228e50c51dbb5cdcbd96ede4b183a366230605861f1ddd9c",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "坐姿完整落在坐垫上，无明显脚点或比例错位。"
+    },
+    {
+      "file": "glm-work.png",
+      "sha256": "7a68577211c855f8f8496b3e10a46470fca8ef3cb5ed13132c845d0e4adc7a52",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "双手与书本位置相接，桌面遮挡正常；未见漏图或重复肢体。"
+    },
+    {
+      "file": "llama-eat.png",
+      "sha256": "854eb89bc13665719ac3695ac26cf9313c796f9e360e967dde2be0b97682f7c4",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "饭桌上方脸与手完整，下半身由桌体遮挡；GLM/Mistral少量尾尖在桌下可见。"
+    },
+    {
+      "file": "llama-rest.png",
+      "sha256": "23197f2bcf46488e7f26c1db9b8f349b11c689252c3378259d0be9a30b096f0a",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "坐姿完整落在坐垫上，无明显脚点或比例错位。"
+    },
+    {
+      "file": "llama-work.png",
+      "sha256": "77a94216c0daf7996858ca9e8ccdcc94e347703bbcb42cfba161503586a9db57",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "双手与书本位置相接，桌面遮挡正常；未见漏图或重复肢体。"
+    },
+    {
+      "file": "minimax-eat.png",
+      "sha256": "9d392ae51533a5724a6187b529ef1226f1a10a67ee53f1898152e3b770942250",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "饭桌上方脸与手完整，下半身由桌体遮挡；GLM/Mistral少量尾尖在桌下可见。"
+    },
+    {
+      "file": "minimax-rest.png",
+      "sha256": "996723b4400695c7c6932d5f75681caa72fd8bbe54afe0d4ddad44e59991108e",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "坐姿完整落在坐垫上，无明显脚点或比例错位。"
+    },
+    {
+      "file": "minimax-work.png",
+      "sha256": "e0de943172827f2f6d281bda4d64d4086f8a9398f2783445728cc185962db971",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "双手与书本位置相接，桌面遮挡正常；未见漏图或重复肢体。"
+    },
+    {
+      "file": "mistral-eat.png",
+      "sha256": "f9da6747eef62cfa89e9b543a235d4459fbdc54c44a3225cccbb3f5f4d303f1d",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "饭桌上方脸与手完整，下半身由桌体遮挡；GLM/Mistral少量尾尖在桌下可见。"
+    },
+    {
+      "file": "mistral-rest.png",
+      "sha256": "f8f48a90484391a8c92b9838597fbf386327027af11cd57ebdceac23ae82af03",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "坐姿完整落在坐垫上，无明显脚点或比例错位。"
+    },
+    {
+      "file": "mistral-work.png",
+      "sha256": "e5cce70cbb3725c0f00191def553ce1b0797598eb6168569c47895b53e73c499",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "双手与书本位置相接，桌面遮挡正常；未见漏图或重复肢体。"
+    },
+    {
+      "file": "mixed-seven-bookhouse.png",
+      "sha256": "0b84cc7816550e6faf1214e4d909a31e44c05892b38351310260b649decf4314",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "五新两旧共七人完整可见，比例协调，无明显漏图或透明黑框。"
+    },
+    {
+      "file": "mixed-seven-cold-restore.png",
+      "sha256": "68da0cfb02352e43f7be1a026ef2241376f6582e8f2997e5883f44abed78ca3e",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "坐姿完整落在坐垫上，无明显脚点或比例错位。"
+    },
+    {
+      "file": "mixed-seven-courtyard.png",
+      "sha256": "f9cae3a5675ba95b7864efc28c1c2e41b18da2066d56fdd669664a6f4e02a5be",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "五新两旧共七人完整可见，比例协调，无明显漏图或透明黑框。"
+    },
+    {
+      "file": "new-resident-choices-en.png",
+      "sha256": "d35cf81f22e7506a6d5dbff3c55e7c2c5c06a39c074a2a47f15b27dd4d41f713",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "中英文名册与容量提示可读，滚动区域正常显示新角色选项。"
+    },
+    {
+      "file": "new-resident-choices-zh.png",
+      "sha256": "d84a450b8bfe5e7f245479b413fa3737732c2276465e6caf396031a46d0be604",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "中英文名册与容量提示可读，滚动区域正常显示新角色选项。"
+    },
+    {
+      "file": "seedance-eat.png",
+      "sha256": "493f4890df4a06215ccb07b8a5238b4ecf2bd850039ea645bc1cf2af59cc3da4",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "饭桌上方脸与手完整，下半身由桌体遮挡；GLM/Mistral少量尾尖在桌下可见。"
+    },
+    {
+      "file": "seedance-rest.png",
+      "sha256": "c15de612950abf83f8cd3510b5be52791ce3c317088b389f7c2a956d09a9a360",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "坐姿完整落在坐垫上，无明显脚点或比例错位。"
+    },
+    {
+      "file": "seedance-work.png",
+      "sha256": "300d099861df9ba7777befe4e26fb5060305555070dd215d32bb24596a3f5609",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "双手与书本位置相接，桌面遮挡正常；未见漏图或重复肢体。"
+    },
+    {
+      "file": "solo-glm.png",
+      "sha256": "bdf1766f46c899e3ef7555e8c7bf2dbdcdf2da51891ac7018ce845b20bc94f1e",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "单人站立比例和脚点一致，透明边缘正常。"
+    },
+    {
+      "file": "solo-llama.png",
+      "sha256": "72df4e9f2e45ca06ce923577f6d4c99caa0c48cd2c8bfecf69534a9e005c90a4",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "单人站立比例和脚点一致，透明边缘正常。"
+    },
+    {
+      "file": "solo-minimax.png",
+      "sha256": "20a9db483c90a18ca07edb95281bb2095a302feb85b93a76f95c167bed764ebb",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "单人站立比例和脚点一致，透明边缘正常。"
+    },
+    {
+      "file": "solo-mistral.png",
+      "sha256": "fb4848377602e5ef8a770e1880daa9cbf10d1e490711d0e1cf01ad0963234d2d",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "单人站立比例和脚点一致，透明边缘正常。"
+    },
+    {
+      "file": "solo-seedance.png",
+      "sha256": "20442da01f9f8f69222c1fedec347fb756d4c24dd0298c7daecb2cb7c8fbf064",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "单人站立比例和脚点一致，透明边缘正常。"
+    },
+    {
+      "file": "twelve-resident-admissions-en.png",
+      "sha256": "ff95e65a29c56d4f72186ce20f1ab29fe72a6327ab838e76da2ede5176186704",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "中英文名册与容量提示可读，滚动区域正常显示新角色选项。"
+    },
+    {
+      "file": "twelve-resident-admissions-zh.png",
+      "sha256": "d2a5c282d1a562ed42d8d942462399e547af472537abee01c30b2403cdc357ab",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "中英文名册与容量提示可读，滚动区域正常显示新角色选项。"
+    }
+  ]
+}

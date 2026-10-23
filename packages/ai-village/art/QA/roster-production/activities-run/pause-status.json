@@ -1,0 +1,39 @@
+{
+  "status": "PAUSED_BY_USER",
+  "recordedAt": "2026-10-23T09:56:42.770Z",
+  "validationWrittenAt": "2026-10-23T09:55:46.872Z",
+  "execution": "Pause shutdown check found that the second browser run had already finished naturally. Terminal returned exit code 0 after the script finally closed its own browser and Host. No new validation was started.",
+  "completedChecks": [
+    "seedance: admitted, selected, rendered alone with 23 textures and unrelated resident textures released",
+    "seedance: actual drag and production furniture work",
+    "seedance: actual drag and production furniture eat",
+    "seedance: actual drag and production furniture rest",
+    "glm: admitted, selected, rendered alone with 23 textures and unrelated resident textures released",
+    "glm: actual drag and production furniture work",
+    "glm: actual drag and production furniture eat",
+    "glm: actual drag and production furniture rest",
+    "minimax: admitted, selected, rendered alone with 23 textures and unrelated resident textures released",
+    "minimax: actual drag and production furniture work",
+    "minimax: actual drag and production furniture eat",
+    "minimax: actual drag and production furniture rest",
+    "llama: admitted, selected, rendered alone with 23 textures and unrelated resident textures released",
+    "llama: actual drag and production furniture work",
+    "llama: actual drag and production furniture eat",
+    "llama: actual drag and production furniture rest",
+    "mistral: admitted, selected, rendered alone with 23 textures and unrelated resident textures released",
+    "mistral: actual drag and production furniture work",
+    "mistral: actual drag and production furniture eat",
+    "mistral: actual drag and production furniture rest",
+    "Twelve bilingual choices, seventh resident limit, five new + two original residents: 128 courtyard textures",
+    "Mixed seven travel to bookhouse with 121 textures and preserve exact paused world on cold restore"
+  ],
+  "reviewStatus": "Screenshots and final-package resource identity remain unreviewed; this is not final-package acceptance.",
+  "pending": [
+    "Review second-run furniture screenshots",
+    "Capture source/dirty metadata in a new run only after resume",
+    "Compare final package resource and bundle identity"
+  ],
+  "resumeCommand": "node scripts/ai-village-roster-production-check.mjs --label=resume-final-unique --activities",
+  "firstEvidence": "../first-run",
+  "preservedFiles": 27
+}

@@ -1,0 +1,198 @@
+{
+  "reviewedAt": "2026-10-23T13:58:05.417Z",
+  "reviewer": "assistant visual inspection via view_image",
+  "count": 27,
+  "scope": "逐张检查暂停前27张真实生产家具/名单/混合场景截图。原证据不改写；不是最终包验收，也不是动态全时段或用户审美签收。",
+  "resourceFixesRequired": false,
+  "observations": [
+    {
+      "file": "../activities-run/glm-eat.png",
+      "sha256": "5297f4080eb5796031d420b9e5a3d71d6a88738718cad2c10087ec97559b7532",
+      "category": "餐桌用餐",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "用餐双臂和表情完整，桌围遮挡下半身；GLM/Mistral的小段尾尖是正常家具遮挡后的尾部轮廓。"
+    },
+    {
+      "file": "../activities-run/glm-rest.png",
+      "sha256": "45a32388fe99ad2321ee7c2936b4203a5ba4199010f5e535333fd8c4ad889938",
+      "category": "坐垫休息",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "完整坐姿替换成立，双腿/头部/饰物齐全，角色落在坐垫上。"
+    },
+    {
+      "file": "../activities-run/glm-work.png",
+      "sha256": "0647674f6fc414e80b504f1bb84bc9dc728df0f0936a98f176ac702ed7c9081c",
+      "category": "书桌工作",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "头部与双臂完整，工作手臂位于书页上方，桌面遮挡躯干正常。"
+    },
+    {
+      "file": "../activities-run/llama-eat.png",
+      "sha256": "1bdce69ff305fa792693294eb84cd230a769cd9cf3ad2a1c8fe5af8565c2c730",
+      "category": "餐桌用餐",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "用餐双臂和表情完整，桌围遮挡下半身；GLM/Mistral的小段尾尖是正常家具遮挡后的尾部轮廓。"
+    },
+    {
+      "file": "../activities-run/llama-rest.png",
+      "sha256": "84b1978f1fa9978831e61d5b485b819ce9e971cb159d3f5dcd2a764b6400e8e3",
+      "category": "坐垫休息",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "完整坐姿替换成立，双腿/头部/饰物齐全，角色落在坐垫上。"
+    },
+    {
+      "file": "../activities-run/llama-work.png",
+      "sha256": "01ed64e3a73c108386ef8598483ab9d362eef4a3c7f68b238905ddf0969f44a3",
+      "category": "书桌工作",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "头部与双臂完整，工作手臂位于书页上方，桌面遮挡躯干正常。"
+    },
+    {
+      "file": "../activities-run/minimax-eat.png",
+      "sha256": "fbc596dea2acc296b784757d302b8fe14529f8b3a1d447acb945dcecc6947dac",
+      "category": "餐桌用餐",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "用餐双臂和表情完整，桌围遮挡下半身；GLM/Mistral的小段尾尖是正常家具遮挡后的尾部轮廓。"
+    },
+    {
+      "file": "../activities-run/minimax-rest.png",
+      "sha256": "5250d032c0887c1bed773644a846aec5c273a726924d8422a518088f0e5e35d8",
+      "category": "坐垫休息",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "完整坐姿替换成立，双腿/头部/饰物齐全，角色落在坐垫上。"
+    },
+    {
+      "file": "../activities-run/minimax-work.png",
+      "sha256": "31ce0a45288dfb5f73d05cc5041e6308adf1038905d5fe3c2eeea00d249824c1",
+      "category": "书桌工作",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "头部与双臂完整，工作手臂位于书页上方，桌面遮挡躯干正常。"
+    },
+    {
+      "file": "../activities-run/mistral-eat.png",
+      "sha256": "6e90958bdc23d2a35c57d1100fcaf0d65768a7eb9d7640ab7d87c9ac5c8b6ac9",
+      "category": "餐桌用餐",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "用餐双臂和表情完整，桌围遮挡下半身；GLM/Mistral的小段尾尖是正常家具遮挡后的尾部轮廓。"
+    },
+    {
+      "file": "../activities-run/mistral-rest.png",
+      "sha256": "b9f7c3ea06c2fb5c272fb67596d6cff363f3a046a82b95618b6df8b470f8531c",
+      "category": "坐垫休息",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "完整坐姿替换成立，双腿/头部/饰物齐全，角色落在坐垫上。"
+    },
+    {
+      "file": "../activities-run/mistral-work.png",
+      "sha256": "c6d4052aa235bb1225fbc20920de0b04bd7e05987a21a3be073b615a8cdc9578",
+      "category": "书桌工作",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "头部与双臂完整，工作手臂位于书页上方，桌面遮挡躯干正常。"
+    },
+    {
+      "file": "../activities-run/mixed-seven-bookhouse.png",
+      "sha256": "6b8c4f4a724033ce32a40490a0684f140858fad12556643e48ca883035123ea8",
+      "category": "混合七人和冷恢复",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "七人均呈现，角色比例和地面落点一致；窄浮卡冷恢复保留七人，无明显漏图或黑底。"
+    },
+    {
+      "file": "../activities-run/mixed-seven-cold-restore.png",
+      "sha256": "39c513c5343158bc6ff097a208b5ad41e93652c1468b3db670576d6ded880955",
+      "category": "混合七人和冷恢复",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "七人均呈现，角色比例和地面落点一致；窄浮卡冷恢复保留七人，无明显漏图或黑底。"
+    },
+    {
+      "file": "../activities-run/mixed-seven-courtyard.png",
+      "sha256": "ece9ccd760e66c2c5e6b77e74ad29be81fae746e6eca7403d1601a07141b0d5d",
+      "category": "混合七人和冷恢复",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "七人均呈现，角色比例和地面落点一致；窄浮卡冷恢复保留七人，无明显漏图或黑底。"
+    },
+    {
+      "file": "../activities-run/new-resident-choices-en.png",
+      "sha256": "e1edefd2a7ca3915bf1c73a4fd2ccbcafaf0f085082a7731b52787bf74116ec8",
+      "category": "五新居民列表底部",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "Seedance/GLM/MiniMax/Llama/Mistral及仅留当前按钮完整可见，未见文本溢出。"
+    },
+    {
+      "file": "../activities-run/new-resident-choices-zh.png",
+      "sha256": "1f0ce70522d39321835b02b5388ad5055a54bb027154656ea38e9c18e803c454",
+      "category": "五新居民列表底部",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "Seedance/GLM/MiniMax/Llama/Mistral及仅留当前按钮完整可见，未见文本溢出。"
+    },
+    {
+      "file": "../activities-run/seedance-eat.png",
+      "sha256": "f7aff545f1f75cb009492c3f75b6ea166fc81ad119d7898cda2e16123ed729a5",
+      "category": "餐桌用餐",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "用餐双臂和表情完整，桌围遮挡下半身；GLM/Mistral的小段尾尖是正常家具遮挡后的尾部轮廓。"
+    },
+    {
+      "file": "../activities-run/seedance-rest.png",
+      "sha256": "c15de612950abf83f8cd3510b5be52791ce3c317088b389f7c2a956d09a9a360",
+      "category": "坐垫休息",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "完整坐姿替换成立，双腿/头部/饰物齐全，角色落在坐垫上。"
+    },
+    {
+      "file": "../activities-run/seedance-work.png",
+      "sha256": "413eee519763dc215349912164bb992de4e92faf17ef2d98cebda0d11e733e54",
+      "category": "书桌工作",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "头部与双臂完整，工作手臂位于书页上方，桌面遮挡躯干正常。"
+    },
+    {
+      "file": "../activities-run/solo-glm.png",
+      "sha256": "bdf1766f46c899e3ef7555e8c7bf2dbdcdf2da51891ac7018ce845b20bc94f1e",
+      "category": "独立立姿",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "角色齐全，透明底自然，脚底落地，未见重复肢体。"
+    },
+    {
+      "file": "../activities-run/solo-llama.png",
+      "sha256": "8b80c2a7b73efbc33a09015d63e1dd92bec42dbd6fb9671a0fd9d540fa7adb63",
+      "category": "独立立姿",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "角色齐全，透明底自然，脚底落地，未见重复肢体。"
+    },
+    {
+      "file": "../activities-run/solo-minimax.png",
+      "sha256": "3c1df23f5de1ec217476f75ff2f028f87703dca36565f5f2e99ad269edc1126c",
+      "category": "独立立姿",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "角色齐全，透明底自然，脚底落地，未见重复肢体。"
+    },
+    {
+      "file": "../activities-run/solo-mistral.png",
+      "sha256": "aeb78bfc89e39de7fd109d0dbb6aa3dca5a6570a2c2370da5c64a2cc3ff1a1bd",
+      "category": "独立立姿",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "角色齐全，透明底自然，脚底落地，未见重复肢体。"
+    },
+    {
+      "file": "../activities-run/solo-seedance.png",
+      "sha256": "20442da01f9f8f69222c1fedec347fb756d4c24dd0298c7daecb2cb7c8fbf064",
+      "category": "独立立姿",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "角色齐全，透明底自然，脚底落地，未见重复肢体。"
+    },
+    {
+      "file": "../activities-run/twelve-resident-admissions-en.png",
+      "sha256": "eafb4c99f3c3adb975f71c69a9e3b3438e993d569d8310581bbcd7b6b537a05f",
+      "category": "容量说明与名册顶部",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "当前7/7与十二位目录、最多七位同时在场的中英文说明可读；列表可滚动。"
+    },
+    {
+      "file": "../activities-run/twelve-resident-admissions-zh.png",
+      "sha256": "8632f44773ee8600d60e3cd6675637431efc9f1e6c0ffcd45fb8d2076da29f6a",
+      "category": "容量说明与名册顶部",
+      "status": "PASS_FOR_CAPTURED_FRAME",
+      "finding": "当前7/7与十二位目录、最多七位同时在场的中英文说明可读；列表可滚动。"
+    }
+  ]
+}
