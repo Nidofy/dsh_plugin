@@ -72,3 +72,5 @@ Host 只读取会话状态并提供 `/api/nidofy-pets/`；总开关关闭时卸�
 `LivingWorld` 当前 world10/content7，继续 rules4/scene3，增加 region1 与 frame7。旧9及其内容6目录已冻结。庭院保留旧几何校验；书屋通过独立 `bookhouseScene` 校验当前角色，使用保存的庭院返回脚印投影验证共享历史。顶层角色仍是唯一模拟权威，两区仅保存最多七个返回pose，不复制完整世界、时钟、RNG或长期进度。当前区的返回pose必须为空，书屋时庭院返回pose必须完整，书屋禁止入退住；庭院成员变动在保存前清理书屋返回ID。
 
 区域旅行复用原资源哈希检查、owner/lease/CAS与只读未知结果对账。确认后按区域替换唯一iframe并重新等待真实首帧，旧代际消息/cleanup隔离，用户暂停保留。书屋为明确标注的代码绘制开发样板，无新增正式原画批准或第二永久渲染循环；资源仅当前区域环境与当前居民，庭院7环境纹理不进入书屋。详见 [书屋实施契约](ai-village/v08-v09/BOOKHOUSE_IMPLEMENTATION.md)，实际验收以其链接的最终结果为准。
+
+0.9.0-preview.2 在2026-10-23用户明确授权后启用现有梦境门庭：入口manifest为APPROVED，原PNG与几何不变，生产选择器继续拒绝未批准资源。故障恢复使用EntranceCoordinator的reentry/doorOpened展示门控，回门前卸载iframe；后台只读对账不会自动揭幕，明确点击开门后重新等待资源与真实首帧。此展示状态不写入世界，未知保存不重放、历史恢复仍由用户显式触发，书屋正式美术不在本次批准范围。见 [故障重新入场记录](ai-village/reentry-recovery/RESULTS.md)。

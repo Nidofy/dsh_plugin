@@ -1,0 +1,332 @@
+{
+  "checkedAt": "2026-10-23T03:37:57.594Z",
+  "count": 65,
+  "bytes": 14896063,
+  "files": [
+    {
+      "path": "EVIDENCE_INDEX.md",
+      "bytes": 1803,
+      "sha256": "70b820ad5e13fd35f3247908013cc68d15fa6f9205e499873d2cb50462434a02"
+    },
+    {
+      "path": "FINAL_HASH_CHECK.json",
+      "bytes": 15366,
+      "sha256": "8ad96176a89eb11138291562e1bd2ea453e3914f69a47a4297787698b76d2211"
+    },
+    {
+      "path": "RESULTS.md",
+      "bytes": 4626,
+      "sha256": "1600b46e05fb8d20809fccbdefe23f2dfd5126e6b248ca380b07306b9beb599b"
+    },
+    {
+      "path": "RUN_NOTES.md",
+      "bytes": 3660,
+      "sha256": "7a37632294b72a390c669c257c1068ccf761285851fd55f40f951232b25cbba6"
+    },
+    {
+      "path": "integration-01/320-dark-reduced-closed-door.png",
+      "bytes": 72177,
+      "sha256": "ccf0521e8e60202bda5e40fcd96784b3d43f5f228e9b37a774f14c41c4ca648c"
+    },
+    {
+      "path": "integration-01/320-dark-reduced-revealed.png",
+      "bytes": 203780,
+      "sha256": "2e78d91d4da431fa261eecaa2080becea9f468e6da18524db5e9c4eef07de0b8"
+    },
+    {
+      "path": "integration-01/320-dark-reduced-seven-loading.png",
+      "bytes": 75452,
+      "sha256": "e90f0f912eb707e2cfc07b3060ba7a56752a3d21215ec4cd0a946485d825cb6b"
+    },
+    {
+      "path": "integration-01/automatically-reconciled-still-closed.png",
+      "bytes": 133642,
+      "sha256": "6e5a3896abb078e527d000480e38a22323bcf4ab189537b39e2406c84ef58724"
+    },
+    {
+      "path": "integration-01/bookhouse-closed-door.png",
+      "bytes": 72072,
+      "sha256": "33789297f3ded9a3d0f4449e6f9bb4cb4312960e9cc412c3af771675306a9193"
+    },
+    {
+      "path": "integration-01/bookhouse-reentry-revealed.png",
+      "bytes": 46468,
+      "sha256": "2dc97187ca3b10396d65ca17bd2a78946688057ee0851214d4d60b3fa9e0e3ec"
+    },
+    {
+      "path": "integration-01/bookhouse-reentry-seven-loading.png",
+      "bytes": 75452,
+      "sha256": "e90f0f912eb707e2cfc07b3060ba7a56752a3d21215ec4cd0a946485d825cb6b"
+    },
+    {
+      "path": "integration-01/build.json",
+      "bytes": 11157,
+      "sha256": "4ce045bfc689886bce41c7eff50658e517a8704d5841d2c8cb817b3e0a3209c0"
+    },
+    {
+      "path": "integration-01/courtyard-reentry-opening.png",
+      "bytes": 133196,
+      "sha256": "8047ef04a199ddf2894be87fb0e7ae45d222940dba4fe7fc83dd0cc89eda0e46"
+    },
+    {
+      "path": "integration-01/courtyard-reentry-revealed.png",
+      "bytes": 357834,
+      "sha256": "6190a19436e6ee6770dfd3a363315036d2673b184f5c6816c2fd2b1f7e7b59e0"
+    },
+    {
+      "path": "integration-01/courtyard-reentry-seven-loading.png",
+      "bytes": 143842,
+      "sha256": "2536689102fd49c94c510cbc4d1df8c262faaf687869b4b4847d7eaa52d609ad"
+    },
+    {
+      "path": "integration-01/heartbeat-closed-door.png",
+      "bytes": 133954,
+      "sha256": "74305dac19ec1ab60835a8ad154458951fe12e2533c87d102111f88529087dd3"
+    },
+    {
+      "path": "integration-01/initial-paused.png",
+      "bytes": 357912,
+      "sha256": "dac0c8df2320102f863da5776658309fe87d3cc9485f0b1564669ecf28048777"
+    },
+    {
+      "path": "integration-01/retry-after-state-failure-opening.png",
+      "bytes": 133196,
+      "sha256": "8047ef04a199ddf2894be87fb0e7ae45d222940dba4fe7fc83dd0cc89eda0e46"
+    },
+    {
+      "path": "integration-01/retry-after-state-failure-revealed.png",
+      "bytes": 357834,
+      "sha256": "6190a19436e6ee6770dfd3a363315036d2673b184f5c6816c2fd2b1f7e7b59e0"
+    },
+    {
+      "path": "integration-01/retry-after-state-failure-seven-loading.png",
+      "bytes": 143841,
+      "sha256": "913024903b228967a3ca8c98e0761a3c5efabd0cc3eb242f84766ad5bf184df5"
+    },
+    {
+      "path": "integration-01/state-failed-closed-diagnostics.png",
+      "bytes": 142920,
+      "sha256": "ce4b082bfc842412297e3c68a6bd5919f2c48837f14048c02eef435e733f334a"
+    },
+    {
+      "path": "integration-01/validation.json",
+      "bytes": 41930,
+      "sha256": "d9dbae7e9fb575fc2efb4685460d99cd31ce141c81f14ca2326b50547141b529"
+    },
+    {
+      "path": "integration-01/video/page@580717080deb1b7154eb57610c5c22ef.webm",
+      "bytes": 1464928,
+      "sha256": "2bea170d933f5d85f48c8770224d7694e046cc881fa05c5691287aabe25aab14"
+    },
+    {
+      "path": "integration-02/320-dark-reduced-closed-door.png",
+      "bytes": 72183,
+      "sha256": "e7c012f281795c7a61b52cf65dc6781191b9cf4aafcf01648614d3018a20ee01"
+    },
+    {
+      "path": "integration-02/320-dark-reduced-revealed.png",
+      "bytes": 203780,
+      "sha256": "2e78d91d4da431fa261eecaa2080becea9f468e6da18524db5e9c4eef07de0b8"
+    },
+    {
+      "path": "integration-02/320-dark-reduced-seven-loading.png",
+      "bytes": 75349,
+      "sha256": "61713b5d906d846980aa066c4840761bd11654420d5b8047994d1cf891c6960f"
+    },
+    {
+      "path": "integration-02/automatically-reconciled-still-closed.png",
+      "bytes": 133642,
+      "sha256": "6e5a3896abb078e527d000480e38a22323bcf4ab189537b39e2406c84ef58724"
+    },
+    {
+      "path": "integration-02/bookhouse-closed-door.png",
+      "bytes": 72183,
+      "sha256": "e7c012f281795c7a61b52cf65dc6781191b9cf4aafcf01648614d3018a20ee01"
+    },
+    {
+      "path": "integration-02/bookhouse-reentry-revealed.png",
+      "bytes": 46468,
+      "sha256": "2dc97187ca3b10396d65ca17bd2a78946688057ee0851214d4d60b3fa9e0e3ec"
+    },
+    {
+      "path": "integration-02/bookhouse-reentry-seven-loading.png",
+      "bytes": 75349,
+      "sha256": "61713b5d906d846980aa066c4840761bd11654420d5b8047994d1cf891c6960f"
+    },
+    {
+      "path": "integration-02/build.json",
+      "bytes": 10855,
+      "sha256": "b26911ad29e4f7b97d5a8640c2d183ad6df0109de2e2f0e9150ced79b24a8342"
+    },
+    {
+      "path": "integration-02/courtyard-reentry-opening.png",
+      "bytes": 144513,
+      "sha256": "77c44b550d623021dc4e3799a07bc8d46bd13ec239d25566b786a2eb30593624"
+    },
+    {
+      "path": "integration-02/courtyard-reentry-revealed.png",
+      "bytes": 357842,
+      "sha256": "068d1321936396d6dfe566e12d6a179b5cc7da6487fb90700f616f961b2dd874"
+    },
+    {
+      "path": "integration-02/courtyard-reentry-seven-loading.png",
+      "bytes": 144497,
+      "sha256": "3050c72c65d1e098f841d716e5f510da60fa8f6450507c769c9ed4fa6094bc3e"
+    },
+    {
+      "path": "integration-02/heartbeat-closed-door.png",
+      "bytes": 133642,
+      "sha256": "6e5a3896abb078e527d000480e38a22323bcf4ab189537b39e2406c84ef58724"
+    },
+    {
+      "path": "integration-02/initial-paused.png",
+      "bytes": 357912,
+      "sha256": "dac0c8df2320102f863da5776658309fe87d3cc9485f0b1564669ecf28048777"
+    },
+    {
+      "path": "integration-02/retry-after-state-failure-opening.png",
+      "bytes": 144513,
+      "sha256": "77c44b550d623021dc4e3799a07bc8d46bd13ec239d25566b786a2eb30593624"
+    },
+    {
+      "path": "integration-02/retry-after-state-failure-revealed.png",
+      "bytes": 357842,
+      "sha256": "068d1321936396d6dfe566e12d6a179b5cc7da6487fb90700f616f961b2dd874"
+    },
+    {
+      "path": "integration-02/retry-after-state-failure-seven-loading.png",
+      "bytes": 144497,
+      "sha256": "3050c72c65d1e098f841d716e5f510da60fa8f6450507c769c9ed4fa6094bc3e"
+    },
+    {
+      "path": "integration-02/state-failed-closed-diagnostics.png",
+      "bytes": 142920,
+      "sha256": "ce4b082bfc842412297e3c68a6bd5919f2c48837f14048c02eef435e733f334a"
+    },
+    {
+      "path": "integration-02/validation.json",
+      "bytes": 49480,
+      "sha256": "a09471e3555a8df1e234f72d6845d9950253171d3a07762e6ed3e9ac127dc40d"
+    },
+    {
+      "path": "integration-02/video/page@813957d0664db8f82121bc865c825d89.webm",
+      "bytes": 1302921,
+      "sha256": "921f8e88a973868ec6825dd23e7f8264e840672c9027ce1bff6391f188337190"
+    },
+    {
+      "path": "integration-03/preparation-failure.json",
+      "bytes": 402,
+      "sha256": "0189a3ffdbaac8c3bc909b7dbcea52b1dd73a6964fcd5e9312f9e8abf0d54208"
+    },
+    {
+      "path": "integration-04/320-dark-reduced-closed-door.png",
+      "bytes": 217286,
+      "sha256": "213cfa06b1516caa0f3c791630c074ecfd2d9becd3cfc8d099807e4a9cb99518"
+    },
+    {
+      "path": "integration-04/320-dark-reduced-revealed.png",
+      "bytes": 203780,
+      "sha256": "2e78d91d4da431fa261eecaa2080becea9f468e6da18524db5e9c4eef07de0b8"
+    },
+    {
+      "path": "integration-04/320-dark-reduced-seven-loading.png",
+      "bytes": 75349,
+      "sha256": "61713b5d906d846980aa066c4840761bd11654420d5b8047994d1cf891c6960f"
+    },
+    {
+      "path": "integration-04/art-decode-failed-css-fallback.png",
+      "bytes": 60670,
+      "sha256": "db109812ce55978ed551c54fe0abca475601c993e59665f4525afa4813255a92"
+    },
+    {
+      "path": "integration-04/art-decode-failed-reentry-revealed.png",
+      "bytes": 46468,
+      "sha256": "2dc97187ca3b10396d65ca17bd2a78946688057ee0851214d4d60b3fa9e0e3ec"
+    },
+    {
+      "path": "integration-04/art-decode-failed-reentry-seven-loading.png",
+      "bytes": 75349,
+      "sha256": "61713b5d906d846980aa066c4840761bd11654420d5b8047994d1cf891c6960f"
+    },
+    {
+      "path": "integration-04/automatically-reconciled-still-closed.png",
+      "bytes": 459601,
+      "sha256": "c423abc32249e5022733832002c42b6cee5f21a8f37ca81374d9a33b3a2798ef"
+    },
+    {
+      "path": "integration-04/bookhouse-closed-door.png",
+      "bytes": 217286,
+      "sha256": "213cfa06b1516caa0f3c791630c074ecfd2d9becd3cfc8d099807e4a9cb99518"
+    },
+    {
+      "path": "integration-04/bookhouse-reentry-revealed.png",
+      "bytes": 46468,
+      "sha256": "2dc97187ca3b10396d65ca17bd2a78946688057ee0851214d4d60b3fa9e0e3ec"
+    },
+    {
+      "path": "integration-04/bookhouse-reentry-seven-loading.png",
+      "bytes": 75349,
+      "sha256": "61713b5d906d846980aa066c4840761bd11654420d5b8047994d1cf891c6960f"
+    },
+    {
+      "path": "integration-04/build.json",
+      "bytes": 13417,
+      "sha256": "ac8afc46a39af6d59d67c14f0da90db49ef02756f8f99ebcbc288850c292b8e4"
+    },
+    {
+      "path": "integration-04/courtyard-reentry-opening.png",
+      "bytes": 453583,
+      "sha256": "53a70dbb3b2bd0bd4ca8ca8f2c376bcd7f4797add05ae63f912dcec718a7fae5"
+    },
+    {
+      "path": "integration-04/courtyard-reentry-revealed.png",
+      "bytes": 357799,
+      "sha256": "fa000ea996f522bec3382ddd33aa35d9e8054bae2f062008a3d38aa0b45d3b93"
+    },
+    {
+      "path": "integration-04/courtyard-reentry-seven-loading.png",
+      "bytes": 144497,
+      "sha256": "3050c72c65d1e098f841d716e5f510da60fa8f6450507c769c9ed4fa6094bc3e"
+    },
+    {
+      "path": "integration-04/heartbeat-closed-door.png",
+      "bytes": 459601,
+      "sha256": "c423abc32249e5022733832002c42b6cee5f21a8f37ca81374d9a33b3a2798ef"
+    },
+    {
+      "path": "integration-04/initial-paused.png",
+      "bytes": 357912,
+      "sha256": "dac0c8df2320102f863da5776658309fe87d3cc9485f0b1564669ecf28048777"
+    },
+    {
+      "path": "integration-04/retry-after-state-failure-opening.png",
+      "bytes": 459071,
+      "sha256": "74b0c32b54e3c7f0c1c7b8a26bc9ad11fc9acf30801ffef8ff70a040be27da4e"
+    },
+    {
+      "path": "integration-04/retry-after-state-failure-revealed.png",
+      "bytes": 357842,
+      "sha256": "068d1321936396d6dfe566e12d6a179b5cc7da6487fb90700f616f961b2dd874"
+    },
+    {
+      "path": "integration-04/retry-after-state-failure-seven-loading.png",
+      "bytes": 144497,
+      "sha256": "3050c72c65d1e098f841d716e5f510da60fa8f6450507c769c9ed4fa6094bc3e"
+    },
+    {
+      "path": "integration-04/state-failed-closed-diagnostics.png",
+      "bytes": 412211,
+      "sha256": "b53dc2fba2c90250df9e5a17eef58553c3fe7d9d7a28b9d370bf76d1054d4b46"
+    },
+    {
+      "path": "integration-04/validation.json",
+      "bytes": 70547,
+      "sha256": "c3f74a6ba37592c9f3e62c95179b2bccaee87abad14c3f01a4c5cc7d57ac0bc9"
+    },
+    {
+      "path": "integration-04/video/page@9601e6a4a26e4ee2c0bf4547317a882c.webm",
+      "bytes": 2089648,
+      "sha256": "a53cfe54737c71f125a6287d77622b5231a999958b2caff959944615c408514d"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "status": "FAIL_PREPARATION",
+  "error": "spawnSync git ENOBUFS while reading the unchanged 1,240,220-byte entrance-bg-far.png historical blob; Node default maxBuffer is 1 MiB",
+  "browserStarted": false,
+  "hostStarted": false,
+  "fix": "QA script sets maxBuffer to 8 MiB for binary historical comparison; no asset or product change",
+  "continuation": "integration-04, a new independent label"
+}

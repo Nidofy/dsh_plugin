@@ -16,13 +16,21 @@
 
 - 全量53文件、268测试PASS（启用既有美术后的最终源码重跑）。
 - 全仓strict typecheck PASS；官方Host/Client types与release构建PASS（美术启用后再次release通过）。
-- 首候选pack、smoke、空缓存8包离线安装PASS；最终美术包待下方记录。
+- 最终美术包pack、smoke、空缓存8包离线安装PASS。入口专项解包检查亦PASS：APPROVED状态、全部PNG哈希、无preview模块/开发绝对路径、保留批准选择器、独立Host与原生依赖加载均通过，见 [ENTRANCE_PACKAGE_CHECK.json](ENTRANCE_PACKAGE_CHECK.json)。
 - 回归覆盖重复点击只执行一次、开门计时可取消、主输入焦点保持、关门不挂载iframe、七头像与首帧门控、未知保存只读核对和显式恢复。旧测试更新为故障恢复后需要明确点击，保留原CAS/写入次数断言。
 
 ## 真实浏览器
 
-独立脚本 `scripts/ai-village-reentry-qa.mjs`，只在隔离Host与profile中进行实际请求故障，不注入世界或时钟、不调用模型。最终已批准门庭的验收结果待独立QA记录完成后填写。
+独立脚本 `scripts/ai-village-reentry-qa.mjs`，只在隔离Host与profile中进行实际请求故障，不注入世界或时钟、不调用模型。最终 `qa/integration-04` 全7项PASS：heartbeat失败回门前且0iframe；后台自动核对成功仍等点击；真实门扇旋转后七头像加载，保持首帧门控；state失败重新关门；320×360深色减少动态；书屋原区域恢复；8张图片请求全部失败时轻量回退仍可进入。没有自动恢复历史版本请求或重放保存。
+
+主代理目检了关门、开门中途、窄窗深色截图。所有关门/开门/加载状态原HUD伪元素均隐藏，输入草稿保持。8张PNG逐字节与启用前相等，共2,749,401压缩字节、1,773,738像素（RGBA估算7,094,952字节），未放宽原8层/4MiB/800万像素预算。完整截图、录像、请求与最终内容哈希见 [QA报告](qa/RESULTS.md)。
 
 保留首两轮简化门候选证据：integration-01发现原HUD tooltip透出，补CSS后integration-02验证关门/开门/加载伪元素均隐藏。随后收到用户美术启用授权，再以独立label验证正式图层，不将旧简化门截图冒充最终美术。
+
+integration-03在浏览器启动前因QA工具读取历史大PNG超出默认缓冲上限失败，保留记录；提高该只读比对工具的输出缓冲后，以全新integration-04完整复验。产品资源预算不变。
+
+## 最终交付
+
+源码 `34781135e25d34ba3a2fa4aea2070d289497f743`，分支 `codex/feature-ai-village-entrance`。包 `dist/nidofy-dsh-ai-village-0.9.0-preview.2.tgz`，276文件、32,199,675 bytes，SHA256 `929d5be8cb72a2ad0c1e9a32b30fc90181c3ceab2d4a6755fd6e884ff19d5638`。首简化门候选SHA `8b75524f93adbd67d278c1154355484f3048568ba72237152cfe5d7bbb9e24da` 已由当前美术版替代，不作为最终包。
 
 本轮未重做原生Desktop安装、硬件GPU或长时性能测试。此前版本的原生证据保留为历史，不冒称本版本已完成同样验证。
