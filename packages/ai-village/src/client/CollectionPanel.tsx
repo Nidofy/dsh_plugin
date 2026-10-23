@@ -5,7 +5,7 @@ import { collectionFacts } from '../core/collection-catalog.ts'
 export function CollectionPanel({ runtime, locale, tab }: { runtime: VillageRuntime; locale: Locale; tab: 'journal' | 'wishes' }) {
   const world = runtime.controller?.world, t = (zh: string, en: string) => locale === 'zh' ? zh : en
   if (!world) return null
-  const facts = collectionFacts(world, runtime.album?.state?.world ?? null)
+  const facts = collectionFacts(world, runtime.album?.loaded ? runtime.album.state?.world ?? { schemaVersion: 1, photos: [] } : null)
   return <section className="village-neighborhood" aria-label={tab === 'journal' ? t('收藏分类', 'Collection categories') : t('慢慢积累的目标', 'Goals to enjoy over time')}>
     <h3>{tab === 'journal' ? t('收藏分类', 'Collection categories') : t('慢慢积累的目标', 'Goals to enjoy over time')}</h3>
     {tab === 'wishes' ? <><p>{t('这些目标都可以慢慢来，也可以不做。没有截止时间，不影响朋友的生活。', 'Take your time with these optional goals, or leave them aside. There are no deadlines and your friends carry on either way.')}</p>{facts.goals.map(g => <article className="village-journal" key={g.id}><strong>{g.count !== null && g.count >= g.target ? '✓ ' : '○ '}{g.title[locale]}</strong><p>{g.count === null ? t('相册尚未读取', 'Album not loaded yet') : `${Math.min(g.count, g.target)}/${g.target}`}</p><small>{g.source[locale]}</small></article>)}</>

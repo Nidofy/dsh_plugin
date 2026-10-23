@@ -8,6 +8,7 @@ import { LivingController } from '../src/core/living-controller.ts'
 import { scene } from '../src/definitions.ts'
 import type { Album } from '../src/core/photo.ts'
 import type { VillageRuntime } from '../src/client/runtime.ts'
+import { AlbumClient } from '../src/client/album-client.ts'
 afterEach(cleanup)
 const photo = (title: string) => ({ id: crypto.randomUUID(), title, tick: 30, width: 720, height: 960, bytes: 100, hash: 'a'.repeat(64) })
 it('never counts present residents or an unopened album as discovered shared memories or saved photos', () => {
@@ -43,11 +44,26 @@ it('uses the loaded album only and allows photo deletion to reduce the optional 
   expect(collectionFacts(world, album).goals.find(g => g.id === 'photo-album')!.count).toBe(3)
   album.photos.pop()
   expect(collectionFacts(world, album).goals.find(g => g.id === 'photo-album')!.count).toBe(2)
-  const runtime = { controller: { world }, album: { state: { world: album }, pending: { kind: 'add' }, error: 'PHOTO_UNCONFIRMED' } }
+  const runtime = { controller: { world }, album: { loaded: true, state: { world: album }, pending: { kind: 'add' }, error: 'PHOTO_UNCONFIRMED' } }
   render(<CollectionPanel runtime={runtime as unknown as VillageRuntime} tab="journal" locale="en"/>)
   expect(screen.getByText('Photos · 2')).toBeTruthy()
   expect(screen.getByText('Morning')).toBeTruthy()
   expect(screen.getByText(/Only its last loaded records/)).toBeTruthy()
+})
+it('distinguishes a successfully read empty album from unread and stale profile data', async () => {
+  let identity={profileId:crypto.randomUUID(),epoch:crypto.randomUUID(),lease:crypto.randomUUID()}
+  const album=new AlbumClient(async()=>new Response(JSON.stringify({...identity,saved:null}),{headers:{'content-type':'application/json'}}),()=>identity,()=>{})
+  const runtime={controller:{world:createLivingWorld(scene)},album} as unknown as VillageRuntime
+  const ui=render(<CollectionPanel runtime={runtime} tab="journal" locale="en"/> )
+  expect(screen.getByText('Photos · Not loaded')).toBeTruthy();expect(album.loaded).toBe(false)
+  await album.refresh();expect(album.loaded).toBe(true);expect(album.state).toBeNull()
+  ui.rerender(<CollectionPanel runtime={runtime} tab="journal" locale="en"/> )
+  expect(screen.getByText('Photos · 0')).toBeTruthy()
+  ui.rerender(<CollectionPanel runtime={runtime} tab="wishes" locale="en"/> )
+  expect(screen.getByText('0/3', {selector:'article:last-of-type p'})).toBeTruthy()
+  identity={...identity,profileId:crypto.randomUUID()};expect(album.loaded).toBe(false)
+  ui.rerender(<CollectionPanel runtime={runtime} tab="journal" locale="en"/> )
+  expect(screen.getByText('Photos · Not loaded')).toBeTruthy()
 })
 it('shows bilingual category and optional-goal sources without inventing an unread album count', () => {
   const runtime = { controller: { world: createLivingWorld(scene) }, album: { state: null, pending: null, error: '' } }

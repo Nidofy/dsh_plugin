@@ -9,14 +9,17 @@ export class AlbumClient {
  state:Saved<Album>|null=null;busy=false;error='';pending:{id:string;operationId:string;kind:'add'|'delete';expectedRevision:number;hash?:string}|null=null
  private work:Promise<void>|null=null
  private readSequence=0
+ private readIdentity:Pick<Identity,'profileId'|'epoch'>|null=null
+ get loaded(){const current=this.identity();return this.readIdentity?.profileId===current.profileId&&this.readIdentity?.epoch===current.epoch}
  constructor(private request:Request,private identity:()=>Identity,private changed:()=>void){}
  async refresh(){
   const sequence=++this.readSequence,identity=this.identity(),response=await this.request(prefix+'album',{credentials:'same-origin',redirect:'error',signal:AbortSignal.timeout(10000)})
   const value=await readJsonResponse<{profileId:string;epoch:string;saved:Saved<Album>|null}>(response)
-  if(value.profileId!==identity.profileId||value.epoch!==identity.epoch||this.identity().epoch!==identity.epoch)throw Error('HOST_CHANGED')
+  if(value.profileId!==identity.profileId||value.epoch!==identity.epoch||this.identity().epoch!==identity.epoch||this.identity().profileId!==identity.profileId)throw Error('HOST_CHANGED')
   if(sequence!==this.readSequence)return
   if(value.saved&&(!Number.isSafeInteger(value.saved.revision)||value.saved.revision<1||!uuid(value.saved.operationId)))throw Error('INVALID_ALBUM')
   this.state=value.saved?{...value.saved,world:validateAlbum(value.saved.world)}:null
+  this.readIdentity={profileId:identity.profileId,epoch:identity.epoch}
   if(this.pending){const found=this.state?.world.photos.find(p=>p.id===this.pending!.id)
    if(this.pending.kind==='add'&&found?.hash===this.pending.hash||this.pending.kind==='delete'&&(this.state?.revision??0)>this.pending.expectedRevision&&!found)this.pending=null
   }
