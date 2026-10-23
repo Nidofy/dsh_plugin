@@ -11,7 +11,7 @@ function Portrait({ id, fill }: { id: typeof characterIds[number]; fill: number 
   return <span className="entrance-portrait" title={characterNames[id]}>
     {failed ? <span aria-hidden="true">○</span> : <>
       <img src={`/api/nidofy-ai-village/assets/portraits/${id}.png`} alt="" onError={() => setFailed(true)} />
-      <img src={`/api/nidofy-ai-village/assets/portraits/${id}.png`} alt="" style={{ clipPath: `inset(${(1 - fill) * 100}% 0 0)` }} onError={() => setFailed(true)} />
+      <img src={`/api/nidofy-ai-village/assets/portraits/${id}.png`} alt="" style={{ clipPath: `inset(0 ${(1 - fill) * 100}% 0 0)` }} onError={() => setFailed(true)} />
     </>}
   </span>
 }
@@ -26,6 +26,25 @@ export function EntranceOverlay({ runtime: r, cn, close }: { runtime: VillageRun
     if (!canReveal && ['open','cross','reveal'].includes(e.phase)) r.skipEntrance()
   }, [canReveal, r, e])
   const progress = e.progress(canReveal && (simple || artReady))
+  const [portraitProgress, setPortraitProgress] = useState(0)
+  const shownProgress = useRef(0), resumeFill = useRef<(() => void) | null>(null)
+  useEffect(() => {
+    let frame = 0, previous = performance.now()
+    const publish = (value: number) => {
+      shownProgress.current = value; setPortraitProgress(value)
+      const resume = resumeFill.current; resumeFill.current = null; resume?.()
+    }
+    // Only the visual trail is eased; it can never overtake verified preparation.
+    // One shared value preserves left-to-right order even when loading jumps to 95%.
+    if (reduced || e.skipped || progress < shownProgress.current) publish(progress)
+    const advance = (now: number) => {
+      const elapsed = Math.min(64, Math.max(0, now - previous)); previous = now
+      publish(Math.min(progress, shownProgress.current + elapsed / 700))
+      if (shownProgress.current < progress) frame = requestAnimationFrame(advance)
+    }
+    if (shownProgress.current < progress) frame = requestAnimationFrame(advance)
+    return () => cancelAnimationFrame(frame)
+  }, [progress, reduced, e.skipped])
   const showArt = !!entranceArt && !simple
   useEffect(() => {
     const media = matchMedia('(prefers-reduced-motion: reduce)'), update = () => setSystemReduced(media.matches)
@@ -92,6 +111,9 @@ export function EntranceOverlay({ runtime: r, cn, close }: { runtime: VillageRun
         camera.style.transform = 'var(--cross-transform)'
       } else phase('wait')
       if (!await ready()) return
+      // Let every portrait finish before fading, without bypassing the real first-frame gate.
+      while (!cancelled && !reduced && !e.skipped && shownProgress.current < 1) await new Promise<void>(resolve => { resumeFill.current = resolve })
+      if (!await ready()) return
       phase('reveal')
       if (!await motion.animate(node, [{ opacity: 1 }, { opacity: 0 }], reduced ? timing.reduced : simple ? timing.simple : timing.reveal)) return
       // Readiness can disappear during the fade. Restore the curtain and wait for a valid frame.
@@ -99,7 +121,7 @@ export function EntranceOverlay({ runtime: r, cn, close }: { runtime: VillageRun
       if (!cancelled) r.finishEntrance()
     }
     void run()
-    return () => { cancelled = true; unsubscribe(); motion.cancel(); resume?.() }
+    return () => { cancelled = true; unsubscribe(); motion.cancel(); resume?.(); resumeFill.current?.(); resumeFill.current = null }
   }, [r, simple, artReady, reduced, e.skipped])
   const phaseText = canReveal ? (!simple && !artReady ? (cn ? '正在准备入口画面…' : 'Preparing the entrance…') : (cn ? '小院已就绪，欢迎回来。' : 'The courtyard is ready. Welcome back.')) : hint ? (cn ? '仍在准备小院…' : 'Still preparing the courtyard…') : !e.metadata ? (cn ? '正在准备小院…' : 'Preparing the courtyard…') : e.verified < 1 ? (cn ? '正在准备场景素材…' : 'Preparing scene resources…') : e.decoded < 1 ? (cn ? '正在布置场景…' : 'Preparing the scene…') : (cn ? '正在确认小院画面…' : 'Checking the courtyard frame…')
   const art = entranceArt, knockout = art ? entranceKnockout(art) : undefined
@@ -122,7 +144,7 @@ export function EntranceOverlay({ runtime: r, cn, close }: { runtime: VillageRun
     </>}
     <div className="entrance-actions"><button onClick={() => r.skipEntrance()}>{cn ? '跳过动画' : 'Skip animation'}</button><button onClick={close} aria-label={cn ? '关闭小院' : 'Close courtyard'}>×</button></div>
     <div className="entrance-status" role="progressbar" aria-label={cn ? '小院整体准备进度' : 'Overall courtyard preparation'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.floor(progress*100)} aria-valuetext={phaseText}>
-      <div className="entrance-portraits">{characterIds.map((id, index) => <Portrait key={id} id={id} fill={portraitFill(progress, index)} />)}</div>
+      <div className="entrance-portraits">{characterIds.map((id, index) => <Portrait key={id} id={id} fill={portraitFill(Math.min(progress, portraitProgress), index)} />)}</div>
       <p role="status">{phaseText}</p>
       {hint === 2 && !canReveal && <small>{cn ? '正在等待资源校验或画面确认，可以关闭后再回来。' : 'Waiting for verified resources or a rendered frame. You can close and return later.'}</small>}
     </div>

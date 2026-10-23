@@ -1,5 +1,7 @@
 # 桌面棋局预览交接
 
+后续加载反馈已修复为 **0.7.0-preview.3**：七人从左到右横向顺序填色，快加载平滑追赶真实进度；世界和棋局逻辑不变。最新包身份及专项证据见[loading-fill/RESULTS.md](../loading-fill/RESULTS.md)。下文保持preview.2的原生验收与功能交接历史。
+
 工作目录 `D:\Documents\FeiyangChen\devApps\dsh_plugin`，继续已有分支 `codex/feature-ai-village-entrance`。本轮基线 `f9a05621ed5cb4762a79e9d35766772a701a8bcc`，生产实现提交 **`de862de4dfb2c8621715ed8c3ff6682fcbfc6117`**。后续提交只保存验收脚本和证据；交付记录提交可用 `git log -1 --format=%H -- docs/ai-village/table-preview` 查得，接手先核对实际HEAD与工作树。
 
 ## 已实现

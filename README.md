@@ -4,7 +4,7 @@
 
 # DSH 独立插件仓库
 
-[AI 小院 0.7.0-preview.2](packages/ai-village/README.md)（[剩余工作核对与验收边界](docs/ai-village/REMAINING_WORK_AUDIT_2026-10-22.md)） 新增连续故事、三种小游戏、居民个性与自主社交，以及可选桌面棋局开发预览；现有玩法继续保留，手账扩展为20类。详见 [本轮验证与门禁](docs/ai-village/table-preview/IMPLEMENTATION.md)。原有版本支持七位居民、邻里互动、12 类手账、家具锚点编辑、布局草稿与撤销、配饰和两套环境、真实照片相册及浮卡／展开界面；与 Git/Hg 0.1.3 上下共存，与 Live2D 互斥。Notebook 0.2.0 新增覆盖状态、历史索引降级保留、返回卡与交接包。安装包位于 `dist/`；笔记与存档兼容见 [Notebook / Village 发行记录](docs/releases/notebook-village-2026-10-21.md)。
+[AI 小院 0.7.0-preview.3](packages/ai-village/README.md)（[剩余工作核对与验收边界](docs/ai-village/REMAINING_WORK_AUDIT_2026-10-22.md)） 修复加载角色从左到右依次填色；保留连续故事、三种小游戏、居民个性与自主社交，以及可选桌面棋局开发预览，手账扩展为20类。详见 [棋局验证与门禁](docs/ai-village/table-preview/IMPLEMENTATION.md)。原有版本支持七位居民、邻里互动、12 类手账、家具锚点编辑、布局草稿与撤销、配饰和两套环境、真实照片相册及浮卡／展开界面；与 Git/Hg 0.1.3 上下共存，与 Live2D 互斥。Notebook 0.2.0 新增覆盖状态、历史索引降级保留、返回卡与交接包。安装包位于 `dist/`；笔记与存档兼容见 [Notebook / Village 发行记录](docs/releases/notebook-village-2026-10-21.md)。
 
 新增 **DSH Windows Sandbox Enhanced** 独立预览包，单独以官方 **0.2.1-rc.2** 为验证基线。
 当前提供只读 ACL 诊断、恢复计划和可选拒绝执行 guard，**尚无隔离执行后端**。
