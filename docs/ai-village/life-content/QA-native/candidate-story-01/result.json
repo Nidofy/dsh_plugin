@@ -1,0 +1,5 @@
+{
+  "status": "INCOMPLETE",
+  "failure": "Runner interrupted after unbounded wait; no stage completion evidence. CDP diagnosis found welcome visible and app hidden/no iframe.",
+  "diagnostic": "../stall-target-diagnostic.json"
+}

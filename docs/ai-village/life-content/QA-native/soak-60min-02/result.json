@@ -1,0 +1,1512 @@
+{
+  "status": "FAIL",
+  "artifact": {
+    "version": "0.9.0-preview.2",
+    "file": "nidofy-dsh-ai-village-0.9.0-preview.2.tgz",
+    "sha256": "929d5be8cb72a2ad0c1e9a32b30fc90181c3ceab2d4a6755fd6e884ff19d5638"
+  },
+  "start": "2026-10-23T13:37:06.375Z",
+  "observations": [
+    {
+      "minute": 1,
+      "elapsedSeconds": 62.129,
+      "region": "bookhouse",
+      "ticks": 15647,
+      "frame": {
+        "visibility": "visible",
+        "frames": 69,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 2.2637681062670723,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 69,
+        "p50PaintMs": 1,
+        "p95PaintMs": 3
+      },
+      "errors": []
+    },
+    {
+      "minute": 2,
+      "elapsedSeconds": 122.162,
+      "region": "bookhouse",
+      "ticks": 15947,
+      "frame": {
+        "visibility": "visible",
+        "frames": 130,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.6384615366275495,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 130,
+        "p50PaintMs": 0.9000000953674316,
+        "p95PaintMs": 2.6000001430511475
+      },
+      "errors": []
+    },
+    {
+      "minute": 3,
+      "elapsedSeconds": 182.189,
+      "region": "bookhouse",
+      "ticks": 15947,
+      "frame": {
+        "visibility": "visible",
+        "frames": 190,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.38263158045317,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 190,
+        "p50PaintMs": 0.8999998569488525,
+        "p95PaintMs": 2
+      },
+      "errors": []
+    },
+    {
+      "minute": 4,
+      "elapsedSeconds": 242.221,
+      "region": "bookhouse",
+      "ticks": 16247,
+      "frame": {
+        "visibility": "visible",
+        "frames": 252,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.2555555530956812,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 252,
+        "p50PaintMs": 0.7999999523162842,
+        "p95PaintMs": 2
+      },
+      "errors": []
+    },
+    {
+      "minute": 5,
+      "elapsedSeconds": 302.253,
+      "region": "bookhouse",
+      "ticks": 16247,
+      "frame": {
+        "visibility": "visible",
+        "frames": 312,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.1830128171505072,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 312,
+        "p50PaintMs": 0.8000001907348633,
+        "p95PaintMs": 1.8999998569488525
+      },
+      "errors": []
+    },
+    {
+      "minute": 6,
+      "elapsedSeconds": 362.283,
+      "region": "bookhouse",
+      "ticks": 16547,
+      "frame": {
+        "visibility": "visible",
+        "frames": 373,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.140214475166382,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 373,
+        "p50PaintMs": 0.8000001907348633,
+        "p95PaintMs": 1.8999998569488525
+      },
+      "errors": []
+    },
+    {
+      "minute": 7,
+      "elapsedSeconds": 422.315,
+      "region": "bookhouse",
+      "ticks": 16847,
+      "frame": {
+        "visibility": "visible",
+        "frames": 531,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.0101694876640306,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 531,
+        "p50PaintMs": 0.7000000476837158,
+        "p95PaintMs": 1.5999999046325684
+      },
+      "errors": []
+    },
+    {
+      "minute": 8,
+      "elapsedSeconds": 482.656,
+      "region": "bookhouse",
+      "ticks": 17147,
+      "frame": {
+        "visibility": "visible",
+        "frames": 685,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 0.9675912359335127,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 600,
+        "p50PaintMs": 0.7000000476837158,
+        "p95PaintMs": 1.2000000476837158
+      },
+      "errors": []
+    },
+    {
+      "minute": 9,
+      "elapsedSeconds": 542.7,
+      "region": "bookhouse",
+      "ticks": 17447,
+      "frame": {
+        "visibility": "visible",
+        "frames": 746,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 0.9572386016155375,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 600,
+        "p50PaintMs": 0.7999999523162842,
+        "p95PaintMs": 1.2000000476837158
+      },
+      "errors": []
+    },
+    {
+      "minute": 10,
+      "elapsedSeconds": 602.725,
+      "region": "bookhouse",
+      "ticks": 17447,
+      "frame": {
+        "visibility": "visible",
+        "frames": 806,
+        "actors": 7,
+        "textures": 121,
+        "textureSources": 121,
+        "decodedRGBABytes": 57210584,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 0,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "bookhouse",
+        "urls": 121,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "bookcase",
+            "activity": "read",
+            "seat": "main",
+            "anchor": {
+              "x": 276,
+              "y": 268
+            },
+            "hit": {
+              "x": 254,
+              "y": 250,
+              "width": 44,
+              "height": 36
+            }
+          },
+          {
+            "id": "reading-desk",
+            "activity": "work",
+            "seat": "main",
+            "anchor": {
+              "x": 142,
+              "y": 328
+            },
+            "hit": {
+              "x": 116,
+              "y": 308,
+              "width": 52,
+              "height": 28
+            }
+          },
+          {
+            "id": "window-seat",
+            "activity": "sit",
+            "seat": "main",
+            "anchor": {
+              "x": 92,
+              "y": 270
+            },
+            "hit": {
+              "x": 62,
+              "y": 250,
+              "width": 60,
+              "height": 40
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 0.9368486312719492,
+        "maxPaintMs": 76.20000004768372,
+        "paintSampleCount": 600,
+        "p50PaintMs": 0.7000000476837158,
+        "p95PaintMs": 1.1999998092651367
+      },
+      "errors": []
+    },
+    {
+      "minute": 11,
+      "elapsedSeconds": 678.478,
+      "region": "courtyard",
+      "ticks": 17747,
+      "frame": {
+        "visibility": "visible",
+        "frames": 69,
+        "actors": 7,
+        "textures": 128,
+        "textureSources": 128,
+        "decodedRGBABytes": 67346784,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 1,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "courtyard",
+        "urls": 128,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "work",
+            "activity": "work",
+            "seat": "main",
+            "hit": {
+              "x": 46,
+              "y": 273,
+              "width": 112,
+              "height": 16
+            },
+            "anchor": {
+              "x": 102,
+              "y": 283
+            }
+          },
+          {
+            "id": "eat",
+            "activity": "eat",
+            "seat": "left",
+            "hit": {
+              "x": 123,
+              "y": 316,
+              "width": 100,
+              "height": 64
+            },
+            "anchor": {
+              "x": 175,
+              "y": 374
+            }
+          },
+          {
+            "id": "eat",
+            "activity": "eat",
+            "seat": "right",
+            "hit": {
+              "x": 225,
+              "y": 316,
+              "width": 102,
+              "height": 64
+            },
+            "anchor": {
+              "x": 273,
+              "y": 374
+            }
+          },
+          {
+            "id": "rest",
+            "seat": "main",
+            "activity": "rest",
+            "hit": {
+              "x": 233,
+              "y": 211,
+              "width": 90,
+              "height": 44
+            },
+            "anchor": {
+              "x": 274,
+              "y": 245
+            }
+          },
+          {
+            "id": "bench",
+            "seat": "left",
+            "activity": "sit",
+            "hit": {
+              "x": 35,
+              "y": 211,
+              "width": 70,
+              "height": 40
+            },
+            "anchor": {
+              "x": 70,
+              "y": 239
+            }
+          },
+          {
+            "id": "bench",
+            "seat": "right",
+            "activity": "sit",
+            "hit": {
+              "x": 135,
+              "y": 211,
+              "width": 70,
+              "height": 40
+            },
+            "anchor": {
+              "x": 170,
+              "y": 239
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 2.1318840496781943,
+        "maxPaintMs": 77,
+        "paintSampleCount": 69,
+        "p50PaintMs": 0.8999998569488525,
+        "p95PaintMs": 2.200000047683716
+      },
+      "errors": []
+    },
+    {
+      "minute": 12,
+      "elapsedSeconds": 738.503,
+      "region": "courtyard",
+      "ticks": 17747,
+      "frame": {
+        "visibility": "visible",
+        "frames": 128,
+        "actors": 7,
+        "textures": 128,
+        "textureSources": 128,
+        "decodedRGBABytes": 67346784,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 1,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "courtyard",
+        "urls": 128,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "work",
+            "activity": "work",
+            "seat": "main",
+            "hit": {
+              "x": 46,
+              "y": 273,
+              "width": 112,
+              "height": 16
+            },
+            "anchor": {
+              "x": 102,
+              "y": 283
+            }
+          },
+          {
+            "id": "eat",
+            "activity": "eat",
+            "seat": "left",
+            "hit": {
+              "x": 123,
+              "y": 316,
+              "width": 100,
+              "height": 64
+            },
+            "anchor": {
+              "x": 175,
+              "y": 374
+            }
+          },
+          {
+            "id": "eat",
+            "activity": "eat",
+            "seat": "right",
+            "hit": {
+              "x": 225,
+              "y": 316,
+              "width": 102,
+              "height": 64
+            },
+            "anchor": {
+              "x": 273,
+              "y": 374
+            }
+          },
+          {
+            "id": "rest",
+            "seat": "main",
+            "activity": "rest",
+            "hit": {
+              "x": 233,
+              "y": 211,
+              "width": 90,
+              "height": 44
+            },
+            "anchor": {
+              "x": 274,
+              "y": 245
+            }
+          },
+          {
+            "id": "bench",
+            "seat": "left",
+            "activity": "sit",
+            "hit": {
+              "x": 35,
+              "y": 211,
+              "width": 70,
+              "height": 40
+            },
+            "anchor": {
+              "x": 70,
+              "y": 239
+            }
+          },
+          {
+            "id": "bench",
+            "seat": "right",
+            "activity": "sit",
+            "hit": {
+              "x": 135,
+              "y": 211,
+              "width": 70,
+              "height": 40
+            },
+            "anchor": {
+              "x": 170,
+              "y": 239
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.5374999940395355,
+        "maxPaintMs": 77,
+        "paintSampleCount": 128,
+        "p50PaintMs": 0.7999999523162842,
+        "p95PaintMs": 2.200000047683716
+      },
+      "errors": []
+    },
+    {
+      "minute": 13,
+      "elapsedSeconds": 798.539,
+      "region": "courtyard",
+      "ticks": 18047,
+      "frame": {
+        "visibility": "visible",
+        "frames": 190,
+        "actors": 7,
+        "textures": 128,
+        "textureSources": 128,
+        "decodedRGBABytes": 67346784,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 1,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "courtyard",
+        "urls": 128,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "work",
+            "activity": "work",
+            "seat": "main",
+            "hit": {
+              "x": 46,
+              "y": 273,
+              "width": 112,
+              "height": 16
+            },
+            "anchor": {
+              "x": 102,
+              "y": 283
+            }
+          },
+          {
+            "id": "eat",
+            "activity": "eat",
+            "seat": "left",
+            "hit": {
+              "x": 123,
+              "y": 316,
+              "width": 100,
+              "height": 64
+            },
+            "anchor": {
+              "x": 175,
+              "y": 374
+            }
+          },
+          {
+            "id": "eat",
+            "activity": "eat",
+            "seat": "right",
+            "hit": {
+              "x": 225,
+              "y": 316,
+              "width": 102,
+              "height": 64
+            },
+            "anchor": {
+              "x": 273,
+              "y": 374
+            }
+          },
+          {
+            "id": "rest",
+            "seat": "main",
+            "activity": "rest",
+            "hit": {
+              "x": 233,
+              "y": 211,
+              "width": 90,
+              "height": 44
+            },
+            "anchor": {
+              "x": 274,
+              "y": 245
+            }
+          },
+          {
+            "id": "bench",
+            "seat": "left",
+            "activity": "sit",
+            "hit": {
+              "x": 35,
+              "y": 211,
+              "width": 70,
+              "height": 40
+            },
+            "anchor": {
+              "x": 70,
+              "y": 239
+            }
+          },
+          {
+            "id": "bench",
+            "seat": "right",
+            "activity": "sit",
+            "hit": {
+              "x": 135,
+              "y": 211,
+              "width": 70,
+              "height": 40
+            },
+            "anchor": {
+              "x": 170,
+              "y": 239
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.2621052541230855,
+        "maxPaintMs": 77,
+        "paintSampleCount": 190,
+        "p50PaintMs": 0.7999999523162842,
+        "p95PaintMs": 1.6000001430511475
+      },
+      "errors": []
+    },
+    {
+      "minute": 14,
+      "elapsedSeconds": 859.463,
+      "region": "courtyard",
+      "ticks": 18347,
+      "frame": {
+        "visibility": "visible",
+        "frames": 252,
+        "actors": 7,
+        "textures": 128,
+        "textureSources": 128,
+        "decodedRGBABytes": 67346784,
+        "tickerStarted": false,
+        "atmosphereTextureSources": 1,
+        "atmosphereCacheSize": [
+          256,
+          256
+        ],
+        "region": "courtyard",
+        "urls": 128,
+        "tableGame": null,
+        "playTarget": null,
+        "geometry": [
+          {
+            "id": "work",
+            "activity": "work",
+            "seat": "main",
+            "hit": {
+              "x": 46,
+              "y": 273,
+              "width": 112,
+              "height": 16
+            },
+            "anchor": {
+              "x": 102,
+              "y": 283
+            }
+          },
+          {
+            "id": "eat",
+            "activity": "eat",
+            "seat": "left",
+            "hit": {
+              "x": 123,
+              "y": 316,
+              "width": 100,
+              "height": 64
+            },
+            "anchor": {
+              "x": 175,
+              "y": 374
+            }
+          },
+          {
+            "id": "eat",
+            "activity": "eat",
+            "seat": "right",
+            "hit": {
+              "x": 225,
+              "y": 316,
+              "width": 102,
+              "height": 64
+            },
+            "anchor": {
+              "x": 273,
+              "y": 374
+            }
+          },
+          {
+            "id": "rest",
+            "seat": "main",
+            "activity": "rest",
+            "hit": {
+              "x": 233,
+              "y": 211,
+              "width": 90,
+              "height": 44
+            },
+            "anchor": {
+              "x": 274,
+              "y": 245
+            }
+          },
+          {
+            "id": "bench",
+            "seat": "left",
+            "activity": "sit",
+            "hit": {
+              "x": 35,
+              "y": 211,
+              "width": 70,
+              "height": 40
+            },
+            "anchor": {
+              "x": 70,
+              "y": 239
+            }
+          },
+          {
+            "id": "bench",
+            "seat": "right",
+            "activity": "sit",
+            "hit": {
+              "x": 135,
+              "y": 211,
+              "width": 70,
+              "height": 40
+            },
+            "anchor": {
+              "x": 170,
+              "y": 239
+            }
+          }
+        ],
+        "environment": "afternoon",
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 131.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 131.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        },
+        "arrangementObjects": [],
+        "gesture": null,
+        "paused": false,
+        "meanPaintMs": 1.220634915525951,
+        "maxPaintMs": 77,
+        "paintSampleCount": 252,
+        "p50PaintMs": 0.7000000476837158,
+        "p95PaintMs": 1.6999998092651367
+      },
+      "errors": []
+    }
+  ],
+  "failure": "Monitoring stopped after sample 14; raw CDP later found welcome visible and app hidden with no iframe. Unbounded QA evaluation prevented timely failure. Cause of welcome recurrence not established.",
+  "validObservationSeconds": 859.463,
+  "validMinuteSamples": 14,
+  "completed60Minutes": false,
+  "diagnostic": "../stall-target-diagnostic.json"
+}

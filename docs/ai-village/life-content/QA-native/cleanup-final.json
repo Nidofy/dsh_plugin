@@ -1,0 +1,31 @@
+{
+  "sampledAt": "2026-10-23T15:33:44.2368961Z",
+  "testProcessesRemaining": [],
+  "cdpListeners": [],
+  "userDailyRootsObserved": [
+    {
+      "ProcessId": 40100,
+      "ExecutablePath": "D:\\Software\\DSH_Official\\DeepSeek Harness.exe"
+    },
+    {
+      "ProcessId": 25060,
+      "ExecutablePath": "D:\\Software\\DSH_Official\\DeepSeek Harness.exe"
+    }
+  ],
+  "checkpointPreserved": true,
+  "profilesPreserved": [
+    {
+      "name": "baseline",
+      "exists": true
+    },
+    {
+      "name": "software",
+      "exists": true
+    },
+    {
+      "name": "candidate",
+      "exists": true
+    }
+  ],
+  "cachedCarrierProcessesRemaining": []
+}

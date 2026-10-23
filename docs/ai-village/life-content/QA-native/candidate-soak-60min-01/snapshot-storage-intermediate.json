@@ -1,0 +1,8 @@
+{
+  "sampledAt": "2026-10-23T14:45:15.0877064Z",
+  "count": 32,
+  "bytes": 143129.0,
+  "minBytes": 3804.0,
+  "maxBytes": 4667.0,
+  "scope": "Isolated candidate managed snapshot files only; no contents read"
+}

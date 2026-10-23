@@ -1,0 +1,214 @@
+{
+  "status": "PASS",
+  "artifact": {
+    "version": "0.10.0-preview.1",
+    "file": "nidofy-dsh-ai-village-0.10.0-preview.1.tgz",
+    "sha256": "2a44566285875f40dbda18371b9384e634c43a821f9e65ac5556fc401caa9d11"
+  },
+  "start": "2026-10-23T14:29:56.963Z",
+  "validMinuteSamples": 60,
+  "lastElapsedSeconds": 3676.349,
+  "observationIntervalSeconds": {
+    "min": 60.858000000000004,
+    "max": 65.17799999999988,
+    "first": 62.244,
+    "last": 60.98400000000038
+  },
+  "epochs": [
+    {
+      "kind": "iframe-epoch",
+      "minute": 10,
+      "epoch": 1,
+      "region": "courtyard",
+      "frames": 14,
+      "ticks": 21503
+    },
+    {
+      "kind": "iframe-epoch",
+      "minute": 20,
+      "epoch": 2,
+      "region": "bookhouse",
+      "frames": 13,
+      "ticks": 39791
+    },
+    {
+      "kind": "iframe-epoch",
+      "minute": 30,
+      "epoch": 3,
+      "region": "courtyard",
+      "frames": 13,
+      "ticks": 58078
+    },
+    {
+      "kind": "iframe-epoch",
+      "minute": 40,
+      "epoch": 4,
+      "region": "bookhouse",
+      "frames": 14,
+      "ticks": 76362
+    },
+    {
+      "kind": "iframe-epoch",
+      "minute": 50,
+      "epoch": 5,
+      "region": "courtyard",
+      "frames": 13,
+      "ticks": 94649
+    }
+  ],
+  "frameDelta": {
+    "min": 1538,
+    "max": 1607,
+    "first": 1596,
+    "last": 1563
+  },
+  "tickDelta": {
+    "min": 1513,
+    "max": 2101,
+    "first": 1799,
+    "last": 1800
+  },
+  "windowVisibleSamples": 60,
+  "foregroundSamples": 5,
+  "regions": {
+    "bookhouse": 30,
+    "courtyard": 30
+  },
+  "resources": {
+    "actors": {
+      "min": 7,
+      "max": 7,
+      "first": 7,
+      "last": 7
+    },
+    "textures": {
+      "min": 121,
+      "max": 128,
+      "first": 121,
+      "last": 128
+    },
+    "paintSamples": {
+      "min": 600,
+      "max": 600,
+      "first": 600,
+      "last": 600
+    },
+    "privateBytes": {
+      "min": 1026236416,
+      "max": 1156141056,
+      "first": 1086668800,
+      "last": 1141051392
+    },
+    "workingSetBytes": {
+      "min": 1383694336,
+      "max": 1561669632,
+      "first": 1517133824,
+      "last": 1501061120
+    }
+  },
+  "processes": {
+    "count": {
+      "min": 6,
+      "max": 6,
+      "first": 6,
+      "last": 6
+    },
+    "membershipChanges": [],
+    "roles": {
+      "browser": {
+        "pids": [
+          2788
+        ],
+        "privateBytes": {
+          "min": 157466624,
+          "max": 169725952,
+          "first": 157900800,
+          "last": 164065280
+        },
+        "workingSetBytes": {
+          "min": 203309056,
+          "max": 214736896,
+          "first": 203862016,
+          "last": 212156416
+        }
+      },
+      "gpu-process": {
+        "pids": [
+          40396
+        ],
+        "privateBytes": {
+          "min": 417574912,
+          "max": 484184064,
+          "first": 470052864,
+          "last": 459497472
+        },
+        "workingSetBytes": {
+          "min": 480292864,
+          "max": 556957696,
+          "first": 534372352,
+          "last": 523804672
+        }
+      },
+      "utility": {
+        "pids": [
+          39132
+        ],
+        "privateBytes": {
+          "min": 12394496,
+          "max": 12615680,
+          "first": 12595200,
+          "last": 12574720
+        },
+        "workingSetBytes": {
+          "min": 56774656,
+          "max": 57270272,
+          "first": 56807424,
+          "last": 57249792
+        }
+      },
+      "renderer": {
+        "pids": [
+          42800,
+          18516
+        ],
+        "privateBytes": {
+          "min": 218681344,
+          "max": 298799104,
+          "first": 239824896,
+          "last": 298799104
+        },
+        "workingSetBytes": {
+          "min": 393920512,
+          "max": 528228352,
+          "first": 486313984,
+          "last": 470679552
+        }
+      },
+      "host": {
+        "pids": [
+          28520
+        ],
+        "privateBytes": {
+          "min": 203317248,
+          "max": 212414464,
+          "first": 206295040,
+          "last": 206114816
+        },
+        "workingSetBytes": {
+          "min": 234299392,
+          "max": 241782784,
+          "first": 235778048,
+          "last": 237170688
+        }
+      }
+    }
+  },
+  "finalUserPaused": true,
+  "limitations": [
+    "Correctness/resource observations; concurrent documentation and Git work allowed; not an exclusive performance measurement.",
+    "Foreground status is recorded without forcing user focus.",
+    "Working-set totals can count shared pages repeatedly; not a physical-memory allocation measurement.",
+    "One hour cannot prove absence of a memory leak; changing renderer membership and region changes affect totals.",
+    "All 60 sampled process snapshots contain the same six PIDs; no membership changes observed in this run. Iframe recreation does not imply renderer process recreation."
+  ]
+}

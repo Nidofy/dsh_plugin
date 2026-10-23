@@ -1,0 +1,65 @@
+{
+  "sampledAt": "2026-10-23T14:25:30.3629673Z",
+  "rootPid": 26908,
+  "dpi": 168,
+  "mainWindowHandle": 9442860,
+  "windowVisible": true,
+  "foreground": true,
+  "processes": [
+    {
+      "id": 26908,
+      "parentId": 36308,
+      "name": "DeepSeek Harness",
+      "role": "browser",
+      "cpuSeconds": 2.296875,
+      "workingSetBytes": 209096704,
+      "privateBytes": 164958208
+    },
+    {
+      "id": 9356,
+      "parentId": 26908,
+      "name": "DeepSeek Harness",
+      "role": "gpu-process",
+      "cpuSeconds": 3.59375,
+      "workingSetBytes": 466890752,
+      "privateBytes": 395296768
+    },
+    {
+      "id": 43636,
+      "parentId": 26908,
+      "name": "DeepSeek Harness",
+      "role": "utility",
+      "cpuSeconds": 0.15625,
+      "workingSetBytes": 56987648,
+      "privateBytes": 12857344
+    },
+    {
+      "id": 17472,
+      "parentId": 26908,
+      "name": "DeepSeek Harness",
+      "role": "renderer",
+      "cpuSeconds": 4.328125,
+      "workingSetBytes": 300261376,
+      "privateBytes": 234868736
+    },
+    {
+      "id": 44824,
+      "parentId": 26908,
+      "name": "DeepSeek Harness",
+      "role": "host",
+      "cpuSeconds": 3.96875,
+      "workingSetBytes": 232660992,
+      "privateBytes": 203235328
+    },
+    {
+      "id": 2924,
+      "parentId": 26908,
+      "name": "DeepSeek Harness",
+      "role": "renderer",
+      "cpuSeconds": 2.140625,
+      "workingSetBytes": 328769536,
+      "privateBytes": 100052992
+    }
+  ],
+  "scope": "Identity-verified complete descendant snapshot, including Electron-run Host; cumulative CPU seconds; process creation/exit requires interval reconciliation."
+}

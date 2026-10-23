@@ -1,0 +1,751 @@
+{
+  "name": "bookhouse",
+  "seconds": 22.241936799999994,
+  "profiling": true,
+  "fullCpuRequested": true,
+  "fps": 25.357503938236178,
+  "before": {
+    "visibility": "visible",
+    "frames": 103,
+    "actors": 7,
+    "textures": 121,
+    "textureSources": 121,
+    "decodedRGBABytes": 57210584,
+    "tickerStarted": false,
+    "atmosphereTextureSources": 0,
+    "atmosphereCacheSize": [
+      256,
+      256
+    ],
+    "region": "bookhouse",
+    "urls": 121,
+    "tableGame": null,
+    "playTarget": null,
+    "geometry": [
+      {
+        "id": "bookcase",
+        "activity": "read",
+        "seat": "main",
+        "anchor": {
+          "x": 276,
+          "y": 268
+        },
+        "hit": {
+          "x": 254,
+          "y": 250,
+          "width": 44,
+          "height": 36
+        }
+      },
+      {
+        "id": "reading-desk",
+        "activity": "work",
+        "seat": "main",
+        "anchor": {
+          "x": 142,
+          "y": 328
+        },
+        "hit": {
+          "x": 116,
+          "y": 308,
+          "width": 52,
+          "height": 28
+        }
+      },
+      {
+        "id": "window-seat",
+        "activity": "sit",
+        "seat": "main",
+        "anchor": {
+          "x": 92,
+          "y": 270
+        },
+        "hit": {
+          "x": 62,
+          "y": 250,
+          "width": 60,
+          "height": 40
+        }
+      }
+    ],
+    "environment": "afternoon",
+    "viewport": {
+      "world": {
+        "scale": 0.9444444444444444,
+        "x": 0,
+        "y": 131.83333333333334
+      },
+      "background": {
+        "x": 0,
+        "y": 131.83333333333334,
+        "width": 340,
+        "height": 453.3333333333333
+      }
+    },
+    "arrangementObjects": [],
+    "gesture": null,
+    "paused": false,
+    "meanPaintMs": 1.4951456333827047,
+    "maxPaintMs": 64.5,
+    "paintSampleCount": 103,
+    "p50PaintMs": 0.7000000476837158,
+    "p95PaintMs": 1.2000000476837158
+  },
+  "after": {
+    "visibility": "visible",
+    "frames": 667,
+    "actors": 7,
+    "textures": 121,
+    "textureSources": 121,
+    "decodedRGBABytes": 57210584,
+    "tickerStarted": false,
+    "atmosphereTextureSources": 0,
+    "atmosphereCacheSize": [
+      256,
+      256
+    ],
+    "region": "bookhouse",
+    "urls": 121,
+    "tableGame": null,
+    "playTarget": null,
+    "geometry": [
+      {
+        "id": "bookcase",
+        "activity": "read",
+        "seat": "main",
+        "anchor": {
+          "x": 276,
+          "y": 268
+        },
+        "hit": {
+          "x": 254,
+          "y": 250,
+          "width": 44,
+          "height": 36
+        }
+      },
+      {
+        "id": "reading-desk",
+        "activity": "work",
+        "seat": "main",
+        "anchor": {
+          "x": 142,
+          "y": 328
+        },
+        "hit": {
+          "x": 116,
+          "y": 308,
+          "width": 52,
+          "height": 28
+        }
+      },
+      {
+        "id": "window-seat",
+        "activity": "sit",
+        "seat": "main",
+        "anchor": {
+          "x": 92,
+          "y": 270
+        },
+        "hit": {
+          "x": 62,
+          "y": 250,
+          "width": 60,
+          "height": 40
+        }
+      }
+    ],
+    "environment": "afternoon",
+    "viewport": {
+      "world": {
+        "scale": 0.9444444444444444,
+        "x": 0,
+        "y": 131.83333333333334
+      },
+      "background": {
+        "x": 0,
+        "y": 131.83333333333334,
+        "width": 340,
+        "height": 453.3333333333333
+      }
+    },
+    "arrangementObjects": [],
+    "gesture": null,
+    "paused": false,
+    "meanPaintMs": 0.8398800564670134,
+    "maxPaintMs": 64.5,
+    "paintSampleCount": 600,
+    "p50PaintMs": 0.7000000476837158,
+    "p95PaintMs": 0.9000000953674316
+  },
+  "ticks": 732,
+  "worldUnchanged": false,
+  "cdpCpuPercentOfOneCore": 830.0506725655296,
+  "cdpDeltas": [
+    {
+      "type": "browser",
+      "id": 3492,
+      "cpuSeconds": 0.19740799999999936
+    },
+    {
+      "type": "renderer",
+      "id": 1624,
+      "cpuSeconds": 2.1719410000000003
+    },
+    {
+      "type": "renderer",
+      "id": 10724,
+      "cpuSeconds": 1.2720610000000008
+    },
+    {
+      "type": "GPU",
+      "id": 17872,
+      "cpuSeconds": 180.975634
+    },
+    {
+      "type": "network.mojom.NetworkService",
+      "id": 39348,
+      "cpuSeconds": 0.0023019999999999985
+    }
+  ],
+  "parentTaskPercent": 2.130475435934159,
+  "fullTree": {
+    "seconds": 22.155,
+    "cpuPercentOfOneCore": 819.0871135183932,
+    "validUnchangedMembership": true,
+    "added": [],
+    "removed": [],
+    "deltas": [
+      {
+        "id": 3492,
+        "role": "browser",
+        "cpuSeconds": 0.171875,
+        "privateBytes": 156504064,
+        "privateDelta": -2265088
+      },
+      {
+        "id": 17872,
+        "role": "gpu-process",
+        "cpuSeconds": 177.65625,
+        "privateBytes": 392437760,
+        "privateDelta": 839680
+      },
+      {
+        "id": 39348,
+        "role": "utility",
+        "cpuSeconds": 0,
+        "privateBytes": 12660736,
+        "privateDelta": 0
+      },
+      {
+        "id": 10724,
+        "role": "renderer",
+        "cpuSeconds": 1.1875,
+        "privateBytes": 162172928,
+        "privateDelta": -8589312
+      },
+      {
+        "id": 9276,
+        "role": "host",
+        "cpuSeconds": 0.234375,
+        "privateBytes": 205443072,
+        "privateDelta": 331776
+      },
+      {
+        "id": 1624,
+        "role": "renderer",
+        "cpuSeconds": 2.21875,
+        "privateBytes": 80556032,
+        "privateDelta": -23347200
+      }
+    ],
+    "before": {
+      "sampledAt": "2026-10-23T14:23:10.7986324Z",
+      "rootPid": 3492,
+      "dpi": 168,
+      "mainWindowHandle": 19467972,
+      "windowVisible": true,
+      "foreground": true,
+      "processes": [
+        {
+          "id": 3492,
+          "parentId": 14892,
+          "name": "DeepSeek Harness",
+          "role": "browser",
+          "cpuSeconds": 4.609375,
+          "workingSetBytes": 202432512,
+          "privateBytes": 158769152
+        },
+        {
+          "id": 17872,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "gpu-process",
+          "cpuSeconds": 647.390625,
+          "workingSetBytes": 372772864,
+          "privateBytes": 391598080
+        },
+        {
+          "id": 39348,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "utility",
+          "cpuSeconds": 0.09375,
+          "workingSetBytes": 56877056,
+          "privateBytes": 12660736
+        },
+        {
+          "id": 10724,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 8.953125,
+          "workingSetBytes": 239611904,
+          "privateBytes": 170762240
+        },
+        {
+          "id": 9276,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "host",
+          "cpuSeconds": 4.953125,
+          "workingSetBytes": 231649280,
+          "privateBytes": 205111296
+        },
+        {
+          "id": 1624,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 1.5625,
+          "workingSetBytes": 285609984,
+          "privateBytes": 103903232
+        }
+      ],
+      "scope": "Identity-verified complete descendant snapshot, including Electron-run Host; cumulative CPU seconds; process creation/exit requires interval reconciliation."
+    },
+    "after": {
+      "sampledAt": "2026-10-23T14:23:32.9535471Z",
+      "rootPid": 3492,
+      "dpi": 168,
+      "mainWindowHandle": 19467972,
+      "windowVisible": true,
+      "foreground": true,
+      "processes": [
+        {
+          "id": 3492,
+          "parentId": 14892,
+          "name": "DeepSeek Harness",
+          "role": "browser",
+          "cpuSeconds": 4.78125,
+          "workingSetBytes": 200372224,
+          "privateBytes": 156504064
+        },
+        {
+          "id": 17872,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "gpu-process",
+          "cpuSeconds": 825.046875,
+          "workingSetBytes": 373960704,
+          "privateBytes": 392437760
+        },
+        {
+          "id": 39348,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "utility",
+          "cpuSeconds": 0.09375,
+          "workingSetBytes": 56885248,
+          "privateBytes": 12660736
+        },
+        {
+          "id": 10724,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 10.140625,
+          "workingSetBytes": 231690240,
+          "privateBytes": 162172928
+        },
+        {
+          "id": 9276,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "host",
+          "cpuSeconds": 5.1875,
+          "workingSetBytes": 232022016,
+          "privateBytes": 205443072
+        },
+        {
+          "id": 1624,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 3.78125,
+          "workingSetBytes": 265945088,
+          "privateBytes": 80556032
+        }
+      ],
+      "scope": "Identity-verified complete descendant snapshot, including Electron-run Host; cumulative CPU seconds; process creation/exit requires interval reconciliation."
+    }
+  },
+  "profiles": [
+    {
+      "name": "parent",
+      "durationSeconds": 23.803904,
+      "samples": 12535,
+      "top": [
+        {
+          "selfMs": 23580.127,
+          "percentOfProfile": 99.05991470978877,
+          "functionName": "(idle)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 193.898,
+          "percentOfProfile": 0.8145638631377442,
+          "functionName": "(program)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 4.342,
+          "percentOfProfile": 0.018240705390174652,
+          "functionName": "(garbage collector)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 3.522,
+          "percentOfProfile": 0.014795892304052309,
+          "functionName": "readJsonResponse",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 11956,
+          "columnNumber": 33
+        },
+        {
+          "selfMs": 3.45,
+          "percentOfProfile": 0.014493420911124493,
+          "functionName": "innerSerialize",
+          "scriptId": "18",
+          "url": "",
+          "lineNumber": 179,
+          "columnNumber": 23
+        },
+        {
+          "selfMs": 1.783,
+          "percentOfProfile": 0.007490367966531876,
+          "functionName": "tick",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 23721,
+          "columnNumber": 10
+        },
+        {
+          "selfMs": 1.651,
+          "percentOfProfile": 0.006935837079497548,
+          "functionName": "any",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 1.598,
+          "percentOfProfile": 0.0067131845263701286,
+          "functionName": "postMessage",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 1.591,
+          "percentOfProfile": 0.006683777585391034,
+          "functionName": "send",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 25280,
+          "columnNumber": 16
+        },
+        {
+          "selfMs": 1.573,
+          "percentOfProfile": 0.006608159737159081,
+          "functionName": "H5",
+          "scriptId": "9",
+          "url": "dsh-app://app/assets/index-CN7NIWNw.js",
+          "lineNumber": 55,
+          "columnNumber": 12589
+        },
+        {
+          "selfMs": 1.558,
+          "percentOfProfile": 0.006545144863632452,
+          "functionName": "clearSegment",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 19469,
+          "columnNumber": 23
+        },
+        {
+          "selfMs": 1.552,
+          "percentOfProfile": 0.006519938914221801,
+          "functionName": "requestAnimationFrame",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 1.5,
+          "percentOfProfile": 0.006301487352662823,
+          "functionName": "fetch",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 1.445,
+          "percentOfProfile": 0.006070432816398521,
+          "functionName": "",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 10453,
+          "columnNumber": 32
+        },
+        {
+          "selfMs": 1.419,
+          "percentOfProfile": 0.005961207035619032,
+          "functionName": "Ru",
+          "scriptId": "9",
+          "url": "dsh-app://app/assets/index-CN7NIWNw.js",
+          "lineNumber": 52,
+          "columnNumber": 26696
+        },
+        {
+          "selfMs": 1.26,
+          "percentOfProfile": 0.005293249376236772,
+          "functionName": "submit",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 22247,
+          "columnNumber": 15
+        },
+        {
+          "selfMs": 1.216,
+          "percentOfProfile": 0.005108405747225329,
+          "functionName": "encounterWindow",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 21739,
+          "columnNumber": 26
+        },
+        {
+          "selfMs": 0.15,
+          "percentOfProfile": 0.0006301487352662824,
+          "functionName": "step",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 10602,
+          "columnNumber": 15
+        }
+      ]
+    },
+    {
+      "name": "scene",
+      "durationSeconds": 23.766177,
+      "samples": 13120,
+      "top": [
+        {
+          "selfMs": 22719.622,
+          "percentOfProfile": 95.59645205032345,
+          "functionName": "(idle)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 334.49,
+          "percentOfProfile": 1.4074203015487092,
+          "functionName": "(program)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 30.224,
+          "percentOfProfile": 0.12717232561215042,
+          "functionName": "",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 966,
+          "columnNumber": 65369
+        },
+        {
+          "selfMs": 26.349,
+          "percentOfProfile": 0.11086764185926916,
+          "functionName": "_tick",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 3,
+          "columnNumber": 57323
+        },
+        {
+          "selfMs": 24.715,
+          "percentOfProfile": 0.10399232489095743,
+          "functionName": "(garbage collector)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 23.029,
+          "percentOfProfile": 0.09689820958583284,
+          "functionName": "HO",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 966,
+          "columnNumber": 53949
+        },
+        {
+          "selfMs": 22.25,
+          "percentOfProfile": 0.09362044219396329,
+          "functionName": "getGlSource",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 939,
+          "columnNumber": 23385
+        },
+        {
+          "selfMs": 21.845,
+          "percentOfProfile": 0.091916339763017,
+          "functionName": "_update",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 570,
+          "columnNumber": 21459
+        },
+        {
+          "selfMs": 17.638,
+          "percentOfProfile": 0.07421471278279211,
+          "functionName": "Ut",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 0,
+          "columnNumber": 68509
+        },
+        {
+          "selfMs": 17.162,
+          "percentOfProfile": 0.0722118664688898,
+          "functionName": "Jt",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 0,
+          "columnNumber": 70364
+        },
+        {
+          "selfMs": 14.215,
+          "percentOfProfile": 0.0598118914960534,
+          "functionName": "bufferSubData",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 11.169,
+          "percentOfProfile": 0.04699535815120791,
+          "functionName": "encode",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 10.722,
+          "percentOfProfile": 0.045114533986682,
+          "functionName": "ke",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 0,
+          "columnNumber": 24631
+        },
+        {
+          "selfMs": 9.639,
+          "percentOfProfile": 0.040557637856521896,
+          "functionName": "Kt",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 0,
+          "columnNumber": 68952
+        },
+        {
+          "selfMs": 9.461,
+          "percentOfProfile": 0.03980867431897019,
+          "functionName": "He",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 0,
+          "columnNumber": 29548
+        },
+        {
+          "selfMs": 9.419,
+          "percentOfProfile": 0.039631952585390574,
+          "functionName": "break",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 389,
+          "columnNumber": 2203
+        },
+        {
+          "selfMs": 9.413,
+          "percentOfProfile": 0.03960670662345063,
+          "functionName": "dD",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 966,
+          "columnNumber": 36696
+        },
+        {
+          "selfMs": 9.278,
+          "percentOfProfile": 0.03903867247980186,
+          "functionName": "bindTexture",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 8.671,
+          "percentOfProfile": 0.036484622663544075,
+          "functionName": "s",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 0,
+          "columnNumber": 8741
+        },
+        {
+          "selfMs": 8.599,
+          "percentOfProfile": 0.03618167112026474,
+          "functionName": "requestAnimationFrame",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        }
+      ]
+    }
+  ]
+}

@@ -22,6 +22,8 @@ Host 从 `ProfileContext.dir` 获取可信存档根，通过官方已认证 `con
 
 0.8.0-preview.1使用world9/scene3/rules4/content6/frame6，冻结旧8codec及内容目录。两类偶遇按独立hash和模拟ticks生成窗口，只持久记录已消费窗口；接受/略过沿用单CAS，取消不发奖。两种纪念物、收藏分类与可选目标复用原手账/摆放/相册，详见[本轮记录](ai-village/v08-v09/IMPLEMENTATION.md)。
 
+0.10.0-preview.1 使用world11/content8/frame8；region1/scene3/rules4/preferences3不变。十二位可选居民仍最多七位同时在场。历史1–10解码入口默认legacy目录，当前引擎投影显式current；旧home配饰七键先验证再扩五个none。仅旧七人组成的自主社交仍使用原七人轮换，保持原调度语义。书屋剧情独立有界bookhouse1状态，三段真实路径/停留与动作令牌，每次阶段推进和完成事实/书签同一CAS；不放开庭院play进入书屋。首次回忆不可被重玩覆盖，纪念物位置与同一回忆跨区可见。详见[本轮记录](ai-village/life-content/RESULTS.md)。
+
 ## Live2D 浮动伙伴
 
 `live2d` 使用 `shell.overlay` 与会话工具栏入口，独立拥有资产路由、展示参数、渲染生命周期；不注册 `sidebar.right.pane.tab`、`rightbar`、`shell.accessory` 或 `nidofy.companion`，不依赖 desktop-extras。它与小院通过展示专用 `nidofy:floating-panel-open` 事件互斥，与 Git 共享按内容高度分配的右侧位置，事件不携带业务数据。几何适配只触碰自身的对话留白标记，退出时撤销。

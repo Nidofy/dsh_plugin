@@ -1,0 +1,561 @@
+{
+  "status": "PAUSED",
+  "mode": "pause",
+  "artifact": {
+    "version": "0.9.0-preview.2",
+    "file": "nidofy-dsh-ai-village-0.9.0-preview.2.tgz",
+    "sha256": "929d5be8cb72a2ad0c1e9a32b30fc90181c3ceab2d4a6755fd6e884ff19d5638"
+  },
+  "scriptSha": "ce8d98b1ed967bb35fe8f749556477d32e6fd1c1a1b2faeb01959493cad0f075",
+  "profile": ".build/ai-village-life-qa-desktop-baseline",
+  "cdpPort": 18769,
+  "environment": {
+    "gpu": {
+      "devices": [
+        {
+          "vendorId": 32902,
+          "deviceId": 32081,
+          "subSysId": 944707498,
+          "revision": 3,
+          "vendorString": "",
+          "deviceString": "Intel(R) Arc(TM) 140T GPU (16GB)",
+          "driverVendor": "Intel",
+          "driverVersion": "32.0.101.8243"
+        },
+        {
+          "vendorId": 32902,
+          "deviceId": 32081,
+          "subSysId": 944707498,
+          "revision": 3,
+          "vendorString": "",
+          "deviceString": "Intel(R) Arc(TM) 140T GPU (16GB)",
+          "driverVendor": "",
+          "driverVersion": "32.0.101.8243"
+        },
+        {
+          "vendorId": 5140,
+          "deviceId": 140,
+          "subSysId": 0,
+          "revision": 0,
+          "vendorString": "",
+          "deviceString": "Microsoft Basic Render Driver",
+          "driverVendor": "",
+          "driverVersion": "10.0.26100.8972"
+        }
+      ],
+      "auxAttributes": {
+        "amdSwitchable": false,
+        "bgra8OverlaySupport": "SCALING",
+        "canSupportThreadedTextureMailbox": false,
+        "directComposition": true,
+        "directMLFeatureLevel": "5.0",
+        "directRenderingVersion": "",
+        "displayType": "ANGLE_D3D11",
+        "dx12FeatureLevel": "D3D 12.2",
+        "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_copy_texture_3d GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_multiview_multisample GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_texture_usage GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_compressed_texture GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_EGL_image_external_wrap_modes GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_clip_cull_distance GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_border_clamp GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_storage GL_EXT_texture_type_2_10_10_10_REV GL_EXT_unpack_subimage GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_NV_EGL_stream_consumer_external GL_NV_fence GL_NV_framebuffer_blit GL_NV_pack_subimage GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_image_external GL_OES_EGL_image_external_essl3 GL_OES_depth24 GL_OES_depth32 GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_border_clamp GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_texture_storage_multisample_2d_array GL_OES_vertex_array_object GL_OVR_multiview GL_OVR_multiview2 ",
+        "glImplementationParts": "(gl=egl-angle,angle=d3d11)",
+        "glRenderer": "ANGLE (Intel, Intel(R) Arc(TM) 140T GPU (16GB) (0x00007D51) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.101.8243)",
+        "glResetNotificationStrategy": 33362,
+        "glVendor": "Google Inc. (Intel)",
+        "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28499 git hash: 30dd6b5278dd)",
+        "glWsExtensions": "EGL_EXT_create_context_robustness EGL_ANGLE_d3d_share_handle_client_buffer EGL_ANGLE_d3d_texture_client_buffer EGL_ANGLE_surface_d3d_texture_2d_share_handle EGL_ANGLE_query_surface_pointer EGL_ANGLE_window_fixed_size EGL_ANGLE_keyed_mutex EGL_ANGLE_surface_orientation EGL_ANGLE_direct_composition EGL_NV_post_sub_buffer EGL_KHR_create_context EGL_KHR_image EGL_KHR_image_base EGL_KHR_gl_texture_2D_image EGL_KHR_gl_texture_cubemap_image EGL_KHR_gl_renderbuffer_image EGL_KHR_get_all_proc_addresses EGL_KHR_stream EGL_KHR_stream_consumer_gltexture EGL_NV_stream_consumer_gltexture_yuv EGL_ANGLE_stream_producer_d3d_texture EGL_ANGLE_create_context_webgl_compatibility EGL_CHROMIUM_create_context_bind_generates_resource EGL_CHROMIUM_sync_control EGL_EXT_pixel_format_float EGL_KHR_surfaceless_context EGL_ANGLE_display_texture_share_group EGL_ANGLE_display_semaphore_share_group EGL_ANGLE_create_context_client_arrays EGL_ANGLE_program_cache_control EGL_ANGLE_robust_resource_initialization EGL_ANGLE_create_context_extensions_enabled EGL_ANDROID_blob_cache EGL_ANDROID_recordable EGL_ANGLE_image_d3d11_texture EGL_ANGLE_create_context_backwards_compatible EGL_KHR_no_config_context EGL_KHR_create_context_no_error EGL_KHR_reusable_sync EGL_ANGLE_memory_usage_report ",
+        "glWsVendor": "Google Inc. (Intel)",
+        "glWsVersion": "1.5 (ANGLE 2.1.28499 git hash: 30dd6b5278dd)",
+        "inProcessGpu": false,
+        "initializationTime": 0.411813,
+        "isAsan": false,
+        "isClangCoverage": false,
+        "jpegDecodeAcceleratorSupported": false,
+        "maxMsaaSamples": "8",
+        "nv12OverlaySupport": "SCALING",
+        "optimus": false,
+        "p010OverlaySupport": "SOFTWARE",
+        "passthroughCmdDecoder": true,
+        "pixelShaderVersion": "5.0",
+        "processCrashCount": 0,
+        "rgb10a2OverlaySupport": "SOFTWARE",
+        "sandboxed": true,
+        "skiaBackendType": "GaneshGL",
+        "subpixelFontRendering": true,
+        "supportsD3dSharedImages": true,
+        "supportsDirectML": true,
+        "supportsDx12": true,
+        "supportsOverlays": true,
+        "supportsVulkan": false,
+        "targetCpuBits": 64,
+        "vertexShaderVersion": "5.0",
+        "visibilityCallbackCallCount": 0,
+        "vulkanVersion": "Not supported",
+        "yuy2OverlaySupport": "SCALING"
+      },
+      "featureStatus": {
+        "2d_canvas": "enabled",
+        "direct_rendering_display_compositor": "disabled_off_ok",
+        "gpu_compositing": "enabled",
+        "multiple_raster_threads": "enabled_on",
+        "opengl": "enabled_on",
+        "rasterization": "enabled",
+        "raw_draw": "disabled_off_ok",
+        "skia_graphite": "disabled_off",
+        "trees_in_viz": "disabled_off",
+        "video_decode": "enabled",
+        "video_encode": "enabled",
+        "webgl": "enabled",
+        "webgpu": "enabled",
+        "webnn": "disabled_off"
+      },
+      "driverBugWorkarounds": [
+        "disable_d3d12_h264_encoder_non_reference_frames",
+        "disable_direct_composition_sw_video_overlays",
+        "disable_sharing_nv12_from_d3d11_to_d3d12",
+        "disable_vp_auto_hdr",
+        "enable_webgl_timer_query_extensions",
+        "exit_on_context_lost",
+        "force_dcomp_triple_buffer_video_swap_chain",
+        "max_msaa_sample_count_4",
+        "msaa_is_slow",
+        "no_downscaled_overlay_promotion",
+        "supports_two_yuv_hardware_overlays",
+        "disabled_extension_GL_KHR_blend_equation_advanced",
+        "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+      ],
+      "videoDecoding": [],
+      "videoEncoding": []
+    },
+    "window": {
+      "dpr": 1.75,
+      "inner": [
+        1279,
+        821
+      ],
+      "outer": [
+        1293,
+        828
+      ],
+      "screen": [
+        1756,
+        1098
+      ],
+      "visibility": "visible"
+    },
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/152.0.7977.130",
+      "revision": "@58da080b2b7c38a02e066a911d0b9cd0e9daa70d",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) @deepseek-ai/dsh-desktop/0.2.1-rc.2 Chrome/152.0.7977.130 Electron/44.7.0 Safari/537.36",
+      "jsVersion": "15.2.124.28"
+    }
+  },
+  "checks": [
+    "Installed three bundles match exact pinned package bytes",
+    "User-requested safe pause committed and checkpoint preserved; no new acceptance scenario"
+  ],
+  "errors": [],
+  "observations": [],
+  "requests": [],
+  "world": {
+    "schemaVersion": 10,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 15647,
+    "rng": 773212059,
+    "userPaused": true,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "left",
+      "position": {
+        "x": 38.941537119448185,
+        "y": 252.1301793307066
+      },
+      "safe": {
+        "x": 38.941537119448185,
+        "y": 252.1301793307066
+      },
+      "behavior": "idle",
+      "phase": 1.1333333333333335,
+      "remaining": 2.2955827242384395,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 198.05303324084218,
+          "y": 264.74877845397225
+        },
+        "safe": {
+          "x": 198.05303324084218,
+          "y": 264.74877845397225
+        },
+        "behavior": "walk",
+        "phase": 0.8666666666666666,
+        "remaining": 0,
+        "intent": null,
+        "destination": {
+          "x": 242.12305364012718,
+          "y": 259.60604150313884
+        }
+      },
+      {
+        "id": "gemini",
+        "facing": "right",
+        "position": {
+          "x": 276,
+          "y": 268
+        },
+        "safe": {
+          "x": 276,
+          "y": 268
+        },
+        "behavior": "read",
+        "phase": 9.766666666666643,
+        "remaining": 7.179641486083453,
+        "intent": {
+          "furnitureId": "bookcase",
+          "seat": "main",
+          "activity": "read",
+          "stage": "use",
+          "expires": 16254,
+          "route": []
+        },
+        "destination": null
+      },
+      {
+        "id": "gpt",
+        "facing": "left",
+        "position": {
+          "x": 92,
+          "y": 270
+        },
+        "safe": {
+          "x": 92,
+          "y": 270
+        },
+        "behavior": "sit",
+        "phase": 19.900000000000148,
+        "remaining": 1.350949671491768,
+        "intent": {
+          "furnitureId": "window-seat",
+          "seat": "main",
+          "activity": "sit",
+          "stage": "use",
+          "expires": 15950,
+          "route": []
+        },
+        "destination": null
+      },
+      {
+        "id": "grok",
+        "facing": "right",
+        "position": {
+          "x": 219.51923015713692,
+          "y": 243.34817566443235
+        },
+        "safe": {
+          "x": 219.51923015713692,
+          "y": 243.34817566443235
+        },
+        "behavior": "idle",
+        "phase": 1.2333333333333338,
+        "remaining": 5.111344126348078,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "kimi",
+        "facing": "left",
+        "position": {
+          "x": 145.44794448386662,
+          "y": 317.80035344007973
+        },
+        "safe": {
+          "x": 145.44794448386662,
+          "y": 317.80035344007973
+        },
+        "behavior": "walk",
+        "phase": 2.7333333333333334,
+        "remaining": 0,
+        "intent": {
+          "furnitureId": "reading-desk",
+          "seat": "main",
+          "activity": "work",
+          "stage": "approach",
+          "expires": 17365,
+          "route": []
+        },
+        "destination": {
+          "x": 142,
+          "y": 328
+        }
+      },
+      {
+        "id": "qwen",
+        "facing": "left",
+        "position": {
+          "x": 79.1115442737937,
+          "y": 384.40409992821515
+        },
+        "safe": {
+          "x": 79.1115442737937,
+          "y": 384.40409992821515
+        },
+        "behavior": "idle",
+        "phase": 5.866666666666656,
+        "remaining": 1.648910570222282,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 7,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "encounterWindow": -1,
+      "tableMode": "dining",
+      "active": null,
+      "decorations": {
+        "message-board": null,
+        "leaf-pot": null,
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    },
+    "region": {
+      "version": 1,
+      "active": "bookhouse",
+      "returns": {
+        "courtyard": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 63.74170942232013,
+              "y": 374.29625773383304
+            },
+            "safe": {
+              "x": 63.74170942232013,
+              "y": 374.29625773383304
+            },
+            "facing": "left"
+          },
+          {
+            "id": "claude",
+            "position": {
+              "x": 116.19180010930492,
+              "y": 227.30065558992516
+            },
+            "safe": {
+              "x": 116.19180010930492,
+              "y": 227.30065558992516
+            },
+            "facing": "right"
+          },
+          {
+            "id": "gemini",
+            "position": {
+              "x": 252.47136885486543,
+              "y": 299.4311954714358
+            },
+            "safe": {
+              "x": 252.47136885486543,
+              "y": 299.4311954714358
+            },
+            "facing": "left"
+          },
+          {
+            "id": "gpt",
+            "position": {
+              "x": 175,
+              "y": 374
+            },
+            "safe": {
+              "x": 175,
+              "y": 374
+            },
+            "facing": "left"
+          },
+          {
+            "id": "grok",
+            "position": {
+              "x": 228.62581982591217,
+              "y": 303.045471627291
+            },
+            "safe": {
+              "x": 228.62581982591217,
+              "y": 303.045471627291
+            },
+            "facing": "right"
+          },
+          {
+            "id": "kimi",
+            "position": {
+              "x": 70,
+              "y": 239
+            },
+            "safe": {
+              "x": 70,
+              "y": 239
+            },
+            "facing": "left"
+          },
+          {
+            "id": "qwen",
+            "position": {
+              "x": 102,
+              "y": 283
+            },
+            "safe": {
+              "x": 102,
+              "y": 283
+            },
+            "facing": "left"
+          }
+        ],
+        "bookhouse": null
+      }
+    }
+  },
+  "metrics": {
+    "visibility": "visible",
+    "frames": 16,
+    "actors": 7,
+    "textures": 121,
+    "textureSources": 121,
+    "decodedRGBABytes": 57210584,
+    "tickerStarted": false,
+    "atmosphereTextureSources": 0,
+    "atmosphereCacheSize": [
+      256,
+      256
+    ],
+    "region": "bookhouse",
+    "urls": 121,
+    "tableGame": null,
+    "playTarget": null,
+    "geometry": [
+      {
+        "id": "bookcase",
+        "activity": "read",
+        "seat": "main",
+        "anchor": {
+          "x": 276,
+          "y": 268
+        },
+        "hit": {
+          "x": 254,
+          "y": 250,
+          "width": 44,
+          "height": 36
+        }
+      },
+      {
+        "id": "reading-desk",
+        "activity": "work",
+        "seat": "main",
+        "anchor": {
+          "x": 142,
+          "y": 328
+        },
+        "hit": {
+          "x": 116,
+          "y": 308,
+          "width": 52,
+          "height": 28
+        }
+      },
+      {
+        "id": "window-seat",
+        "activity": "sit",
+        "seat": "main",
+        "anchor": {
+          "x": 92,
+          "y": 270
+        },
+        "hit": {
+          "x": 62,
+          "y": 250,
+          "width": 60,
+          "height": 40
+        }
+      }
+    ],
+    "environment": "afternoon",
+    "viewport": {
+      "world": {
+        "scale": 0.9444444444444444,
+        "x": 0,
+        "y": 131.83333333333334
+      },
+      "background": {
+        "x": 0,
+        "y": 131.83333333333334,
+        "width": 340,
+        "height": 453.3333333333333
+      }
+    },
+    "arrangementObjects": [],
+    "gesture": null,
+    "paused": true,
+    "meanPaintMs": 5.687499970197678,
+    "maxPaintMs": 73.20000004768372,
+    "paintSampleCount": 16,
+    "p50PaintMs": 1.1000001430511475,
+    "p95PaintMs": 73.20000004768372
+  }
+}

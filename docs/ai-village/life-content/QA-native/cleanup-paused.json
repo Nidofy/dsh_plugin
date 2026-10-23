@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-23T09:57:57.9002523Z",
+  "status": "PAUSED",
+  "testRemaining": [],
+  "cdpListeners": [],
+  "dailyInstance": {
+    "Id": 40100,
+    "ProcessName": "DeepSeek Harness"
+  },
+  "profilePreserved": true,
+  "checkpointPreserved": true
+}

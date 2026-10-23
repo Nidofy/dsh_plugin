@@ -1,0 +1,832 @@
+{
+  "name": "courtyard",
+  "seconds": 21.2881875,
+  "profiling": true,
+  "fullCpuRequested": true,
+  "fps": 25.6480266344892,
+  "before": {
+    "visibility": "visible",
+    "frames": 108,
+    "actors": 7,
+    "textures": 128,
+    "textureSources": 128,
+    "decodedRGBABytes": 67346784,
+    "tickerStarted": false,
+    "atmosphereTextureSources": 1,
+    "atmosphereCacheSize": [
+      256,
+      256
+    ],
+    "region": "courtyard",
+    "urls": 128,
+    "tableGame": null,
+    "playTarget": null,
+    "geometry": [
+      {
+        "id": "work",
+        "activity": "work",
+        "seat": "main",
+        "hit": {
+          "x": 46,
+          "y": 273,
+          "width": 112,
+          "height": 16
+        },
+        "anchor": {
+          "x": 102,
+          "y": 283
+        }
+      },
+      {
+        "id": "eat",
+        "activity": "eat",
+        "seat": "left",
+        "hit": {
+          "x": 123,
+          "y": 316,
+          "width": 100,
+          "height": 64
+        },
+        "anchor": {
+          "x": 175,
+          "y": 374
+        }
+      },
+      {
+        "id": "eat",
+        "activity": "eat",
+        "seat": "right",
+        "hit": {
+          "x": 225,
+          "y": 316,
+          "width": 102,
+          "height": 64
+        },
+        "anchor": {
+          "x": 273,
+          "y": 374
+        }
+      },
+      {
+        "id": "rest",
+        "seat": "main",
+        "activity": "rest",
+        "hit": {
+          "x": 233,
+          "y": 211,
+          "width": 90,
+          "height": 44
+        },
+        "anchor": {
+          "x": 274,
+          "y": 245
+        }
+      },
+      {
+        "id": "bench",
+        "seat": "left",
+        "activity": "sit",
+        "hit": {
+          "x": 35,
+          "y": 211,
+          "width": 70,
+          "height": 40
+        },
+        "anchor": {
+          "x": 70,
+          "y": 239
+        }
+      },
+      {
+        "id": "bench",
+        "seat": "right",
+        "activity": "sit",
+        "hit": {
+          "x": 135,
+          "y": 211,
+          "width": 70,
+          "height": 40
+        },
+        "anchor": {
+          "x": 170,
+          "y": 239
+        }
+      }
+    ],
+    "environment": "afternoon",
+    "viewport": {
+      "world": {
+        "scale": 0.9444444444444444,
+        "x": 0,
+        "y": 131.83333333333334
+      },
+      "background": {
+        "x": 0,
+        "y": 131.83333333333334,
+        "width": 340,
+        "height": 453.3333333333333
+      }
+    },
+    "arrangementObjects": [],
+    "gesture": null,
+    "paused": false,
+    "meanPaintMs": 1.5175925934756245,
+    "maxPaintMs": 86.90000009536743,
+    "paintSampleCount": 108,
+    "p50PaintMs": 0.6000001430511475,
+    "p95PaintMs": 1
+  },
+  "after": {
+    "visibility": "visible",
+    "frames": 654,
+    "actors": 7,
+    "textures": 128,
+    "textureSources": 128,
+    "decodedRGBABytes": 67346784,
+    "tickerStarted": false,
+    "atmosphereTextureSources": 1,
+    "atmosphereCacheSize": [
+      256,
+      256
+    ],
+    "region": "courtyard",
+    "urls": 128,
+    "tableGame": null,
+    "playTarget": null,
+    "geometry": [
+      {
+        "id": "work",
+        "activity": "work",
+        "seat": "main",
+        "hit": {
+          "x": 46,
+          "y": 273,
+          "width": 112,
+          "height": 16
+        },
+        "anchor": {
+          "x": 102,
+          "y": 283
+        }
+      },
+      {
+        "id": "eat",
+        "activity": "eat",
+        "seat": "left",
+        "hit": {
+          "x": 123,
+          "y": 316,
+          "width": 100,
+          "height": 64
+        },
+        "anchor": {
+          "x": 175,
+          "y": 374
+        }
+      },
+      {
+        "id": "eat",
+        "activity": "eat",
+        "seat": "right",
+        "hit": {
+          "x": 225,
+          "y": 316,
+          "width": 102,
+          "height": 64
+        },
+        "anchor": {
+          "x": 273,
+          "y": 374
+        }
+      },
+      {
+        "id": "rest",
+        "seat": "main",
+        "activity": "rest",
+        "hit": {
+          "x": 233,
+          "y": 211,
+          "width": 90,
+          "height": 44
+        },
+        "anchor": {
+          "x": 274,
+          "y": 245
+        }
+      },
+      {
+        "id": "bench",
+        "seat": "left",
+        "activity": "sit",
+        "hit": {
+          "x": 35,
+          "y": 211,
+          "width": 70,
+          "height": 40
+        },
+        "anchor": {
+          "x": 70,
+          "y": 239
+        }
+      },
+      {
+        "id": "bench",
+        "seat": "right",
+        "activity": "sit",
+        "hit": {
+          "x": 135,
+          "y": 211,
+          "width": 70,
+          "height": 40
+        },
+        "anchor": {
+          "x": 170,
+          "y": 239
+        }
+      }
+    ],
+    "environment": "afternoon",
+    "viewport": {
+      "world": {
+        "scale": 0.9444444444444444,
+        "x": 0,
+        "y": 131.83333333333334
+      },
+      "background": {
+        "x": 0,
+        "y": 131.83333333333334,
+        "width": 340,
+        "height": 453.3333333333333
+      }
+    },
+    "arrangementObjects": [],
+    "gesture": null,
+    "paused": false,
+    "meanPaintMs": 0.7287461750368824,
+    "maxPaintMs": 86.90000009536743,
+    "paintSampleCount": 600,
+    "p50PaintMs": 0.5,
+    "p95PaintMs": 0.7000000476837158
+  },
+  "ticks": 588,
+  "worldUnchanged": false,
+  "cdpCpuPercentOfOneCore": 624.290386393863,
+  "cdpDeltas": [
+    {
+      "type": "browser",
+      "id": 3492,
+      "cpuSeconds": 0.17852100000000082
+    },
+    {
+      "type": "renderer",
+      "id": 14232,
+      "cpuSeconds": 1.9384319999999997
+    },
+    {
+      "type": "renderer",
+      "id": 10724,
+      "cpuSeconds": 1.4011459999999998
+    },
+    {
+      "type": "GPU",
+      "id": 17872,
+      "cpuSeconds": 129.37981200000002
+    },
+    {
+      "type": "network.mojom.NetworkService",
+      "id": 39348,
+      "cpuSeconds": 0.0021969999999999906
+    }
+  ],
+  "parentTaskPercent": 2.3619577758792287,
+  "fullTree": {
+    "seconds": 21.293,
+    "cpuPercentOfOneCore": 616.1062320950547,
+    "validUnchangedMembership": true,
+    "added": [],
+    "removed": [],
+    "deltas": [
+      {
+        "id": 3492,
+        "role": "browser",
+        "cpuSeconds": 0.21875,
+        "privateBytes": 161009664,
+        "privateDelta": 1015808
+      },
+      {
+        "id": 17872,
+        "role": "gpu-process",
+        "cpuSeconds": 127.796875,
+        "privateBytes": 449548288,
+        "privateDelta": -4055040
+      },
+      {
+        "id": 39348,
+        "role": "utility",
+        "cpuSeconds": 0,
+        "privateBytes": 12660736,
+        "privateDelta": 0
+      },
+      {
+        "id": 10724,
+        "role": "renderer",
+        "cpuSeconds": 1.390625,
+        "privateBytes": 165502976,
+        "privateDelta": -6340608
+      },
+      {
+        "id": 9276,
+        "role": "host",
+        "cpuSeconds": 0.078125,
+        "privateBytes": 205418496,
+        "privateDelta": 2043904
+      },
+      {
+        "id": 14232,
+        "role": "renderer",
+        "cpuSeconds": 1.703125,
+        "privateBytes": 74424320,
+        "privateDelta": -26804224
+      }
+    ],
+    "before": {
+      "sampledAt": "2026-10-23T14:22:20.7904891Z",
+      "rootPid": 3492,
+      "dpi": 168,
+      "mainWindowHandle": 19467972,
+      "windowVisible": true,
+      "foreground": true,
+      "processes": [
+        {
+          "id": 3492,
+          "parentId": 14892,
+          "name": "DeepSeek Harness",
+          "role": "browser",
+          "cpuSeconds": 3.859375,
+          "workingSetBytes": 204218368,
+          "privateBytes": 159993856
+        },
+        {
+          "id": 17872,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "gpu-process",
+          "cpuSeconds": 467.140625,
+          "workingSetBytes": 426688512,
+          "privateBytes": 453603328
+        },
+        {
+          "id": 39348,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "utility",
+          "cpuSeconds": 0.09375,
+          "workingSetBytes": 56877056,
+          "privateBytes": 12660736
+        },
+        {
+          "id": 10724,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 6.53125,
+          "workingSetBytes": 240193536,
+          "privateBytes": 171843584
+        },
+        {
+          "id": 9276,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "host",
+          "cpuSeconds": 4.5625,
+          "workingSetBytes": 230637568,
+          "privateBytes": 203374592
+        },
+        {
+          "id": 14232,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 2.75,
+          "workingSetBytes": 280756224,
+          "privateBytes": 101228544
+        }
+      ],
+      "scope": "Identity-verified complete descendant snapshot, including Electron-run Host; cumulative CPU seconds; process creation/exit requires interval reconciliation."
+    },
+    "after": {
+      "sampledAt": "2026-10-23T14:22:42.0837818Z",
+      "rootPid": 3492,
+      "dpi": 168,
+      "mainWindowHandle": 19467972,
+      "windowVisible": true,
+      "foreground": true,
+      "processes": [
+        {
+          "id": 3492,
+          "parentId": 14892,
+          "name": "DeepSeek Harness",
+          "role": "browser",
+          "cpuSeconds": 4.078125,
+          "workingSetBytes": 204845056,
+          "privateBytes": 161009664
+        },
+        {
+          "id": 17872,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "gpu-process",
+          "cpuSeconds": 594.9375,
+          "workingSetBytes": 425738240,
+          "privateBytes": 449548288
+        },
+        {
+          "id": 39348,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "utility",
+          "cpuSeconds": 0.09375,
+          "workingSetBytes": 56877056,
+          "privateBytes": 12660736
+        },
+        {
+          "id": 10724,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 7.921875,
+          "workingSetBytes": 234627072,
+          "privateBytes": 165502976
+        },
+        {
+          "id": 9276,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "host",
+          "cpuSeconds": 4.640625,
+          "workingSetBytes": 232411136,
+          "privateBytes": 205418496
+        },
+        {
+          "id": 14232,
+          "parentId": 3492,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 4.453125,
+          "workingSetBytes": 256782336,
+          "privateBytes": 74424320
+        }
+      ],
+      "scope": "Identity-verified complete descendant snapshot, including Electron-run Host; cumulative CPU seconds; process creation/exit requires interval reconciliation."
+    }
+  },
+  "profiles": [
+    {
+      "name": "parent",
+      "durationSeconds": 22.865836,
+      "samples": 13376,
+      "top": [
+        {
+          "selfMs": 22402.834,
+          "percentOfProfile": 97.9751363562653,
+          "functionName": "(idle)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 415.926,
+          "percentOfProfile": 1.818984444741054,
+          "functionName": "(program)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 12.043,
+          "percentOfProfile": 0.05266809400714673,
+          "functionName": "(garbage collector)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 7.581,
+          "percentOfProfile": 0.03315426560393418,
+          "functionName": "send",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 25280,
+          "columnNumber": 16
+        },
+        {
+          "selfMs": 6.552,
+          "percentOfProfile": 0.028654102128607938,
+          "functionName": "requestAnimationFrame",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 2.93,
+          "percentOfProfile": 0.012813876562396407,
+          "functionName": "postMessage",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 2.658,
+          "percentOfProfile": 0.011624328977081792,
+          "functionName": "",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 1.819,
+          "percentOfProfile": 0.007955099476791488,
+          "functionName": "api",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 23153,
+          "columnNumber": 12
+        },
+        {
+          "selfMs": 1.739,
+          "percentOfProfile": 0.007605232539934249,
+          "functionName": "step",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 10602,
+          "columnNumber": 15
+        },
+        {
+          "selfMs": 1.657,
+          "percentOfProfile": 0.007246618929655579,
+          "functionName": "Hud",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 25477,
+          "columnNumber": 14
+        },
+        {
+          "selfMs": 1.594,
+          "percentOfProfile": 0.006971098716880503,
+          "functionName": "El",
+          "scriptId": "9",
+          "url": "dsh-app://app/assets/index-CN7NIWNw.js",
+          "lineNumber": 53,
+          "columnNumber": 20791
+        },
+        {
+          "selfMs": 1.591,
+          "percentOfProfile": 0.006957978706748355,
+          "functionName": "actors",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 10589,
+          "columnNumber": 17
+        },
+        {
+          "selfMs": 1.58,
+          "percentOfProfile": 0.006909872002930485,
+          "functionName": "G5",
+          "scriptId": "9",
+          "url": "dsh-app://app/assets/index-CN7NIWNw.js",
+          "lineNumber": 55,
+          "columnNumber": 27728
+        },
+        {
+          "selfMs": 1.575,
+          "percentOfProfile": 0.006888005319376909,
+          "functionName": "En",
+          "scriptId": "9",
+          "url": "dsh-app://app/assets/index-CN7NIWNw.js",
+          "lineNumber": 55,
+          "columnNumber": 30808
+        },
+        {
+          "selfMs": 1.24,
+          "percentOfProfile": 0.005422937521287217,
+          "functionName": "stepActor",
+          "scriptId": "16",
+          "url": "dsh-app://app/plugins/",
+          "lineNumber": 10607,
+          "columnNumber": 20
+        },
+        {
+          "selfMs": 1.216,
+          "percentOfProfile": 0.005317977440230044,
+          "functionName": "sh",
+          "scriptId": "9",
+          "url": "dsh-app://app/assets/index-CN7NIWNw.js",
+          "lineNumber": 55,
+          "columnNumber": 40183
+        },
+        {
+          "selfMs": 1.065,
+          "percentOfProfile": 0.004657603596912005,
+          "functionName": "oe",
+          "scriptId": "9",
+          "url": "dsh-app://app/assets/index-CN7NIWNw.js",
+          "lineNumber": 24,
+          "columnNumber": 1462
+        }
+      ]
+    },
+    {
+      "name": "scene",
+      "durationSeconds": 22.637391,
+      "samples": 13343,
+      "top": [
+        {
+          "selfMs": 22032.435,
+          "percentOfProfile": 97.32762490165055,
+          "functionName": "(idle)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 149.256,
+          "percentOfProfile": 0.6593339311937494,
+          "functionName": "(program)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 30.502,
+          "percentOfProfile": 0.1347416758406479,
+          "functionName": "(garbage collector)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 20.643,
+          "percentOfProfile": 0.09118983720341271,
+          "functionName": "bindTexture",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 17.724,
+          "percentOfProfile": 0.07829524170872872,
+          "functionName": "bufferSubData",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 17.257,
+          "percentOfProfile": 0.07623228312838702,
+          "functionName": "texImage2D",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 11.232,
+          "percentOfProfile": 0.04961702521284365,
+          "functionName": "requestAnimationFrame",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 11.222,
+          "percentOfProfile": 0.04957285051090914,
+          "functionName": "",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 966,
+          "columnNumber": 65369
+        },
+        {
+          "selfMs": 11.118,
+          "percentOfProfile": 0.04911343361079022,
+          "functionName": "getGlSource",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 939,
+          "columnNumber": 23385
+        },
+        {
+          "selfMs": 11.054,
+          "percentOfProfile": 0.04883071551840935,
+          "functionName": "HO",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 966,
+          "columnNumber": 53949
+        },
+        {
+          "selfMs": 9.598,
+          "percentOfProfile": 0.042398878916744424,
+          "functionName": "Jt",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 0,
+          "columnNumber": 70364
+        },
+        {
+          "selfMs": 9.021,
+          "percentOfProfile": 0.039849998615123096,
+          "functionName": "GE",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 966,
+          "columnNumber": 22734
+        },
+        {
+          "selfMs": 7.987,
+          "percentOfProfile": 0.03528233443509458,
+          "functionName": "encode",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 7.96,
+          "percentOfProfile": 0.035163062739871395,
+          "functionName": "emit",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 117,
+          "columnNumber": 21933
+        },
+        {
+          "selfMs": 7.913,
+          "percentOfProfile": 0.03495544164077919,
+          "functionName": "matchMedia",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        },
+        {
+          "selfMs": 7.604,
+          "percentOfProfile": 0.03359044335100277,
+          "functionName": "pe",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 0,
+          "columnNumber": 11799
+        },
+        {
+          "selfMs": 7.575,
+          "percentOfProfile": 0.033462336715392685,
+          "functionName": "packQuadAttributes",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 389,
+          "columnNumber": 7021
+        },
+        {
+          "selfMs": 7.071,
+          "percentOfProfile": 0.031235931737893293,
+          "functionName": "WO",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 966,
+          "columnNumber": 62315
+        },
+        {
+          "selfMs": 6.819,
+          "percentOfProfile": 0.030122729249143596,
+          "functionName": "apply",
+          "scriptId": "12",
+          "url": "dsh-app://app/api/nidofy-ai-village/frame",
+          "lineNumber": 966,
+          "columnNumber": 46183
+        },
+        {
+          "selfMs": 6.39,
+          "percentOfProfile": 0.028227634536153044,
+          "functionName": "uniformMatrix3fv",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1
+        }
+      ]
+    }
+  ]
+}

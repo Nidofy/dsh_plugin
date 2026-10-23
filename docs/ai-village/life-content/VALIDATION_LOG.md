@@ -15,3 +15,5 @@
 - `node scripts/offline-install-check.mjs --exclude-sandbox`：PASS，空pnpm store安装8个离线插件并执行runtime检查。pnpm peer提示保留；运行时宿主提供其公开依赖，实际检查通过。未改实际DSH_HOME。
 - `integration-02`全实际交互自动检查PASS。目视发现部分截图抓到面板出现动画中间帧，新增450ms视觉稳定等待及小窗滚动到“再读一次”操作的截图，使用新final标签再次取证，不覆盖02。
 - 原画保全提交的 `art/deliverables/roster-expansion/preview.html` 在原生成输出第46、444、459行有尾空白；保留其交付证据原字节。生产源码和其余新增文本diff检查无该问题，不改变原画验收hash。
+
+- 历史 v08/v09/table 等人工QA脚本仍有旧“全员入住”selector，适用于其原版本记录；0.10十二选七已移除该含糊按钮，本轮B/C/A脚本通过逐一入住验证容量和混合七人。未声称所有历史人工浏览器脚本已在0.10逐套重跑；原故事/小游戏/迁移行为由当前57文件回归覆盖，不为旧selector恢复产品按钮。

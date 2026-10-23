@@ -1,0 +1,302 @@
+[
+  {
+    "name": "courtyard",
+    "seconds": 20.030778299999998,
+    "fps": 25.91012651765009,
+    "processCpuPercentOfOneCore": 23.873635504218026,
+    "processDeltas": [
+      {
+        "type": "browser",
+        "id": 38600,
+        "cpuSeconds": 0.21218200000000031
+      },
+      {
+        "type": "renderer",
+        "id": 9952,
+        "cpuSeconds": 1.4568530000000006
+      },
+      {
+        "type": "renderer",
+        "id": 13540,
+        "cpuSeconds": 0.9896669999999999
+      },
+      {
+        "type": "GPU",
+        "id": 27092,
+        "cpuSeconds": 2.121212999999999
+      },
+      {
+        "type": "network.mojom.NetworkService",
+        "id": 24384,
+        "cpuSeconds": 0.0021599999999999953
+      }
+    ],
+    "parentTaskPercent": 2.582550674029476,
+    "before": {
+      "visibility": "visible",
+      "frames": 172,
+      "actors": 7,
+      "textures": 128,
+      "textureSources": 128,
+      "decodedRGBABytes": 67346784,
+      "tickerStarted": false,
+      "atmosphereTextureSources": 1,
+      "atmosphereCacheSize": [
+        256,
+        256
+      ],
+      "region": "courtyard",
+      "urls": 128,
+      "tableGame": null,
+      "playTarget": null,
+      "geometry": [
+        {
+          "id": "work",
+          "activity": "work",
+          "seat": "main",
+          "hit": {
+            "x": 46,
+            "y": 273,
+            "width": 112,
+            "height": 16
+          },
+          "anchor": {
+            "x": 102,
+            "y": 283
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "left",
+          "hit": {
+            "x": 123,
+            "y": 316,
+            "width": 100,
+            "height": 64
+          },
+          "anchor": {
+            "x": 175,
+            "y": 374
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "right",
+          "hit": {
+            "x": 225,
+            "y": 316,
+            "width": 102,
+            "height": 64
+          },
+          "anchor": {
+            "x": 273,
+            "y": 374
+          }
+        },
+        {
+          "id": "rest",
+          "seat": "main",
+          "activity": "rest",
+          "hit": {
+            "x": 233,
+            "y": 211,
+            "width": 90,
+            "height": 44
+          },
+          "anchor": {
+            "x": 274,
+            "y": 245
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "left",
+          "activity": "sit",
+          "hit": {
+            "x": 35,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 70,
+            "y": 239
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "right",
+          "activity": "sit",
+          "hit": {
+            "x": 135,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 170,
+            "y": 239
+          }
+        }
+      ],
+      "environment": "afternoon",
+      "viewport": {
+        "world": {
+          "scale": 0.9444444444444444,
+          "x": 0,
+          "y": 131.83333333333334
+        },
+        "background": {
+          "x": 0,
+          "y": 131.83333333333334,
+          "width": 340,
+          "height": 453.3333333333333
+        }
+      },
+      "arrangementObjects": [],
+      "gesture": null,
+      "paused": false,
+      "meanPaintMs": 0.9017441924228224,
+      "maxPaintMs": 47.39999985694885,
+      "paintSampleCount": 172,
+      "p50PaintMs": 0.2999999523162842,
+      "p95PaintMs": 1.1000001430511475
+    },
+    "after": {
+      "visibility": "visible",
+      "frames": 691,
+      "actors": 7,
+      "textures": 128,
+      "textureSources": 128,
+      "decodedRGBABytes": 67346784,
+      "tickerStarted": false,
+      "atmosphereTextureSources": 1,
+      "atmosphereCacheSize": [
+        256,
+        256
+      ],
+      "region": "courtyard",
+      "urls": 128,
+      "tableGame": null,
+      "playTarget": null,
+      "geometry": [
+        {
+          "id": "work",
+          "activity": "work",
+          "seat": "main",
+          "hit": {
+            "x": 46,
+            "y": 273,
+            "width": 112,
+            "height": 16
+          },
+          "anchor": {
+            "x": 102,
+            "y": 283
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "left",
+          "hit": {
+            "x": 123,
+            "y": 316,
+            "width": 100,
+            "height": 64
+          },
+          "anchor": {
+            "x": 175,
+            "y": 374
+          }
+        },
+        {
+          "id": "eat",
+          "activity": "eat",
+          "seat": "right",
+          "hit": {
+            "x": 225,
+            "y": 316,
+            "width": 102,
+            "height": 64
+          },
+          "anchor": {
+            "x": 273,
+            "y": 374
+          }
+        },
+        {
+          "id": "rest",
+          "seat": "main",
+          "activity": "rest",
+          "hit": {
+            "x": 233,
+            "y": 211,
+            "width": 90,
+            "height": 44
+          },
+          "anchor": {
+            "x": 274,
+            "y": 245
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "left",
+          "activity": "sit",
+          "hit": {
+            "x": 35,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 70,
+            "y": 239
+          }
+        },
+        {
+          "id": "bench",
+          "seat": "right",
+          "activity": "sit",
+          "hit": {
+            "x": 135,
+            "y": 211,
+            "width": 70,
+            "height": 40
+          },
+          "anchor": {
+            "x": 170,
+            "y": 239
+          }
+        }
+      ],
+      "environment": "afternoon",
+      "viewport": {
+        "world": {
+          "scale": 0.9444444444444444,
+          "x": 0,
+          "y": 131.83333333333334
+        },
+        "background": {
+          "x": 0,
+          "y": 131.83333333333334,
+          "width": 340,
+          "height": 453.3333333333333
+        }
+      },
+      "arrangementObjects": [],
+      "gesture": null,
+      "paused": false,
+      "meanPaintMs": 0.6937771357606702,
+      "maxPaintMs": 47.39999985694885,
+      "paintSampleCount": 600,
+      "p50PaintMs": 0.5999999046325684,
+      "p95PaintMs": 1
+    },
+    "ticks": 588,
+    "worldUnchanged": false
+  }
+]

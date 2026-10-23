@@ -1,0 +1,348 @@
+{
+  "artifact": {
+    "version": "0.10.0-preview.1",
+    "file": "nidofy-dsh-ai-village-0.10.0-preview.1.tgz",
+    "sha256": "2a44566285875f40dbda18371b9384e634c43a821f9e65ac5556fc401caa9d11"
+  },
+  "world": {
+    "schemaVersion": 11,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 112934,
+    "rng": 2669611001,
+    "userPaused": true,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 149.51884540544566,
+        "y": 319.03843700312655
+      },
+      "safe": {
+        "x": 149.51884540544566,
+        "y": 319.03843700312655
+      },
+      "behavior": "idle",
+      "phase": 1.400000000000001,
+      "remaining": 1.6000000000000023,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "left",
+        "position": {
+          "x": 196.37610375796876,
+          "y": 331.83338434401713
+        },
+        "safe": {
+          "x": 196.37610375796876,
+          "y": 331.83338434401713
+        },
+        "behavior": "idle",
+        "phase": 1.8333333333333357,
+        "remaining": 1.1666666666666676,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "seedance",
+        "facing": "right",
+        "position": {
+          "x": 170,
+          "y": 239
+        },
+        "safe": {
+          "x": 170,
+          "y": 239
+        },
+        "behavior": "sit",
+        "phase": 13.699999999999962,
+        "remaining": 9.438330941088166,
+        "intent": {
+          "furnitureId": "bench",
+          "seat": "right",
+          "activity": "sit",
+          "stage": "use",
+          "expires": 113423,
+          "route": []
+        },
+        "destination": null
+      },
+      {
+        "id": "glm",
+        "facing": "left",
+        "position": {
+          "x": 252.03134958446026,
+          "y": 228.64535756828263
+        },
+        "safe": {
+          "x": 252.03134958446026,
+          "y": 228.64535756828263
+        },
+        "behavior": "idle",
+        "phase": 2.333333333333335,
+        "remaining": 3.982284586100537,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "minimax",
+        "facing": "left",
+        "position": {
+          "x": 251.4783771689647,
+          "y": 339.33765905398377
+        },
+        "safe": {
+          "x": 251.4783771689647,
+          "y": 339.33765905398377
+        },
+        "behavior": "walk",
+        "phase": 1.4333333333333345,
+        "remaining": 0,
+        "intent": null,
+        "destination": {
+          "x": 117.97711455449462,
+          "y": 348.9879289823584
+        }
+      },
+      {
+        "id": "llama",
+        "facing": "left",
+        "position": {
+          "x": 224.07103698338892,
+          "y": 317.37603095277433
+        },
+        "safe": {
+          "x": 224.07103698338892,
+          "y": 317.37603095277433
+        },
+        "behavior": "walk",
+        "phase": 1.4333333333333345,
+        "remaining": 0,
+        "intent": {
+          "furnitureId": "eat",
+          "seat": "left",
+          "activity": "eat",
+          "stage": "approach",
+          "expires": 114691,
+          "route": []
+        },
+        "destination": {
+          "x": 175,
+          "y": 374
+        }
+      },
+      {
+        "id": "mistral",
+        "facing": "left",
+        "position": {
+          "x": 172.85480547291183,
+          "y": 325.6589868690191
+        },
+        "safe": {
+          "x": 172.85480547291183,
+          "y": 325.6589868690191
+        },
+        "behavior": "idle",
+        "phase": 1.9000000000000026,
+        "remaining": 1.1000000000000008,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 8,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [
+        {
+          "pair": [
+            "bluewhale",
+            "seedance"
+          ],
+          "count": 1,
+          "lastTick": 3177
+        }
+      ],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none",
+        "seedance": "none",
+        "glm": "none",
+        "minimax": "none",
+        "llama": "none",
+        "mistral": "none"
+      }
+    },
+    "play": {
+      "encounterWindow": -1,
+      "tableMode": "dining",
+      "active": null,
+      "decorations": {
+        "message-board": null,
+        "leaf-pot": null,
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    },
+    "region": {
+      "version": 1,
+      "active": "courtyard",
+      "returns": {
+        "courtyard": null,
+        "bookhouse": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 277.2605294510722,
+              "y": 387.1175933163613
+            },
+            "safe": {
+              "x": 277.2605294510722,
+              "y": 387.1175933163613
+            },
+            "facing": "right"
+          },
+          {
+            "id": "claude",
+            "position": {
+              "x": 276,
+              "y": 268
+            },
+            "safe": {
+              "x": 276,
+              "y": 268
+            },
+            "facing": "right"
+          },
+          {
+            "id": "seedance",
+            "position": {
+              "x": 88.63817643374205,
+              "y": 412.9705178644508
+            },
+            "safe": {
+              "x": 88.63817643374205,
+              "y": 412.9705178644508
+            },
+            "facing": "left"
+          },
+          {
+            "id": "glm",
+            "position": {
+              "x": 313.9986877888441,
+              "y": 361.91474452149123
+            },
+            "safe": {
+              "x": 313.9986877888441,
+              "y": 361.91474452149123
+            },
+            "facing": "right"
+          },
+          {
+            "id": "minimax",
+            "position": {
+              "x": 232.1667050421238,
+              "y": 321.3663882063702
+            },
+            "safe": {
+              "x": 232.1667050421238,
+              "y": 321.3663882063702
+            },
+            "facing": "right"
+          },
+          {
+            "id": "llama",
+            "position": {
+              "x": 142,
+              "y": 328
+            },
+            "safe": {
+              "x": 142,
+              "y": 328
+            },
+            "facing": "right"
+          },
+          {
+            "id": "mistral",
+            "position": {
+              "x": 150.98570783289222,
+              "y": 301.4268115503128
+            },
+            "safe": {
+              "x": 150.98570783289222,
+              "y": 301.4268115503128
+            },
+            "facing": "left"
+          }
+        ]
+      }
+    },
+    "bookhouse": {
+      "version": 1,
+      "active": null,
+      "memory": {
+        "eventId": "98af4c42-030b-44f8-8d21-f53e7ee4608c",
+        "participants": [
+          "bluewhale",
+          "seedance"
+        ],
+        "completedTick": 3177,
+        "count": 1,
+        "theme": "light"
+      },
+      "lastEventId": "98af4c42-030b-44f8-8d21-f53e7ee4608c",
+      "keepsake": "bookhouse"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "at": "2026-10-23T14:11:32.450Z",
+  "targets": [
+    {
+      "port": 18769,
+      "id": "CD19DF223368BCF3FFBE007FC017EB4D",
+      "type": "page",
+      "url": "null/D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-phase5/carrier/resources/app.asar/renderer/welcome.html",
+      "evaluation": {
+        "result": {
+          "type": "string",
+          "value": "{\"visibility\":\"visible\",\"iframeCount\":0,\"ready\":\"complete\"}"
+        }
+      }
+    },
+    {
+      "port": 18769,
+      "id": "39D7AC6142071C90095DB52673B7DAD9",
+      "type": "page",
+      "url": "null/",
+      "evaluation": {
+        "result": {
+          "type": "string",
+          "value": "{\"visibility\":\"hidden\",\"iframeCount\":0,\"ready\":\"complete\"}"
+        }
+      }
+    },
+    {
+      "port": 18771,
+      "id": "2866A5488711EAB0E7E239E97CF22D8D",
+      "type": "page",
+      "url": "null/D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-phase5/carrier/resources/app.asar/renderer/welcome.html",
+      "evaluation": {
+        "result": {
+          "type": "string",
+          "value": "{\"visibility\":\"visible\",\"iframeCount\":0,\"ready\":\"complete\"}"
+        }
+      }
+    },
+    {
+      "port": 18771,
+      "id": "8DDCCF084926D555ACBC5E2C7302A2F5",
+      "type": "page",
+      "url": "null/",
+      "evaluation": {
+        "result": {
+          "type": "string",
+          "value": "{\"visibility\":\"hidden\",\"iframeCount\":0,\"ready\":\"complete\"}"
+        }
+      }
+    }
+  ]
+}
