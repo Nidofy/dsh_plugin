@@ -1,0 +1,457 @@
+{
+  "checkedAt": "2026-10-23T03:06:55.263Z",
+  "count": 90,
+  "bytes": 45866437,
+  "files": [
+    {
+      "path": "EVIDENCE_INDEX.md",
+      "bytes": 2608,
+      "sha256": "a3f1a55074812f1894c41e7b4fd40da2080888982945105148260d99d3de93eb"
+    },
+    {
+      "path": "FINAL_HASH_CHECK.json",
+      "bytes": 11719,
+      "sha256": "9d873d481eb13d9ad7192bf2fb47369e5e84aa85ce9885497e91ce8dbf4e386a"
+    },
+    {
+      "path": "PLAN.md",
+      "bytes": 3434,
+      "sha256": "f473e4f0fb2decb1173a69cef97c826cb6ed316501e05b97a8a9d022e95796d0"
+    },
+    {
+      "path": "RESULTS.md",
+      "bytes": 7103,
+      "sha256": "7b6a847c7ff823f2f64a287cd98838919cf44cecedb8942641d337d8740a91ff"
+    },
+    {
+      "path": "RUN_NOTES.md",
+      "bytes": 3190,
+      "sha256": "31e5c5f37286dced448e570efaf496f0bf94ac4a630c0cdd6a87fc768da1c462"
+    },
+    {
+      "path": "integration-01/activity-bookcase.png",
+      "bytes": 76406,
+      "sha256": "803e6f3a4fc421b92d9fc4edf1bd7c2862a13dc0caac078045e56c67ec840399"
+    },
+    {
+      "path": "integration-01/activity-reading-desk.png",
+      "bytes": 74821,
+      "sha256": "6dbe5885b5db85147bf15668c99f83b8b9fa28773e7ff14d148b4975d1662f1a"
+    },
+    {
+      "path": "integration-01/activity-window-seat.png",
+      "bytes": 79046,
+      "sha256": "cba6286f488b1a61fff125d03c2456a862f0b7d8b9dd0f021b6df9b5376fd59a"
+    },
+    {
+      "path": "integration-01/bookhouse-cold-album.png",
+      "bytes": 95502,
+      "sha256": "c582a150442666ffb039e3a0505a1e097eeb7fdd995ee21d8bb18796b413583d"
+    },
+    {
+      "path": "integration-01/bookhouse-first.png",
+      "bytes": 98471,
+      "sha256": "8b6d23aa502efeeed7c6090ca2d67aeb7c9e0a71c6863394cde4f6003282ca3c"
+    },
+    {
+      "path": "integration-01/build.json",
+      "bytes": 10764,
+      "sha256": "6c70ab92c367bf2c1c2332548a3a985b9fff07e3e9353f735f1552e0f5ba0ad7"
+    },
+    {
+      "path": "integration-01/courtyard-first.png",
+      "bytes": 1317587,
+      "sha256": "07a2355ec594e5482a5393ad01f74a51aaa84f6ba1ba522b5e09b0b003aec19f"
+    },
+    {
+      "path": "integration-01/initial.png",
+      "bytes": 357308,
+      "sha256": "e08a4b5d9c26089b9e0ad4b350db99cf073a18eb22327295d64b8d43ec6f20c0"
+    },
+    {
+      "path": "integration-01/seven-bookhouse.png",
+      "bytes": 142603,
+      "sha256": "9805e3a3dfe080cd11497a70c1fda362dbc56b85481fa4a8317988cb78657dfd"
+    },
+    {
+      "path": "integration-01/validation.json",
+      "bytes": 25147,
+      "sha256": "e8bd18986b56d438d8ca3bac909423bf27602047f997ac871a8ae67a0a1c3680"
+    },
+    {
+      "path": "integration-01/video/page@e51622517605eeeb1b6111fade6c2416.webm",
+      "bytes": 2587073,
+      "sha256": "f226145846adc20fb1dcb5e81e0ce1fd57089cdc8c024b6f1f98d8094dfa4c37"
+    },
+    {
+      "path": "lifecycle-01/build.json",
+      "bytes": 10940,
+      "sha256": "d6171ad953487a0690834a1d808392e7d76c611918b4a77a3d149231d2c55596"
+    },
+    {
+      "path": "lifecycle-01/initial.png",
+      "bytes": 357281,
+      "sha256": "91acc21242a149b34219ea9df2e71096cd414ce588e6b8115a431434e0d3bb47"
+    },
+    {
+      "path": "lifecycle-01/validation.json",
+      "bytes": 35871,
+      "sha256": "113579f240e0200cb12604ea52cc7f7c1fededec0202a739fb2b97c00b55ecbe"
+    },
+    {
+      "path": "lifecycle-01/video/page@43f58c43afc6a9ab70508e2488db9280.webm",
+      "bytes": 5499842,
+      "sha256": "589616ccb93d1f71101fc0f20924acb709259fc2ef87645e8719593f14f10d94"
+    },
+    {
+      "path": "matrix-01/book-340x720-dpr1-light-return.png",
+      "bytes": 114248,
+      "sha256": "90ab194fee26899d921ec2fa3a53ee7221699fa10f5a13eb524196e8f4fcf164"
+    },
+    {
+      "path": "matrix-01/book-340x720-dpr1-light-top.png",
+      "bytes": 116296,
+      "sha256": "5029741ff1a3cb09ea7bd500e5a4e75b3b622a828514c2f2429a6c395e530a61"
+    },
+    {
+      "path": "matrix-01/build.json",
+      "bytes": 10794,
+      "sha256": "999f42fff3d417dcb6f30e326f3b72fa515b25701bc89e6ee90d55cbc81a5133"
+    },
+    {
+      "path": "matrix-01/court-340x720-dpr1-light.png",
+      "bytes": 214352,
+      "sha256": "b3d57bc921e8a00efc987e5ae749b65d6bf86d44a296f494d1ee5a19d39c13ac"
+    },
+    {
+      "path": "matrix-01/failure-state.json",
+      "bytes": 12867,
+      "sha256": "112a03efd0153275413c2804c7f6fcfdf4578f3cd42ebfbfd8851f5bd668392f"
+    },
+    {
+      "path": "matrix-01/failure.png",
+      "bytes": 119248,
+      "sha256": "a45e1a1f0c31578143002c8a142e8667d2c6f1f253e97a4290b3411787dd90f8"
+    },
+    {
+      "path": "matrix-01/initial.png",
+      "bytes": 386374,
+      "sha256": "58b785665f93e85af20cc62c5e47db215403db3601dca325c193503a4a7d1dcc"
+    },
+    {
+      "path": "matrix-01/photo-340x720-dpr1-light.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-01/validation.json",
+      "bytes": 18201,
+      "sha256": "1b2048d842bed69740b793e8bee509dde9670cf7891aa3a281a1191cfe2e3925"
+    },
+    {
+      "path": "matrix-01/video/page@f5111d2e9efb464b7711b0e3c006ffee.webm",
+      "bytes": 960371,
+      "sha256": "429e43db3c5743f8bea1f446dc8ec465f01855ef8f3197419ab3ba481e4a10bf"
+    },
+    {
+      "path": "matrix-02/book-320x360-dpr1-dark-return.png",
+      "bytes": 47057,
+      "sha256": "cb609d4328d50783438047a5f60b624c9b46db6ec6ddf698d3e1e75efe38ac15"
+    },
+    {
+      "path": "matrix-02/book-320x360-dpr1-dark-top.png",
+      "bytes": 49358,
+      "sha256": "c054a40fbd786910a548ea2a3508d8e918e2084da607599f7bd5c3c75d2b1233"
+    },
+    {
+      "path": "matrix-02/book-320x360-dpr1-light-return.png",
+      "bytes": 47070,
+      "sha256": "b7e1145b3c1790bb1b9165dbbf30f789ebbdf575387d7555ec1c2a688cfa3899"
+    },
+    {
+      "path": "matrix-02/book-320x360-dpr1-light-top.png",
+      "bytes": 49443,
+      "sha256": "882ead2c4024dc285ba90338f859b512a6895d695e2fe614df469a5b1ae85922"
+    },
+    {
+      "path": "matrix-02/book-320x360-dpr2-dark-return.png",
+      "bytes": 141557,
+      "sha256": "af82b864cb7a822c7c2ccd06ee6f30c732202a58cd6fbba96d92a6a018118d94"
+    },
+    {
+      "path": "matrix-02/book-320x360-dpr2-dark-top.png",
+      "bytes": 149497,
+      "sha256": "ddd31cfd3d8e1e24bb8557735ae254508a51789ccaa71c742d4d61ffe4964304"
+    },
+    {
+      "path": "matrix-02/book-320x360-dpr2-light-return.png",
+      "bytes": 141690,
+      "sha256": "14dc204a0ff958077d5e41de38c5930b88191d2ef5cf5f2943df811e01373971"
+    },
+    {
+      "path": "matrix-02/book-320x360-dpr2-light-top.png",
+      "bytes": 149758,
+      "sha256": "ea9124ae7e7a41516c0ac343a5fb8772219f899dd4afdf07d029c958b7146337"
+    },
+    {
+      "path": "matrix-02/book-340x720-dpr1-dark-return.png",
+      "bytes": 114133,
+      "sha256": "6aeec482066151c454abe1cca896df38058317166b86131323da1a3e234172a9"
+    },
+    {
+      "path": "matrix-02/book-340x720-dpr1-dark-top.png",
+      "bytes": 116240,
+      "sha256": "6f94e69b7986d1b4e4107cac660dde04cda23b7cf6f10c4b9f6e6c24e472cbcc"
+    },
+    {
+      "path": "matrix-02/book-340x720-dpr1-light-return.png",
+      "bytes": 114248,
+      "sha256": "90ab194fee26899d921ec2fa3a53ee7221699fa10f5a13eb524196e8f4fcf164"
+    },
+    {
+      "path": "matrix-02/book-340x720-dpr1-light-top.png",
+      "bytes": 116296,
+      "sha256": "5029741ff1a3cb09ea7bd500e5a4e75b3b622a828514c2f2429a6c395e530a61"
+    },
+    {
+      "path": "matrix-02/book-340x720-dpr2-dark-return.png",
+      "bytes": 428941,
+      "sha256": "51021314aa83381b87aca8e0f3606ecf04985e9d4d2dc2524abfe113ff466037"
+    },
+    {
+      "path": "matrix-02/book-340x720-dpr2-dark-top.png",
+      "bytes": 436242,
+      "sha256": "26e442f1005ef0b6b98294c588baeadd4865c61a13d8dd51bba31f71bc0097ed"
+    },
+    {
+      "path": "matrix-02/book-340x720-dpr2-light-return.png",
+      "bytes": 429086,
+      "sha256": "25955d2defd1dbc1424411508d97730e87c4817a684192b6df9902b92d0741be"
+    },
+    {
+      "path": "matrix-02/book-340x720-dpr2-light-top.png",
+      "bytes": 436756,
+      "sha256": "580e76e87d03f05bc2c439ff1ddf01697c4a3de5582c71edcbcdda24a7cf99dd"
+    },
+    {
+      "path": "matrix-02/book-580x720-dpr1-dark-return.png",
+      "bytes": 154417,
+      "sha256": "7b2e1c9ce254bfd07fa30171344eb9e69141ad57631b7e7d87311b52beca510b"
+    },
+    {
+      "path": "matrix-02/book-580x720-dpr1-dark-top.png",
+      "bytes": 156493,
+      "sha256": "688b5ecce83ed6ace1b72c8bc0a8cb12cb9c311dd7ad70862857d650771613dc"
+    },
+    {
+      "path": "matrix-02/book-580x720-dpr1-light-return.png",
+      "bytes": 154663,
+      "sha256": "7e6c893fc53c1ee831d8967dd8772c8d4e9763228ae81eee824d781b72610eda"
+    },
+    {
+      "path": "matrix-02/book-580x720-dpr1-light-top.png",
+      "bytes": 156673,
+      "sha256": "6ff97a0b12627f60709fec9d793d97d1d61b0392deb9ade5f6404abf823e50e4"
+    },
+    {
+      "path": "matrix-02/book-580x720-dpr2-dark-return.png",
+      "bytes": 488515,
+      "sha256": "d1e7f1487b38685247a21d42872b3bdb5d27e120dd408ce4a8f1ed1e703c7f9a"
+    },
+    {
+      "path": "matrix-02/book-580x720-dpr2-dark-top.png",
+      "bytes": 498537,
+      "sha256": "5469d09fb3293bfd920416bd7f9ed0f3069d5cffbf57466e0dad0305f93277a9"
+    },
+    {
+      "path": "matrix-02/book-580x720-dpr2-light-return.png",
+      "bytes": 488695,
+      "sha256": "94f408f69f9f61e6d4a48910e2ca26b6a486f7825b714dccf05d5e38637aae2d"
+    },
+    {
+      "path": "matrix-02/book-580x720-dpr2-light-top.png",
+      "bytes": 498923,
+      "sha256": "7fd4df4fb188da0d21a8bbdc789b7cc499bc5eeb04415c4aa9973f8e260ae730"
+    },
+    {
+      "path": "matrix-02/build.json",
+      "bytes": 10888,
+      "sha256": "f38385448aeea9e5da07416a6601fbba373d5d1292f573c13431bcac2cace22a"
+    },
+    {
+      "path": "matrix-02/court-320x360-dpr1-dark.png",
+      "bytes": 131432,
+      "sha256": "af210557d7af0c5bc83648f47b2e54ae03684c396e15bd2cc5fb85f587bc28c4"
+    },
+    {
+      "path": "matrix-02/court-320x360-dpr1-light.png",
+      "bytes": 131637,
+      "sha256": "8e2793351b74357e88a7e6b131c3ad2b85254fecb4ec686ea3ce0ef14b42f361"
+    },
+    {
+      "path": "matrix-02/court-320x360-dpr2-dark.png",
+      "bytes": 468537,
+      "sha256": "f7001d7c32d60b7ff5263947d755df8b6eddf89ca33ad721c8cf759e677ea1a7"
+    },
+    {
+      "path": "matrix-02/court-320x360-dpr2-light.png",
+      "bytes": 469091,
+      "sha256": "0c9206632fbd6dec11243a6c794f2a876e74a48cf59d11af2708267e4d679cc2"
+    },
+    {
+      "path": "matrix-02/court-340x720-dpr1-dark.png",
+      "bytes": 214127,
+      "sha256": "6b5afa9b72d87563d03da9bd1119eb8f61e3b2cd62f1bb5eafd2741f40271530"
+    },
+    {
+      "path": "matrix-02/court-340x720-dpr1-light.png",
+      "bytes": 214352,
+      "sha256": "b3d57bc921e8a00efc987e5ae749b65d6bf86d44a296f494d1ee5a19d39c13ac"
+    },
+    {
+      "path": "matrix-02/court-340x720-dpr2-dark.png",
+      "bytes": 827893,
+      "sha256": "28aa615497a5b12de23c23d1d853a9d82486fb395e2e29860f8e1449a073dd3e"
+    },
+    {
+      "path": "matrix-02/court-340x720-dpr2-light.png",
+      "bytes": 829429,
+      "sha256": "1150de23bf85f3e60fb860b51079d858db518489b040e6b00f86089508f33169"
+    },
+    {
+      "path": "matrix-02/court-580x720-dpr1-dark.png",
+      "bytes": 525108,
+      "sha256": "0124092a754e79e2abb60709afbfe15486c31dee52be407d3afa98a4ec9c31e0"
+    },
+    {
+      "path": "matrix-02/court-580x720-dpr1-light.png",
+      "bytes": 525887,
+      "sha256": "68e4800afb4afb7bc68301fe663147a62bce39ca332d1828282f18ce0330ed0a"
+    },
+    {
+      "path": "matrix-02/court-580x720-dpr2-dark.png",
+      "bytes": 1780555,
+      "sha256": "c9ea3c9ef77be601b413b31530f45d4314f72a10f93510b8dd358515fad5af5f"
+    },
+    {
+      "path": "matrix-02/court-580x720-dpr2-light.png",
+      "bytes": 1782680,
+      "sha256": "5c1275daaa0820d953e9345cf8b18e483d185e27b167a76fca576ec7c44e54bd"
+    },
+    {
+      "path": "matrix-02/initial.png",
+      "bytes": 386374,
+      "sha256": "58b785665f93e85af20cc62c5e47db215403db3601dca325c193503a4a7d1dcc"
+    },
+    {
+      "path": "matrix-02/photo-320x360-dpr1-dark.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-320x360-dpr1-light.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-320x360-dpr2-dark.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-320x360-dpr2-light.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-340x720-dpr1-dark.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-340x720-dpr1-light.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-340x720-dpr2-dark.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-340x720-dpr2-light.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-580x720-dpr1-dark.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-580x720-dpr1-light.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-580x720-dpr2-dark.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/photo-580x720-dpr2-light.png",
+      "bytes": 370932,
+      "sha256": "c17b6c98b42a12be339012af8a67143cf699dbaf2168e677efe7bf7e92229d92"
+    },
+    {
+      "path": "matrix-02/validation.json",
+      "bytes": 63958,
+      "sha256": "a4522bc5a18ffa5eedccae57195e187fb64e43f2e1dc13c376cdfffff8922010"
+    },
+    {
+      "path": "matrix-02/video/page@a0490932a2c646cf2f80814afdf08590.webm",
+      "bytes": 3954550,
+      "sha256": "5f9509e876bedcf8c1d02514b446a7d2b9063cb17cc674538c4b3133540a3deb"
+    },
+    {
+      "path": "matrix-02/video/page@ca630d77189392596944f0e0acffa6dc.webm",
+      "bytes": 3942529,
+      "sha256": "3a213defd18ca42552a1d93b132cd46576e19bbf4c58bce8534645b01d9655a9"
+    },
+    {
+      "path": "performance-01/build.json",
+      "bytes": 10942,
+      "sha256": "574652554a5b4586770c850036d60189a902b49bd94762f075d7a84ff764fb77"
+    },
+    {
+      "path": "performance-01/initial.png",
+      "bytes": 357202,
+      "sha256": "08c196a7cd3fedd406975e2b5f3f0185f71b1889082f2563029bcd0667001e3e"
+    },
+    {
+      "path": "performance-01/performance-bookhouse-restored.png",
+      "bytes": 121943,
+      "sha256": "33a106868728cf6b1cff527844785969750edc56426012ddcb504d0883b44f4f"
+    },
+    {
+      "path": "performance-01/performance-courtyard-restored.png",
+      "bytes": 384882,
+      "sha256": "ead2abac4c8b46b51602715da83520fd9da7cbd279cb070454f30dcda58b0ade"
+    },
+    {
+      "path": "performance-01/performance.json",
+      "bytes": 58452,
+      "sha256": "e2857b72379014ffbf2e444c68448c1c78598d5b708ef119ba9f22b6ec106828"
+    },
+    {
+      "path": "performance-01/validation.json",
+      "bytes": 76444,
+      "sha256": "14dd74d257f965c5d92571b9118b36162b844e796e716a706e2ae4be341bde8a"
+    },
+    {
+      "path": "performance-01/video/page@cbf4dc6944f7c4e4f5d8d70b295b7873.webm",
+      "bytes": 5461674,
+      "sha256": "31ada03d2751ac22978a778ddaab35280fb9ccbf26fe6cbc39a17eea98ff58a3"
+    }
+  ]
+}

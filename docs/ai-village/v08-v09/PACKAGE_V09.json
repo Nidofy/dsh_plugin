@@ -1,0 +1,19 @@
+{
+  "version": "0.9.0-preview.1",
+  "candidate": 1,
+  "sourceHead": "f346b20a36b248005f47f2c3f9146fb63c93eed1",
+  "path": "dist/nidofy-dsh-ai-village-0.9.0-preview.1.tgz",
+  "bytes": 32196622,
+  "sha256": "c1ba1a4b544cca84a9daf9e90bce572080b5628f5ca2326b7dad0237a05fbfa4",
+  "files": 276,
+  "world": 10,
+  "scene": 3,
+  "bookhouseScene": 1,
+  "rules": 4,
+  "content": 7,
+  "region": 1,
+  "preferences": 3,
+  "frame": 7,
+  "officialDSH": "0.2.1-rc.2",
+  "assetApproval": "Entrance ART_REVIEW unchanged; bookhouse is explicitly labelled code-drawn development preview, not approved final scene art"
+}

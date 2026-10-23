@@ -27,3 +27,5 @@ world升级9，content6；scene3/rules4/preferences3/frame6不变。冻结living
 ## 0.9 门禁
 
 先完成0.8功能、数据、资源与实际浏览器门禁，再接入书屋。书屋如无批准原画仅为明确标注的开发样板，不称正式美术。独立场景/家具/合法走区/资源与转场，单owner单CAS共享长期进度；具体审计见BOOKHOUSE_AUDIT.md。
+
+0.8 最终门禁已关闭，书屋源码已在同一分支提交为 `f346b20`。实际数据与资源契约见 [BOOKHOUSE_IMPLEMENTATION.md](BOOKHOUSE_IMPLEMENTATION.md)，候选包身份见 [PACKAGE_V09.json](PACKAGE_V09.json)，逐项验证及交付边界见 [BOOKHOUSE_RESULTS.md](BOOKHOUSE_RESULTS.md)。旧0.8证据保持独立，不能用来替代0.9验收。

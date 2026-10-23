@@ -28,5 +28,5 @@
 
 ## 0.9
 
-书屋契约审计见 BOOKHOUSE_AUDIT.md。0.8 数据/玩法/性能 gate 通过后实施独立书屋开发样板；新区域不是已批准正式场景原画，最终验收另行记录。
+0.8 数据/玩法/性能 gate 通过后已实施独立书屋开发样板；新区域不是已批准正式场景原画。当前0.9验收状态见 [BOOKHOUSE_RESULTS.md](BOOKHOUSE_RESULTS.md)，包身份见 [PACKAGE_V09.json](PACKAGE_V09.json)，书屋契约见 [BOOKHOUSE_IMPLEMENTATION.md](BOOKHOUSE_IMPLEMENTATION.md)。
 

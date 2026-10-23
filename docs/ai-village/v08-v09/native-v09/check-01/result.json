@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "stage": "launch-before-check",
+  "artifactSha256": "c1ba1a4b544cca84a9daf9e90bce572080b5628f5ca2326b7dad0237a05fbfa4",
+  "profile": ".build/ai-village-v09-desktop",
+  "failure": "Launcher observed recorded PID34900 still present immediately after the full tree stop and refused another start; CDP18767 then refused connection. No product check ran.",
+  "followUp": "A separate read-only Win32_Process identity query returned no PID34900. No unknown process was terminated. The same imported test profile will be started after exit confirmation."
+}

@@ -1,0 +1,25 @@
+{
+  "mode": "install",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-v09-desktop",
+  "cdp": 18767,
+  "checks": [
+    "Fresh official plugin manager installation of pinned local final tarball"
+  ],
+  "errors": [],
+  "screenshotIssues": [],
+  "observations": [],
+  "passed": true,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.9.0-preview.1",
+    "file": "nidofy-dsh-ai-village-0.9.0-preview.1.tgz",
+    "bytes": 32196622,
+    "sha256": "c1ba1a4b544cca84a9daf9e90bce572080b5628f5ca2326b7dad0237a05fbfa4",
+    "files": 276,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "restartRequired": true
+}

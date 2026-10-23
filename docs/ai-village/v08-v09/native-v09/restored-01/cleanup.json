@@ -1,0 +1,12 @@
+{
+  "profile": ".build/ai-village-v09-desktop",
+  "verifiedProcessTreesStopped": [
+    34900,
+    30084,
+    9892
+  ],
+  "remainingRecordedPids": [],
+  "cdp18767Listeners": [],
+  "closed": true,
+  "qaNotified": "audit_qa was notified after stop; no further native launch planned"
+}

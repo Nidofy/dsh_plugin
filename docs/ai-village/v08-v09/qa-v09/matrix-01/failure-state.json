@@ -1,0 +1,544 @@
+{
+  "world": {
+    "schemaVersion": 10,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 969,
+    "rng": 2530706022,
+    "userPaused": true,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "left",
+      "position": {
+        "x": 92,
+        "y": 270
+      },
+      "safe": {
+        "x": 92,
+        "y": 270
+      },
+      "behavior": "idle",
+      "phase": 0,
+      "remaining": 3,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 48,
+          "y": 402
+        },
+        "safe": {
+          "x": 48,
+          "y": 402
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "gemini",
+        "facing": "right",
+        "position": {
+          "x": 92,
+          "y": 402
+        },
+        "safe": {
+          "x": 92,
+          "y": 402
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "gpt",
+        "facing": "right",
+        "position": {
+          "x": 136,
+          "y": 402
+        },
+        "safe": {
+          "x": 136,
+          "y": 402
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "grok",
+        "facing": "right",
+        "position": {
+          "x": 180,
+          "y": 402
+        },
+        "safe": {
+          "x": 180,
+          "y": 402
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "kimi",
+        "facing": "right",
+        "position": {
+          "x": 224,
+          "y": 402
+        },
+        "safe": {
+          "x": 224,
+          "y": 402
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "qwen",
+        "facing": "right",
+        "position": {
+          "x": 268,
+          "y": 402
+        },
+        "safe": {
+          "x": 268,
+          "y": 402
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 7,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "encounterWindow": -1,
+      "tableMode": "dining",
+      "active": null,
+      "decorations": {
+        "message-board": null,
+        "leaf-pot": null,
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    },
+    "region": {
+      "version": 1,
+      "active": "bookhouse",
+      "returns": {
+        "courtyard": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 174,
+              "y": 340
+            },
+            "safe": {
+              "x": 174,
+              "y": 340
+            },
+            "facing": "right"
+          },
+          {
+            "id": "claude",
+            "position": {
+              "x": 60,
+              "y": 350
+            },
+            "safe": {
+              "x": 60,
+              "y": 350
+            },
+            "facing": "right"
+          },
+          {
+            "id": "gemini",
+            "position": {
+              "x": 124,
+              "y": 350
+            },
+            "safe": {
+              "x": 124,
+              "y": 350
+            },
+            "facing": "right"
+          },
+          {
+            "id": "gpt",
+            "position": {
+              "x": 252,
+              "y": 350
+            },
+            "safe": {
+              "x": 252,
+              "y": 350
+            },
+            "facing": "right"
+          },
+          {
+            "id": "grok",
+            "position": {
+              "x": 60,
+              "y": 414
+            },
+            "safe": {
+              "x": 60,
+              "y": 414
+            },
+            "facing": "right"
+          },
+          {
+            "id": "kimi",
+            "position": {
+              "x": 124,
+              "y": 414
+            },
+            "safe": {
+              "x": 124,
+              "y": 414
+            },
+            "facing": "right"
+          },
+          {
+            "id": "qwen",
+            "position": {
+              "x": 188,
+              "y": 414
+            },
+            "safe": {
+              "x": 188,
+              "y": 414
+            },
+            "facing": "right"
+          }
+        ],
+        "bookhouse": null
+      }
+    }
+  },
+  "error": "",
+  "actionError": "",
+  "album": {
+    "revision": 2,
+    "operationId": "bc68f4bf-c9b7-4f8d-a826-0176cf61a699",
+    "world": {
+      "schemaVersion": 1,
+      "photos": [
+        {
+          "id": "c6613fe3-5e86-48ca-b174-c5dbf37d9b22",
+          "title": "courtyard-first",
+          "tick": 19,
+          "width": 720,
+          "height": 960,
+          "bytes": 1317587,
+          "hash": "07a2355ec594e5482a5393ad01f74a51aaa84f6ba1ba522b5e09b0b003aec19f"
+        },
+        {
+          "id": "bc68f4bf-c9b7-4f8d-a826-0176cf61a699",
+          "title": "bookhouse-first",
+          "tick": 19,
+          "width": 720,
+          "height": 960,
+          "bytes": 98471,
+          "hash": "8b6d23aa502efeeed7c6090ca2d67aeb7c9e0a71c6863394cde4f6003282ca3c"
+        }
+      ]
+    }
+  },
+  "reasons": [
+    "user"
+  ],
+  "presentation": {
+    "page": "appearance",
+    "history": [
+      {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": null,
+        "page": "quick",
+        "scrollTop": 0,
+        "focusKey": "",
+        "accessoryTarget": null,
+        "residentTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "noticeTarget": null
+      },
+      {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": "more",
+        "page": "quick",
+        "scrollTop": 0,
+        "focusKey": "小院设置",
+        "accessoryTarget": null,
+        "residentTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "noticeTarget": null
+      },
+      {
+        "tab": "decor",
+        "drawer": "closed",
+        "overlay": "settings",
+        "page": "quick",
+        "scrollTop": 0,
+        "focusKey": "外观与显示",
+        "accessoryTarget": null,
+        "residentTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "furniture",
+          "journal": "memories"
+        },
+        "noticeTarget": null
+      }
+    ],
+    "scrollTop": 0,
+    "focusKey": "",
+    "residentTarget": null,
+    "tab": "decor",
+    "drawer": "closed",
+    "overlay": "settings",
+    "camera": {
+      "zoom": 1,
+      "panX": 0,
+      "panY": 0
+    },
+    "expanded": true,
+    "selectedFurniture": "work",
+    "accessoryTarget": null,
+    "subpages": {
+      "wishes": "wishes",
+      "decor": "furniture",
+      "journal": "memories"
+    },
+    "confirmClose": false,
+    "confirmTarget": "plugin",
+    "zoomHint": 0,
+    "toastIds": [],
+    "noticeTarget": null
+  },
+  "entrance": {
+    "attempted": true,
+    "full": false,
+    "skipped": true,
+    "blocking": false,
+    "attemptId": "261d95fd-4478-49f9-9c0a-8dc6b22d9cc4",
+    "metadata": true,
+    "verified": 1,
+    "decoded": 1,
+    "firstFrame": true,
+    "openedAt": 152.20000004768372,
+    "phase": "done",
+    "frame": "f1f77595-d1db-4f3a-a061-685bcf1a18d9",
+    "assets": 4,
+    "view": 1,
+    "canReveal": true,
+    "progress": 1
+  },
+  "frameReady": true,
+  "resourceKeys": [
+    "parts/back-hair.png",
+    "parts/front-hair.png",
+    "parts/curl-left.png",
+    "parts/curl-right.png",
+    "parts/headband.png",
+    "parts/ear-left.png",
+    "parts/ear-right.png",
+    "parts/torso.png",
+    "parts/skirt.png",
+    "parts/leg-left.png",
+    "parts/leg-right.png",
+    "parts/arm-left.png",
+    "parts/arm-right.png",
+    "parts/tail-root.png",
+    "parts/tail-fin.png",
+    "parts/face-neutral.png",
+    "parts/face-happy.png",
+    "parts/face-surprised.png",
+    "parts/face-sleepy.png",
+    "parts/ahoge.png",
+    "scene/work-left.png",
+    "scene/work-right.png",
+    "scene/eat-left.png",
+    "scene/eat-right.png",
+    "scene/rest-pose.png",
+    "claude/parts/face-neutral.png",
+    "claude/parts/face-happy.png",
+    "claude/parts/face-surprised.png",
+    "claude/parts/face-sleepy.png",
+    "claude/parts/torso.png",
+    "claude/parts/arm-left.png",
+    "claude/parts/arm-right.png",
+    "claude/parts/leg-left.png",
+    "claude/parts/leg-right.png",
+    "claude/parts/work-left.png",
+    "claude/parts/work-right.png",
+    "claude/parts/eat-left.png",
+    "claude/parts/eat-right.png",
+    "claude/parts/rest-pose.png",
+    "claude/parts/back-hair.png",
+    "claude/parts/ornament.png",
+    "gemini/parts/face-neutral.png",
+    "gemini/parts/face-happy.png",
+    "gemini/parts/face-surprised.png",
+    "gemini/parts/face-sleepy.png",
+    "gemini/parts/torso.png",
+    "gemini/parts/arm-left.png",
+    "gemini/parts/arm-right.png",
+    "gemini/parts/leg-left.png",
+    "gemini/parts/leg-right.png",
+    "gemini/parts/work-left.png",
+    "gemini/parts/work-right.png",
+    "gemini/parts/eat-left.png",
+    "gemini/parts/eat-right.png",
+    "gemini/parts/rest-pose.png",
+    "gemini/parts/back-hair.png",
+    "gemini/parts/ornament.png",
+    "gpt/parts/face-neutral.png",
+    "gpt/parts/face-happy.png",
+    "gpt/parts/face-surprised.png",
+    "gpt/parts/face-sleepy.png",
+    "gpt/parts/torso.png",
+    "gpt/parts/arm-left.png",
+    "gpt/parts/arm-right.png",
+    "gpt/parts/leg-left.png",
+    "gpt/parts/leg-right.png",
+    "gpt/parts/work-left.png",
+    "gpt/parts/work-right.png",
+    "gpt/parts/eat-left.png",
+    "gpt/parts/eat-right.png",
+    "gpt/parts/rest-pose.png",
+    "gpt/parts/back-hair.png",
+    "gpt/parts/ornament.png",
+    "grok/parts/face-neutral.png",
+    "grok/parts/face-happy.png",
+    "grok/parts/face-surprised.png",
+    "grok/parts/face-sleepy.png",
+    "grok/parts/torso.png",
+    "grok/parts/arm-left.png",
+    "grok/parts/arm-right.png",
+    "grok/parts/leg-left.png",
+    "grok/parts/leg-right.png",
+    "grok/parts/work-left.png",
+    "grok/parts/work-right.png",
+    "grok/parts/eat-left.png",
+    "grok/parts/eat-right.png",
+    "grok/parts/rest-pose.png",
+    "grok/parts/back-hair.png",
+    "grok/parts/ornament.png",
+    "kimi/parts/face-neutral.png",
+    "kimi/parts/face-happy.png",
+    "kimi/parts/face-surprised.png",
+    "kimi/parts/face-sleepy.png",
+    "kimi/parts/torso.png",
+    "kimi/parts/arm-left.png",
+    "kimi/parts/arm-right.png",
+    "kimi/parts/leg-left.png",
+    "kimi/parts/leg-right.png",
+    "kimi/parts/work-left.png",
+    "kimi/parts/work-right.png",
+    "kimi/parts/eat-left.png",
+    "kimi/parts/eat-right.png",
+    "kimi/parts/rest-pose.png",
+    "kimi/parts/back-hair.png",
+    "kimi/parts/ornament.png",
+    "qwen/parts/face-neutral.png",
+    "qwen/parts/face-happy.png",
+    "qwen/parts/face-surprised.png",
+    "qwen/parts/face-sleepy.png",
+    "qwen/parts/torso.png",
+    "qwen/parts/arm-left.png",
+    "qwen/parts/arm-right.png",
+    "qwen/parts/leg-left.png",
+    "qwen/parts/leg-right.png",
+    "qwen/parts/work-left.png",
+    "qwen/parts/work-right.png",
+    "qwen/parts/eat-left.png",
+    "qwen/parts/eat-right.png",
+    "qwen/parts/rest-pose.png",
+    "qwen/parts/back-hair.png",
+    "qwen/parts/ornament.png"
+  ]
+}
