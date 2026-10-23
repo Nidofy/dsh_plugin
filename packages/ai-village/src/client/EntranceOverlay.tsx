@@ -175,6 +175,7 @@ export const entranceCSS = `
 .village-card[data-short=true] .entrance-portrait{width:28px;height:34px}
 .village-entry-ui{position:absolute;inset:0;z-index:30;pointer-events:none}
 .village-entry-ui[aria-hidden=true]{visibility:hidden;pointer-events:none}
+.village-entry-ui[aria-hidden=true] .village-hud button[aria-label]::after{visibility:hidden;opacity:0;transition:none}
 .village-entry-ui[data-entered=true]{animation:entrance-hud-in 220ms ease-out}
 .village-card[data-motion=true] .village-entry-ui[data-entered=true]{animation-duration:100ms}
 @keyframes entrance-hud-in{from{opacity:0}to{opacity:1}}

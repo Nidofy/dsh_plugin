@@ -37,7 +37,7 @@ it.each([[320,360],[340,720],[580,720],[1080,760]])('covers all viewport corners
   expect(t.y+(safe.y+safe.height)*height*t.scale).toBeGreaterThanOrEqual(height+16-1e-8)
 })
 it('ships no placeholder as approved art and refuses missing or untrusted layer metadata',()=>{
-  expect(entranceArt).toBeNull();expect(validateEntranceArt({status:'ART_PENDING'})).toBeNull()
+  expect(entranceArt?.status).toBe('APPROVED');expect(validateEntranceArt({status:'ART_PENDING'})).toBeNull()
   expect(validateEntranceArt({status:'APPROVED',designSize:{width:1,height:1},aperture:{x:0,y:0,width:1,height:1},safeApertureRect:{x:0,y:0,width:1,height:1},layers:[]})).toBeNull()
 })
 it('cancels a running WAAPI operation and refuses subsequent stages after unmount',async()=>{
@@ -49,9 +49,9 @@ it('cancels a running WAAPI operation and refuses subsequent stages after unmoun
 
 import { entranceManifest } from '../src/entrance-manifest.ts'
 import { validateEntranceTheme, entranceLayout, entranceKnockout, doorAngle } from '../src/client/entrance-theme.ts'
-it('accepts bounded review geometry while keeping the production approval gate closed',()=>{
+it('enables the user-approved geometry while continuing to reject review candidates',()=>{
   const art=validateEntranceTheme(entranceManifest)!
-  expect(art).not.toBeNull();expect(art.status).toBe('ART_REVIEW');expect(validateEntranceArt(art)).toBeNull()
+  expect(art).not.toBeNull();expect(art.status).toBe('APPROVED');expect(validateEntranceArt(art)).not.toBeNull();expect(validateEntranceArt({...art,status:'ART_REVIEW'})).toBeNull()
   expect(art.layers.findIndex(l=>l.kind==='frame')).toBeGreaterThan(art.layers.findIndex(l=>l.kind==='right'))
   expect(entranceKnockout(art)).toContain('polygon(evenodd,')
   for(const bad of [null,{}, {...art,layers:[null]}, {...art,portalPolygon:[[0,0],[1,1],[0,1],[1,0]]}, {...art,portalPolygon:[[0,0],[.1,0],[0,.1]]}, {...art,layers:art.layers.map(l=>({...l,parallax:100}))}])expect(validateEntranceTheme(bad)).toBeNull()

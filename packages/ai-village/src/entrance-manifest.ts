@@ -1,7 +1,7 @@
 // Generated from the local entrance asset manifest.
 export const entranceManifest = {
-  "status": "ART_REVIEW",
-  "source": "Original dream-garden art commit 42ee9f46eb0b772fb556631b9a75669c9ea49edf; cropped 2x compatibility export, unchanged PNG bytes; hinge-preserving 6px leaf overlap; human approval pending.",
+  "status": "APPROVED",
+  "source": "Original dream-garden art commit 42ee9f46eb0b772fb556631b9a75669c9ea49edf; cropped 2x compatibility export, unchanged PNG bytes; hinge-preserving 6px leaf overlap; User explicitly authorized enabling this existing entrance artwork on 2026-10-23; PNG bytes and geometry unchanged.",
   "designSize": {
     "width": 1080,
     "height": 1440

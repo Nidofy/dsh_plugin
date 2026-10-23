@@ -10,6 +10,8 @@ import { scene } from '../src/definitions.ts'
 vi.mock('../src/client/floating-layout.ts',()=>({attachFloatingLayout:(_anchor:HTMLElement,publish:(g:unknown)=>void)=>{publish({left:0,top:0,width:340,height:720});return()=>{}}}))
 beforeEach(()=>{
   vi.useFakeTimers()
+  vi.stubGlobal('ResizeObserver',class {observe(){} disconnect(){}})
+  Object.defineProperty(HTMLImageElement.prototype,'decode',{configurable:true,value:()=>Promise.resolve()})
   vi.stubGlobal('matchMedia',()=>({matches:false,addEventListener(){},removeEventListener(){}}))
 })
 afterEach(()=>{cleanup();vi.useRealTimers();vi.unstubAllGlobals()})
