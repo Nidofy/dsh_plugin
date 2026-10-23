@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 1,
+  "id": "seedance",
+  "name": "Seedance",
+  "status": "art-reviewed",
+  "approvedForRelease": false,
+  "integration": "Art-only delivery; not registered in production roster",
+  "generator": "built-in image_gen",
+  "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 25,
+        "top": 70,
+        "width": 288,
+        "height": 237
+      },
+      "nativeSize": [
+        288,
+        237
+      ],
+      "bytes": 144369,
+      "sha256": "24c6053ebb53433f26b8a237e7cf95b8179027f0d87fcd19b4ee594027bce47d",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 340,
+        "top": 69,
+        "width": 287,
+        "height": 237
+      },
+      "nativeSize": [
+        287,
+        237
+      ],
+      "bytes": 146497,
+      "sha256": "db29d2f741812d30479b9f21e8d2cddb4e7f53167eae5e0d2c471b129000b073",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 649,
+        "top": 69,
+        "width": 288,
+        "height": 237
+      },
+      "nativeSize": [
+        288,
+        237
+      ],
+      "bytes": 146392,
+      "sha256": "b9167464ad468c40658fdfc5faeffc366b91a660f184954ef395cdcbc38ff763",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 958,
+        "top": 69,
+        "width": 288,
+        "height": 241
+      },
+      "nativeSize": [
+        288,
+        241
+      ],
+      "bytes": 143161,
+      "sha256": "344eea976c22ae5e2e9688a9870121da758364902d1b19088057b71d096b29b9",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 19,
+        "top": 344,
+        "width": 309,
+        "height": 275
+      },
+      "nativeSize": [
+        309,
+        275
+      ],
+      "bytes": 127812,
+      "sha256": "89d8e180869ab5ce7c7f708785a625352eadb30ef1a99b56481ebe4017707bb6",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 387,
+        "top": 357,
+        "width": 178,
+        "height": 259
+      },
+      "nativeSize": [
+        178,
+        259
+      ],
+      "bytes": 75429,
+      "sha256": "2584968ff3b8da57f958f0cc88f2b2327b5c74b5eba51f6eff0cba1fef659fb7",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 741,
+        "top": 360,
+        "width": 182,
+        "height": 259
+      },
+      "nativeSize": [
+        182,
+        259
+      ],
+      "bytes": 76585,
+      "sha256": "881bbf192fe7c25dbf696ba46960d7b5d6624f4f71af7534e41e3914a729e820",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 1048,
+        "top": 347,
+        "width": 129,
+        "height": 267
+      },
+      "nativeSize": [
+        129,
+        267
+      ],
+      "bytes": 58821,
+      "sha256": "e90e8182315c3228427ceddba303f80d7861082aa7a54b56b0bc51f7a393e0d2",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 96,
+        "top": 649,
+        "width": 138,
+        "height": 254
+      },
+      "nativeSize": [
+        138,
+        254
+      ],
+      "bytes": 59891,
+      "sha256": "07219150fa4ca6082140d0e8c64d4597c1ba37f3884be67932f7a31e44eb76fd",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 371,
+        "top": 668,
+        "width": 217,
+        "height": 191
+      },
+      "nativeSize": [
+        217,
+        191
+      ],
+      "bytes": 69729,
+      "sha256": "63e10493f28f0342a3547125c1b3e799096d87cc632c428e13820fc3443adbe7",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 681,
+        "top": 671,
+        "width": 241,
+        "height": 192
+      },
+      "nativeSize": [
+        241,
+        192
+      ],
+      "bytes": 69076,
+      "sha256": "ba773270eb782ee60d1e559116973c02a59ee66303e473333e8030df26c419b5",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 1007,
+        "top": 676,
+        "width": 218,
+        "height": 209
+      },
+      "nativeSize": [
+        218,
+        209
+      ],
+      "bytes": 77340,
+      "sha256": "9fb75a1f67167ae104aeb2802290ee859580a763f7f6874d5349d86ec75220c8",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 33,
+        "top": 970,
+        "width": 275,
+        "height": 209
+      },
+      "nativeSize": [
+        275,
+        209
+      ],
+      "bytes": 81949,
+      "sha256": "ecd7c52a459f231607c864291b2b2afac0251dca32354012bac5242d623a58a5",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 333,
+        "top": 910,
+        "width": 285,
+        "height": 303
+      },
+      "nativeSize": [
+        285,
+        303
+      ],
+      "bytes": 193414,
+      "sha256": "4367c37e606641a3ba91159cb3072db1ffa5a338999de7de400143a9c771622a",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 659,
+        "top": 910,
+        "width": 290,
+        "height": 298
+      },
+      "nativeSize": [
+        290,
+        298
+      ],
+      "bytes": 190016,
+      "sha256": "7e539512c85544b8378cf515de5d82f6ba5dfd3502ced7f0d6eb3b0dabe4db87",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster-expansion/seedance-v02.png",
+      "sourceInDelivery": "sources/seedance-v02.png",
+      "sourceSha256": "f004b18e9bd63dde91c60cd2eeab329f6b51e2fe43ad26fb7c7f6a17fd6a5fab",
+      "crop": {
+        "left": 985,
+        "top": 942,
+        "width": 243,
+        "height": 250
+      },
+      "nativeSize": [
+        243,
+        250
+      ],
+      "bytes": 93818,
+      "sha256": "9f7bdab3e60666bc7fe3ad9b004f46427328b99be327eb0f9483a4daf0cd4452",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    }
+  ],
+  "definitions": [
+    {
+      "file": "character.json",
+      "sha256": "aff93dfe3f8bfd9f6c19fa7a3a9be7f74f28df80330f07d65b4ed9175d6ad96b"
+    },
+    {
+      "file": "animations.json",
+      "sha256": "364eba024060e958cca96b5fd6899c7f3b77c0b7d898e413ae688048a937c071"
+    },
+    {
+      "file": "activities.json",
+      "sha256": "6328486e431eb690a06ae0b89b7a899f4c3dd59d391a196e870545c7698af286"
+    }
+  ],
+  "artReview": {
+    "reviewer": "assistant",
+    "scope": "Native alpha, crop boundaries, expressions, assembly, 96/108/128px and 8 motion/activity previews",
+    "evidence": "../../QA/validation.json"
+  }
+}

@@ -1,0 +1,1469 @@
+{
+  "characters": 5,
+  "parts": 80,
+  "basicActions": 25,
+  "poseSamples": 48,
+  "offlineNetworkRequests": [],
+  "browserErrors": [],
+  "renderer": "Production PaperDoll + samplePose; scene.ts activity geometry; simplified desk occluder",
+  "findings": [
+    {
+      "id": "seedance",
+      "part": "face-neutral",
+      "size": [
+        288,
+        237
+      ],
+      "transparent": 17717,
+      "opaque": 119,
+      "nearOpaque": 43368,
+      "components": [
+        45882
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "face-happy",
+      "size": [
+        287,
+        237
+      ],
+      "transparent": 15760,
+      "opaque": 99,
+      "nearOpaque": 43817,
+      "components": [
+        46233
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "face-surprised",
+      "size": [
+        288,
+        237
+      ],
+      "transparent": 16599,
+      "opaque": 123,
+      "nearOpaque": 43613,
+      "components": [
+        46139
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "face-sleepy",
+      "size": [
+        288,
+        241
+      ],
+      "transparent": 18071,
+      "opaque": 107,
+      "nearOpaque": 43997,
+      "components": [
+        46569
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "torso",
+      "size": [
+        309,
+        275
+      ],
+      "transparent": 41131,
+      "opaque": 102,
+      "nearOpaque": 36503,
+      "components": [
+        38323
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "arm-left",
+      "size": [
+        178,
+        259
+      ],
+      "transparent": 17043,
+      "opaque": 113,
+      "nearOpaque": 24016,
+      "components": [
+        25165
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "arm-right",
+      "size": [
+        182,
+        259
+      ],
+      "transparent": 17363,
+      "opaque": 56,
+      "nearOpaque": 24316,
+      "components": [
+        25517
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "leg-left",
+      "size": [
+        129,
+        267
+      ],
+      "transparent": 10524,
+      "opaque": 66,
+      "nearOpaque": 19391,
+      "components": [
+        20507
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "leg-right",
+      "size": [
+        138,
+        254
+      ],
+      "transparent": 10853,
+      "opaque": 61,
+      "nearOpaque": 20056,
+      "components": [
+        21131
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "work-left",
+      "size": [
+        217,
+        191
+      ],
+      "transparent": 15266,
+      "opaque": 70,
+      "nearOpaque": 21620,
+      "components": [
+        22746
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "work-right",
+      "size": [
+        241,
+        192
+      ],
+      "transparent": 18142,
+      "opaque": 52,
+      "nearOpaque": 22995,
+      "components": [
+        24105
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "eat-left",
+      "size": [
+        218,
+        209
+      ],
+      "transparent": 15761,
+      "opaque": 79,
+      "nearOpaque": 25397,
+      "components": [
+        26404
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "eat-right",
+      "size": [
+        275,
+        209
+      ],
+      "transparent": 26172,
+      "opaque": 76,
+      "nearOpaque": 25633,
+      "components": [
+        26847
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "rest-pose",
+      "size": [
+        285,
+        303
+      ],
+      "transparent": 20341,
+      "opaque": 89,
+      "nearOpaque": 57255,
+      "components": [
+        59917
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "back-hair",
+      "size": [
+        290,
+        298
+      ],
+      "transparent": 15943,
+      "opaque": 84,
+      "nearOpaque": 60610,
+      "components": [
+        63858
+      ]
+    },
+    {
+      "id": "seedance",
+      "part": "ornament",
+      "size": [
+        243,
+        250
+      ],
+      "transparent": 27991,
+      "opaque": 193,
+      "nearOpaque": 26220,
+      "components": [
+        27846
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "face-neutral",
+      "size": [
+        314,
+        281
+      ],
+      "transparent": 20477,
+      "opaque": 60,
+      "nearOpaque": 54201,
+      "components": [
+        58532
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "face-happy",
+      "size": [
+        304,
+        282
+      ],
+      "transparent": 16294,
+      "opaque": 63,
+      "nearOpaque": 55138,
+      "components": [
+        59660
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "face-surprised",
+      "size": [
+        291,
+        282
+      ],
+      "transparent": 13391,
+      "opaque": 59,
+      "nearOpaque": 54690,
+      "components": [
+        59345
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "face-sleepy",
+      "size": [
+        292,
+        282
+      ],
+      "transparent": 14852,
+      "opaque": 44,
+      "nearOpaque": 55057,
+      "components": [
+        59460
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "torso",
+      "size": [
+        322,
+        285
+      ],
+      "transparent": 30835,
+      "opaque": 24,
+      "nearOpaque": 52912,
+      "components": [
+        54709
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "arm-left",
+      "size": [
+        201,
+        277
+      ],
+      "transparent": 21908,
+      "opaque": 35,
+      "nearOpaque": 26920,
+      "components": [
+        28342
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "arm-right",
+      "size": [
+        245,
+        272
+      ],
+      "transparent": 28741,
+      "opaque": 57,
+      "nearOpaque": 30000,
+      "components": [
+        31585
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "leg-left",
+      "size": [
+        147,
+        266
+      ],
+      "transparent": 8179,
+      "opaque": 45,
+      "nearOpaque": 23846,
+      "components": [
+        25747
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "leg-right",
+      "size": [
+        152,
+        255
+      ],
+      "transparent": 9272,
+      "opaque": 33,
+      "nearOpaque": 23086,
+      "components": [
+        24724
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "work-left",
+      "size": [
+        367,
+        432
+      ],
+      "transparent": 61554,
+      "opaque": 186,
+      "nearOpaque": 88233,
+      "components": [
+        90513
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "work-right",
+      "size": [
+        269,
+        231
+      ],
+      "transparent": 24673,
+      "opaque": 25,
+      "nearOpaque": 30307,
+      "components": [
+        31801
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "eat-left",
+      "size": [
+        235,
+        242
+      ],
+      "transparent": 17902,
+      "opaque": 30,
+      "nearOpaque": 33114,
+      "components": [
+        34488
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "eat-right",
+      "size": [
+        552,
+        392
+      ],
+      "transparent": 110390,
+      "opaque": 234,
+      "nearOpaque": 95273,
+      "components": [
+        97951
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "rest-pose",
+      "size": [
+        601,
+        625
+      ],
+      "transparent": 103240,
+      "opaque": 184,
+      "nearOpaque": 252781,
+      "components": [
+        258455
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "back-hair",
+      "size": [
+        1059,
+        939
+      ],
+      "transparent": 370024,
+      "opaque": 699,
+      "nearOpaque": 583032,
+      "components": [
+        595068
+      ]
+    },
+    {
+      "id": "glm",
+      "part": "ornament",
+      "size": [
+        214,
+        321
+      ],
+      "transparent": 18717,
+      "opaque": 64,
+      "nearOpaque": 42239,
+      "components": [
+        44600
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "face-neutral",
+      "size": [
+        312,
+        304
+      ],
+      "transparent": 16798,
+      "opaque": 55,
+      "nearOpaque": 64426,
+      "components": [
+        68371
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "face-happy",
+      "size": [
+        310,
+        305
+      ],
+      "transparent": 16174,
+      "opaque": 43,
+      "nearOpaque": 65068,
+      "components": [
+        68698
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "face-surprised",
+      "size": [
+        305,
+        305
+      ],
+      "transparent": 15287,
+      "opaque": 48,
+      "nearOpaque": 65164,
+      "components": [
+        68791
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "face-sleepy",
+      "size": [
+        305,
+        305
+      ],
+      "transparent": 14169,
+      "opaque": 47,
+      "nearOpaque": 64713,
+      "components": [
+        68419
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "torso",
+      "size": [
+        295,
+        288
+      ],
+      "transparent": 21160,
+      "opaque": 25,
+      "nearOpaque": 53566,
+      "components": [
+        55801
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "arm-left",
+      "size": [
+        194,
+        280
+      ],
+      "transparent": 16015,
+      "opaque": 58,
+      "nearOpaque": 27853,
+      "components": [
+        29672
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "arm-right",
+      "size": [
+        197,
+        277
+      ],
+      "transparent": 14200,
+      "opaque": 20,
+      "nearOpaque": 27719,
+      "components": [
+        29494
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "leg-left",
+      "size": [
+        124,
+        287
+      ],
+      "transparent": 5696,
+      "opaque": 39,
+      "nearOpaque": 22291,
+      "components": [
+        23600
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "leg-right",
+      "size": [
+        130,
+        275
+      ],
+      "transparent": 7344,
+      "opaque": 19,
+      "nearOpaque": 21709,
+      "components": [
+        23016
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "work-left",
+      "size": [
+        215,
+        225
+      ],
+      "transparent": 12376,
+      "opaque": 7,
+      "nearOpaque": 26245,
+      "components": [
+        27975
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "work-right",
+      "size": [
+        289,
+        224
+      ],
+      "transparent": 18973,
+      "opaque": 43,
+      "nearOpaque": 28266,
+      "components": [
+        30193
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "eat-left",
+      "size": [
+        224,
+        218
+      ],
+      "transparent": 8069,
+      "opaque": 21,
+      "nearOpaque": 29198,
+      "components": [
+        30672
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "eat-right",
+      "size": [
+        276,
+        232
+      ],
+      "transparent": 20939,
+      "opaque": 47,
+      "nearOpaque": 28983,
+      "components": [
+        30968
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "rest-pose",
+      "size": [
+        300,
+        371
+      ],
+      "transparent": 21198,
+      "opaque": 28,
+      "nearOpaque": 71387,
+      "components": [
+        76498
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "back-hair",
+      "size": [
+        326,
+        338
+      ],
+      "transparent": 22808,
+      "opaque": 36,
+      "nearOpaque": 73488,
+      "components": [
+        77969
+      ]
+    },
+    {
+      "id": "minimax",
+      "part": "ornament",
+      "size": [
+        251,
+        297
+      ],
+      "transparent": 24900,
+      "opaque": 81,
+      "nearOpaque": 35369,
+      "components": [
+        38181
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "face-neutral",
+      "size": [
+        288,
+        308
+      ],
+      "transparent": 17500,
+      "opaque": 108,
+      "nearOpaque": 55632,
+      "components": [
+        58951
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "face-happy",
+      "size": [
+        287,
+        307
+      ],
+      "transparent": 17284,
+      "opaque": 82,
+      "nearOpaque": 54809,
+      "components": [
+        58307
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "face-surprised",
+      "size": [
+        290,
+        306
+      ],
+      "transparent": 14093,
+      "opaque": 91,
+      "nearOpaque": 55448,
+      "components": [
+        58892
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "face-sleepy",
+      "size": [
+        287,
+        307
+      ],
+      "transparent": 15294,
+      "opaque": 80,
+      "nearOpaque": 55032,
+      "components": [
+        58419
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "torso",
+      "size": [
+        327,
+        278
+      ],
+      "transparent": 23024,
+      "opaque": 55,
+      "nearOpaque": 51446,
+      "components": [
+        52926
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "arm-left",
+      "size": [
+        166,
+        272
+      ],
+      "transparent": 6819,
+      "opaque": 21,
+      "nearOpaque": 27658,
+      "components": [
+        29011
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "arm-right",
+      "size": [
+        173,
+        275
+      ],
+      "transparent": 10379,
+      "opaque": 24,
+      "nearOpaque": 28203,
+      "components": [
+        29558
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "leg-left",
+      "size": [
+        140,
+        276
+      ],
+      "transparent": 8441,
+      "opaque": 79,
+      "nearOpaque": 24287,
+      "components": [
+        25559
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "leg-right",
+      "size": [
+        139,
+        272
+      ],
+      "transparent": 6547,
+      "opaque": 16,
+      "nearOpaque": 23983,
+      "components": [
+        25267
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "work-left",
+      "size": [
+        220,
+        214
+      ],
+      "transparent": 11972,
+      "opaque": 20,
+      "nearOpaque": 25097,
+      "components": [
+        26346
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "work-right",
+      "size": [
+        247,
+        207
+      ],
+      "transparent": 11597,
+      "opaque": 41,
+      "nearOpaque": 26562,
+      "components": [
+        27872
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "eat-left",
+      "size": [
+        218,
+        204
+      ],
+      "transparent": 7053,
+      "opaque": 48,
+      "nearOpaque": 28463,
+      "components": [
+        29606
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "eat-right",
+      "size": [
+        302,
+        232
+      ],
+      "transparent": 25846,
+      "opaque": 43,
+      "nearOpaque": 30810,
+      "components": [
+        32218
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "rest-pose",
+      "size": [
+        300,
+        362
+      ],
+      "transparent": 20762,
+      "opaque": 24,
+      "nearOpaque": 66483,
+      "components": [
+        71293
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "back-hair",
+      "size": [
+        286,
+        331
+      ],
+      "transparent": 14169,
+      "opaque": 46,
+      "nearOpaque": 56843,
+      "components": [
+        61635
+      ]
+    },
+    {
+      "id": "llama",
+      "part": "ornament",
+      "size": [
+        162,
+        261
+      ],
+      "transparent": 10321,
+      "opaque": 101,
+      "nearOpaque": 15553,
+      "components": [
+        19749
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "face-neutral",
+      "size": [
+        310,
+        274
+      ],
+      "transparent": 12898,
+      "opaque": 65,
+      "nearOpaque": 57847,
+      "components": [
+        61707
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "face-happy",
+      "size": [
+        313,
+        274
+      ],
+      "transparent": 13630,
+      "opaque": 57,
+      "nearOpaque": 57820,
+      "components": [
+        61506
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "face-surprised",
+      "size": [
+        306,
+        275
+      ],
+      "transparent": 12740,
+      "opaque": 63,
+      "nearOpaque": 57974,
+      "components": [
+        61803
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "face-sleepy",
+      "size": [
+        304,
+        274
+      ],
+      "transparent": 12144,
+      "opaque": 36,
+      "nearOpaque": 57768,
+      "components": [
+        61552
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "torso",
+      "size": [
+        354,
+        299
+      ],
+      "transparent": 35198,
+      "opaque": 35,
+      "nearOpaque": 59510,
+      "components": [
+        61826
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "arm-left",
+      "size": [
+        203,
+        295
+      ],
+      "transparent": 23528,
+      "opaque": 32,
+      "nearOpaque": 28115,
+      "components": [
+        29748
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "arm-right",
+      "size": [
+        206,
+        296
+      ],
+      "transparent": 24390,
+      "opaque": 56,
+      "nearOpaque": 28219,
+      "components": [
+        29944
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "leg-left",
+      "size": [
+        150,
+        287
+      ],
+      "transparent": 14450,
+      "opaque": 54,
+      "nearOpaque": 22514,
+      "components": [
+        24036
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "leg-right",
+      "size": [
+        146,
+        277
+      ],
+      "transparent": 12102,
+      "opaque": 28,
+      "nearOpaque": 21899,
+      "components": [
+        23328
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "work-left",
+      "size": [
+        301,
+        488
+      ],
+      "transparent": 58335,
+      "opaque": 183,
+      "nearOpaque": 79152,
+      "components": [
+        81707
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "work-right",
+      "size": [
+        282,
+        223
+      ],
+      "transparent": 24281,
+      "opaque": 28,
+      "nearOpaque": 28387,
+      "components": [
+        29930
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "eat-left",
+      "size": [
+        219,
+        222
+      ],
+      "transparent": 12096,
+      "opaque": 32,
+      "nearOpaque": 29553,
+      "components": [
+        30858
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "eat-right",
+      "size": [
+        504,
+        385
+      ],
+      "transparent": 94908,
+      "opaque": 162,
+      "nearOpaque": 90152,
+      "components": [
+        92600
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "rest-pose",
+      "size": [
+        642,
+        607
+      ],
+      "transparent": 112616,
+      "opaque": 271,
+      "nearOpaque": 257299,
+      "components": [
+        263704
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "back-hair",
+      "size": [
+        1083,
+        925
+      ],
+      "transparent": 380892,
+      "opaque": 502,
+      "nearOpaque": 588776,
+      "components": [
+        601304
+      ]
+    },
+    {
+      "id": "mistral",
+      "part": "ornament",
+      "size": [
+        150,
+        293
+      ],
+      "transparent": 14350,
+      "opaque": 22,
+      "nearOpaque": 21069,
+      "components": [
+        23052
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "idle",
+      "time": 0,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "idle",
+      "time": 0.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "idle",
+      "time": 0.4,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "idle",
+      "time": 0.6,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "idle",
+      "time": 1.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "idle",
+      "time": 3.3,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "walk",
+      "time": 0,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "walk",
+      "time": 0.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "walk",
+      "time": 0.4,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "walk",
+      "time": 0.6,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "walk",
+      "time": 1.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "walk",
+      "time": 3.3,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "pickup",
+      "time": 0,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "pickup",
+      "time": 0.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "pickup",
+      "time": 0.4,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "pickup",
+      "time": 0.6,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "pickup",
+      "time": 1.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "pickup",
+      "time": 3.3,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "dragging",
+      "time": 0,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "dragging",
+      "time": 0.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "dragging",
+      "time": 0.4,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "dragging",
+      "time": 0.6,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "dragging",
+      "time": 1.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "dragging",
+      "time": 3.3,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "put_down",
+      "time": 0,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "put_down",
+      "time": 0.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "put_down",
+      "time": 0.4,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "put_down",
+      "time": 0.6,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "put_down",
+      "time": 1.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "put_down",
+      "time": 3.3,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "work",
+      "time": 0,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "work",
+      "time": 0.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "work",
+      "time": 0.4,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "work",
+      "time": 0.6,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "work",
+      "time": 1.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "work",
+      "time": 3.3,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "eat",
+      "time": 0,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "eat",
+      "time": 0.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "eat",
+      "time": 0.4,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "eat",
+      "time": 0.6,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "eat",
+      "time": 1.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "eat",
+      "time": 3.3,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "rest",
+      "time": 0,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "rest",
+      "time": 0.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "rest",
+      "time": 0.4,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "rest",
+      "time": 0.6,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "rest",
+      "time": 1.2,
+      "size": 216
+    },
+    {
+      "rigs": 5,
+      "textures": 80,
+      "state": "rest",
+      "time": 3.3,
+      "size": 216
+    }
+  ]
+}

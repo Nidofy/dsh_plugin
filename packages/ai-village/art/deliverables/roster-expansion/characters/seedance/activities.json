@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "coordinateSystem": "character canvas; front view; no mirroring",
+  "work": {
+    "hide": [
+      "arm-left",
+      "arm-right",
+      "leg-left",
+      "leg-right"
+    ],
+    "arms": [
+      {
+        "file": "parts/work-left.png",
+        "offset": [
+          325,
+          560
+        ],
+        "size": [
+          175,
+          200
+        ]
+      },
+      {
+        "file": "parts/work-right.png",
+        "offset": [
+          535,
+          560
+        ],
+        "size": [
+          175,
+          200
+        ]
+      }
+    ],
+    "motion": "Left writing hand: y += sin(phase*7)*6, rotation = sin(phase*7)*0.025 radians"
+  },
+  "eat": {
+    "hide": [
+      "arm-left",
+      "arm-right",
+      "leg-left",
+      "leg-right"
+    ],
+    "arms": [
+      {
+        "file": "parts/eat-left.png",
+        "offset": [
+          325,
+          495
+        ],
+        "size": [
+          220,
+          185
+        ]
+      },
+      {
+        "file": "parts/eat-right.png",
+        "offset": [
+          535,
+          495
+        ],
+        "size": [
+          220,
+          185
+        ]
+      }
+    ],
+    "motion": "Right spoon hand: y -= (1+sin(phase*3))*22; x -= (1+sin(phase*3))*10; rotation=-0.05 radians"
+  },
+  "rest": {
+    "file": "parts/rest-pose.png",
+    "anchor": [
+      0.5,
+      1
+    ],
+    "logicalHeight": 96,
+    "motion": "height *= 1+0.004*sin(phase*2)"
+  }
+}

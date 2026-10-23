@@ -1,0 +1,24 @@
+{
+  "status": "CONCEPT_CANDIDATE",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "date": "2026-10-23",
+  "baseline": "6a254cd2b0e7afdaeeb02ca1723402872078b3d7",
+  "generator": "built-in image_gen",
+  "source": "Original generated illustration; visual direction informed by existing courtyard/background.png, no external source image supplied to generation tool.",
+  "file": "bookhouse-concept-v01.png",
+  "size": [
+    1086,
+    1448
+  ],
+  "bytes": 2296307,
+  "sha256": "3d49bb7b341e5172ff3b7a6217c4d36f70b821e932314f790122d69cb7545fbb",
+  "prompt": "../../prompts/bookhouse-scene-candidate.json",
+  "review": "../../../../../docs/ai-village/BOOKHOUSE_SCENE_ART_REVIEW.md",
+  "limitations": [
+    "Flattened concept, not separable runtime layers",
+    "Furniture bounds do not match frozen bookhouseScene geometry",
+    "No resident occlusion, hitbox, runtime memory or performance acceptance"
+  ],
+  "license": "MIT"
+}

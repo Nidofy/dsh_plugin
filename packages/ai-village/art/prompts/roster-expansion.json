@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "tool": "built-in image_gen",
+  "baseRevision": "6a254cd",
+  "baseVersion": "0.9.0-preview.2",
+  "scope": "Five art packages; no gameplay roster or saved-world migration",
+  "sharedPrompt": "Use case: stylized-concept. Produce ONE production sprite atlas for a layered 2D chibi paper-doll game on genuine transparent RGBA background. Image 1 is STYLE reference, match polished rounded 2-head-tall proportions, large shiny eyes, clean outlines and soft cel shading. Image 2 is the CHARACTER IDENTITY reference. Image 3 is the exact ATLAS STRUCTURE reference only, do not copy its identity. Preserve target hair, eyes, costume and accessories simplified for a 108px game sprite. Strict layout square atlas, exactly FOUR equal columns and FOUR equal rows, 16 isolated cutouts each centered within its cell, with 8 percent empty transparent margin on every cell side, no crossing boundaries. No labels, text, grid lines, shadows, backgrounds or watermark. Row 1: four same-size registered front-view HEADS (head, short framing hair, ears and hat ONLY, no shoulders or long rear hair): neutral smile, happy open-mouth, surprised O-mouth, sleepy closed-eyes. Identical face shape and accessory placement. Row 2: (1) complete clothed torso with short flared skirt, neck but NO head, arms, hands, legs or shoes; concealed shoulders fully painted; (2) screen-left relaxed full arm with sleeve and hand, shoulder upper-right; (3) screen-right relaxed full arm, shoulder upper-left; (4) screen-left short leg and shoe. Row 3: (1) screen-right short leg and shoe; (2) screen-left bent full arm holding pencil pointing down toward desk; (3) screen-right bent full arm resting hand on desk; (4) screen-left bent full arm holding a small rice bowl near chest, only ONE hand. Row 4: (1) screen-right bent full arm raising a spoon toward mouth, only ONE hand; (2) FULL BODY seated resting chibi with knees bent, hands on lap, closed eyes, same outfit, real seated pose, no cushion; (3) separate rear hair mass with hidden center fully painted, NO face/body/ears/hat, flowing behind head to skirt; (4) separate character-specific tail or rear ornament. Sleeves include shoulder overlap. All 16 sprites orthographic front-facing and consistent lighting. Use highest useful square resolution. Character identity: ",
+  "characters": [
+    {
+      "id": "seedance",
+      "name": "Seedance",
+      "reference": "seedance.jpg",
+      "identity": "Violet hair fading cyan, purple eyes, ONE high side ponytail on screen-right with turquoise circular loop hair tie. White violet cyan futuristic idol jacket, asymmetric white pleated skirt with cyan inserts and purple belt, covered midriff for chibi design, mismatched purple/white socks and white chunky sneakers. NO extra doll, no second person, no floating magical object. Last cell is a separate violet/cyan long waist ribbon with small plain ID badge."
+    },
+    {
+      "id": "glm",
+      "name": "GLM",
+      "reference": "glm.jpg",
+      "identity": "Very long ink-black hair with subtle midnight-blue ends, large black fox ears, pale grey violet eyes, white lace maid headband, monochrome white and black Victorian gothic scholar dress, black waist panel, lace trim, small silver diamond details, white lace-up ankle boots with black toe. Last cell a fluffy black fox tail with white tip."
+    },
+    {
+      "id": "minimax",
+      "name": "MiniMax",
+      "reference": "minimax.jpg",
+      "identity": "Peach-orange wavy shoulder-length hair with side braid, warm amber eyes, white soft newsboy cap with small rose-pink emblem, white and pale pink jacket over white blouse, tan plaid pleated short skirt, pink belt and accents, white pink sneakers and short socks. Last cell a separate tan crossbody satchel with little pink audio-wave symbol and tiny black clapperboard peeking out, NO text."
+    },
+    {
+      "id": "llama",
+      "name": "Llama",
+      "reference": "llama.jpg",
+      "identity": "Ivory-white long fluffy wavy hair, two upright soft llama ears, pale blue eyes, small blue infinity hair clip on screen-right. Cozy oversized cream sweater with small blue infinity motif, cream layered skirt, blue ribbon at waist, fluffy socks and llama-face slippers. Last cell a separate dangling blue ribbon with two cream pompom charms."
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral",
+      "reference": "Mistral.jpg",
+      "identity": "Golden blonde hair fading warm orange-red in long waves, amber eyes, large red and gold musketeer hat with white feather on screen-left, little feline ears, ivory and scarlet ornate dress with gold trim, red bow at collar, red ankle shoes. Friendly peaceful version; no sword. Last cell separate golden feline tail with dark-red fluffy tip. Preserve hat orientation consistently."
+    }
+  ],
+  "references": {
+    "style": "art/approved/bluewhale-neutral-v01.png",
+    "layout": "art/work/roster/claude-v02.png",
+    "identityDirectory": "D:/Documents/FeiyangChen/devApps/dsh_docs/live2d_assets/Character-reference"
+  }
+}

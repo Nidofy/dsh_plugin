@@ -1,0 +1,125 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-23",
+  "transparent_background": true,
+  "records": [
+    {
+      "id": "seedance-v01",
+      "output": "art/work/roster-expansion/seedance-v01.png",
+      "prompt": "Use case: stylized-concept. Produce ONE production sprite atlas for a layered 2D chibi paper-doll game on genuine transparent RGBA background. Image 1 is STYLE reference, match polished rounded 2-head-tall proportions, large shiny eyes, clean outlines and soft cel shading. Image 2 is the CHARACTER IDENTITY reference. Image 3 is the exact ATLAS STRUCTURE reference only, do not copy its identity. Preserve target hair, eyes, costume and accessories simplified for a 108px game sprite. Strict layout square atlas, exactly FOUR equal columns and FOUR equal rows, 16 isolated cutouts each centered within its cell, with 8 percent empty transparent margin on every cell side, no crossing boundaries. No labels, text, grid lines, shadows, backgrounds or watermark. Row 1: four same-size registered front-view HEADS (head, short framing hair, ears and hat ONLY, no shoulders or long rear hair): neutral smile, happy open-mouth, surprised O-mouth, sleepy closed-eyes. Identical face shape and accessory placement. Row 2: (1) complete clothed torso with short flared skirt, neck but NO head, arms, hands, legs or shoes; concealed shoulders fully painted; (2) screen-left relaxed full arm with sleeve and hand, shoulder upper-right; (3) screen-right relaxed full arm, shoulder upper-left; (4) screen-left short leg and shoe. Row 3: (1) screen-right short leg and shoe; (2) screen-left bent full arm holding pencil pointing down toward desk; (3) screen-right bent full arm resting hand on desk; (4) screen-left bent full arm holding a small rice bowl near chest, only ONE hand. Row 4: (1) screen-right bent full arm raising a spoon toward mouth, only ONE hand; (2) FULL BODY seated resting chibi with knees bent, hands on lap, closed eyes, same outfit, real seated pose, no cushion; (3) separate rear hair mass with hidden center fully painted, NO face/body/ears/hat, flowing behind head to skirt; (4) separate character-specific tail or rear ornament. Sleeves include shoulder overlap. All 16 sprites orthographic front-facing and consistent lighting. Use highest useful square resolution. Character identity: Violet hair fading cyan, purple eyes, ONE high side ponytail on screen-right with turquoise circular loop hair tie. White violet cyan futuristic idol jacket, asymmetric white pleated skirt with cyan inserts and purple belt, covered midriff for chibi design, mismatched purple/white socks and white chunky sneakers. NO extra doll, no second person, no floating magical object. Last cell is a separate violet/cyan long waist ribbon with small plain ID badge.",
+      "references": [
+        "art/approved/bluewhale-neutral-v01.png",
+        "D:/Documents/FeiyangChen/devApps/dsh_docs/live2d_assets/Character-reference/seedance.jpg",
+        "art/work/roster/claude-v02.png"
+      ],
+      "selected": false
+    },
+    {
+      "id": "glm-v01",
+      "output": "art/work/roster-expansion/glm-v01.png",
+      "prompt": "Use case: stylized-concept. Produce ONE production sprite atlas for a layered 2D chibi paper-doll game on genuine transparent RGBA background. Image 1 is STYLE reference, match polished rounded 2-head-tall proportions, large shiny eyes, clean outlines and soft cel shading. Image 2 is the CHARACTER IDENTITY reference. Image 3 is the exact ATLAS STRUCTURE reference only, do not copy its identity. Preserve target hair, eyes, costume and accessories simplified for a 108px game sprite. Strict layout square atlas, exactly FOUR equal columns and FOUR equal rows, 16 isolated cutouts each centered within its cell, with 8 percent empty transparent margin on every cell side, no crossing boundaries. No labels, text, grid lines, shadows, backgrounds or watermark. Row 1: four same-size registered front-view HEADS (head, short framing hair, ears and hat ONLY, no shoulders or long rear hair): neutral smile, happy open-mouth, surprised O-mouth, sleepy closed-eyes. Identical face shape and accessory placement. Row 2: (1) complete clothed torso with short flared skirt, neck but NO head, arms, hands, legs or shoes; concealed shoulders fully painted; (2) screen-left relaxed full arm with sleeve and hand, shoulder upper-right; (3) screen-right relaxed full arm, shoulder upper-left; (4) screen-left short leg and shoe. Row 3: (1) screen-right short leg and shoe; (2) screen-left bent full arm holding pencil pointing down toward desk; (3) screen-right bent full arm resting hand on desk; (4) screen-left bent full arm holding a small rice bowl near chest, only ONE hand. Row 4: (1) screen-right bent full arm raising a spoon toward mouth, only ONE hand; (2) FULL BODY seated resting chibi with knees bent, hands on lap, closed eyes, same outfit, real seated pose, no cushion; (3) separate rear hair mass with hidden center fully painted, NO face/body/ears/hat, flowing behind head to skirt; (4) separate character-specific tail or rear ornament. Sleeves include shoulder overlap. All 16 sprites orthographic front-facing and consistent lighting. Use highest useful square resolution. Character identity: Very long ink-black hair with subtle midnight-blue ends, large black fox ears, pale grey violet eyes, white lace maid headband, monochrome white and black Victorian gothic scholar dress, black waist panel, lace trim, small silver diamond details, white lace-up ankle boots with black toe. Last cell a fluffy black fox tail with white tip. IMPORTANT: all objects must fit fully inside their cells with empty gutters. Torso must be sleeveless arm-free, sleeve pieces are separate.",
+      "references": [
+        "art/approved/bluewhale-neutral-v01.png",
+        "D:/Documents/FeiyangChen/devApps/dsh_docs/live2d_assets/Character-reference/glm.jpg",
+        "art/work/roster/claude-v02.png"
+      ],
+      "selected": true
+    },
+    {
+      "id": "minimax-v01",
+      "output": "art/work/roster-expansion/minimax-v01.png",
+      "prompt": "Use case: stylized-concept. Produce ONE production sprite atlas for a layered 2D chibi paper-doll game on genuine transparent RGBA background. Image 1 is STYLE reference, match polished rounded 2-head-tall proportions, large shiny eyes, clean outlines and soft cel shading. Image 2 is the CHARACTER IDENTITY reference. Image 3 is the exact ATLAS STRUCTURE reference only, do not copy its identity. Preserve target hair, eyes, costume and accessories simplified for a 108px game sprite. Strict layout square atlas, exactly FOUR equal columns and FOUR equal rows, 16 isolated cutouts each centered within its cell, with 8 percent empty transparent margin on every cell side, no crossing boundaries. No labels, text, grid lines, shadows, backgrounds or watermark. Row 1: four same-size registered front-view HEADS (head, short framing hair, ears and hat ONLY, no shoulders or long rear hair): neutral smile, happy open-mouth, surprised O-mouth, sleepy closed-eyes. Identical face shape and accessory placement. Row 2: (1) complete clothed torso with short flared skirt, neck but NO head, arms, hands, legs or shoes; concealed shoulders fully painted; (2) screen-left relaxed full arm with sleeve and hand, shoulder upper-right; (3) screen-right relaxed full arm, shoulder upper-left; (4) screen-left short leg and shoe. Row 3: (1) screen-right short leg and shoe; (2) screen-left bent full arm holding pencil pointing down toward desk; (3) screen-right bent full arm resting hand on desk; (4) screen-left bent full arm holding a small rice bowl near chest, only ONE hand. Row 4: (1) screen-right bent full arm raising a spoon toward mouth, only ONE hand; (2) FULL BODY seated resting chibi with knees bent, hands on lap, closed eyes, same outfit, real seated pose, no cushion; (3) separate rear hair mass with hidden center fully painted, NO face/body/ears/hat, flowing behind head to skirt; (4) separate character-specific tail or rear ornament. Sleeves include shoulder overlap. All 16 sprites orthographic front-facing and consistent lighting. Use highest useful square resolution. Character identity: Peach-orange wavy shoulder-length hair with side braid, warm amber eyes, white soft newsboy cap with small rose-pink emblem, white and pale pink jacket over white blouse, tan plaid pleated short skirt, pink belt and accents, white pink sneakers and short socks. Last cell a separate tan crossbody satchel with little pink audio-wave symbol and tiny black clapperboard peeking out, NO text. IMPORTANT: torso cutout must have no arms or sleeves. Separate sleeve sprites include full sleeve. Leave empty gutters.",
+      "references": [
+        "art/approved/bluewhale-neutral-v01.png",
+        "D:/Documents/FeiyangChen/devApps/dsh_docs/live2d_assets/Character-reference/minimax.jpg",
+        "art/work/roster/claude-v02.png"
+      ],
+      "selected": true
+    },
+    {
+      "id": "llama-v01",
+      "output": "art/work/roster-expansion/llama-v01.png",
+      "prompt": "Use case: stylized-concept. Produce ONE production sprite atlas for a layered 2D chibi paper-doll game on genuine transparent RGBA background. Image 1 is STYLE reference, match polished rounded 2-head-tall proportions, large shiny eyes, clean outlines and soft cel shading. Image 2 is the CHARACTER IDENTITY reference. Image 3 is the exact ATLAS STRUCTURE reference only, do not copy its identity. Preserve target hair, eyes, costume and accessories simplified for a 108px game sprite. Strict layout square atlas, exactly FOUR equal columns and FOUR equal rows, 16 isolated cutouts each centered within its cell, with 8 percent empty transparent margin on every cell side, no crossing boundaries. No labels, text, grid lines, shadows, backgrounds or watermark. Row 1: four same-size registered front-view HEADS (head, short framing hair, ears and hat ONLY, no shoulders or long rear hair): neutral smile, happy open-mouth, surprised O-mouth, sleepy closed-eyes. Identical face shape and accessory placement. Row 2: (1) complete clothed torso with short flared skirt, neck but NO head, arms, hands, legs or shoes; concealed shoulders fully painted; (2) screen-left relaxed full arm with sleeve and hand, shoulder upper-right; (3) screen-right relaxed full arm, shoulder upper-left; (4) screen-left short leg and shoe. Row 3: (1) screen-right short leg and shoe; (2) screen-left bent full arm holding pencil pointing down toward desk; (3) screen-right bent full arm resting hand on desk; (4) screen-left bent full arm holding a small rice bowl near chest, only ONE hand. Row 4: (1) screen-right bent full arm raising a spoon toward mouth, only ONE hand; (2) FULL BODY seated resting chibi with knees bent, hands on lap, closed eyes, same outfit, real seated pose, no cushion; (3) separate rear hair mass with hidden center fully painted, NO face/body/ears/hat, flowing behind head to skirt; (4) separate character-specific tail or rear ornament. Sleeves include shoulder overlap. All 16 sprites orthographic front-facing and consistent lighting. Use highest useful square resolution. Character identity: Ivory-white long fluffy wavy hair, two upright soft llama ears, pale blue eyes, small blue infinity hair clip on screen-right. Cozy oversized cream sweater with small blue infinity motif, cream layered skirt, blue ribbon at waist, fluffy socks and llama-face slippers. Last cell a separate dangling blue ribbon with two cream pompom charms. IMPORTANT: torso cutout must have no arms or sleeves. Separate sleeve sprites include full sleeve. Leave generous empty gutters.",
+      "references": [
+        "art/approved/bluewhale-neutral-v01.png",
+        "D:/Documents/FeiyangChen/devApps/dsh_docs/live2d_assets/Character-reference/llama.jpg",
+        "art/work/roster/claude-v02.png"
+      ],
+      "selected": true
+    },
+    {
+      "id": "mistral-v01",
+      "output": "art/work/roster-expansion/mistral-v01.png",
+      "prompt": "Use case: stylized-concept. Produce ONE production sprite atlas for a layered 2D chibi paper-doll game on genuine transparent RGBA background. Image 1 is STYLE reference, match polished rounded 2-head-tall proportions, large shiny eyes, clean outlines and soft cel shading. Image 2 is the CHARACTER IDENTITY reference. Image 3 is the exact ATLAS STRUCTURE reference only, do not copy its identity. Preserve target hair, eyes, costume and accessories simplified for a 108px game sprite. Strict layout square atlas, exactly FOUR equal columns and FOUR equal rows, 16 isolated cutouts each centered within its cell, with 8 percent empty transparent margin on every cell side, no crossing boundaries. No labels, text, grid lines, shadows, backgrounds or watermark. Row 1: four same-size registered front-view HEADS (head, short framing hair, ears and hat ONLY, no shoulders or long rear hair): neutral smile, happy open-mouth, surprised O-mouth, sleepy closed-eyes. Identical face shape and accessory placement. Row 2: (1) complete clothed torso with short flared skirt, neck but NO head, arms, hands, legs or shoes; concealed shoulders fully painted; (2) screen-left relaxed full arm with sleeve and hand, shoulder upper-right; (3) screen-right relaxed full arm, shoulder upper-left; (4) screen-left short leg and shoe. Row 3: (1) screen-right short leg and shoe; (2) screen-left bent full arm holding pencil pointing down toward desk; (3) screen-right bent full arm resting hand on desk; (4) screen-left bent full arm holding a small rice bowl near chest, only ONE hand. Row 4: (1) screen-right bent full arm raising a spoon toward mouth, only ONE hand; (2) FULL BODY seated resting chibi with knees bent, hands on lap, closed eyes, same outfit, real seated pose, no cushion; (3) separate rear hair mass with hidden center fully painted, NO face/body/ears/hat, flowing behind head to skirt; (4) separate character-specific tail or rear ornament. Sleeves include shoulder overlap. All 16 sprites orthographic front-facing and consistent lighting. Use highest useful square resolution. Character identity: Golden blonde hair fading warm orange-red in long waves, amber eyes, large red and gold musketeer hat with white feather on screen-left, little feline ears, ivory and scarlet ornate dress with gold trim, red bow at collar, red ankle shoes. Friendly peaceful version; no sword. Last cell separate golden feline tail with dark-red fluffy tip. Preserve hat orientation consistently. IMPORTANT: torso cutout must have no arms or sleeves. Hat and feather entirely within each cell, with transparent margin. Rear hair no hat or ears.",
+      "references": [
+        "art/approved/bluewhale-neutral-v01.png",
+        "D:/Documents/FeiyangChen/devApps/dsh_docs/live2d_assets/Character-reference/Mistral.jpg",
+        "art/work/roster/claude-v02.png"
+      ],
+      "selected": true
+    },
+    {
+      "id": "seedance-v02",
+      "prompt": "Use case: precise-object-edit. Correct this Seedance sprite atlas for production. Keep the same character, rendering style, colors, all 16 part identities and 4x4 order. Two fixes: 1) Make every cell sprite 15 percent smaller around its own cell center so complete heads/ponytails and arms fit INSIDE their own cell with wide genuinely transparent gutters, no clipping or touching adjacent cells. 2) Row 2 column 1 torso: remove both white hanging sleeves and shoulder straps that extend into sleeves. Render ONLY sleeveless bodice, short neck, belt and skirt, fully painted shoulders to attach independent arms. No hands or arms anywhere in this torso cutout. The detached sleeve/arm sprites in columns 2 and 3 stay. Preserve facial identities, asymmetric socks, hair loop on screen-right, sitting pose and all other assets. Genuine transparent RGBA, no text, no grid.",
+      "output": "art/work/roster-expansion/seedance-v02.png",
+      "references": [
+        "art/work/roster-expansion/seedance-v01.png"
+      ],
+      "decision": "Selected; removes duplicate torso sleeves"
+    },
+    {
+      "id": "glm-back-hair-v02",
+      "prompt": "Use case: precise-object-edit. Production 2D chibi paper doll rear-hair replacement. Reference is GLM part atlas. Generate ONLY ONE isolated complete rear hair mass matching row4 column3: long ink-black silky hair shading to midnight blue at ends, same rounded soft cel shaded linework. Fully paint entire hidden center and complete outward flowing locks on BOTH sides with no straight cropped edges. No face, head front, ears, headband, ribbons, jewelry, torso or other parts. This goes behind the front-facing head and body, not a full person. Keep hair opaque with clean anti-aliased edges; genuine transparent RGBA background. Center with at least 15 percent transparent margin on all four sides. No text or ground shadow.",
+      "output": "art/work/roster-expansion/glm-back-hair-v02.png",
+      "references": [
+        "art/work/roster-expansion/glm-v01.png"
+      ],
+      "decision": "Selected; completes unclipped rear hair"
+    },
+    {
+      "id": "mistral-back-hair-v02",
+      "prompt": "Use case: precise-object-edit. Production 2D chibi paper doll rear-hair replacement. Reference is Mistral part atlas. Generate ONLY ONE isolated complete rear hair mass matching row4 column3: golden blonde long waves fading warm orange then scarlet-red at the lower ends, polished soft cel shaded linework. Fully paint the entire hidden center and complete outward flowing locks on BOTH sides with no straight cropped edges. No face, front bangs, ears, hat, feather, ribbons, jewelry, torso or other parts. This goes behind the front-facing head and body, not a full person. Keep hair opaque with clean anti-aliased edges; genuine transparent RGBA background. Center with at least 15 percent transparent margin on all four sides. No text or ground shadow.",
+      "output": "art/work/roster-expansion/mistral-back-hair-v02.png",
+      "references": [
+        "art/work/roster-expansion/mistral-v01.png"
+      ],
+      "decision": "Selected; completes unclipped rear hair"
+    },
+    {
+      "id": "mistral-repairs-v02",
+      "prompt": "Use case: precise-object-edit. Create a CLEAN REPAIR ATLAS for this exact Mistral chibi character and same polished art style. True transparent RGBA. Square 2x2 cells only, four isolated cutouts with extremely generous transparent gutters: each item fills at most 65% cell width and height. Top-left: screen-left bent arm with matching white red gold sleeve holding a pen aimed downward to write, fully complete sleeve shoulder and ONE hand only. Top-right: screen-right bent arm with matching sleeve holding a spoon raised towards mouth, ONE hand only. Bottom-left: COMPLETE FULL BODY seated resting chibi, closed eyes, knees bent, hands resting on lap, feet in front, with ENTIRE hat, feather, long golden-orange-red hair, red white gold outfit. Bottom-right: isolated complete golden feline tail with red tip. These four must be widely separated; no other sprites, no stray fragments, no touching cell boundaries. No labels, no shadow, no text. Do not change outfit or hair identity or hat orientation. All sides of seated pose must be fully visible and uncropped.",
+      "output": "art/work/roster-expansion/mistral-repairs-v02.png",
+      "references": [
+        "art/work/roster-expansion/mistral-v01.png"
+      ],
+      "decision": "Selected work-left, eat-right and rest-pose only"
+    },
+    {
+      "id": "glm-spoon-v02",
+      "prompt": "Use case: precise-object-edit. Produce ONE isolated GLM screen-right eating arm with a spoon, matching the supplied atlas row4 column1 exactly in identity and softly shaded chibi style. A bent full arm, white puff sleeve with black ribbon and silver diamond decorations, frilled cuff, ONE delicate hand gripping the spoon handle, spoon rising to screen-right. Fully painted rounded shoulder root at upper-left, hand at lower-right. NO other sprite fragments or hair, no face or torso, no duplicates. Complete cutout centered with 15 percent transparent margin. Genuine transparent RGBA. No background or shadow or text.",
+      "output": "art/work/roster-expansion/glm-spoon-rejected-v02.png",
+      "references": [
+        "art/work/roster-expansion/glm-v01.png"
+      ],
+      "decision": "Rejected: dark background and glow"
+    },
+    {
+      "id": "glm-spoon-v03",
+      "prompt": "Use case: background-extraction. Remove the ENTIRE black and grey glowing background from this isolated white-sleeve hand holding spoon. Output genuine transparent RGBA with alpha=0 outside the exact sleeve, hand and spoon silhouette. Remove ALL glow and cast shadow, no dark halo. Preserve the complete illustrated object, its original colors, style, anatomy and details. Do not redraw or add anything, no background rectangle, no checkerboard. Leave transparent margin around all sides.",
+      "output": null,
+      "references": [
+        "art/work/roster-expansion/glm-spoon-rejected-v02.png"
+      ],
+      "decision": "Rejected: dark background and glow persist; generated file exec-e130e7de-fdac-4a31-80b0-17ff3fb9a658.png not retained in repository"
+    },
+    {
+      "id": "glm-repairs-v03",
+      "prompt": "Use case: stylized-concept. Create a production sprite repair atlas for the GLM chibi character shown in the reference. 2x2 layout of four widely separated PNG cutouts on genuine TRANSPARENT RGBA, same small polished game sprite style as reference, not a painted background. Top-left isolated bent writing arm with black/white sleeve holding pen down. Top-right isolated bent eating arm holding spoon toward screen-right, one hand only. Bottom-left complete seated resting chibi with closed eyes, white lace headband, black fox ears, long black blue hair, white/black gothic dress, black white boots. Bottom-right black fox tail with white tip. Each sprite separated by wide transparent gutters and fully visible; no extra pixels from adjacent sprites. No glow, no backdrop, no gradient, no text, no shadows. Keep each sprite within its quadrant. Please use the original transparent sprite atlas format of the reference.",
+      "output": "art/work/roster-expansion/glm-repairs-v03.png",
+      "references": [
+        "art/work/roster-expansion/glm-v01.png"
+      ],
+      "decision": "Selected work-left, eat-right and rest-pose only"
+    }
+  ]
+}

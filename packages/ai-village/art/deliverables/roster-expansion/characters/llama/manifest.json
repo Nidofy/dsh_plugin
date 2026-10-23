@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 1,
+  "id": "llama",
+  "name": "Llama",
+  "status": "art-reviewed",
+  "approvedForRelease": false,
+  "integration": "Art-only delivery; not registered in production roster",
+  "generator": "built-in image_gen",
+  "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+  "parts": [
+    {
+      "id": "face-neutral",
+      "file": "parts/face-neutral.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 24,
+        "top": 22,
+        "width": 288,
+        "height": 308
+      },
+      "nativeSize": [
+        288,
+        308
+      ],
+      "bytes": 157169,
+      "sha256": "d4e1c2e19b6886c4426df4f4b7ebcc9fa98cc09abb7a4138f51897bd233dc3ab",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-happy",
+      "file": "parts/face-happy.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 337,
+        "top": 22,
+        "width": 287,
+        "height": 307
+      },
+      "nativeSize": [
+        287,
+        307
+      ],
+      "bytes": 151916,
+      "sha256": "fd0b6c9fb5e217aef6a2eb0fb95cc6e988a0471f718dc4685b5045bb66816cfc",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-surprised",
+      "file": "parts/face-surprised.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 647,
+        "top": 23,
+        "width": 290,
+        "height": 306
+      },
+      "nativeSize": [
+        290,
+        306
+      ],
+      "bytes": 158761,
+      "sha256": "b365d714d20a964ee1c7d9cc89ada1e897d5bfa336810e672a0e36623bfb1c50",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "face-sleepy",
+      "file": "parts/face-sleepy.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 961,
+        "top": 22,
+        "width": 287,
+        "height": 307
+      },
+      "nativeSize": [
+        287,
+        307
+      ],
+      "bytes": 151100,
+      "sha256": "3a1df4c8a11dc1ff4819da9e15c48b35f2c0d914d442b44e6ee5f425e02ec212",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "torso",
+      "file": "parts/torso.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 13,
+        "top": 338,
+        "width": 327,
+        "height": 278
+      },
+      "nativeSize": [
+        327,
+        278
+      ],
+      "bytes": 138210,
+      "sha256": "5d1bdefbebb45f8ac97219d896c2e959059bc2d1175b4d429c3bba09116a7ab8",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "arm-left",
+      "file": "parts/arm-left.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 415,
+        "top": 346,
+        "width": 166,
+        "height": 272
+      },
+      "nativeSize": [
+        166,
+        272
+      ],
+      "bytes": 71817,
+      "sha256": "967adf98c3e66cc752a561ff5421d83efba6d6cb6fd4ef04bfd48f86eedfec8a",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "arm-right",
+      "file": "parts/arm-right.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 719,
+        "top": 347,
+        "width": 173,
+        "height": 275
+      },
+      "nativeSize": [
+        173,
+        275
+      ],
+      "bytes": 70438,
+      "sha256": "d2b00a1916c52eba9b2112a8e66d960a5aab218c2c06ba9c83a5129b6e14bc33",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "leg-left",
+      "file": "parts/leg-left.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 1040,
+        "top": 354,
+        "width": 140,
+        "height": 276
+      },
+      "nativeSize": [
+        140,
+        276
+      ],
+      "bytes": 61781,
+      "sha256": "244276cb98a7fed4d558fe8b861be9fff14719c53c305d93418ecf5bc61f4bcc",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "leg-right",
+      "file": "parts/leg-right.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 114,
+        "top": 642,
+        "width": 139,
+        "height": 272
+      },
+      "nativeSize": [
+        139,
+        272
+      ],
+      "bytes": 62034,
+      "sha256": "1729c2d487b0f46d097724850837d9cfa425c79061e73bf833cdae61712a7bb4",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "work-left",
+      "file": "parts/work-left.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 387,
+        "top": 666,
+        "width": 220,
+        "height": 214
+      },
+      "nativeSize": [
+        220,
+        214
+      ],
+      "bytes": 73435,
+      "sha256": "302e251883ee97748522de96a5bdbdfd73b3a8e077cf7085d2b251776ed37b43",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "work-right",
+      "file": "parts/work-right.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 698,
+        "top": 666,
+        "width": 247,
+        "height": 207
+      },
+      "nativeSize": [
+        247,
+        207
+      ],
+      "bytes": 70758,
+      "sha256": "a2af4003ee8f85d2b48a2c9b8cf1e93b6f924584d374dfa7516c452582b6708c",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "eat-left",
+      "file": "parts/eat-left.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 1002,
+        "top": 676,
+        "width": 218,
+        "height": 204
+      },
+      "nativeSize": [
+        218,
+        204
+      ],
+      "bytes": 75047,
+      "sha256": "42bc200a6cb60bff673f501139814db55f849c295461a6c340a14481f6e4220e",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "eat-right",
+      "file": "parts/eat-right.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 48,
+        "top": 971,
+        "width": 302,
+        "height": 232
+      },
+      "nativeSize": [
+        302,
+        232
+      ],
+      "bytes": 85005,
+      "sha256": "a074accd19a1736b853f3108b1da87171ef233c1756950ba096a1cfa2fadc1ca",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "rest-pose",
+      "file": "parts/rest-pose.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 346,
+        "top": 880,
+        "width": 300,
+        "height": 362
+      },
+      "nativeSize": [
+        300,
+        362
+      ],
+      "bytes": 208846,
+      "sha256": "8a885ae808f2f303923528d2d9096304b8ad75f750c800cdf52c4d1d50ca5674",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "back-hair",
+      "file": "parts/back-hair.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 671,
+        "top": 900,
+        "width": 286,
+        "height": 331
+      },
+      "nativeSize": [
+        286,
+        331
+      ],
+      "bytes": 162939,
+      "sha256": "4a9dc513facd5f7b922facf007a4e58fed14daeb046b94c2bf97b35fa4b714ea",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    },
+    {
+      "id": "ornament",
+      "file": "parts/ornament.png",
+      "source": "art/work/roster-expansion/llama-v01.png",
+      "sourceInDelivery": "sources/llama-v01.png",
+      "sourceSha256": "eeb324cc8d96f3fb06286ed269eabec92c847693cdb24e798aa142937c19554d",
+      "crop": {
+        "left": 1045,
+        "top": 945,
+        "width": 162,
+        "height": 261
+      },
+      "nativeSize": [
+        162,
+        261
+      ],
+      "bytes": 75950,
+      "sha256": "03d64e5e6faa6d1219378f2db76d67e801cde4a1d3741a1cb4affe696772f615",
+      "processing": "Reviewed native rectangle crop, main-silhouette bounds used to exclude adjacent-cell islands; original RGBA inside rectangle retained"
+    }
+  ],
+  "definitions": [
+    {
+      "file": "character.json",
+      "sha256": "2338cf4292e83f81fae5dfaf9c59d1c646220a6f760406d74929e60a88e9eb26"
+    },
+    {
+      "file": "animations.json",
+      "sha256": "364eba024060e958cca96b5fd6899c7f3b77c0b7d898e413ae688048a937c071"
+    },
+    {
+      "file": "activities.json",
+      "sha256": "6328486e431eb690a06ae0b89b7a899f4c3dd59d391a196e870545c7698af286"
+    }
+  ],
+  "artReview": {
+    "reviewer": "assistant",
+    "scope": "Native alpha, crop boundaries, expressions, assembly, 96/108/128px and 8 motion/activity previews",
+    "evidence": "../../QA/validation.json"
+  }
+}
