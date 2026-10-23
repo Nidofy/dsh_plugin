@@ -19,7 +19,7 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
   const [decor, setDecor] = useState<{ id: PlayDecorationId; slot: BellSlot | null } | null>(null)
   const storyHeading=useRef<HTMLHeadingElement>(null),stageKey=world?.play.active?`${world.play.active.id}:${world.play.active.stage}`:''
   useEffect(()=>{ if(stageKey)storyHeading.current?.scrollIntoView?.({block:'start'}) },[stageKey])
-  if (!world?.play) return null
+  if (!world?.play || world.region?.active === 'bookhouse') return null
   const active = world.play.active, definition = active && playDefinition(active.definitionId), stage = definition?.stages[active?.stage ?? 0]
   const members = actors(world), ids = members.map(a => a.id), selected = world.actor.id
   const busy = locked || runtime.arranging || !!world.activeEvent || !!world.neighborhood.event || !!active

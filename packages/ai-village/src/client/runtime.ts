@@ -9,6 +9,8 @@ import { defaultCamera, validCamera, type Camera } from '../core/camera.ts'
 import { deriveNotices, type Notice } from '../core/notifications.ts'
 import { AlbumClient } from './album-client.ts'
 import { residentAssets } from './asset-selection.ts'
+import { switchRegion as travelRegion, bookhouseActivity as useBookhouse, cancelBookhouseActivity as stopBookhouse, type BookhouseActivityId } from '../core/region-engine.ts'
+import type { RegionId } from '../core/living-state.ts'
 import { actors } from '../core/world.ts'
 import { LivingController as ContentController } from '../core/living-controller.ts'
 import { inviteTea, cancelTea, settleTea, placeBell, startNeighborhoodEvent, changeLayout, decorateExtra } from '../core/living-engine.ts'
@@ -31,6 +33,9 @@ interface State { profileId: string; epoch: string; saved: Saved<ContentWorld> |
 export type Request = (path: string, init?: RequestInit) => Promise<Response>
 /** One instance per plugin lifetime, deliberately independent of session selection and React mounts. */
 export class VillageRuntime {
+  private changingRegion = false
+  get regionTransition() { return this.changingRegion || this.frameKey === 'bookhouse' && this.entrance.blocking }
+  get frameKey(): RegionId { return this.controller?.world.region.active ?? 'courtyard' }
   readonly entrance = new EntranceCoordinator()
   private bootSettled = false
   get canRevealEntrance() {
@@ -45,7 +50,23 @@ export class VillageRuntime {
     if (this.entrance.decode(token, attempt, assets, progress)) this.emit()
   }
   skipEntrance() { this.entrance.skip(); this.emit() }
-  finishEntrance() { if (this.entrance.finish(this.canRevealEntrance)) { this.schedule(); this.emit() } }
+  finishEntrance() { if (this.entrance.blocking && this.entrance.finish(this.canRevealEntrance)) { this.changingRegion = false; this.schedule(); this.emit() } }
+  /** One publication path for confirmed region changes, including read-only reconciliation. */
+  private publishWorld(world: ContentWorld) {
+    const changed = this.frameKey !== world.region.active
+    if (changed) {
+      this.changingRegion = true; this.entrance.suspend(); this.frameReady = false
+      this.dismissedPointer = null; this.dragTime = 0; this.captureHandler = null
+      this.controller?.cancelDrag()
+      this.presentation = { ...presentationReducer(this.presentation, { type: 'close' }), camera: { ...defaultCamera } }
+    }
+    if (this.controller) { this.controller.world = world; this.controller.syncScene() }
+    else this.controller = new ContentController(world, scene, () => { if (!this.changingDraft) this.save() })
+    if (world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
+    for (const reason of this.reasons) this.controller.pauseReasons.add(reason)
+    if (!world.userPaused) this.controller.pauseReasons.delete('user')
+    this.trimAssets()
+  }
   private dismissedPointer: number | null = null
   softwareRendering = false
   readonly diagnostics = new DiagnosticTrace()
@@ -89,9 +110,7 @@ export class VillageRuntime {
         if (receipt.status !== 'committed') throw Error('SAVE_UNCONFIRMED')
         this.revision = receipt.revision
         if (this.criticalCandidate && this.controller && state.saved) {
-          this.controller.world = migrateLivingWorld(state.saved.world, scene); this.controller.syncScene()
-          if (this.controller.world.userPaused) { this.reasons.add('user'); this.controller.pauseReasons.add('user') }
-          else { this.reasons.delete('user'); this.controller.pauseReasons.delete('user') }
+          this.publishWorld(migrateLivingWorld(state.saved.world, scene))
           this.criticalCandidate = null; this.pause('commit-pending', false)
         }
         if (state.saved) this.confirmed(state.saved.world)
@@ -193,7 +212,7 @@ export class VillageRuntime {
   get canUndoHome() { return this.homeHistory.length > 0 }
   beginHome() {
     const world = this.controller?.world
-    if (!world || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event || world.play.active) return
+    if (!world || world.region.active !== 'courtyard' || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event || world.play.active) return
     this.cancelArrangements()
     this.homeDraft = { home: structuredClone(world.home), layout: world.neighborhood.layout }
     this.homeHistory = []; this.homeDraftError = ''; this.homePreview = null; this.pause('arrange', true)
@@ -363,10 +382,7 @@ export class VillageRuntime {
           else throw Error('REVISION_CONFLICT')
         }
         if (this.criticalCandidate && state.saved && this.saveReceipt.status === 'committed') {
-          this.controller!.world = migrateLivingWorld(state.saved.world, scene)
-          this.controller!.syncScene()
-          if (this.controller!.world.userPaused) { this.reasons.add('user'); this.controller!.pauseReasons.add('user') }
-          else { this.reasons.delete('user'); this.controller!.pauseReasons.delete('user') }
+          this.publishWorld(migrateLivingWorld(state.saved.world, scene))
           this.criticalCandidate = null; this.pause('commit-pending', false); this.cancelArrangements(); this.confirmed(this.controller!.world)
         }
         const initialWorld = state.saved ? migrateLivingWorld(state.saved.world, scene) : createContentWorld(scene)
@@ -374,9 +390,7 @@ export class VillageRuntime {
         await this.ensureAssets(initialWorld, signal)
         if (!current()) return
         if (!this.controller) {
-          this.controller = new ContentController(state.saved ? migrateLivingWorld(state.saved.world, scene) : createContentWorld(scene), scene, () => { if (!this.changingDraft) this.save() })
-          if (this.controller.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
-          for (const reason of this.reasons) this.controller.pause(reason, true)
+          this.publishWorld(initialWorld)
           this.revision = state.saved?.revision ?? 0
         }
         this.trimAssets()
@@ -419,15 +433,15 @@ export class VillageRuntime {
     this.emit()
   }
   setCharacterPresent(id: unknown, present: boolean) {
-    if (!this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
+    if (this.frameKey !== 'courtyard' || !this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
     this.changeMembers(c => c.setCharacterPresent(id, present))
   }
   setAllCharacters(present: boolean) {
-    if (!this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
+    if (this.frameKey !== 'courtyard' || !this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
     this.changeMembers(c => { for (const id of characterIds) if (present || id !== c.world.actor.id) c.setCharacterPresent(id, present) })
   }
   private changeMembers(change: (controller: ContentController) => void) {
-    if (!this.controller) return
+    if (!this.controller || this.frameKey !== 'courtyard') return
     const draft = new ContentController(this.controller.snapshot(), scene, () => {})
     change(draft)
     void this.commitWorld(draft.snapshot())
@@ -438,6 +452,22 @@ export class VillageRuntime {
     try { if (this.controller) await this.commitWorld(inviteTea(this.controller.world, scene, pair, food, crypto.randomUUID())) }
     catch (error) { this.actionError = error instanceof Error ? error.message : 'INVITATION_FAILED' }
     this.emit()
+  }
+  async switchRegion(id: RegionId) {
+    const world = this.controller?.world
+    if (!world || id === world.region.active) return
+    if (!this.foreground() || !this.ready || !this.frameReady || this.entrance.blocking || this.error || this.criticalCandidate || this.transaction.pending || this.arranging || this.photoMode || this.controller?.drag || world.activeEvent || world.neighborhood.event || world.play.active) {
+      this.actionError = 'REGION_BUSY'; this.emit(); return
+    }
+    await this.neighborhoodCommand(() => travelRegion(this.controller!.world, scene, id))
+  }
+  async bookhouseActivity(id: BookhouseActivityId) {
+    if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.arranging || this.photoMode || this.controller?.drag || this.controller?.pauseReasons.size) return
+    await this.neighborhoodCommand(() => useBookhouse(this.controller!.world, scene, id))
+  }
+  async cancelBookhouseActivity() {
+    if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.photoMode || this.controller?.drag) return
+    await this.neighborhoodCommand(() => stopBookhouse(this.controller!.world, scene))
   }
   async cancelEvent() {
     if (!this.controller) return
@@ -526,7 +556,7 @@ export class VillageRuntime {
   assetRevision = 0
   private assetKeys = ''
   private async ensureAssets(world: ContentWorld, signal = this.attempt.signal) {
-    const needed = residentAssets(actors(world).map(a=>a.id))
+    const needed = residentAssets(actors(world).map(a=>a.id), world.region.active)
     const selected = resources.filter(entry => needed.has(entry.key)), total = selected.reduce((n, e) => n + e.bytes, 0)
     // Cached buffers entered this map only after the same length/hash verification.
     let verified = selected.reduce((n, e) => n + (this.images?.[e.key] ? e.bytes : 0), 0)
@@ -553,12 +583,12 @@ export class VillageRuntime {
   }
   private trimAssets() {
     if (!this.controller || !this.images) return
-    const needed = residentAssets(actors(this.controller.world).map(a=>a.id))
+    const needed = residentAssets(actors(this.controller.world).map(a=>a.id), this.frameKey)
     this.images = Object.fromEntries(Object.entries(this.images).filter(([key])=>needed.has(key)))
     const keys = [...needed].sort().join('|')
     if (keys !== this.assetKeys) { this.assetKeys = keys; this.assetRevision++ }
   }
-  bundle() { return { character, animations, roster, scene, images: Object.fromEntries(Object.entries(this.images ?? {}).map(([k, v]) => [k, v.slice(0)])) } }
+  bundle() { return { character, animations, roster, scene, region: this.frameKey, images: Object.fromEntries(Object.entries(this.images ?? {}).map(([k, v]) => [k, v.slice(0)])) } }
   private schedule() {
     cancelAnimationFrame(this.raf); this.raf = 0; this.last = 0
     if (!this.entrance.blocking && this.ready && this.frameReady && this.controller && !this.controller.pauseReasons.size) this.raf = requestAnimationFrame(this.tick)
@@ -618,6 +648,7 @@ export class VillageRuntime {
     try { candidate = validateContentWorld(value, scene) }
     catch { return { status: 'rejected', operationId: crypto.randomUUID(), reason: 'INVALID_WORLD' } }
     const previous = this.saving, generation = this.generation
+    let submitted = false, result: SaveReceipt = { status: 'rejected', operationId: crypto.randomUUID(), reason: 'NOT_READY' }
     this.criticalCandidate = candidate; this.pause('commit-pending', true)
     const work = (async () => {
       await previous
@@ -626,19 +657,24 @@ export class VillageRuntime {
       }
       await this.ensureAssets(candidate)
       if (generation !== this.generation) return
-      const receipt = await this.persist(candidate, generation)
+      submitted = true
+      const receipt = await this.persist(candidate, generation); result = receipt
       if (generation !== this.generation) return
       if (receipt.status === 'committed') {
-        this.controller!.world = candidate; this.controller!.syncScene(); this.trimAssets(); this.criticalCandidate = null
-        if (candidate.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
-        // Synchronize pause state without creating a redundant checkpoint.
-        if (candidate.userPaused) this.controller!.pauseReasons.add('user'); else this.controller!.pauseReasons.delete('user')
+        this.publishWorld(candidate); this.criticalCandidate = null
         this.pause('commit-pending', false)
       } else if (receipt.status === 'rejected') { this.criticalCandidate = null; this.pause('commit-pending', false) }
-    })().catch(e => { if (generation === this.generation) this.fail(e) }).finally(() => { if (this.saving === work) this.saving = null })
+    })().catch(e => {
+      if (generation !== this.generation) return
+      if (!submitted) {
+        this.criticalCandidate = null; this.trimAssets(); this.pause('commit-pending', false)
+        result = { status: 'rejected', operationId: crypto.randomUUID(), reason: e instanceof Error ? e.message : 'ASSET_UNAVAILABLE' }
+      }
+      this.fail(e)
+    }).finally(() => { if (this.saving === work) this.saving = null })
     this.saving = work
     await work
-    return this.saveReceipt
+    return result
   }
   leavePage() {
     this.pause('closed', true)
@@ -668,11 +704,10 @@ export class VillageRuntime {
       await this.saving; this.dirty = false
       const saved = await this.api<Saved<ContentWorld>>('recover', this.credentials())
       if (generation !== this.generation) return
-      this.controller = new ContentController(migrateLivingWorld(saved.world, scene), scene, () => { if (!this.changingDraft) this.save() })
-      if (saved.world.userPaused) this.reasons.add('user'); else this.reasons.delete('user')
+      this.publishWorld(migrateLivingWorld(saved.world, scene))
       this.revision = saved.revision; this.transaction.reset(); this.criticalCandidate = null; this.pause('commit-pending', false); this.error = ''; this.errorCode = ''; this.recoveryState = 'idle'; this.recoveryCount = 0
-      for (const reason of this.reasons) this.controller.pause(reason, true)
-      await this.ensureAssets(this.controller.world)
+      for (const reason of this.reasons) this.controller!.pause(reason, true)
+      await this.ensureAssets(this.controller!.world)
       if (generation !== this.generation) return
       this.trimAssets()
       this.entrance.metadata = true; this.bootSettled = true

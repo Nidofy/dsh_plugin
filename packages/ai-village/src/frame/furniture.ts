@@ -4,7 +4,7 @@ export interface FurnitureArt { id: string; asset: string; rect: Rect; split: nu
 export interface SeatProp { furnitureId: string; seat: string; asset: string; rect: Rect }
 export interface SceneArt extends Scene {
   furniture: FurnitureArt[]
-  cushion: Rect
+  cushion?: Rect
   seatProps?: SeatProp[]
 }
 

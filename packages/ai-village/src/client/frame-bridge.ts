@@ -3,8 +3,12 @@ import { pngInfo } from '../core/photo.ts'
 import type { VillageRuntime } from './runtime.ts'
 import type { SimulationWorld, Point } from '../core/world.ts'
 import type { PointerIntent } from '../core/controller.ts'
-export type FrameRuntime = Pick<VillageRuntime, 'bundle' | 'subscribe' | 'setFrameReady' | 'pointer' | 'cancelDrag'> & Partial<Pick<VillageRuntime, 'entrance' | 'beginEntranceFrame' | 'expectEntranceFrame' | 'entranceFrame' | 'entranceDecode'>> & { setSoftwareRendering?(value: boolean): void; input?(input: UIInput): void; assetRevision?: number; bindCapture?(handler: (() => Promise<ArrayBuffer>) | null): void; view(): { world: SimulationWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean; locale?: 'zh' | 'en'; reducedMotion?: boolean; bubbles?: boolean; decorationDraft?: 'window' | 'door' | 'wall' | null | undefined } | null }
+import type { SceneArt } from '../frame/furniture.ts'
+export type FrameRuntime = Pick<VillageRuntime, 'subscribe' | 'setFrameReady' | 'pointer' | 'cancelDrag'> & Partial<Pick<VillageRuntime, 'frameKey' | 'generation' | 'entrance' | 'beginEntranceFrame' | 'expectEntranceFrame' | 'entranceFrame' | 'entranceDecode'>> & { bundle(): Omit<ReturnType<VillageRuntime['bundle']>, 'scene' | 'region'> & { scene: SceneArt; region?: 'courtyard' | 'bookhouse' }; setSoftwareRendering?(value: boolean): void; input?(input: UIInput): void; assetRevision?: number; bindCapture?(handler: (() => Promise<ArrayBuffer>) | null): void; view(): { world: SimulationWorld; position: Point; dragging: boolean; dragTime: number; paused: boolean; debug: boolean; locale?: 'zh' | 'en'; reducedMotion?: boolean; bubbles?: boolean; decorationDraft?: 'window' | 'door' | 'wall' | null | undefined } | null }
+const frameOwners = new WeakMap<object, symbol>()
 export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, failed: () => void): () => void {
+  const owner = Symbol(), frameKey = runtime.frameKey, generation = runtime.generation
+  frameOwners.set(runtime, owner)
   const token = crypto.randomUUID()
   runtime.beginEntranceFrame?.(token)
   const bootAttemptId = runtime.entrance?.attemptId ?? crypto.randomUUID()
@@ -12,13 +16,14 @@ export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, fai
   let gesture: { pointerId: number; id: string } | null = null, actorPointer: number | null = null
   let sent = 0, received = 0, initialized = false, ready = false, disposed = false
   let viewportRevision = 0, assetRevision = -1, loadingAssets = false
+  const current = () => !disposed && frameOwners.get(runtime) === owner && runtime.frameKey === frameKey && runtime.generation === generation
   const send = (type: string, data = {}) => frame.contentWindow?.postMessage({ channel, version, token, sequence: ++sent, type, ...data }, '*')
   const render = () => {
-    if (!ready || disposed || loadingAssets) return
+    if (!ready || !current() || loadingAssets) return
     if ((runtime.assetRevision ?? 0) !== assetRevision) {
       const bundle = runtime.bundle()
       assetRevision = runtime.assetRevision ?? 0; loadingAssets = true; confirmed = false; viewKey = ''; runtime.expectEntranceFrame?.(token, assetRevision, 0); runtime.setFrameReady(false)
-      clearTimeout(timer); timer = setTimeout(() => { if (!disposed && !confirmed) failed() }, 20000)
+      clearTimeout(timer); timer = setTimeout(() => { if (current() && !confirmed) failed() }, 20000)
       frame.contentWindow?.postMessage({ channel, version, token, sequence: ++sent, type: 'assets', bootAttemptId, assetRevision, images: bundle.images }, '*', Object.values(bundle.images))
       return
     }
@@ -32,20 +37,20 @@ export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, fai
   }
   let capture: { id: string; resolve(bytes:ArrayBuffer):void; reject(e:Error):void; timer:ReturnType<typeof setTimeout> } | null = null
   runtime.bindCapture?.(() => new Promise<ArrayBuffer>((resolve,reject)=>{
-    if(capture||!ready||loadingAssets||disposed){reject(Error('PHOTO_UNAVAILABLE'));return}
+    if(capture||!ready||loadingAssets||!current()){reject(Error('PHOTO_UNAVAILABLE'));return}
     const id=crypto.randomUUID(),timer=setTimeout(()=>{capture=null;reject(Error('PHOTO_TIMEOUT'))},15000)
     capture={id,resolve,reject,timer};send('capture',{id})
   }))
-  let timer = setTimeout(() => { if (!disposed && !confirmed) failed() }, 20000)
+  let timer = setTimeout(() => { if (current() && !confirmed) failed() }, 20000)
   const receive = (event: MessageEvent) => {
     const m = event.data
-    if (disposed || event.source !== frame.contentWindow || event.origin !== 'null' || m?.channel !== channel || m.version !== version) return
+    if (!current() || event.source !== frame.contentWindow || event.origin !== 'null' || m?.channel !== channel || m.version !== version) return
     if (!Number.isSafeInteger(m.sequence) || m.sequence <= received) return
     if (m.type === 'ready' && m.token === '' && !initialized) {
       initialized = true; received = m.sequence
       const bundle = runtime.bundle(); assetRevision = runtime.assetRevision ?? 0
       runtime.expectEntranceFrame?.(token, assetRevision, 0)
-      frame.contentWindow?.postMessage({ channel, version, token, type: 'init', bootAttemptId, assetRevision, ...bundle }, '*', Object.values(bundle.images))
+      frame.contentWindow?.postMessage({ channel, version, token, type: 'init', bootAttemptId, assetRevision, region: frameKey ?? 'courtyard', ...bundle }, '*', Object.values(bundle.images))
       return
     }
     if (m.token !== token) return
@@ -84,17 +89,21 @@ export function attachFrame(frame: HTMLIFrameElement, runtime: FrameRuntime, fai
     else if (m.type === 'escape') frame.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
     else if (m.type === 'failed') failed()
   }
-  const cancel = () => { if (!document.hasFocus()) runtime.cancelDrag() }
+  const cancel = () => { if (current() && !document.hasFocus()) runtime.cancelDrag() }
   const disposeSubscription = runtime.subscribe(render)
-  const hello = () => send('hello')
+  const hello = () => { if (current()) send('hello') }
   frame.addEventListener('load', hello)
   window.addEventListener('message', receive); window.addEventListener('blur', cancel)
   hello()
   return () => {
-    runtime.bindCapture?.(null);if(capture){clearTimeout(capture.timer);capture.reject(Error('PHOTO_CANCELLED'));capture=null}
+    if (disposed) return
+    const ownsRuntime = current()
+    if(ownsRuntime)runtime.bindCapture?.(null)
+    if(capture){clearTimeout(capture.timer);capture.reject(Error('PHOTO_CANCELLED'));capture=null}
     disposed = true; ready = false; clearTimeout(timer); disposeSubscription()
     window.removeEventListener('message', receive); window.removeEventListener('blur', cancel)
     frame.removeEventListener('load', hello)
-    send('dispose'); runtime.setFrameReady(false)
+    send('dispose')
+    if (ownsRuntime) { frameOwners.delete(runtime); runtime.setFrameReady(false) }
   }
 }

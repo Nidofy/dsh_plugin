@@ -1,6 +1,6 @@
 import * as home from './home-engine.ts'
-import { arrangeHome as arrangeV6, homeScene, type Home } from './home-state.ts'
-import { homeProjection, withLiving, validateLivingWorld, type LivingWorld, type PlayEvent } from './living-state.ts'
+import { arrangeHome as arrangeV6, type Home } from './home-state.ts'
+import { homeProjection, withLiving, validateLivingWorld, regionScene, requireCourtyard, type LivingWorld, type PlayEvent } from './living-state.ts'
 import { playDefinition, playDefinitions, whalePlace, type PlayDecorationId } from './play-catalog.ts'
 import { actors, abandon, step, walkable, available, type Scene, type Point } from './world.ts'
 import { residentRoute, clearSegment } from './navigation.ts'
@@ -11,10 +11,11 @@ import { cancelLifeSocial, stepLifeSocial, settleLifeSocial } from './life-engin
 import { blankTableBoard, tableRound, tableResult } from './table-game.ts'
 import { currentEncounter } from './encounter.ts'
 
-const geometry = (w: LivingWorld, base: Scene) => homeScene(base,w.neighborhood.layout,w.home)
-function availableForCommand(w: LivingWorld) { if(w.play.active)throw Error('EVENT_ACTIVE'); cancelLifeSocial(w) }
+const geometry = regionScene
+function availableForCommand(w: LivingWorld) { requireCourtyard(w); if(w.play.active)throw Error('EVENT_ACTIVE'); cancelLifeSocial(w) }
 export function setTableMode(source: LivingWorld, base: Scene, mode: 'dining' | 'game'): LivingWorld {
   const w = validateLivingWorld(source,base)
+  requireCourtyard(w)
   if (!['dining','game'].includes(mode)) throw Error('INVALID_TABLE_MODE')
   if (w.play.active || w.activeEvent || w.neighborhood.event) throw Error('EVENT_ACTIVE')
   if (actors(w).some(a=>a.intent?.furnitureId==='eat')) throw Error('FURNITURE_OCCUPIED')
@@ -23,12 +24,13 @@ export function setTableMode(source: LivingWorld, base: Scene, mode: 'dining' | 
 }
 export function inviteTea(w:LivingWorld,b:Scene,p:[CharacterId,CharacterId],f:Food,id:string) { const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(home.inviteTea(homeProjection(n),b,p,f,id),n) }
 export function startNeighborhoodEvent(w:LivingWorld,b:Scene,d:string,p:CharacterId[],id:string) { const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(home.startNeighborhoodEvent(homeProjection(n),b,d,p,id),n) }
-export function placeBell(w:LivingWorld,b:Scene,s:BellSlot|null) { return withLiving(home.placeBell(homeProjection(w),b,s),w) }
-export function decorateExtra(w:LivingWorld,b:Scene,id:ExtraDecoration,s:BellSlot|null) { return withLiving(home.decorateExtra(homeProjection(w),b,id,s),w) }
+export function placeBell(w:LivingWorld,b:Scene,s:BellSlot|null) { requireCourtyard(w); return withLiving(home.placeBell(homeProjection(w),b,s),w) }
+export function decorateExtra(w:LivingWorld,b:Scene,id:ExtraDecoration,s:BellSlot|null) { requireCourtyard(w); return withLiving(home.decorateExtra(homeProjection(w),b,id,s),w) }
 export function arrangeHome(w:LivingWorld,b:Scene,h:Home,l:LayoutId,r:number) {const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(arrangeV6(homeProjection(n),b,h,l,r),n)}
 export function changeLayout(w:LivingWorld,b:Scene,l:LayoutId) { return arrangeHome(w,b,w.home,l,w.home.revision) }
-export function cancelTea(w:LivingWorld) { const n=homeProjection(w);home.cancelTea(n);Object.assign(w,withLiving(n,w));cancelPlay(w);cancelLifeSocial(w) }
+export function cancelTea(w:LivingWorld) { if(w.region.active==='bookhouse'){cancelPlay(w);cancelLifeSocial(w);return}; const n=homeProjection(w);home.cancelTea(n);Object.assign(w,withLiving(n,w));cancelPlay(w);cancelLifeSocial(w) }
 export function settleTea(w:LivingWorld,b:Scene) {
+  if(w.region.active==='bookhouse')return null
   if(w.play.active?.phase==='approaching'&&w.play.active.approachRemainingTicks===0){const n=validateLivingWorld(w,b);cancelPlay(n);return n}
   const n=home.settleTea(homeProjection(w),b);return n?withLiving(n,w):null
 }
@@ -70,6 +72,7 @@ function prepareStage(w:LivingWorld,base:Scene) {
 }
 export function startPlay(source:LivingWorld,base:Scene,definitionId:string,participants:CharacterId[],id:string,encounterToken?:string):LivingWorld {
   const w=validateLivingWorld(source,base),d=playDefinition(definitionId)
+  requireCourtyard(w)
   if(w.activeEvent||w.neighborhood.event||w.play.active)throw Error('EVENT_ACTIVE')
   if(w.ticks<w.play.nextTick)throw Error('INTERACTION_COOLDOWN')
   if(definitionId==='table-game'&&w.play.tableMode!=='game')throw Error('GAME_TABLE_REQUIRED')
@@ -86,6 +89,12 @@ export function startPlay(source:LivingWorld,base:Scene,definitionId:string,part
 }
 export function stepLiving(w:LivingWorld,base:Scene) {
   const e=w.play.active,g=geometry(w,base)
+  if(w.region.active==='bookhouse'){
+    const {decorations:_courtyardDecorations,...book}=w
+    const held=stepLifeSocial(book,g)
+    step(w,g,undefined,new Set(held));book.ticks=w.ticks;settleLifeSocial(book,g)
+    return
+  }
   if(!e){
     if(w.activeEvent||w.neighborhood.event){cancelLifeSocial(w);const n=homeProjection(w);home.stepHome(n,base);Object.assign(w,withLiving(n,w));return}
     const held=stepLifeSocial(w,g)
@@ -150,6 +159,7 @@ export function playAction(source:LivingWorld,base:Scene,action:string,value?:st
 }
 export function placePlayDecoration(source:LivingWorld,base:Scene,id:string,slot:BellSlot|null){
   const w=validateLivingWorld(source,base),d=playDefinitions.find(d=>d.reward===id)
+  requireCourtyard(w)
   if(!d||!w.neighborhood.memories.some(m=>m.id===d.id))throw Error('DECORATION_LOCKED')
   if(slot!==null&&!['window','door','wall'].includes(slot))throw Error('INVALID_SLOT')
   w.play.decorations[id as PlayDecorationId]=slot;return validateLivingWorld(w,base)

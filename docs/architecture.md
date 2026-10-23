@@ -66,3 +66,9 @@ Host 只读取会话状态并提供 `/api/nidofy-pets/`；总开关关闭时卸�
 测试分别指向当前 desktop 源码及固定原版源码。覆盖真实 Loader/AgentLoop、JSONL 持久化、多轮压缩与冷恢复、取消、固定条目、历史、UI 草稿保留和桌宠生命周期。安装 smoke 解压 tgz 后使用公开导出、真实 worker、类型声明及实际 DSH CLI 配置组合。桌面窗口的真实 GUI 验收单独进行。
 
 `.local`、`.build`、`node_modules`、`lib`、`dist` 都是本地生成内容，不提交。交付包内嵌共享库但不打包宿主服务，避免重复 Cordis 服务身份。构建必须保留独立 worker.cjs 与 preload.cjs。
+
+## AI 小院 0.9 区域适配
+
+`LivingWorld` 当前 world10/content7，继续 rules4/scene3，增加 region1 与 frame7。旧9及其内容6目录已冻结。庭院保留旧几何校验；书屋通过独立 `bookhouseScene` 校验当前角色，使用保存的庭院返回脚印投影验证共享历史。顶层角色仍是唯一模拟权威，两区仅保存最多七个返回pose，不复制完整世界、时钟、RNG或长期进度。当前区的返回pose必须为空，书屋时庭院返回pose必须完整，书屋禁止入退住；庭院成员变动在保存前清理书屋返回ID。
+
+区域旅行复用原资源哈希检查、owner/lease/CAS与只读未知结果对账。确认后按区域替换唯一iframe并重新等待真实首帧，旧代际消息/cleanup隔离，用户暂停保留。书屋为明确标注的代码绘制开发样板，无新增正式原画批准或第二永久渲染循环；资源仅当前区域环境与当前居民，庭院7环境纹理不进入书屋。详见 [书屋实施契约](ai-village/v08-v09/BOOKHOUSE_IMPLEMENTATION.md)，实际验收以其链接的最终结果为准。

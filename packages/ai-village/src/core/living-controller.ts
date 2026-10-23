@@ -1,13 +1,13 @@
 import { isCharacterId } from './roster.ts'
 import { WorldController } from './controller.ts'
-import { homeScene } from './home-state.ts'
-import { validateLivingWorld, type LivingWorld } from './living-state.ts'
+
+import { validateLivingWorld, regionScene, type LivingWorld } from './living-state.ts'
 import { cancelTea, cancelPlay, stepLiving } from './living-engine.ts'
 import { cancelLifeSocial } from './life-engine.ts'
 import { actors, type Scene } from './world.ts'
 export class LivingController extends WorldController<LivingWorld> {
-  constructor(world:LivingWorld,readonly baseScene:Scene,changed:()=>void){super(world,homeScene(baseScene,world.neighborhood.layout,world.home),changed)}
-  syncScene(){this.scene=homeScene(this.baseScene,this.world.neighborhood.layout,this.world.home)}
+  constructor(world:LivingWorld,readonly baseScene:Scene,changed:()=>void){super(world,regionScene(world,baseScene),changed)}
+  syncScene(){this.scene=regionScene(this.world,this.baseScene)}
   override advance(seconds:number){
     if(this.pauseReasons.size||this.drag||!Number.isFinite(seconds)||seconds<0)return
     this.syncScene();this.accumulator+=Math.min(seconds,.1)
@@ -24,14 +24,20 @@ export class LivingController extends WorldController<LivingWorld> {
   }
   override setCharacterPresent(id:unknown,present:boolean){
     if(!isCharacterId(id))return
+    if(this.world.region.active==='bookhouse')return
     this.syncScene()
+    if(!present&&actors(this.world).some(a=>a.id===id)&&this.world.companions.length&&this.world.region.returns.bookhouse)this.world.region.returns.bookhouse=this.world.region.returns.bookhouse.filter(p=>p.id!==id)
     if(!present){if(this.world.play.active?.participants.some(p=>p===id))cancelPlay(this.world);if([...this.world.activeEvent?.participants??[],...this.world.neighborhood.event?.participants??[]].some(p=>p===id))cancelTea(this.world);cancelLifeSocial(this.world)}
     super.setCharacterPresent(id,present)
   }
   override selectCharacter(id:unknown){
     if(!isCharacterId(id))return
     if((this.world.play.active||this.world.activeEvent||this.world.neighborhood.event)&&!actors(this.world).some(a=>a.id===id))return
-    if(!actors(this.world).some(a=>a.id===id))cancelLifeSocial(this.world)
+    if(!actors(this.world).some(a=>a.id===id)){
+      if(this.world.region.active==='bookhouse')return
+      cancelLifeSocial(this.world)
+      if(this.world.region.returns.bookhouse)this.world.region.returns.bookhouse=this.world.region.returns.bookhouse.filter(p=>p.id!==this.world.actor.id)
+    }
     super.selectCharacter(id)
   }
   override snapshot(){return validateLivingWorld(this.world,this.baseScene)}

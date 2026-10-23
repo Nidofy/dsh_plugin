@@ -1,4 +1,6 @@
 import { decodeFrameWorld } from '../core/frame-world.ts'
+import { bookhouseScene } from '../core/bookhouse-scene.ts'
+import { BookhouseArt } from './bookhouse-art.ts'
 import { TableArt } from './table-art.ts'
 import { displayGameBoard, tableBoardGeometry, tableCellAt } from '../core/table-geometry.ts'
 import { keepsakeObservation } from '../core/keepsake-observation.ts'
@@ -10,7 +12,7 @@ import { lifePresentation } from '../core/life-engine.ts'
 import { lifeDialogue } from '../core/life-dialogue.ts'
 import { applyLifePose } from '../art/animation.ts'
 import { cachedAtmosphere, backgroundSurface } from './atmosphere.ts'
-import { frameChannel as channel, frameVersion as version } from '../core/frame-protocol.ts'
+import { frameChannel as channel, frameVersion as version, validFrameRegion } from '../core/frame-protocol.ts'
 import { defaultCamera, projectCamera, validCamera, type Camera } from '../core/camera.ts'
 import { routeInput } from './input-router.ts'
 import type { ArrangementObject } from '../core/arrangement.ts'
@@ -43,10 +45,11 @@ const contextLost = () => { if (!disposed) send('failed', { error: 'RENDER_CONTE
 let app: Application | undefined, scene: SceneArt, character: Character, animations: AnimationSet
 type AvatarArt = { character: Character; animations: AnimationSet; activityPrefix: string }
 let roster: Record<string, AvatarArt> = {}
-let view: View | undefined, shadow: Graphics, hints: Graphics, backdrop: Sprite
-let atmosphere: Container, atmosphereCache: ReturnType<typeof cachedAtmosphere> | undefined, backgroundCache: ReturnType<typeof backgroundSurface> | undefined, atmosphereImage: HTMLImageElement | undefined
+let view: View | undefined, shadow: Graphics, hints: Graphics, backdrop: Sprite | undefined
+let region: 'courtyard' | 'bookhouse' = 'courtyard', bookhouseArt: BookhouseArt | undefined
+let atmosphere: Container | undefined, atmosphereCache: ReturnType<typeof cachedAtmosphere> | undefined, backgroundCache: ReturnType<typeof backgroundSurface> | undefined, atmosphereImage: HTMLImageElement | undefined
 const playArt = new PlayArt(), tableArt = new TableArt()
-let neighborhoodArt: NeighborhoodArt, cushion: Sprite
+let neighborhoodArt: NeighborhoodArt | undefined, cushion: Sprite | undefined
 let bell: Graphics, tea: Graphics, viewportRevision = 0, reactionUntil = 0
 const bubbleNodes: HTMLDivElement[] = []
 const props: { definition: SeatProp; sprite: Sprite }[] = []
@@ -106,7 +109,7 @@ function applyProjection() {
   stage.scale.set(p.scale); stage.position.set(p.x, p.y)
   backgroundCache?.update(p.scale,!!view?.photo);atmosphereCache?.update(innerWidth,innerHeight,p,!!view?.photo)
   photoPaper.clear();photoMask.clear();stage.mask=null;photoDate.visible=!!view?.photo?.date
-  if(view?.photo){const r=photoRect();photoPaper.rect(r.x,r.y,720*r.k,960*r.k).fill(0xf8f0dd);photoMask.rect(r.x+r.margin*r.k,r.y+r.margin*r.k,r.width*r.k,r.height*r.k).fill(0xffffff);stage.mask=photoMask;const time=villageTime(view.world.ticks);photoDate.text=(view.locale==='zh'?'小院第 '+time.day+' 天':'Courtyard · Day '+time.day)+'  '+String(time.hour).padStart(2,'0')+':'+String(time.minute).padStart(2,'0');photoDate.scale.set(r.k);photoDate.position.set(r.x+360*r.k,r.y+940*r.k)}
+  if(view?.photo){const r=photoRect();photoPaper.rect(r.x,r.y,720*r.k,960*r.k).fill(0xf8f0dd);photoMask.rect(r.x+r.margin*r.k,r.y+r.margin*r.k,r.width*r.k,r.height*r.k).fill(0xffffff);stage.mask=photoMask;const time=villageTime(view.world.ticks);photoDate.text=(view.locale==='zh'?(region==='bookhouse'?'书屋第 ':'小院第 ')+time.day+' 天':(region==='bookhouse'?'Bookhouse · Day ':'Courtyard · Day ')+time.day)+'  '+String(time.hour).padStart(2,'0')+':'+String(time.minute).padStart(2,'0');photoDate.scale.set(r.k);photoDate.position.set(r.x+360*r.k,r.y+940*r.k)}
   if (key !== projectionKey) { projectionKey = key; viewportRevision++; send('viewport', { viewportRevision, projection: { ...p, width: innerWidth, height: innerHeight } }) }
 }
 function layout() {
@@ -134,8 +137,8 @@ async function loadAssets(images: Record<string, ArrayBuffer>) {
   }
   keepAssets=new Set(Object.keys(images))
 }
-async function init(message: { character: Character; animations: AnimationSet; roster?: Record<string, AvatarArt>; scene: SceneArt; images: Record<string, ArrayBuffer> }) {
-  character = message.character; animations = message.animations; scene = message.scene; renderScene = scene
+async function init(message: { character: Character; animations: AnimationSet; roster?: Record<string, AvatarArt>; scene: SceneArt; region: 'courtyard' | 'bookhouse'; images: Record<string, ArrayBuffer> }) {
+  character = message.character; animations = message.animations; scene = message.scene; region = message.region; renderScene = region === 'bookhouse' ? bookhouseScene : scene
   roster = { ...message.roster, bluewhale: { character, animations, activityPrefix: 'scene/' } }
   await loadAssets(message.images)
   if (disposed) return
@@ -147,16 +150,20 @@ async function init(message: { character: Character; animations: AnimationSet; r
   const gl=(app.canvas as HTMLCanvasElement).getContext('webgl2') ?? (app.canvas as HTMLCanvasElement).getContext('webgl'), debug=gl?.getExtension('WEBGL_debug_renderer_info')
   renderContext = gl; app.canvas.addEventListener('webglcontextlost', contextLost)
   send('capabilities',{softwareRendering:!!gl && /swiftshader|llvmpipe|software/i.test(String(debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER)))})
-  atmosphereCache = cachedAtmosphere(atmosphereImage!); atmosphere = atmosphereCache.root; app.stage.addChild(atmosphere)
-  backdrop = new Sprite(textures.get('scene/background.png')!)
-  backdrop.width = 360; backdrop.height = 480; backdrop.zIndex = -100
-  worldContent.sortableChildren = true; stage.addChild(backdrop,worldContent); app.stage.addChild(photoPaper,stage,photoMask,photoDate)
-  document.body.style.background = 'radial-gradient(ellipse at 50% 25%,#c9cbb4,#8e9b7b 65%,#59674f)'
+  if (region === 'courtyard') {
+    atmosphereCache = cachedAtmosphere(atmosphereImage!); atmosphere = atmosphereCache.root; app.stage.addChild(atmosphere)
+    backdrop = new Sprite(textures.get('scene/background.png')!)
+    backdrop.width = 360; backdrop.height = 480; backdrop.zIndex = -100; stage.addChild(backdrop)
+  }
+  worldContent.sortableChildren = true; stage.addChild(worldContent); app.stage.addChild(photoPaper,stage,photoMask,photoDate)
+  document.body.style.background = region === 'bookhouse' ? '#d8c7a7' : 'radial-gradient(ellipse at 50% 25%,#c9cbb4,#8e9b7b 65%,#59674f)'
   document.body.append(app.canvas)
   app.canvas.style.touchAction = 'none'
   app.canvas.tabIndex = 0
   app.canvas.style.outline = 'none'
-  cushion = rectangleSprite('scene/cushion.png', scene.cushion, 0)
+  if (region === 'bookhouse') bookhouseArt = new BookhouseArt(worldContent)
+  if (region === 'courtyard') {
+  if (scene.cushion) cushion = rectangleSprite('scene/cushion.png', scene.cushion, 0)
   neighborhoodArt = new NeighborhoodArt(worldContent)
   for (const item of scene.furniture) {
     const back = rectangleSprite(`scene/${item.asset}-back.png`, { ...item.rect, height: item.rect.height * item.split }, item.rect.y * 10)
@@ -165,6 +172,7 @@ async function init(message: { character: Character; animations: AnimationSet; r
   }
   for (const definition of seatProps(scene)) props.push({ definition,
     sprite: rectangleSprite(definition.asset, definition.rect, furnitureDepth(scene, definition.furnitureId) ?? 0) })
+  }
   shadow = new Graphics(); shadow.zIndex = 1; worldContent.addChild(shadow)
   hints = new Graphics(); hints.zIndex = 11000; worldContent.addChild(hints)
   bell = new Graphics(); bell.zIndex = 2; tea = new Graphics(); tea.zIndex = 4100; worldContent.addChild(bell, tea); twilight.zIndex=2; worldContent.addChild(twilight)
@@ -178,7 +186,7 @@ async function init(message: { character: Character; animations: AnimationSet; r
     intent: { type, id: event.pointerId, point: local(event), css: { x: event.clientX, y: event.clientY } },
   })
   ghostLabel = document.createElement('div'); ghostLabel.style.cssText='display:none;position:absolute;left:12px;top:64px;max-width:calc(100% - 24px);padding:6px 10px;background:#fffcf5;color:#34473c;border-radius:12px;font:12px/1.5 system-ui;pointer-events:none';document.body.append(ghostLabel)
-  inputRouter = routeInput(app.canvas, () => ({ tableAt: point => { const w=view?.world; if(w?.schemaVersion!==9||w.play.active?.definitionId!=='table-game'||w.play.active.stage!==0||w.play.active.phase!=='ready')return null;const cell=tableCellAt(w.home,point);return cell!==null?{token:`${w.play.active.id}:0:${w.play.active.choices.length}`,cell}:null }, playAt: point => { if(view?.world.schemaVersion!==9||view.world.play.active?.phase!=='ready')return null;const p=whalePoint(view.world,scene);return p&&Math.hypot(point.x-p.x,point.y-p.y)<=18?`${view.world.play.active.id}:0`:null }, camera: view?.camera ?? defaultCamera, workspace: workspace(), scale: stage.scale.x,
+  inputRouter = routeInput(app.canvas, () => ({ tableAt: point => { const w=view?.world; if(w?.schemaVersion!==10||w.play.active?.definitionId!=='table-game'||w.play.active.stage!==0||w.play.active.phase!=='ready')return null;const cell=tableCellAt(w.home,point);return cell!==null?{token:`${w.play.active.id}:0:${w.play.active.choices.length}`,cell}:null }, playAt: point => { if(view?.world.schemaVersion!==10||view.world.play.active?.phase!=='ready')return null;const p=whalePoint(view.world,scene);return p&&Math.hypot(point.x-p.x,point.y-p.y)<=18?`${view.world.play.active.id}:0`:null }, camera: view?.camera ?? defaultCamera, workspace: workspace(), scale: stage.scale.x,
     local: p => local({clientX:p.x,clientY:p.y}), actor: p => view ? hitActor(view.world,p)?.id ?? null : null, paused: view?.paused ?? true,
     photo: !!view?.photo, overlay: view?.overlayOpen ?? false, dismiss: view?.dismissLayer ?? false, objects: view?.arrangementObjects ?? [], selected: view?.selectedFurniture ?? 'work' }),
     input => send('ui-input', { viewportRevision, input }), (type, event) => send('pointer', { viewportRevision, intent: { type, id:event.pointerId, point:local(event), css:{x:event.clientX,y:event.clientY} } }),
@@ -196,27 +204,29 @@ function paint() {
   applyProjection()
   const members = orderedActors(view.world), ids = new Set(members.map(a => a.id))
   for (const [id, rig] of rigs) if (!ids.has(id as Actor['id'])) removeRig(id, rig)
-  const living = view.world.schemaVersion === 9 ? view.world : null
-  const home = living ? homeProjection(living) : view.world.schemaVersion === 6 ? view.world : null
+  const living = view.world.schemaVersion === 10 ? view.world : null
+  const courtyardLiving = region === 'courtyard' ? living : null
+  const home = courtyardLiving ? homeProjection(courtyardLiving) : view.world.schemaVersion === 6 ? view.world : null
   const neighborhood = home ? neighborhoodProjection(home) : view.world.schemaVersion === 5 ? view.world : null
-  const nextScene = home ? homeScene(scene, home.neighborhood.layout, home.home) : scene
+  const nextScene = region === 'bookhouse' ? bookhouseScene : home ? homeScene(scene, home.neighborhood.layout, home.home) : scene
   if (renderScene !== nextScene) {
     renderScene = nextScene
     for(const item of furnitureSprites){const f=renderScene.furniture.find(f=>f.id===item.id)!;item.back.position.set(f.rect.x,f.rect.y);item.front.position.set(f.rect.x,f.rect.y+f.rect.height*f.split);item.back.zIndex=f.rect.y*10;item.front.zIndex=(f.rect.y+f.rect.height)*10}
-    cushion.position.set(renderScene.cushion.x,renderScene.cushion.y)
+    if(cushion && renderScene.cushion)cushion.position.set(renderScene.cushion.x,renderScene.cushion.y)
     const definitions=seatProps(renderScene);for(let i=0;i<props.length;i++){const p=props[i]!,d=definitions[i]!;p.definition=d;p.sprite.position.set(d.rect.x,d.rect.y);p.sprite.zIndex=furnitureDepth(renderScene,d.furnitureId)??0}
   }
-  const dusk = home?.home.environment === 'twilight'; atmosphere.tint=dusk?0x9eaccd:0xffffff; backdrop.tint=dusk?0x9eaccd:0xffffff; worldContent.tint=dusk?0xd2dcf0:0xffffff;stage.alpha=1
+  const dusk = home?.home.environment === 'twilight'; if(atmosphere)atmosphere.tint=dusk?0x9eaccd:0xffffff; if(backdrop)backdrop.tint=dusk?0x9eaccd:0xffffff; worldContent.tint=dusk?0xd2dcf0:0xffffff;stage.alpha=1
   twilight.clear();if(dusk){for(const [x,y] of [[178,110],[250,132]])twilight.circle(x!,y!,25).fill({color:0xffdf9d,alpha:.18})}
   if (keepAssets) for(const [key,texture] of textures) if(!keepAssets.has(key)) { texture.destroy(true);textures.delete(key);const url=urls.get(key);if(url)URL.revokeObjectURL(url);urls.delete(key) }
   const content = neighborhood ? legacyContent(neighborhood) : view.world.schemaVersion === 4 ? view.world : null
-  if (neighborhood) { neighborhoodArt.paint(neighborhood, view.reducedMotion, view.extraDecorationDraft, home?.home); cushion.visible = neighborhood.neighborhood.layout === 'courtyard' }
+  if (neighborhood && neighborhoodArt) { neighborhoodArt.paint(neighborhood, view.reducedMotion, view.extraDecorationDraft, home?.home); if(cushion)cushion.visible = neighborhood.neighborhood.layout === 'courtyard' }
   if(playArt.root.parent!==worldContent)worldContent.addChild(playArt.root)
-  playArt.paint(living,scene,view.reducedMotion)
+  playArt.paint(courtyardLiving,scene,view.reducedMotion)
   if(tableArt.root.parent!==worldContent)worldContent.addChild(tableArt.root)
-  tableArt.paint(living,renderScene)
+  tableArt.paint(courtyardLiving,renderScene)
+  bookhouseArt?.paint(members.map(actor => ({ actor, point: view!.dragging && actor.id === view!.world.actor.id ? view!.position : actor.position })), view.world.ticks, view.reducedMotion)
   const servingTea = content?.activeEvent?.food === 'tea'
-  const boardVisible = displayGameBoard(living)
+  const boardVisible = displayGameBoard(courtyardLiving)
   for (const prop of props) prop.sprite.visible = !(boardVisible && prop.definition.furnitureId === 'eat') && !servingTea && propVisible(prop.definition, members, view.dragging ? view.world.actor.id : undefined)
   tea.clear()
   if (servingTea) for (const definition of props.map(p => p.definition)) {
@@ -248,7 +258,7 @@ function paint() {
     const e = neighborhood.neighborhood.event
     for (const [i, id] of e.participants.entries()) lines.push({ actor: id, text: residentLine(id, e.participants.length === 2 ? 4 : ['listen','sky'].includes(e.definitionId) ? 5 : 2, Math.floor((180-e.remainingTicks)/90)+i, view.locale) })
   }
-  if(living&&view.bubbles){const observation=keepsakeObservation(living,view.locale);if(observation)lines.push({actor:observation.actor,text:observation.text})}
+  if(courtyardLiving&&view.bubbles){const observation=keepsakeObservation(courtyardLiving,view.locale);if(observation)lines.push({actor:observation.actor,text:observation.text})}
   if(living && view.bubbles && !living.play.active)lines.push(...lifeDialogue(living,view.locale))
   if(living?.play.active && view.bubbles && living.play.active.phase==='observing'){const e=living.play.active;lines.unshift({actor:e.participants[0]!,text:playDefinition(e.definitionId)!.stages[e.stage]!.text[view.locale]})}
   if (view.dragging && view.bubbles) lines.unshift({actor:view.world.actor.id,text:residentLine(view.world.actor.id,1,Math.floor(view.dragTime/2),view.locale)})
@@ -271,14 +281,14 @@ function paint() {
     if (selected && members.length > 1 && !view.photo) shadow.ellipse(ground.x, ground.y, 25, 6).stroke({ color: 0x377d68, width: 1.5, alpha: .85 })
   }
   for (const [id,g] of accessories) if(!ids.has(id as Actor['id'])){g.destroy();accessories.delete(id)}
-  for(const actor of members){let g=accessories.get(actor.id);if(!g){g=new Graphics();worldContent.addChild(g);accessories.set(actor.id,g)}g.clear();const choice=home?.home.accessories[actor.id];const p=actor.id===view.world.actor.id&&view.dragging?view.position:actor.position;g.position.set(p.x,p.y);g.zIndex=view.dragging&&actor.id===view.world.actor.id?10001:p.y*10+2
+  for(const actor of members){let g=accessories.get(actor.id);if(!g){g=new Graphics();worldContent.addChild(g);accessories.set(actor.id,g)}g.clear();const choice=(living?.home ?? home?.home)?.accessories[actor.id];const p=actor.id===view.world.actor.id&&view.dragging?view.position:actor.position;g.position.set(p.x,p.y);g.zIndex=view.dragging&&actor.id===view.world.actor.id?10001:p.y*10+2
     if(actor.behavior!=='rest'&&choice==='ribbon') {g.poly([20,-82,30,-87,30,-76]).fill(0xc37f81);g.poly([40,-82,30,-87,30,-76]).fill(0xd69491);g.circle(30,-82,3).fill(0xf1c59d)}
     if(actor.behavior!=='rest'&&choice==='leaf'){g.ellipse(17,-45,5,3).fill(0x8da66e).stroke({color:0xd7be7f,width:.8});g.moveTo(13,-43).lineTo(21,-47).stroke({color:0xe7d7a6,width:.7})}
   }
   hints.clear()
   if (view.debug || view.dragging || view.arranging) {
-    for (const hotspot of (home ? renderScene : neighborhood ? neighborhoodScene(scene,neighborhood.neighborhood.layout) : scene).hotspots) hints.roundRect(hotspot.hit.x, hotspot.hit.y, hotspot.hit.width, hotspot.hit.height, 8).stroke({ color: 0x4a9989, alpha: .7, width: 1.5 })
-    if (view.debug) for (const rect of scene.obstacles) hints.rect(rect.x, rect.y, rect.width, rect.height).stroke({ color: 0xb35846, width: 1 })
+    for (const hotspot of renderScene.hotspots) hints.roundRect(hotspot.hit.x, hotspot.hit.y, hotspot.hit.width, hotspot.hit.height, 8).stroke({ color: 0x4a9989, alpha: .7, width: 1.5 })
+    if (view.debug) for (const rect of renderScene.obstacles) hints.rect(rect.x, rect.y, rect.width, rect.height).stroke({ color: 0xb35846, width: 1 })
   }
   if (!view.photo && view.arrangementObjects.length) {
     const object = view.arrangementObjects.find(o => o.id === view!.selectedFurniture) ?? view.arrangementObjects[0]!
@@ -291,7 +301,7 @@ function paint() {
     const anchor = ghostIndex === undefined ? undefined : ghostObject.anchors[ghostIndex], id=ghostObject.id, rect=ghostObject.rect
     if (ghostLabel) ghostLabel.textContent = view.locale==='zh' ? anchor ? anchor.legal ? '✓ 可放置 · 松开选择锚点' : '× 此处被占用' : '× 请靠近合法锚点' : anchor ? anchor.legal ? '✓ Release at this anchor' : '× This spot is occupied' : '× Move closer to a legal anchor'
     const furniture=furnitureSprites.find(f=>f.id===id)
-    const nodes: Container[] = furniture ? [furniture.back,furniture.front] : id==='bench' ? [neighborhoodArt.bench,neighborhoodArt.benchBack] : id==='corner' ? [neighborhoodArt.corner,cushion] : id==='windChime' ? [bell] : [neighborhoodArt.decorations[id as 'lantern' | 'planter']]
+    const nodes = (furniture ? [furniture.back,furniture.front] : id==='bench' ? [neighborhoodArt?.bench,neighborhoodArt?.benchBack] : id==='corner' ? [neighborhoodArt?.corner,cushion] : id==='windChime' ? [bell] : [neighborhoodArt?.decorations[id as 'lantern' | 'planter']]).filter((node): node is Sprite | Graphics => !!node)
     const dx=(anchor?.x??ghostPoint.x)-rect.x-rect.width/2,dy=(anchor?.y??ghostPoint.y)-rect.y-rect.height/2
     for(const node of nodes){moved.push({node,x:node.x,y:node.y,alpha:node.alpha});node.x+=dx;node.y+=dy;node.alpha=.78}
   }
@@ -319,7 +329,7 @@ async function capturePhoto(id:string) {
     const source = app.renderer.extract.canvas(target)
     context.drawImage(source as HTMLCanvasElement,margin,margin)
   } finally { target.destroy(true); stage.mask=oldMask; stage.scale.set(old.scale); stage.position.set(old.x,old.y); app.render() }
-  if(view.photo.date){const time=villageTime(view.world.ticks);context.fillStyle='#4e5c43';context.font='20px system-ui';context.textAlign='center';context.fillText((view.locale==='zh'?'小院第 '+time.day+' 天':'Courtyard · Day '+time.day)+'  '+String(time.hour).padStart(2,'0')+':'+String(time.minute).padStart(2,'0'),360,935)}
+  if(view.photo.date){const time=villageTime(view.world.ticks);context.fillStyle='#4e5c43';context.font='20px system-ui';context.textAlign='center';context.fillText((view.locale==='zh'?(region==='bookhouse'?'书屋第 ':'小院第 ')+time.day+' 天':(region==='bookhouse'?'Bookhouse · Day ':'Courtyard · Day ')+time.day)+'  '+String(time.hour).padStart(2,'0')+':'+String(time.minute).padStart(2,'0'),360,935)}
   const blob=await new Promise<Blob>((resolve,reject)=>canvas.toBlob(value=>value?resolve(value):reject(Error('PHOTO_FAILED')),'image/png'))
   if(blob.size>photoLimits.bytes)throw Error('PHOTO_TOO_LARGE')
   const bytes=await blob.arrayBuffer();if(!disposed)parent.postMessage({channel,version,token,sequence:++sent,type:'photo',id,bytes},'*',[bytes])
@@ -339,8 +349,8 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
   doll.root.zIndex = dragging ? 10000 : pos.y * 10 + depth
   doll.root.visible = state !== 'rest'
   if (view.world.schemaVersion === 5 || view.world.schemaVersion === 6) microPose(pose, actor, view.world.schemaVersion === 6 ? neighborhoodProjection(view.world) : view.world, view.reducedMotion)
-  if(view.world.schemaVersion===9&&!dragging){const w=view.world;microPose(pose,actor,neighborhoodProjection(homeProjection(w)),view.reducedMotion);const life=lifePresentation(w,actor.id);if(life&&!w.play.active&&!w.neighborhood.event&&!w.activeEvent)applyLifePose(pose,actor.id,life.motion,life.elapsed,view.reducedMotion);if(w.play.active?.participants.includes(actor.id)&&actor.behavior==='idle')applyLifePose(pose,actor.id,w.play.active.phase==='observing'?'point':'waiting',actor.phase,view.reducedMotion)}
-  if(view.world.schemaVersion===9&&!dragging){const observation=keepsakeObservation(view.world,view.locale);if(observation?.actor===actor.id)applyLifePose(pose,actor.id,'point',observation.elapsed,view.reducedMotion)}
+  if(view.world.schemaVersion===10&&!dragging){const w=view.world;microPose(pose,actor,neighborhoodProjection(homeProjection(w)),view.reducedMotion);const life=lifePresentation(w,actor.id);if(life&&!w.play.active&&!w.neighborhood.event&&!w.activeEvent)applyLifePose(pose,actor.id,life.motion,life.elapsed,view.reducedMotion);if(w.play.active?.participants.includes(actor.id)&&actor.behavior==='idle')applyLifePose(pose,actor.id,w.play.active.phase==='observing'?'point':'waiting',actor.phase,view.reducedMotion)}
+  if(region==='courtyard'&&view.world.schemaVersion===10&&!dragging){const observation=keepsakeObservation(view.world,view.locale);if(observation?.actor===actor.id)applyLifePose(pose,actor.id,'point',observation.elapsed,view.reducedMotion)}
   doll.apply(pose)
   const teaGuest = state === 'eat' && view.world.schemaVersion !== 3 && view.world.activeEvent?.food === 'tea' && view.world.activeEvent.participants.includes(actor.id)
   const busy = (state === 'work' || state === 'eat') && !teaGuest
@@ -362,8 +372,8 @@ function drawActor(actor: Actor, pos: Point, dragging: boolean, depth: number) {
     else sprite.rotation = 0
   }
 }
-Object.assign(window, { __sceneMetrics: () => { const samples = [...paintSamples].sort((a, b) => a - b); return ({ frames, actors: rigs.size, textures: textures.size, tickerStarted: app?.ticker.started ?? false, atmosphereTextureSources: atmosphereCache ? 1 : 0, atmosphereCacheSize: [256,256],
-  tableGame: view?.world.schemaVersion===9&&displayGameBoard(view.world)?tableBoardGeometry(view.world.home):null, playTarget: view?.world.schemaVersion===9?whalePoint(view.world,scene):null, geometry: renderScene?.hotspots, environment: view?.world.schemaVersion === 6 || view?.world.schemaVersion === 9 ? view.world.home.environment : null, viewport: { ...sceneViewport(innerWidth, innerHeight), world: projection() }, arrangementObjects: view?.arrangementObjects, gesture: inputRouter?.inspect(),
+Object.assign(window, { __sceneMetrics: () => { const samples = [...paintSamples].sort((a, b) => a - b), sources = [...new Set([...textures.values()].map(texture => texture.source))]; return ({ frames, actors: rigs.size, textures: textures.size, textureSources: sources.length, decodedRGBABytes: sources.reduce((bytes,source)=>bytes+source.pixelWidth*source.pixelHeight*4,0)+(atmosphereCache?256*256*4:0), tickerStarted: app?.ticker.started ?? false, atmosphereTextureSources: atmosphereCache ? 1 : 0, atmosphereCacheSize: [256,256],
+  region, urls: urls.size, tableGame: region==='courtyard'&&view?.world.schemaVersion===10&&displayGameBoard(view.world)?tableBoardGeometry(view.world.home):null, playTarget: region==='courtyard'&&view?.world.schemaVersion===10?whalePoint(view.world,scene):null, geometry: renderScene?.hotspots, environment: view?.world.schemaVersion === 6 || view?.world.schemaVersion === 10 ? view.world.home.environment : null, viewport: { ...sceneViewport(innerWidth, innerHeight), world: projection() }, arrangementObjects: view?.arrangementObjects, gesture: inputRouter?.inspect(),
   paused: view?.paused ?? true, meanPaintMs: frames ? paintMs / frames : 0, maxPaintMs,
   paintSampleCount: samples.length, p50PaintMs: samples[Math.ceil(samples.length * .5) - 1] ?? 0,
   p95PaintMs: samples[Math.ceil(samples.length * .95) - 1] ?? 0 }) } })
@@ -373,7 +383,7 @@ window.addEventListener('message', event => {
   if (message.type === 'hello' && !initialized) { send('ready'); return }
   if (message.type === 'dispose' && message.token === token) { dispose(); return }
   if (message.type === 'init' && !initialized) {
-    if (typeof message.token !== 'string' || message.token.length !== 36 || !message.images
+    if (typeof message.token !== 'string' || message.token.length !== 36 || !validFrameRegion(message.region) || !message.images
       || Object.keys(message.images).length > 160 || Object.values(message.images).some(b => !(b instanceof ArrayBuffer) || b.byteLength > 8 * 1024 * 1024)) return
     if (typeof message.bootAttemptId !== 'string' || message.bootAttemptId.length !== 36 || !Number.isSafeInteger(message.assetRevision) || message.assetRevision < 0) return
     initialized = true; token = message.token; bootAttemptId = message.bootAttemptId; assetRevision = message.assetRevision
@@ -390,6 +400,7 @@ window.addEventListener('message', event => {
       if (message.bootAttemptId !== bootAttemptId || message.assetRevision !== assetRevision || !Number.isSafeInteger(message.viewRevision) || message.viewRevision < 1) return
       try {
         const world = decodeFrameWorld(message.view.world, scene), p = message.view.position
+        if ((world.schemaVersion === 10 ? world.region.active : 'courtyard') !== region) throw Error('FRAME_REGION_CHANGED')
         if (!p || !Number.isFinite(p.x) || !Number.isFinite(p.y) || Math.abs(p.x) > 5000 || Math.abs(p.y) > 5000) return
         if (!Number.isFinite(message.view.dragTime) || message.view.dragTime < 0) return
         if (world.schemaVersion === 4 && view?.world.schemaVersion === 4 && world.decorations.layoutRevision > view.world.decorations.layoutRevision) reactionUntil = world.ticks + 150
@@ -401,6 +412,7 @@ window.addEventListener('message', event => {
         if(photo && (![photo.zoom,photo.x,photo.y].every(Number.isFinite)||photo.zoom<1||photo.zoom>1.5||Math.abs(photo.x)>1||Math.abs(photo.y)>1))return
         if (message.view.camera !== undefined && !validCamera(message.view.camera)) return
         const objects = message.view.arrangementObjects ?? []
+        if (region === 'bookhouse' && (objects.length || message.view.arranging || draft !== undefined || extra)) throw Error('INVALID_REGION_VIEW')
         if (!Array.isArray(objects) || objects.length > 4 || objects.some((o: ArrangementObject) => !o || !['work','eat','bench','corner','windChime','lantern','planter'].includes(o.id) || !o.rect || ![o.rect.x,o.rect.y,o.rect.width,o.rect.height].every(Number.isFinite) || !Array.isArray(o.anchors) || o.anchors.length > 3 || o.anchors.some(a => ![a.x,a.y].every(Number.isFinite) || typeof a.legal !== 'boolean'))) return
         view = { overlayOpen: message.view.overlayOpen === true, camera: message.view.camera ?? defaultCamera, dismissLayer: message.view.dismissLayer === true, arrangementObjects: objects, selectedFurniture: message.view.selectedFurniture, arranging: message.view.arranging === true, extraDecorationDraft:extra??null, photo:photo?{zoom:photo.zoom,x:photo.x,y:photo.y,date:photo.date===true,border:photo.border===true}:null, world, position: p, dragging: message.view.dragging === true, dragTime: message.view.dragTime, paused: message.view.paused === true, debug: message.view.debug === true,
           locale: message.view.locale === 'en' ? 'en' : 'zh', reducedMotion: message.view.reducedMotion === true || matchMedia('(prefers-reduced-motion: reduce)').matches,
@@ -427,6 +439,7 @@ function dispose() {
   inputRouter?.dispose(); disposed = true; cancel()
   app?.canvas.removeEventListener('webglcontextlost', contextLost)
   for (const [id, rig] of rigs) removeRig(id, rig)
+  bookhouseArt?.destroy()
   app?.destroy(true, { children: true }); atmosphereCache?.destroy()
   for (const texture of textures.values()) texture.destroy(true)
   for (const url of urls.values()) URL.revokeObjectURL(url)

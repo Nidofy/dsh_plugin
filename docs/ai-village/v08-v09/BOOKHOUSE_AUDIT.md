@@ -129,3 +129,11 @@ type RegionState = {
 7. **验收身份**：0.8先冻结并过迁移门禁，再实施0.9样板；新build/source哈希、原生安装/冷恢复和软件性能重新取证，不能复用preview.2的两区尚不存在时的通过结果。
 
 最大的风险不是静态绘图，而是“书屋坐标交给庭院validator”和“CAS提交后旧frame仍在接受指针”。先完成region codec/命令和frame切换契约，再画样板，能把风险限制在少量新模块与现有连接点。
+
+## 0.9实施补记：几何与代码样板
+
+0.8门禁通过后已实现 `src/core/bookhouse-scene.ts`、`src/frame/bookhouse-art.ts`。上表三个活动位、障碍、spawn与七个固定入场点直接作为实际Scene定义；version1，seatProps为空，无庭院cushion。家具asset字段为明确的`code/bookhouse/*`身份，frame书屋分支不能按它们请求PNG。
+
+BookhouseArt构造接收已有sortable worldContent，背景、每件家具的back/front及三个活动道具全部为独立siblings。`paint(readonly {actor: Actor; point: Point}[], ticks, reducedMotion)`使用实际渲染point，拖拽离开锚点即隐藏接触道具；不持有world或计时器、不改变ticks/RNG。阅读桌道具深度低于既有work手部接触层，高于桌前层；书柜打开书页和窗边座书签按角色脚点排序。背景与家具为原创Pixi代码图形，不新增批准PNG或假定用户已签收。区域标签由管理界面提供。
+
+两份专项tests共6项通过，覆盖11点之间121条有向静态路线及逐段障碍校验、七入口脚印距离、三活动精确命中/独占席位、障碍落点拒绝、无旧餐具fallback、图层父子关系/桌面接触深度以及destroy保留无关节点。此结果不替代真实浏览器三家具动态到位、照片、原生冷恢复或性能验收；这些随0.9最终包单独取证。

@@ -6,6 +6,32 @@ import { EntranceCoordinator } from '../src/client/entrance-state.ts'
 import { createHomeWorld } from '../src/core/home-state.ts'
 import { scene } from '../src/definitions.ts'
 
+it('invalidates old region messages, rendering, capture and timers before unmount; old cleanup cannot clear the replacement frame', async () => {
+  vi.useFakeTimers();const old=document.createElement('iframe'),next=document.createElement('iframe');document.body.append(old,next)
+  const oldTarget=old.contentWindow!,nextTarget=next.contentWindow!,oldPost=vi.spyOn(oldTarget,'postMessage').mockImplementation(()=>{}),nextPost=vi.spyOn(nextTarget,'postMessage').mockImplementation(()=>{})
+  const callbacks=new Set<()=>void>(),ready=vi.fn(),pointer=vi.fn(),input=vi.fn(),failed=vi.fn(),bind=vi.fn(),world=createHomeWorld(scene)
+  let region:'courtyard'|'bookhouse'='courtyard',generation=1
+  const runtime:FrameRuntime={get frameKey(){return region},get generation(){return generation},bundle:(()=>({images:{}}))as FrameRuntime['bundle'],subscribe:fn=>{callbacks.add(fn);return()=>{callbacks.delete(fn)}},setFrameReady:ready,pointer,input,cancelDrag:vi.fn(),bindCapture:bind,view:()=>({world,position:world.actor.position,dragging:false,dragTime:0,paused:true,debug:false})}
+  const oldDispose=attachFrame(old,runtime,failed);let oldSequence=0,newSequence=0
+  const deliver=(target:Window,token:string,sequence:number,patch:object)=>window.dispatchEvent(new MessageEvent('message',{source:target,origin:'null',data:{channel:'nidofy-ai-village',version:frameVersion,token,sequence,...patch}}))
+  let nextDispose=()=>{}
+  try {
+    deliver(oldTarget,'',++oldSequence,{type:'ready'});const oldToken=oldPost.mock.calls.find(([m])=>m.type==='init')![0].token
+    deliver(oldTarget,oldToken,++oldSequence,{type:'ready-to-render'});const oldCapture=bind.mock.calls[0]![0] as ()=>Promise<ArrayBuffer>
+    const renders=oldPost.mock.calls.filter(([m])=>m.type==='render').length
+    region='bookhouse';generation++;for(const cb of callbacks)cb()
+    deliver(oldTarget,oldToken,++oldSequence,{type:'failed'});deliver(oldTarget,oldToken,++oldSequence,{type:'ready-to-render'})
+    deliver(oldTarget,oldToken,++oldSequence,{type:'ui-input',viewportRevision:0,input:{kind:'scene'}})
+    expect(oldPost.mock.calls.filter(([m])=>m.type==='render')).toHaveLength(renders);expect(input).not.toHaveBeenCalled()
+    await expect(oldCapture()).rejects.toThrow('PHOTO_UNAVAILABLE');vi.advanceTimersByTime(20001);expect(failed).not.toHaveBeenCalled()
+    nextDispose=attachFrame(next,runtime,failed);deliver(nextTarget,'',++newSequence,{type:'ready'})
+    const init=nextPost.mock.calls.find(([m])=>m.type==='init')![0];expect(init.region).toBe('bookhouse')
+    deliver(nextTarget,init.token,++newSequence,{type:'ready-to-render'});const bindings=bind.mock.calls.length,calls=ready.mock.calls.length
+    oldDispose();expect(bind).toHaveBeenCalledTimes(bindings);expect(ready).toHaveBeenCalledTimes(calls);expect(callbacks.size).toBe(1)
+    deliver(oldTarget,oldToken,++oldSequence,{type:'failed'});expect(failed).not.toHaveBeenCalled()
+  } finally {oldDispose();nextDispose();old.remove();next.remove();oldPost.mockRestore();nextPost.mockRestore();vi.useRealTimers()}
+})
+
 it('sends view after ready, but accepts first paint only for the current snapshot; times out ready without paint', () => {
   vi.useFakeTimers()
   const frame=document.createElement('iframe');document.body.append(frame)

@@ -9,6 +9,7 @@ afterEach(cleanup)
 function fixture(id = 'lost-rice', phase = 'ready') {
   const world = {
     ticks: 100, actor: { id: 'claude' }, companions: [{ id: 'bluewhale' }, { id: 'kimi' }], activeEvent: null,
+    region: { version: 1, active: 'courtyard', returns: { courtyard: null, bookhouse: null } },
     neighborhood: { event: null, memories: [] as { id: string; participants: string[]; completedTick: number; count: number }[] },
     play: { nextTick: 0, tableMode: 'dining' as 'dining' | 'game', lastEventId: null as string | null, decorations: Object.fromEntries(playDecorationIds.map(id => [id, null])), active: { id: 'test-event', definitionId: id, participants: ['bluewhale', 'claude'], stage: 0, phase, choices: [] as string[], board: [-1, -1, -1], target: 'bench' } },
   }

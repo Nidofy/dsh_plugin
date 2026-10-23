@@ -8,7 +8,7 @@ export function keepsakePositions(world: LivingWorld) {
 }
 /** Presentation of an idle resident's actual nearby view; no fabricated historical discovery. */
 export function keepsakeObservation(world:LivingWorld,locale:'zh'|'en') {
-  if(world.play.active||world.activeEvent||world.neighborhood.event||world.life.social||world.ticks%900>=120)return null
+  if(world.region.active!=='courtyard'||world.play.active||world.activeEvent||world.neighborhood.event||world.life.social||world.ticks%900>=120)return null
   const placed=keepsakePositions(world)
   for(const a of actors(world).sort((a,b)=>a.id.localeCompare(b.id))){
     if(a.behavior!=='idle'||a.intent||a.phase<.4||a.phase>2.4)continue

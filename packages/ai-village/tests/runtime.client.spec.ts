@@ -6,7 +6,81 @@ import { createLivingWorld as createWorld, type LivingWorld as ContentWorld } fr
 import { scene } from '../src/definitions.ts'
 import type { Saved } from '../src/host/save-store.ts'
 import { stepLiving as stepTea, settleTea } from '../src/core/living-engine.ts'
+import { switchRegion } from '../src/core/region-engine.ts'
 afterEach(() => vi.unstubAllGlobals())
+it('uses the neutral gate for cold bookhouse and same-region hide/restore until a fresh frame, with idempotent subscriber reveal', async () => {
+  const world=switchRegion(createWorld(scene),scene,'bookhouse');world.userPaused=true;const f=fixture(world),r=f.runtime
+  let unsubscribe=()=>{}
+  try {
+    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await r.flush()
+    expect(r.frameKey).toBe('bookhouse');expect(r.regionTransition).toBe(true);expect(r.canRevealEntrance).toBe(false)
+    let calls=0
+    unsubscribe=r.subscribe(()=>{calls++;if(r.canRevealEntrance)r.finishEntrance()})
+    reveal(r);expect(r.entrance.blocking).toBe(false);expect(r.regionTransition).toBe(false);expect(calls).toBeLessThan(10)
+    const saved=r.controller!.snapshot(),writes=f.stats().mutations
+    r.pause('hidden',true);r.setFrameReady(false);r.pause('hidden',false)
+    expect(r.regionTransition).toBe(true);expect(r.canRevealEntrance).toBe(false)
+    r.setFrameReady(true);r.finishEntrance();expect(r.regionTransition).toBe(true)
+    reveal(r);expect(r.regionTransition).toBe(false);expect(r.controller!.snapshot()).toEqual(saved)
+    expect(r.reasons.has('user')).toBe(true);expect(f.stats().mutations).toBe(writes)
+  } finally {unsubscribe();await r.dispose()}
+})
+it('publishes region travel only after CAS, resets transient view and waits for a new first frame while preserving user pause', async () => {
+  const world=createWorld(scene);world.userPaused=true;const f=fixture(world),r=f.runtime
+  try {
+    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r)
+    const before=r.controller!.snapshot(),writes=f.stats().mutations
+    r.setCamera({zoom:1.4,panX:.1,panY:.1});r.present({type:'tab',tab:'journal'})
+    const release=f.holdSave(),travel=r.switchRegion('bookhouse');await vi.waitFor(()=>expect(f.stats().mutations).toBe(writes+1))
+    expect(r.controller!.snapshot()).toEqual(before);expect(r.frameKey).toBe('courtyard');release();await travel
+    expect(r.frameKey).toBe('bookhouse');expect(r.regionTransition).toBe(true);expect(r.frameReady).toBe(false)
+    expect(r.presentation.drawer).toBe('closed');expect(r.presentation.camera).toEqual({zoom:1,panX:0,panY:0})
+    expect(r.controller!.world.rng).toBe(before.rng);expect(r.controller!.world.ticks).toBe(before.ticks);expect(r.reasons.has('user')).toBe(true)
+    await r.switchRegion('courtyard');expect(f.stats().mutations).toBe(writes+1)
+    r.setFrameReady(true);r.finishEntrance();expect(r.entrance.blocking).toBe(true)
+    reveal(r);expect(r.regionTransition).toBe(false);await r.switchRegion('courtyard')
+    expect(r.controller!.world.actor).toMatchObject({id:before.actor.id,position:before.actor.position,safe:before.actor.safe,facing:before.actor.facing,behavior:'idle',intent:null,destination:null})
+    expect(r.controller!.world.userPaused).toBe(true);expect(f.stats().mutations).toBe(writes+2)
+  } finally {await r.dispose()}
+})
+it('region resource failure before submit releases critical candidate and retains the old world and resources', async () => {
+  const world=createWorld(scene);world.userPaused=true;const f=fixture(world),r=f.runtime
+  try {
+    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r)
+    const before=r.controller!.snapshot(),writes=f.stats().mutations
+    vi.mocked((r as unknown as {ensureAssets:()=>Promise<void>}).ensureAssets).mockRejectedValueOnce(Error('ASSET_UNAVAILABLE'))
+    await r.switchRegion('bookhouse');expect(r.controller!.snapshot()).toEqual(before);expect(f.stats().mutations).toBe(writes)
+    expect(r.reasons.has('commit-pending')).toBe(false);expect((r as unknown as {criticalCandidate:unknown}).criticalCandidate).toBeNull()
+    expect(r.images).toEqual({});expect(r.actionError).toBe('ASSET_UNAVAILABLE');expect(r.frameKey).toBe('courtyard')
+    r.retry();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.switchRegion('bookhouse');expect(r.frameKey).toBe('bookhouse')
+  } finally {await r.dispose()}
+})
+it('lost region ACK remains in the prior region until read-only reconciliation then fences the frame without another write', async () => {
+  vi.useFakeTimers();const world=createWorld(scene);world.userPaused=true;const f=fixture(world),r=f.runtime
+  try {
+    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r)
+    const before=r.controller!.snapshot(),writes=f.stats().mutations;f.loseAck();f.stateOffline(true)
+    await r.switchRegion('bookhouse');expect(r.saveReceipt.status).toBe('unknown');expect(r.controller!.snapshot()).toEqual(before)
+    await r.switchRegion('bookhouse');expect(f.stats().mutations).toBe(writes+1)
+    f.stateOffline(false);await r.checkRecovery();expect(r.saveReceipt.status).toBe('committed');expect(r.frameKey).toBe('bookhouse')
+    expect(r.frameReady).toBe(false);expect(r.entrance.blocking).toBe(true);expect(r.regionTransition).toBe(true);expect(f.stats().mutations).toBe(writes+1)
+    reveal(r);expect(r.controller!.world.userPaused).toBe(true);expect(r.regionTransition).toBe(false)
+  } finally {await r.dispose();vi.useRealTimers()}
+})
+it('refuses travel while hidden or arranging and prevents residency changes inside the bookhouse', async () => {
+  const world=createWorld(scene);world.userPaused=true;const f=fixture(world),r=f.runtime
+  try {
+    r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);const writes=f.stats().mutations
+    r.pause('sidebar',true);await r.switchRegion('bookhouse');expect(f.stats().mutations).toBe(writes)
+    r.pause('sidebar',false);reveal(r);r.beginHome();await r.switchRegion('bookhouse');expect(f.stats().mutations).toBe(writes)
+    r.cancelArrangements();await r.switchRegion('bookhouse');reveal(r)
+    const before=r.controller!.snapshot();r.setAllCharacters(true);r.setCharacterPresent('claude',true);r.selectCharacter('claude');r.beginHome()
+    expect(r.controller!.snapshot()).toEqual(before);expect(r.homeDraft).toBeNull()
+    await r.bookhouseActivity('bookcase');expect(r.controller!.world.actor.intent).toBeNull()
+    r.pause('user',false);await r.flush();await r.bookhouseActivity('bookcase');expect(r.controller!.world.actor.intent?.furnitureId).toBe('bookcase')
+    await r.cancelBookhouseActivity();expect(r.controller!.world.actor.intent).toBeNull()
+  } finally {await r.dispose()}
+})
 function reveal(r: VillageRuntime) {
   // This fixture stubs resource IO; emulate the validated resource and renderer boundaries explicitly.
   r.entrance.verified = 1; r.beginEntranceFrame('test-frame'); r.expectEntranceFrame('test-frame',r.assetRevision,1)
@@ -331,7 +405,7 @@ it('initializes twelve existing facts as read when legacy preferences migrate, w
  world.progress={completedWishes:['first-tea'],discovered:['first-table'],unlocked:['wind-chime'],lastCompletedEventId:world.journal[0]!.eventId};world.decorations.windChime={id:'first-wind-chime',slot:null}
  world.neighborhood.memories=stories.map(s=>({id:s.id,eventId:crypto.randomUUID(),participants:neighborhoodEvents.find(d=>d.story===s.id)!.count===2?['bluewhale','claude']:['bluewhale'],completedTick:0,count:1}));world.neighborhood.lastEventId=world.neighborhood.memories.at(-1)!.eventId
  const f=fixture(world,{schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}),r=f.runtime
- try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(9)}finally{await r.dispose()}
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(10)}finally{await r.dispose()}
 })
 
 

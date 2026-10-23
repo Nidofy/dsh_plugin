@@ -9,7 +9,7 @@ export function arrangementObjects(base: Scene, world: HomeWorld, draft: { home:
     const rectFor = (g: typeof geometry): Rect => {
       const furniture = g.furniture.find(f => f.id === id)
       if (furniture) return furniture.rect
-      if (id === 'corner' && draft.layout === 'courtyard') return g.cushion
+      if (id === 'corner' && draft.layout === 'courtyard' && g.cushion) return g.cushion
       const spots = g.hotspots.filter(h => id === 'corner' ? !['work', 'eat', 'bench'].includes(h.id) : h.id === id)
       const x = Math.min(...spots.map(h => h.hit.x)), y = Math.min(...spots.map(h => h.hit.y))
       return { x, y, width: Math.max(...spots.map(h => h.hit.x + h.hit.width)) - x, height: Math.max(...spots.map(h => h.hit.y + h.hit.height)) - y }

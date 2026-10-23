@@ -18,7 +18,7 @@ export function encounterWindow(ticks: number) {
 }
 export function currentEncounter(world: LivingWorld) {
   const window = encounterWindow(world.ticks)
-  if (world.play.active || world.activeEvent || world.neighborhood.event || world.ticks < world.play.nextTick
+  if (world.region.active !== 'courtyard' || world.play.active || world.activeEvent || world.neighborhood.event || world.ticks < world.play.nextTick
     || world.play.encounterWindow >= window.index || world.ticks < window.startsTick || world.ticks >= window.expiresTick) return null
   return window
 }

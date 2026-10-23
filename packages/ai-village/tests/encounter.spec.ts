@@ -61,7 +61,7 @@ it('rejects malformed counters and preserves natural simulation when offers are 
 })
 it('migrates v8 with exact original snapshot protection and cold-restores a consumed offer',async()=>{
   const old=createV8(scene),raw=JSON.stringify(old),next=migrateLivingWorld(old,scene)
-  expect(next.schemaVersion).toBe(9);expect(next.play.encounterWindow).toBe(-1)
+  expect(next.schemaVersion).toBe(10);expect(next.play.encounterWindow).toBe(-1)
   expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV8(scene).validate(next)).toThrow()
   const root=await mkdtemp(join(tmpdir(),'village-encounter-')),legacy=await SaveStore.open(root,scene,codecV8(scene))
   await legacy.save(0,old,crypto.randomUUID())
@@ -77,7 +77,7 @@ it('preserves a checked v8 in-flight table game without moving residents, consum
   const source=offered(),current=startPlay(setTableMode(source,scene,'game'),scene,'table-game',['bluewhale','claude'],crypto.randomUUID())
   stepLiving(current,scene)
   const legacy:any=structuredClone(current)
-  legacy.schemaVersion=8;legacy.contentRevision=5;delete legacy.play.encounterWindow
+  delete legacy.region;legacy.schemaVersion=8;legacy.contentRevision=5;delete legacy.play.encounterWindow
   delete legacy.play.decorations['message-board'];delete legacy.play.decorations['leaf-pot']
   const old=codecV8(scene).validate(legacy),raw=JSON.stringify(old),next=migrateLivingWorld(old,scene)
   expect(next.play.active).toEqual(old.play.active);expect(next.actor).toEqual(old.actor);expect(next.companions).toEqual(old.companions)
