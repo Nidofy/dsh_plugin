@@ -52,7 +52,7 @@ it('region resource failure before submit releases critical candidate and retain
     await r.switchRegion('bookhouse');expect(r.controller!.snapshot()).toEqual(before);expect(f.stats().mutations).toBe(writes)
     expect(r.reasons.has('commit-pending')).toBe(false);expect((r as unknown as {criticalCandidate:unknown}).criticalCandidate).toBeNull()
     expect(r.images).toEqual({});expect(r.actionError).toBe('ASSET_UNAVAILABLE');expect(r.frameKey).toBe('courtyard')
-    r.retry();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.switchRegion('bookhouse');expect(r.frameKey).toBe('bookhouse')
+    expect(r.entrance.reentry).toBe(true);await r.retryEntrance();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.switchRegion('bookhouse');expect(r.frameKey).toBe('bookhouse')
   } finally {await r.dispose()}
 })
 it('lost region ACK remains in the prior region until read-only reconciliation then fences the frame without another write', async () => {
@@ -64,7 +64,7 @@ it('lost region ACK remains in the prior region until read-only reconciliation t
     await r.switchRegion('bookhouse');expect(f.stats().mutations).toBe(writes+1)
     f.stateOffline(false);await r.checkRecovery();expect(r.saveReceipt.status).toBe('committed');expect(r.frameKey).toBe('bookhouse')
     expect(r.frameReady).toBe(false);expect(r.entrance.blocking).toBe(true);expect(r.regionTransition).toBe(true);expect(f.stats().mutations).toBe(writes+1)
-    reveal(r);expect(r.controller!.world.userPaused).toBe(true);expect(r.regionTransition).toBe(false)
+    reveal(r);expect(r.entrance.blocking).toBe(true);await r.retryEntrance();reveal(r);expect(r.controller!.world.userPaused).toBe(true);expect(r.regionTransition).toBe(false);expect(f.stats().mutations).toBe(writes+1)
   } finally {await r.dispose();vi.useRealTimers()}
 })
 it('refuses travel while hidden or arranging and prevents residency changes inside the bookhouse', async () => {

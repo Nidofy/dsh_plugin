@@ -4,6 +4,8 @@ export class EntranceCoordinator {
   full = false
   skipped = false
   blocking = true
+  reentry = false
+  doorOpened = false
   attemptId = crypto.randomUUID()
   metadata = false
   verified = 0
@@ -41,8 +43,10 @@ export class EntranceCoordinator {
     this.decoded = Math.max(this.decoded, progress); return true
   }
   suspend() { this.full = false; this.skipped = true; this.blocking = true; this.firstFrame = false; this.phase = 'wait' }
+  returnToDoor() { this.suspend(); this.reentry = true; this.doorOpened = false }
+  openDoor() { this.doorOpened = true; this.skipped = false; this.openedAt = performance.now() }
   skip() { this.skipped = true; this.full = false; this.phase = 'wait' }
   progress(canReveal: boolean) { return .15 * Number(this.metadata) + .6 * this.verified + .2 * this.decoded + .05 * Number(canReveal) }
-  finish(canReveal: boolean) { if (!canReveal) return false; this.blocking = false; this.full = false; this.phase = 'done'; return true }
+  finish(canReveal: boolean) { if (!canReveal || this.reentry && !this.doorOpened) return false; this.reentry = false; this.blocking = false; this.full = false; this.phase = 'done'; return true }
 }
 export const portraitFill = (progress: number, index: number) => Math.max(0, Math.min(1, 7 * progress - index))

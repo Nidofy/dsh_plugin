@@ -38,7 +38,9 @@ export class VillageRuntime {
   get frameKey(): RegionId { return this.controller?.world.region.active ?? 'courtyard' }
   readonly entrance = new EntranceCoordinator()
   private bootSettled = false
+  reentryBusy = false
   get canRevealEntrance() {
+    if (this.entrance.reentry && !this.entrance.doorOpened) return false
     return this.foreground() && this.ready && this.frameReady && this.entrance.metadata && this.entrance.verified === 1 && this.entrance.decoded === 1 && this.entrance.firstFrame && this.bootSettled && !!this.lease && !this.error && !this.recovering && !this.criticalCandidate && !this.transaction.pending && !this.preferenceTransaction.pending
   }
   beginEntranceFrame(token: string) { this.entrance.bindFrame(token); this.schedule() }
@@ -50,6 +52,22 @@ export class VillageRuntime {
     if (this.entrance.decode(token, attempt, assets, progress)) this.emit()
   }
   skipEntrance() { this.entrance.skip(); this.emit() }
+  returnToDoor() { this.entrance.returnToDoor(); this.setFrameReady(false) }
+  /** Explicit re-entry never restores a previous save or replays an uncertain write. */
+  async retryEntrance() {
+    if (this.reentryBusy) return
+    this.reentryBusy = true; this.entrance.openDoor(); this.emit()
+    try {
+      if (this.error) {
+        if (canRecover(this.errorCode)) await this.checkRecovery()
+        else { const previous = this.loading; this.retry(); await previous; await this.connect() }
+      }
+    } finally {
+      this.reentryBusy = false
+      if (this.error) this.returnToDoor()
+      this.emit()
+    }
+  }
   finishEntrance() { if (this.entrance.blocking && this.entrance.finish(this.canRevealEntrance)) { this.changingRegion = false; this.schedule(); this.emit() } }
   /** One publication path for confirmed region changes, including read-only reconciliation. */
   private publishWorld(world: ContentWorld) {
@@ -296,6 +314,7 @@ export class VillageRuntime {
     if (source === 'heartbeat' && this.error) return
     this.cancelRecovery(); this.errorCode = recoveryCode(error, source); this.recoveryCount = 0
     this.error = String(error); this.recoveryState = canRecover(this.errorCode) ? 'waiting' : 'blocked'
+    this.entrance.returnToDoor()
     this.pause('disconnected', true); this.trace(); this.queueRecovery(); this.emit()
   }
   pause(reason: PauseReason, active: boolean) {
