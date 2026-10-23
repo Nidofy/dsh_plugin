@@ -1,0 +1,74 @@
+{
+  "mode": "upgrade",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-v08-desktop-final-upgrade",
+  "cdp": 18766,
+  "checks": [
+    "Official manager removed preceding bundle selection (dependencies are retained by the host); world and album directories untouched"
+  ],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": false,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.8.0-preview.1",
+    "file": "nidofy-dsh-ai-village-0.8.0-preview.1.tgz",
+    "bytes": 32174312,
+    "sha256": "03fef5907efe727008136473448128b0f38d2eb41bdbd6d566f7fe374697e12d",
+    "files": 276,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "failure": {
+    "message": "locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Add plugin', exact: true })\u001b[22m\n",
+    "stack": "locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Add plugin', exact: true })\u001b[22m\n\n    at direct (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-v08-desktop.mjs:29:63)\n    at D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-v08-desktop.mjs:57:9"
+  },
+  "world": null,
+  "buttons": [
+    {
+      "name": "New session",
+      "disabled": false
+    },
+    {
+      "name": "Collapse sidebar",
+      "disabled": false
+    },
+    {
+      "name": "New session",
+      "disabled": false
+    },
+    {
+      "name": "Plugins",
+      "disabled": false
+    },
+    {
+      "name": "Automation tasks",
+      "disabled": false
+    },
+    {
+      "name": "Search sessions",
+      "disabled": false
+    },
+    {
+      "name": "View options",
+      "disabled": false
+    },
+    {
+      "name": "Add workspace",
+      "disabled": false
+    },
+    {
+      "name": "Account menu",
+      "disabled": false
+    },
+    {
+      "name": "Back to plugins",
+      "disabled": false
+    },
+    {
+      "name": "Uninstall @nidofy/dsh-ai-village",
+      "disabled": false
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "world": {
+    "schemaVersion": 9,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 0,
+    "rng": 2387716937,
+    "userPaused": false,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 174,
+        "y": 340
+      },
+      "safe": {
+        "x": 174,
+        "y": 340
+      },
+      "behavior": "idle",
+      "phase": 0,
+      "remaining": 4,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [],
+    "simulationRulesVersion": 4,
+    "contentRevision": 6,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "encounterWindow": -1,
+      "tableMode": "dining",
+      "active": null,
+      "decorations": {
+        "message-board": null,
+        "leaf-pot": null,
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "error": "",
+  "actionError": "",
+  "reasons": [],
+  "presentation": {
+    "page": "quick",
+    "history": [],
+    "scrollTop": 0,
+    "focusKey": "",
+    "residentTarget": null,
+    "tab": "residents",
+    "drawer": "closed",
+    "overlay": null,
+    "camera": {
+      "zoom": 1,
+      "panX": 0,
+      "panY": 0
+    },
+    "expanded": false,
+    "selectedFurniture": "work",
+    "accessoryTarget": null,
+    "subpages": {
+      "wishes": "wishes",
+      "decor": "furniture",
+      "journal": "memories"
+    },
+    "confirmClose": false,
+    "confirmTarget": "plugin",
+    "zoomHint": 0,
+    "toastIds": [],
+    "noticeTarget": null
+  }
+}

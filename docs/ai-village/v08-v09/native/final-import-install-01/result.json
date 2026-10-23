@@ -1,0 +1,25 @@
+{
+  "mode": "install",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-v08-desktop-final-import",
+  "cdp": 18766,
+  "checks": [
+    "Dismissed official first-run welcome through Add API Key / Set up later; no credentials configured",
+    "Official plugin manager installed local pinned tarball into isolated profile"
+  ],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": true,
+  "artifact": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.8.0-preview.1",
+    "file": "nidofy-dsh-ai-village-0.8.0-preview.1.tgz",
+    "bytes": 32174312,
+    "sha256": "03fef5907efe727008136473448128b0f38d2eb41bdbd6d566f7fe374697e12d",
+    "files": 276,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "restartRequired": true
+}

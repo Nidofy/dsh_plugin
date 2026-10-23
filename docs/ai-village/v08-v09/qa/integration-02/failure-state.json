@@ -1,0 +1,936 @@
+{
+  "world": {
+    "schemaVersion": 9,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 18805,
+    "rng": 3229148854,
+    "userPaused": true,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 274,
+        "y": 245
+      },
+      "safe": {
+        "x": 274,
+        "y": 245
+      },
+      "behavior": "idle",
+      "phase": 0.4666666666666666,
+      "remaining": 2.533333333333335,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 242,
+          "y": 245
+        },
+        "safe": {
+          "x": 242,
+          "y": 245
+        },
+        "behavior": "idle",
+        "phase": 0.4666666666666666,
+        "remaining": 2.533333333333335,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 6,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [
+        {
+          "id": "leaves-gather",
+          "eventId": "20a91207-88c6-497a-88e0-29ab7fdbd1ee",
+          "participants": [
+            "bluewhale",
+            "claude"
+          ],
+          "completedTick": 2377,
+          "count": 2
+        },
+        {
+          "id": "paper-rescue",
+          "eventId": "3e631221-c024-41f1-9fa2-dba4a3ce970c",
+          "participants": [
+            "bluewhale",
+            "claude"
+          ],
+          "completedTick": 4798,
+          "count": 2
+        }
+      ],
+      "bonds": [
+        {
+          "pair": [
+            "bluewhale",
+            "claude"
+          ],
+          "count": 4,
+          "lastTick": 18791
+        }
+      ],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none"
+      }
+    },
+    "play": {
+      "encounterWindow": 6,
+      "tableMode": "dining",
+      "active": null,
+      "decorations": {
+        "message-board": "wall",
+        "leaf-pot": "door",
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 18881,
+      "lastEventId": "b1703f46-5dd2-46c5-9faa-46ec5a8ebbd6"
+    },
+    "life": {
+      "social": null
+    }
+  },
+  "error": "",
+  "actionError": "",
+  "reasons": [
+    "user"
+  ],
+  "presentation": {
+    "page": "memories",
+    "history": [
+      {
+        "tab": "journal",
+        "drawer": "half",
+        "overlay": null,
+        "page": "quick",
+        "scrollTop": 0,
+        "focusKey": "回忆",
+        "accessoryTarget": null,
+        "residentTarget": null,
+        "subpages": {
+          "wishes": "wishes",
+          "decor": "hanging",
+          "journal": "memories"
+        },
+        "noticeTarget": null
+      }
+    ],
+    "scrollTop": 361,
+    "focusKey": "小故事 · 0/3",
+    "residentTarget": null,
+    "tab": "journal",
+    "drawer": "full",
+    "overlay": null,
+    "camera": {
+      "zoom": 1,
+      "panX": 0,
+      "panY": 0
+    },
+    "expanded": false,
+    "selectedFurniture": "work",
+    "accessoryTarget": null,
+    "subpages": {
+      "wishes": "wishes",
+      "decor": "hanging",
+      "journal": "memories"
+    },
+    "confirmClose": false,
+    "confirmTarget": "plugin",
+    "zoomHint": 0,
+    "toastIds": [],
+    "noticeTarget": null
+  },
+  "frameReady": true,
+  "entrance": {
+    "attempted": true,
+    "full": false,
+    "skipped": true,
+    "blocking": false,
+    "attemptId": "f0aa9612-132f-44f0-95d6-d7a217df789b",
+    "metadata": true,
+    "verified": 1,
+    "decoded": 1,
+    "firstFrame": true,
+    "openedAt": 180.39999985694885,
+    "phase": "done",
+    "frame": "d3c3ac49-1ea8-44b0-9e46-7cc8dff73b7c",
+    "assets": 2,
+    "view": 1,
+    "canReveal": true,
+    "progress": 1
+  },
+  "diagnostics": [
+    {
+      "ms": 0,
+      "reasons": [
+        "closed",
+        "disconnected"
+      ],
+      "code": "",
+      "connected": false,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 14,
+      "reasons": [
+        "closed",
+        "disconnected"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 22,
+      "reasons": [
+        "closed",
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 25,
+      "reasons": [
+        "closed",
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 88,
+      "reasons": [
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 88,
+      "reasons": [
+        "disconnected",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 89,
+      "reasons": [
+        "disconnected"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 226,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 226,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "idle",
+      "ticks": 0
+    },
+    {
+      "ms": 550,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 0
+    },
+    {
+      "ms": 1837,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 13
+    },
+    {
+      "ms": 2116,
+      "reasons": [
+        "user",
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 13
+    },
+    {
+      "ms": 2406,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 13
+    },
+    {
+      "ms": 2412,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "committed",
+      "ticks": 13
+    },
+    {
+      "ms": 2488,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 13
+    },
+    {
+      "ms": 4256,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 13
+    },
+    {
+      "ms": 21421,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 526
+    },
+    {
+      "ms": 21492,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 526
+    },
+    {
+      "ms": 35885,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 956
+    },
+    {
+      "ms": 35952,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 956
+    },
+    {
+      "ms": 59765,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1669
+    },
+    {
+      "ms": 59936,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 1669
+    },
+    {
+      "ms": 83615,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 2377
+    },
+    {
+      "ms": 83744,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 2377
+    },
+    {
+      "ms": 84282,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 2391
+    },
+    {
+      "ms": 84737,
+      "reasons": [
+        "user",
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 2391
+    },
+    {
+      "ms": 84897,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 2391
+    },
+    {
+      "ms": 85703,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 2391
+    },
+    {
+      "ms": 113058,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 3210
+    },
+    {
+      "ms": 113167,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 3210
+    },
+    {
+      "ms": 136730,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 3915
+    },
+    {
+      "ms": 136887,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 3915
+    },
+    {
+      "ms": 146021,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 4188
+    },
+    {
+      "ms": 146177,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 4188
+    },
+    {
+      "ms": 166556,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 4798
+    },
+    {
+      "ms": 166767,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 4798
+    },
+    {
+      "ms": 167339,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 4814
+    },
+    {
+      "ms": 167800,
+      "reasons": [
+        "user",
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 4814
+    },
+    {
+      "ms": 167971,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 4814
+    },
+    {
+      "ms": 168765,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 4814
+    },
+    {
+      "ms": 294371,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 8581
+    },
+    {
+      "ms": 294506,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 8581
+    },
+    {
+      "ms": 294703,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 8585
+    },
+    {
+      "ms": 294854,
+      "reasons": [
+        "user",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 8585
+    },
+    {
+      "ms": 294885,
+      "reasons": [
+        "user",
+        "sidebar"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "committed",
+      "ticks": 8585
+    },
+    {
+      "ms": 295873,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": false,
+      "receipt": "committed",
+      "ticks": 8585
+    },
+    {
+      "ms": 296246,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 8585
+    },
+    {
+      "ms": 296925,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 8585
+    },
+    {
+      "ms": 384270,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 11203
+    },
+    {
+      "ms": 384345,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 11203
+    },
+    {
+      "ms": 384445,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 11204
+    },
+    {
+      "ms": 384516,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 11204
+    },
+    {
+      "ms": 479734,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 14059
+    },
+    {
+      "ms": 479810,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 14059
+    },
+    {
+      "ms": 489404,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 14346
+    },
+    {
+      "ms": 489504,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 14346
+    },
+    {
+      "ms": 498435,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 14612
+    },
+    {
+      "ms": 498513,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 14612
+    },
+    {
+      "ms": 518724,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 15216
+    },
+    {
+      "ms": 518823,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 15216
+    },
+    {
+      "ms": 572522,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 16825
+    },
+    {
+      "ms": 572643,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 16825
+    },
+    {
+      "ms": 591134,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 17378
+    },
+    {
+      "ms": 591218,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 17378
+    },
+    {
+      "ms": 614852,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 18086
+    },
+    {
+      "ms": 614972,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 18086
+    },
+    {
+      "ms": 638502,
+      "reasons": [
+        "commit-pending"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 18791
+    },
+    {
+      "ms": 638602,
+      "reasons": [],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "committed",
+      "ticks": 18791
+    },
+    {
+      "ms": 639107,
+      "reasons": [
+        "user"
+      ],
+      "code": "",
+      "connected": true,
+      "frameReady": true,
+      "receipt": "pending",
+      "ticks": 18805
+    }
+  ]
+}

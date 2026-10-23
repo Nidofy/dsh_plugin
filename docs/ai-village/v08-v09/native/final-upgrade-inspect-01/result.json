@@ -1,0 +1,50 @@
+{
+  "mode": "inspect",
+  "officialCarrier": "0.2.1-rc.2",
+  "profile": ".build/ai-village-v08-desktop-final-upgrade",
+  "cdp": 18766,
+  "checks": [],
+  "errors": [],
+  "screenshotIssues": [],
+  "passed": true,
+  "pages": [
+    {
+      "kind": "app",
+      "buttons": [
+        "",
+        "",
+        "New SessionCtrl+N",
+        "Plugins",
+        "Automation tasks",
+        "",
+        "",
+        "",
+        "More",
+        "",
+        "",
+        "View installation",
+        "Subagent",
+        "Web search",
+        "Agent loop",
+        "Shell",
+        "More",
+        "Agent Teams",
+        "Voice input",
+        "Auto Authorization Review",
+        "Developer Tools",
+        "@nidofy/dsh-ai-village",
+        "Edit",
+        "",
+        "Show install details",
+        "Retry"
+      ]
+    }
+  ],
+  "world": null,
+  "card": null,
+  "visibility": {
+    "hidden": false,
+    "visibility": "visible"
+  },
+  "metrics": null
+}

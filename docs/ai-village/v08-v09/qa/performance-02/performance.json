@@ -1,0 +1,924 @@
+{
+  "backend": "Chromium headless / SwiftShader",
+  "limitations": "20s software samples; parent CDP CPU and JS submission time are not native process/GPU hardware budgets",
+  "samples": [
+    {
+      "scenario": "seven-natural-visible",
+      "seconds": 20.0029502,
+      "fps": 22.296711012158596,
+      "p95PaintMs": 1.1999998092651367,
+      "textures": 128,
+      "paintSampleCount": 600,
+      "parentTaskPercentOfOneCore": 60.619303046607584,
+      "beforeWorld": {
+        "schemaVersion": 9,
+        "worldId": "bluewhale-courtyard",
+        "sceneVersion": 3,
+        "avatarDefinitionVersion": 1,
+        "ticks": 76,
+        "rng": 3136601108,
+        "userPaused": false,
+        "actor": {
+          "id": "bluewhale",
+          "facing": "right",
+          "position": {
+            "x": 174,
+            "y": 340
+          },
+          "safe": {
+            "x": 174,
+            "y": 340
+          },
+          "behavior": "idle",
+          "phase": 2.533333333333334,
+          "remaining": 1.4666666666666721,
+          "intent": null,
+          "destination": null
+        },
+        "companions": [
+          {
+            "id": "claude",
+            "facing": "right",
+            "position": {
+              "x": 61.08610962926491,
+              "y": 349.67625578358445
+            },
+            "safe": {
+              "x": 61.08610962926491,
+              "y": 349.67625578358445
+            },
+            "behavior": "walk",
+            "phase": 0.06666666666666667,
+            "remaining": 0,
+            "intent": {
+              "furnitureId": "bench",
+              "seat": "right",
+              "activity": "sit",
+              "stage": "approach",
+              "expires": 1874,
+              "route": [
+                {
+                  "x": 170,
+                  "y": 239
+                }
+              ]
+            },
+            "destination": {
+              "x": 164,
+              "y": 319
+            }
+          },
+          {
+            "id": "gemini",
+            "facing": "right",
+            "position": {
+              "x": 124,
+              "y": 350
+            },
+            "safe": {
+              "x": 124,
+              "y": 350
+            },
+            "behavior": "idle",
+            "phase": 2.066666666666669,
+            "remaining": 0.9333333333333338,
+            "intent": null,
+            "destination": null
+          },
+          {
+            "id": "gpt",
+            "facing": "right",
+            "position": {
+              "x": 252,
+              "y": 350
+            },
+            "safe": {
+              "x": 252,
+              "y": 350
+            },
+            "behavior": "idle",
+            "phase": 2.066666666666669,
+            "remaining": 1.9333333333333402,
+            "intent": null,
+            "destination": null
+          },
+          {
+            "id": "grok",
+            "facing": "right",
+            "position": {
+              "x": 60,
+              "y": 414
+            },
+            "safe": {
+              "x": 60,
+              "y": 414
+            },
+            "behavior": "idle",
+            "phase": 2.066666666666669,
+            "remaining": 2.9333333333333407,
+            "intent": null,
+            "destination": null
+          },
+          {
+            "id": "kimi",
+            "facing": "right",
+            "position": {
+              "x": 124,
+              "y": 414
+            },
+            "safe": {
+              "x": 124,
+              "y": 414
+            },
+            "behavior": "idle",
+            "phase": 2.066666666666669,
+            "remaining": 3.9333333333333407,
+            "intent": null,
+            "destination": null
+          },
+          {
+            "id": "qwen",
+            "facing": "right",
+            "position": {
+              "x": 188,
+              "y": 414
+            },
+            "safe": {
+              "x": 188,
+              "y": 414
+            },
+            "behavior": "idle",
+            "phase": 2.066666666666669,
+            "remaining": 4.933333333333341,
+            "intent": null,
+            "destination": null
+          }
+        ],
+        "simulationRulesVersion": 4,
+        "contentRevision": 6,
+        "activeEvent": null,
+        "progress": {
+          "completedWishes": [],
+          "discovered": [],
+          "unlocked": [],
+          "lastCompletedEventId": null
+        },
+        "journal": [],
+        "decorations": {
+          "layoutRevision": 0,
+          "windChime": null
+        },
+        "neighborhood": {
+          "layout": "courtyard",
+          "layoutRevision": 0,
+          "event": null,
+          "memories": [],
+          "bonds": [],
+          "decorations": {
+            "lantern": null,
+            "planter": null
+          },
+          "nextInteractionTick": 0,
+          "lastEventId": null
+        },
+        "home": {
+          "revision": 0,
+          "positions": {
+            "work": 0,
+            "eat": 0,
+            "bench": 0,
+            "corner": 0
+          },
+          "environment": "afternoon",
+          "accessories": {
+            "bluewhale": "none",
+            "claude": "none",
+            "gemini": "none",
+            "gpt": "none",
+            "grok": "none",
+            "kimi": "none",
+            "qwen": "none"
+          }
+        },
+        "play": {
+          "encounterWindow": -1,
+          "tableMode": "dining",
+          "active": null,
+          "decorations": {
+            "message-board": null,
+            "leaf-pot": null,
+            "rice-bowl": null,
+            "page-marker": null,
+            "wind-ribbon": null,
+            "whale-token": null,
+            "desk-star": null,
+            "snack-tray": null,
+            "star-mobile": null,
+            "table-stones": null
+          },
+          "nextTick": 0,
+          "lastEventId": null
+        },
+        "life": {
+          "social": null
+        }
+      },
+      "afterWorld": {
+        "schemaVersion": 9,
+        "worldId": "bluewhale-courtyard",
+        "sceneVersion": 3,
+        "avatarDefinitionVersion": 1,
+        "ticks": 676,
+        "rng": 1710767309,
+        "userPaused": false,
+        "actor": {
+          "id": "bluewhale",
+          "facing": "left",
+          "position": {
+            "x": 175,
+            "y": 374
+          },
+          "safe": {
+            "x": 175,
+            "y": 374
+          },
+          "behavior": "eat",
+          "phase": 11.233333333333304,
+          "remaining": 9.465336468132625,
+          "intent": {
+            "furnitureId": "eat",
+            "seat": "left",
+            "activity": "eat",
+            "stage": "use",
+            "expires": 1239,
+            "route": []
+          },
+          "destination": null
+        },
+        "companions": [
+          {
+            "id": "claude",
+            "facing": "right",
+            "position": {
+              "x": 170,
+              "y": 239
+            },
+            "safe": {
+              "x": 170,
+              "y": 239
+            },
+            "behavior": "sit",
+            "phase": 8.933333333333312,
+            "remaining": 10.859052804546883,
+            "intent": {
+              "furnitureId": "bench",
+              "seat": "right",
+              "activity": "sit",
+              "stage": "use",
+              "expires": 1308,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "gemini",
+            "facing": "right",
+            "position": {
+              "x": 274,
+              "y": 245
+            },
+            "safe": {
+              "x": 274,
+              "y": 245
+            },
+            "behavior": "rest",
+            "phase": 8.233333333333315,
+            "remaining": 12.709121724652514,
+            "intent": {
+              "furnitureId": "rest",
+              "seat": "main",
+              "activity": "rest",
+              "stage": "use",
+              "expires": 1329,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "gpt",
+            "facing": "right",
+            "position": {
+              "x": 273,
+              "y": 374
+            },
+            "safe": {
+              "x": 273,
+              "y": 374
+            },
+            "behavior": "eat",
+            "phase": 10.66666666666664,
+            "remaining": 5.517434479047884,
+            "intent": {
+              "furnitureId": "eat",
+              "seat": "right",
+              "activity": "eat",
+              "stage": "use",
+              "expires": 1256,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "grok",
+            "facing": "right",
+            "position": {
+              "x": 105.90648008635206,
+              "y": 351.7919780235496
+            },
+            "safe": {
+              "x": 105.90648008635206,
+              "y": 351.7919780235496
+            },
+            "behavior": "walk",
+            "phase": 2.6000000000000005,
+            "remaining": 0,
+            "intent": null,
+            "destination": {
+              "x": 113.13398730196059,
+              "y": 332.52589118201286
+            }
+          },
+          {
+            "id": "kimi",
+            "facing": "left",
+            "position": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "safe": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "behavior": "idle",
+            "phase": 2.533333333333334,
+            "remaining": 0.46666666666666723,
+            "intent": null,
+            "destination": null
+          },
+          {
+            "id": "qwen",
+            "facing": "left",
+            "position": {
+              "x": 135.37479159347842,
+              "y": 411.19332221831877
+            },
+            "safe": {
+              "x": 135.37479159347842,
+              "y": 411.19332221831877
+            },
+            "behavior": "idle",
+            "phase": 2.7333333333333334,
+            "remaining": 0.2666666666666673,
+            "intent": null,
+            "destination": null
+          }
+        ],
+        "simulationRulesVersion": 4,
+        "contentRevision": 6,
+        "activeEvent": null,
+        "progress": {
+          "completedWishes": [],
+          "discovered": [],
+          "unlocked": [],
+          "lastCompletedEventId": null
+        },
+        "journal": [],
+        "decorations": {
+          "layoutRevision": 0,
+          "windChime": null
+        },
+        "neighborhood": {
+          "layout": "courtyard",
+          "layoutRevision": 0,
+          "event": null,
+          "memories": [],
+          "bonds": [],
+          "decorations": {
+            "lantern": null,
+            "planter": null
+          },
+          "nextInteractionTick": 0,
+          "lastEventId": null
+        },
+        "home": {
+          "revision": 0,
+          "positions": {
+            "work": 0,
+            "eat": 0,
+            "bench": 0,
+            "corner": 0
+          },
+          "environment": "afternoon",
+          "accessories": {
+            "bluewhale": "none",
+            "claude": "none",
+            "gemini": "none",
+            "gpt": "none",
+            "grok": "none",
+            "kimi": "none",
+            "qwen": "none"
+          }
+        },
+        "play": {
+          "encounterWindow": -1,
+          "tableMode": "dining",
+          "active": null,
+          "decorations": {
+            "message-board": null,
+            "leaf-pot": null,
+            "rice-bowl": null,
+            "page-marker": null,
+            "wind-ribbon": null,
+            "whale-token": null,
+            "desk-star": null,
+            "snack-tray": null,
+            "star-mobile": null,
+            "table-stones": null
+          },
+          "nextTick": 0,
+          "lastEventId": null
+        },
+        "life": {
+          "social": null
+        }
+      }
+    },
+    {
+      "scenario": "seven-natural-hidden",
+      "seconds": 20.0129339,
+      "fps": 0,
+      "p95PaintMs": null,
+      "textures": 0,
+      "paintSampleCount": 0,
+      "parentTaskPercentOfOneCore": 0.22283089637346976,
+      "beforeWorld": {
+        "schemaVersion": 9,
+        "worldId": "bluewhale-courtyard",
+        "sceneVersion": 3,
+        "avatarDefinitionVersion": 1,
+        "ticks": 678,
+        "rng": 1710767309,
+        "userPaused": false,
+        "actor": {
+          "id": "bluewhale",
+          "facing": "left",
+          "position": {
+            "x": 175,
+            "y": 374
+          },
+          "safe": {
+            "x": 175,
+            "y": 374
+          },
+          "behavior": "eat",
+          "phase": 11.29999999999997,
+          "remaining": 9.398669801465958,
+          "intent": {
+            "furnitureId": "eat",
+            "seat": "left",
+            "activity": "eat",
+            "stage": "use",
+            "expires": 1239,
+            "route": []
+          },
+          "destination": null
+        },
+        "companions": [
+          {
+            "id": "claude",
+            "facing": "right",
+            "position": {
+              "x": 170,
+              "y": 239
+            },
+            "safe": {
+              "x": 170,
+              "y": 239
+            },
+            "behavior": "sit",
+            "phase": 8.999999999999979,
+            "remaining": 10.792386137880216,
+            "intent": {
+              "furnitureId": "bench",
+              "seat": "right",
+              "activity": "sit",
+              "stage": "use",
+              "expires": 1308,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "gemini",
+            "facing": "right",
+            "position": {
+              "x": 274,
+              "y": 245
+            },
+            "safe": {
+              "x": 274,
+              "y": 245
+            },
+            "behavior": "rest",
+            "phase": 8.299999999999981,
+            "remaining": 12.642455057985847,
+            "intent": {
+              "furnitureId": "rest",
+              "seat": "main",
+              "activity": "rest",
+              "stage": "use",
+              "expires": 1329,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "gpt",
+            "facing": "right",
+            "position": {
+              "x": 273,
+              "y": 374
+            },
+            "safe": {
+              "x": 273,
+              "y": 374
+            },
+            "behavior": "eat",
+            "phase": 10.733333333333306,
+            "remaining": 5.450767812381217,
+            "intent": {
+              "furnitureId": "eat",
+              "seat": "right",
+              "activity": "eat",
+              "stage": "use",
+              "expires": 1256,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "grok",
+            "facing": "right",
+            "position": {
+              "x": 106.30455154875486,
+              "y": 350.73085430066664
+            },
+            "safe": {
+              "x": 106.30455154875486,
+              "y": 350.73085430066664
+            },
+            "behavior": "walk",
+            "phase": 2.666666666666667,
+            "remaining": 0,
+            "intent": null,
+            "destination": {
+              "x": 113.13398730196059,
+              "y": 332.52589118201286
+            }
+          },
+          {
+            "id": "kimi",
+            "facing": "left",
+            "position": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "safe": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "behavior": "idle",
+            "phase": 2.6000000000000005,
+            "remaining": 0.4000000000000006,
+            "intent": null,
+            "destination": null
+          },
+          {
+            "id": "qwen",
+            "facing": "left",
+            "position": {
+              "x": 135.37479159347842,
+              "y": 411.19332221831877
+            },
+            "safe": {
+              "x": 135.37479159347842,
+              "y": 411.19332221831877
+            },
+            "behavior": "idle",
+            "phase": 2.8,
+            "remaining": 0.20000000000000062,
+            "intent": null,
+            "destination": null
+          }
+        ],
+        "simulationRulesVersion": 4,
+        "contentRevision": 6,
+        "activeEvent": null,
+        "progress": {
+          "completedWishes": [],
+          "discovered": [],
+          "unlocked": [],
+          "lastCompletedEventId": null
+        },
+        "journal": [],
+        "decorations": {
+          "layoutRevision": 0,
+          "windChime": null
+        },
+        "neighborhood": {
+          "layout": "courtyard",
+          "layoutRevision": 0,
+          "event": null,
+          "memories": [],
+          "bonds": [],
+          "decorations": {
+            "lantern": null,
+            "planter": null
+          },
+          "nextInteractionTick": 0,
+          "lastEventId": null
+        },
+        "home": {
+          "revision": 0,
+          "positions": {
+            "work": 0,
+            "eat": 0,
+            "bench": 0,
+            "corner": 0
+          },
+          "environment": "afternoon",
+          "accessories": {
+            "bluewhale": "none",
+            "claude": "none",
+            "gemini": "none",
+            "gpt": "none",
+            "grok": "none",
+            "kimi": "none",
+            "qwen": "none"
+          }
+        },
+        "play": {
+          "encounterWindow": -1,
+          "tableMode": "dining",
+          "active": null,
+          "decorations": {
+            "message-board": null,
+            "leaf-pot": null,
+            "rice-bowl": null,
+            "page-marker": null,
+            "wind-ribbon": null,
+            "whale-token": null,
+            "desk-star": null,
+            "snack-tray": null,
+            "star-mobile": null,
+            "table-stones": null
+          },
+          "nextTick": 0,
+          "lastEventId": null
+        },
+        "life": {
+          "social": null
+        }
+      },
+      "afterWorld": {
+        "schemaVersion": 9,
+        "worldId": "bluewhale-courtyard",
+        "sceneVersion": 3,
+        "avatarDefinitionVersion": 1,
+        "ticks": 678,
+        "rng": 1710767309,
+        "userPaused": false,
+        "actor": {
+          "id": "bluewhale",
+          "facing": "left",
+          "position": {
+            "x": 175,
+            "y": 374
+          },
+          "safe": {
+            "x": 175,
+            "y": 374
+          },
+          "behavior": "eat",
+          "phase": 11.29999999999997,
+          "remaining": 9.398669801465958,
+          "intent": {
+            "furnitureId": "eat",
+            "seat": "left",
+            "activity": "eat",
+            "stage": "use",
+            "expires": 1239,
+            "route": []
+          },
+          "destination": null
+        },
+        "companions": [
+          {
+            "id": "claude",
+            "facing": "right",
+            "position": {
+              "x": 170,
+              "y": 239
+            },
+            "safe": {
+              "x": 170,
+              "y": 239
+            },
+            "behavior": "sit",
+            "phase": 8.999999999999979,
+            "remaining": 10.792386137880216,
+            "intent": {
+              "furnitureId": "bench",
+              "seat": "right",
+              "activity": "sit",
+              "stage": "use",
+              "expires": 1308,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "gemini",
+            "facing": "right",
+            "position": {
+              "x": 274,
+              "y": 245
+            },
+            "safe": {
+              "x": 274,
+              "y": 245
+            },
+            "behavior": "rest",
+            "phase": 8.299999999999981,
+            "remaining": 12.642455057985847,
+            "intent": {
+              "furnitureId": "rest",
+              "seat": "main",
+              "activity": "rest",
+              "stage": "use",
+              "expires": 1329,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "gpt",
+            "facing": "right",
+            "position": {
+              "x": 273,
+              "y": 374
+            },
+            "safe": {
+              "x": 273,
+              "y": 374
+            },
+            "behavior": "eat",
+            "phase": 10.733333333333306,
+            "remaining": 5.450767812381217,
+            "intent": {
+              "furnitureId": "eat",
+              "seat": "right",
+              "activity": "eat",
+              "stage": "use",
+              "expires": 1256,
+              "route": []
+            },
+            "destination": null
+          },
+          {
+            "id": "grok",
+            "facing": "right",
+            "position": {
+              "x": 106.30455154875486,
+              "y": 350.73085430066664
+            },
+            "safe": {
+              "x": 106.30455154875486,
+              "y": 350.73085430066664
+            },
+            "behavior": "walk",
+            "phase": 2.666666666666667,
+            "remaining": 0,
+            "intent": null,
+            "destination": {
+              "x": 113.13398730196059,
+              "y": 332.52589118201286
+            }
+          },
+          {
+            "id": "kimi",
+            "facing": "left",
+            "position": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "safe": {
+              "x": 113,
+              "y": 401.50000000000006
+            },
+            "behavior": "idle",
+            "phase": 2.6000000000000005,
+            "remaining": 0.4000000000000006,
+            "intent": null,
+            "destination": null
+          },
+          {
+            "id": "qwen",
+            "facing": "left",
+            "position": {
+              "x": 135.37479159347842,
+              "y": 411.19332221831877
+            },
+            "safe": {
+              "x": 135.37479159347842,
+              "y": 411.19332221831877
+            },
+            "behavior": "idle",
+            "phase": 2.8,
+            "remaining": 0.20000000000000062,
+            "intent": null,
+            "destination": null
+          }
+        ],
+        "simulationRulesVersion": 4,
+        "contentRevision": 6,
+        "activeEvent": null,
+        "progress": {
+          "completedWishes": [],
+          "discovered": [],
+          "unlocked": [],
+          "lastCompletedEventId": null
+        },
+        "journal": [],
+        "decorations": {
+          "layoutRevision": 0,
+          "windChime": null
+        },
+        "neighborhood": {
+          "layout": "courtyard",
+          "layoutRevision": 0,
+          "event": null,
+          "memories": [],
+          "bonds": [],
+          "decorations": {
+            "lantern": null,
+            "planter": null
+          },
+          "nextInteractionTick": 0,
+          "lastEventId": null
+        },
+        "home": {
+          "revision": 0,
+          "positions": {
+            "work": 0,
+            "eat": 0,
+            "bench": 0,
+            "corner": 0
+          },
+          "environment": "afternoon",
+          "accessories": {
+            "bluewhale": "none",
+            "claude": "none",
+            "gemini": "none",
+            "gpt": "none",
+            "grok": "none",
+            "kimi": "none",
+            "qwen": "none"
+          }
+        },
+        "play": {
+          "encounterWindow": -1,
+          "tableMode": "dining",
+          "active": null,
+          "decorations": {
+            "message-board": null,
+            "leaf-pot": null,
+            "rice-bowl": null,
+            "page-marker": null,
+            "wind-ribbon": null,
+            "whale-token": null,
+            "desk-star": null,
+            "snack-tray": null,
+            "star-mobile": null,
+            "table-stones": null
+          },
+          "nextTick": 0,
+          "lastEventId": null
+        },
+        "life": {
+          "social": null
+        }
+      }
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
   "version": "0.8.0-preview.1",
-  "sourceHead": "b7c4db6613300ce3d85511c20c033755a0f490e0",
+  "sourceHead": "e192786",
   "path": "dist/nidofy-dsh-ai-village-0.8.0-preview.1.tgz",
-  "bytes": 32174210,
-  "sha256": "65936d4cf3015f5960a64758567ddad8495ade321f4a28d321ab99b251ea4bb8",
+  "bytes": 32174312,
+  "sha256": "03fef5907efe727008136473448128b0f38d2eb41bdbd6d566f7fe374697e12d",
   "files": 276,
   "world": 9,
   "scene": 3,
@@ -16,5 +16,11 @@
   "candidate1Withdrawn": {
     "sha256": "617c36c2314bbfb64a4e99daf3bc34ebdc6abe0f34158dd53e1c6084038a66f2",
     "reason": "Frame decoder omitted schema9; first frame rejected; no native installation"
+  },
+  "candidate2Validated": {
+    "sha256": "65936d4cf3015f5960a64758567ddad8495ade321f4a28d321ab99b251ea4bb8",
+    "bytes": 32174210,
+    "scope": "Full browser gameplay and native completion/photo/cold recovery; candidate3 fixes empty album display only",
+    "sourceHead": "b7c4db6613300ce3d85511c20c033755a0f490e0"
   }
 }

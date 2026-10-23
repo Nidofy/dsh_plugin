@@ -1,7 +1,7 @@
-param([switch]$Restart, [switch]$Stop)
+param([switch]$Restart, [switch]$Stop, [ValidatePattern('^ai-village-v08-desktop(?:-[a-z0-9-]+)?$')][string]$RunRoot = 'ai-village-v08-desktop')
 $ErrorActionPreference = 'Stop'
 $repoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
-$testRoot = [IO.Path]::GetFullPath((Join-Path $repoRoot '.build\ai-village-v08-desktop'))
+$testRoot = [IO.Path]::GetFullPath((Join-Path (Join-Path $repoRoot '.build') $RunRoot))
 if (-not $testRoot.StartsWith($repoRoot + [IO.Path]::DirectorySeparatorChar)) { throw 'Test directory must stay inside repository.' }
 $carrier = Join-Path $repoRoot '.build\ai-village-phase5\carrier\DeepSeek Harness.exe'
 if (-not (Test-Path -LiteralPath $carrier)) { throw 'Cached official Desktop distribution is missing; no download or host modification is performed.' }
