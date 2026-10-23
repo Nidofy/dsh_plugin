@@ -1,0 +1,20 @@
+{
+  "version": "0.8.0-preview.1",
+  "sourceHead": "b7c4db6613300ce3d85511c20c033755a0f490e0",
+  "path": "dist/nidofy-dsh-ai-village-0.8.0-preview.1.tgz",
+  "bytes": 32174210,
+  "sha256": "65936d4cf3015f5960a64758567ddad8495ade321f4a28d321ab99b251ea4bb8",
+  "files": 276,
+  "world": 9,
+  "scene": 3,
+  "rules": 4,
+  "content": 6,
+  "preferences": 3,
+  "frame": 6,
+  "officialDSH": "0.2.1-rc.2",
+  "assetApproval": "Entrance ART_REVIEW unchanged; no new raster art",
+  "candidate1Withdrawn": {
+    "sha256": "617c36c2314bbfb64a4e99daf3bc34ebdc6abe0f34158dd53e1c6084038a66f2",
+    "reason": "Frame decoder omitted schema9; first frame rejected; no native installation"
+  }
+}
