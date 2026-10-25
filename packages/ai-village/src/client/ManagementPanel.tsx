@@ -20,6 +20,8 @@ import { extraUnlocked } from '../core/neighborhood-state.ts'
 import { residentLife } from '../core/life-catalog.ts'
 import { villageTime } from '../core/dialogue.ts'
 import { PhotoPanel } from './PhotoPanel.tsx'
+import { IntroductionPanel } from './IntroductionPanel.tsx'
+import { RelationshipPanel } from './relationship-panel.tsx'
 export const actionErrorText = (code: string, cn: boolean) => {
   const map: Record<string, [string, string]> = {
     INTERACTION_COOLDOWN: ['请稍候，再开始下一次活动。', 'Wait a moment before another activity.'], LAYOUT_REQUIRED: ['请先布置所需的角落。', 'Arrange the required corner first.'],
@@ -59,6 +61,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
   return <section className="village-management" data-snap={p.drawer}>
     {p.drawer !== 'closed' && !p.overlay && <PanelShell runtime={r} cn={cn} title={names[p.tab]} className="village-drawer">
       <BookhouseStoryPanel runtime={r} tab={p.tab} locale={locale} locked={busy}/>
+      {(p.tab==='residents'||p.tab==='wishes')&&<IntroductionPanel runtime={r} locale={locale} locked={busy}/>}
       {inBookhouse && p.tab !== 'journal' && <RegionPanel runtime={r} locale={locale} locked={busy} tab={p.tab}/>}
       {p.page === 'quick' && <>
         {!inBookhouse && <>
@@ -99,7 +102,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
       </>}
       </>}
       {p.tab === 'journal' && <><div className="choices"><button aria-pressed={p.subpages.journal === 'memories'} onClick={() => sub('journal', 'memories')}>{t('回忆', 'Memories')}</button><button aria-pressed={p.subpages.journal === 'album'} onClick={() => sub('journal', 'album')}>{t('相册', 'Album')}</button></div>{p.subpages.journal === 'album' ? <><button disabled={busy || !r.frameReady} onClick={() => { r.present({ type: 'close' }); void r.enterPhoto() }}>{t('拍一张', 'Take a photo')}</button><PhotoPanel runtime={r} locale={locale} albumOnly /></> : <>{r.notices.map(n => n.story === 'bookhouse-light' && w.bookhouse.memory ? <BookhouseMemoryArticle key={n.id} memory={w.bookhouse.memory} locale={locale} noticeId={n.id}/> : <article tabIndex={-1} data-notice-id={n.id} className="village-journal" key={n.id}><small>{t('第', 'Day ')}{villageTime(n.tick).day}{cn ? '天' : ''} · ×{n.count}</small><h3>{noticeTitle(n.story,locale)}</h3><p>{n.participants.map(id => characterNames[id as CharacterId]).join(' & ')}</p></article>)}{!r.notices.length && <p>{t('回忆会在第一次完成活动并保存后留下。', 'First completed activities become memories after saving.')}</p>}</>}</>}
-      {p.tab === 'journal' && p.subpages.journal === 'memories' && <CollectionPanel runtime={r} tab="journal" locale={locale}/>}
+      {p.tab === 'journal' && p.subpages.journal === 'memories' && <><RelationshipPanel world={w} locale={locale}/><CollectionPanel runtime={r} tab="journal" locale={locale}/></>}
     </>}
       {r.actionError && <p role="alert">{actionErrorText(r.actionError, cn)}<details><summary>{t('详情', 'Details')}</summary>{r.actionError}</details></p>}
     </PanelShell>}

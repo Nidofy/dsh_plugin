@@ -1,13 +1,13 @@
 import { actors, abandon, walkable, type Point, type Scene } from './world.ts'
 import { residentRoute, clearSegment } from './navigation.ts'
 import { bookhouseScene } from './bookhouse-scene.ts'
-import { bookhouseStages, type BookTheme } from './bookhouse-state.ts'
+import { bookhouseEventStages, type BookTheme } from './bookhouse-state.ts'
 import { validateLivingWorld, type LivingWorld } from './living-state.ts'
 import { cancelLifeSocial } from './life-engine.ts'
 import type { CharacterId } from './roster.ts'
 import { uuid } from './content-state.ts'
 function prepare(w:LivingWorld){
- const e=w.bookhouse.active!,anchor=bookhouseScene.hotspots.find(h=>h.id===bookhouseStages[e.stage as 0|1|2].target)!.anchor
+ const e=w.bookhouse.active!,anchor=bookhouseScene.hotspots.find(h=>h.id===bookhouseEventStages(e)[e.stage as 0|1|2].target)!.anchor
  const candidates=[anchor,...[32,48,64].flatMap(r=>[{x:anchor.x+r,y:anchor.y},{x:anchor.x-r,y:anchor.y},{x:anchor.x,y:anchor.y+r}])]
  const members=e.participants.map(id=>actors(w).find(a=>a.id===id)!),outsiders=actors(w).filter(a=>!e.participants.includes(a.id)).map(a=>a.position)
  const targets:Point[]=[],routes:Point[][]=[]
@@ -24,7 +24,7 @@ function prepare(w:LivingWorld){
  e.targets=targets;e.routes=routes;e.phase='approaching';e.remainingTicks=90;e.approachRemainingTicks=1800
  members.forEach((a,i)=>{abandon(a);a.destination=routes[i]![0]??null;a.behavior=a.destination?'walk':'idle'})
 }
-export function startBookhouseStory(source:LivingWorld,base:Scene,friend:CharacterId,id:string){
+export function startBookhouseStory(source:LivingWorld,base:Scene,friend:CharacterId,id:string,kind:'reading'|'puzzle'='reading'){
  const w=validateLivingWorld(source,base)
  if(w.region.active!=='bookhouse')throw Error('BOOKHOUSE_REQUIRED')
  if(w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')
@@ -32,7 +32,7 @@ export function startBookhouseStory(source:LivingWorld,base:Scene,friend:Charact
  cancelLifeSocial(w)
  // Reserve the room for the brief shared reading; everyone stays at real feet.
  for(const a of actors(w))abandon(a)
- w.bookhouse.active={id,participants:[w.actor.id,friend],stage:0,phase:'approaching',remainingTicks:90,approachRemainingTicks:1800,targets:[],routes:[],theme:null}
+ w.bookhouse.active={id,kind,board:[-1,-1,-1],participants:[w.actor.id,friend],stage:0,phase:'approaching',remainingTicks:90,approachRemainingTicks:1800,targets:[],routes:[],theme:null}
  prepare(w);return validateLivingWorld(w,base)
 }
 export function cancelBookhouseStory(w:LivingWorld){for(const a of actors(w))if(w.bookhouse.active?.participants.includes(a.id))abandon(a);w.bookhouse.active=null}
@@ -51,18 +51,29 @@ export function stepBookhouseStory(w:LivingWorld){
  else a.position={x:a.position.x+dx/d*17/30,y:a.position.y+dy/d*17/30}
  a.safe={...a.position}
 }
-export function bookhouseStoryAction(source:LivingWorld,base:Scene,token:string,choice?:BookTheme){
+export function bookhouseStoryAction(source:LivingWorld,base:Scene,token:string,choice?:BookTheme|string){
  const w=validateLivingWorld(source,base),e=w.bookhouse.active
  if(!e||token!==`${e.id}:${e.stage}`)throw Error('STALE_PLAY_ACTION')
  if(e.phase!=='ready')throw Error('PLAY_NOT_READY')
- if(e.stage===0){if(choice!=='light'&&choice!=='wind')throw Error('INVALID_PLAY_ACTION');e.theme=choice}
+ if(e.kind==='puzzle'){
+  if(e.stage===1){
+   if(choice==='reset')e.board=[-1,-1,-1]
+   else if(choice&&/^[0-2]:[0-2]$/.test(choice)){const [item,slot]=choice.split(':').map(Number) as [number,number];e.board=e.board.map(n=>n===item?-1:n);e.board[slot]=item}
+   else throw Error('INVALID_PLAY_ACTION')
+   if(!e.board.every((n,i)=>n===i))return validateLivingWorld(w,base)
+  }else if(choice!==undefined)throw Error('INVALID_PLAY_ACTION')
+ }else if(e.stage===0){if(choice!=='light'&&choice!=='wind')throw Error('INVALID_PLAY_ACTION');e.theme=choice}
  else if(choice!==undefined)throw Error('INVALID_PLAY_ACTION')
  if(e.stage<2){e.stage++;prepare(w)}else{
-  if(w.bookhouse.memory)w.bookhouse.memory.count=Math.min(1000000,w.bookhouse.memory.count+1)
+  if(e.kind==='puzzle'){
+   if(w.bookhouse.puzzleMemory)w.bookhouse.puzzleMemory.count=Math.min(1000000,w.bookhouse.puzzleMemory.count+1)
+   else w.bookhouse.puzzleMemory={eventId:e.id,participants:[...e.participants],completedTick:w.ticks,count:1}
+   w.bookhouse.puzzleLastEventId=e.id
+  }else if(w.bookhouse.memory)w.bookhouse.memory.count=Math.min(1000000,w.bookhouse.memory.count+1)
   else w.bookhouse.memory={eventId:e.id,participants:[...e.participants],completedTick:w.ticks,count:1,theme:e.theme!}
   const pair=[...e.participants].sort() as [CharacterId,CharacterId],bond=w.neighborhood.bonds.find(b=>b.pair.join('/')===pair.join('/'))
   if(bond){bond.count=Math.min(1000000,bond.count+1);bond.lastTick=w.ticks}else w.neighborhood.bonds.push({pair,count:1,lastTick:w.ticks})
-  w.bookhouse.lastEventId=e.id;w.bookhouse.keepsake??='bookhouse';cancelBookhouseStory(w)
+  if(e.kind==='reading'){w.bookhouse.lastEventId=e.id;w.bookhouse.keepsake??='bookhouse'};cancelBookhouseStory(w)
  }
  return validateLivingWorld(w,base)
 }
@@ -73,3 +84,5 @@ export function placeBookhouseKeepsake(source:LivingWorld,base:Scene,place:Livin
  if(![null,'courtyard','bookhouse'].includes(place))throw Error('INVALID_SLOT')
  w.bookhouse.keepsake=place;return validateLivingWorld(w,base)
 }
+
+export function startBookhousePuzzle(source:LivingWorld,base:Scene,friend:CharacterId,id:string){return startBookhouseStory(source,base,friend,id,'puzzle')}

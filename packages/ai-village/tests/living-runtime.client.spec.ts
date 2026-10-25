@@ -55,6 +55,30 @@ async function boot(runtime: VillageRuntime, checkpoint = true) {
   runtime.setFrameReady(true); runtime.entranceFrame('living-test', runtime.entrance.attemptId, runtime.assetRevision, 1); runtime.finishEntrance()
   expect(runtime.controller!.pauseReasons.size).toBe(0)
 }
+it('starts a first meeting only after admission is acknowledged, persists its active event, and never repeats a lost admission ACK', async () => {
+  const host=authority(createLivingWorld(scene)), runtime=host.makeRuntime()
+  try {
+    await boot(runtime)
+    const release=host.holdSave(), before=host.stats().writes
+    const admission=runtime.setCharacterPresent('seedance',true)
+    await vi.waitFor(()=>expect(runtime.saveReceipt.status).toBe('pending'))
+    expect(runtime.controller!.world.play.active).toBeNull()
+    expect(host.stats().writes).toBe(before+1)
+    release();await admission
+    expect(runtime.controller!.world.play.active?.definitionId).toBe('intro-seedance')
+    expect(host.durable().world.play.active).toEqual(runtime.controller!.world.play.active)
+    await runtime.cancelPlay()
+    host.setMode('lose-ack');host.stateOffline(true)
+    const lostBefore=host.stats().writes
+    await runtime.setCharacterPresent('glm',true)
+    expect(runtime.saveReceipt.status).toBe('unknown')
+    expect(host.stats().writes).toBe(lostBefore+1)
+    expect(host.durable().world.play.active).toBeNull()
+    host.stateOffline(false);await runtime.checkRecovery()
+    expect(host.stats().writes).toBe(lostBefore+1)
+    expect(runtime.controller!.world.play.active).toBeNull()
+  } finally { await runtime.dispose() }
+})
 it('keeps a finishing candidate, memory, notification and reward invisible until the actual runtime commit is acknowledged', async () => {
   const initial = finalStage(), host = authority(initial), runtime = host.makeRuntime()
   try {

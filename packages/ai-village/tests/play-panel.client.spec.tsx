@@ -30,6 +30,14 @@ it('waits for arrival and observation, then submits a stage-bound action', () =>
   expect(screen.queryByRole('button', { name: '开始 · 安静的一页' })).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: '取消这次活动' })); expect(runtime.cancelPlay).toHaveBeenCalledOnce()
 })
+it('uses authored fixed pairs even when the selected resident is another friend and offers no decoration for memory-only stories',()=>{
+ const {world,runtime,view}=fixture();world.play.active=null as never
+ world.actor.id='kimi';world.companions=[{id:'bluewhale'},{id:'claude'}]
+ const ui=render(view('wishes','en'));fireEvent.click(screen.getByRole('button',{name:'Begin · A bookmark in the rice bowl'}))
+ expect(runtime.startPlay).toHaveBeenCalledWith('pair-bluewhale-claude',['bluewhale','claude'])
+ expect((screen.getByRole('button',{name:'Begin · Two answers'}) as HTMLButtonElement).disabled).toBe(true)
+ ui.rerender(view('decor','en'));expect(screen.queryByText('A bookmark in the rice bowl')).toBeNull()
+})
 it('offers keyboard placement, drag placement and reset with the same bounded protocol', () => {
   const { runtime, view } = fixture('tidy-desk'); render(view('residents', 'en'))
   fireEvent.click(screen.getByRole('button', { name: 'Book' })); fireEvent.click(screen.getByRole('button', { name: 'Shelf · empty' }))
@@ -76,7 +84,7 @@ it('derives optional wishes from saved memories without counting replay totals',
   world.neighborhood.memories.push({ id: 'lost-rice', participants: ['bluewhale', 'claude'], completedTick: 80, count: 4 }, { id: 'stargazing', participants: ['bluewhale', 'claude', 'kimi'], completedTick: 90, count: 1 })
   world.play.lastEventId = 'completed-test-event'
   render(view('wishes', 'en'))
-  expect(screen.getByText('○ Discover three little stories · 1/3')).toBeTruthy()
+  expect(screen.getByText('○ Discover resident stories · 1/9')).toBeTruthy()
   expect(screen.getByText('○ Try all three little games · 0/3')).toBeTruthy()
   expect(screen.getByText('✓ Watch the stars with two friends · 1/1')).toBeTruthy()
 })
@@ -91,7 +99,7 @@ it('keeps decoration placement as an explicit save and never grants a locked rew
   fireEvent.click(screen.getByRole('button', { name: 'Save this place' })); expect(runtime.placePlayDecoration).toHaveBeenCalledWith('rice-bowl', 'window')
 })
 it('authors every scene and control in both languages with a pause before interaction', () => {
-  expect(playDefinitions.filter(d => d.kind === 'story')).toHaveLength(3)
+  expect(playDefinitions.filter(d => d.kind === 'story' && !d.introduction)).toHaveLength(9)
   expect(playDefinitions.filter(d => d.kind === 'game' && d.id !== 'table-game')).toHaveLength(3)
   for (const d of playDefinitions) {
     expect(d.name.zh).toBeTruthy(); expect(d.name.en).toBeTruthy(); expect(d.stages.length).toBeGreaterThan(1)

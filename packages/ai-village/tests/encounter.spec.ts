@@ -62,7 +62,7 @@ it('rejects malformed counters and preserves natural simulation when offers are 
 })
 it('migrates v8 with exact original snapshot protection and cold-restores a consumed offer',async()=>{
   const old=createV8(scene),raw=JSON.stringify(old),next=migrateLivingWorld(old,scene)
-  expect(next.schemaVersion).toBe(11);expect(next.play.encounterWindow).toBe(-1)
+  expect(next.schemaVersion).toBe(12);expect(next.play.encounterWindow).toBe(-1)
   expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV8(scene).validate(next)).toThrow()
   const root=await mkdtemp(join(tmpdir(),'village-encounter-')),legacy=await SaveStore.open(root,scene,codecV8(scene))
   await legacy.save(0,old,crypto.randomUUID())

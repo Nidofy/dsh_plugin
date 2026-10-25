@@ -1,0 +1,474 @@
+{
+  "status": "FAIL",
+  "mode": "checkpoint",
+  "artifact": {
+    "version": "0.11.0-preview.1",
+    "file": "nidofy-dsh-ai-village-0.11.0-preview.1.tgz",
+    "sha256": "d610dda53197a7253785c069637bfcfa01978de3d1c7f2597a5b8bc9612e4d18"
+  },
+  "scriptSha": "1ce020a6dea72192a09a02c728c24a016f4324c689d5f7c74f29a9f685e7bd18",
+  "environment": {
+    "launch": {
+      "startedAt": "2026-10-24T00:44:47.2047206Z",
+      "pid": 11384,
+      "port": 18772,
+      "version": "0.2.1-rc.2",
+      "arguments": [
+        "--user-data-dir=D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-life-qa-desktop-v011/electron-data",
+        "--remote-debugging-port=18772",
+        "--remote-debugging-address=127.0.0.1"
+      ],
+      "dshHome": "D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-life-qa-desktop-v011/home",
+      "softwareRendering": false,
+      "windowStyle": "Normal"
+    },
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/152.0.7977.130",
+      "revision": "@58da080b2b7c38a02e066a911d0b9cd0e9daa70d",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) @deepseek-ai/dsh-desktop/0.2.1-rc.2 Chrome/152.0.7977.130 Electron/44.7.0 Safari/537.36",
+      "jsVersion": "15.2.124.28"
+    },
+    "gpu": {
+      "devices": [
+        {
+          "vendorId": 32902,
+          "deviceId": 32081,
+          "subSysId": 944707498,
+          "revision": 3,
+          "vendorString": "",
+          "deviceString": "Intel(R) Arc(TM) 140T GPU (16GB)",
+          "driverVendor": "Intel",
+          "driverVersion": "32.0.101.8243"
+        },
+        {
+          "vendorId": 32902,
+          "deviceId": 32081,
+          "subSysId": 944707498,
+          "revision": 3,
+          "vendorString": "",
+          "deviceString": "Intel(R) Arc(TM) 140T GPU (16GB)",
+          "driverVendor": "",
+          "driverVersion": "32.0.101.8243"
+        },
+        {
+          "vendorId": 5140,
+          "deviceId": 140,
+          "subSysId": 0,
+          "revision": 0,
+          "vendorString": "",
+          "deviceString": "Microsoft Basic Render Driver",
+          "driverVendor": "",
+          "driverVersion": "10.0.26100.8972"
+        }
+      ],
+      "auxAttributes": {
+        "amdSwitchable": false,
+        "bgra8OverlaySupport": "SCALING",
+        "canSupportThreadedTextureMailbox": false,
+        "directComposition": true,
+        "directMLFeatureLevel": "5.0",
+        "directRenderingVersion": "",
+        "displayType": "ANGLE_D3D11",
+        "dx12FeatureLevel": "D3D 12.2",
+        "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_copy_texture_3d GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_multiview_multisample GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_texture_usage GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_compressed_texture GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_EGL_image_external_wrap_modes GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_clip_cull_distance GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_border_clamp GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_storage GL_EXT_texture_type_2_10_10_10_REV GL_EXT_unpack_subimage GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_NV_EGL_stream_consumer_external GL_NV_fence GL_NV_framebuffer_blit GL_NV_pack_subimage GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_image_external GL_OES_EGL_image_external_essl3 GL_OES_depth24 GL_OES_depth32 GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_border_clamp GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_texture_storage_multisample_2d_array GL_OES_vertex_array_object GL_OVR_multiview GL_OVR_multiview2 ",
+        "glImplementationParts": "(gl=egl-angle,angle=d3d11)",
+        "glRenderer": "ANGLE (Intel, Intel(R) Arc(TM) 140T GPU (16GB) (0x00007D51) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.101.8243)",
+        "glResetNotificationStrategy": 33362,
+        "glVendor": "Google Inc. (Intel)",
+        "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28499 git hash: 30dd6b5278dd)",
+        "glWsExtensions": "EGL_EXT_create_context_robustness EGL_ANGLE_d3d_share_handle_client_buffer EGL_ANGLE_d3d_texture_client_buffer EGL_ANGLE_surface_d3d_texture_2d_share_handle EGL_ANGLE_query_surface_pointer EGL_ANGLE_window_fixed_size EGL_ANGLE_keyed_mutex EGL_ANGLE_surface_orientation EGL_ANGLE_direct_composition EGL_NV_post_sub_buffer EGL_KHR_create_context EGL_KHR_image EGL_KHR_image_base EGL_KHR_gl_texture_2D_image EGL_KHR_gl_texture_cubemap_image EGL_KHR_gl_renderbuffer_image EGL_KHR_get_all_proc_addresses EGL_KHR_stream EGL_KHR_stream_consumer_gltexture EGL_NV_stream_consumer_gltexture_yuv EGL_ANGLE_stream_producer_d3d_texture EGL_ANGLE_create_context_webgl_compatibility EGL_CHROMIUM_create_context_bind_generates_resource EGL_CHROMIUM_sync_control EGL_EXT_pixel_format_float EGL_KHR_surfaceless_context EGL_ANGLE_display_texture_share_group EGL_ANGLE_display_semaphore_share_group EGL_ANGLE_create_context_client_arrays EGL_ANGLE_program_cache_control EGL_ANGLE_robust_resource_initialization EGL_ANGLE_create_context_extensions_enabled EGL_ANDROID_blob_cache EGL_ANDROID_recordable EGL_ANGLE_image_d3d11_texture EGL_ANGLE_create_context_backwards_compatible EGL_KHR_no_config_context EGL_KHR_create_context_no_error EGL_KHR_reusable_sync EGL_ANGLE_memory_usage_report ",
+        "glWsVendor": "Google Inc. (Intel)",
+        "glWsVersion": "1.5 (ANGLE 2.1.28499 git hash: 30dd6b5278dd)",
+        "inProcessGpu": false,
+        "initializationTime": 0.756537,
+        "isAsan": false,
+        "isClangCoverage": false,
+        "jpegDecodeAcceleratorSupported": false,
+        "maxMsaaSamples": "8",
+        "nv12OverlaySupport": "SCALING",
+        "optimus": false,
+        "p010OverlaySupport": "SOFTWARE",
+        "passthroughCmdDecoder": true,
+        "pixelShaderVersion": "5.0",
+        "processCrashCount": 0,
+        "rgb10a2OverlaySupport": "SOFTWARE",
+        "sandboxed": true,
+        "skiaBackendType": "GaneshGL",
+        "subpixelFontRendering": true,
+        "supportsD3dSharedImages": true,
+        "supportsDirectML": true,
+        "supportsDx12": true,
+        "supportsOverlays": true,
+        "supportsVulkan": false,
+        "targetCpuBits": 64,
+        "vertexShaderVersion": "5.0",
+        "visibilityCallbackCallCount": 0,
+        "vulkanVersion": "Not supported",
+        "yuy2OverlaySupport": "SCALING"
+      },
+      "featureStatus": {
+        "2d_canvas": "enabled",
+        "direct_rendering_display_compositor": "disabled_off_ok",
+        "gpu_compositing": "enabled",
+        "multiple_raster_threads": "enabled_on",
+        "opengl": "enabled_on",
+        "rasterization": "enabled",
+        "raw_draw": "disabled_off_ok",
+        "skia_graphite": "disabled_off",
+        "trees_in_viz": "disabled_off",
+        "video_decode": "enabled",
+        "video_encode": "enabled",
+        "webgl": "enabled",
+        "webgpu": "enabled",
+        "webnn": "disabled_off"
+      },
+      "driverBugWorkarounds": [
+        "disable_d3d12_h264_encoder_non_reference_frames",
+        "disable_direct_composition_sw_video_overlays",
+        "disable_sharing_nv12_from_d3d11_to_d3d12",
+        "disable_vp_auto_hdr",
+        "enable_webgl_timer_query_extensions",
+        "exit_on_context_lost",
+        "force_dcomp_triple_buffer_video_swap_chain",
+        "max_msaa_sample_count_4",
+        "msaa_is_slow",
+        "no_downscaled_overlay_promotion",
+        "supports_two_yuv_hardware_overlays",
+        "disabled_extension_GL_KHR_blend_equation_advanced",
+        "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+      ],
+      "videoDecoding": [],
+      "videoEncoding": []
+    },
+    "page": {
+      "visibility": "visible",
+      "dpr": 1.75,
+      "size": [
+        1279,
+        821
+      ]
+    }
+  },
+  "checks": [
+    "Installed three bundles byte-match pinned package"
+  ],
+  "errors": [],
+  "observations": [
+    {
+      "buttons": [
+        "",
+        "",
+        "New SessionCtrl+N",
+        "Plugins",
+        "Automation tasks",
+        "",
+        "",
+        "",
+        "More",
+        "",
+        "",
+        "Default workspace",
+        "Standard mode",
+        "",
+        "Workspace Write",
+        "Select model",
+        "",
+        "Click to enter againBack at the entrance. Your village records are preserved.",
+        "Close village"
+      ]
+    }
+  ],
+  "requests": [
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792804117225
+    },
+    {
+      "path": "state",
+      "status": 200,
+      "at": 1792804117631
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792804120918
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792804124927
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792804128929
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792804132915
+    },
+    {
+      "path": "state",
+      "status": 200,
+      "at": 1792804132915
+    }
+  ],
+  "failure": "locator.elementHandle: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.village-canvas iframe')\u001b[22m\n\n    at frame (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-v011-native.mjs:37:90)\n    at metrics (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-v011-native.mjs:38:51)\n    at D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-v011-native.mjs:39:71\n    at until (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-v011-native.mjs:35:152)\n    at ready (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-v011-native.mjs:39:31)\n    at D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-v011-native.mjs:82:11",
+  "world": {
+    "schemaVersion": 12,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 13209,
+    "rng": 452206252,
+    "userPaused": false,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 53.71437191108534,
+        "y": 248.80521603456228
+      },
+      "safe": {
+        "x": 53.71437191108534,
+        "y": 248.80521603456228
+      },
+      "behavior": "walk",
+      "phase": 0.7666666666666666,
+      "remaining": 0,
+      "intent": null,
+      "destination": {
+        "x": 122.3296437934041,
+        "y": 243.16324399784207
+      }
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 272.5866835218095,
+          "y": 308.0490650801104
+        },
+        "safe": {
+          "x": 272.5866835218095,
+          "y": 308.0490650801104
+        },
+        "behavior": "walk",
+        "phase": 6.966666666666652,
+        "remaining": 0,
+        "intent": {
+          "furnitureId": "bookcase",
+          "seat": "main",
+          "activity": "read",
+          "stage": "approach",
+          "expires": 14800,
+          "route": []
+        },
+        "destination": {
+          "x": 276,
+          "y": 268
+        }
+      },
+      {
+        "id": "seedance",
+        "facing": "right",
+        "position": {
+          "x": 92,
+          "y": 270
+        },
+        "safe": {
+          "x": 92,
+          "y": 270
+        },
+        "behavior": "sit",
+        "phase": 2.333333333333335,
+        "remaining": 16.57114686040817,
+        "intent": {
+          "furnitureId": "window-seat",
+          "seat": "main",
+          "activity": "sit",
+          "stage": "use",
+          "expires": 14039,
+          "route": []
+        },
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 9,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [
+        {
+          "id": "intro-seedance",
+          "eventId": "3fa29397-7769-4004-b31b-1fe3e46f2123",
+          "participants": [
+            "seedance"
+          ],
+          "completedTick": 2019,
+          "count": 1
+        },
+        {
+          "id": "pair-bluewhale-claude",
+          "eventId": "a23f2595-a0e4-47c6-9887-435823cdba0c",
+          "participants": [
+            "bluewhale",
+            "claude"
+          ],
+          "completedTick": 7029,
+          "count": 1
+        }
+      ],
+      "bonds": [
+        {
+          "pair": [
+            "bluewhale",
+            "claude"
+          ],
+          "count": 1,
+          "lastTick": 7029
+        },
+        {
+          "pair": [
+            "bluewhale",
+            "seedance"
+          ],
+          "count": 1,
+          "lastTick": 9623
+        }
+      ],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none",
+        "seedance": "none",
+        "glm": "none",
+        "minimax": "none",
+        "llama": "none",
+        "mistral": "none"
+      }
+    },
+    "play": {
+      "encounterWindow": -1,
+      "tableMode": "dining",
+      "active": null,
+      "decorations": {
+        "message-board": null,
+        "leaf-pot": null,
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 7119,
+      "lastEventId": "a23f2595-a0e4-47c6-9887-435823cdba0c"
+    },
+    "life": {
+      "social": null
+    },
+    "region": {
+      "version": 1,
+      "active": "bookhouse",
+      "returns": {
+        "courtyard": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 175,
+              "y": 374
+            },
+            "safe": {
+              "x": 175,
+              "y": 374
+            },
+            "facing": "right"
+          },
+          {
+            "id": "claude",
+            "position": {
+              "x": 207,
+              "y": 374
+            },
+            "safe": {
+              "x": 207,
+              "y": 374
+            },
+            "facing": "right"
+          },
+          {
+            "id": "seedance",
+            "position": {
+              "x": 70,
+              "y": 239
+            },
+            "safe": {
+              "x": 70,
+              "y": 239
+            },
+            "facing": "left"
+          }
+        ],
+        "bookhouse": null
+      }
+    },
+    "bookhouse": {
+      "version": 2,
+      "active": null,
+      "memory": null,
+      "lastEventId": null,
+      "keepsake": null,
+      "puzzleMemory": {
+        "eventId": "4a42db29-4787-45cc-a301-fae50df81498",
+        "participants": [
+          "bluewhale",
+          "seedance"
+        ],
+        "completedTick": 9623,
+        "count": 1
+      },
+      "puzzleLastEventId": "4a42db29-4787-45cc-a301-fae50df81498"
+    }
+  }
+}

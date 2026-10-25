@@ -45,12 +45,14 @@ function finish(w:LivingWorld){
   }return w
 }
 it('plays all current definitions through movement, observation, input, shared memory and visible placement',()=>{
-  for(const d of playDefinitions){let w=world(d.count);if(d.id==='table-game')w=setTableMode(w,scene,'game');const rng=w.rng,token=offer(w,d.id);w=startPlay(w,scene,d.id,actors(w).map(a=>a.id),crypto.randomUUID(),token);w=finish(w)
+  for(const d of playDefinitions){let w=world(d.requiredParticipants?1:d.count);if(d.requiredParticipants){const c=new LivingController(w,scene,()=>{});for(const id of d.requiredParticipants)c.setCharacterPresent(id,true);w=c.snapshot()};if(d.id==='table-game')w=setTableMode(w,scene,'game');const rng=w.rng,token=offer(w,d.id);w=startPlay(w,scene,d.id,d.requiredParticipants?[...d.requiredParticipants]:actors(w).map(a=>a.id),crypto.randomUUID(),token);w=finish(w)
     expect(w.neighborhood.memories).toHaveLength(1);expect(w.neighborhood.memories[0]!.id).toBe(d.id);expect(w.rng).toBe(rng)
-    w=placePlayDecoration(w,scene,d.reward,'window');expect(w.play.decorations[d.reward]).toBe('window')
+    if(d.reward){w=placePlayDecoration(w,scene,d.reward,'window');expect(w.play.decorations[d.reward]).toBe('window')}
+    else expect(Object.values(w.play.decorations).every(v=>v===null)).toBe(true)
+    if(d.introduction){w.ticks=w.play.nextTick;expect(()=>startPlay(w,scene,d.id,[d.introduction!],crypto.randomUUID())).toThrow('INTRODUCTION_COMPLETE');continue}
     const first=structuredClone(w.neighborhood.memories[0]);const copy=validateLivingWorld(w,scene);copy.neighborhood.memories[0]!.count++;expect(w.neighborhood.memories[0]).toEqual(first);w.ticks=w.play.nextTick
-    const nextToken=offer(w,d.id);w=finish(startPlay(w,scene,d.id,actors(w).map(a=>a.id),crypto.randomUUID(),nextToken))
-    expect(w.neighborhood.memories[0]).toEqual({...first,count:2});expect(w.play.decorations[d.reward]).toBe('window')
+    const nextToken=offer(w,d.id);w=finish(startPlay(w,scene,d.id,d.requiredParticipants?[...d.requiredParticipants]:actors(w).map(a=>a.id),crypto.randomUUID(),nextToken))
+    expect(w.neighborhood.memories[0]).toEqual({...first,count:2});if(d.reward)expect(w.play.decorations[d.reward]).toBe('window')
     if(d.count===3)expect(w.neighborhood.bonds).toHaveLength(3)
   }
 })
@@ -78,7 +80,7 @@ it('migrates v6 byte-preservingly, retains old activities, protects original dis
   const old=createHomeWorld(scene),raw=JSON.stringify(old),migrated=migrateLivingWorld(old,scene);expect(homeProjection(migrated)).toEqual({...old,home:{...old.home,accessories:migrated.home.accessories}});expect(migrated.home.accessories).toMatchObject(old.home.accessories);expect(JSON.stringify(old)).toBe(raw)
   const dir=await mkdtemp(join(tmpdir(),'village-living-')),v6=await SaveStore.open(dir,scene,homeWorldCodec(scene))
   await v6.save(0,old,crypto.randomUUID());const pointer=await readFile(join(v6.directory,'current.json'),'utf8')
-  const store=await SaveStore.open(dir,scene,livingWorldCodec(scene));expect((await store.read())?.world.schemaVersion).toBe(11)
+  const store=await SaveStore.open(dir,scene,livingWorldCodec(scene));expect((await store.read())?.world.schemaVersion).toBe(12)
   const snapshot=JSON.parse(pointer).snapshot, bytes=await readFile(join(v6.directory,'snapshots',snapshot));let saved=await store.save(1,migrated,crypto.randomUUID());expect((await store.read())?.world).toEqual(migrated)
   for(let i=0;i<42;i++)saved=await store.save(saved.revision,saved.world,crypto.randomUUID())
   expect(await readFile(join(v6.directory,'snapshots',snapshot))).toEqual(bytes)
@@ -97,9 +99,9 @@ it('runs seven residents deterministically with current social state and bounded
 it('reads every historical schema 1–6 without mutating raw input, refusing future fields and forged play clicks',()=>{
  const v3=createWorld(legacySceneV1),v1={...v3,schemaVersion:1};delete (v1 as any).companions
  for(const old of [v1,{...v3,schemaVersion:2},v3,createContentWorld(scene),createNeighborhoodWorld(scene),createHomeWorld(scene)]){
-  const raw=JSON.stringify(old),next=migrateLivingWorld(old,scene);expect(next.schemaVersion).toBe(11);expect(next.play.active).toBeNull();expect(JSON.stringify(old)).toBe(raw)
+  const raw=JSON.stringify(old),next=migrateLivingWorld(old,scene);expect(next.schemaVersion).toBe(12);expect(next.play.active).toBeNull();expect(JSON.stringify(old)).toBe(raw)
  }
- expect(()=>migrateLivingWorld({...createLivingWorld(scene),schemaVersion:12},scene)).toThrow()
+ expect(()=>migrateLivingWorld({...createLivingWorld(scene),schemaVersion:13},scene)).toThrow()
  const token=crypto.randomUUID()+':0';expect(validUIInput({kind:'play-find',token,point:{x:100,y:200}})).toBe(true)
  for(const bad of [{kind:'play-find',token:'bad',point:{x:1,y:2}},{kind:'play-find',token,point:{x:NaN,y:2}},{kind:'play-find',token,point:{x:1,y:2},extra:true}])expect(validUIInput(bad)).toBe(false)
 })

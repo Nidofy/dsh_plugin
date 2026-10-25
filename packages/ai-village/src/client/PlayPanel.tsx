@@ -28,6 +28,7 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
   const token = active ? `${active.id}:${active.stage}${active.definitionId === 'table-game' ? `:${active.choices.length}` : ''}` : ''
   const act = (action: string, value?: string) => { if (ready) void runtime.playAction(action, value, token) }
   const participants = (d: PlayDefinition): CharacterId[] => {
+    if (d.requiredParticipants) return [...d.requiredParticipants]
     const lead = d.id === 'lost-rice' ? 'bluewhale' : selected
     return [lead, ...guests.filter(id => ids.includes(id) && id !== lead), ...ids.filter(id => id !== lead && !guests.includes(id))].slice(0, d.count)
   }
@@ -46,11 +47,11 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
       <h3>{t('今天想一起做什么', 'What shall we do together?')}</h3>
       <p>{t('没有期限，也不用每天完成。重玩保留第一次的回忆，只增加体验次数。', 'No deadlines or daily chores. Replaying keeps your first memory and adds to its count.')}</p>
       <div aria-label={t('慢慢完成的小心愿', 'Little wishes to take slowly')}><h3>{t('慢慢完成的小心愿', 'Little wishes to take slowly')}</h3>{(['story', 'game', 'group'] as const).map(kind => {
-        const content = playDefinitions.filter(d => d.kind === kind && d.id !== 'table-game'), completed = content.filter(d => world.neighborhood.memories.some(m => m.id === d.id)).length
-        return <p key={kind}>{completed === content.length ? '✓ ' : '○ '}{kind === 'story' ? t('收集三个小故事', 'Discover three little stories') : kind === 'game' ? t('试过三种小游戏', 'Try all three little games') : t('和两位朋友一起看星星', 'Watch the stars with two friends')} · {completed}/{content.length}</p>
+        const content = playDefinitions.filter(d => d.kind === kind && d.id !== 'table-game' && !d.introduction), completed = content.filter(d => world.neighborhood.memories.some(m => m.id === d.id)).length
+        return <p key={kind}>{completed === content.length ? '✓ ' : '○ '}{kind === 'story' ? t('慢慢发现居民故事', 'Discover resident stories') : kind === 'game' ? t('试过三种小游戏', 'Try all three little games') : t('和两位朋友一起看星星', 'Watch the stars with two friends')} · {completed}/{content.length}</p>
       })}</div>
       <fieldset disabled={busy}><legend>{t('优先邀请的朋友（最多两位）', 'Preferred friends (up to two)')}</legend><div className="choices">{ids.filter(id => id !== selected).map(id => <button key={id} aria-pressed={guests.includes(id)} onClick={() => setGuests(old => old.includes(id) ? old.filter(g => g !== id) : [...old.slice(-1), id])}>{characterNames[id]}</button>)}</div></fieldset>
-      {(['story', 'game', 'group', 'preview'] as const).map(kind => <div key={kind}><h3>{kind === 'story' ? t('慢慢发生的小故事', 'Stories to take slowly') : kind === 'game' ? t('动手玩一会儿', 'A little time to play') : kind === 'group' ? t('三个人的相聚', 'A gathering of three') : t('一起试试：开发预览', 'Try together: development preview')}</h3>{playDefinitions.filter(d => kind === 'preview' ? d.id === 'table-game' : d.kind === kind && d.id !== 'table-game').map(d => {
+      {(['story', 'game', 'group', 'preview'] as const).map(kind => <div key={kind}><h3>{kind === 'story' ? t('慢慢发生的小故事', 'Stories to take slowly') : kind === 'game' ? t('动手玩一会儿', 'A little time to play') : kind === 'group' ? t('三个人的相聚', 'A gathering of three') : t('一起试试：开发预览', 'Try together: development preview')}</h3>{playDefinitions.filter(d => kind === 'preview' ? d.id === 'table-game' : d.kind === kind && d.id !== 'table-game' && !d.introduction).map(d => {
         const chosen = participants(d), available = chosen.length === d.count && chosen.every(id => ids.includes(id))
         return <article className="village-journal" key={d.id}><strong>{d.name[locale]}</strong><p>{d.summary[locale]}</p><small>{names(chosen)} · {t(`${d.stages.length} 个片段`, `${d.stages.length} moments`)}</small>
           <div className="choices"><button disabled={busy || !available || world.ticks < world.play.nextTick || d.id === 'table-game' && world.play.tableMode !== 'game'} onClick={() => void runtime.startPlay(d.id, chosen)}>{world.neighborhood.memories.some(m => m.id === d.id) ? t('再体验一次', 'Play again') : t('开始', 'Begin')} · {d.name[locale]}</button></div>
@@ -83,8 +84,8 @@ export function PlayPanel({ runtime, tab, locale, locked }: { runtime: VillageRu
       <small>{t('取消不会扣除任何东西；已经留下的回忆会保留。', 'Canceling costs nothing. Existing memories stay with you.')}</small>
     </article>}
     {tab === 'decor' && <>
-      <h3>{t('故事里的小纪念', 'Little keepsakes from stories')}</h3><p>{t('完成一段故事或小游戏，发现一件小纪念。选个喜欢的位置，让回忆留在小院里。', 'Finish a story or game to discover a keepsake. Choose a favorite spot and give the memory a home.')}</p>
-      {playDefinitions.map(d => <div key={d.id}><strong>{playDecorationNames[d.reward][locale]}</strong>{world.neighborhood.memories.some(m => m.id === d.id) ? <button disabled={busy} onClick={() => setDecor({ id: d.reward, slot: world.play.decorations[d.reward] })}>{t('选择位置', 'Choose a place')}</button> : <p>{t('完成后发现：', 'Discovered after: ')}{d.name[locale]}</p>}</div>)}
+      <h3>{t('故事里的小纪念', 'Little keepsakes from stories')}</h3><p>{t('有些故事会留下小纪念，更多相遇会留在回忆册。已发现的纪念物收起后仍会保留。', 'Some stories leave keepsakes; more encounters become memories. Putting a keepsake away keeps it unlocked.')}</p>
+      {playDefinitions.filter(d => d.reward !== null).map(d => <div key={d.id}><strong>{playDecorationNames[d.reward!][locale]}</strong>{world.neighborhood.memories.some(m => m.id === d.id) ? <button disabled={busy} onClick={() => setDecor({ id: d.reward!, slot: world.play.decorations[d.reward!] })}>{t('选择位置', 'Choose a place')}</button> : <p>{t('完成后发现：', 'Discovered after: ')}{d.name[locale]}</p>}</div>)}
       {decor && <fieldset disabled={busy}><legend>{playDecorationNames[decor.id][locale]}</legend><div className="choices">{(['window', 'door', 'wall', null] as const).map(slot => <button key={slot ?? 'away'} aria-pressed={decor.slot === slot} onClick={() => setDecor({ ...decor, slot })}>{slot === null ? t('收起', 'Put away') : slot === 'window' ? t('窗边', 'Window') : slot === 'door' ? t('门旁', 'Door') : t('院墙', 'Wall')}</button>)}</div><button onClick={() => void runtime.placePlayDecoration(decor.id, decor.slot).then(() => { if (!runtime.actionError) setDecor(null) })}>{t('确认保存位置', 'Save this place')}</button><button onClick={() => setDecor(null)}>{t('取消', 'Cancel')}</button></fieldset>}
     </>}
     {tab === 'journal' && world.neighborhood.memories.filter(m => playDefinition(m.id)).slice().reverse().map(m => <article key={m.id} className="village-journal"><small>{t('小院第 ', 'Day ')}{villageTime(m.completedTick).day}{cn ? ' 天' : ''} · ×{m.count}</small><h3>{playDefinition(m.id)!.name[locale]}</h3><p>{names(m.participants)}</p><p>{t('保留第一次完成时的朋友和日期。', 'Keeping the friends and date from the first completion.')}</p></article>)}

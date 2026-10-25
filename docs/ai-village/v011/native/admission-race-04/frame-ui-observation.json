@@ -1,0 +1,1983 @@
+[
+  {
+    "at": 8145256,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8145257.600000143,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8145258.200000048,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8145260.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 8145342.5,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8145343.600000143,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8145343.900000095,
+    "kind": "click",
+    "type": "click",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8145348,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8145419.600000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8145424,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8145424.800000191,
+    "kind": "click",
+    "type": "click",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8145562,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "75",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8145616.100000143,
+    "kind": "frame-message",
+    "type": "assets-ready",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "assetRevision": 18,
+    "sequence": 135
+  },
+  {
+    "at": 8145621.600000143,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8145621.700000048,
+    "kind": "frame-message",
+    "type": "first-frame-rendered",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 18,
+    "viewRevision": 2,
+    "sequence": 136
+  },
+  {
+    "at": 8146266.5,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "reveal",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8146436.5,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8146898.400000095,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8146898.900000095,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8146899.100000143,
+    "kind": "click",
+    "type": "click",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8146901.400000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 8146947.700000048,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8146951.300000191,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8146951.600000143,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8146955.300000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 8147001.100000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8147018.300000191,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8147018.600000143,
+    "kind": "click",
+    "type": "click",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8147026,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8147079.100000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8147080.5,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8147080.800000191,
+    "kind": "click",
+    "type": "click",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8147448.200000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "75",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8147606.900000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "91",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8147607,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 137,
+    "progress": 0.8348592734634783
+  },
+  {
+    "at": 8147610.600000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 138,
+    "progress": 0.8414360668910682
+  },
+  {
+    "at": 8147626.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 139,
+    "progress": 0.8480055107620867
+  },
+  {
+    "at": 8147651.200000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "92",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8147651.200000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 140,
+    "progress": 0.8543317355865796
+  },
+  {
+    "at": 8147653.400000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 141,
+    "progress": 0.8597240197828033
+  },
+  {
+    "at": 8147656.800000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 142,
+    "progress": 0.8626478101227056
+  },
+  {
+    "at": 8147659.900000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 143,
+    "progress": 0.8656748019104593
+  },
+  {
+    "at": 8147663,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 144,
+    "progress": 0.8676618143514164
+  },
+  {
+    "at": 8147667.300000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 145,
+    "progress": 0.8695477105675495
+  },
+  {
+    "at": 8147669.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 146,
+    "progress": 0.8724460338393335
+  },
+  {
+    "at": 8147671.800000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 147,
+    "progress": 0.875139184838841
+  },
+  {
+    "at": 8147675.300000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 148,
+    "progress": 0.8786293696104914
+  },
+  {
+    "at": 8147678.900000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 149,
+    "progress": 0.8822208757108702
+  },
+  {
+    "at": 8147683.300000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 150,
+    "progress": 0.8905814577942314
+  },
+  {
+    "at": 8147686.5,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 151,
+    "progress": 0.8985837917247336
+  },
+  {
+    "at": 8147687.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "93",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8147687.800000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "sequence": 152,
+    "progress": 0.9
+  },
+  {
+    "at": 8147688.5,
+    "kind": "frame-message",
+    "type": "assets-ready",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "assetRevision": 19,
+    "sequence": 153
+  },
+  {
+    "at": 8147700.200000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8147700.300000191,
+    "kind": "frame-message",
+    "type": "first-frame-rendered",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 19,
+    "viewRevision": 3,
+    "sequence": 154
+  },
+  {
+    "at": 8148233.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "reveal",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8148393.100000143,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8148592.100000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8148595.200000048,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8148595.600000143,
+    "kind": "click",
+    "type": "click",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8148598,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 8148647.600000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8148648,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8148648.100000143,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8148650.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 8149237,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149242.900000095,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149243.200000048,
+    "kind": "click",
+    "type": "click",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149245.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 8149339.5,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8149341.700000048,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8149342.100000143,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8149356,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 8149496,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149496.800000191,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149497,
+    "kind": "click",
+    "type": "click",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149500.700000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8149569.600000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149572.900000095,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149573.300000191,
+    "kind": "click",
+    "type": "click",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8149884.300000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "75",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8149952.600000143,
+    "kind": "frame-message",
+    "type": "assets-ready",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "assetRevision": 20,
+    "sequence": 155
+  },
+  {
+    "at": 8149960.300000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8149960.400000095,
+    "kind": "frame-message",
+    "type": "first-frame-rendered",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 20,
+    "viewRevision": 4,
+    "sequence": 156
+  },
+  {
+    "at": 8150591.300000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "reveal",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8150772.600000143,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8151299,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151299.700000048,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151299.900000095,
+    "kind": "click",
+    "type": "click",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151301.400000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 8151331.600000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8151334,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8151334.200000048,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8151336.900000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 8151375.600000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151376.5,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151376.700000048,
+    "kind": "click",
+    "type": "click",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151379.5,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8151405.900000095,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151406.700000048,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151406.900000095,
+    "kind": "click",
+    "type": "click",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8151561.5,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "75",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8151624,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "91",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8151624.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 157,
+    "progress": 0.8348592734634783
+  },
+  {
+    "at": 8151626.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 158,
+    "progress": 0.8414360668910682
+  },
+  {
+    "at": 8151629.200000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 159,
+    "progress": 0.8480055107620867
+  },
+  {
+    "at": 8151633,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "92",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8151633,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 160,
+    "progress": 0.8543317355865796
+  },
+  {
+    "at": 8151635.600000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 161,
+    "progress": 0.8597240197828033
+  },
+  {
+    "at": 8151638.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 162,
+    "progress": 0.8626478101227056
+  },
+  {
+    "at": 8151640.300000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 163,
+    "progress": 0.8656748019104593
+  },
+  {
+    "at": 8151643,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 164,
+    "progress": 0.8676618143514164
+  },
+  {
+    "at": 8151644.800000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 165,
+    "progress": 0.8695477105675495
+  },
+  {
+    "at": 8151647.200000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 166,
+    "progress": 0.8724460338393335
+  },
+  {
+    "at": 8151651,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 167,
+    "progress": 0.875139184838841
+  },
+  {
+    "at": 8151652.900000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 168,
+    "progress": 0.8786293696104914
+  },
+  {
+    "at": 8151656.300000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 169,
+    "progress": 0.8822208757108702
+  },
+  {
+    "at": 8151660,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 170,
+    "progress": 0.8905814577942314
+  },
+  {
+    "at": 8151662.700000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 171,
+    "progress": 0.8985837917247336
+  },
+  {
+    "at": 8151663.400000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "93",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8151663.400000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "sequence": 172,
+    "progress": 0.9
+  },
+  {
+    "at": 8151664.200000048,
+    "kind": "frame-message",
+    "type": "assets-ready",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "assetRevision": 21,
+    "sequence": 173
+  },
+  {
+    "at": 8151674,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8151674,
+    "kind": "frame-message",
+    "type": "first-frame-rendered",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 21,
+    "viewRevision": 5,
+    "sequence": 174
+  },
+  {
+    "at": 8152316.300000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "reveal",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8152469,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8152573.900000095,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8152574.900000095,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8152575.200000048,
+    "kind": "click",
+    "type": "click",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8152577.400000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 8152606.900000095,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8152609,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8152609.200000048,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8152611.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 8153029.700000048,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153034.100000143,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153034.300000191,
+    "kind": "click",
+    "type": "click",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153035.700000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 8153064.200000048,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8153067.900000095,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8153068.100000143,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8153070.700000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 8153108.5,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153109.300000191,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153109.5,
+    "kind": "click",
+    "type": "click",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153112.600000143,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8153145.100000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153145.800000191,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153145.900000095,
+    "kind": "click",
+    "type": "click",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8153233,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "75",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8153274.900000095,
+    "kind": "frame-message",
+    "type": "assets-ready",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "assetRevision": 22,
+    "sequence": 175
+  },
+  {
+    "at": 8153281.100000143,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8153281.100000143,
+    "kind": "frame-message",
+    "type": "first-frame-rendered",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 22,
+    "viewRevision": 6,
+    "sequence": 176
+  },
+  {
+    "at": 8153941.200000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "reveal",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8154093,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8154514.300000191,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154514.800000191,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154515,
+    "kind": "click",
+    "type": "click",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154516.5,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 8154539.700000048,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8154540,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8154540,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8154542.400000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 8154574.5,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154575.200000048,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154575.400000095,
+    "kind": "click",
+    "type": "click",
+    "name": "All residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154578.200000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8154608.700000048,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154609.600000143,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154609.800000191,
+    "kind": "click",
+    "type": "click",
+    "name": "Manage residents",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8154751.900000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "75",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8154807.700000048,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "91",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8154807.700000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 177,
+    "progress": 0.8348592734634783
+  },
+  {
+    "at": 8154811,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 178,
+    "progress": 0.8414360668910682
+  },
+  {
+    "at": 8154812.300000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 179,
+    "progress": 0.8480055107620867
+  },
+  {
+    "at": 8154814.900000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "92",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8154815,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 180,
+    "progress": 0.8543317355865796
+  },
+  {
+    "at": 8154817.800000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 181,
+    "progress": 0.8597240197828033
+  },
+  {
+    "at": 8154819.800000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 182,
+    "progress": 0.8626478101227056
+  },
+  {
+    "at": 8154822,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 183,
+    "progress": 0.8656748019104593
+  },
+  {
+    "at": 8154823.5,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 184,
+    "progress": 0.8676618143514164
+  },
+  {
+    "at": 8154824.700000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 185,
+    "progress": 0.8695477105675495
+  },
+  {
+    "at": 8154827,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 186,
+    "progress": 0.8724460338393335
+  },
+  {
+    "at": 8154828.800000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 187,
+    "progress": 0.875139184838841
+  },
+  {
+    "at": 8154831,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 188,
+    "progress": 0.8786293696104914
+  },
+  {
+    "at": 8154834.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 189,
+    "progress": 0.8822208757108702
+  },
+  {
+    "at": 8154837.700000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 190,
+    "progress": 0.8905814577942314
+  },
+  {
+    "at": 8154840.200000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 191,
+    "progress": 0.8985837917247336
+  },
+  {
+    "at": 8154841.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "93",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8154841.900000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "sequence": 192,
+    "progress": 0.9
+  },
+  {
+    "at": 8154842.400000095,
+    "kind": "frame-message",
+    "type": "assets-ready",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "assetRevision": 23,
+    "sequence": 193
+  },
+  {
+    "at": 8154851,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8154851,
+    "kind": "frame-message",
+    "type": "first-frame-rendered",
+    "token": "9a22e253-f000-498c-864b-8648c421fda4",
+    "bootAttemptId": "f81154bb-7fa5-4465-9664-a38f2e612c7d",
+    "assetRevision": 23,
+    "viewRevision": 7,
+    "sequence": 194
+  },
+  {
+    "at": 8155499.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "false",
+      "inert": true,
+      "phase": "reveal",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8155660.5,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 8155774.100000143,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8155774.700000048,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8155774.800000191,
+    "kind": "click",
+    "type": "click",
+    "name": "Close panel",
+    "selected": null,
+    "inert": false
+  },
+  {
+    "at": 8155776.800000191,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 8155806.400000095,
+    "kind": "click",
+    "type": "pointerdown",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8155806.700000048,
+    "kind": "click",
+    "type": "pointerup",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8155806.900000095,
+    "kind": "click",
+    "type": "click",
+    "name": "Residents",
+    "selected": "false",
+    "inert": false
+  },
+  {
+    "at": 8155809.400000095,
+    "kind": "ui",
+    "state": {
+      "cardId": 1,
+      "frameId": 2,
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  }
+]

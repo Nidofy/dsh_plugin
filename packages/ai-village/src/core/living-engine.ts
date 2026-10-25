@@ -36,7 +36,7 @@ export function settleTea(w:LivingWorld,b:Scene) {
   const n=home.settleTea(homeProjection(w),b);return n?withLiving(n,w):null
 }
 export function cancelPlay(w:LivingWorld) { for(const a of actors(w))if(w.play.active?.participants.includes(a.id))abandon(a);w.play.active=null }
-function usedId(w:LivingWorld,id:string) {return w.bookhouse.lastEventId===id||w.bookhouse.memory?.eventId===id||w.play.lastEventId===id||w.journal.some(m=>m.eventId===id)||w.neighborhood.memories.some(m=>m.eventId===id)||w.progress.lastCompletedEventId===id||w.neighborhood.lastEventId===id}
+function usedId(w:LivingWorld,id:string) {return w.bookhouse.puzzleLastEventId===id||w.bookhouse.puzzleMemory?.eventId===id||w.bookhouse.lastEventId===id||w.bookhouse.memory?.eventId===id||w.play.lastEventId===id||w.journal.some(m=>m.eventId===id)||w.neighborhood.memories.some(m=>m.eventId===id)||w.progress.lastCompletedEventId===id||w.neighborhood.lastEventId===id}
 export { whalePlace } from './play-catalog.ts'
 export function whalePoint(w:LivingWorld,base:Scene):Point|null {
   const e=w.play.active;if(e?.definitionId!=='find-whale'||e.stage!==0)return null
@@ -79,6 +79,8 @@ export function startPlay(source:LivingWorld,base:Scene,definitionId:string,part
   if(definitionId==='table-game'&&w.play.tableMode!=='game')throw Error('GAME_TABLE_REQUIRED')
   if(definitionId==='table-game'&&actors(w).some(a=>!participants.includes(a.id)&&a.intent?.furnitureId==='eat'))throw Error('FURNITURE_OCCUPIED')
   if(!d||!uuid(id)||usedId(w,id)||participants.length!==d.count||new Set(participants).size!==d.count||participants.some(id=>!actors(w).some(a=>a.id===id))||(d.id==='lost-rice'&&participants[0]!=='bluewhale'))throw Error('INVALID_INVITATION')
+  if(d.requiredParticipants&&!d.requiredParticipants.every(id=>participants.includes(id)))throw Error('INVALID_INVITATION')
+  if(d.introduction&&w.neighborhood.memories.some(m=>m.id===d.id))throw Error('INTRODUCTION_COMPLETE')
   if(d.kind==='event'){
     const offer=currentEncounter(w)
     if(!offer||offer.definitionId!==d.id||offer.token!==encounterToken)throw Error('ENCOUNTER_EXPIRED')

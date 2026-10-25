@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-24T03:04:14.6494353Z",
+  "carrier": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe",
+  "carrierProcessCount": 0,
+  "cdpPort": 18772,
+  "cdpListenerCount": 0,
+  "preserved": [
+    "isolated profile",
+    "checkpoint",
+    "all failed and passed evidence",
+    "user daily DSH_HOME"
+  ],
+  "passed": true
+}

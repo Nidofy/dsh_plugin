@@ -2,7 +2,7 @@ import { words, type Words } from './neighborhood-catalog.ts'
 import { residentLife } from './life-catalog.ts'
 import type { CharacterId } from './roster.ts'
 
-export const playIds = ['lost-rice', 'quiet-page', 'wind-notes', 'find-whale', 'tidy-desk', 'snack-table', 'stargazing', 'table-game', 'paper-rescue', 'leaves-gather'] as const
+export const playIds = ['lost-rice', 'quiet-page', 'wind-notes', 'find-whale', 'tidy-desk', 'snack-table', 'stargazing', 'table-game', 'paper-rescue', 'leaves-gather', 'intro-seedance', 'intro-glm', 'intro-minimax', 'intro-llama', 'intro-mistral', 'pair-bluewhale-claude', 'pair-glm-gemini', 'pair-kimi-mistral', 'pair-gpt-minimax', 'pair-seedance-grok', 'pair-qwen-llama'] as const
 export type PlayId = typeof playIds[number]
 export const playDecorationIds = ['rice-bowl', 'page-marker', 'wind-ribbon', 'whale-token', 'desk-star', 'snack-tray', 'star-mobile', 'table-stones', 'message-board', 'leaf-pot'] as const
 export type PlayDecorationId = typeof playDecorationIds[number]
@@ -21,13 +21,65 @@ export interface PlayDefinition {
   summary: Words
   count: 1 | 2 | 3
   stages: readonly PlayStage[]
-  reward: PlayDecorationId
+  reward: PlayDecorationId | null
+  requiredParticipants?: readonly CharacterId[]
+  introduction?: CharacterId
 }
 const stage = (id: string, target: PlayStage['target'], zh: string, en: string, action: string, labelZh: string, labelEn: string): PlayStage =>
   ({ id, target, text: words(zh, en), action, actionLabel: words(labelZh, labelEn), observeTicks: 60 })
 
 /** Authored offline content. Rewards reuse existing bowl / code-vector vocabulary; this is not new approved raster art. */
 export const playDefinitions: readonly PlayDefinition[] = [
+  { id:'intro-seedance', kind:'story', name:words('初见：小院的节奏','First hello: a courtyard rhythm'), summary:words('和 Seedance 用脚步认识这座小院。','Meet Seedance through a few little steps.'), count:1, reward:null, requiredParticipants:['seedance'], introduction:'seedance', stages:[
+    stage('hear','bench','Seedance 在长椅旁轻轻点脚：“先听风，再给脚步找一个拍子。”','Seedance taps a foot beside the bench. “Listen to the breeze, then find a beat for our steps.”','talk','选一段轻快的拍子','Choose a lilting beat'),
+    stage('step','corner','Seedance 跟着拍子绕到生活角落，转身扬起手：“这里就是我们的第一小节！”','Seedance follows the beat to the living corner and turns with a raised hand. “Our very first bar of music!”','finish','记住这一小节','Remember our first bar'),
+  ]},
+  { id:'intro-glm', kind:'story', name:words('初见：奇怪的问题','First hello: an odd question'), summary:words('GLM 的问句被风打乱了，一起给它找个句尾。','The wind scrambled GLM’s question. Help it find an ending.'), count:1, reward:null, requiredParticipants:['glm'], introduction:'glm', stages:[
+    stage('question','work','GLM 把三张纸排在书桌边：“如果影子迟到了，主人要不要等它？”先把问号留到最后。','GLM spreads three slips by the desk. “If a shadow is late, should its owner wait?” Save the question mark for last.','search','找出最后的问号','Find the final question mark'),
+    stage('answer','bench','GLM 走到长椅旁看自己的影子，笑了：“它一直跟着，原来我可以慢慢问。”','GLM walks to the bench and smiles at their shadow. “Still here. I can take my time asking.”','finish','留下这个有趣的问题','Keep this curious question'),
+  ]},
+  { id:'intro-minimax', kind:'story', name:words('初见：小小的远行','First hello: a tiny expedition'), summary:words('陪 MiniMax 找到一件不必带走的旅行纪念。','Help MiniMax find a keepsake that can stay where it belongs.'), count:1, reward:null, requiredParticipants:['minimax'], introduction:'minimax', stages:[
+    stage('seek','corner','MiniMax 蹲在角落的一片落叶旁：“这片像小船的叶子，也许刚刚走过很远的路。”','MiniMax peers at a fallen leaf in the corner. “This boat-shaped leaf may have travelled a long way.”','search','看看小船叶子','Look at the little leaf boat'),
+    stage('map','work','MiniMax 把叶子的轮廓画在纸上，再把叶子留在原地：“我带走地图，它留在家。”','MiniMax sketches its outline and leaves the leaf where it lay. “I keep the map; it keeps its home.”','finish','收好这张旅行地图','Keep the expedition map'),
+  ]},
+  { id:'intro-llama', kind:'story', name:words('初见：温柔的借书人','First hello: a gentle borrower'), summary:words('帮 Llama 找一个能安静读书的角落。','Find Llama a peaceful reading corner.'), count:1, reward:null, requiredParticipants:['llama'], introduction:'llama', stages:[
+    stage('borrow','work','Llama 把书抱得轻轻的：“我可以借一个安静的下午吗？”先替书挑好一页。','Llama cradles a book. “May I borrow a quiet afternoon?” Choose a page to begin.','talk','为它挑好第一页','Choose the opening page'),
+    stage('corner','bench','Llama 沿小路来到长椅，把身边的位置留空：“这本书还有一个可以一起读的位置。”','Llama follows the path to the bench and leaves room beside them. “There is space for another reader.”','finish','记住这个阅读角落','Remember the reading corner'),
+  ]},
+  { id:'intro-mistral', kind:'story', name:words('初见：风的旅人','First hello: a traveller of wind'), summary:words('和 Mistral 找到这阵风停留过的地方。','Find where the breeze has lingered with Mistral.'), count:1, reward:null, requiredParticipants:['mistral'], introduction:'mistral', stages:[
+    stage('wind','corner','Mistral 朝叶子偏了偏头：“风没有行李，却总能带来别处的消息。”','Mistral tilts their head toward the leaves. “The wind carries no luggage, yet brings news from far away.”','search','看叶子指向哪里','Follow the leaves'),
+    stage('pause','bench','Mistral 跟着叶影来到长椅：“先在这里停一会儿。下次去书屋窗边，再听它讲一段。”','Mistral follows the leaf shadows to the bench. “A pause here. Next time, we can listen by the bookhouse window.”','finish','留下这阵风的问候','Keep the breeze’s greeting'),
+  ]},
+  { id:'pair-bluewhale-claude', kind:'story', name:words('饭碗里的书签','A bookmark in the rice bowl'), summary:words('蓝鲸护着饭碗，Claude 却在找一句读到一半的话。','Bluewhale guards a bowl while Claude searches for an unfinished line.'), count:2, reward:null, requiredParticipants:['bluewhale','claude'], stages:[
+    stage('bowl','eat','蓝鲸发现饭碗边多了一条纸：“这个不能吃吧？”Claude 摸摸空书页：“我的书签今天先来吃饭了。”','Bluewhale finds a strip of paper by the bowl. “Not edible?” Claude checks a bare page. “My bookmark came to lunch before me.”','talk','问问书签上的半句话','Ask about the unfinished line'),
+    stage('line','work','Claude 在书桌旁读出“给晚到的人……”。蓝鲸把空碗挪出一个位置：“留一碗饭？”','At the desk Claude reads, “For those arriving late…” Bluewhale makes room beside an empty bowl. “Save some rice?”','help','把留饭的心意写进去','Add the thought of saving lunch'),
+    stage('ending','eat','Claude 把句子补成“给晚到的人留一碗饭，也留一页故事”。蓝鲸点头：“这样就谁也不会错过了。”','Claude finishes: “Save a bowl and a page for those arriving late.” Bluewhale nods. “Then nobody misses out.”','finish','记住饭碗里的书签','Remember the bowl’s bookmark'),
+  ]},
+  { id:'pair-glm-gemini', kind:'story', name:words('两个答案','Two answers'), summary:words('GLM 留下一道问题，Gemini 给出了两种颜色的回答。','GLM leaves a question; Gemini answers in two colours.'), count:2, reward:null, requiredParticipants:['glm','gemini'], stages:[
+    stage('question','work','GLM 写下“雨停以后，水洼是天空还是地面？”Gemini 把纸翻过来：“为什么只能写在一面？”','GLM writes, “After rain, is a puddle sky or ground?” Gemini turns the paper over. “Why use only one side?”','talk','把纸翻到另一面','Turn the paper over'),
+    stage('reflection','bench','两人走到长椅旁。GLM 低头找倒影，Gemini 仰头比天空：“我们刚才看的方向不同。”','At the bench GLM looks down for a reflection; Gemini looks up. “We were looking in different directions.”','search','跟着他们换一个视角','Try the other viewpoint'),
+    stage('both','work','GLM 给纸写上“两面都算数”。Gemini 折出一道能立起来的山脊：“这回两个答案可以面对面了。”','GLM writes, “Both sides count.” Gemini folds a ridge in the paper. “Now our answers can face each other.”','finish','收好这张双面答案','Keep both answers'),
+  ]},
+  { id:'pair-kimi-mistral', kind:'story', name:words('风把故事吹远了','The wind carried the story away'), summary:words('Kimi 忘了一段故事的结尾，Mistral 却在风里听见了新的开头。','Kimi has lost an ending, while Mistral hears a new beginning in the breeze.'), count:2, reward:null, requiredParticipants:['kimi','mistral'], stages:[
+    stage('missing-ending','bench','Kimi 在长椅旁捏着一页纸：“最后一句飞走了，现在故事是不是坏掉了？”Mistral 侧耳听风：“也许它只是想先走一步。”','Kimi holds a page beside the bench. “The last line blew away. Is the story broken?” Mistral listens. “Perhaps it wanted a head start.”','talk','听听那句没说完的话','Listen to the unfinished line'),
+    stage('follow-breeze','corner','两人跟着纸页翻动的方向来到生活角落。Kimi 追问纸去了哪里，Mistral 指着空白：“先给旅人留一个能回来的地方。”','They follow the flutter toward the living corner. Kimi asks where the line went. Mistral points to the blank space. “Leave a place for the traveller to return.”','search','给远行的句子留一行空白','Leave a line for the travelling sentence'),
+    stage('open-ending','work','回到书桌，Kimi 写下“后来，它又出发了”。Mistral 把纸页轻轻压好：“故事没有丢，只是多了一条路。”','At the desk Kimi writes, “Later, it set off again.” Mistral steadies the page. “The story is not lost. It has another path.”','finish','留下这个开着的结尾','Keep this open ending'),
+  ]},
+  { id:'pair-gpt-minimax', kind:'story', name:words('明天的小计划','A little plan for tomorrow'), summary:words('GPT 的便签排满了一天，MiniMax 想给没有目的地的小路留个位置。','GPT has filled the day with notes. MiniMax wants room for a path with no destination.'), count:2, reward:null, requiredParticipants:['gpt','minimax'], stages:[
+    stage('full-list','work','GPT 把便签排得整整齐齐：“明天这样就不会漏掉任何事。”MiniMax 举起一张空纸：“那我们要把意外遇见的东西放哪里？”','GPT lines up neat notes. “Tomorrow we will miss nothing.” MiniMax raises a blank slip. “Where do unexpected discoveries go?”','talk','找出一张可以留白的便签','Find a note to leave blank'),
+    stage('small-detour','corner','MiniMax 邀 GPT 绕到生活角落，停下来看一片小小的光。GPT 没有记时间，只把便签翻了个面：“这一站不用赶。”','MiniMax leads GPT to the living corner to notice a patch of light. GPT turns a note over without checking the time. “No rush at this stop.”','search','为小小的绕路留一点时间','Make time for a little detour'),
+    stage('room-for-tomorrow','eat','来到餐桌旁，GPT 写下“留一格给路上遇见的事”。MiniMax 把空纸收进口袋：“明天不用填满，才装得下新的风景。”','By the table GPT writes, “Leave room for what we find on the way.” MiniMax pockets the blank slip. “An unfinished day has room for new scenery.”','finish','记下这份留白的计划','Keep the plan with room to spare'),
+  ]},
+  { id:'pair-seedance-grok', kind:'story', name:words('谁偷偷改了节奏','Who changed the rhythm?'), summary:words('Seedance 的拍子忽然多了一下，Grok 正努力忍住笑。','An extra beat slips into Seedance’s rhythm. Grok is trying not to laugh.'), count:2, reward:null, requiredParticipants:['seedance','grok'], stages:[
+    stage('extra-beat','corner','Seedance 数着“一、二、三”，身后却多出一声“咚”。Grok 摊开手：“也许是拍子自己想打个招呼？”','Seedance counts “one, two, three,” then hears an extra thump. Grok opens their hands. “Maybe the beat wanted to say hello?”','talk','请那一下拍子再出现一次','Invite the extra beat back'),
+    stage('try-a-pause','bench','两人走到长椅旁。Seedance 特意空出第四拍，Grok 刚想接上，又笑着停住：“原来安静也算一拍。”','At the bench Seedance leaves the fourth beat empty. Grok nearly fills it, then smiles and stops. “Silence counts as a beat too.”','help','把第四拍留给安静','Leave the fourth beat quiet'),
+    stage('shared-rhythm','corner','回到生活角落，Seedance 点三下脚，Grok 在空拍处扬起手。Seedance 笑了：“这次我听见了。”Grok 说：“没有声音的招呼，也有人接住。”','Back in the corner Seedance taps three times; Grok waves on the silent beat. “I heard it this time,” Seedance smiles. “Even a silent hello can reach someone,” Grok says.','finish','记住两个人的新节奏','Keep their new rhythm'),
+  ]},
+  { id:'pair-qwen-llama', kind:'story', name:words('温柔的下午茶','A gentle afternoon tea'), summary:words('千问准备了热茶，Llama 担心自己的书会占去朋友的位置。','Qwen has prepared tea. Llama worries that a book will take a friend’s place.'), count:2, reward:null, requiredParticipants:['qwen','llama'], stages:[
+    stage('a-place-for-a-book','eat','千问把茶放在餐桌边。Llama 抱着书迟迟不放：“它占了位置，你会不会坐不下？”千问挪开空杯：“先让你安心坐下。”','Qwen sets tea by the table. Llama holds a book close. “Will it take your place?” Qwen moves an empty cup. “First, let us make you comfortable.”','talk','给书和朋友都留个位置','Make room for the book and the friend'),
+    stage('a-quiet-page','bench','来到长椅旁，Llama 读了一句便停下。千问没有催下一页，只问：“这一句，是不是适合配一口茶？”','By the bench Llama reads a line and pauses. Qwen does not ask for the next page. “Would that line go well with a sip of tea?”','help','陪这一句话停一会儿','Sit with that sentence awhile'),
+    stage('tea-can-wait','eat','回到餐桌旁，Llama 把书轻轻合上：“原来借来的不只是一本书。”千问递过茶：“还有一个不必急着还的下午。”','Back at the table Llama gently closes the book. “I borrowed more than a book.” Qwen offers tea. “An afternoon you need not hurry to return.”','finish','留下不必赶时间的下午','Keep this unhurried afternoon'),
+  ]},
   { id: 'paper-rescue', kind: 'event', name: words('飞走的留言', 'A runaway message'), summary: words('一张留言被风吹到长椅旁，和朋友把它送回去。', 'A message has blown beside the bench. Bring it back with a friend.'), count: 2, reward: 'message-board', stages: [
     stage('catch-note', 'bench', '长椅脚边压着一张卷起的纸。等朋友走近，一起看看是谁的留言。', 'A curled note rests by the bench. Wait for your friend and see who left it.', 'search', '展开这张留言', 'Unfold the message'),
     stage('answer-note', 'work', '纸上写着“今天想听一个好消息”。回到书桌，和朋友各添一句小小的回答。', 'It says, “I would like some good news today.” At the desk, add a little answer together.', 'help', '写下我们的好消息', 'Add our good news'),

@@ -10,6 +10,8 @@ packages/windows-sandbox-enhanced/native/obj/
 packages/windows-sandbox-enhanced/native/runtime/
 *.tsbuildinfo
 *.log
+# Raw browser QA recordings stay local; hashes and native MP4 evidence are committed.
+docs/ai-village/v011/browser/*/*.webm
 .env
 .env.*
 !.env.example

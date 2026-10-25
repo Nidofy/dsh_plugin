@@ -4,6 +4,8 @@
 
 # DSH 独立插件仓库
 
+[AI 小院 0.11.0-preview.1](packages/ai-village/README.md) 增加真实来源的共同回忆册、五位新人初见、固定配对故事与可重复书屋谜题。正式书屋分层美术独立待签收，运行场景保持开发样板；验证范围及离线包身份见 [0.11 记录](docs/ai-village/v011/RESULTS.md)。
+
 [AI 小院 0.10.0-preview.1](packages/ai-village/README.md) 新增五位可选居民（十二选七）与书屋完整共读故事、持久微光书签、跨区域手账/收藏事实。正式书屋美术候选独立门禁，当前场景继续标记开发样板；包身份与真实验收见[本轮记录](docs/ai-village/life-content/RESULTS.md)。
 
 [AI 小院 0.9.0-preview.2](packages/ai-village/README.md)（[剩余工作核对与验收边界](docs/ai-village/REMAINING_WORK_AUDIT_2026-10-22.md)） 新增可往返的 AI 书屋开发样板，独立场景与读书／记笔记／窗边坐下活动，共享存档、收藏与相册；保留两类可重复偶遇、主题收藏与可选长期目标；保持加载角色从左到右依次填色；保留连续故事、三种小游戏、居民个性与自主社交，以及可选桌面棋局开发预览，手账扩展为22类。详见 [棋局验证与门禁](docs/ai-village/table-preview/IMPLEMENTATION.md)。原有版本支持七位居民、邻里互动、12 类手账、家具锚点编辑、布局草稿与撤销、配饰和两套环境、真实照片相册及浮卡／展开界面；与 Git/Hg 0.1.3 上下共存，与 Live2D 互斥。Notebook 0.2.0 新增覆盖状态、历史索引降级保留、返回卡与交接包。安装包位于 `dist/`；笔记与存档兼容见 [Notebook / Village 发行记录](docs/releases/notebook-village-2026-10-21.md)。

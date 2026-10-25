@@ -1,0 +1,380 @@
+{
+  "source": "CDP Page.startScreencast of isolated official native Electron dsh-app target",
+  "frames": 93,
+  "seconds": 4.201528072357178,
+  "sha256": "6d0997b4de121f5e3a7e70f74d304830c21dc9ba78d86b29cbdc77353b930dca",
+  "frameTimestamps": [
+    {
+      "file": "frame-000000.jpg",
+      "timestamp": 1792803108.62181
+    },
+    {
+      "file": "frame-000001.jpg",
+      "timestamp": 1792803108.93725
+    },
+    {
+      "file": "frame-000002.jpg",
+      "timestamp": 1792803109.033612
+    },
+    {
+      "file": "frame-000003.jpg",
+      "timestamp": 1792803109.255482
+    },
+    {
+      "file": "frame-000004.jpg",
+      "timestamp": 1792803109.278048
+    },
+    {
+      "file": "frame-000005.jpg",
+      "timestamp": 1792803109.309176
+    },
+    {
+      "file": "frame-000006.jpg",
+      "timestamp": 1792803109.332027
+    },
+    {
+      "file": "frame-000007.jpg",
+      "timestamp": 1792803109.364695
+    },
+    {
+      "file": "frame-000008.jpg",
+      "timestamp": 1792803109.397941
+    },
+    {
+      "file": "frame-000009.jpg",
+      "timestamp": 1792803109.434123
+    },
+    {
+      "file": "frame-000010.jpg",
+      "timestamp": 1792803109.509571
+    },
+    {
+      "file": "frame-000011.jpg",
+      "timestamp": 1792803109.57053
+    },
+    {
+      "file": "frame-000012.jpg",
+      "timestamp": 1792803109.599533
+    },
+    {
+      "file": "frame-000013.jpg",
+      "timestamp": 1792803109.636477
+    },
+    {
+      "file": "frame-000014.jpg",
+      "timestamp": 1792803109.667137
+    },
+    {
+      "file": "frame-000015.jpg",
+      "timestamp": 1792803109.698367
+    },
+    {
+      "file": "frame-000016.jpg",
+      "timestamp": 1792803109.73086
+    },
+    {
+      "file": "frame-000017.jpg",
+      "timestamp": 1792803109.755626
+    },
+    {
+      "file": "frame-000018.jpg",
+      "timestamp": 1792803109.789853
+    },
+    {
+      "file": "frame-000019.jpg",
+      "timestamp": 1792803109.824886
+    },
+    {
+      "file": "frame-000020.jpg",
+      "timestamp": 1792803109.859106
+    },
+    {
+      "file": "frame-000021.jpg",
+      "timestamp": 1792803109.889037
+    },
+    {
+      "file": "frame-000022.jpg",
+      "timestamp": 1792803109.918556
+    },
+    {
+      "file": "frame-000023.jpg",
+      "timestamp": 1792803109.947905
+    },
+    {
+      "file": "frame-000024.jpg",
+      "timestamp": 1792803109.982085
+    },
+    {
+      "file": "frame-000025.jpg",
+      "timestamp": 1792803110.018643
+    },
+    {
+      "file": "frame-000026.jpg",
+      "timestamp": 1792803110.047192
+    },
+    {
+      "file": "frame-000027.jpg",
+      "timestamp": 1792803110.083899
+    },
+    {
+      "file": "frame-000028.jpg",
+      "timestamp": 1792803110.124368
+    },
+    {
+      "file": "frame-000029.jpg",
+      "timestamp": 1792803110.153893
+    },
+    {
+      "file": "frame-000030.jpg",
+      "timestamp": 1792803110.18098
+    },
+    {
+      "file": "frame-000031.jpg",
+      "timestamp": 1792803110.437153
+    },
+    {
+      "file": "frame-000032.jpg",
+      "timestamp": 1792803110.48072
+    },
+    {
+      "file": "frame-000033.jpg",
+      "timestamp": 1792803110.6283
+    },
+    {
+      "file": "frame-000034.jpg",
+      "timestamp": 1792803110.644795
+    },
+    {
+      "file": "frame-000035.jpg",
+      "timestamp": 1792803110.680755
+    },
+    {
+      "file": "frame-000036.jpg",
+      "timestamp": 1792803110.714766
+    },
+    {
+      "file": "frame-000037.jpg",
+      "timestamp": 1792803110.747971
+    },
+    {
+      "file": "frame-000038.jpg",
+      "timestamp": 1792803110.780986
+    },
+    {
+      "file": "frame-000039.jpg",
+      "timestamp": 1792803110.815141
+    },
+    {
+      "file": "frame-000040.jpg",
+      "timestamp": 1792803110.847356
+    },
+    {
+      "file": "frame-000041.jpg",
+      "timestamp": 1792803110.879198
+    },
+    {
+      "file": "frame-000042.jpg",
+      "timestamp": 1792803110.914512
+    },
+    {
+      "file": "frame-000043.jpg",
+      "timestamp": 1792803110.939785
+    },
+    {
+      "file": "frame-000044.jpg",
+      "timestamp": 1792803110.971587
+    },
+    {
+      "file": "frame-000045.jpg",
+      "timestamp": 1792803111.006379
+    },
+    {
+      "file": "frame-000046.jpg",
+      "timestamp": 1792803111.03962
+    },
+    {
+      "file": "frame-000047.jpg",
+      "timestamp": 1792803111.07497
+    },
+    {
+      "file": "frame-000048.jpg",
+      "timestamp": 1792803111.106687
+    },
+    {
+      "file": "frame-000049.jpg",
+      "timestamp": 1792803111.13918
+    },
+    {
+      "file": "frame-000050.jpg",
+      "timestamp": 1792803111.164362
+    },
+    {
+      "file": "frame-000051.jpg",
+      "timestamp": 1792803111.198107
+    },
+    {
+      "file": "frame-000052.jpg",
+      "timestamp": 1792803111.294937
+    },
+    {
+      "file": "frame-000053.jpg",
+      "timestamp": 1792803111.314682
+    },
+    {
+      "file": "frame-000054.jpg",
+      "timestamp": 1792803111.348472
+    },
+    {
+      "file": "frame-000055.jpg",
+      "timestamp": 1792803111.37942
+    },
+    {
+      "file": "frame-000056.jpg",
+      "timestamp": 1792803111.414375
+    },
+    {
+      "file": "frame-000057.jpg",
+      "timestamp": 1792803111.44014
+    },
+    {
+      "file": "frame-000058.jpg",
+      "timestamp": 1792803111.472584
+    },
+    {
+      "file": "frame-000059.jpg",
+      "timestamp": 1792803111.505206
+    },
+    {
+      "file": "frame-000060.jpg",
+      "timestamp": 1792803111.539576
+    },
+    {
+      "file": "frame-000061.jpg",
+      "timestamp": 1792803111.572845
+    },
+    {
+      "file": "frame-000062.jpg",
+      "timestamp": 1792803111.607009
+    },
+    {
+      "file": "frame-000063.jpg",
+      "timestamp": 1792803111.643599
+    },
+    {
+      "file": "frame-000064.jpg",
+      "timestamp": 1792803111.67274
+    },
+    {
+      "file": "frame-000065.jpg",
+      "timestamp": 1792803111.706075
+    },
+    {
+      "file": "frame-000066.jpg",
+      "timestamp": 1792803111.739296
+    },
+    {
+      "file": "frame-000067.jpg",
+      "timestamp": 1792803111.799873
+    },
+    {
+      "file": "frame-000068.jpg",
+      "timestamp": 1792803111.818307
+    },
+    {
+      "file": "frame-000069.jpg",
+      "timestamp": 1792803111.852539
+    },
+    {
+      "file": "frame-000070.jpg",
+      "timestamp": 1792803111.888126
+    },
+    {
+      "file": "frame-000071.jpg",
+      "timestamp": 1792803111.91869
+    },
+    {
+      "file": "frame-000072.jpg",
+      "timestamp": 1792803111.951582
+    },
+    {
+      "file": "frame-000073.jpg",
+      "timestamp": 1792803111.984856
+    },
+    {
+      "file": "frame-000074.jpg",
+      "timestamp": 1792803112.014878
+    },
+    {
+      "file": "frame-000075.jpg",
+      "timestamp": 1792803112.04778
+    },
+    {
+      "file": "frame-000076.jpg",
+      "timestamp": 1792803112.081285
+    },
+    {
+      "file": "frame-000077.jpg",
+      "timestamp": 1792803112.114139
+    },
+    {
+      "file": "frame-000078.jpg",
+      "timestamp": 1792803112.141851
+    },
+    {
+      "file": "frame-000079.jpg",
+      "timestamp": 1792803112.173628
+    },
+    {
+      "file": "frame-000080.jpg",
+      "timestamp": 1792803112.252481
+    },
+    {
+      "file": "frame-000081.jpg",
+      "timestamp": 1792803112.2931
+    },
+    {
+      "file": "frame-000082.jpg",
+      "timestamp": 1792803112.32573
+    },
+    {
+      "file": "frame-000083.jpg",
+      "timestamp": 1792803112.374581
+    },
+    {
+      "file": "frame-000084.jpg",
+      "timestamp": 1792803112.394378
+    },
+    {
+      "file": "frame-000085.jpg",
+      "timestamp": 1792803112.436316
+    },
+    {
+      "file": "frame-000086.jpg",
+      "timestamp": 1792803112.464811
+    },
+    {
+      "file": "frame-000087.jpg",
+      "timestamp": 1792803112.504353
+    },
+    {
+      "file": "frame-000088.jpg",
+      "timestamp": 1792803112.540338
+    },
+    {
+      "file": "frame-000089.jpg",
+      "timestamp": 1792803112.719109
+    },
+    {
+      "file": "frame-000090.jpg",
+      "timestamp": 1792803112.720971
+    },
+    {
+      "file": "frame-000091.jpg",
+      "timestamp": 1792803112.723428
+    },
+    {
+      "file": "frame-000092.jpg",
+      "timestamp": 1792803112.823338
+    }
+  ]
+}

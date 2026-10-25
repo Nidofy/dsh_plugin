@@ -34,4 +34,9 @@ export const css = `
 
 .village-confirm-shade{position:absolute;inset:0;z-index:70;pointer-events:auto;background:transparent}
 .village-album-placeholder{height:120px;display:grid;place-items:center;background:var(--soft)}
+.village-travel-door{position:relative;width:64px;height:82px;margin:0 auto 12px;border:5px solid var(--line);border-bottom:0;border-radius:32px 32px 0 0;background:var(--soft);overflow:hidden}
+.village-travel-door span{position:absolute;inset:5px 5px 0;border-radius:25px 25px 0 0;background:var(--accent);opacity:.22;transform-origin:left;animation:village-door-in .35s ease-out both}
+.village-travel-door span:after{content:'';position:absolute;right:8px;top:48px;width:5px;height:5px;border-radius:50%;background:var(--ink)}
+@keyframes village-door-in{from{transform:perspective(120px) rotateY(0)}to{transform:perspective(120px) rotateY(-32deg)}}
+@media(prefers-reduced-motion:reduce){.village-travel-door span{animation:none}}
 `

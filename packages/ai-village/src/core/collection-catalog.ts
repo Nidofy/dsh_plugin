@@ -10,7 +10,7 @@ export interface CollectionGoal { id: string; title: Words; source: Words; count
 export function collectionFacts(world: LivingWorld, album: Album | null): { categories: CollectionCategory[]; goals: CollectionGoal[] } {
   const memories = world.neighborhood.memories, journal = world.journal ?? [], bonds = (world.neighborhood.bonds ?? []).filter(b => b.count > 0)
   const completed = new Set(memories.map(m => m.id as string))
-  const shared = [...journal, ...memories, ...world.bookhouse.memory ? [world.bookhouse.memory] : []].filter(m => m.participants.length >= 2)
+  const shared = [...journal, ...memories, ...world.bookhouse.memory ? [world.bookhouse.memory] : [], ...world.bookhouse.puzzleMemory ? [world.bookhouse.puzzleMemory] : []].filter(m => m.participants.length >= 2)
   const residents = new Set([...shared.flatMap(m => m.participants), ...bonds.flatMap(b => b.pair)])
   const pairs = [...new Map(bonds.map(b => [[...b.pair].sort().join('/'), b])).values()]
   const placed: string[] = [], keepsakes: { id: string; label: Words }[] = []
@@ -18,7 +18,7 @@ export function collectionFacts(world: LivingWorld, album: Album | null): { cate
   for (const [id, story, label] of [['lantern', 'shared-book', words('纸灯笼', 'Paper lantern')], ['planter', 'water', words('花叶挂饰', 'Leaf garland')]] as const) {
     if (completed.has(story)) { keepsakes.push({ id, label }); if (world.neighborhood.decorations?.[id]) placed.push(id) }
   }
-  for (const d of playDefinitions) if (completed.has(d.id) && !keepsakes.some(k => k.id === d.reward)) {
+  for (const d of playDefinitions) if (d.reward && completed.has(d.id) && !keepsakes.some(k => k.id === d.reward)) {
     keepsakes.push({ id: d.reward, label: playDecorationNames[d.reward] }); if (world.play.decorations[d.reward]) placed.push(d.reward)
   }
   if(world.bookhouse.memory){keepsakes.push({id:'little-light-bookmark',label:words('微光书签','Little-light bookmark')});if(world.bookhouse.keepsake)placed.push('little-light-bookmark')}
@@ -29,11 +29,12 @@ export function collectionFacts(world: LivingWorld, album: Album | null): { cate
   const daily = stories.filter(s => completed.has(s.id)).map(s => ({ id: s.id as string, label: s.name }))
   if (journal.length) daily.unshift({ id: 'first-table', label: words('同桌的午后', 'An afternoon together') })
   if(world.bookhouse.memory)daily.push({id:'bookhouse-light',label:words('夹在书里的微光','A little light between the pages')})
+  if(world.bookhouse.puzzleMemory)daily.push({id:'bookhouse-puzzle',label:words('书架里的谜题','A puzzle on the shelf')})
   const categories: CollectionCategory[] = [
-    { id: 'daily', title: words('日常回忆', 'Everyday memories'), source: words('来源：已保存的同桌手账与邻里日常。', 'Source: saved table memories and neighborhood moments.'), items: daily, total: stories.length + 2, known: true },
+    { id: 'daily', title: words('日常回忆', 'Everyday memories'), source: words('来源：已保存的同桌手账、邻里日常与书屋回忆。', 'Source: saved table memories, neighborhood moments and bookhouse memories.'), items: daily, total: stories.length + 3, known: true },
     category('story', words('小故事', 'Little stories')), category('game', words('小游戏', 'Little games')), category('group', words('多人相聚', 'Group moments')), category('event', words('偶遇', 'Chance encounters')),
     { id: 'company', title: words('一起留下回忆的居民', 'Residents in shared memories'), source: words('来源：已完成多人回忆的参与者，或有记录的共同经历；仅仅在场不会计入。', 'Source: participants in completed shared memories or recorded bonds. Being present alone does not count.'), items: characterIds.filter(id => residents.has(id)).map(id => ({ id, label: words(characterNames[id], characterNames[id]) })), total: characterIds.length, known: true },
-    { id: 'keepsakes', title: words('纪念物', 'Keepsakes'), source: words(`来源：已解锁的活动纪念物；其中 ${placed.length} 件正在摆放。收起不会取消解锁。`, `Source: unlocked activity keepsakes; ${placed.length} currently placed. Putting one away does not remove its discovery.`), items: keepsakes, total: new Set(playDefinitions.map(d => d.reward)).size + 4, known: true },
+    { id: 'keepsakes', title: words('纪念物', 'Keepsakes'), source: words(`来源：已解锁的活动纪念物；其中 ${placed.length} 件正在摆放。收起不会取消解锁。`, `Source: unlocked activity keepsakes; ${placed.length} currently placed. Putting one away does not remove its discovery.`), items: keepsakes, total: new Set(playDefinitions.map(d => d.reward).filter(Boolean)).size + 4, known: true },
     { id: 'photos', title: words('照片', 'Photos'), source: words('来源：最近读取的已保存相册。只计算当前照片，不推断拍摄历史；删除会减少数量。', 'Source: the latest loaded saved album. Counts current photos, not an inferred capture history; deletion reduces the count.'), items: (album?.photos ?? []).map(p => ({ id: p.id, label: words(p.title || '未命名照片', p.title || 'Untitled photo') })), total: null, known: album !== null },
   ]
   return { categories, goals: [

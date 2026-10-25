@@ -1,0 +1,489 @@
+{
+  "status": "LAYERED_REVIEW_CANDIDATE",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "date": "2026-10-24",
+  "baseline": "fb47baa2d3a9366ceae95dfeab7c38d5bd37e939",
+  "generator": "built-in image_gen",
+  "license": "MIT",
+  "worldSize": [
+    360,
+    480
+  ],
+  "sourcePrompt": "../../prompts/bookhouse-layered-v02.json",
+  "mapping": "Furniture/props: alpha >= 8 bounds + 4 source-pixel padding mapped to frozen logical rect, omitting only detached alpha 1..7 outside frame. Background: explicit top crop 33.846153846 pixels registers measured floor start y682 exactly at world y220 while retaining full width/bottom. No original PNG bytes, alpha, or production geometry are rewritten. This background registration slightly changes vertical illustration scale and requires visual signoff.",
+  "frozenFurniture": [
+    {
+      "id": "bookcase",
+      "rect": [
+        234,
+        126,
+        86,
+        114
+      ],
+      "split": 0.82,
+      "anchor": [
+        276,
+        268
+      ]
+    },
+    {
+      "id": "reading-desk",
+      "rect": [
+        72,
+        292,
+        140,
+        67
+      ],
+      "split": 0.5,
+      "anchor": [
+        142,
+        328
+      ]
+    },
+    {
+      "id": "window-seat",
+      "rect": [
+        44,
+        198,
+        116,
+        42
+      ],
+      "split": 0.6,
+      "anchor": [
+        92,
+        270
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "background",
+      "file": "background-v03.png",
+      "size": [
+        1086,
+        1448
+      ],
+      "sourceRect": [
+        0,
+        33.84615384615391,
+        1086,
+        1414.1538461538462
+      ],
+      "fullAlphaBounds": [
+        0,
+        0,
+        1086,
+        1448
+      ],
+      "sourceRectRule": "Explicit top crop registration: measured floor begins source y682; solve (682-top)/(1448-top)*480=220. Full width and bottom retained. Original PNG unchanged.",
+      "omittedNonzeroAlpha": 0,
+      "maxOmittedAlpha": 0,
+      "horizon": {
+        "sourcePixelY": 682,
+        "targetLogicalY": 220,
+        "topCropPixels": 33.84615384615391,
+        "mappedLogicalY": 219.99999999999997
+      },
+      "rect": [
+        0,
+        0,
+        360,
+        480
+      ],
+      "z": -100,
+      "bytes": 2253627,
+      "sha256": "544f347ad4461690c02f5f66e595e2ea3466e112bc306dfdd31e47eb9cd76d29",
+      "decodedRGBABytes": 6290112,
+      "alpha": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 1572528,
+        "nearOpaque": 1572528
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "bookcase-back",
+      "file": "bookcase-back.png",
+      "size": [
+        1130,
+        1392
+      ],
+      "sourceRect": [
+        32,
+        111,
+        1065,
+        1202
+      ],
+      "fullAlphaBounds": [
+        0,
+        0,
+        1098,
+        1392
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 1598,
+      "maxOmittedAlpha": 1,
+      "rect": [
+        234,
+        126,
+        86,
+        106
+      ],
+      "z": 1259,
+      "bytes": 2750658,
+      "sha256": "fe249d5c4f497e34237811437652e17fe32976104ceaf868d5ce3559504c21ca",
+      "decodedRGBABytes": 6291840,
+      "alpha": {
+        "transparent": 335106,
+        "partial": 1237661,
+        "opaque": 193,
+        "nearOpaque": 1199186
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "bookcase-front",
+      "file": "bookcase-front.png",
+      "size": [
+        1299,
+        1211
+      ],
+      "sourceRect": [
+        14,
+        544,
+        1271,
+        137
+      ],
+      "fullAlphaBounds": [
+        14,
+        37,
+        1269,
+        868
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 870,
+      "maxOmittedAlpha": 1,
+      "rect": [
+        234,
+        232,
+        86,
+        8
+      ],
+      "z": 2400,
+      "bytes": 356989,
+      "sha256": "bbfb363838c460036d1e35e4acad66b546a9f59e2a6f8c1d87f56ad1a4242540",
+      "decodedRGBABytes": 6292356,
+      "alpha": {
+        "transparent": 1405570,
+        "partial": 167513,
+        "opaque": 6,
+        "nearOpaque": 154159
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "desk-back",
+      "file": "desk-back.png",
+      "size": [
+        1308,
+        1202
+      ],
+      "sourceRect": [
+        79,
+        121,
+        1151,
+        975
+      ],
+      "fullAlphaBounds": [
+        0,
+        29,
+        1284,
+        1151
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 420,
+      "maxOmittedAlpha": 1,
+      "rect": [
+        123,
+        292,
+        37,
+        34
+      ],
+      "z": 2919,
+      "bytes": 2035701,
+      "sha256": "e1357826bb6c0e1161322653b0a21389676d23ceb8d59a8baaa2b5b53e506ac7",
+      "decodedRGBABytes": 6288864,
+      "alpha": {
+        "transparent": 708882,
+        "partial": 862535,
+        "opaque": 799,
+        "nearOpaque": 840394
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "desk-front",
+      "file": "desk-front.png",
+      "size": [
+        1811,
+        868
+      ],
+      "sourceRect": [
+        16,
+        40,
+        1779,
+        792
+      ],
+      "fullAlphaBounds": [
+        16,
+        36,
+        1779,
+        800
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 241,
+      "maxOmittedAlpha": 1,
+      "rect": [
+        72,
+        292,
+        140,
+        67
+      ],
+      "z": 3590,
+      "bytes": 1263825,
+      "sha256": "180564fbff3fd369d224c42a4f9578e2c5980e38320b26c5668785d1b216945a",
+      "decodedRGBABytes": 6287792,
+      "alpha": {
+        "transparent": 875582,
+        "partial": 696178,
+        "opaque": 188,
+        "nearOpaque": 656825
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "window-back",
+      "file": "window-back.png",
+      "size": [
+        2172,
+        724
+      ],
+      "sourceRect": [
+        56,
+        156,
+        2060,
+        413
+      ],
+      "fullAlphaBounds": [
+        53,
+        21,
+        2101,
+        703
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 2858,
+      "maxOmittedAlpha": 1,
+      "rect": [
+        44,
+        198,
+        116,
+        29
+      ],
+      "z": 1979,
+      "bytes": 1722148,
+      "sha256": "3bd833331dd1c48eb7ffaacfc6b4ed59889ac32aab372cea5d05c8562a88b08e",
+      "decodedRGBABytes": 6290112,
+      "alpha": {
+        "transparent": 771800,
+        "partial": 799643,
+        "opaque": 1085,
+        "nearOpaque": 784295
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "window-front",
+      "file": "window-front.png",
+      "size": [
+        1983,
+        793
+      ],
+      "sourceRect": [
+        19,
+        273,
+        1945,
+        309
+      ],
+      "fullAlphaBounds": [
+        19,
+        82,
+        1947,
+        679
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 6206,
+      "maxOmittedAlpha": 1,
+      "rect": [
+        44,
+        222,
+        116,
+        18
+      ],
+      "z": 2400,
+      "bytes": 627778,
+      "sha256": "33ab4ecb6ebac0ba4817097365126aeca89e59954c4a2f6f34099e24db2ae34c",
+      "decodedRGBABytes": 6290076,
+      "alpha": {
+        "transparent": 1268366,
+        "partial": 302341,
+        "opaque": 1812,
+        "nearOpaque": 277289
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "prop-open-book",
+      "file": "prop-open-book.png",
+      "size": [
+        1641,
+        958
+      ],
+      "sourceRect": [
+        46,
+        102,
+        1552,
+        768
+      ],
+      "fullAlphaBounds": [
+        48,
+        47,
+        1548,
+        911
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 95,
+      "maxOmittedAlpha": 1,
+      "rect": [
+        258,
+        230,
+        36,
+        21
+      ],
+      "z": 2683,
+      "bytes": 1864717,
+      "sha256": "1ce8f5991d462979899beed1da5e39e7a86b0d4fe2e799bd4e045ba5ad20a245",
+      "decodedRGBABytes": 6288312,
+      "alpha": {
+        "transparent": 749949,
+        "partial": 821396,
+        "opaque": 733,
+        "nearOpaque": 805491
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "prop-paper-pencil",
+      "file": "prop-paper-pencil.png",
+      "size": [
+        1650,
+        953
+      ],
+      "sourceRect": [
+        68,
+        137,
+        1520,
+        700
+      ],
+      "fullAlphaBounds": [
+        25,
+        39,
+        1561,
+        880
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 4661,
+      "maxOmittedAlpha": 3,
+      "rect": [
+        122,
+        298,
+        38,
+        22
+      ],
+      "z": 3598,
+      "bytes": 1599652,
+      "sha256": "7426c5ffda7fceef767c9b7a1909603137b57dad93c658a14c6628724fdbb45b",
+      "decodedRGBABytes": 6289800,
+      "alpha": {
+        "transparent": 721499,
+        "partial": 850630,
+        "opaque": 321,
+        "nearOpaque": 819433
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    },
+    {
+      "id": "prop-window-book",
+      "file": "prop-window-book.png",
+      "size": [
+        1054,
+        1493
+      ],
+      "sourceRect": [
+        221,
+        281,
+        660,
+        1046
+      ],
+      "fullAlphaBounds": [
+        0,
+        77,
+        1050,
+        1370
+      ],
+      "sourceRectRule": "alpha >= 8 bounding box + 4 source pixels padding; original PNG unchanged",
+      "omittedNonzeroAlpha": 220,
+      "maxOmittedAlpha": 1,
+      "rect": [
+        110,
+        236,
+        12,
+        17
+      ],
+      "z": 2703,
+      "bytes": 1410744,
+      "sha256": "f52e248561a646eeefe42bb6ad7f5e4601106f55263ad97a347dcc5d0e9a88cf",
+      "decodedRGBABytes": 6294488,
+      "alpha": {
+        "transparent": 1007008,
+        "partial": 566125,
+        "opaque": 489,
+        "nearOpaque": 550563
+      },
+      "source": "built-in image_gen; original PNG bytes preserved",
+      "approvedForRelease": false
+    }
+  ],
+  "totals": {
+    "files": 10,
+    "bytes": 15885839,
+    "decodedRGBABytes": 62903752
+  },
+  "limitations": [
+    "Isolated static browser composition, not production Pixi integration or release acceptance.",
+    "Raw background v03 floor starts at source y682 (~world226.08). Explicit texture-frame registration maps that measured horizon to world220; painted column feet can extend below the horizon. Cropping slightly changes vertical scale and still requires visual signoff.",
+    "Original large PNG masters are not optimized runtime textures; release budgets and real GPU load/release remain NOT RUN.",
+    "Static paper-doll composition uses existing body/foreground/activity-arm depths; animated hand/hair contacts require production renderer review.",
+    "Theme and dusk previews are labeled simulations, not screenshots of final runtime UI or baked night assets."
+  ]
+}

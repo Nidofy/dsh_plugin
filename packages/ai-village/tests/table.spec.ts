@@ -71,7 +71,7 @@ it('pauses both marks, rejects forged board/history and cancels on valid departu
 })
 it('migrates v7 without changing its original bytes or old codec, preserving upgrade backup after repeated saves',async()=>{
   const old=createV7(scene),raw=JSON.stringify(old),next=migrateLivingWorld(old,scene)
-  expect(next.schemaVersion).toBe(11);expect(next.play.tableMode).toBe('dining');expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV7(scene).validate(next)).toThrow()
+  expect(next.schemaVersion).toBe(12);expect(next.play.tableMode).toBe('dining');expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV7(scene).validate(next)).toThrow()
   const root=await mkdtemp(join(tmpdir(),'village-table-')),legacy=await SaveStore.open(root,scene,codecV7(scene));await legacy.save(0,old,crypto.randomUUID())
   const pointer=await readFile(join(legacy.directory,'current.json'),'utf8'),name=JSON.parse(pointer).snapshot,bytes=await readFile(join(legacy.directory,'snapshots',name))
   const store=await SaveStore.open(root,scene,livingWorldCodec(scene));let saved=(await store.read())!;expect(saved.world).toEqual(next)

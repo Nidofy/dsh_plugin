@@ -1,4 +1,4 @@
-import { startBookhouseStory, bookhouseStoryAction, cancelBookhouseStory, placeBookhouseKeepsake } from '../core/bookhouse-engine.ts'
+import { startBookhouseStory, startBookhousePuzzle, bookhouseStoryAction, cancelBookhouseStory, placeBookhouseKeepsake } from '../core/bookhouse-engine.ts'
 import type { BookTheme } from '../core/bookhouse-state.ts'
 import { tableCellAt } from '../core/table-geometry.ts'
 import { arrangementObjects } from '../core/arrangement.ts'
@@ -453,19 +453,29 @@ export class VillageRuntime {
     else this.controller?.selectCharacter(id)
     this.emit()
   }
-  setCharacterPresent(id: unknown, present: boolean) {
+  async setCharacterPresent(id: unknown, present: boolean) {
     if (this.frameKey !== 'courtyard' || !this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
-    this.changeMembers(c => c.setCharacterPresent(id, present))
+    const newlyInvited = present && !actors(this.controller!.world).some(a => a.id === id), generation = this.generation
+    const receipt = await this.changeMembers(c => c.setCharacterPresent(id, present))
+    // Only an acknowledged admission can start a welcome. Unknown ACKs never enqueue a second write.
+    const world = this.controller?.world
+    if (receipt?.status !== 'committed' || generation !== this.generation || !newlyInvited || !world || this.disposing || !this.foreground()) return
+    const introduction = `intro-${String(id)}`
+    if (!['seedance', 'glm', 'minimax', 'llama', 'mistral'].includes(String(id)) || !actors(world).some(a => a.id === id) || world.neighborhood.memories.some(m => m.id === introduction)) return
+    if (!world.play.active && !world.bookhouse.active && !world.neighborhood.event && !world.activeEvent) {
+      await this.startPlay(introduction, [id as CharacterId])
+      if (this.controller?.world.play.active?.definitionId === introduction) this.present({ type: 'push', patch: { tab: 'residents', page: 'activities', drawer: 'full', residentTarget: id as CharacterId } })
+    }
   }
   setAllCharacters(present: boolean) {
     if (this.frameKey !== 'courtyard' || !this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
     this.changeMembers(c => { for (const id of characterIds) if (present || id !== c.world.actor.id) c.setCharacterPresent(id, present) })
   }
-  private changeMembers(change: (controller: ContentController) => void) {
+  private async changeMembers(change: (controller: ContentController) => void) {
     if (!this.controller || this.frameKey !== 'courtyard') return
     const draft = new ContentController(this.controller.snapshot(), scene, () => {})
     change(draft)
-    void this.commitWorld(draft.snapshot())
+    return this.commitWorld(draft.snapshot())
   }
   async invite(pair: [CharacterId, CharacterId], food: Food) {
     if (this.arranging) return
@@ -494,7 +504,11 @@ export class VillageRuntime {
     if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.arranging || this.photoMode || this.controller?.drag || this.controller?.pauseReasons.size) return
     await this.neighborhoodCommand(() => startBookhouseStory(this.controller!.world, scene, friend, crypto.randomUUID()))
   }
-  async bookhouseStoryAction(token: string, theme?: BookTheme) {
+  async startBookhousePuzzle(friend: CharacterId) {
+    if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.arranging || this.photoMode || this.controller?.drag || this.controller?.pauseReasons.size) return
+    await this.neighborhoodCommand(() => startBookhousePuzzle(this.controller!.world, scene, friend, crypto.randomUUID()))
+  }
+  async bookhouseStoryAction(token: string, theme?: BookTheme | string) {
     if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.arranging || this.photoMode || this.controller?.drag || this.controller?.pauseReasons.size) return
     await this.neighborhoodCommand(() => bookhouseStoryAction(this.controller!.world, scene, token, theme))
   }

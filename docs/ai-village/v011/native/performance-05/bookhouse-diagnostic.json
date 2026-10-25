@@ -1,0 +1,410 @@
+{
+  "name": "bookhouse",
+  "seconds": 20.713933000000004,
+  "profiling": false,
+  "fullCpuRequested": true,
+  "fps": 25.538365891209548,
+  "before": {
+    "visibility": "visible",
+    "frames": 88,
+    "actors": 7,
+    "textures": 121,
+    "textureSources": 121,
+    "decodedRGBABytes": 56658708,
+    "tickerStarted": false,
+    "atmosphereTextureSources": 0,
+    "atmosphereCacheSize": [
+      256,
+      256
+    ],
+    "region": "bookhouse",
+    "urls": 121,
+    "tableGame": null,
+    "playTarget": null,
+    "geometry": [
+      {
+        "id": "bookcase",
+        "activity": "read",
+        "seat": "main",
+        "anchor": {
+          "x": 276,
+          "y": 268
+        },
+        "hit": {
+          "x": 254,
+          "y": 250,
+          "width": 44,
+          "height": 36
+        }
+      },
+      {
+        "id": "reading-desk",
+        "activity": "work",
+        "seat": "main",
+        "anchor": {
+          "x": 142,
+          "y": 328
+        },
+        "hit": {
+          "x": 116,
+          "y": 308,
+          "width": 52,
+          "height": 28
+        }
+      },
+      {
+        "id": "window-seat",
+        "activity": "sit",
+        "seat": "main",
+        "anchor": {
+          "x": 92,
+          "y": 270
+        },
+        "hit": {
+          "x": 62,
+          "y": 250,
+          "width": 60,
+          "height": 40
+        }
+      }
+    ],
+    "environment": "afternoon",
+    "viewport": {
+      "world": {
+        "scale": 0.9444444444444444,
+        "x": 0,
+        "y": 131.83333333333334
+      },
+      "background": {
+        "x": 0,
+        "y": 131.83333333333334,
+        "width": 340,
+        "height": 453.3333333333333
+      }
+    },
+    "arrangementObjects": [],
+    "gesture": null,
+    "assets": {
+      "batches": 1,
+      "receivedBytes": 22267955,
+      "decodedImages": 121,
+      "decodeMs": 178.90000009536743,
+      "reusedImages": 0,
+      "releasedTextures": 0
+    },
+    "paused": false,
+    "meanPaintMs": 1.5568181818181819,
+    "maxPaintMs": 64,
+    "paintSampleCount": 88,
+    "p50PaintMs": 0.6999998092651367,
+    "p95PaintMs": 1.4000000953674316
+  },
+  "after": {
+    "visibility": "visible",
+    "frames": 617,
+    "actors": 7,
+    "textures": 121,
+    "textureSources": 121,
+    "decodedRGBABytes": 56658708,
+    "tickerStarted": false,
+    "atmosphereTextureSources": 0,
+    "atmosphereCacheSize": [
+      256,
+      256
+    ],
+    "region": "bookhouse",
+    "urls": 121,
+    "tableGame": null,
+    "playTarget": null,
+    "geometry": [
+      {
+        "id": "bookcase",
+        "activity": "read",
+        "seat": "main",
+        "anchor": {
+          "x": 276,
+          "y": 268
+        },
+        "hit": {
+          "x": 254,
+          "y": 250,
+          "width": 44,
+          "height": 36
+        }
+      },
+      {
+        "id": "reading-desk",
+        "activity": "work",
+        "seat": "main",
+        "anchor": {
+          "x": 142,
+          "y": 328
+        },
+        "hit": {
+          "x": 116,
+          "y": 308,
+          "width": 52,
+          "height": 28
+        }
+      },
+      {
+        "id": "window-seat",
+        "activity": "sit",
+        "seat": "main",
+        "anchor": {
+          "x": 92,
+          "y": 270
+        },
+        "hit": {
+          "x": 62,
+          "y": 250,
+          "width": 60,
+          "height": 40
+        }
+      }
+    ],
+    "environment": "afternoon",
+    "viewport": {
+      "world": {
+        "scale": 0.9444444444444444,
+        "x": 0,
+        "y": 131.83333333333334
+      },
+      "background": {
+        "x": 0,
+        "y": 131.83333333333334,
+        "width": 340,
+        "height": 453.3333333333333
+      }
+    },
+    "arrangementObjects": [],
+    "gesture": null,
+    "assets": {
+      "batches": 1,
+      "receivedBytes": 22267955,
+      "decodedImages": 121,
+      "decodeMs": 178.90000009536743,
+      "reusedImages": 0,
+      "releasedTextures": 0
+    },
+    "paused": false,
+    "meanPaintMs": 0.854457047615484,
+    "maxPaintMs": 64,
+    "paintSampleCount": 600,
+    "p50PaintMs": 0.6000001430511475,
+    "p95PaintMs": 1.1000001430511475
+  },
+  "ticks": 600,
+  "worldUnchanged": false,
+  "cdpCpuPercentOfOneCore": 23.056664323477325,
+  "cdpDeltas": [
+    {
+      "type": "browser",
+      "id": 11384,
+      "cpuSeconds": 0.1838419999999985
+    },
+    {
+      "type": "renderer",
+      "id": 44180,
+      "cpuSeconds": 1.7884510000000002
+    },
+    {
+      "type": "renderer",
+      "id": 28524,
+      "cpuSeconds": 1.0168749999999989
+    },
+    {
+      "type": "GPU",
+      "id": 36408,
+      "cpuSeconds": 1.7846609999999998
+    },
+    {
+      "type": "network.mojom.NetworkService",
+      "id": 15316,
+      "cpuSeconds": 0.0021130000000000315
+    }
+  ],
+  "parentTaskPercent": 2.527559589962949,
+  "fullTree": {
+    "seconds": 20.717,
+    "cpuPercentOfOneCore": 25.266085823236956,
+    "validUnchangedMembership": true,
+    "added": [],
+    "removed": [],
+    "deltas": [
+      {
+        "id": 11384,
+        "role": "browser",
+        "cpuSeconds": 0.15625,
+        "privateBytes": 153104384,
+        "privateDelta": 151552
+      },
+      {
+        "id": 36408,
+        "role": "gpu-process",
+        "cpuSeconds": 1.765625,
+        "privateBytes": 344485888,
+        "privateDelta": -250572800
+      },
+      {
+        "id": 15316,
+        "role": "utility",
+        "cpuSeconds": 0,
+        "privateBytes": 12632064,
+        "privateDelta": 0
+      },
+      {
+        "id": 28524,
+        "role": "renderer",
+        "cpuSeconds": 1.171875,
+        "privateBytes": 163430400,
+        "privateDelta": -9498624
+      },
+      {
+        "id": 36228,
+        "role": "host",
+        "cpuSeconds": 0.28125,
+        "privateBytes": 208715776,
+        "privateDelta": -7151616
+      },
+      {
+        "id": 44180,
+        "role": "renderer",
+        "cpuSeconds": 1.859375,
+        "privateBytes": 86618112,
+        "privateDelta": -23420928
+      }
+    ],
+    "before": {
+      "sampledAt": "2026-10-24T01:20:21.0260925Z",
+      "rootPid": 11384,
+      "dpi": 168,
+      "mainWindowHandle": 10948196,
+      "windowVisible": true,
+      "foreground": false,
+      "processes": [
+        {
+          "id": 11384,
+          "parentId": 440,
+          "name": "DeepSeek Harness",
+          "role": "browser",
+          "cpuSeconds": 55.25,
+          "workingSetBytes": 200716288,
+          "privateBytes": 152952832
+        },
+        {
+          "id": 36408,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "gpu-process",
+          "cpuSeconds": 107.4375,
+          "workingSetBytes": 667611136,
+          "privateBytes": 595058688
+        },
+        {
+          "id": 15316,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "utility",
+          "cpuSeconds": 0.546875,
+          "workingSetBytes": 57237504,
+          "privateBytes": 12632064
+        },
+        {
+          "id": 28524,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 52.09375,
+          "workingSetBytes": 245010432,
+          "privateBytes": 172929024
+        },
+        {
+          "id": 36228,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "host",
+          "cpuSeconds": 25.90625,
+          "workingSetBytes": 247025664,
+          "privateBytes": 215867392
+        },
+        {
+          "id": 44180,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 4.328125,
+          "workingSetBytes": 296353792,
+          "privateBytes": 110039040
+        }
+      ],
+      "scope": "Identity-verified complete descendant snapshot, including Electron-run Host; cumulative CPU seconds; process creation/exit requires interval reconciliation."
+    },
+    "after": {
+      "sampledAt": "2026-10-24T01:20:41.7436087Z",
+      "rootPid": 11384,
+      "dpi": 168,
+      "mainWindowHandle": 10948196,
+      "windowVisible": true,
+      "foreground": false,
+      "processes": [
+        {
+          "id": 11384,
+          "parentId": 440,
+          "name": "DeepSeek Harness",
+          "role": "browser",
+          "cpuSeconds": 55.40625,
+          "workingSetBytes": 200859648,
+          "privateBytes": 153104384
+        },
+        {
+          "id": 36408,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "gpu-process",
+          "cpuSeconds": 109.203125,
+          "workingSetBytes": 418050048,
+          "privateBytes": 344485888
+        },
+        {
+          "id": 15316,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "utility",
+          "cpuSeconds": 0.546875,
+          "workingSetBytes": 57237504,
+          "privateBytes": 12632064
+        },
+        {
+          "id": 28524,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 53.265625,
+          "workingSetBytes": 235823104,
+          "privateBytes": 163430400
+        },
+        {
+          "id": 36228,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "host",
+          "cpuSeconds": 26.1875,
+          "workingSetBytes": 241815552,
+          "privateBytes": 208715776
+        },
+        {
+          "id": 44180,
+          "parentId": 11384,
+          "name": "DeepSeek Harness",
+          "role": "renderer",
+          "cpuSeconds": 6.1875,
+          "workingSetBytes": 275574784,
+          "privateBytes": 86618112
+        }
+      ],
+      "scope": "Identity-verified complete descendant snapshot, including Electron-run Host; cumulative CPU seconds; process creation/exit requires interval reconciliation."
+    }
+  },
+  "profiles": []
+}

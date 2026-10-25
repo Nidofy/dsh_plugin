@@ -1,0 +1,176 @@
+{
+  "source": "CDP Page.startScreencast of isolated official native Electron dsh-app target",
+  "frames": 42,
+  "seconds": 1.4473230838775635,
+  "sha256": "78fca2a34d9415dc77ce91ac40f84894b24c9680a5f0b6e25de26d2919487a91",
+  "frameTimestamps": [
+    {
+      "file": "frame-000000.jpg",
+      "timestamp": 1792804756.655874
+    },
+    {
+      "file": "frame-000001.jpg",
+      "timestamp": 1792804756.666709
+    },
+    {
+      "file": "frame-000002.jpg",
+      "timestamp": 1792804756.702698
+    },
+    {
+      "file": "frame-000003.jpg",
+      "timestamp": 1792804756.734624
+    },
+    {
+      "file": "frame-000004.jpg",
+      "timestamp": 1792804756.783991
+    },
+    {
+      "file": "frame-000005.jpg",
+      "timestamp": 1792804756.836352
+    },
+    {
+      "file": "frame-000006.jpg",
+      "timestamp": 1792804756.869675
+    },
+    {
+      "file": "frame-000007.jpg",
+      "timestamp": 1792804756.899477
+    },
+    {
+      "file": "frame-000008.jpg",
+      "timestamp": 1792804756.933264
+    },
+    {
+      "file": "frame-000009.jpg",
+      "timestamp": 1792804756.969412
+    },
+    {
+      "file": "frame-000010.jpg",
+      "timestamp": 1792804757.003852
+    },
+    {
+      "file": "frame-000011.jpg",
+      "timestamp": 1792804757.061122
+    },
+    {
+      "file": "frame-000012.jpg",
+      "timestamp": 1792804757.094253
+    },
+    {
+      "file": "frame-000013.jpg",
+      "timestamp": 1792804757.127667
+    },
+    {
+      "file": "frame-000014.jpg",
+      "timestamp": 1792804757.177179
+    },
+    {
+      "file": "frame-000015.jpg",
+      "timestamp": 1792804757.220576
+    },
+    {
+      "file": "frame-000016.jpg",
+      "timestamp": 1792804757.246404
+    },
+    {
+      "file": "frame-000017.jpg",
+      "timestamp": 1792804757.28363
+    },
+    {
+      "file": "frame-000018.jpg",
+      "timestamp": 1792804757.316272
+    },
+    {
+      "file": "frame-000019.jpg",
+      "timestamp": 1792804757.347782
+    },
+    {
+      "file": "frame-000020.jpg",
+      "timestamp": 1792804757.377707
+    },
+    {
+      "file": "frame-000021.jpg",
+      "timestamp": 1792804757.402441
+    },
+    {
+      "file": "frame-000022.jpg",
+      "timestamp": 1792804757.435684
+    },
+    {
+      "file": "frame-000023.jpg",
+      "timestamp": 1792804757.469489
+    },
+    {
+      "file": "frame-000024.jpg",
+      "timestamp": 1792804757.500887
+    },
+    {
+      "file": "frame-000025.jpg",
+      "timestamp": 1792804757.535823
+    },
+    {
+      "file": "frame-000026.jpg",
+      "timestamp": 1792804757.560856
+    },
+    {
+      "file": "frame-000027.jpg",
+      "timestamp": 1792804757.593759
+    },
+    {
+      "file": "frame-000028.jpg",
+      "timestamp": 1792804757.625764
+    },
+    {
+      "file": "frame-000029.jpg",
+      "timestamp": 1792804757.660839
+    },
+    {
+      "file": "frame-000030.jpg",
+      "timestamp": 1792804757.694434
+    },
+    {
+      "file": "frame-000031.jpg",
+      "timestamp": 1792804757.728206
+    },
+    {
+      "file": "frame-000032.jpg",
+      "timestamp": 1792804757.761042
+    },
+    {
+      "file": "frame-000033.jpg",
+      "timestamp": 1792804757.786103
+    },
+    {
+      "file": "frame-000034.jpg",
+      "timestamp": 1792804757.819368
+    },
+    {
+      "file": "frame-000035.jpg",
+      "timestamp": 1792804757.852559
+    },
+    {
+      "file": "frame-000036.jpg",
+      "timestamp": 1792804757.885939
+    },
+    {
+      "file": "frame-000037.jpg",
+      "timestamp": 1792804757.919532
+    },
+    {
+      "file": "frame-000038.jpg",
+      "timestamp": 1792804757.942033
+    },
+    {
+      "file": "frame-000039.jpg",
+      "timestamp": 1792804758.099834
+    },
+    {
+      "file": "frame-000040.jpg",
+      "timestamp": 1792804758.101551
+    },
+    {
+      "file": "frame-000041.jpg",
+      "timestamp": 1792804758.103197
+    }
+  ]
+}

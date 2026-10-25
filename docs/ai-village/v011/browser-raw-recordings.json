@@ -1,0 +1,42 @@
+{
+  "status": "LOCAL_ONLY_RAW_RECORDINGS",
+  "date": "2026-10-25",
+  "reason": "Raw browser recordings are retained locally; committed screenshots, result JSON and native MP4 provide portable evidence.",
+  "recordings": [
+    {
+      "path": "docs/ai-village/v011/browser/final-dpr1-01/page@6f2038e9f3002bd1e96958ab378fc6c3.webm",
+      "bytes": 107287442,
+      "sha256": "4f9a9400055867a598c3cc5c42a68ce45046e99654a6a8cd143f0b5569ee6172"
+    },
+    {
+      "path": "docs/ai-village/v011/browser/final-dpr2-01/page@ac7f6ab881898cc2ddfb4d2e485e9f75.webm",
+      "bytes": 120722430,
+      "sha256": "7cda8bc7f91716465abe87aecd0e988d0a8481691c8fd4dee94647fe7262559d"
+    },
+    {
+      "path": "docs/ai-village/v011/browser/samples-01/page@fe8c522ed7910b4892b0837684b81841.webm",
+      "bytes": 53833228,
+      "sha256": "3d8442f8d1ed00f6a008109e335a8dd20ce987d49505929335ed85b63b490db3"
+    },
+    {
+      "path": "docs/ai-village/v011/browser/visual-dpr1-01/page@83bbb4f82175ca18b15e7d9379fcf29c.webm",
+      "bytes": 1705220,
+      "sha256": "c2c969e8d4cff8cd0aa0d006b6eb7cd5d099d5deaf99debd85774f14375c0da2"
+    },
+    {
+      "path": "docs/ai-village/v011/browser/visual-dpr1-02/page@0e46219ba4437ab617945c6290591b7d.webm",
+      "bytes": 1706334,
+      "sha256": "6397ab712b32eefaf11a7fcbc11f6cd655154b5b0747fea6a453b2b1b941a6ba"
+    },
+    {
+      "path": "docs/ai-village/v011/browser/visual-dpr2-01/page@92c9843b47c170a0a9456e38ca50a8ee.webm",
+      "bytes": 1754694,
+      "sha256": "07b5919b6839c9c2af263f65fc4f45bea3ad2498aa0b6f9c8a2a0740d7059d6e"
+    },
+    {
+      "path": "docs/ai-village/v011/browser/visual-dpr2-02/page@5d7338d307fb492b27285c42c6be35a7.webm",
+      "bytes": 1969180,
+      "sha256": "3fa97d03466d1ee018f7e1777882122aa8ef53c60957ef4f3fdcae8bc1ddebca"
+    }
+  ]
+}

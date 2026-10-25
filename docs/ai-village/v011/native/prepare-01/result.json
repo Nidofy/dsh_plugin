@@ -1,0 +1,12 @@
+{
+  "status": "FAIL",
+  "mode": "inspect",
+  "stage": "connectOverCDP",
+  "profile": ".build/ai-village-life-qa-desktop-v011",
+  "port": 18772,
+  "artifact": null,
+  "failure": "ECONNREFUSED 127.0.0.1:18772",
+  "launchPid": 44904,
+  "stderr": "FATAL electron/shell/browser/win/install_dir_access.cc:52: Sandboxed processes cannot read isolated cached carrier; ACL includes an AppContainer package SID without ALL APPLICATION PACKAGES.",
+  "scope": "Initial sandboxed launch only. No package installed, no ACL changed. Separate unsandboxed isolated relaunch inspected in prepare-02."
+}

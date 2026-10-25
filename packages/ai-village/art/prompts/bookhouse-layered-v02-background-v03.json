@@ -1,0 +1,5 @@
+{
+  "id": "background-v03",
+  "prompt": "Use case: precise-object-edit. Edit target: attached empty painted library room background, 1086x1448. REQUIRED SINGLE CORRECTION: wall-floor boundary must be at normalized y=220/480 = 45.8333% from the top edge, which is pixel y=664. The CURRENT boundary is at y710 and is WRONG. Move it UP by 46 pixels, leaving floor from row664 to bottom. The wood skirting occupies rows640..663 and floor begins row664. Every point of the horizontal wall-floor join, including center column base, must follow this height. Shorten the lower wall and central post. Extend floor upward naturally. Do not shift or rescale the image globally. Preserve window, sill, greenery, lamp, ceiling, light direction and painted textures exactly. Do not add furniture. No people, no text, no watermark. Keep same 1086x1448 portrait canvas. Before finishing ensure boundary is visibly ABOVE the image halfway point by 60 pixels; it should never be at the halfway point.",
+  "sourcePath": "C:\\Users\\enxi1\\.codex\\generated_images\\01a16b4e-075a-75f0-b5c7-34a8cbbb9589\\exec-ce054357-20b0-4241-be57-8242766f8970.png"
+}

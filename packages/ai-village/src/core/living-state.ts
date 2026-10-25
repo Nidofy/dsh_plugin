@@ -1,21 +1,21 @@
-import * as v10 from './living-state-v10.ts'
+import * as v11 from './living-state-v11.ts'
 import { characterIds } from './roster.ts'
 import { blankBookhouse, validateBookhouseState, type BookhouseState } from './bookhouse-state.ts'
-import * as v9 from './living-state-v9.ts'
+import * as v9 from './living-play-state.ts'
 import { homeScene, type HomeWorld } from './home-state.ts'
 import { bookhouseScene } from './bookhouse-scene.ts'
 import { actors, available, validateWorld, walkable, type Actor, type Point, type Scene } from './world.ts'
 import { isCharacterId, type CharacterId } from './roster.ts'
 import { validateLifeState } from './life-engine.ts'
 import type { WorldCodec } from './migrations.ts'
-export { blankPlay, isPlayId } from './living-state-v9.ts'
-export type { PlayEvent, PlayMemory, PlayState } from './living-state-v9.ts'
+export { blankPlay, isPlayId } from './living-play-state.ts'
+export type { PlayEvent, PlayMemory, PlayState } from './living-play-state.ts'
 
 export type RegionId = 'courtyard' | 'bookhouse'
 export interface ParkedPose { id: CharacterId; position: Point; safe: Point; facing: 'left' | 'right' }
 export interface RegionState { version: 1; active: RegionId; returns: Record<RegionId, ParkedPose[] | null> }
 export interface LivingWorld extends Omit<v9.LivingWorld, 'schemaVersion' | 'contentRevision'> {
-  schemaVersion: 11; contentRevision: 8; region: RegionState; bookhouse: BookhouseState
+  schemaVersion: 12; contentRevision: 9; region: RegionState; bookhouse: BookhouseState
 }
 const blankRegion = (): RegionState => ({ version: 1, active: 'courtyard', returns: { courtyard: null, bookhouse: null } })
 export const isRegionId = (id: unknown): id is RegionId => id === 'courtyard' || id === 'bookhouse'
@@ -51,7 +51,7 @@ export function withLiving(base: HomeWorld, source?: LivingWorld): LivingWorld {
   const old=v9.withLiving(base,source?previousProjection(source):undefined)
   const region=structuredClone(source?.region??blankRegion()), ids=new Set(actors(old).map(a=>a.id))
   if(region.returns.bookhouse)region.returns.bookhouse=region.returns.bookhouse.filter(p=>ids.has(p.id))
-  return {...old,schemaVersion:11,contentRevision:8,region,bookhouse:structuredClone(source?.bookhouse??blankBookhouse())}
+  return {...old,schemaVersion:12,contentRevision:9,region,bookhouse:structuredClone(source?.bookhouse??blankBookhouse())}
 }
 function validateRegion(value: unknown,w:LivingWorld,base:Scene): RegionState {
   exact(value,['version','active','returns'])
@@ -93,7 +93,7 @@ function closedActor(a: Actor) {
 }
 export function validateLivingWorld(value: unknown,base:Scene):LivingWorld {
   const w=value as LivingWorld
-  if(!w||w.schemaVersion!==11||w.sceneVersion!==3||w.simulationRulesVersion!==4||w.contentRevision!==8)throw Error('UNSUPPORTED_WORLD_VERSION')
+  if(!w||w.schemaVersion!==12||w.sceneVersion!==3||w.simulationRulesVersion!==4||w.contentRevision!==9)throw Error('UNSUPPORTED_WORLD_VERSION')
   if(new TextEncoder().encode(JSON.stringify(w)).length>48*1024)throw Error('SAVE_TOO_LARGE')
   if(Object.keys(w.home?.accessories??{}).length!==characterIds.length)return invalid()
   if(!w.actor||!Array.isArray(w.companions)||w.companions.length>6)return invalid()
@@ -101,7 +101,7 @@ export function validateLivingWorld(value: unknown,base:Scene):LivingWorld {
   // Unknown shared fields remain in this projection and are rejected by the frozen codec.
   const old=v9.validateLivingWorld(previousProjection({...w,region}),base,'current')
   const bookhouse=validateBookhouseState(w.bookhouse,w)
-  if(region.active==='courtyard')return {...old,schemaVersion:11,contentRevision:8,region,bookhouse}
+  if(region.active==='courtyard')return {...old,schemaVersion:12,contentRevision:9,region,bookhouse}
   if(w.activeEvent!==null||w.neighborhood.event!==null||w.play.active!==null)return invalid()
   actors(w).forEach(closedActor)
   const current=validateWorld({schemaVersion:3,worldId:w.worldId,sceneVersion:bookhouseScene.version,avatarDefinitionVersion:w.avatarDefinitionVersion,
@@ -109,17 +109,17 @@ export function validateLivingWorld(value: unknown,base:Scene):LivingWorld {
   if(!actors(current).every(a=>available(current,a.position,a.id)))return invalid()
   const life=validateLifeState(w.life,current,bookhouseScene)
   if(life.social&&['chime','garden'].includes(life.social.kind))return invalid()
-  return {...old,schemaVersion:11,contentRevision:8,actor:current.actor,companions:current.companions,life,region,bookhouse}
+  return {...old,schemaVersion:12,contentRevision:9,actor:current.actor,companions:current.companions,life,region,bookhouse}
 }
 export function createLivingWorld(base:Scene):LivingWorld {
-  return migrateLivingWorld(v10.createLivingWorld(base),base)
+  return migrateLivingWorld(v11.createLivingWorld(base),base)
 }
 export function migrateLivingWorld(value:unknown,base:Scene):LivingWorld {
-  if((value as LivingWorld)?.schemaVersion===11)return validateLivingWorld(value,base)
-  const old=v10.migrateLivingWorld(value,base)
-  return validateLivingWorld({...old,schemaVersion:11,contentRevision:8,
-    home:{...old.home,accessories:{...Object.fromEntries(characterIds.map(id=>[id,'none'])),...old.home.accessories}},bookhouse:blankBookhouse()},base)
+  if((value as LivingWorld)?.schemaVersion===12)return validateLivingWorld(value,base)
+  const old=v11.migrateLivingWorld(value,base)
+  return validateLivingWorld({...old,schemaVersion:12,contentRevision:9,
+    home:{...old.home,accessories:{...Object.fromEntries(characterIds.map(id=>[id,'none'])),...old.home.accessories}},bookhouse:{...old.bookhouse,version:2,active:old.bookhouse.active?{...old.bookhouse.active,kind:'reading',board:[-1,-1,-1]}:null,puzzleMemory:null,puzzleLastEventId:null}},base)
 }
 export function livingWorldCodec(base:Scene):WorldCodec<LivingWorld> {
-  return {decode:v=>migrateLivingWorld(v,base),validate:v=>validateLivingWorld(v,base),needsUpgrade:v=>(v as LivingWorld)?.schemaVersion!==11}
+  return {decode:v=>migrateLivingWorld(v,base),validate:v=>validateLivingWorld(v,base),needsUpgrade:v=>(v as LivingWorld)?.schemaVersion!==12}
 }

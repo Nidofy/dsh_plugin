@@ -1,0 +1,9 @@
+{
+  "artifact": {
+    "version": "0.11.0-preview.1",
+    "file": "nidofy-dsh-ai-village-0.11.0-preview.1.tgz",
+    "sha256": "d610dda53197a7253785c069637bfcfa01978de3d1c7f2597a5b8bc9612e4d18"
+  },
+  "region": "bookhouse",
+  "userPaused": false
+}

@@ -1,0 +1,340 @@
+[
+  {
+    "at": 7789182.900000095,
+    "kind": "ui",
+    "state": {
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 7789220.700000048,
+    "kind": "ui",
+    "state": {
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7789358.300000191,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "75",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7789397.300000191,
+    "kind": "frame-message",
+    "type": "assets-ready",
+    "assetRevision": 12,
+    "sequence": 135
+  },
+  {
+    "at": 7789401.200000048,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7789401.400000095,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "reveal",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7789401.400000095,
+    "kind": "frame-message",
+    "type": "first-frame-rendered",
+    "assetRevision": 12,
+    "viewRevision": 2,
+    "sequence": 136
+  },
+  {
+    "at": 7789567.400000095,
+    "kind": "ui",
+    "state": {
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7789849.700000048,
+    "kind": "ui",
+    "state": {
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  },
+  {
+    "at": 7789874.5,
+    "kind": "ui",
+    "state": {
+      "entered": "true",
+      "inert": false,
+      "drawer": "half"
+    }
+  },
+  {
+    "at": 7789908.5,
+    "kind": "ui",
+    "state": {
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7790097.800000191,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "75",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7790149.600000143,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "91",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7790149.700000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 137,
+    "progress": 0.8348592734634783
+  },
+  {
+    "at": 7790151.700000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 138,
+    "progress": 0.8414360668910682
+  },
+  {
+    "at": 7790154.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 139,
+    "progress": 0.8480055107620867
+  },
+  {
+    "at": 7790157,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "92",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7790157.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 140,
+    "progress": 0.8543317355865796
+  },
+  {
+    "at": 7790159.700000048,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 141,
+    "progress": 0.8597240197828033
+  },
+  {
+    "at": 7790161.900000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 142,
+    "progress": 0.8626478101227056
+  },
+  {
+    "at": 7790164.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 143,
+    "progress": 0.8656748019104593
+  },
+  {
+    "at": 7790165.300000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 144,
+    "progress": 0.8676618143514164
+  },
+  {
+    "at": 7790167,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 145,
+    "progress": 0.8695477105675495
+  },
+  {
+    "at": 7790169,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 146,
+    "progress": 0.8724460338393335
+  },
+  {
+    "at": 7790170.900000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 147,
+    "progress": 0.875139184838841
+  },
+  {
+    "at": 7790173,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 148,
+    "progress": 0.8786293696104914
+  },
+  {
+    "at": 7790176.100000143,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 149,
+    "progress": 0.8822208757108702
+  },
+  {
+    "at": 7790178.800000191,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 150,
+    "progress": 0.8905814577942314
+  },
+  {
+    "at": 7790181.400000095,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 151,
+    "progress": 0.8985837917247336
+  },
+  {
+    "at": 7790182,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "93",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7790182,
+    "kind": "frame-message",
+    "type": "frame-resource-progress",
+    "assetRevision": 13,
+    "sequence": 152,
+    "progress": 0.9
+  },
+  {
+    "at": 7790182.600000143,
+    "kind": "frame-message",
+    "type": "assets-ready",
+    "assetRevision": 13,
+    "sequence": 153
+  },
+  {
+    "at": 7790191,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "wait",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7790191.200000048,
+    "kind": "ui",
+    "state": {
+      "entered": "false",
+      "inert": true,
+      "phase": "reveal",
+      "opacity": "",
+      "progress": "100",
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7790191.300000191,
+    "kind": "frame-message",
+    "type": "first-frame-rendered",
+    "assetRevision": 13,
+    "viewRevision": 3,
+    "sequence": 154
+  },
+  {
+    "at": 7790352,
+    "kind": "ui",
+    "state": {
+      "entered": "true",
+      "inert": false,
+      "drawer": "full"
+    }
+  },
+  {
+    "at": 7790374.600000143,
+    "kind": "ui",
+    "state": {
+      "entered": "true",
+      "inert": false,
+      "drawer": "closed"
+    }
+  }
+]
