@@ -1,0 +1,3040 @@
+{
+  "status": "ENGINEERING_REVIEW_NOT_APPROVED",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "date": "2026-10-25",
+  "scope": "Real production PaperDoll/samplePose renderer, retained original head/face/hair/tail, candidate body and held-book activity layers. Frozen scene rect/feet unchanged. No world simulation or production package changes.",
+  "sources": [
+    {
+      "id": "held-book",
+      "file": "bluewhale-held-book-arms-v01.png",
+      "frame": [
+        82,
+        174,
+        1610,
+        583
+      ],
+      "sha256": "fb19c5803ab07df3741250b48f0848f88240976474bc7611e0887e4aa1b450b8",
+      "bytes": 906003
+    },
+    {
+      "id": "seated-body",
+      "file": "bluewhale-seat-body-v02.png",
+      "frame": [
+        183,
+        197,
+        909,
+        1001
+      ],
+      "sha256": "a9c660c25cdcd606157ca1d2314dd4aedcb6583eb8db87dc96e3350e3692642b",
+      "bytes": 861416
+    }
+  ],
+  "samples": [
+    {
+      "time": 0,
+      "dusk": false,
+      "dark": false,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "dusk": false,
+      "dark": true,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "dusk": true,
+      "dark": false,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "dusk": true,
+      "dark": true,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0.4,
+      "dusk": false,
+      "dark": true,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0.4,
+      "dusk": true,
+      "dark": false,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 1.4,
+      "dusk": false,
+      "dark": false,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 1.4,
+      "dusk": false,
+      "dark": true,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 1.4,
+      "dusk": true,
+      "dark": false,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 1.4,
+      "dusk": true,
+      "dark": true,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 3.25,
+      "dusk": false,
+      "dark": false,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 3.25,
+      "dusk": false,
+      "dark": true,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 3.25,
+      "dusk": true,
+      "dark": false,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 3.25,
+      "dusk": true,
+      "dark": true,
+      "dpr": 1,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "dusk": false,
+      "dark": false,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "dusk": false,
+      "dark": true,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "dusk": true,
+      "dark": false,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "dusk": true,
+      "dark": true,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0.4,
+      "dusk": false,
+      "dark": true,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0.4,
+      "dusk": true,
+      "dark": false,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -1.4080000000000004,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.3520000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 1.4,
+      "dusk": false,
+      "dark": false,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 1.4,
+      "dusk": false,
+      "dark": true,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 1.4,
+      "dusk": true,
+      "dark": false,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 1.4,
+      "dusk": true,
+      "dark": true,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -2.5920000000000005,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": 0.6480000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 3.25,
+      "dusk": false,
+      "dark": false,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 3.25,
+      "dusk": false,
+      "dark": true,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 3.25,
+      "dusk": true,
+      "dark": false,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    },
+    {
+      "time": 3.25,
+      "dusk": true,
+      "dark": true,
+      "dpr": 2,
+      "tickerStarted": false,
+      "measurements": [
+        {
+          "station": "bookcase",
+          "corrected": false,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "bookcase",
+          "corrected": true,
+          "feet": [
+            276,
+            268
+          ],
+          "hipTargetY": null,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": false,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": null,
+          "bodyBob": -3.375,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        },
+        {
+          "station": "window-seat",
+          "corrected": true,
+          "feet": [
+            92,
+            270
+          ],
+          "hipTargetY": 225,
+          "hipMappedY": 225,
+          "bodyBob": 0,
+          "originalHeadRetained": true,
+          "mirrored": false,
+          "headTransform": {
+            "x": 0,
+            "y": 0,
+            "rotation": -0.84375,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "contact-t0-day-light-dpr1.png",
+      "sha256": "36df5d08c88a56fb7195870f4675a7eb19437c3a10a2012d6e73ce5cf2a5599f"
+    },
+    {
+      "file": "contact-t0-day-dark-dpr1.png",
+      "sha256": "522752dcee1b442aa666898fe4b0851f84f97a1a94d3ca75344b9871736e1db0"
+    },
+    {
+      "file": "contact-t0-dusk-light-dpr1.png",
+      "sha256": "a9b7483c96852c5d50851466731d1f038e4171dd63a5fd32660263df7519a779"
+    },
+    {
+      "file": "contact-t0-dusk-dark-dpr1.png",
+      "sha256": "c1267fbff15c5c446c4501cc33ac24e2cea3730e434bb88f573b6cb7c5242916"
+    },
+    {
+      "file": "contact-t0.4-day-light-dpr1.png",
+      "sha256": "cbdcd7394ba985cfd59883fc19e9a9deb648cc711a90798d7047abf020bd48d6"
+    },
+    {
+      "file": "contact-t0.4-day-dark-dpr1.png",
+      "sha256": "8621c771b3d00f77b9ff58a42b07649598adfe3280d03ab008554b338861ac21"
+    },
+    {
+      "file": "contact-t0.4-dusk-light-dpr1.png",
+      "sha256": "eb7b590183c3914c8956ea96ce52a93f910a3caa23b60342253278f857a7487f"
+    },
+    {
+      "file": "contact-t0.4-dusk-dark-dpr1.png",
+      "sha256": "d83e6601274571028e4890268a567684706270828a6303c9a421227baf8ce79c"
+    },
+    {
+      "file": "contact-t1.4-day-light-dpr1.png",
+      "sha256": "a476b06152ce07060cd5b9bbb430c5adb3749339bfd75e4a4bcdcb4d6be944a4"
+    },
+    {
+      "file": "contact-t1.4-day-dark-dpr1.png",
+      "sha256": "b64ba3f38e3d2e89aa85b35f715210ccf5d131be29162675e549df4786a8fed7"
+    },
+    {
+      "file": "contact-t1.4-dusk-light-dpr1.png",
+      "sha256": "e822ce12b1d18d36bbe86315d3262ce16a57d45767de2a9d9248b25afbf7c1ad"
+    },
+    {
+      "file": "contact-t1.4-dusk-dark-dpr1.png",
+      "sha256": "75a9017c2ff71df1960badea11c9977f77bcba4a531df084307a3ea43aa6ce7a"
+    },
+    {
+      "file": "contact-t3.25-day-light-dpr1.png",
+      "sha256": "7af127b626478d08aa8c9beb5cbd71a5a80e5de909a325420b1031cd749d553f"
+    },
+    {
+      "file": "contact-t3.25-day-dark-dpr1.png",
+      "sha256": "c82b07e9c3bc622471d8e0de0b5db7a615104b1683ecaeac56b5f2f6a286b6a5"
+    },
+    {
+      "file": "contact-t3.25-dusk-light-dpr1.png",
+      "sha256": "8d9e4235f4f5b224966b95aa1fbffd54ab10151a784d3087c27ffd6aaf61efc2"
+    },
+    {
+      "file": "contact-t3.25-dusk-dark-dpr1.png",
+      "sha256": "6051179e3705b4d39bbc367ca0e12b6fd32ab83c57a33c8bc6368df787e6083c"
+    },
+    {
+      "file": "contact-t0-day-light-dpr2.png",
+      "sha256": "bd3c5e35ba01486c6ed73a366a0a685ac5e59f09f9b0be1683eb26b5255abd81"
+    },
+    {
+      "file": "contact-t0-day-dark-dpr2.png",
+      "sha256": "b56474c79224d47e931660099c45a633cae8755340826f5210a4ed8aa6566b3c"
+    },
+    {
+      "file": "contact-t0-dusk-light-dpr2.png",
+      "sha256": "7a0176df2379ca5b48dd43a7b3a505edf9d2f6415be38bd655edd200cbf4fd62"
+    },
+    {
+      "file": "contact-t0-dusk-dark-dpr2.png",
+      "sha256": "a223dc4f5ceb3a255fd967fd568aa896868161af7164bacc66ecd2f968300c16"
+    },
+    {
+      "file": "contact-t0.4-day-light-dpr2.png",
+      "sha256": "ce12a6b22438689d8697edcd89782429ba7bb79cc20dfef3a9ce0a6f23e17d36"
+    },
+    {
+      "file": "contact-t0.4-day-dark-dpr2.png",
+      "sha256": "7c57baf04856272c726b821a1db798856382b8dbb60f8beabffa36229152a0c4"
+    },
+    {
+      "file": "contact-t0.4-dusk-light-dpr2.png",
+      "sha256": "0fe15a1ad68a40b8a958f68328543ad2e7f131b0d109a2231d889c2b8beef12b"
+    },
+    {
+      "file": "contact-t0.4-dusk-dark-dpr2.png",
+      "sha256": "37ff5c16d48123c45503849fcdeee1e0b0f10a301ec3fb74103892f20e51aba3"
+    },
+    {
+      "file": "contact-t1.4-day-light-dpr2.png",
+      "sha256": "ae0e5b628deb8d1c8848bd3b999a3f6e872e0c97713e4df9d4eea320dfd67e11"
+    },
+    {
+      "file": "contact-t1.4-day-dark-dpr2.png",
+      "sha256": "dc68002147869e4c10f0a55463bc529e04ff076f7aae13c3b7c93109b3785456"
+    },
+    {
+      "file": "contact-t1.4-dusk-light-dpr2.png",
+      "sha256": "a81d2d9a97f42ec4583d1b721a6ee86789b6ee16d0903ae744ac61bf9bb2c4d2"
+    },
+    {
+      "file": "contact-t1.4-dusk-dark-dpr2.png",
+      "sha256": "e7a7c5b2f46cc99d7f45a00a13101ff8308c45772eff268eb49e07071f9a8285"
+    },
+    {
+      "file": "contact-t3.25-day-light-dpr2.png",
+      "sha256": "d10879ccef260c5eafb59aee52d9d4924838345de5cbe05cf0978bba36867aea"
+    },
+    {
+      "file": "contact-t3.25-day-dark-dpr2.png",
+      "sha256": "c41fb4eb7b875871c5ecbfdb09c0d441e3b38e5d1afe8cf7e41926d6e26963be"
+    },
+    {
+      "file": "contact-t3.25-dusk-light-dpr2.png",
+      "sha256": "6b0c78e13d23df142fcc7a0a3426b4ac17632ffaab9e2c8985b64ec2bc5165a9"
+    },
+    {
+      "file": "contact-t3.25-dusk-dark-dpr2.png",
+      "sha256": "9b100546dfd706b6e01c31fc6300a45da8cd18a980b15ab47c651f25bad22034"
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "registration": {
+    "worldFeet": [
+      92,
+      270
+    ],
+    "seatSurfaceY": 225,
+    "targetHipToFeet": 45,
+    "sourceHip": [
+      640,
+      700
+    ],
+    "sourceFeet": [
+      640,
+      1197
+    ],
+    "sourcePixelToWorld": 0.09054325955734406,
+    "originalCandidateEstimatedHipToFeet": 27,
+    "method": "Uniform scale and translation of genuine-alpha body part; no pixel repaint outside image_gen, no rectangular masking, no mirror. Seat contact pins body bob to zero while head/hair/tail use normal samplePose."
+  },
+  "limitations": [
+    "Source hip coordinate is an explicit artist registration choice and requires visual validation.",
+    "Only bluewhale corrected; other eleven residents not qualified.",
+    "Software WebGL and browser DPR only, not real GPU/system DPI.",
+    "32 isolated renderer frames do not replace complete world story/path/cold recovery/package qualification."
+  ]
+}

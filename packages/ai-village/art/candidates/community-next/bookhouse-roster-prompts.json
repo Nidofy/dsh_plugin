@@ -1,0 +1,51 @@
+{
+  "status": "UNAPPROVED",
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "id": "gpt",
+      "prompt": "Create ONE isolated transparent horizontal paper-doll activity accessory: a pair of bent forearms and hands holding a single open sage-green book, matching the attached GPT character's exact white/lilac dragon-princess clothing. Preserve white long sleeves, lavender shaded folds, lace cuffs, delicate silver floral trimming. The hands visibly grip the lower left and right corners of the book, continuous contact. Both sleeves enter from upper outer sides and bend inward. Compact wide 2:1 asset, clear transparent margins, matching clean anime linework. Only this hand-held book and the two sleeved forearms, no whole figure, no head, hair, horns, wings, torso, legs, background, text, letters or ground. Book has cream page tops, simple sage cover. Do not imitate any other character outfit. True alpha transparency.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-20623176-66fa-4b81-9770-892708576ecb.png"
+    },
+    {
+      "id": "grok",
+      "prompt": "Create ONE isolated transparent horizontal paper-doll activity accessory: two bent sleeved forearms and small hands holding a single open sage-green book, matching the attached Grok character's exact black gothic outfit with dark burgundy lining, fine gold trim and ruffled black cuffs. Hands continuously grip both lower corners of the book. Sleeves enter from upper outer sides and bend toward book. Wide2:1 compact asset, clear transparent margins. Original anime linework. Only hands, sleeves and book; no whole figure, face, hair, crown, torso, legs, furniture, lettering, background or ground. Do not copy extra unrelated fragments at edge of reference. True alpha transparency. Cream page tops and subtle gold corner cover ornaments.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-cada02ee-4cb4-41ce-8e6d-c7431712aecd.png"
+    },
+    {
+      "id": "kimi",
+      "prompt": "One isolated transparent paper-doll accessory: two bent forearms in Kimi's own navy-blue long sleeves and white pleated lace cuffs, detailed fine gold astronomical scrollwork and small dark bows as in attached Kimi reference, with small hands continuously grasping both lower edges of one sage-green open book. Book cream page tops, gold lunar cover motif, no letters. Sleeves enter upper outer sides. Compact horizontal2:1 composition with clear margins. Only these sleeved arms, hands and book; no head, hair, body, dress, legs, furniture or background. Keep identity and clean anime linework; genuine alpha transparency.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-18a2e3ab-518d-4368-b405-8cd7ff051140.png"
+    },
+    {
+      "id": "qwen",
+      "prompt": "Create one isolated transparent horizontal paper-doll hand-held reading accessory for Qwen in attached reference: two small hands grasping both lower corners of an open sage-green book, matching her own deep blue-and-white Chinese-inspired outfit, blue cuffs with delicate gold floral cloud trim and small gold tassel ornaments, white inner sleeves. Sleeves bend from upper outer edges inward toward book. Keep anime linework, all parts fully within canvas with 8% transparent margin on every side, compact2:1 arrangement. Book cream page tops, tasteful small gold flower motif, no text. No head, hair, torso, skirt, legs, table, background or floor; true alpha transparency.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-61fd11bf-7b53-4c0b-a88a-bf24f503f377.png"
+    },
+    {
+      "id": "seedance",
+      "prompt": "One isolated transparent hand-held reading accessory matching attached Seedance character identity. Two bent forearms in her modern white oversized jacket sleeves with bright cyan and violet futuristic panel trim, pale cuffs and matching blue wrist details, two small natural hands grasping both bottom corners of one open sage-green book. Continuous fingers-to-cover contact. Cream page tops, simple geometric cover ornament without text. Wide2:1 compact composition with every part inside generous transparent margins. Match clean anime linework. Only sleeves/hands/book, no character head/hair/headphones/torso/legs/scene. Genuine transparent alpha, no shadow or backdrop.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-f7b734f9-19db-4d31-b0bc-1c2aa8a6eaf6.png"
+    },
+    {
+      "id": "glm",
+      "prompt": "Create one isolated transparent paper-doll reading accessory matching attached GLM gothic cat-maid identity: two bent forearms in her black sleeves, white layered ruffled cuffs, narrow black lace, small black ribbons and blue diamond ornaments, with two hands visibly gripping both lower corners of a single open sage-green book. Preserve her specific costume, not other characters. Compact horizontal2:1, whole asset fully inside clear margins. Cream page tops, understated silver diamond cover motif, no lettering. Clean anime outline. Only sleeved arms hands and book; no head, hair, ears, torso, dress, legs, scene, background or floor. Genuine transparent alpha.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-1ba3970d-547c-42ed-9a08-9a585dab623d.png"
+    },
+    {
+      "id": "minimax",
+      "prompt": "Create ONE isolated transparent paper-doll hand-held book accessory matching attached MiniMax outfit: two bent forearms in her soft white and blush-pink medical-adventurer jacket sleeves, pink piping, wide neat white cuffs, subtle rose accents, two small hands grasping the lower corners of ONE open sage-green book. Continuous grip. Cream page tops and simple flower cover design without text. Wide2:1 compact asset entirely inside clear transparent margins, matching clean anime linework. No figure, head, hair, hat, torso, legs, background or furniture. True transparent alpha.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-7d319127-9f26-4981-a600-4ff259923a06.png"
+    },
+    {
+      "id": "llama",
+      "prompt": "One isolated transparent paper-doll reading accessory matching attached Llama: two small hands gently gripping both lower corners of one open sage-green book, forearms in her own ivory cream fluffy oversized hoodie sleeves with soft gathered cuffs, tiny blue details and plush white pompom accents, no formal maid lace. Cream page tops, small infinity-shaped blue ornament on cover, no text. Compact horizontal2:1 asset with complete margins. Faithful clean anime style and soft warm white palette. Only sleeved arms hands and book; no head, hair, ears, body, legs, background, table or floor. Real alpha transparency.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-ccf423b0-6b30-4ce4-92ca-ef24c13adfa3.png"
+    },
+    {
+      "id": "mistral",
+      "prompt": "Create ONE isolated transparent paper-doll hand-held book activity accessory matching attached Mistral's exact red gold and cream musketeer outfit: two small hands gripping both lower edges of a sage-green open book, bent forearms wearing her cream bishop sleeves, rich red bows at cuffs, ornate gold edging and small amber jewels. Only sleeves hands and book. Cream page tops, small gold fleur-de-lis cover motif no lettering. Original clean anime drawing, compact horizontal2:1 whole asset with 8% transparent margin. No head, hair, hat, torso, skirt, legs, backdrop, furniture or floor. Genuine alpha transparency. Do not borrow another character's clothes.",
+      "path": "C:\\Users\\enxi1\\.codex\\generated_images\\01a17196-a2aa-7882-8344-5357ab78ecec\\exec-db2167d2-d689-4765-8d99-461593c782c8.png"
+    }
+  ]
+}

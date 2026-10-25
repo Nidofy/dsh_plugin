@@ -2,7 +2,7 @@ import { actors, walkable, reachable, type Point } from './world.ts'
 import { uuid } from './content-state.ts'
 import { isCharacterId, type CharacterId } from './roster.ts'
 import { bookhouseScene } from './bookhouse-scene.ts'
-import type { LivingWorld } from './living-state.ts'
+import type { LivingWorld } from './living-state-v12.ts'
 export const bookhouseStages = [
   { target:'bookcase', title:{zh:'书页里的一道光',en:'A light between the pages'}, text:{zh:'一本旧书里夹着空白书签。选一个今天想记住的主题。',en:'A blank bookmark rests in an old book. Choose something to remember today.'}, action:{zh:'选好这页',en:'Choose this page'} },
   { target:'reading-desk', title:{zh:'给这一天写一句话',en:'A sentence for today'}, text:{zh:'把刚才读到的心情写在书签背面。朋友会留下一句自己的回应。',en:'Write your impression on the bookmark. Your friend adds a response of their own.'}, action:{zh:'写下我们的句子',en:'Write our sentence'} },
@@ -20,7 +20,7 @@ const integer=(n:unknown,min:number,max:number):n is number=>Number.isSafeIntege
 function pair(v:unknown):v is [CharacterId,CharacterId]{return Array.isArray(v)&&v.length===2&&v.every(isCharacterId)&&v[0]!==v[1]}
 const theme=(v:unknown):v is BookTheme=>v==='light'||v==='wind'
 function point(p:unknown):asserts p is Point{exact(p,['x','y']);if(!walkable(bookhouseScene,p as Point))fail()}
-export function validateBookhouseState(value:unknown,w:LivingWorld):BookhouseState {
+export function validateBookhouseState(value:unknown,w:Omit<LivingWorld,'schemaVersion'> & {schemaVersion:12|13}):BookhouseState {
  exact(value,['version','active','memory','lastEventId','keepsake','puzzleMemory','puzzleLastEventId'])
  if(value.version!==2||(value.lastEventId!==null&&!uuid(value.lastEventId))||![null,'bookhouse','courtyard'].includes(value.keepsake))fail()
  const used=new Set([...w.journal.map(m=>m.eventId),...w.neighborhood.memories.map(m=>m.eventId),w.play.lastEventId,w.neighborhood.lastEventId,w.progress.lastCompletedEventId,w.play.active?.id,w.neighborhood.event?.id,w.activeEvent?.id])

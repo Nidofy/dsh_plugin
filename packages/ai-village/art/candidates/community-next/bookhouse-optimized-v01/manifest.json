@@ -1,0 +1,711 @@
+{
+  "status": "OPTIMIZED_CANDIDATE_NOT_APPROVED",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "method": "Mechanical crop of established review Texture frames, Lanczos3 resize, lossless non-palette PNG atlas packing with gutters. No repaint; original source files preserved. Fractional background top crop and seat split preserved in Texture sourceRects.",
+  "files": [
+    {
+      "file": "bookhouse-scene-atlas.png",
+      "sha256": "f32af7939140ae8b66c28ec752e29b78507614397b21718c6893fcdec922d724",
+      "bytes": 2003520,
+      "size": [
+        1024,
+        968
+      ],
+      "decodedRGBABytes": 3964928
+    },
+    {
+      "file": "bookhouse-activity-atlas.png",
+      "sha256": "a1419d66e142223d076ed06ea58bf8fb23e2cac10334841ba6213602a3ef3ecf",
+      "bytes": 464708,
+      "size": [
+        1024,
+        640
+      ],
+      "decodedRGBABytes": 2621440
+    }
+  ],
+  "layers": [
+    {
+      "id": "background",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "background-v03.png",
+      "sourceSha256": "544f347ad4461690c02f5f66e595e2ea3466e112bc306dfdd31e47eb9cd76d29",
+      "originalSourceRect": [
+        0,
+        33.84615384615391,
+        1086,
+        1414.1538461538462
+      ],
+      "sourceRect": [
+        4,
+        26.439439014024693,
+        720,
+        937.5605609859753
+      ],
+      "rect": [
+        0,
+        0,
+        360,
+        480
+      ],
+      "z": -100,
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "bookcase-back",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "bookcase-back.png",
+      "sourceSha256": "fe249d5c4f497e34237811437652e17fe32976104ceaf868d5ce3559504c21ca",
+      "originalSourceRect": [
+        32,
+        111,
+        1065,
+        1202
+      ],
+      "sourceRect": [
+        728,
+        4,
+        172,
+        212
+      ],
+      "rect": [
+        234,
+        126,
+        86,
+        106
+      ],
+      "z": 1259,
+      "sourceSize": [
+        1130,
+        1392
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "bookcase-front",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "bookcase-front.png",
+      "sourceSha256": "bbfb363838c460036d1e35e4acad66b546a9f59e2a6f8c1d87f56ad1a4242540",
+      "originalSourceRect": [
+        14,
+        544,
+        1271,
+        137
+      ],
+      "sourceRect": [
+        728,
+        224,
+        172,
+        16
+      ],
+      "rect": [
+        234,
+        232,
+        86,
+        8
+      ],
+      "z": 2400,
+      "sourceSize": [
+        1299,
+        1211
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "desk-back",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "desk-back.png",
+      "sourceSha256": "e1357826bb6c0e1161322653b0a21389676d23ceb8d59a8baaa2b5b53e506ac7",
+      "originalSourceRect": [
+        79,
+        121,
+        1151,
+        975
+      ],
+      "sourceRect": [
+        728,
+        248,
+        74,
+        68
+      ],
+      "rect": [
+        123,
+        292,
+        37,
+        34
+      ],
+      "z": 2919,
+      "sourceSize": [
+        1308,
+        1202
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "desk-front",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "desk-front.png",
+      "sourceSha256": "180564fbff3fd369d224c42a4f9578e2c5980e38320b26c5668785d1b216945a",
+      "originalSourceRect": [
+        16,
+        40,
+        1779,
+        792
+      ],
+      "sourceRect": [
+        728,
+        324,
+        280,
+        134
+      ],
+      "rect": [
+        72,
+        292,
+        140,
+        67
+      ],
+      "z": 3590,
+      "sourceSize": [
+        1811,
+        868
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "window-back",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "window-back.png",
+      "sourceSha256": "3bd833331dd1c48eb7ffaacfc6b4ed59889ac32aab372cea5d05c8562a88b08e",
+      "originalSourceRect": [
+        56,
+        156,
+        2060,
+        413
+      ],
+      "sourceRect": [
+        728,
+        466,
+        232,
+        58
+      ],
+      "rect": [
+        44,
+        198,
+        116,
+        29
+      ],
+      "z": 1979,
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "window-front",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "window-front.png",
+      "sourceSha256": "33ab4ecb6ebac0ba4817097365126aeca89e59954c4a2f6f34099e24db2ae34c",
+      "originalSourceRect": [
+        19,
+        273,
+        1945,
+        309
+      ],
+      "sourceRect": [
+        728,
+        532,
+        232,
+        36
+      ],
+      "rect": [
+        44,
+        222,
+        116,
+        18
+      ],
+      "z": 2400,
+      "sourceSize": [
+        1983,
+        793
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "prop-open-book",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "prop-open-book.png",
+      "sourceSha256": "1ce8f5991d462979899beed1da5e39e7a86b0d4fe2e799bd4e045ba5ad20a245",
+      "originalSourceRect": [
+        46,
+        102,
+        1552,
+        768
+      ],
+      "sourceRect": [
+        728,
+        576,
+        72,
+        42
+      ],
+      "rect": [
+        258,
+        230,
+        36,
+        21
+      ],
+      "z": 2683,
+      "sourceSize": [
+        1641,
+        958
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "prop-paper-pencil",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "prop-paper-pencil.png",
+      "sourceSha256": "7426c5ffda7fceef767c9b7a1909603137b57dad93c658a14c6628724fdbb45b",
+      "originalSourceRect": [
+        68,
+        137,
+        1520,
+        700
+      ],
+      "sourceRect": [
+        728,
+        626,
+        76,
+        44
+      ],
+      "rect": [
+        122,
+        298,
+        38,
+        22
+      ],
+      "z": 3598,
+      "sourceSize": [
+        1650,
+        953
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    },
+    {
+      "id": "prop-window-book",
+      "file": "bookhouse-scene-atlas.png",
+      "sourceFile": "prop-window-book.png",
+      "sourceSha256": "f52e248561a646eeefe42bb6ad7f5e4601106f55263ad97a347dcc5d0e9a88cf",
+      "originalSourceRect": [
+        221,
+        281,
+        660,
+        1046
+      ],
+      "sourceRect": [
+        728,
+        678,
+        24,
+        34
+      ],
+      "rect": [
+        110,
+        236,
+        12,
+        17
+      ],
+      "z": 2703,
+      "sourceSize": [
+        1054,
+        1493
+      ],
+      "size": [
+        1024,
+        968
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "bluewhale-held-book",
+      "sourceFile": "bluewhale-held-book-arms-v01.png",
+      "sourceSha256": "fb19c5803ab07df3741250b48f0848f88240976474bc7611e0887e4aa1b450b8",
+      "originalFrame": [
+        82,
+        174,
+        1610,
+        583
+      ],
+      "sourceRect": [
+        4,
+        4,
+        192,
+        70
+      ],
+      "rigSize": [
+        460,
+        166.57142857142858
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "claude-held-book",
+      "sourceFile": "claude-held-book-arms-v01.png",
+      "sourceSha256": "a35320b8de21ae66dfdca2055f31dbe7d8650b4fa6e5c9ffaa1aeb91900d9ba4",
+      "originalFrame": [
+        38,
+        87,
+        1701,
+        715
+      ],
+      "sourceRect": [
+        260,
+        4,
+        192,
+        81
+      ],
+      "rigSize": [
+        460,
+        193.35684891240447
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "gemini-held-book",
+      "sourceFile": "gemini-held-book-arms-v01.png",
+      "sourceSha256": "514647bcb4e61ad3adfeda9a1f979253a03c7745f8b6dc9439433947973f13a1",
+      "originalFrame": [
+        26,
+        206,
+        1722,
+        538
+      ],
+      "sourceRect": [
+        516,
+        4,
+        192,
+        60
+      ],
+      "rigSize": [
+        460,
+        143.71660859465737
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "gpt-held-book",
+      "sourceFile": "gpt-held-book-arms-v01.png",
+      "sourceSha256": "357fe2e95b66c1f2cb293d2a17c484364b5c796574917c40e4007085b50b778b",
+      "originalFrame": [
+        19,
+        136,
+        1738,
+        624
+      ],
+      "sourceRect": [
+        772,
+        4,
+        192,
+        69
+      ],
+      "rigSize": [
+        460,
+        165.1553509781358
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "grok-held-book",
+      "sourceFile": "grok-held-book-arms-v01.png",
+      "sourceSha256": "2f625bda2d649e48aff28da4628000691cae26b002ec76a4e2fe44718134eb47",
+      "originalFrame": [
+        37,
+        150,
+        1698,
+        592
+      ],
+      "sourceRect": [
+        4,
+        132,
+        192,
+        67
+      ],
+      "rigSize": [
+        460,
+        160.37691401649
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "kimi-held-book",
+      "sourceFile": "kimi-held-book-arms-v01.png",
+      "sourceSha256": "356443a6759257f2a8b449d0480d069d9c2f012298202427813ab03a793e6c32",
+      "originalFrame": [
+        2,
+        85,
+        1771,
+        716
+      ],
+      "sourceRect": [
+        260,
+        132,
+        192,
+        78
+      ],
+      "rigSize": [
+        460,
+        185.97402597402598
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "qwen-held-book",
+      "sourceFile": "qwen-held-book-arms-v01.png",
+      "sourceSha256": "af7ad1a29ae1350cf880c7e6a367b7df215ba82c3b4f3d3eea9796df3964865f",
+      "originalFrame": [
+        45,
+        127,
+        1687,
+        659
+      ],
+      "sourceRect": [
+        516,
+        132,
+        192,
+        75
+      ],
+      "rigSize": [
+        460,
+        179.69176052163604
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "seedance-held-book",
+      "sourceFile": "seedance-held-book-arms-v01.png",
+      "sourceSha256": "9f3b1a808505d46d854d52a7434ae92f4a2e6b6daddf118c2e29fb3e8946cacc",
+      "originalFrame": [
+        17,
+        117,
+        1738,
+        688
+      ],
+      "sourceRect": [
+        772,
+        132,
+        192,
+        76
+      ],
+      "rigSize": [
+        460,
+        182.09436133486767
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "glm-held-book",
+      "sourceFile": "glm-held-book-arms-v01.png",
+      "sourceSha256": "3d336b569554bddf574495d855dc40d12e341c978b48e5f59c02adca9fb10dd9",
+      "originalFrame": [
+        52,
+        99,
+        1673,
+        713
+      ],
+      "sourceRect": [
+        4,
+        260,
+        192,
+        82
+      ],
+      "rigSize": [
+        460,
+        196.0430364614465
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "minimax-held-book",
+      "sourceFile": "minimax-held-book-arms-v01.png",
+      "sourceSha256": "1782123f80dad22372cd91f1a76d1b6758fe890e4517c3e98d48edd7949bec16",
+      "originalFrame": [
+        121,
+        169,
+        1534,
+        603
+      ],
+      "sourceRect": [
+        260,
+        260,
+        192,
+        75
+      ],
+      "rigSize": [
+        460,
+        180.82138200782268
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "llama-held-book",
+      "sourceFile": "llama-held-book-arms-v01.png",
+      "sourceSha256": "49e06fcfb6b242f66d0d844b2433efe08f3be61ce30553199e66f4b540588d45",
+      "originalFrame": [
+        64,
+        103,
+        1650,
+        711
+      ],
+      "sourceRect": [
+        516,
+        260,
+        192,
+        83
+      ],
+      "rigSize": [
+        460,
+        198.21818181818182
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "mistral-held-book",
+      "sourceFile": "mistral-held-book-arms-v01.png",
+      "sourceSha256": "842e6dad16b1be2d019abc9a08ca3a7c1968aad8ea93133ba5179de9efa792fd",
+      "originalFrame": [
+        41,
+        155,
+        1695,
+        628
+      ],
+      "sourceRect": [
+        772,
+        260,
+        192,
+        71
+      ],
+      "rigSize": [
+        460,
+        170.4306784660767
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "bluewhale-seated-waist",
+      "sourceFile": "bluewhale-seat-lower-v03.png",
+      "sourceSha256": "e567c946b370bffc9d47d10b0adea4cb3e03a8236d144490e9490d9705926d62",
+      "originalFrame": [
+        63,
+        315,
+        1130,
+        285
+      ],
+      "sourceRect": [
+        4,
+        388,
+        192,
+        48.48418756815703
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "bluewhale-seated-body",
+      "sourceFile": "bluewhale-seat-lower-v03.png",
+      "sourceSha256": "e567c946b370bffc9d47d10b0adea4cb3e03a8236d144490e9490d9705926d62",
+      "originalFrame": [
+        63,
+        600,
+        1130,
+        632
+      ],
+      "sourceRect": [
+        4,
+        436.48418756815704,
+        192,
+        107.51581243184296
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "claude-seated-waist",
+      "sourceFile": "claude-seat-lower-v01.png",
+      "sourceSha256": "5b5ea4790e5791de61588f3209b1f2883131a6d7637b972b0b13523b82180d84",
+      "originalFrame": [
+        84,
+        87,
+        1068,
+        413
+      ],
+      "sourceRect": [
+        260,
+        388,
+        192,
+        74.09927140255009
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    },
+    {
+      "id": "claude-seated-body",
+      "sourceFile": "claude-seat-lower-v01.png",
+      "sourceSha256": "5b5ea4790e5791de61588f3209b1f2883131a6d7637b972b0b13523b82180d84",
+      "originalFrame": [
+        84,
+        500,
+        1068,
+        685
+      ],
+      "sourceRect": [
+        260,
+        462.0992714025501,
+        192,
+        122.90072859744991
+      ],
+      "file": "bookhouse-activity-atlas.png"
+    }
+  ],
+  "totals": {
+    "textures": 2,
+    "bytes": 2468228,
+    "decodedRGBABytes": 6586368
+  },
+  "textureBudget": {
+    "maxSevenResidents": 128,
+    "incrementalTextures": 2,
+    "conservativeUpperBoundFromCurrent121": 123,
+    "optionalRegionSpecificSaving": 14,
+    "note": "2 atlas image sources replace dozens of standalone candidate image sources; each Sprite/Texture frame remains independent. Count123 conservatively adds both to baseline121 without claiming any removal. Does not include simultaneous map; map must unload. Actual production selector/loader and final package measurement remain owner QA."
+  },
+  "remaining": "Actual renderer preview is bookhouse-roster-qa-v07/validation.json; final owner integration remains pending. Original approved rest textures reused for other ten seated parts; no extra image for those parts. No mipmaps; decoded budget counts base RGBA only."
+}

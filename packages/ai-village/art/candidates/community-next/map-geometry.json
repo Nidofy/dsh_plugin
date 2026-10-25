@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "coordinateSystem": "normalized map rectangle; independent of world coordinates and image pixels",
+  "viewBox": [
+    1000,
+    750
+  ],
+  "nodes": [
+    {
+      "id": "courtyard",
+      "center": [
+        0.55,
+        0.45
+      ],
+      "name": [
+        "白鲸小院",
+        "Whale Courtyard"
+      ],
+      "status": "open",
+      "hit": {
+        "x": 0.45000000000000007,
+        "y": 0.33,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-courtyard-v01.png"
+    },
+    {
+      "id": "bookhouse",
+      "center": [
+        0.22,
+        0.33
+      ],
+      "name": [
+        "AI 书屋",
+        "AI Bookhouse"
+      ],
+      "status": "open",
+      "hit": {
+        "x": 0.12,
+        "y": 0.21000000000000002,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-bookhouse-v01.png"
+    },
+    {
+      "id": "tea-square",
+      "center": [
+        0.6,
+        0.72
+      ],
+      "name": [
+        "茶会广场",
+        "Tea Square"
+      ],
+      "status": "planned",
+      "hit": {
+        "x": 0.5,
+        "y": 0.6,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-tea-square-v01.png"
+    },
+    {
+      "id": "lakeside-garden",
+      "center": [
+        0.76,
+        0.18
+      ],
+      "name": [
+        "湖畔花园",
+        "Lakeside Garden"
+      ],
+      "status": "planned",
+      "hit": {
+        "x": 0.66,
+        "y": 0.06,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-lakeside-garden-v01.png"
+    },
+    {
+      "id": "workshop",
+      "center": [
+        0.23,
+        0.82
+      ],
+      "name": [
+        "AI 工坊",
+        "AI Workshop"
+      ],
+      "status": "planned",
+      "hit": {
+        "x": 0.13,
+        "y": 0.7,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-workshop-v01.png"
+    }
+  ],
+  "edges": [
+    [
+      "courtyard",
+      "bookhouse"
+    ],
+    [
+      "courtyard",
+      "tea-square"
+    ],
+    [
+      "tea-square",
+      "lakeside-garden"
+    ],
+    [
+      "tea-square",
+      "workshop"
+    ]
+  ],
+  "textRule": "Runtime HTML labels; zh/en by language; no labels baked into raster. At width <=400 use keyboard-accessible list, minimum 44px targets; map is decorative overview. Actual travel is external owner responsibility."
+}

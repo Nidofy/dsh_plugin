@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-25T09:08:20.3451371Z",
+  "root": {
+    "ProcessId": 28568,
+    "ParentProcessId": 27428,
+    "ExecutablePath": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe",
+    "CommandLine": "\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe\" --user-data-dir=D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-tea-qa-desktop-approved-pre3/electron-data --remote-debugging-port=18774 --remote-debugging-address=127.0.0.1"
+  },
+  "children": [
+    {
+      "ProcessId": 29388,
+      "ParentProcessId": 28568,
+      "ExecutablePath": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe",
+      "CommandLine": "\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe\" --type=gpu-process --user-data-dir=\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-tea-qa-desktop-approved-pre3\\electron-data\" --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAAEAAAAAIAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --field-trial-handle=1888,i,5706747096312466803,14698104861908587912,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1892,i,5737743310658288498,1798739601847035741,4 --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=1880 /prefetch:2"
+    },
+    {
+      "ProcessId": 28372,
+      "ParentProcessId": 28568,
+      "ExecutablePath": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe",
+      "CommandLine": "\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-tea-qa-desktop-approved-pre3\\electron-data\" --standard-schemes=dsh-app --secure-schemes=dsh-app --cors-schemes=dsh-app --fetch-schemes=dsh-app --streaming-schemes=dsh-app --code-cache-schemes=dsh-app --field-trial-handle=1888,i,5706747096312466803,14698104861908587912,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1892,i,5737743310658288498,1798739601847035741,4 --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=2068 /prefetch:11"
+    },
+    {
+      "ProcessId": 16692,
+      "ParentProcessId": 28568,
+      "ExecutablePath": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe",
+      "CommandLine": "\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe\" --type=renderer --user-data-dir=\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-tea-qa-desktop-approved-pre3\\electron-data\" --standard-schemes=dsh-app --secure-schemes=dsh-app --cors-schemes=dsh-app --fetch-schemes=dsh-app --streaming-schemes=dsh-app --code-cache-schemes=dsh-app --app-path=\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\resources\\app.asar\" --enable-sandbox --remote-debugging-port=18774 --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.75 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --launch-time-ticks=93073553082 --field-trial-handle=1888,i,5706747096312466803,14698104861908587912,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1892,i,5737743310658288498,1798739601847035741,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=2820 /prefetch:1"
+    },
+    {
+      "ProcessId": 27908,
+      "ParentProcessId": 28568,
+      "ExecutablePath": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe",
+      "CommandLine": "\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe\" --expose-internals D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\resources\\app.asar\\dsh\\node_modules\\@deepseek-ai\\dsh-desktop-host\\lib\\index.js D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\resources\\app.asar\\dsh D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-tea-qa-desktop-approved-pre3\\home\\profiles\\desktop D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\resources\\runtime\\primary-runtime D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\resources\\runtime\\primary-runtime\\dependencies\\pnpm\\bin\\pnpm.mjs D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\resources\\runtime\\bin"
+    },
+    {
+      "ProcessId": 21024,
+      "ParentProcessId": 28568,
+      "ExecutablePath": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe",
+      "CommandLine": "\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\DeepSeek Harness.exe\" --type=renderer --user-data-dir=\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-tea-qa-desktop-approved-pre3\\electron-data\" --standard-schemes=dsh-app --secure-schemes=dsh-app --cors-schemes=dsh-app --fetch-schemes=dsh-app --streaming-schemes=dsh-app --code-cache-schemes=dsh-app --app-path=\"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-phase5\\carrier\\resources\\app.asar\" --enable-sandbox --remote-debugging-port=18774 --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.75 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=7 --launch-time-ticks=93303470989 --field-trial-handle=1888,i,5706747096312466803,14698104861908587912,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1892,i,5737743310658288498,1798739601847035741,4 --trace-process-track-uuid=3190708992871164437 --mojo-platform-channel-handle=5000 /prefetch:1"
+    }
+  ],
+  "expectedRoot": 28568
+}

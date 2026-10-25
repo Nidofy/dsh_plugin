@@ -1,0 +1,17 @@
+{
+  "status": "NOT_QUALIFIED_DO_NOT_DELIVER",
+  "package": {
+    "name": "@nidofy/dsh-ai-village",
+    "version": "0.13.0-preview.2",
+    "file": "nidofy-dsh-ai-village-0.13.0-preview.2.tgz",
+    "bytes": 53660174,
+    "sha256": "1ef5a8a7427fe4248d0a600f9981f2ac44d8fc4137c507f70c5f4dc2f42327cd",
+    "files": 397,
+    "platform": "win32-x64",
+    "dsh": "0.2.1-rc.2",
+    "offline": true
+  },
+  "reason": "First actual seven-resident ordinary bookhouse action silently abandoned after a temporary dynamic obstruction. Fix and a new preview version are required.",
+  "evidence": "tea-square/browser/approved-play-dpr1-01/result.json",
+  "sourceIdentity": "Not frozen: first browser attempt source differs only in final-newline normalization from later build; no exact final source/package identity claim."
+}

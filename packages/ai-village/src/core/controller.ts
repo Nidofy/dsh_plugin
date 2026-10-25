@@ -9,7 +9,7 @@ export class WorldController<W extends SimulationWorld = World> {
   readonly pauseReasons = new Set<PauseReason>()
   drag: Drag | null = null
   accumulator = 0
-  lastPlacement: 'accepted' | 'rejected' | 'cancelled' | 'selected' | null = null
+  lastPlacement: 'accepted' | 'rejected' | 'cancelled' | 'selected' | 'story-blocked' | null = null
   constructor(public world: W, public scene: Scene, readonly changed: () => void) {
     if (world.userPaused) this.pauseReasons.add('user')
   }

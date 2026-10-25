@@ -1,4 +1,7 @@
 import { LivingController } from '../src/core/living-controller.ts'
+import { teaSquareFixture } from './tea-square.fixture.ts'
+import { teaSquareToken, teaSquareOrder } from '../src/core/tea-square-state.ts'
+import { startTeaSquareStory } from '../src/core/tea-square-engine.ts'
 import { startBookhouseStory, bookhouseStoryAction } from '../src/core/bookhouse-engine.ts'
 import { stories, neighborhoodEvents } from '../src/core/neighborhood-catalog.ts'
 // @vitest-environment jsdom
@@ -7,9 +10,45 @@ import { VillageRuntime } from '../src/client/runtime.ts'
 import { createLivingWorld as createWorld, type LivingWorld as ContentWorld } from '../src/core/living-state.ts'
 import { scene } from '../src/definitions.ts'
 import type { Saved } from '../src/host/save-store.ts'
-import { stepLiving as stepTea, settleTea } from '../src/core/living-engine.ts'
-import { switchRegion } from '../src/core/region-engine.ts'
+import { stepLiving as stepTea, settleTea, startPlay, inviteTea, startNeighborhoodEvent } from '../src/core/living-engine.ts'
+import { switchRegion,bookhouseActivity } from '../src/core/region-engine.ts'
+import { hitActor } from '../src/core/world.ts'
 afterEach(() => vi.unstubAllGlobals())
+it.each(['play','bookhouse','tea','neighborhood','tea-square'] as const)('rejects a real participant drag during %s without interrupting the event or writing, while retaining selection',async(kind)=>{
+ const c=new LivingController(createWorld(scene),scene,()=>{});c.setCharacterPresent('claude',true)
+ const world=kind==='tea-square'?startTeaSquareStory(teaSquareFixture(),scene,['bluewhale','claude','gemini'],crypto.randomUUID()):kind==='play'?startPlay(c.world,scene,'find-whale',['bluewhale'],crypto.randomUUID()):kind==='bookhouse'?startBookhouseStory(switchRegion(c.world,scene,'bookhouse'),scene,'claude',crypto.randomUUID()):kind==='tea'?inviteTea(c.world,scene,['bluewhale','claude'],'tea',crypto.randomUUID()):startNeighborhoodEvent(c.world,scene,'bench-chat',['bluewhale','claude'],crypto.randomUUID())
+ const f=fixture(world),r=f.runtime
+ try{
+  r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.flush()
+  const before=r.controller!.snapshot(),writes=f.stats().mutations,point=[0,-50,50].map(dx=>({x:before.actor.position.x+dx,y:before.actor.position.y})).find(p=>hitActor(before,p)?.id===before.actor.id)!
+  r.pointer({type:'down',id:70,point,css:{x:100,y:100}});r.pointer({type:'move',id:70,point:{x:180,y:430},css:{x:130,y:130}});r.pointer({type:'up',id:70,point:{x:180,y:430},css:{x:130,y:130}})
+  expect(r.actionError).toBe('EVENT_ACTIVE');expect(r.controller!.drag).toBeNull();expect(r.controller!.snapshot()).toEqual(before);expect(f.stats().mutations).toBe(writes)
+  r.pointer({type:'down',id:71,point,css:{x:100,y:100}});r.pointer({type:'up',id:71,point,css:{x:100,y:100}})
+  expect(r.controller!.lastPlacement).toBe('selected');expect(r.presentation.overlay).toBe('resident');expect(r.actionError).toBe('');expect(r.controller!.snapshot()).toEqual(before)
+ }finally{await r.dispose()}
+})
+it('commits a ground order once, lets a resident preview pass a click, rejects bad feet without writes and cancels explicitly',async()=>{
+ const f=fixture(switchRegion(createWorld(scene),scene,'bookhouse')),r=f.runtime
+ try{
+  r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.flush()
+  const writes=f.stats().mutations,before=r.controller!.snapshot();r.present({type:'overlay',overlay:'resident'})
+  const release=f.holdSave(),move=r.moveResident({x:180,y:300});await vi.waitFor(()=>expect(f.stats().mutations).toBe(writes+1))
+  expect(r.controller!.snapshot()).toEqual(before);await r.moveResident({x:300,y:300});expect(f.stats().mutations).toBe(writes+1)
+  release();await move;expect(r.presentation.overlay).toBeNull();expect(r.controller!.world.manualMove?.target).toEqual({x:180,y:300});expect(r.controller!.world.actor.position).toEqual(before.actor.position)
+  await r.moveResident({x:0,y:0});expect(r.actionError).toBe('INVALID_MOVE_TARGET');expect(f.stats().mutations).toBe(writes+1)
+  await r.cancelResidentMove();expect(f.stats().mutations).toBe(writes+2);expect(r.controller!.world.manualMove).toBeNull();expect(r.controller!.world.actor.destination).toBeNull()
+ }finally{await r.dispose()}
+})
+it('reconciles an unknown ground-order ACK without replaying movement or a second write',async()=>{
+ vi.useFakeTimers();const f=fixture(switchRegion(createWorld(scene),scene,'bookhouse')),r=f.runtime
+ try{
+  r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.flush()
+  const writes=f.stats().mutations,feet={...r.controller!.world.actor.position};f.loseAck();f.stateOffline(true)
+  await r.moveResident({x:180,y:300});expect(r.saveReceipt.status).toBe('unknown');expect(r.controller!.world.manualMove).toBeNull()
+  await r.moveResident({x:300,y:300});expect(f.stats().mutations).toBe(writes+1)
+  f.stateOffline(false);await r.checkRecovery();expect(r.controller!.world.manualMove?.target).toEqual({x:180,y:300});expect(r.controller!.world.actor.position).toEqual(feet);expect(f.stats().mutations).toBe(writes+1)
+ }finally{await r.dispose();vi.useRealTimers()}
+})
 it('uses the neutral gate for cold bookhouse and same-region hide/restore until a fresh frame, with idempotent subscriber reveal', async () => {
   const world=switchRegion(createWorld(scene),scene,'bookhouse');world.userPaused=true;const f=fixture(world),r=f.runtime
   let unsubscribe=()=>{}
@@ -407,7 +446,7 @@ it('initializes twelve existing facts as read when legacy preferences migrate, w
  world.progress={completedWishes:['first-tea'],discovered:['first-table'],unlocked:['wind-chime'],lastCompletedEventId:world.journal[0]!.eventId};world.decorations.windChime={id:'first-wind-chime',slot:null}
  world.neighborhood.memories=stories.map(s=>({id:s.id,eventId:crypto.randomUUID(),participants:neighborhoodEvents.find(d=>d.story===s.id)!.count===2?['bluewhale','claude']:['bluewhale'],completedTick:0,count:1}));world.neighborhood.lastEventId=world.neighborhood.memories.at(-1)!.eventId
  const f=fixture(world,{schemaVersion:1,theme:'dark',language:'en',reducedMotion:true,bubbles:false}),r=f.runtime
- try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(12)}finally{await r.dispose()}
+ try{r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));await vi.waitFor(()=>expect(r.preferences.noticesInitialized).toBe(true));expect(r.notices).toHaveLength(12);expect(r.preferences.noticeReadIds).toHaveLength(12);expect(r.presentation.toastIds).toEqual([]);expect(r.preferences.theme).toBe('dark');expect(r.preferences.language).toBe('en');expect(r.controller!.world.schemaVersion).toBe(14)}finally{await r.dispose()}
 })
 
 
@@ -441,4 +480,58 @@ it('bookhouse completion with a lost ACK reconciles the memory and keepsake once
   f.stateOffline(false);await r.checkRecovery()
   expect(r.controller!.world.bookhouse.memory?.count).toBe(1);expect(r.controller!.world.bookhouse.keepsake).toBe('bookhouse');expect(r.controller!.world.bookhouse.active).toBeNull();expect(f.stats().mutations).toBe(writes+1)
  }finally{await r.dispose();vi.useRealTimers()}
+})
+it('surfaces an expired bookhouse approach from the real scheduled runtime tick and clears its activity',async()=>{
+ const initial=bookhouseActivity(switchRegion(createWorld(scene),scene,'bookhouse'),scene,'bookcase');initial.actor.intent!.expires=initial.ticks+1
+ const f=fixture(initial),r=f.runtime;let scheduled:FrameRequestCallback|undefined
+ vi.stubGlobal('requestAnimationFrame',(callback:FrameRequestCallback)=>{scheduled=callback;return 1})
+ try{
+  r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.flush()
+  expect(scheduled).toBeTypeOf('function');scheduled!(1000);scheduled!(1034)
+  expect(r.actionError).toBe('PATH_BLOCKED');expect(r.controller!.world.actor.intent).toBeNull();expect(r.controller!.world.actor.destination).toBeNull()
+  expect(r.controller!.world.bookhouse.memory).toBeNull()
+ }finally{await r.dispose()}
+})
+it('approved tea travel reconciles an unknown ACK once and waits for its real first-frame gate before play',async()=>{
+ vi.useFakeTimers();const world=createWorld(scene);world.userPaused=true;const f=fixture(world),r=f.runtime
+ try{
+  r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.flush()
+  const before=r.controller!.snapshot(),writes=f.stats().mutations;f.loseAck();f.stateOffline(true)
+  await r.switchRegion('tea-square');expect(r.saveReceipt.status).toBe('unknown');expect(r.controller!.snapshot()).toEqual(before)
+  await r.switchRegion('tea-square');expect(f.stats().mutations).toBe(writes+1)
+  f.stateOffline(false);await r.checkRecovery();expect(r.controller!.world.region.active).toBe('tea-square');expect(r.frameKey).toBe('tea-square');expect(r.regionTransition).toBe(true)
+  expect(r.controller!.world.userPaused).toBe(true);expect(f.stats().mutations).toBe(writes+1)
+  await r.startTeaSquareActivity();expect(r.controller!.world.teaSquare.activity).toBeNull()
+  reveal(r);expect(r.regionTransition).toBe(true);await r.retryEntrance();reveal(r);expect(r.regionTransition).toBe(false)
+  await r.switchRegion('bookhouse');expect(r.actionError).toBe('REGION_NOT_CONNECTED');expect(f.stats().mutations).toBe(writes+1)
+  await r.switchRegion('courtyard');expect(r.controller!.world.actor.position).toEqual(before.actor.position);expect(f.stats().mutations).toBe(writes+2)
+ }finally{await r.dispose();vi.useRealTimers()}
+})
+it('tea square start, every coaster token and final unknown receipt share the authoritative CAS without duplicate rewards',async()=>{
+ const f=fixture(teaSquareFixture()),r=f.runtime
+ const settle=()=>{for(let i=0;i<2500&&r.controller!.world.teaSquare.active?.phase!=='ready';i++)stepTea(r.controller!.world,scene);expect(r.controller!.world.teaSquare.active?.phase).toBe('ready')}
+ try{
+  r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));reveal(r);await r.flush()
+  const writes=f.stats().mutations,before=r.controller!.snapshot(),release=f.holdSave(),pending=r.startTeaSquareStory(['bluewhale','claude','gemini'])
+  await vi.waitFor(()=>expect(f.stats().mutations).toBe(writes+1));expect(r.controller!.snapshot()).toEqual(before)
+  await r.startTeaSquareStory(['bluewhale','claude','gemini']);expect(f.stats().mutations).toBe(writes+1);release();await pending
+  settle();await r.actTeaSquareStory(teaSquareToken(r.controller!.world.teaSquare.active!),'continue');settle()
+  const token=teaSquareToken(r.controller!.world.teaSquare.active!);await r.actTeaSquareStory(token,'reset');const afterReset=f.stats().mutations
+  await r.actTeaSquareStory(token,'reset');expect(r.actionError).toBe('STALE_PLAY_ACTION');expect(f.stats().mutations).toBe(afterReset)
+  for(let slot=0;slot<3;slot++){const e=r.controller!.world.teaSquare.active!;await r.actTeaSquareStory(teaSquareToken(e),'place',`${teaSquareOrder(e.seed)[slot]}:${slot}`)}
+  settle();const completion=teaSquareToken(r.controller!.world.teaSquare.active!),count=f.stats().mutations
+  f.loseAck();f.stateOffline(true);await r.actTeaSquareStory(completion,'remember');expect(r.saveReceipt.status).toBe('unknown');expect(r.controller!.world.teaSquare.memory).toBeNull()
+  await r.actTeaSquareStory(completion,'remember');expect(f.stats().mutations).toBe(count+1)
+  f.stateOffline(false);await r.checkRecovery();expect(r.controller!.world.teaSquare.memory?.count).toBe(1);expect(r.controller!.world.teaSquare.keepsake).toBe('message-tree');expect(f.stats().mutations).toBe(count+1)
+  expect(r.notices.filter(n=>n.story==='tea-square-three-cups')).toHaveLength(1)
+ }finally{await r.dispose()}
+})
+it('tea square ordinary activity and cancellation use one CAS each and stay paused through a cold first-frame gate',async()=>{
+ const initial=teaSquareFixture();initial.userPaused=true;const f=fixture(initial),r=f.runtime
+ try{
+  r.setConnection(true);r.show();await vi.waitFor(()=>expect(r.ready).toBe(true));expect(r.regionTransition).toBe(true);await r.startTeaSquareActivity();expect(r.controller!.world.teaSquare.activity).toBeNull();reveal(r);await r.flush()
+  const before=r.controller!.snapshot(),writes=f.stats().mutations;await r.startTeaSquareActivity();expect(r.controller!.snapshot()).toEqual(before);expect(f.stats().mutations).toBe(writes)
+  r.pause('user',false);await r.flush();const count=f.stats().mutations;await r.startTeaSquareActivity();expect(r.controller!.world.teaSquare.activity?.stage).toBe('counter');expect(f.stats().mutations).toBe(count+1)
+  await r.cancelTeaSquareActivity();expect(r.controller!.world.teaSquare.activity).toBeNull();expect(r.controller!.world.actor.destination).toBeNull();expect(f.stats().mutations).toBe(count+2);expect(r.controller!.world.teaSquare.memory).toBeNull()
+ }finally{await r.dispose()}
 })

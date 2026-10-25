@@ -1,0 +1,14 @@
+{
+  "status": "APPROVED",
+  "date": "2026-10-25",
+  "scope": "Only community map terrain, five landmark illustrations and their faithful downscaled derivatives.",
+  "authorization": "User explicitly approved the map candidate for formal integration in this conversation; communicated to this art worker by the main agent. This is not approval of all art in community-next.",
+  "excluded": [
+    "bluewhale direction/reading poses",
+    "bookhouse scene art",
+    "tea-square playable scene/background",
+    "lakeside/workshop gameplay"
+  ],
+  "method": "Lanczos3 proportional resize and lossless non-palette PNG compression. No repaint, crop, geometry change or character edits.",
+  "runtimeEnabled": true
+}

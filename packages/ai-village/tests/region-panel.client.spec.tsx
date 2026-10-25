@@ -35,7 +35,7 @@ it('offers explicit travel in Furniture, with all residents and no new dock entr
   const ui = render(<ManagementPanel runtime={r} cn={false} short />)
   fireEvent.click(screen.getByRole('button', { name: 'Furniture' }))
   ui.rerender(<ManagementPanel runtime={r} cn={false} short />)
-  expect(screen.getByText('This scene is a development preview; final artwork is still in progress.')).toBeTruthy()
+  expect(screen.queryByText('This scene is a development preview; final artwork is still in progress.')).toBeNull()
   expect(screen.getAllByRole('tab').map(b => b.textContent)).toEqual(['Residents', 'Wishes', 'Decor', 'Journal'])
   fireEvent.click(screen.getByRole('button', { name: 'Go to AI Bookhouse' }))
   expect(runtime.switchRegion).toHaveBeenCalledExactlyOnceWith('bookhouse')

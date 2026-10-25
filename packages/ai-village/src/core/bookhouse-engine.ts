@@ -6,6 +6,7 @@ import { validateLivingWorld, type LivingWorld } from './living-state.ts'
 import { cancelLifeSocial } from './life-engine.ts'
 import type { CharacterId } from './roster.ts'
 import { uuid } from './content-state.ts'
+import { cancelManualMove } from './manual-move.ts'
 function prepare(w:LivingWorld){
  const e=w.bookhouse.active!,anchor=bookhouseScene.hotspots.find(h=>h.id===bookhouseEventStages(e)[e.stage as 0|1|2].target)!.anchor
  const candidates=[anchor,...[32,48,64].flatMap(r=>[{x:anchor.x+r,y:anchor.y},{x:anchor.x-r,y:anchor.y},{x:anchor.x,y:anchor.y+r}])]
@@ -29,7 +30,7 @@ export function startBookhouseStory(source:LivingWorld,base:Scene,friend:Charact
  if(w.region.active!=='bookhouse')throw Error('BOOKHOUSE_REQUIRED')
  if(w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')
  if(friend===w.actor.id||!actors(w).some(a=>a.id===friend)||!uuid(id)||id===w.bookhouse.lastEventId)throw Error('INVALID_INVITATION')
- cancelLifeSocial(w)
+ cancelManualMove(w);cancelLifeSocial(w)
  // Reserve the room for the brief shared reading; everyone stays at real feet.
  for(const a of actors(w))abandon(a)
  w.bookhouse.active={id,kind,board:[-1,-1,-1],participants:[w.actor.id,friend],stage:0,phase:'approaching',remainingTicks:90,approachRemainingTicks:1800,targets:[],routes:[],theme:null}

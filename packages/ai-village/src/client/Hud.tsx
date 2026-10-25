@@ -22,6 +22,7 @@ export function Hud({ runtime: r, cn, compact, close }: { runtime: VillageRuntim
     <button disabled={mode} aria-label={t(`消息，${unread} 条未读`, `Notifications, ${unread} unread`)} onClick={() => r.present({ type: 'overlay', overlay: 'notifications' })}><VillageIcon name="notifications" />{unread > 0 && <b className="village-badge">{unread > 9 ? '9+' : unread}</b>}</button>
     <span className="village-time">{t(`第${time.day}天`, `Day ${time.day}`)} · {String(time.hour).padStart(2, '0')}:{String(time.minute).padStart(2, '0')}{world?.userPaused && <span aria-label={t('已暂停','Paused')}> · Ⅱ</span>}</span>
     <span className="village-hud-spacer" />
+    <button aria-label={t('社区地图', 'Community map')} aria-expanded={p.overlay === 'map'} onClick={() => r.present({ type: 'overlay', overlay: 'map' })}><VillageIcon name="map" /></button>
     <button disabled={!r.ready || r.reasons.has('commit-pending') || mode} aria-label={world?.userPaused ? t('继续', 'Resume') : t('暂停', 'Pause')} onClick={() => r.pause('user', !world?.userPaused)}><VillageIcon name={world?.userPaused ? 'play' : 'pause'} /></button>
     {compact ? <button aria-label={t('更多', 'More')} onClick={() => r.present({ type: 'overlay', overlay: 'more' })}><VillageIcon name="more" /></button> : actions.map(a => <button key={a.icon} aria-label={a.label} data-disabled-reason={a.disabled?t('当前保存、连接或模式尚未就绪','Save, connection or mode is not ready'):undefined} disabled={a.disabled} onClick={a.run}><VillageIcon name={a.icon} /></button>)}
   </header>

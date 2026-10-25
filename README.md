@@ -4,6 +4,8 @@
 
 # DSH 独立插件仓库
 
+[AI 社区](packages/ai-village/README.md) 的 0.12.0-preview.1 已完成获批绘本地图、点击散步与离线包验收（world13/frame10）。当前 0.13.0-preview.3 已接入获批书屋与茶会场景、三人杯垫故事和普通坐姿（world14/content10/region2/frame11），通过410测试、双DPR交互、离线安装及隔离原生可见补测。旧超时记录保留，新方向动画未启用；交付包身份、性能范围与缺口见 [当前结果](docs/ai-village/community-next/CURRENT_STAGE.md)。
+
 [AI 小院 0.11.0-preview.1](packages/ai-village/README.md) 增加真实来源的共同回忆册、五位新人初见、固定配对故事与可重复书屋谜题。正式书屋分层美术独立待签收，运行场景保持开发样板；验证范围及离线包身份见 [0.11 记录](docs/ai-village/v011/RESULTS.md)。
 
 [AI 小院 0.10.0-preview.1](packages/ai-village/README.md) 新增五位可选居民（十二选七）与书屋完整共读故事、持久微光书签、跨区域手账/收藏事实。正式书屋美术候选独立门禁，当前场景继续标记开发样板；包身份与真实验收见[本轮记录](docs/ai-village/life-content/RESULTS.md)。

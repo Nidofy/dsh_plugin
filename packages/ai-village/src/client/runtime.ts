@@ -1,3 +1,4 @@
+import { startTeaSquareStory, actTeaSquareStory, cancelTeaSquareStory, startTeaSquareActivity, cancelTeaSquareActivity, placeTeaSquareKeepsake, type TeaSquareAction } from '../core/tea-square-engine.ts'
 import { startBookhouseStory, startBookhousePuzzle, bookhouseStoryAction, cancelBookhouseStory, placeBookhouseKeepsake } from '../core/bookhouse-engine.ts'
 import type { BookTheme } from '../core/bookhouse-state.ts'
 import { tableCellAt } from '../core/table-geometry.ts'
@@ -6,6 +7,7 @@ import { EntranceCoordinator } from './entrance-state.ts'
 import { canRecover, recoveryCode, recoveryDelays } from './recovery-policy.ts'
 import { DiagnosticTrace } from './diagnostic-trace.ts'
 import type { UIInput } from '../core/frame-protocol.ts'
+import { cancelManualMove, requestManualMove } from '../core/manual-move.ts'
 import { initialPresentation, presentationReducer, type UIAction } from './ui-state.ts'
 import { defaultCamera, validCamera, type Camera } from '../core/camera.ts'
 import { deriveNotices, type Notice } from '../core/notifications.ts'
@@ -13,6 +15,8 @@ import { AlbumClient } from './album-client.ts'
 import { residentAssets } from './asset-selection.ts'
 import { switchRegion as travelRegion, bookhouseActivity as useBookhouse, cancelBookhouseActivity as stopBookhouse, type BookhouseActivityId } from '../core/region-engine.ts'
 import type { RegionId } from '../core/living-state.ts'
+import { communityTravelIssue, type TravelIssue } from '../core/community-map.ts'
+import { loadCommunityArt } from './community-art.ts'
 import { actors } from '../core/world.ts'
 import { LivingController as ContentController } from '../core/living-controller.ts'
 import { inviteTea, cancelTea, settleTea, placeBell, startNeighborhoodEvent, changeLayout, decorateExtra } from '../core/living-engine.ts'
@@ -36,7 +40,7 @@ export type Request = (path: string, init?: RequestInit) => Promise<Response>
 /** One instance per plugin lifetime, deliberately independent of session selection and React mounts. */
 export class VillageRuntime {
   private changingRegion = false
-  get regionTransition() { return this.changingRegion || this.frameKey === 'bookhouse' && this.entrance.blocking }
+  get regionTransition() { return this.changingRegion || this.frameKey !== 'courtyard' && this.entrance.blocking }
   get frameKey(): RegionId { return this.controller?.world.region.active ?? 'courtyard' }
   readonly entrance = new EntranceCoordinator()
   private bootSettled = false
@@ -156,6 +160,8 @@ export class VillageRuntime {
   input(input: UIInput) {
     if (this.entrance.blocking) return
     if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.transaction.pending || this.photoMode) return
+    if (input.kind === 'ground-move') { void this.moveResident(input.point); return }
+    if (input.kind === 'cancel-move') { void this.cancelResidentMove(); return }
     if (input.kind === 'table-move') { const w=this.controller?.world; if(w && tableCellAt(w.home,input.point)===input.cell) void this.playAction('move',String(input.cell),input.token); return }
     if (input.kind === 'play-find') { const w=this.controller?.world, target=w&&whalePoint(w,scene); if(w?.play.active && target && Math.hypot(input.point.x-target.x,input.point.y-target.y)<=18) void this.playAction('find',whalePlace(w.play.active),input.token); return }
     if (input.kind === 'camera') { if(this.presentation.drawer==='closed'&&!this.presentation.overlay)this.setCamera(input.camera); return }
@@ -232,7 +238,7 @@ export class VillageRuntime {
   get canUndoHome() { return this.homeHistory.length > 0 }
   beginHome() {
     const world = this.controller?.world
-    if (!world || world.region.active !== 'courtyard' || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) return
+    if (!world || world.region.active !== 'courtyard' || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.teaSquare.active || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) return
     this.cancelArrangements()
     this.homeDraft = { home: structuredClone(world.home), layout: world.neighborhood.layout }
     this.homeHistory = []; this.homeDraftError = ''; this.homePreview = null; this.pause('arrange', true)
@@ -434,10 +440,12 @@ export class VillageRuntime {
     // Parent presentation is authoritative even before the iframe receives its next render.
     if(this.dismissedPointer===intent.id){if(intent.type==='up'||intent.type==='cancel')this.dismissedPointer=null;return}
     if(!this.arranging&&(this.presentation.drawer!=='closed'||this.presentation.overlay)){this.controller?.cancelDrag();if(intent.type==='down')this.dismissedPointer=intent.id;if(intent.type==='down'||intent.type==='up')this.sceneClick();return}
+    if(intent.type==='down')this.actionError=''
     const active = this.controller?.drag?.active
     const before = intent.type === 'up' ? this.controller?.snapshot() : undefined
     this.changingDraft = intent.type === 'up'
     try { this.controller?.pointer(intent) } finally { this.changingDraft = false }
+    if(this.controller?.lastPlacement==='story-blocked')this.actionError='EVENT_ACTIVE'
     if (before && this.controller && ['accepted', 'selected'].includes(this.controller.lastPlacement ?? '') && JSON.stringify(before) !== JSON.stringify(this.controller.world)) {
       const candidate = this.controller.snapshot(); this.controller.world = before
       void this.commitWorld(candidate)
@@ -447,6 +455,16 @@ export class VillageRuntime {
     this.emit()
   }
   cancelDrag() { this.controller?.cancelDrag(); this.emit() }
+  async moveResident(point: {x:number;y:number}) {
+    if(!this.foreground()||!this.ready||!this.frameReady||this.entrance.blocking||this.error||this.recovering||this.arranging||this.photoMode||this.controller?.drag||this.controller?.pauseReasons.size)return
+    if(this.presentation.drawer!=='closed'||this.presentation.overlay&&this.presentation.overlay!=='resident'){this.sceneClick();return}
+    if(this.presentation.overlay==='resident')this.sceneClick()
+    await this.neighborhoodCommand(()=>requestManualMove(this.controller!.world,scene,point))
+  }
+  async cancelResidentMove() {
+    if(!this.controller?.world.manualMove||!this.ready||this.error||this.recovering||this.criticalCandidate||this.transaction.pending||this.arranging||this.photoMode)return
+    await this.neighborhoodCommand(()=>{const w=this.controller!.snapshot();cancelManualMove(w);return w})
+  }
   selectCharacter(id: unknown) {
     if (!this.ready || this.error || this.recovering || this.criticalCandidate || this.arranging) return
     if (this.controller && !actors(this.controller.world).some(a=>a.id===id)) this.changeMembers(c=>c.selectCharacter(id))
@@ -484,13 +502,47 @@ export class VillageRuntime {
     catch (error) { this.actionError = error instanceof Error ? error.message : 'INVITATION_FAILED' }
     this.emit()
   }
-  async switchRegion(id: RegionId) {
+  regionTravelIssue(id: unknown): TravelIssue | null {
     const world = this.controller?.world
-    if (!world || id === world.region.active) return
-    if (!this.foreground() || !this.ready || !this.frameReady || this.entrance.blocking || this.error || this.criticalCandidate || this.transaction.pending || this.arranging || this.photoMode || this.controller?.drag || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) {
-      this.actionError = 'REGION_BUSY'; this.emit(); return
-    }
+    const issue = communityTravelIssue(world?.region.active ?? 'courtyard', id)
+    if (issue) return issue
+    if (this.saveReceipt.status === 'unknown') return 'REGION_UNCONFIRMED'
+    if (this.criticalCandidate || this.transaction.pending || this.preferenceTransaction.pending || this.homeSaving || this.saveReceipt.status === 'pending') return 'REGION_SAVING'
+    if (!this.connected || this.error || this.recovering) return 'REGION_CONNECTION'
+    if (!world || !this.foreground() || !this.ready || !this.frameReady || this.entrance.blocking) return 'REGION_NOT_READY'
+    if (this.arranging) return 'REGION_ARRANGING'
+    if (this.photoMode) return 'REGION_PHOTO'
+    if (this.controller?.drag) return 'REGION_DRAGGING'
+    if (world.teaSquare.active || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) return 'EVENT_ACTIVE'
+    return null
+  }
+  async switchRegion(id: RegionId) {
+    const issue = this.regionTravelIssue(id)
+    if (issue) { this.actionError = issue; this.emit(); return }
     await this.neighborhoodCommand(() => travelRegion(this.controller!.world, scene, id))
+  }
+  private teaSquareInputReady() { return this.foreground() && this.frameReady && !this.entrance.blocking && !this.arranging && !this.photoMode && !this.controller?.drag && !this.controller?.pauseReasons.size }
+  async startTeaSquareStory(participants: CharacterId[]) {
+    if (!this.teaSquareInputReady()) return
+    await this.neighborhoodCommand(() => startTeaSquareStory(this.controller!.world, scene, participants, crypto.randomUUID()))
+  }
+  async actTeaSquareStory(token: string, action: TeaSquareAction, choice?: string) {
+    if (!this.teaSquareInputReady()) return
+    await this.neighborhoodCommand(() => actTeaSquareStory(this.controller!.world, scene, token, action, choice))
+  }
+  async cancelTeaSquareStory() {
+    await this.neighborhoodCommand(() => { const w=this.controller!.snapshot(); cancelTeaSquareStory(w); return w })
+  }
+  async startTeaSquareActivity() {
+    if (!this.teaSquareInputReady()) return
+    await this.neighborhoodCommand(() => startTeaSquareActivity(this.controller!.world, scene))
+  }
+  async cancelTeaSquareActivity() {
+    await this.neighborhoodCommand(() => { const w=this.controller!.snapshot(); cancelTeaSquareActivity(w); return w })
+  }
+  async placeTeaSquareKeepsake(place: 'message-tree' | null) {
+    if (this.arranging || this.photoMode) return
+    await this.neighborhoodCommand(() => placeTeaSquareKeepsake(this.controller!.world, scene, place))
   }
   async bookhouseActivity(id: BookhouseActivityId) {
     if (!this.foreground() || !this.frameReady || this.entrance.blocking || this.arranging || this.photoMode || this.controller?.drag || this.controller?.pauseReasons.size) return
@@ -598,13 +650,14 @@ export class VillageRuntime {
   }
   view() {
     const c = this.controller
-    return c ? { arrangementObjects: this.homeDraft ? arrangementObjects(scene, homeProjection(c.world), this.homeDraft) : this.arranging ? [{ id: this.extraDecorationDraft?.id ?? 'windChime', rect: { x: 60, y: 90, width: 210, height: 65 }, anchors: (this.extraDecorationDraft ? [{x:166,y:101},{x:250,y:115},{x:76,y:104}] : [{x:185,y:105},{x:234,y:130},{x:96,y:117}]).map(a => ({ ...a, legal: true })) }] : [], camera: this.presentation.camera, overlayOpen: this.presentation.overlay !== null || this.presentation.confirmClose, dismissLayer: this.presentation.drawer !== 'closed' || this.presentation.overlay !== null, selectedFurniture: this.presentation.selectedFurniture, world: this.homePreview ?? c.world, arranging: !!this.homeDraft, position: c.drag?.active ? c.drag.position : c.world.actor.position,
+    return c ? { arrangementObjects: this.homeDraft ? arrangementObjects(scene, homeProjection(c.world), this.homeDraft) : this.arranging ? [{ id: this.extraDecorationDraft?.id ?? 'windChime', rect: { x: 60, y: 90, width: 210, height: 65 }, anchors: (this.extraDecorationDraft ? [{x:166,y:101},{x:250,y:115},{x:76,y:104}] : [{x:185,y:105},{x:234,y:130},{x:96,y:117}]).map(a => ({ ...a, legal: true })) }] : [], camera: this.presentation.camera, residentPreview: this.presentation.overlay === 'resident' && this.presentation.drawer === 'closed', overlayOpen: this.presentation.overlay !== null || this.presentation.confirmClose, dismissLayer: this.presentation.drawer !== 'closed' || this.presentation.overlay !== null, selectedFurniture: this.presentation.selectedFurniture, world: this.homePreview ?? c.world, arranging: !!this.homeDraft, position: c.drag?.active ? c.drag.position : c.world.actor.position,
       dragging: c.drag?.active ?? false, dragTime: this.dragTime, paused: this.entrance.blocking || !!c.pauseReasons.size, debug: false,
       locale: this.preferences.language === 'system' ? this.locale : this.preferences.language,
       photo: this.photoMode ? this.photoOptions : null, reducedMotion: this.preferences.reducedMotion, bubbles: this.preferences.bubbles, decorationDraft: this.decorationDraft, extraDecorationDraft: this.extraDecorationDraft } : null
   }
   assetRevision = 0
   private assetKeys = ''
+  communityArt(signal:AbortSignal) { return loadCommunityArt(this.request,AbortSignal.any([signal,this.lifetime.signal,this.attempt.signal])) }
   private async ensureAssets(world: ContentWorld, signal = this.attempt.signal) {
     const needed = residentAssets(actors(world).map(a=>a.id), world.region.active)
     const selected = resources.filter(entry => needed.has(entry.key)), total = selected.reduce((n, e) => n + e.bytes, 0)
@@ -649,6 +702,7 @@ export class VillageRuntime {
     const dt = this.last ? Math.min((now - this.last) / 1000, .1) : 0
     if (!this.last || dt >= 1 / 30) {
       this.controller.advance(dt)
+      if(this.controller.moveOutcome){if(this.controller.moveOutcome==='blocked')this.actionError='PATH_BLOCKED';this.controller.moveOutcome=null;this.emit()}
       const settlement = settleTea(this.controller.world, scene)
       if (settlement) void this.commitWorld(settlement)
       if (this.controller.drag?.active) this.dragTime += dt

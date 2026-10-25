@@ -1,0 +1,598 @@
+{
+  "status": "FAIL",
+  "mode": "upgrade",
+  "artifact": {
+    "version": "0.12.0-preview.1",
+    "file": "nidofy-dsh-ai-village-0.12.0-preview.1.tgz",
+    "sha256": "e888b399acffb173ed0c0c78ac27fd04ca9397c11d7cfe6bc6fcfb83861281ee"
+  },
+  "scriptSha": "6401968ffdb14d841434e9300c5cd8dcf7607ccbe7b7745d51f7d99cc452ab2b",
+  "environment": {
+    "launch": {
+      "startedAt": "2026-10-25T06:10:04.1779454Z",
+      "pid": 12516,
+      "port": 18773,
+      "version": "0.2.1-rc.2",
+      "arguments": [
+        "--user-data-dir=D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-life-qa-desktop-community/electron-data",
+        "--remote-debugging-port=18773",
+        "--remote-debugging-address=127.0.0.1"
+      ],
+      "dshHome": "D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-life-qa-desktop-community/home",
+      "softwareRendering": false,
+      "windowStyle": "Hidden"
+    },
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/152.0.7977.130",
+      "revision": "@58da080b2b7c38a02e066a911d0b9cd0e9daa70d",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) @deepseek-ai/dsh-desktop/0.2.1-rc.2 Chrome/152.0.7977.130 Electron/44.7.0 Safari/537.36",
+      "jsVersion": "15.2.124.28"
+    },
+    "gpu": {
+      "devices": [
+        {
+          "vendorId": 32902,
+          "deviceId": 32081,
+          "subSysId": 944707498,
+          "revision": 3,
+          "vendorString": "",
+          "deviceString": "Intel(R) Arc(TM) 140T GPU (16GB)",
+          "driverVendor": "Intel",
+          "driverVersion": "32.0.101.8243"
+        },
+        {
+          "vendorId": 32902,
+          "deviceId": 32081,
+          "subSysId": 944707498,
+          "revision": 3,
+          "vendorString": "",
+          "deviceString": "Intel(R) Arc(TM) 140T GPU (16GB)",
+          "driverVendor": "",
+          "driverVersion": "32.0.101.8243"
+        },
+        {
+          "vendorId": 5140,
+          "deviceId": 140,
+          "subSysId": 0,
+          "revision": 0,
+          "vendorString": "",
+          "deviceString": "Microsoft Basic Render Driver",
+          "driverVendor": "",
+          "driverVersion": "10.0.26100.8972"
+        }
+      ],
+      "auxAttributes": {
+        "amdSwitchable": false,
+        "bgra8OverlaySupport": "SCALING",
+        "canSupportThreadedTextureMailbox": false,
+        "directComposition": true,
+        "directMLFeatureLevel": "5.0",
+        "directRenderingVersion": "",
+        "displayType": "ANGLE_D3D11",
+        "dx12FeatureLevel": "D3D 12.2",
+        "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_copy_texture_3d GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_multiview_multisample GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_texture_usage GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_compressed_texture GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_EGL_image_external_wrap_modes GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_clip_cull_distance GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_border_clamp GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_storage GL_EXT_texture_type_2_10_10_10_REV GL_EXT_unpack_subimage GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_NV_EGL_stream_consumer_external GL_NV_fence GL_NV_framebuffer_blit GL_NV_pack_subimage GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_image_external GL_OES_EGL_image_external_essl3 GL_OES_depth24 GL_OES_depth32 GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_border_clamp GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_texture_storage_multisample_2d_array GL_OES_vertex_array_object GL_OVR_multiview GL_OVR_multiview2 ",
+        "glImplementationParts": "(gl=egl-angle,angle=d3d11)",
+        "glRenderer": "ANGLE (Intel, Intel(R) Arc(TM) 140T GPU (16GB) (0x00007D51) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.101.8243)",
+        "glResetNotificationStrategy": 33362,
+        "glVendor": "Google Inc. (Intel)",
+        "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28499 git hash: 30dd6b5278dd)",
+        "glWsExtensions": "EGL_EXT_create_context_robustness EGL_ANGLE_d3d_share_handle_client_buffer EGL_ANGLE_d3d_texture_client_buffer EGL_ANGLE_surface_d3d_texture_2d_share_handle EGL_ANGLE_query_surface_pointer EGL_ANGLE_window_fixed_size EGL_ANGLE_keyed_mutex EGL_ANGLE_surface_orientation EGL_ANGLE_direct_composition EGL_NV_post_sub_buffer EGL_KHR_create_context EGL_KHR_image EGL_KHR_image_base EGL_KHR_gl_texture_2D_image EGL_KHR_gl_texture_cubemap_image EGL_KHR_gl_renderbuffer_image EGL_KHR_get_all_proc_addresses EGL_KHR_stream EGL_KHR_stream_consumer_gltexture EGL_NV_stream_consumer_gltexture_yuv EGL_ANGLE_stream_producer_d3d_texture EGL_ANGLE_create_context_webgl_compatibility EGL_CHROMIUM_create_context_bind_generates_resource EGL_CHROMIUM_sync_control EGL_EXT_pixel_format_float EGL_KHR_surfaceless_context EGL_ANGLE_display_texture_share_group EGL_ANGLE_display_semaphore_share_group EGL_ANGLE_create_context_client_arrays EGL_ANGLE_program_cache_control EGL_ANGLE_robust_resource_initialization EGL_ANGLE_create_context_extensions_enabled EGL_ANDROID_blob_cache EGL_ANDROID_recordable EGL_ANGLE_image_d3d11_texture EGL_ANGLE_create_context_backwards_compatible EGL_KHR_no_config_context EGL_KHR_create_context_no_error EGL_KHR_reusable_sync EGL_ANGLE_memory_usage_report ",
+        "glWsVendor": "Google Inc. (Intel)",
+        "glWsVersion": "1.5 (ANGLE 2.1.28499 git hash: 30dd6b5278dd)",
+        "inProcessGpu": false,
+        "initializationTime": 0.095308,
+        "isAsan": false,
+        "isClangCoverage": false,
+        "jpegDecodeAcceleratorSupported": false,
+        "maxMsaaSamples": "8",
+        "nv12OverlaySupport": "SCALING",
+        "optimus": false,
+        "p010OverlaySupport": "SOFTWARE",
+        "passthroughCmdDecoder": true,
+        "pixelShaderVersion": "5.0",
+        "processCrashCount": 0,
+        "rgb10a2OverlaySupport": "SOFTWARE",
+        "sandboxed": true,
+        "skiaBackendType": "GaneshGL",
+        "subpixelFontRendering": true,
+        "supportsD3dSharedImages": true,
+        "supportsDirectML": true,
+        "supportsDx12": true,
+        "supportsOverlays": true,
+        "supportsVulkan": false,
+        "targetCpuBits": 64,
+        "vertexShaderVersion": "5.0",
+        "visibilityCallbackCallCount": 0,
+        "vulkanVersion": "Not supported",
+        "yuy2OverlaySupport": "SCALING"
+      },
+      "featureStatus": {
+        "2d_canvas": "enabled",
+        "direct_rendering_display_compositor": "disabled_off_ok",
+        "gpu_compositing": "enabled",
+        "multiple_raster_threads": "enabled_on",
+        "opengl": "enabled_on",
+        "rasterization": "enabled",
+        "raw_draw": "disabled_off_ok",
+        "skia_graphite": "disabled_off",
+        "trees_in_viz": "disabled_off",
+        "video_decode": "enabled",
+        "video_encode": "enabled",
+        "webgl": "enabled",
+        "webgpu": "enabled",
+        "webnn": "disabled_off"
+      },
+      "driverBugWorkarounds": [
+        "disable_d3d12_h264_encoder_non_reference_frames",
+        "disable_direct_composition_sw_video_overlays",
+        "disable_sharing_nv12_from_d3d11_to_d3d12",
+        "disable_vp_auto_hdr",
+        "enable_webgl_timer_query_extensions",
+        "exit_on_context_lost",
+        "force_dcomp_triple_buffer_video_swap_chain",
+        "max_msaa_sample_count_4",
+        "msaa_is_slow",
+        "no_downscaled_overlay_promotion",
+        "supports_two_yuv_hardware_overlays",
+        "disabled_extension_GL_KHR_blend_equation_advanced",
+        "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+      ],
+      "videoDecoding": [],
+      "videoEncoding": []
+    },
+    "page": {
+      "visibility": "visible",
+      "dpr": 1.75,
+      "size": [
+        1279,
+        821
+      ]
+    }
+  },
+  "checks": [],
+  "errors": [],
+  "observations": [
+    {
+      "kind": "before-failure-screenshot",
+      "ui": {
+        "entered": "false",
+        "entrance": "<div class=\"village-entrance village-recovery-door\" data-opening=\"false\" data-art-ready=\"true\" data-simple=\"true\"><div class=\"entrance-camera recovery-art\" aria-hidden=\"true\" style=\"visibility: visible; width: 537.857px; height: 717.143px; left: -98.9286px; top: 0px; transform: translate(-32.2714px, -17.9286px) scale(1.12); --entrance-perspective: 1045.833371480306px;\"><div class=\"entrance-exterior\" style=\"clip-path: polygon(evenodd, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 28.1768% 36.326%, 28.232% 36.0269%, 28.2943% 35.7305%, 28.3634% 35.4368%, 28.4394% 35.1458%, 28.522% 34.8576%, 28.6115% 34.5722%, 28.7075% 34.2896%, 28.8102% 34.0098%, 28.9194% 33.7329%, 29.0352% 33.4589%, 29.1574% 33.1878%, 29.2859% 32.9196%, 29.4208% 32.6544%, 29.562% 32.3922%, 29.7094% 32.133%, 29.863% 31.8768%, 30.0227% 31.6237%, 30.1884% 31.3737%, 30.3601% 31.1269%, 30.5378% 30.8831%, 30.7214% 30.6426%, 30.9108% 30.4052%, 31.106% 30.171%, 31.3069% 29.9402%, 31.5135% 29.7126%, 31.7257% 29.4883%, 31.9434% 29.2673%, 32.1668% 29.0497%, 32.3955% 28.8354%, 32.6296% 28.6246%, 32.8691% 28.4172%, 33.1138% 28.2133%, 33.3638% 28.0128%, 33.619% 27.8158%, 33.8793% 27.6224%, 34.1445% 27.4326%, 34.4149% 27.2463%, 34.6903% 27.0636%, 34.9705% 26.8846%, 35.2556% 26.7092%, 35.5454% 26.5376%, 35.84% 26.3697%, 36.1393% 26.2054%, 36.4431% 26.045%, 36.7516% 25.8883%, 37.0645% 25.7356%, 37.382% 25.5865%, 37.7039% 25.4415%, 38.0301% 25.3002%, 38.3606% 25.1629%, 38.6953% 25.0296%, 39.0343% 24.9002%, 39.3773% 24.7749%, 39.7244% 24.6535%, 40.0756% 24.5363%, 40.4306% 24.4231%, 40.7897% 24.314%, 41.1526% 24.209%, 41.5193% 24.1082%, 41.8896% 24.0116%, 42.2638% 23.9192%, 42.6416% 23.831%, 43.0229% 23.747%, 43.4078% 23.6674%, 43.796% 23.5921%, 44.1878% 23.5211%, 44.5829% 23.4544%, 44.9813% 23.3922%, 45.383% 23.3344%, 45.7879% 23.281%, 46.1958% 23.2322%, 46.6069% 23.1877%, 47.021% 23.1478%, 47.4381% 23.1124%, 47.8581% 23.0817%, 48.281% 23.0555%, 48.7067% 23.034%, 49.1351% 23.017%, 49.5662% 23.0048%, 50% 22.9972%, 50% 22.9972%, 50.4271% 23.0047%, 50.8519% 23.0169%, 51.2745% 23.0337%, 51.6948% 23.055%, 52.1126% 23.0809%, 52.528% 23.1114%, 52.9408% 23.1464%, 53.3511% 23.1858%, 53.7587% 23.2298%, 54.1636% 23.2782%, 54.5657% 23.331%, 54.965% 23.3883%, 55.3614% 23.4499%, 55.7548% 23.5158%, 56.1453% 23.5862%, 56.5326% 23.6608%, 56.9168% 23.7397%, 57.2978% 23.8228%, 57.6755% 23.9102%, 58.0499% 24.0019%, 58.4209% 24.0976%, 58.7884% 24.1976%, 59.1525% 24.3017%, 59.513% 24.41%, 59.8698% 24.5224%, 60.223% 24.6388%, 60.5723% 24.7592%, 60.918% 24.8838%, 61.2596% 25.0122%, 61.5973% 25.1447%, 61.9311% 25.2812%, 62.2607% 25.4215%, 62.5863% 25.5658%, 62.9077% 25.714%, 63.2248% 25.866%, 63.5376% 26.0219%, 63.846% 26.1816%, 64.15% 26.3451%, 64.4495% 26.5124%, 64.7444% 26.6833%, 65.0348% 26.8581%, 65.3205% 27.0365%, 65.6014% 27.2186%, 65.8774% 27.4044%, 66.1487% 27.5938%, 66.415% 27.7867%, 66.6763% 27.9833%, 66.9326% 28.1834%, 67.1838% 28.3871%, 67.4297% 28.5942%, 67.6706% 28.8049%, 67.906% 29.019%, 68.1361% 29.2366%, 68.3607% 29.4576%, 68.58% 29.682%, 68.7936% 29.9097%, 69.0017% 30.1408%, 69.2041% 30.3753%, 69.4008% 30.613%, 69.5917% 30.854%, 69.7768% 31.0983%, 69.9558% 31.3457%, 70.129% 31.5964%, 70.2961% 31.8503%, 70.4571% 32.1073%, 70.612% 32.3675%, 70.7607% 32.6308%, 70.9031% 32.8972%, 71.0391% 33.1665%, 71.1687% 33.439%, 71.2919% 33.7145%, 71.4085% 33.9931%, 71.5186% 34.2745%, 71.622% 34.5589%, 71.7187% 34.8462%, 71.8087% 35.1365%, 71.8918% 35.4296%, 71.968% 35.7256%, 72.0372% 36.0244%, 72.0994% 36.326%, 71.8232% 59.8757%, 28.2689% 59.8757%, 28.1768% 36.326%);\"><img src=\"/api/nidofy-ai-village/assets/entrance/entrance-bg-far.png\" alt=\"\" style=\"left: 0%; top: 0%; width: 100%; height: 100%;\"></div><div class=\"entrance-exterior\" style=\"clip-path: polygon(evenodd, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 28.1768% 36.326%, 28.232% 36.0269%, 28.2943% 35.7305%, 28.3634% 35.4368%, 28.4394% 35.1458%, 28.522% 34.8576%, 28.6115% 34.5722%, 28.7075% 34.2896%, 28.8102% 34.0098%, 28.9194% 33.7329%, 29.0352% 33.4589%, 29.1574% 33.1878%, 29.2859% 32.9196%, 29.4208% 32.6544%, 29.562% 32.3922%, 29.7094% 32.133%, 29.863% 31.8768%, 30.0227% 31.6237%, 30.1884% 31.3737%, 30.3601% 31.1269%, 30.5378% 30.8831%, 30.7214% 30.6426%, 30.9108% 30.4052%, 31.106% 30.171%, 31.3069% 29.9402%, 31.5135% 29.7126%, 31.7257% 29.4883%, 31.9434% 29.2673%, 32.1668% 29.0497%, 32.3955% 28.8354%, 32.6296% 28.6246%, 32.8691% 28.4172%, 33.1138% 28.2133%, 33.3638% 28.0128%, 33.619% 27.8158%, 33.8793% 27.6224%, 34.1445% 27.4326%, 34.4149% 27.2463%, 34.6903% 27.0636%, 34.9705% 26.8846%, 35.2556% 26.7092%, 35.5454% 26.5376%, 35.84% 26.3697%, 36.1393% 26.2054%, 36.4431% 26.045%, 36.7516% 25.8883%, 37.0645% 25.7356%, 37.382% 25.5865%, 37.7039% 25.4415%, 38.0301% 25.3002%, 38.3606% 25.1629%, 38.6953% 25.0296%, 39.0343% 24.9002%, 39.3773% 24.7749%, 39.7244% 24.6535%, 40.0756% 24.5363%, 40.4306% 24.4231%, 40.7897% 24.314%, 41.1526% 24.209%, 41.5193% 24.1082%, 41.8896% 24.0116%, 42.2638% 23.9192%, 42.6416% 23.831%, 43.0229% 23.747%, 43.4078% 23.6674%, 43.796% 23.5921%, 44.1878% 23.5211%, 44.5829% 23.4544%, 44.9813% 23.3922%, 45.383% 23.3344%, 45.7879% 23.281%, 46.1958% 23.2322%, 46.6069% 23.1877%, 47.021% 23.1478%, 47.4381% 23.1124%, 47.8581% 23.0817%, 48.281% 23.0555%, 48.7067% 23.034%, 49.1351% 23.017%, 49.5662% 23.0048%, 50% 22.9972%, 50% 22.9972%, 50.4271% 23.0047%, 50.8519% 23.0169%, 51.2745% 23.0337%, 51.6948% 23.055%, 52.1126% 23.0809%, 52.528% 23.1114%, 52.9408% 23.1464%, 53.3511% 23.1858%, 53.7587% 23.2298%, 54.1636% 23.2782%, 54.5657% 23.331%, 54.965% 23.3883%, 55.3614% 23.4499%, 55.7548% 23.5158%, 56.1453% 23.5862%, 56.5326% 23.6608%, 56.9168% 23.7397%, 57.2978% 23.8228%, 57.6755% 23.9102%, 58.0499% 24.0019%, 58.4209% 24.0976%, 58.7884% 24.1976%, 59.1525% 24.3017%, 59.513% 24.41%, 59.8698% 24.5224%, 60.223% 24.6388%, 60.5723% 24.7592%, 60.918% 24.8838%, 61.2596% 25.0122%, 61.5973% 25.1447%, 61.9311% 25.2812%, 62.2607% 25.4215%, 62.5863% 25.5658%, 62.9077% 25.714%, 63.2248% 25.866%, 63.5376% 26.0219%, 63.846% 26.1816%, 64.15% 26.3451%, 64.4495% 26.5124%, 64.7444% 26.6833%, 65.0348% 26.8581%, 65.3205% 27.0365%, 65.6014% 27.2186%, 65.8774% 27.4044%, 66.1487% 27.5938%, 66.415% 27.7867%, 66.6763% 27.9833%, 66.9326% 28.1834%, 67.1838% 28.3871%, 67.4297% 28.5942%, 67.6706% 28.8049%, 67.906% 29.019%, 68.1361% 29.2366%, 68.3607% 29.4576%, 68.58% 29.682%, 68.7936% 29.9097%, 69.0017% 30.1408%, 69.2041% 30.3753%, 69.4008% 30.613%, 69.5917% 30.854%, 69.7768% 31.0983%, 69.9558% 31.3457%, 70.129% 31.5964%, 70.2961% 31.8503%, 70.4571% 32.1073%, 70.612% 32.3675%, 70.7607% 32.6308%, 70.9031% 32.8972%, 71.0391% 33.1665%, 71.1687% 33.439%, 71.2919% 33.7145%, 71.4085% 33.9931%, 71.5186% 34.2745%, 71.622% 34.5589%, 71.7187% 34.8462%, 71.8087% 35.1365%, 71.8918% 35.4296%, 71.968% 35.7256%, 72.0372% 36.0244%, 72.0994% 36.326%, 71.8232% 59.8757%, 28.2689% 59.8757%, 28.1768% 36.326%);\"><img src=\"/api/nidofy-ai-village/assets/entrance/entrance-bg-mid.png\" alt=\"\" style=\"left: 0%; top: 12.1875%; width: 100%; height: 54.4792%;\"></div><div class=\"entrance-exterior\" style=\"clip-path: polygon(evenodd, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 28.1768% 36.326%, 28.232% 36.0269%, 28.2943% 35.7305%, 28.3634% 35.4368%, 28.4394% 35.1458%, 28.522% 34.8576%, 28.6115% 34.5722%, 28.7075% 34.2896%, 28.8102% 34.0098%, 28.9194% 33.7329%, 29.0352% 33.4589%, 29.1574% 33.1878%, 29.2859% 32.9196%, 29.4208% 32.6544%, 29.562% 32.3922%, 29.7094% 32.133%, 29.863% 31.8768%, 30.0227% 31.6237%, 30.1884% 31.3737%, 30.3601% 31.1269%, 30.5378% 30.8831%, 30.7214% 30.6426%, 30.9108% 30.4052%, 31.106% 30.171%, 31.3069% 29.9402%, 31.5135% 29.7126%, 31.7257% 29.4883%, 31.9434% 29.2673%, 32.1668% 29.0497%, 32.3955% 28.8354%, 32.6296% 28.6246%, 32.8691% 28.4172%, 33.1138% 28.2133%, 33.3638% 28.0128%, 33.619% 27.8158%, 33.8793% 27.6224%, 34.1445% 27.4326%, 34.4149% 27.2463%, 34.6903% 27.0636%, 34.9705% 26.8846%, 35.2556% 26.7092%, 35.5454% 26.5376%, 35.84% 26.3697%, 36.1393% 26.2054%, 36.4431% 26.045%, 36.7516% 25.8883%, 37.0645% 25.7356%, 37.382% 25.5865%, 37.7039% 25.4415%, 38.0301% 25.3002%, 38.3606% 25.1629%, 38.6953% 25.0296%, 39.0343% 24.9002%, 39.3773% 24.7749%, 39.7244% 24.6535%, 40.0756% 24.5363%, 40.4306% 24.4231%, 40.7897% 24.314%, 41.1526% 24.209%, 41.5193% 24.1082%, 41.8896% 24.0116%, 42.2638% 23.9192%, 42.6416% 23.831%, 43.0229% 23.747%, 43.4078% 23.6674%, 43.796% 23.5921%, 44.1878% 23.5211%, 44.5829% 23.4544%, 44.9813% 23.3922%, 45.383% 23.3344%, 45.7879% 23.281%, 46.1958% 23.2322%, 46.6069% 23.1877%, 47.021% 23.1478%, 47.4381% 23.1124%, 47.8581% 23.0817%, 48.281% 23.0555%, 48.7067% 23.034%, 49.1351% 23.017%, 49.5662% 23.0048%, 50% 22.9972%, 50% 22.9972%, 50.4271% 23.0047%, 50.8519% 23.0169%, 51.2745% 23.0337%, 51.6948% 23.055%, 52.1126% 23.0809%, 52.528% 23.1114%, 52.9408% 23.1464%, 53.3511% 23.1858%, 53.7587% 23.2298%, 54.1636% 23.2782%, 54.5657% 23.331%, 54.965% 23.3883%, 55.3614% 23.4499%, 55.7548% 23.5158%, 56.1453% 23.5862%, 56.5326% 23.6608%, 56.9168% 23.7397%, 57.2978% 23.8228%, 57.6755% 23.9102%, 58.0499% 24.0019%, 58.4209% 24.0976%, 58.7884% 24.1976%, 59.1525% 24.3017%, 59.513% 24.41%, 59.8698% 24.5224%, 60.223% 24.6388%, 60.5723% 24.7592%, 60.918% 24.8838%, 61.2596% 25.0122%, 61.5973% 25.1447%, 61.9311% 25.2812%, 62.2607% 25.4215%, 62.5863% 25.5658%, 62.9077% 25.714%, 63.2248% 25.866%, 63.5376% 26.0219%, 63.846% 26.1816%, 64.15% 26.3451%, 64.4495% 26.5124%, 64.7444% 26.6833%, 65.0348% 26.8581%, 65.3205% 27.0365%, 65.6014% 27.2186%, 65.8774% 27.4044%, 66.1487% 27.5938%, 66.415% 27.7867%, 66.6763% 27.9833%, 66.9326% 28.1834%, 67.1838% 28.3871%, 67.4297% 28.5942%, 67.6706% 28.8049%, 67.906% 29.019%, 68.1361% 29.2366%, 68.3607% 29.4576%, 68.58% 29.682%, 68.7936% 29.9097%, 69.0017% 30.1408%, 69.2041% 30.3753%, 69.4008% 30.613%, 69.5917% 30.854%, 69.7768% 31.0983%, 69.9558% 31.3457%, 70.129% 31.5964%, 70.2961% 31.8503%, 70.4571% 32.1073%, 70.612% 32.3675%, 70.7607% 32.6308%, 70.9031% 32.8972%, 71.0391% 33.1665%, 71.1687% 33.439%, 71.2919% 33.7145%, 71.4085% 33.9931%, 71.5186% 34.2745%, 71.622% 34.5589%, 71.7187% 34.8462%, 71.8087% 35.1365%, 71.8918% 35.4296%, 71.968% 35.7256%, 72.0372% 36.0244%, 72.0994% 36.326%, 71.8232% 59.8757%, 28.2689% 59.8757%, 28.1768% 36.326%);\"><img src=\"/api/nidofy-ai-village/assets/entrance/entrance-path.png\" alt=\"\" style=\"left: 0%; top: 61.4583%; width: 100%; height: 38.5417%;\"></div><img data-door=\"left\" src=\"/api/nidofy-ai-village/assets/entrance/entrance-gate-left.png\" alt=\"\" style=\"left: 27.6258%; top: 22.6042%; width: 23.3333%; height: 37.7083%; transform-origin: 2.36154% 52.6892%;\"><img data-door=\"right\" src=\"/api/nidofy-ai-village/assets/entrance/entrance-gate-right.png\" alt=\"\" style=\"left: 49.0408%; top: 22.6042%; width: 23.6111%; height: 37.7083%; transform-origin: 97.6603% 52.6892%;\"><div class=\"entrance-exterior\" style=\"clip-path: polygon(evenodd, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 28.1768% 36.326%, 28.232% 36.0269%, 28.2943% 35.7305%, 28.3634% 35.4368%, 28.4394% 35.1458%, 28.522% 34.8576%, 28.6115% 34.5722%, 28.7075% 34.2896%, 28.8102% 34.0098%, 28.9194% 33.7329%, 29.0352% 33.4589%, 29.1574% 33.1878%, 29.2859% 32.9196%, 29.4208% 32.6544%, 29.562% 32.3922%, 29.7094% 32.133%, 29.863% 31.8768%, 30.0227% 31.6237%, 30.1884% 31.3737%, 30.3601% 31.1269%, 30.5378% 30.8831%, 30.7214% 30.6426%, 30.9108% 30.4052%, 31.106% 30.171%, 31.3069% 29.9402%, 31.5135% 29.7126%, 31.7257% 29.4883%, 31.9434% 29.2673%, 32.1668% 29.0497%, 32.3955% 28.8354%, 32.6296% 28.6246%, 32.8691% 28.4172%, 33.1138% 28.2133%, 33.3638% 28.0128%, 33.619% 27.8158%, 33.8793% 27.6224%, 34.1445% 27.4326%, 34.4149% 27.2463%, 34.6903% 27.0636%, 34.9705% 26.8846%, 35.2556% 26.7092%, 35.5454% 26.5376%, 35.84% 26.3697%, 36.1393% 26.2054%, 36.4431% 26.045%, 36.7516% 25.8883%, 37.0645% 25.7356%, 37.382% 25.5865%, 37.7039% 25.4415%, 38.0301% 25.3002%, 38.3606% 25.1629%, 38.6953% 25.0296%, 39.0343% 24.9002%, 39.3773% 24.7749%, 39.7244% 24.6535%, 40.0756% 24.5363%, 40.4306% 24.4231%, 40.7897% 24.314%, 41.1526% 24.209%, 41.5193% 24.1082%, 41.8896% 24.0116%, 42.2638% 23.9192%, 42.6416% 23.831%, 43.0229% 23.747%, 43.4078% 23.6674%, 43.796% 23.5921%, 44.1878% 23.5211%, 44.5829% 23.4544%, 44.9813% 23.3922%, 45.383% 23.3344%, 45.7879% 23.281%, 46.1958% 23.2322%, 46.6069% 23.1877%, 47.021% 23.1478%, 47.4381% 23.1124%, 47.8581% 23.0817%, 48.281% 23.0555%, 48.7067% 23.034%, 49.1351% 23.017%, 49.5662% 23.0048%, 50% 22.9972%, 50% 22.9972%, 50.4271% 23.0047%, 50.8519% 23.0169%, 51.2745% 23.0337%, 51.6948% 23.055%, 52.1126% 23.0809%, 52.528% 23.1114%, 52.9408% 23.1464%, 53.3511% 23.1858%, 53.7587% 23.2298%, 54.1636% 23.2782%, 54.5657% 23.331%, 54.965% 23.3883%, 55.3614% 23.4499%, 55.7548% 23.5158%, 56.1453% 23.5862%, 56.5326% 23.6608%, 56.9168% 23.7397%, 57.2978% 23.8228%, 57.6755% 23.9102%, 58.0499% 24.0019%, 58.4209% 24.0976%, 58.7884% 24.1976%, 59.1525% 24.3017%, 59.513% 24.41%, 59.8698% 24.5224%, 60.223% 24.6388%, 60.5723% 24.7592%, 60.918% 24.8838%, 61.2596% 25.0122%, 61.5973% 25.1447%, 61.9311% 25.2812%, 62.2607% 25.4215%, 62.5863% 25.5658%, 62.9077% 25.714%, 63.2248% 25.866%, 63.5376% 26.0219%, 63.846% 26.1816%, 64.15% 26.3451%, 64.4495% 26.5124%, 64.7444% 26.6833%, 65.0348% 26.8581%, 65.3205% 27.0365%, 65.6014% 27.2186%, 65.8774% 27.4044%, 66.1487% 27.5938%, 66.415% 27.7867%, 66.6763% 27.9833%, 66.9326% 28.1834%, 67.1838% 28.3871%, 67.4297% 28.5942%, 67.6706% 28.8049%, 67.906% 29.019%, 68.1361% 29.2366%, 68.3607% 29.4576%, 68.58% 29.682%, 68.7936% 29.9097%, 69.0017% 30.1408%, 69.2041% 30.3753%, 69.4008% 30.613%, 69.5917% 30.854%, 69.7768% 31.0983%, 69.9558% 31.3457%, 70.129% 31.5964%, 70.2961% 31.8503%, 70.4571% 32.1073%, 70.612% 32.3675%, 70.7607% 32.6308%, 70.9031% 32.8972%, 71.0391% 33.1665%, 71.1687% 33.439%, 71.2919% 33.7145%, 71.4085% 33.9931%, 71.5186% 34.2745%, 71.622% 34.5589%, 71.7187% 34.8462%, 71.8087% 35.1365%, 71.8918% 35.4296%, 71.968% 35.7256%, 72.0372% 36.0244%, 72.0994% 36.326%, 71.8232% 59.8757%, 28.2689% 59.8757%, 28.1768% 36.326%);\"><img src=\"/api/nidofy-ai-village/assets/entrance/entrance-gate-frame.png\" alt=\"\" style=\"left: 17.2222%; top: 12.3958%; width: 64.8611%; height: 51.6667%;\"></div><div class=\"entrance-exterior\" style=\"clip-path: polygon(evenodd, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 28.1768% 36.326%, 28.232% 36.0269%, 28.2943% 35.7305%, 28.3634% 35.4368%, 28.4394% 35.1458%, 28.522% 34.8576%, 28.6115% 34.5722%, 28.7075% 34.2896%, 28.8102% 34.0098%, 28.9194% 33.7329%, 29.0352% 33.4589%, 29.1574% 33.1878%, 29.2859% 32.9196%, 29.4208% 32.6544%, 29.562% 32.3922%, 29.7094% 32.133%, 29.863% 31.8768%, 30.0227% 31.6237%, 30.1884% 31.3737%, 30.3601% 31.1269%, 30.5378% 30.8831%, 30.7214% 30.6426%, 30.9108% 30.4052%, 31.106% 30.171%, 31.3069% 29.9402%, 31.5135% 29.7126%, 31.7257% 29.4883%, 31.9434% 29.2673%, 32.1668% 29.0497%, 32.3955% 28.8354%, 32.6296% 28.6246%, 32.8691% 28.4172%, 33.1138% 28.2133%, 33.3638% 28.0128%, 33.619% 27.8158%, 33.8793% 27.6224%, 34.1445% 27.4326%, 34.4149% 27.2463%, 34.6903% 27.0636%, 34.9705% 26.8846%, 35.2556% 26.7092%, 35.5454% 26.5376%, 35.84% 26.3697%, 36.1393% 26.2054%, 36.4431% 26.045%, 36.7516% 25.8883%, 37.0645% 25.7356%, 37.382% 25.5865%, 37.7039% 25.4415%, 38.0301% 25.3002%, 38.3606% 25.1629%, 38.6953% 25.0296%, 39.0343% 24.9002%, 39.3773% 24.7749%, 39.7244% 24.6535%, 40.0756% 24.5363%, 40.4306% 24.4231%, 40.7897% 24.314%, 41.1526% 24.209%, 41.5193% 24.1082%, 41.8896% 24.0116%, 42.2638% 23.9192%, 42.6416% 23.831%, 43.0229% 23.747%, 43.4078% 23.6674%, 43.796% 23.5921%, 44.1878% 23.5211%, 44.5829% 23.4544%, 44.9813% 23.3922%, 45.383% 23.3344%, 45.7879% 23.281%, 46.1958% 23.2322%, 46.6069% 23.1877%, 47.021% 23.1478%, 47.4381% 23.1124%, 47.8581% 23.0817%, 48.281% 23.0555%, 48.7067% 23.034%, 49.1351% 23.017%, 49.5662% 23.0048%, 50% 22.9972%, 50% 22.9972%, 50.4271% 23.0047%, 50.8519% 23.0169%, 51.2745% 23.0337%, 51.6948% 23.055%, 52.1126% 23.0809%, 52.528% 23.1114%, 52.9408% 23.1464%, 53.3511% 23.1858%, 53.7587% 23.2298%, 54.1636% 23.2782%, 54.5657% 23.331%, 54.965% 23.3883%, 55.3614% 23.4499%, 55.7548% 23.5158%, 56.1453% 23.5862%, 56.5326% 23.6608%, 56.9168% 23.7397%, 57.2978% 23.8228%, 57.6755% 23.9102%, 58.0499% 24.0019%, 58.4209% 24.0976%, 58.7884% 24.1976%, 59.1525% 24.3017%, 59.513% 24.41%, 59.8698% 24.5224%, 60.223% 24.6388%, 60.5723% 24.7592%, 60.918% 24.8838%, 61.2596% 25.0122%, 61.5973% 25.1447%, 61.9311% 25.2812%, 62.2607% 25.4215%, 62.5863% 25.5658%, 62.9077% 25.714%, 63.2248% 25.866%, 63.5376% 26.0219%, 63.846% 26.1816%, 64.15% 26.3451%, 64.4495% 26.5124%, 64.7444% 26.6833%, 65.0348% 26.8581%, 65.3205% 27.0365%, 65.6014% 27.2186%, 65.8774% 27.4044%, 66.1487% 27.5938%, 66.415% 27.7867%, 66.6763% 27.9833%, 66.9326% 28.1834%, 67.1838% 28.3871%, 67.4297% 28.5942%, 67.6706% 28.8049%, 67.906% 29.019%, 68.1361% 29.2366%, 68.3607% 29.4576%, 68.58% 29.682%, 68.7936% 29.9097%, 69.0017% 30.1408%, 69.2041% 30.3753%, 69.4008% 30.613%, 69.5917% 30.854%, 69.7768% 31.0983%, 69.9558% 31.3457%, 70.129% 31.5964%, 70.2961% 31.8503%, 70.4571% 32.1073%, 70.612% 32.3675%, 70.7607% 32.6308%, 70.9031% 32.8972%, 71.0391% 33.1665%, 71.1687% 33.439%, 71.2919% 33.7145%, 71.4085% 33.9931%, 71.5186% 34.2745%, 71.622% 34.5589%, 71.7187% 34.8462%, 71.8087% 35.1365%, 71.8918% 35.4296%, 71.968% 35.7256%, 72.0372% 36.0244%, 72.0994% 36.326%, 71.8232% 59.8757%, 28.2689% 59.8757%, 28.1768% 36.326%);\"><img src=\"/api/nidofy-ai-village/assets/entrance/entrance-fg-left.png\" alt=\"\" style=\"left: 0%; top: 78.2292%; width: 29.4444%; height: 21.7708%;\"></div><div class=\"entrance-exterior\" style=\"clip-path: polygon(evenodd, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 28.1768% 36.326%, 28.232% 36.0269%, 28.2943% 35.7305%, 28.3634% 35.4368%, 28.4394% 35.1458%, 28.522% 34.8576%, 28.6115% 34.5722%, 28.7075% 34.2896%, 28.8102% 34.0098%, 28.9194% 33.7329%, 29.0352% 33.4589%, 29.1574% 33.1878%, 29.2859% 32.9196%, 29.4208% 32.6544%, 29.562% 32.3922%, 29.7094% 32.133%, 29.863% 31.8768%, 30.0227% 31.6237%, 30.1884% 31.3737%, 30.3601% 31.1269%, 30.5378% 30.8831%, 30.7214% 30.6426%, 30.9108% 30.4052%, 31.106% 30.171%, 31.3069% 29.9402%, 31.5135% 29.7126%, 31.7257% 29.4883%, 31.9434% 29.2673%, 32.1668% 29.0497%, 32.3955% 28.8354%, 32.6296% 28.6246%, 32.8691% 28.4172%, 33.1138% 28.2133%, 33.3638% 28.0128%, 33.619% 27.8158%, 33.8793% 27.6224%, 34.1445% 27.4326%, 34.4149% 27.2463%, 34.6903% 27.0636%, 34.9705% 26.8846%, 35.2556% 26.7092%, 35.5454% 26.5376%, 35.84% 26.3697%, 36.1393% 26.2054%, 36.4431% 26.045%, 36.7516% 25.8883%, 37.0645% 25.7356%, 37.382% 25.5865%, 37.7039% 25.4415%, 38.0301% 25.3002%, 38.3606% 25.1629%, 38.6953% 25.0296%, 39.0343% 24.9002%, 39.3773% 24.7749%, 39.7244% 24.6535%, 40.0756% 24.5363%, 40.4306% 24.4231%, 40.7897% 24.314%, 41.1526% 24.209%, 41.5193% 24.1082%, 41.8896% 24.0116%, 42.2638% 23.9192%, 42.6416% 23.831%, 43.0229% 23.747%, 43.4078% 23.6674%, 43.796% 23.5921%, 44.1878% 23.5211%, 44.5829% 23.4544%, 44.9813% 23.3922%, 45.383% 23.3344%, 45.7879% 23.281%, 46.1958% 23.2322%, 46.6069% 23.1877%, 47.021% 23.1478%, 47.4381% 23.1124%, 47.8581% 23.0817%, 48.281% 23.0555%, 48.7067% 23.034%, 49.1351% 23.017%, 49.5662% 23.0048%, 50% 22.9972%, 50% 22.9972%, 50.4271% 23.0047%, 50.8519% 23.0169%, 51.2745% 23.0337%, 51.6948% 23.055%, 52.1126% 23.0809%, 52.528% 23.1114%, 52.9408% 23.1464%, 53.3511% 23.1858%, 53.7587% 23.2298%, 54.1636% 23.2782%, 54.5657% 23.331%, 54.965% 23.3883%, 55.3614% 23.4499%, 55.7548% 23.5158%, 56.1453% 23.5862%, 56.5326% 23.6608%, 56.9168% 23.7397%, 57.2978% 23.8228%, 57.6755% 23.9102%, 58.0499% 24.0019%, 58.4209% 24.0976%, 58.7884% 24.1976%, 59.1525% 24.3017%, 59.513% 24.41%, 59.8698% 24.5224%, 60.223% 24.6388%, 60.5723% 24.7592%, 60.918% 24.8838%, 61.2596% 25.0122%, 61.5973% 25.1447%, 61.9311% 25.2812%, 62.2607% 25.4215%, 62.5863% 25.5658%, 62.9077% 25.714%, 63.2248% 25.866%, 63.5376% 26.0219%, 63.846% 26.1816%, 64.15% 26.3451%, 64.4495% 26.5124%, 64.7444% 26.6833%, 65.0348% 26.8581%, 65.3205% 27.0365%, 65.6014% 27.2186%, 65.8774% 27.4044%, 66.1487% 27.5938%, 66.415% 27.7867%, 66.6763% 27.9833%, 66.9326% 28.1834%, 67.1838% 28.3871%, 67.4297% 28.5942%, 67.6706% 28.8049%, 67.906% 29.019%, 68.1361% 29.2366%, 68.3607% 29.4576%, 68.58% 29.682%, 68.7936% 29.9097%, 69.0017% 30.1408%, 69.2041% 30.3753%, 69.4008% 30.613%, 69.5917% 30.854%, 69.7768% 31.0983%, 69.9558% 31.3457%, 70.129% 31.5964%, 70.2961% 31.8503%, 70.4571% 32.1073%, 70.612% 32.3675%, 70.7607% 32.6308%, 70.9031% 32.8972%, 71.0391% 33.1665%, 71.1687% 33.439%, 71.2919% 33.7145%, 71.4085% 33.9931%, 71.5186% 34.2745%, 71.622% 34.5589%, 71.7187% 34.8462%, 71.8087% 35.1365%, 71.8918% 35.4296%, 71.968% 35.7256%, 72.0372% 36.0244%, 72.0994% 36.326%, 71.8232% 59.8757%, 28.2689% 59.8757%, 28.1768% 36.326%);\"><img src=\"/api/nidofy-ai-village/assets/entrance/entrance-fg-right.png\" alt=\"\" style=\"left: 69.1667%; top: 79.2708%; width: 30.8333%; height: 20.7292%;\"></div></div><button class=\"recovery-door-target\" aria-label=\"Open the doors and enter again\"><span class=\"recovery-door-copy\"><strong>Click to enter again</strong><span>Back at the entrance. Your village records are preserved.</span></span></button><button class=\"recovery-door-close\">Close village</button><details class=\"recovery-door-details\"><summary>Diagnostics and recovery</summary><p>OWNER_LOST</p><p>If entry still fails, check the connection or save. Restoring a previous revision requires your explicit action.</p><button>Restore previous revision</button></details></div>"
+      }
+    },
+    {
+      "buttons": [
+        "",
+        "",
+        "New SessionCtrl+N",
+        "Plugins",
+        "Automation tasks",
+        "",
+        "",
+        "",
+        "More",
+        "Update",
+        "",
+        "",
+        "Default workspace",
+        "Standard mode",
+        "",
+        "Workspace Write",
+        "Select model",
+        "",
+        "Click to enter againBack at the entrance. Your village records are preserved.",
+        "Close village"
+      ]
+    },
+    {
+      "video": {
+        "frames": 1,
+        "status": "INSUFFICIENT_FRAMES"
+      }
+    }
+  ],
+  "requests": [
+    {
+      "path": "assets/entrance/entrance-bg-mid.png",
+      "status": 200,
+      "at": 1792909108884
+    },
+    {
+      "path": "assets/entrance/entrance-bg-far.png",
+      "status": 200,
+      "at": 1792909108885
+    },
+    {
+      "path": "assets/entrance/entrance-gate-frame.png",
+      "status": 200,
+      "at": 1792909108886
+    },
+    {
+      "path": "assets/entrance/entrance-gate-right.png",
+      "status": 200,
+      "at": 1792909108886
+    },
+    {
+      "path": "assets/entrance/entrance-fg-right.png",
+      "status": 200,
+      "at": 1792909108886
+    },
+    {
+      "path": "assets/entrance/entrance-gate-left.png",
+      "status": 200,
+      "at": 1792909108888
+    },
+    {
+      "path": "assets/entrance/entrance-path.png",
+      "status": 200,
+      "at": 1792909108888
+    },
+    {
+      "path": "assets/entrance/entrance-fg-left.png",
+      "status": 200,
+      "at": 1792909108889
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909108903
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909112245
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909116243
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909120249
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909124289
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909128247
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909132244
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909136250
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909140237
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909144248
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909148243
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909152242
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909156237
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909160245
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909164246
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909168250
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909172244
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909176236
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909180243
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909184254
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909188241
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909192241
+    },
+    {
+      "path": "heartbeat",
+      "status": 409,
+      "at": 1792909196239
+    },
+    {
+      "path": "state",
+      "status": 200,
+      "at": 1792909199563
+    }
+  ],
+  "failure": "Error: Entrance before panel navigation\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-community-native.mjs:36:222)\n    at async closePanel (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-community-native.mjs:41:34)\n    at async pause (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-community-native.mjs:44:32)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-community-native.mjs:114:71",
+  "world": {
+    "schemaVersion": 13,
+    "worldId": "bluewhale-courtyard",
+    "sceneVersion": 3,
+    "avatarDefinitionVersion": 1,
+    "ticks": 3257,
+    "rng": 3113375193,
+    "userPaused": false,
+    "actor": {
+      "id": "bluewhale",
+      "facing": "right",
+      "position": {
+        "x": 174,
+        "y": 340
+      },
+      "safe": {
+        "x": 174,
+        "y": 340
+      },
+      "behavior": "idle",
+      "phase": 0,
+      "remaining": 3,
+      "intent": null,
+      "destination": null
+    },
+    "companions": [
+      {
+        "id": "claude",
+        "facing": "right",
+        "position": {
+          "x": 60,
+          "y": 350
+        },
+        "safe": {
+          "x": 60,
+          "y": 350
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 2,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "gemini",
+        "facing": "right",
+        "position": {
+          "x": 124,
+          "y": 350
+        },
+        "safe": {
+          "x": 124,
+          "y": 350
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 3,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "gpt",
+        "facing": "right",
+        "position": {
+          "x": 252,
+          "y": 350
+        },
+        "safe": {
+          "x": 252,
+          "y": 350
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 4,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "grok",
+        "facing": "right",
+        "position": {
+          "x": 60,
+          "y": 414
+        },
+        "safe": {
+          "x": 60,
+          "y": 414
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 5,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "kimi",
+        "facing": "right",
+        "position": {
+          "x": 124,
+          "y": 414
+        },
+        "safe": {
+          "x": 124,
+          "y": 414
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 6,
+        "intent": null,
+        "destination": null
+      },
+      {
+        "id": "qwen",
+        "facing": "right",
+        "position": {
+          "x": 188,
+          "y": 414
+        },
+        "safe": {
+          "x": 188,
+          "y": 414
+        },
+        "behavior": "idle",
+        "phase": 0,
+        "remaining": 7,
+        "intent": null,
+        "destination": null
+      }
+    ],
+    "simulationRulesVersion": 4,
+    "contentRevision": 9,
+    "activeEvent": null,
+    "progress": {
+      "completedWishes": [],
+      "discovered": [],
+      "unlocked": [],
+      "lastCompletedEventId": null
+    },
+    "journal": [],
+    "decorations": {
+      "layoutRevision": 0,
+      "windChime": null
+    },
+    "neighborhood": {
+      "layout": "courtyard",
+      "layoutRevision": 0,
+      "event": null,
+      "memories": [],
+      "bonds": [],
+      "decorations": {
+        "lantern": null,
+        "planter": null
+      },
+      "nextInteractionTick": 0,
+      "lastEventId": null
+    },
+    "home": {
+      "revision": 0,
+      "positions": {
+        "work": 0,
+        "eat": 0,
+        "bench": 0,
+        "corner": 0
+      },
+      "environment": "afternoon",
+      "accessories": {
+        "bluewhale": "none",
+        "claude": "none",
+        "gemini": "none",
+        "gpt": "none",
+        "grok": "none",
+        "kimi": "none",
+        "qwen": "none",
+        "seedance": "none",
+        "glm": "none",
+        "minimax": "none",
+        "llama": "none",
+        "mistral": "none"
+      }
+    },
+    "play": {
+      "encounterWindow": -1,
+      "tableMode": "dining",
+      "active": null,
+      "decorations": {
+        "message-board": null,
+        "leaf-pot": null,
+        "rice-bowl": null,
+        "page-marker": null,
+        "wind-ribbon": null,
+        "whale-token": null,
+        "desk-star": null,
+        "snack-tray": null,
+        "star-mobile": null,
+        "table-stones": null
+      },
+      "nextTick": 0,
+      "lastEventId": null
+    },
+    "life": {
+      "social": null
+    },
+    "region": {
+      "version": 1,
+      "active": "courtyard",
+      "returns": {
+        "courtyard": null,
+        "bookhouse": [
+          {
+            "id": "bluewhale",
+            "position": {
+              "x": 299.9969087488511,
+              "y": 309.9958029354319
+            },
+            "safe": {
+              "x": 299.9969087488511,
+              "y": 309.9958029354319
+            },
+            "facing": "right"
+          }
+        ]
+      }
+    },
+    "bookhouse": {
+      "version": 2,
+      "active": null,
+      "memory": null,
+      "lastEventId": null,
+      "keepsake": null,
+      "puzzleMemory": null,
+      "puzzleLastEventId": null
+    },
+    "manualMove": null
+  },
+  "notRun": [
+    "foreground native hardware FPS (window intentionally not activated)",
+    "physical sleep",
+    "native minimize/restore",
+    "long-duration memory soak",
+    "additional physical DPI settings"
+  ]
+}

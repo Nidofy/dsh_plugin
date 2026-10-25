@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-25T08:41:21.6077718Z",
+  "checkedPids": [
+    15968,
+    7244,
+    15800,
+    28784,
+    28116,
+    29052
+  ],
+  "remaining": [],
+  "listeners": [],
+  "status": "PASS",
+  "preservedProfile": ".build/ai-village-tea-qa-desktop-approved-pre3",
+  "userProfileUntouched": true
+}

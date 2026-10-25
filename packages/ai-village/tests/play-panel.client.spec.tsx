@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { afterEach, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { blankTeaSquare } from '../src/core/tea-square-state.ts'
 import { PlayPanel } from '../src/client/PlayPanel.tsx'
 import type { VillageRuntime } from '../src/client/runtime.ts'
 import { playDefinitions, playDecorationIds, whalePlace, whalePlaceNames, snackReaction } from '../src/core/play-catalog.ts'
@@ -8,6 +9,7 @@ import { playDefinitions, playDecorationIds, whalePlace, whalePlaceNames, snackR
 afterEach(cleanup)
 function fixture(id = 'lost-rice', phase = 'ready') {
   const world = {
+    teaSquare: blankTeaSquare(),
     bookhouse: {version:1,active:null,memory:null,lastEventId:null,keepsake:null},
     ticks: 100, actor: { id: 'claude' }, companions: [{ id: 'bluewhale' }, { id: 'kimi' }], activeEvent: null,
     region: { version: 1, active: 'courtyard', returns: { courtyard: null, bookhouse: null } },

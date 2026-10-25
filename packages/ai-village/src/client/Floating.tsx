@@ -9,6 +9,8 @@ import { attachFloatingLayout, type FloatingGeometry } from './floating-layout.t
 import { attachFrame } from './frame-bridge.ts'
 import type { VillageRuntime } from './runtime.ts'
 import { Hud } from './Hud.tsx'
+import { CommunityMap, communityMapCSS } from './CommunityMap.tsx'
+import { MovementFeedback } from './MovementFeedback.tsx'
 import { SettingsPanel } from './SettingsPanel.tsx'
 import { ManagementPanel } from './ManagementPanel.tsx'
 import { Notifications } from './Notifications.tsx'
@@ -22,7 +24,7 @@ export { css }
 function Scene({ runtime, fail }: { runtime: VillageRuntime; fail(): void }) {
   const ref = useRef<HTMLIFrameElement>(null)
   useEffect(() => ref.current ? attachFrame(ref.current, runtime, fail) : undefined, [runtime, fail])
-  return <iframe ref={ref} src="/api/nidofy-ai-village/frame" title={runtime.frameKey === 'bookhouse' ? 'AI 书屋互动场景 / Interactive bookhouse' : 'AI 小院互动场景 / Interactive courtyard'} sandbox="allow-scripts" />
+  return <iframe ref={ref} src="/api/nidofy-ai-village/frame" title={runtime.frameKey === 'tea-square' ? 'AI 茶会广场互动场景 / Interactive tea square' : runtime.frameKey === 'bookhouse' ? 'AI 书屋互动场景 / Interactive bookhouse' : 'AI 小院互动场景 / Interactive courtyard'} sandbox="allow-scripts" />
 }
 export function Floating({ runtime: r, locale, active, onClose }: { runtime: VillageRuntime; locale: string; active: boolean; onClose(): void }) {
   useSyncExternalStore(r.subscribeUI, r.snapshotUI)
@@ -55,7 +57,7 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
   const entryHadFocus = useRef(false)
   useLayoutEffect(() => { if(canvas.current)canvas.current.inert=blocked; if(entryUI.current)entryUI.current.inert=blocked && !insufficient }, [blocked, visible, insufficient])
   useLayoutEffect(() => { if (!blocked && entryHadFocus.current) { if(visible && document.activeElement===document.body) card.current?.querySelector<HTMLButtonElement>('.village-hud button')?.focus(); entryHadFocus.current=false } }, [blocked,visible])
-  return <div ref={anchor} data-nidofy-ai-village-overlay="" data-nidofy-village-open={r.open && active ? '' : undefined} className="dsh-ai-village"><style>{css + entranceCSS + recoveryEntranceCSS}</style>
+  return <div ref={anchor} data-nidofy-ai-village-overlay="" data-nidofy-village-open={r.open && active ? '' : undefined} className="dsh-ai-village"><style>{css + entranceCSS + recoveryEntranceCSS + communityMapCSS}</style>
     {visible && <aside ref={card} className="village-card" aria-label={t('AI 小院', 'AI Village')} data-expanded={expanded} data-wide={width >= uiContract.inspectorWidth} data-short={short} data-entrance-wide={width >= 580} data-theme={theme.mode} data-theme-source={theme.source} data-material={material} data-solid={material !== 'glass'} data-motion={r.preferences.reducedMotion} style={{ left: geometry.left, top: geometry.top, width, height, '--card-height': `${height}px`, ...uiVariables(width,height,r.preferences.textScale,theme.mode,r.controller?.world.home.environment ?? 'afternoon') } as React.CSSProperties}
       onClickCapture={e => { const target = (e.target as HTMLElement).closest<HTMLElement>('button'); if (target && !r.arranging && !r.photoMode && !p.overlay) returnFocus.current = target }}
       onFocusCapture={e => { if((e.target as HTMLElement).closest('.village-entrance,.village-region-transition'))entryHadFocus.current=true }}
@@ -70,6 +72,7 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
         else if ((p.overlay || p.drawer !== 'closed') && !mode) r.present({ type: 'back' })
         else if (r.arranging) { if (r.saveReceipt.status !== 'pending' && r.saveReceipt.status !== 'unknown' && !r.homeSaving) { if(r.arrangementDirty) setConfirmClose(true, 'arrangement'); else r.cancelArrangements() } }
         else if (r.photoMode) r.exitPhoto()
+        else if (r.controller?.world.manualMove) void r.cancelResidentMove()
         else if (expanded) r.present({ type: 'patch', patch: { expanded: false } })
         else return
         e.preventDefault(); e.stopPropagation()
@@ -80,6 +83,8 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
       {insufficient ? <div className="village-error" role="status">{t('当前空间不足，已暂停。请调整窗口或展开小院。聊天输入区保持可用。', 'Paused for limited space. Resize or expand the courtyard. The chat composer remains available.')}</div> : <>
         {!r.error && !failed && <ManagementPanel runtime={r} cn={cn} short={short} />}
         <Notifications runtime={r} cn={cn} />
+        {p.overlay === 'map' && !mode && <CommunityMap runtime={r} cn={cn} />}
+        {!mode && !p.overlay && p.drawer === 'closed' && <MovementFeedback runtime={r} cn={cn} />}
         {r.arranging && <ArrangementControls runtime={r} cn={cn} />}
         {r.photoMode && <PhotoPanel runtime={r} locale={language} />}
         {p.overlay === 'resident' && !mode && r.controller && <PanelShell runtime={r} cn={cn} title={characterNames[r.controller.world.actor.id]} className="village-popover village-resident-card"><p>{labels[r.controller.world.actor.behavior]}</p><button onClick={() => r.present({ type: 'push', patch: { tab: 'residents', page:'activities', drawer: 'full', overlay: null } })}>{t('互动', 'Activities')}</button></PanelShell>}

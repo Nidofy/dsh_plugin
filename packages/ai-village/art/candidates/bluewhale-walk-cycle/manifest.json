@@ -1,0 +1,90 @@
+{
+  "status": "NOT_QUALIFIED",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "date": "2026-10-25",
+  "license": "MIT",
+  "files": [
+    {
+      "file": "left-cycle-v01-unqualified.png",
+      "bytes": 1745625,
+      "sha256": "ae43adbfa3b5171d73ca926c26f06a56d4fc48c02df4d183499249a68c42f8e6",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": {
+        "transparent": 805340,
+        "partial": 764504,
+        "opaque": 2672
+      },
+      "cellBoundaryPixelsAlpha8": {
+        "vertical": 469,
+        "horizontal": 82
+      },
+      "status": "NOT_QUALIFIED",
+      "source": "built-in image_gen; native PNG bytes preserved"
+    },
+    {
+      "file": "left-cycle-v02-unqualified.png",
+      "bytes": 1506438,
+      "sha256": "f97342c9e3c7d90be6ba3d5a9d5949c7de72e2b15ef56e15bf0b08769871bdcf",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": {
+        "transparent": 927591,
+        "partial": 643439,
+        "opaque": 1486
+      },
+      "cellBoundaryPixelsAlpha8": {
+        "vertical": 359,
+        "horizontal": 0
+      },
+      "status": "NOT_QUALIFIED",
+      "source": "built-in image_gen; native PNG bytes preserved"
+    },
+    {
+      "file": "left-passing-a-study.png",
+      "bytes": 1199402,
+      "sha256": "7cf869ed332b0c8982a21140f9a535f0f0a4f9540505d9916b96da6fe4f827d4",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": {
+        "transparent": 933509,
+        "partial": 637058,
+        "opaque": 1949
+      },
+      "cellBoundaryPixelsAlpha8": null,
+      "status": "UNREGISTERED_INDIVIDUAL_STUDY",
+      "source": "built-in image_gen; native PNG bytes preserved"
+    },
+    {
+      "file": "left-contact-b-study.png",
+      "bytes": 1241426,
+      "sha256": "203209c436e7349f67314f28f6501ef3d2c8a13156ca400142bdea4fc168feb6",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": {
+        "transparent": 908368,
+        "partial": 662325,
+        "opaque": 1823
+      },
+      "cellBoundaryPixelsAlpha8": null,
+      "status": "UNREGISTERED_INDIVIDUAL_STUDY",
+      "source": "built-in image_gen; native PNG bytes preserved"
+    }
+  ],
+  "limitations": [
+    "Fixed equal-cell sampling would cut through visible tails on the vertical boundary.",
+    "The contact phases retain substantially similar arm/leg poses; a complete alternating walk cycle and planted-foot registration have not been established.",
+    "No right-facing, rear cycle, stop or turn transition has passed; no sprite mirroring is proposed.",
+    "No runtime registration, scene collision data or release assets were derived from these images."
+  ],
+  "next": "Produce individual registered left/right/rear contact and passing frames, validate local shoe landmarks and whole-cycle silhouette at 108px, then test turns and stops in the actual renderer before user visual review."
+}

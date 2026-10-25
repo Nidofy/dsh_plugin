@@ -1,0 +1,222 @@
+{
+  "status": "ART_REVIEW_WITH_UNREGISTERED_STUDIES",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "date": "2026-10-25",
+  "assets": [
+    {
+      "file": "bluewhale-contact-alpha-rejected-v02.png",
+      "sha256": "40e742660a330d74431fb912ef2c96f2a5cd157f18a6aba26d3d7e42abfaf380",
+      "bytes": 2498159,
+      "size": [
+        1536,
+        1024
+      ],
+      "decodedRGBABytes": 6291456,
+      "alpha": {
+        "transparent": 666555,
+        "partial": 906309,
+        "opaque": 0
+      },
+      "visibleBoundsAlpha8": [
+        19,
+        6,
+        1513,
+        985
+      ],
+      "status": "UNREGISTERED_STUDY",
+      "source": "built-in image_gen; native PNG bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    },
+    {
+      "file": "bluewhale-contact-rejected-v01.png",
+      "sha256": "59ce00a1b935e2a0570ed8beef30a15d04c21af95aeac195af57268e5ddb4f89",
+      "bytes": 2528936,
+      "size": [
+        1536,
+        1024
+      ],
+      "decodedRGBABytes": 6291456,
+      "alpha": {
+        "transparent": 657516,
+        "partial": 915348,
+        "opaque": 0
+      },
+      "visibleBoundsAlpha8": [
+        18,
+        6,
+        1515,
+        985
+      ],
+      "status": "UNREGISTERED_STUDY",
+      "source": "built-in image_gen; native PNG bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    },
+    {
+      "file": "bluewhale-front-rejected-v01.png",
+      "sha256": "c53c5bcf7dbb49a5ad6123e07efdc0faaeaea547326049410f1918b73adf57fe",
+      "bytes": 1994734,
+      "size": [
+        1024,
+        1536
+      ],
+      "decodedRGBABytes": 6291456,
+      "alpha": {
+        "transparent": 716838,
+        "partial": 856026,
+        "opaque": 0
+      },
+      "visibleBoundsAlpha8": [
+        17,
+        6,
+        1000,
+        1507
+      ],
+      "status": "UNREGISTERED_STUDY",
+      "source": "built-in image_gen; native PNG bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    },
+    {
+      "file": "bluewhale-front-walk-v02.png",
+      "sha256": "ef0bd43af42ac002fb7a6d773b850b5aab2c2551f3debfcf4211dd0624f1ed51",
+      "bytes": 1337754,
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 890154,
+        "partial": 680893,
+        "opaque": 1469
+      },
+      "visibleBoundsAlpha8": [
+        202,
+        5,
+        1017,
+        1240
+      ],
+      "status": "ART_REVIEW",
+      "source": "built-in image_gen; native PNG bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    },
+    {
+      "file": "bluewhale-rear-walk-v01.png",
+      "sha256": "fc6d70e54a076047907831b042774d5af7ddfe2eb580a9d27ecfbdbf7ba95476",
+      "bytes": 1307750,
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 873523,
+        "partial": 697821,
+        "opaque": 1172
+      },
+      "visibleBoundsAlpha8": [
+        229,
+        12,
+        968,
+        1227
+      ],
+      "status": "ART_REVIEW",
+      "source": "built-in image_gen; native PNG bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    },
+    {
+      "file": "bluewhale-seated-reading-v01.png",
+      "sha256": "f56c33f091da0666a8520c634cfbb666f1038c47ed707c1cc797c7b0669ba30b",
+      "bytes": 1525802,
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 768126,
+        "partial": 802454,
+        "opaque": 1936
+      },
+      "visibleBoundsAlpha8": [
+        126,
+        17,
+        1106,
+        1214
+      ],
+      "status": "ART_REVIEW",
+      "source": "built-in image_gen; native PNG bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    },
+    {
+      "file": "bluewhale-side-walk-v01.png",
+      "sha256": "e902fac6ea1aa02c8739c0a4b30bfeceaa570dd00137ee1b836dd85c4b5e703d",
+      "bytes": 1225760,
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 927677,
+        "partial": 643119,
+        "opaque": 1720
+      },
+      "visibleBoundsAlpha8": [
+        244,
+        43,
+        956,
+        1167
+      ],
+      "status": "ART_REVIEW",
+      "source": "built-in image_gen; native PNG bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    },
+    {
+      "file": "tea-square-background-v01.png",
+      "sha256": "5666220a2e970bdc32bd73271c61ffd2c4c3cf6426e2a7513655e08301412d80",
+      "bytes": 2927399,
+      "size": [
+        1086,
+        1448
+      ],
+      "decodedRGBABytes": 6290112,
+      "alpha": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 1572528
+      },
+      "visibleBoundsAlpha8": [
+        0,
+        0,
+        1086,
+        1448
+      ],
+      "status": "ART_REVIEW",
+      "source": "built-in image_gen; native PNG bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    }
+  ],
+  "bookhouseReference": "../../deliverables/bookhouse-layered-v02/manifest.json",
+  "bookhouseGeometry": [
+    360,
+    480
+  ],
+  "teaContract": "docs/ai-village/community-next/TEA_SQUARE_CONTRACT.md v2",
+  "errors": [],
+  "limitations": [
+    "Direction poses are static samples, not complete walk loops; no runtime integration or directional animation signoff.",
+    "Front walk v02 has ahoge touching top edge; needs margin repair.",
+    "Correction: filenames containing rejected preserve an earlier visual-only classification. Pixel audit shows real transparent alpha; these are unregistered contact/proportion studies, not failed alpha outputs.",
+    "Seated bluewhale drawing improves visible two-hand book contact but its full-body art does not register hips/feet to frozen bench at production scale; diagnostic only.",
+    "Tea background is a plate only; furniture layers, geometry qualification and complete gameplay have not been delivered by this art thread."
+  ]
+}

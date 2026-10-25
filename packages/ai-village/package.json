@@ -1,8 +1,8 @@
 {
   "name": "@nidofy/dsh-ai-village",
-  "version": "0.11.0-preview.1",
+  "version": "0.13.0-preview.3",
   "private": true,
-  "description": "Offline AI courtyard and bookhouse with twelve selectable residents, shared reading stories, keepsakes and a local photo album.",
+  "description": "Offline AI community with a storybook map, resident walking, illustrated bookhouse life and a playable three-friend tea square.",
   "type": "module",
   "license": "MIT",
   "engines": {

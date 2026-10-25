@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "status": "APPROVED",
+  "approvedForRelease": true,
+  "runtimeEnabled": false,
+  "scope": "community-map-only",
+  "date": "2026-10-25",
+  "files": [
+    {
+      "file": "community-map-terrain.png",
+      "source": "map-terrain-v01.png",
+      "sourceSha256": "dabd02d216be550ffdef31b3a2e4c2c057acbba6ed45ab13e44b7555498a525a",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "sha256": "92ca1d4dc7b0ad4ce23a7205d5ceeb8b597369b1fd2642c5b69b76ed9ec42b8a",
+      "bytes": 1117905,
+      "size": [
+        768,
+        576
+      ],
+      "mime": "image/png",
+      "decodedRGBABytes": 1769472,
+      "alpha": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 442368
+      },
+      "approvedForRelease": true
+    },
+    {
+      "file": "community-map-courtyard.png",
+      "source": "landmark-courtyard-v01.png",
+      "sourceSha256": "db612b9afe8a0fc2a070744534357307771ed92c2987a86b652295c1bfe39b16",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "a30cab326e4a930770be095b2bc1562969cfbdc9bdc3fcbf5297efded1cf9a64",
+      "bytes": 134116,
+      "size": [
+        256,
+        256
+      ],
+      "mime": "image/png",
+      "decodedRGBABytes": 262144,
+      "alpha": {
+        "transparent": 27390,
+        "partial": 37670,
+        "opaque": 476
+      },
+      "approvedForRelease": true
+    },
+    {
+      "file": "community-map-bookhouse.png",
+      "source": "landmark-bookhouse-v01.png",
+      "sourceSha256": "5027d1f1061f04e70c9f8564f7e8a828174d87226963671debd1437c0e2a52dc",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "a385b193aba93b800e296d57677bd0955a14bce06ba038932e3931f8d6ebe9f3",
+      "bytes": 155444,
+      "size": [
+        256,
+        256
+      ],
+      "mime": "image/png",
+      "decodedRGBABytes": 262144,
+      "alpha": {
+        "transparent": 19228,
+        "partial": 45674,
+        "opaque": 634
+      },
+      "approvedForRelease": true
+    },
+    {
+      "file": "community-map-tea-square.png",
+      "source": "landmark-tea-square-v01.png",
+      "sourceSha256": "9aedb4380f4df24a8b86f83af14d50553079b203c29ea6a1a611aed82d3a407d",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "84af08d3129c9b9f23871f58436711bb1e5a72d72167c7eaf39abc336a866c1e",
+      "bytes": 150160,
+      "size": [
+        256,
+        256
+      ],
+      "mime": "image/png",
+      "decodedRGBABytes": 262144,
+      "alpha": {
+        "transparent": 21945,
+        "partial": 42703,
+        "opaque": 888
+      },
+      "approvedForRelease": true
+    },
+    {
+      "file": "community-map-lakeside-garden.png",
+      "source": "landmark-lakeside-garden-v01.png",
+      "sourceSha256": "51384ff07c0d3a9a7e2e917807fce6281f53a7d88aecaeb24f63670e82d344ab",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "a16740f06904a182f04614d424e7721411c4c5f5dc1cdc6c414f333cd40e9ba9",
+      "bytes": 119894,
+      "size": [
+        256,
+        256
+      ],
+      "mime": "image/png",
+      "decodedRGBABytes": 262144,
+      "alpha": {
+        "transparent": 31785,
+        "partial": 33350,
+        "opaque": 401
+      },
+      "approvedForRelease": true
+    },
+    {
+      "file": "community-map-workshop.png",
+      "source": "landmark-workshop-v01.png",
+      "sourceSha256": "8da494c87ef05a4d1c60c1bd4086904f8b744cb7db1feb60ef2826844102a3f3",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sha256": "f65002fbb1ddfe2cd234b183407f41432ee377ed6e9bbe29947cb89a34c531fd",
+      "bytes": 138256,
+      "size": [
+        256,
+        256
+      ],
+      "mime": "image/png",
+      "decodedRGBABytes": 262144,
+      "alpha": {
+        "transparent": 24293,
+        "partial": 40616,
+        "opaque": 627
+      },
+      "approvedForRelease": true
+    }
+  ],
+  "totals": {
+    "files": 6,
+    "bytes": 1815775,
+    "decodedRGBABytes": 3080192
+  },
+  "budget": {
+    "maxCompressedBytes": 2097152,
+    "maxDecodedRGBABytes": 6291456
+  },
+  "approval": "approval.json",
+  "sourceGeometry": "../map-geometry.json",
+  "sourcePrompt": "../prompts.json",
+  "source": "built-in image_gen original candidates; faithful resized derivatives",
+  "license": "MIT",
+  "integration": "Only load these six images while the map is open. Existing 512px review thumbnails are not runtime dependencies. World scenes and regions remain independently gated."
+}

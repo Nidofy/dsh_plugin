@@ -14,6 +14,16 @@ it('blank drag clamps camera, ignores sub-threshold movement, and cancellation c
  const f=setup();try{f.pointer('pointerdown',10,150);f.pointer('pointermove',13,150);expect(f.send).not.toHaveBeenCalled();f.pointer('pointermove',200,150);expect(f.send.mock.calls.at(-1)![0].kind).toBe('camera');expect(f.send.mock.calls.at(-1)![0].camera.panX).toBeCloseTo(85,8);expect(f.send.mock.calls.at(-1)![0].camera.panY).toBe(0);f.router.cancel();expect(f.send).toHaveBeenLastCalledWith({kind:'camera',camera:{zoom:1.5,panX:0,panY:0}});f.pointer('pointerup',200,150);expect(f.send.mock.calls.every(c=>c[0].kind==='camera')).toBe(true)}finally{f.dispose()}
 })
 
+it('ground click orders once on release; drag, lost capture, overlays and middle button never order a walk',()=>{
+ const f=setup();try{
+  f.pointer('pointerdown',40,300);expect(f.send).not.toHaveBeenCalled();f.pointer('pointerup',42,300);expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'ground-move',point:{x:42,y:300}})
+  f.send.mockClear();f.pointer('pointerdown',40,300);f.canvas.dispatchEvent(new Event('lostpointercapture'));f.pointer('pointerup',40,300);expect(f.send).not.toHaveBeenCalled()
+  f.state.overlay=true;f.pointer('pointerdown',40,300);f.pointer('pointerup',40,300);expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'scene'})
+  f.send.mockClear();Object.assign(f.state,{residentPreview:true});f.pointer('pointerdown',40,300);f.pointer('pointerup',40,300);expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'ground-move',point:{x:40,y:300}})
+  f.send.mockClear();f.state.overlay=false;f.canvas.dispatchEvent(new TestPointer('pointerdown',{clientX:40,clientY:300,button:1}));f.canvas.dispatchEvent(new TestPointer('pointerup',{clientX:40,clientY:300,button:1}));expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'scene'})
+ }finally{f.dispose()}
+})
+
 it.each([false,true])('drawer dismissal consumes a resident click before actor or selection when paused=%s',paused=>{const f=setup(paused);try{f.state.dismiss=true;f.pointer('pointerdown');f.pointer('pointerup');expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'scene'});expect(f.actor).not.toHaveBeenCalled();f.send.mockClear();f.pointer('pointerdown');f.pointer('pointermove',140,180);f.pointer('pointerup',140,180);expect(f.send).not.toHaveBeenCalled();expect(f.actor).not.toHaveBeenCalled()}finally{f.dispose()}})
 
 it('game click is released once, is blocked by drawers/pauses, and cannot cross event generations',()=>{

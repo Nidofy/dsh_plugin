@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "status": "ENGINEERING_CANDIDATE_NOT_APPROVED",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "files": [
+    {
+      "file": "claude-held-book-arms-v01.png",
+      "sha256": "a35320b8de21ae66dfdca2055f31dbe7d8650b4fa6e5c9ffaa1aeb91900d9ba4",
+      "bytes": 1278407,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 890636,
+        "partial": 682228,
+        "opaque": 674
+      },
+      "reference": "art/work/roster/claude-v02.png",
+      "referenceSha256": "f690675cd3e374f42bfc94e8a549eebcfdf339bc7621fa3ed586f93b26df6b11",
+      "source": "built-in image_gen; source PNG copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "claude-seat-lower-v01.png",
+      "sha256": "5b5ea4790e5791de61588f3209b1f2883131a6d7637b972b0b13523b82180d84",
+      "bytes": 1231888,
+      "size": [
+        1230,
+        1278
+      ],
+      "decodedRGBABytes": 6287760,
+      "alpha": {
+        "transparent": 978923,
+        "partial": 592245,
+        "opaque": 772
+      },
+      "reference": "art/work/roster/claude-v02.png",
+      "referenceSha256": "f690675cd3e374f42bfc94e8a549eebcfdf339bc7621fa3ed586f93b26df6b11",
+      "source": "built-in image_gen; source PNG copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "gemini-held-book-arms-v01.png",
+      "sha256": "514647bcb4e61ad3adfeda9a1f979253a03c7745f8b6dc9439433947973f13a1",
+      "bytes": 1094347,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 1004336,
+        "partial": 568653,
+        "opaque": 549
+      },
+      "reference": "art/work/roster/gemini-v02.png",
+      "referenceSha256": "2f5c3c346f4bff36e4407b96abff22de786f0f6ad14c4c4d491d0aca75d515bc",
+      "source": "built-in image_gen; source PNG copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    }
+  ],
+  "prompts": "bookhouse-identity-prompts.json",
+  "renderer": "bookhouse-roster-renderer-v04.ts",
+  "validation": "bookhouse-roster-qa-v04/validation.json",
+  "geometry": {
+    "windowSeatRect": [
+      44,
+      198,
+      116,
+      42
+    ],
+    "feet": [
+      92,
+      270
+    ],
+    "hip": [
+      92,
+      225
+    ],
+    "geminiVisualSole": [
+      92,
+      250
+    ],
+    "geminiProjectedFootprint": [
+      92,
+      270
+    ]
+  },
+  "qualification": {
+    "claude": {
+      "bookcase": "REVIEWABLE",
+      "windowSeat": "REVIEWABLE",
+      "desk": "EXISTING_OWN_ARMS"
+    },
+    "gemini": {
+      "bookcase": "REVIEWABLE",
+      "windowSeat": "REVIEWABLE: original rest lower texture at natural scale; hanging soles250, projected footprint270; v03 oversized fallback retained as FAIL",
+      "desk": "EXISTING_OWN_ARMS"
+    }
+  },
+  "remaining": "Other nine residents retain unqualified book/window contacts. No whole-bookhouse approval or production registration. Gemini generation rejected; v03 fallback failed, v04 original-rest derived hanging feet candidate reviewable. No new generated Gemini seated image."
+}

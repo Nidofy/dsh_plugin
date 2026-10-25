@@ -87,8 +87,8 @@ it('completes shared reading with seven present bodies without collisions or mov
 it('migrates v10 in-flight courtyard play and bookhouse ordinary activity without changing paths or shared facts',()=>{
  const c=new LivingController(createLivingWorld(scene),scene,()=>{});c.setCharacterPresent('claude',true)
  const worlds=[startPlay(c.world,scene,'find-whale',['bluewhale'],crypto.randomUUID()),bookhouseActivity(switchRegion(c.world,scene,'bookhouse'),scene,'bookcase')]
- for(const w of worlds){const {bookhouse:_b,...old}=structuredClone(w);const prior={...old,schemaVersion:10,contentRevision:7,home:{...old.home,accessories:Object.fromEntries(legacyCharacterIds.map(id=>[id,old.home.accessories[id]]))}};const checked=codecV10(scene).validate(prior),raw=JSON.stringify(checked),next=migrateLivingWorld(checked,scene)
- expect(next.actor).toEqual(checked.actor);expect(next.companions).toEqual(checked.companions);expect(next.play).toEqual(checked.play);expect(next.region).toEqual(checked.region);expect(next.ticks).toBe(checked.ticks);expect(next.rng).toBe(checked.rng);expect(JSON.stringify(checked)).toBe(raw)
+ for(const w of worlds){const {teaSquare:_teaSquare,manualMove:_manualMove,bookhouse:_b,region,...old}=structuredClone(w);const prior={...old,region:{version:1,active:region.active,returns:{courtyard:region.returns.courtyard,bookhouse:region.returns.bookhouse}},schemaVersion:10,contentRevision:7,home:{...old.home,accessories:Object.fromEntries(legacyCharacterIds.map(id=>[id,old.home.accessories[id]]))}};const checked=codecV10(scene).validate(prior),raw=JSON.stringify(checked),next=migrateLivingWorld(checked,scene)
+ expect(next.actor).toEqual(checked.actor);expect(next.companions).toEqual(checked.companions);expect(next.play).toEqual(checked.play);expect(next.region).toEqual({...checked.region,version:2,returns:{...checked.region.returns,'tea-square':null}});expect(next.ticks).toBe(checked.ticks);expect(next.rng).toBe(checked.rng);expect(JSON.stringify(checked)).toBe(raw)
  }
 })
 it('rejects a bookhouse completion identity reused by an active courtyard event',()=>{

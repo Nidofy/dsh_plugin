@@ -1,0 +1,24 @@
+import sharp from 'sharp'
+import {readFile,writeFile,readdir} from 'node:fs/promises'
+import {resolve,join} from 'node:path'
+import {createHash} from 'node:crypto'
+const root=resolve(import.meta.dirname,'..'),pkg=join(root,'packages/ai-village'),base=join(pkg,'art/candidates/community-next'),hash=b=>createHash('sha256').update(b).digest('hex'),files=[]
+const ids=['bluewhale','claude','gemini','gpt','grok','kimi','qwen','seedance','glm','minimax','llama','mistral']
+for(const file of[...ids.map(id=>id+'-held-book-arms-v01.png'),'bluewhale-seat-lower-v03.png','claude-seat-lower-v01.png']){
+ const bytes=await readFile(join(base,file)),{data,info}=await sharp(bytes).ensureAlpha().raw().toBuffer({resolveWithObject:true});let transparent=0,partial=0,opaque=0
+ for(let i=3;i<data.length;i+=4){if(data[i]===0)transparent++;else if(data[i]===255)opaque++;else partial++}
+ files.push({file,sha256:hash(bytes),bytes:bytes.length,size:[info.width,info.height],decodedRGBABytes:info.width*info.height*4,alpha:{transparent,partial,opaque},source:'built-in image_gen original PNG, copied unchanged',license:'MIT project asset policy; generated original derivative of project identity reference',approvedForRelease:false})
+}
+const qa=join(base,'bookhouse-roster-qa-v06'),v=JSON.parse(await readFile(join(qa,'validation.json'),'utf8'))
+for(const file of(await readdir(qa)).filter(f=>f.endsWith('.png'))){if(v.screenshots.some(s=>s.file===file))continue;const b=await readFile(join(qa,file)),meta=await sharp(b).metadata();v.screenshots.push({file,sha256:hash(b),size:[meta.width,meta.height],dpr:1,kind:file.startsWith('projection-')?'projection-diagnostic':'row-focus'})}
+v.seatRecipes=JSON.parse(await readFile(join(base,'bookhouse-seat-recipes.json'),'utf8'))
+v.recipeSha256=hash(await readFile(join(base,'bookhouse-seat-recipes.json')))
+await writeFile(join(qa,'validation.json'),JSON.stringify(v,null,2)+'\n')
+const references=[];for(const id of ids.filter(id=>id!=='bluewhale')){const file='assets/characters/'+id+'/parts/rest-pose.png',b=await readFile(join(pkg,file));references.push({id,file,sha256:hash(b),usage:['claude','gemini'].includes(id)?'original candidate pose identity preserved':'original approved identity reference for generated book, seated lower Texture part (Gemini too)'})}
+await writeFile(join(base,'bookhouse-complete-manifest.json'),JSON.stringify({version:1,status:'ALL12_ENGINEERING_REVIEW_CANDIDATE_NOT_APPROVED',approvedForRelease:false,runtimeEnabled:false,files,references,renderer:'bookhouse-roster-renderer-v06.ts',validation:'bookhouse-roster-qa-v06/validation.json',prompts:['bookhouse-contact-prompts.json','bookhouse-identity-prompts.json','bookhouse-roster-prompts.json'],scope:'12 own-identity PaperDoll residents, full frozen scene, three stations, day/dusk,340/580,multiple time samples. Software WebGL DPR1 only.',limitations:['Mistral crossed legs hide shoes: lower hem marker is not visible sole','Kimi source held book cuffs nearly touch image edge; review closeup retained','Grok dark cuffs and GPT/Llama pale cuffs need contrast signoff at340/dusk','Generated source files are high resolution unoptimized, no production budget claim','No world simulation activity transitions, real host, final package or original artwork visual approval'],totals:{generatedFiles:files.length,sourceBytes:files.reduce((a,b)=>a+b.bytes,0),decodedRGBABytes:files.reduce((a,b)=>a+b.decodedRGBABytes,0),screenshots:v.screenshots.length,samples:v.samples.length}},null,2)+'\n')
+console.log(JSON.stringify({sourceFiles:files.length,screenshots:v.screenshots.length,samples:v.samples.length,approved:false}))
+const optimizedQa=join(base,'bookhouse-roster-qa-v07'),optimizedValidation=JSON.parse(await readFile(join(optimizedQa,'validation.json'),'utf8'))
+for(const file of(await readdir(optimizedQa)).filter(f=>f.endsWith('.png'))){if(optimizedValidation.screenshots.some(s=>s.file===file))continue;const b=await readFile(join(optimizedQa,file)),meta=await sharp(b).metadata();optimizedValidation.screenshots.push({file,sha256:hash(b),size:[meta.width,meta.height],dpr:1,kind:file.startsWith('projection-')?'projection-diagnostic':'row-focus'})}
+optimizedValidation.seatRecipes=v.seatRecipes;optimizedValidation.recipeSha256=v.recipeSha256
+await writeFile(join(optimizedQa,'validation.json'),JSON.stringify(optimizedValidation,null,2)+'\n')
+const complete=JSON.parse(await readFile(join(base,'bookhouse-complete-manifest.json'),'utf8'));complete.optimized={manifest:'bookhouse-optimized-v01/manifest.json',renderer:'bookhouse-roster-renderer-v07.ts',validation:'bookhouse-roster-qa-v07/validation.json',imageSources:2,screenshots:optimizedValidation.screenshots.length,samples:optimizedValidation.samples.length};await writeFile(join(base,'bookhouse-complete-manifest.json'),JSON.stringify(complete,null,2)+'\n')

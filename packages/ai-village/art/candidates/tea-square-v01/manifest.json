@@ -1,0 +1,1416 @@
+{
+  "status": "VISUAL_REVIEW_REQUIRED",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "version": 1,
+  "source": "Original built-in image_gen PNGs with native alpha; proportional contain resize with transparent padding and lossless PNG encoding for runtime review. No paint/crop/geometry changes.",
+  "license": "MIT",
+  "date": "2026-10-25",
+  "geometry": "src/core/tea-square-scene.ts, contract v2",
+  "files": [
+    {
+      "id": "background",
+      "file": "optimized/background.png",
+      "nativeFile": "background.png",
+      "nativeSize": [
+        1086,
+        1448
+      ],
+      "nativeSha256": "5666220a2e970bdc32bd73271c61ffd2c4c3cf6426e2a7513655e08301412d80",
+      "sha256": "a9df6986bc4a2224f28af236702137a1d940e4b416aadb6f0ca1c2552dbca62a",
+      "bytes": 1632394,
+      "size": [
+        720,
+        960
+      ],
+      "decodedRGBABytes": 2764800,
+      "alpha": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 691200
+      },
+      "prompt": "Original tea-square-background-v01 from community-next/studies-manifest.json. Empty watercolor garden stone terrace, without baked furniture."
+    },
+    {
+      "id": "tea-table",
+      "file": "optimized/tea-table.png",
+      "nativeFile": "tea-table.png",
+      "nativeSize": [
+        1942,
+        809
+      ],
+      "nativeSha256": "ac4cdbf222906a09ac80705e7e2036227acbf4a454729cd97c4e45e7a13923ed",
+      "sha256": "36c7940e5661a774f660991252eeab45158e02dfe66b72edccf7ea5b8091f28f",
+      "bytes": 282833,
+      "size": [
+        672,
+        280
+      ],
+      "decodedRGBABytes": 752640,
+      "alpha": {
+        "transparent": 92559,
+        "partial": 94439,
+        "opaque": 1162
+      },
+      "prompt": "Original low wide oval honey-wood tea table, gentle elevated frontal angle, width:height2.4:1. Small saucers and teapot, uncluttered center. Native alpha. Watercolor/gouache sage, honey, cream; no text/people/chairs/ground."
+    },
+    {
+      "id": "tea-counter",
+      "file": "optimized/tea-counter.png",
+      "nativeFile": "tea-counter.png",
+      "nativeSize": [
+        1134,
+        1387
+      ],
+      "nativeSha256": "32ae6de5b4cebfa2f8950adeea05bdb7474f4f7f9c4f95f86ffe5dc45efb2fcb",
+      "sha256": "1f3bd2293a5632f2adb0de9855935a08f7344e215ea369d5f38ddad682015fa8",
+      "bytes": 153345,
+      "size": [
+        288,
+        352
+      ],
+      "decodedRGBABytes": 405504,
+      "alpha": {
+        "transparent": 49094,
+        "partial": 50818,
+        "opaque": 1464
+      },
+      "prompt": "Original garden tea counter, honey wood and sage inset panels, width:height72:88. Canopy, three ceramic jars, cream teapot. Native alpha; complete feet; no text, people or surrounding ground."
+    },
+    {
+      "id": "message-tree",
+      "file": "optimized/message-tree.png",
+      "nativeFile": "message-tree.png",
+      "nativeSize": [
+        936,
+        1681
+      ],
+      "nativeSha256": "2e53fffdc246431d42b0399846b5497909acf6ace594b1a74284b66ddc2a0b59",
+      "sha256": "6a206b6484a0dabdebc8827f680ce16d4fae0e5e6682701ba3cb2299e9648703",
+      "bytes": 212611,
+      "size": [
+        280,
+        504
+      ],
+      "decodedRGBABytes": 564480,
+      "alpha": {
+        "transparent": 79366,
+        "partial": 59729,
+        "opaque": 2025
+      },
+      "prompt": "Original slender garden message tree in honey stone planter, width:height70:126. Cloud/leaf/star paper tags, native alpha; no text, people or scenery."
+    }
+  ],
+  "totals": {
+    "bytes": 2281183,
+    "decodedRGBABytes": 4487424,
+    "textures": 4
+  },
+  "screenshots": [
+    {
+      "file": "qa/three-day-340-dpr1.png",
+      "sha256": "0fdd7d9a0deda50bcd205390e0c079da50dee733f5fb9b83b177c85eedcd1290"
+    },
+    {
+      "file": "qa/three-day-540-dpr1.png",
+      "sha256": "10cd23d5da097cf83700c32ec66c7893ae94ee60b1447330090bce3cdae07485"
+    },
+    {
+      "file": "qa/three-night-340-dpr1.png",
+      "sha256": "e14f7cff89ab5b30c60b07bce480c81f41b0fd1be0d3812791e41862df05713e"
+    },
+    {
+      "file": "qa/three-night-540-dpr1.png",
+      "sha256": "5662ba30a2db590c48ba1ec1a54f644da350b9c9be24354c7d6272427dce3e28"
+    },
+    {
+      "file": "qa/seven-day-340-dpr1.png",
+      "sha256": "22511977dafa41d36f679d3c4378d8c7d150a074b0d75376312c7b44731f2805"
+    },
+    {
+      "file": "qa/seven-day-540-dpr1.png",
+      "sha256": "0ad96454c54066959d337e6b28b4c92096203c1bd759cc83c45a157d09290237"
+    },
+    {
+      "file": "qa/seven-night-340-dpr1.png",
+      "sha256": "fcc1f39794421df6f4a562bf6873f0bf02c4e77a1d85a224d0e6678c14703a5d"
+    },
+    {
+      "file": "qa/seven-night-540-dpr1.png",
+      "sha256": "3008afbce20ad3c06e1588f973fd7088d9bc4d2e6450bc6576959ac320c44bfe"
+    },
+    {
+      "file": "qa/entrance-day-340-dpr1.png",
+      "sha256": "3a95e993cd1e69f617770a24e15d2c13c056268b0e211a3ccd04e50477cba8bd"
+    },
+    {
+      "file": "qa/entrance-day-540-dpr1.png",
+      "sha256": "d927ef3d810f8a77a580999ebee90df922b49c60efe9d44ad46428e3a0984c6f"
+    },
+    {
+      "file": "qa/entrance-night-340-dpr1.png",
+      "sha256": "ee81e9730d4c3564de08bd8c11f3c6d518fc01bd33d666e864fd408bca38c032"
+    },
+    {
+      "file": "qa/entrance-night-540-dpr1.png",
+      "sha256": "f3d4998f0ebcd79ee5be195e75a1c4dbea6edafd08abdb700ce0c20151633396"
+    },
+    {
+      "file": "qa/three-day-340-dpr2.png",
+      "sha256": "0e05c2147f9066464f088eeee013b426bad69602a3038e5a92f74597e419872e"
+    },
+    {
+      "file": "qa/three-day-540-dpr2.png",
+      "sha256": "bd8c26efdb98a9de77731465b68adf8e1eca68ab4bd55003f64a8fd413a981d6"
+    },
+    {
+      "file": "qa/three-night-340-dpr2.png",
+      "sha256": "4314be72a2b99705a85c56d4bda29c40052c6fd2918e9f16257457af947c5453"
+    },
+    {
+      "file": "qa/three-night-540-dpr2.png",
+      "sha256": "4092a6db259d8f240466703d30767227983e5b1d248b2c4a3e54f5f05f42a9dd"
+    },
+    {
+      "file": "qa/seven-day-340-dpr2.png",
+      "sha256": "d62735838b8e843e222d03437e31d5f040a1a62b1b3f305a2aea819eb7b6970f"
+    },
+    {
+      "file": "qa/seven-day-540-dpr2.png",
+      "sha256": "248d2bed65d0d79924350e6363b57395ea209b47193868907daba42ea7dd9174"
+    },
+    {
+      "file": "qa/seven-night-340-dpr2.png",
+      "sha256": "91efbb7bf581506be768c5c57aa8f9316625ae191d4c11215573e5c3e6e354df"
+    },
+    {
+      "file": "qa/seven-night-540-dpr2.png",
+      "sha256": "1e475d92ef207112bd561f696fe3b8466ae33926201807d2548a12328e9a88bb"
+    },
+    {
+      "file": "qa/entrance-day-340-dpr2.png",
+      "sha256": "bde80b3a4b3cec8ca7683999284a97e805ab9b3d4a5e5ec2d13292d1bbf3027d"
+    },
+    {
+      "file": "qa/entrance-day-540-dpr2.png",
+      "sha256": "47e8b7b0c4acd488d68cf62eb4be36d3ae01f46555230355017cd64e3a333554"
+    },
+    {
+      "file": "qa/entrance-night-340-dpr2.png",
+      "sha256": "7b18b1ad6d8d663885adef43783f914a41a465f4272184a9a436ecbeee27d967"
+    },
+    {
+      "file": "qa/entrance-night-540-dpr2.png",
+      "sha256": "18812713ea580fe4473ce2890f4f8951b3d49733cb22a7377329895b0f22ce19"
+    }
+  ],
+  "samples": [
+    {
+      "mode": "three",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "three",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "three",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "three",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "seven",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "seven",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "seven",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "seven",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "entrance",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": true,
+      "feet": [
+        {
+          "x": 48,
+          "y": 414,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 92,
+          "y": 414,
+          "id": "claude-v01"
+        },
+        {
+          "x": 136,
+          "y": 414,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 180,
+          "y": 414,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 224,
+          "y": 414,
+          "id": "grok-v01"
+        },
+        {
+          "x": 268,
+          "y": 414,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 414,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "entrance",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": true,
+      "feet": [
+        {
+          "x": 48,
+          "y": 414,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 92,
+          "y": 414,
+          "id": "claude-v01"
+        },
+        {
+          "x": 136,
+          "y": 414,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 180,
+          "y": 414,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 224,
+          "y": 414,
+          "id": "grok-v01"
+        },
+        {
+          "x": 268,
+          "y": 414,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 414,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "entrance",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": true,
+      "feet": [
+        {
+          "x": 48,
+          "y": 414,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 92,
+          "y": 414,
+          "id": "claude-v01"
+        },
+        {
+          "x": 136,
+          "y": 414,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 180,
+          "y": 414,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 224,
+          "y": 414,
+          "id": "grok-v01"
+        },
+        {
+          "x": 268,
+          "y": 414,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 414,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "entrance",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": true,
+      "feet": [
+        {
+          "x": 48,
+          "y": 414,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 92,
+          "y": 414,
+          "id": "claude-v01"
+        },
+        {
+          "x": 136,
+          "y": 414,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 180,
+          "y": 414,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 224,
+          "y": 414,
+          "id": "grok-v01"
+        },
+        {
+          "x": 268,
+          "y": 414,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 414,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "three",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "three",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "three",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "three",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "seven",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "seven",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "seven",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "seven",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": false,
+      "feet": [
+        {
+          "x": 86,
+          "y": 276,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 180,
+          "y": 268,
+          "id": "claude-v01"
+        },
+        {
+          "x": 274,
+          "y": 276,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 48,
+          "y": 398,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 112,
+          "y": 398,
+          "id": "grok-v01"
+        },
+        {
+          "x": 248,
+          "y": 398,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 398,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "entrance",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": true,
+      "feet": [
+        {
+          "x": 48,
+          "y": 414,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 92,
+          "y": 414,
+          "id": "claude-v01"
+        },
+        {
+          "x": 136,
+          "y": 414,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 180,
+          "y": 414,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 224,
+          "y": 414,
+          "id": "grok-v01"
+        },
+        {
+          "x": 268,
+          "y": 414,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 414,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "entrance",
+      "time": 0.4,
+      "dusk": false,
+      "dark": false,
+      "geometry": true,
+      "feet": [
+        {
+          "x": 48,
+          "y": 414,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 92,
+          "y": 414,
+          "id": "claude-v01"
+        },
+        {
+          "x": 136,
+          "y": 414,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 180,
+          "y": 414,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 224,
+          "y": 414,
+          "id": "grok-v01"
+        },
+        {
+          "x": 268,
+          "y": 414,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 414,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "entrance",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": true,
+      "feet": [
+        {
+          "x": 48,
+          "y": 414,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 92,
+          "y": 414,
+          "id": "claude-v01"
+        },
+        {
+          "x": 136,
+          "y": 414,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 180,
+          "y": 414,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 224,
+          "y": 414,
+          "id": "grok-v01"
+        },
+        {
+          "x": 268,
+          "y": 414,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 414,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    },
+    {
+      "mode": "entrance",
+      "time": 0.4,
+      "dusk": true,
+      "dark": true,
+      "geometry": true,
+      "feet": [
+        {
+          "x": 48,
+          "y": 414,
+          "id": "bluewhale-v01"
+        },
+        {
+          "x": 92,
+          "y": 414,
+          "id": "claude-v01"
+        },
+        {
+          "x": 136,
+          "y": 414,
+          "id": "gemini-v01"
+        },
+        {
+          "x": 180,
+          "y": 414,
+          "id": "gpt-v01"
+        },
+        {
+          "x": 224,
+          "y": 414,
+          "id": "grok-v01"
+        },
+        {
+          "x": 268,
+          "y": 414,
+          "id": "kimi-v01"
+        },
+        {
+          "x": 312,
+          "y": 414,
+          "id": "qwen-v01"
+        }
+      ],
+      "textureSources": 4,
+      "sceneCanvas": [
+        360,
+        480
+      ],
+      "tickerStarted": false
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "limitations": [
+    "Isolated real PaperDoll rendering; not final package or save/path validation.",
+    "Original resident rigs retained; no new character direction animation is implied.",
+    "Native hardware and final first-frame/resource release validation required after integration."
+  ]
+}

@@ -1,18 +1,82 @@
-import { Container, Graphics } from 'pixi.js'
+import { Container, Graphics, Rectangle, Sprite, Texture } from 'pixi.js'
 import { bookhouseScene } from '../core/bookhouse-scene.ts'
 import type { Actor, Point } from '../core/world.ts'
 import { furnitureDepth } from './furniture.ts'
+import type { BookhousePose } from './bookhouse-contact.ts'
 
-export interface BookhouseResident { actor: Actor; point: Point }
+export interface BookhouseResident { actor: Actor; point: Point; presentation?: BookhousePose }
 
-/** Original code-vector DEVELOPMENT PREVIEW. No raster approval, assets, ticker, or persistent state. */
+export interface BookhouseRasterLayer {
+  id: string
+  key: string
+  /** Pixel coordinates relative to the borrowed texture's unrotated frame, not its source origin. */
+  sourceRect: readonly [number, number, number, number]
+  rect: readonly [number, number, number, number]
+  z: number
+  kind: 'background' | 'furniture' | 'prop'
+  hotspot?: string
+}
+export interface BookhouseRasterOptions {
+  textures: ReadonlyMap<string, Texture>
+  layers: readonly BookhouseRasterLayer[]
+  residentContacts?: boolean
+}
+
+/** Render roles, not file names: several roles may share one atlas source. */
+export const bookhouseRasterRoles = [
+  { id: 'background', kind: 'background', z: -100 },
+  ...bookhouseScene.furniture.flatMap(furniture => [
+    { id: `${furniture.id}-back`, kind: 'furniture', z: furniture.rect.y * 10 - 1 },
+    { id: `${furniture.id}-front`, kind: 'furniture', z: furnitureDepth(bookhouseScene, furniture.id)! - 10 },
+    { id: `${furniture.id}-prop`, kind: 'prop', hotspot: furniture.id,
+      z: furniture.id === 'reading-desk' ? furnitureDepth(bookhouseScene, furniture.id)! - 2
+        : bookhouseScene.hotspots.find(hotspot => hotspot.id === furniture.id)!.anchor.y * 10 + 3 },
+  ]),
+] as const
+
+function validRaster(options: BookhouseRasterOptions): boolean {
+  const layers = options.layers
+  if (!Array.isArray(layers) || layers.length < bookhouseRasterRoles.length || layers.length > 32) return false
+  const ids = new Set<string>()
+  for (const layer of layers) {
+    if (!layer || typeof layer.id !== 'string' || !layer.id || layer.id.length > 80 || ids.has(layer.id)
+      || typeof layer.key !== 'string' || !layer.key || layer.key.length > 256 || !Number.isFinite(layer.z)
+      || !['background', 'furniture', 'prop'].includes(layer.kind)) return false
+    ids.add(layer.id)
+    for (const rect of [layer.sourceRect, layer.rect]) {
+      if (!Array.isArray(rect) || rect.length !== 4 || !rect.every(Number.isFinite) || rect[2] <= 0 || rect[3] <= 0
+        || !Number.isFinite(rect[0] + rect[2]) || !Number.isFinite(rect[1] + rect[3])) return false
+    }
+    if (layer.kind === 'prop' ? !bookhouseScene.hotspots.some(hotspot => hotspot.id === layer.hotspot) : layer.hotspot !== undefined) return false
+    const texture = options.textures.get(layer.key)
+    if (!(texture instanceof Texture) || texture.destroyed || texture.source.destroyed || texture.rotate !== 0) return false
+    const [x, y, width, height] = layer.sourceRect, frame = texture.frame, source = texture.source
+    if (x < 0 || y < 0 || x + width > frame.width || y + height > frame.height
+      || ![frame.x, frame.y, frame.width, frame.height, source.width, source.height].every(Number.isFinite)
+      || frame.x < 0 || frame.y < 0 || frame.x + frame.width > source.width || frame.y + frame.height > source.height) return false
+  }
+  return bookhouseRasterRoles.every(role => {
+    const layer = layers.find(item => item.id === role.id)
+    return layer?.kind === role.kind && layer.z === role.z
+      && layer.hotspot === ('hotspot' in role ? role.hotspot : undefined)
+  })
+}
+
+/** Defaults to the original DEVELOPMENT PREVIEW. Optional injection is not asset approval or registration. */
 export class BookhouseArt {
   readonly background = new Graphics()
   readonly backs = new Map<string, Graphics>()
   readonly fronts = new Map<string, Graphics>()
   readonly props = new Map<string, Graphics>()
+  readonly artwork: 'development-preview' | 'raster'
+  readonly sprites = new Map<string, Sprite>()
+  private readonly textureViews: Texture[] = []
+  private readonly rasterProps = new Map<Sprite, string>()
+  private readonly writerProps = new Map<string, Sprite>()
+  private readonly residentContacts: boolean
 
-  constructor(parent: Container) {
+  constructor(parent: Container, options?: BookhouseRasterOptions) {
+    this.residentContacts = options?.residentContacts === true
     this.background.label = 'bookhouse-development-preview-background'
     this.background.eventMode = 'none'
     this.background.zIndex = -100
@@ -32,6 +96,39 @@ export class BookhouseArt {
       this.backs.set(furniture.id, back); this.fronts.set(furniture.id, front); this.props.set(furniture.id, prop)
       this.drawFurniture(furniture.id, back, front)
     }
+    this.artwork = options && validRaster(options) && this.installRaster(parent, options) ? 'raster' : 'development-preview'
+  }
+
+  private installRaster(parent: Container, options: BookhouseRasterOptions): boolean {
+    // Validate the entire set before allocating. Allocation failure also leaves the complete preview intact.
+    try {
+      for (const layer of options.layers) {
+        const borrowed = options.textures.get(layer.key)!, [sx, sy, sw, sh] = layer.sourceRect
+        const view = new Texture({ source: borrowed.source, frame: new Rectangle(borrowed.frame.x + sx, borrowed.frame.y + sy, sw, sh) })
+        this.textureViews.push(view)
+        const sprite = new Sprite(view), [x, y, width, height] = layer.rect
+        this.sprites.set(layer.id, sprite)
+        sprite.label = `bookhouse-raster-${layer.id}`; sprite.eventMode = 'none'
+        sprite.position.set(x, y); sprite.width = width; sprite.height = height; sprite.zIndex = layer.z
+        sprite.visible = layer.kind !== 'prop'
+        if (layer.kind === 'prop') this.rasterProps.set(sprite, layer.hotspot!)
+      }
+    } catch {
+      this.destroyRaster()
+      return false
+    }
+    this.background.visible = false
+    for (const collection of [this.backs, this.fronts, this.props]) for (const node of collection.values()) node.visible = false
+    for (const sprite of this.sprites.values()) parent.addChild(sprite)
+    return true
+  }
+
+  private destroyRaster(): void {
+    for(const sprite of this.writerProps.values())sprite.destroy({texture:false,textureSource:false})
+    this.writerProps.clear()
+    for (const sprite of this.sprites.values()) sprite.destroy({ texture: false, textureSource: false })
+    for (const view of this.textureViews) view.destroy(false)
+    this.sprites.clear(); this.textureViews.length = 0; this.rasterProps.clear()
   }
 
   private drawRoom(): void {
@@ -94,11 +191,29 @@ export class BookhouseArt {
   }
 
   paint(residents: readonly BookhouseResident[], ticks: number, reducedMotion: boolean): void {
+    if(this.artwork==='raster'&&this.residentContacts){
+      // Books belong to each resident's hands. Every story writer gets a paper at their real desk position.
+      for(const sprite of this.rasterProps.keys())sprite.visible=false
+      const base=this.sprites.get('reading-desk-prop')!,active=new Set<string>()
+      for(const {actor,point,presentation} of residents){
+        if(presentation!=='writing')continue
+        active.add(actor.id);let sprite=this.writerProps.get(actor.id)
+        if(!sprite){sprite=new Sprite(base.texture);sprite.eventMode='none';sprite.label='bookhouse-writing-paper-'+actor.id;base.parent!.addChild(sprite);this.writerProps.set(actor.id,sprite)}
+        sprite.position.set(base.x+point.x-142,base.y+point.y-328);sprite.width=base.width;sprite.height=base.height;sprite.zIndex=base.zIndex;sprite.visible=true
+      }
+      for(const[id,sprite]of this.writerProps)if(!active.has(id)){sprite.destroy({texture:false,textureSource:false});this.writerProps.delete(id)}
+      return
+    }
     for (const hotspot of bookhouseScene.hotspots) {
       const g = this.props.get(hotspot.id)!
       const resident = residents.find(({ actor, point }) => actor.behavior === hotspot.activity
         && Math.hypot(point.x - hotspot.anchor.x, point.y - hotspot.anchor.y) < 1
         && (!actor.intent || actor.intent.furnitureId === hotspot.id && actor.intent.seat === 'main'))
+      if (this.artwork === 'raster') {
+        // Ordinary hotspot props only. Story-specific poses/props need a separately approved integration.
+        for (const [sprite, id] of this.rasterProps) if (id === hotspot.id) sprite.visible = !!resident
+        continue
+      }
       g.clear(); g.visible = !!resident
       if (!resident) continue
       const { point } = resident, wave = reducedMotion ? 0 : Math.sin(ticks / 16)
@@ -123,6 +238,7 @@ export class BookhouseArt {
   }
 
   destroy(): void {
+    this.destroyRaster()
     this.background.destroy()
     for (const collection of [this.backs, this.fronts, this.props]) {
       for (const node of collection.values()) node.destroy()

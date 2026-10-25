@@ -1,0 +1,21 @@
+{
+  "status": "FAIL",
+  "mode": "supplement",
+  "runRoot": "ai-village-tea-qa-desktop-approved-pre3",
+  "scriptSha": "fe9e461d743d3a11dea6a435d25d2f5e65c7b9ff2c6a8a8dce317ceb9cce21db",
+  "checks": [],
+  "observations": [],
+  "errors": [],
+  "requests": [],
+  "samples": [],
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'Normal' !== 'Hidden'\n\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-tea-square-native.mjs:177:85",
+  "world": null,
+  "notCovered": [
+    "native foreground hardware FPS (window not activated)",
+    "physical sleep/minimize",
+    "long-duration memory soak",
+    "additional physical DPI",
+    "fault-injected UNKNOWN ACK (covered by separate core/browser tests)",
+    "new direction animation qualification"
+  ]
+}

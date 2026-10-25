@@ -1,125 +1,79 @@
-import * as v11 from './living-state-v11.ts'
-import { characterIds } from './roster.ts'
-import { blankBookhouse, validateBookhouseState, type BookhouseState } from './bookhouse-state.ts'
-import * as v9 from './living-play-state.ts'
+import * as v13 from './living-state-v13.ts'
 import { homeScene, type HomeWorld } from './home-state.ts'
-import { bookhouseScene } from './bookhouse-scene.ts'
-import { actors, available, validateWorld, walkable, type Actor, type Point, type Scene } from './world.ts'
+import { actors, abandon, available, validateWorld, walkable, reachable, type Actor, type Point, type Scene } from './world.ts'
 import { isCharacterId, type CharacterId } from './roster.ts'
-import { validateLifeState } from './life-engine.ts'
+import { bookhouseScene } from './bookhouse-scene.ts'
+import { teaSquareScene } from './tea-square-scene.ts'
+import { blankTeaSquare, validateTeaSquare, type TeaSquareState } from './tea-square-state.ts'
 import type { WorldCodec } from './migrations.ts'
-export { blankPlay, isPlayId } from './living-play-state.ts'
-export type { PlayEvent, PlayMemory, PlayState } from './living-play-state.ts'
-
-export type RegionId = 'courtyard' | 'bookhouse'
-export interface ParkedPose { id: CharacterId; position: Point; safe: Point; facing: 'left' | 'right' }
-export interface RegionState { version: 1; active: RegionId; returns: Record<RegionId, ParkedPose[] | null> }
-export interface LivingWorld extends Omit<v9.LivingWorld, 'schemaVersion' | 'contentRevision'> {
-  schemaVersion: 12; contentRevision: 9; region: RegionState; bookhouse: BookhouseState
+export { blankPlay, isPlayId, idlePose } from './living-state-v13.ts'
+export type { ParkedPose, PlayEvent, PlayMemory, PlayState, ManualMoveIntent } from './living-state-v13.ts'
+import type { ParkedPose } from './living-state-v13.ts'
+export type RegionId='courtyard'|'bookhouse'|'tea-square'
+export interface RegionState {version:2;active:RegionId;returns:Record<RegionId,ParkedPose[]|null>}
+export interface LivingWorld extends Omit<v13.LivingWorld,'schemaVersion'|'contentRevision'|'region'> {schemaVersion:14;contentRevision:10;region:RegionState;teaSquare:TeaSquareState}
+export const isRegionId=(v:unknown):v is RegionId=>v==='courtyard'||v==='bookhouse'||v==='tea-square'
+export function requireCourtyard(w:LivingWorld){if(w.region.active!=='courtyard')throw Error('COURTYARD_REQUIRED')}
+export function regionScene(w:LivingWorld,base:Scene){return w.region.active==='tea-square'?teaSquareScene:w.region.active==='bookhouse'?bookhouseScene:homeScene(base,w.neighborhood.layout,w.home)}
+const fail=():never=>{throw Error('INVALID_REGION_WORLD')}
+function exact(v:unknown,keys:string[]):asserts v is Record<string,any>{if(!v||typeof v!=='object'||Array.isArray(v)||Object.keys(v).length!==keys.length||keys.some(k=>!Object.hasOwn(v,k)))fail()}
+function point(p:unknown,g:Scene):asserts p is Point{exact(p,['x','y']);if(!walkable(g,p as Point))fail()}
+function validateRegion(w:LivingWorld,base:Scene):RegionState{
+ const r=w.region;exact(r,['version','active','returns']);exact(r.returns,['courtyard','bookhouse','tea-square'])
+ if(r.version!==2||!isRegionId(r.active)||!w.actor||!Array.isArray(w.companions)||w.companions.length>6)fail()
+ const ids=actors(w).map(a=>a?.id);if(!ids.every(isCharacterId)||new Set(ids).size!==ids.length)fail()
+ for(const id of ['courtyard','bookhouse','tea-square'] as const){
+  const poses=r.returns[id];if(id===r.active&&poses!==null)fail();if(poses===null)continue
+  if(!Array.isArray(poses)||poses.length>7)fail()
+  const seen=new Set<CharacterId>(),g=id==='tea-square'?teaSquareScene:id==='bookhouse'?bookhouseScene:homeScene(base,w.neighborhood.layout,w.home)
+  for(const p of poses){exact(p,['id','position','safe','facing']);if(!ids.includes(p.id)||seen.has(p.id)||!['left','right'].includes(p.facing))fail();point(p.position,g);point(p.safe,g);if(poses.some(q=>q!==p&&Math.hypot(q.position.x-p.position.x,q.position.y-p.position.y)<24))fail();seen.add(p.id)}
+ }
+ if(r.active!=='courtyard'&&r.returns.courtyard?.length!==ids.length)fail()
+ return structuredClone(r)
 }
-const blankRegion = (): RegionState => ({ version: 1, active: 'courtyard', returns: { courtyard: null, bookhouse: null } })
-export const isRegionId = (id: unknown): id is RegionId => id === 'courtyard' || id === 'bookhouse'
-export function requireCourtyard(w: LivingWorld) { if (w.region.active !== 'courtyard') throw Error('COURTYARD_REQUIRED') }
-export function regionScene(w: LivingWorld, base: Scene) { return w.region.active === 'bookhouse' ? bookhouseScene : homeScene(base,w.neighborhood.layout,w.home) }
-const invalid = (): never => { throw Error('INVALID_REGION_WORLD') }
-function exact(value: unknown, keys: readonly string[]): asserts value is Record<string, unknown> {
-  if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).length !== keys.length || keys.some(k=>!Object.hasOwn(value,k))) invalid()
+function previous(w:LivingWorld):v13.LivingWorld{
+ const {teaSquare:_tea,region,...rest}=w
+ const old:v13.LivingWorld={...rest,schemaVersion:13,contentRevision:9,region:{version:1,active:region.active==='tea-square'?'courtyard':region.active,returns:{courtyard:region.active==='tea-square'?null:region.returns.courtyard,bookhouse:region.returns.bookhouse}}}
+ if(region.active==='tea-square'){
+  const restore=(id:CharacterId)=>{const p=region.returns.courtyard?.find(p=>p.id===id);return p?v13.idlePose(p):fail()}
+  old.actor=restore(w.actor.id);old.companions=w.companions.map(a=>restore(a.id));old.life={social:null};old.manualMove=null
+ }
+ return old
 }
-function point(value: unknown, scene: Scene): Point {
-  exact(value,['x','y'])
-  if (!walkable(scene,value as unknown as Point)) invalid()
-  return { x: value.x as number, y: value.y as number }
+export function homeProjection(w:LivingWorld):HomeWorld{return v13.homeProjection(previous(w))}
+export function withLiving(base:HomeWorld,source?:LivingWorld):LivingWorld{
+ if(source)requireCourtyard(source)
+ const old=v13.withLiving(base,source?previous(source):undefined),ids=new Set(actors(old).map(a=>a.id))
+ return {...old,schemaVersion:14,contentRevision:10,region:{...old.region,version:2,returns:{...old.region.returns,'tea-square':source?.region.returns['tea-square']?.filter(p=>ids.has(p.id))??null}},teaSquare:structuredClone(source?.teaSquare??blankTeaSquare())}
 }
-export function idlePose(pose: ParkedPose): Actor {
-  return { ...structuredClone(pose), behavior:'idle', phase:0, remaining:3, destination:null, intent:null }
-}
-/** A read-only courtyard projection validates shared history using actual parked courtyard feet. */
-function previousProjection(w: LivingWorld): v9.LivingWorld {
-  const {region, bookhouse: _bookhouse, ...rest}=w
-  const old: v9.LivingWorld={...rest,schemaVersion:9,contentRevision:6}
-  if(region.active==='bookhouse') {
-    const parked=region.returns.courtyard
-    if(!parked) return invalid()
-    const resident=(id:CharacterId)=>{const p=parked.find(p=>p.id===id);return p?idlePose(p):invalid()}
-    old.actor=resident(w.actor.id);old.companions=w.companions.map(a=>resident(a.id));old.life={social:null}
-  }
-  return old
-}
-export function homeProjection(w: LivingWorld): HomeWorld { return v9.homeProjection(previousProjection(w)) }
-export function withLiving(base: HomeWorld, source?: LivingWorld): LivingWorld {
-  if(source) requireCourtyard(source)
-  const old=v9.withLiving(base,source?previousProjection(source):undefined)
-  const region=structuredClone(source?.region??blankRegion()), ids=new Set(actors(old).map(a=>a.id))
-  if(region.returns.bookhouse)region.returns.bookhouse=region.returns.bookhouse.filter(p=>ids.has(p.id))
-  return {...old,schemaVersion:12,contentRevision:9,region,bookhouse:structuredClone(source?.bookhouse??blankBookhouse())}
-}
-function validateRegion(value: unknown,w:LivingWorld,base:Scene): RegionState {
-  exact(value,['version','active','returns'])
-  if(value.version!==1||!isRegionId(value.active))return invalid()
-  exact(value.returns,['courtyard','bookhouse'])
-  const ids=actors(w).map(a=>a?.id)
-  if(ids.length>7||!ids.every(isCharacterId)||new Set(ids).size!==ids.length)return invalid()
-  const result:RegionState={version:1,active:value.active,returns:{courtyard:null,bookhouse:null}}
-  for(const id of ['courtyard','bookhouse'] as const){
-    const raw=value.returns[id]
-    if(id===value.active&&raw!==null)return invalid()
-    if(raw===null)continue
-    if(!Array.isArray(raw)||raw.length>7)return invalid()
-    const g=id==='bookhouse'?bookhouseScene:homeScene(base,w.neighborhood.layout,w.home)
-    const seen=new Set<CharacterId>(),checked:ParkedPose[]=[]
-    for(const item of raw){
-      exact(item,['id','position','safe','facing'])
-      if(!isCharacterId(item.id)||!ids.includes(item.id)||seen.has(item.id)||(item.facing!=='left'&&item.facing!=='right'))return invalid()
-      const position=point(item.position,g),safe=point(item.safe,g)
-      if(checked.some(p=>Math.hypot(p.position.x-position.x,p.position.y-position.y)<24))return invalid()
-      checked.push({id:item.id,position,safe,facing:item.facing});seen.add(item.id)
-    }
-    result.returns[id]=checked
-  }
-  if(result.active==='bookhouse'&&result.returns.courtyard?.length!==ids.length)return invalid()
-  return result
-}
-/** Schema10 bookhouse actors are closed data, unlike the permissive historical low-level decoder. */
-function closedActor(a: Actor) {
-  exact(a,['id','position','safe','facing','behavior','phase','remaining','destination','intent'])
-  point(a.position,bookhouseScene);point(a.safe,bookhouseScene)
-  if(a.destination!==null)point(a.destination,bookhouseScene)
-  if(a.intent!==null){
-    exact(a.intent,['furnitureId','seat','activity','stage','route','expires'])
-    if(!Array.isArray(a.intent.route))return invalid()
-    for(const p of a.intent.route)point(p,bookhouseScene)
-  }
-  if(['work','eat','rest','sit','read','tend'].includes(a.behavior)&&!a.intent)return invalid()
-}
-export function validateLivingWorld(value: unknown,base:Scene):LivingWorld {
-  const w=value as LivingWorld
-  if(!w||w.schemaVersion!==12||w.sceneVersion!==3||w.simulationRulesVersion!==4||w.contentRevision!==9)throw Error('UNSUPPORTED_WORLD_VERSION')
-  if(new TextEncoder().encode(JSON.stringify(w)).length>48*1024)throw Error('SAVE_TOO_LARGE')
-  if(Object.keys(w.home?.accessories??{}).length!==characterIds.length)return invalid()
-  if(!w.actor||!Array.isArray(w.companions)||w.companions.length>6)return invalid()
-  const region=validateRegion(w.region,w,base)
-  // Unknown shared fields remain in this projection and are rejected by the frozen codec.
-  const old=v9.validateLivingWorld(previousProjection({...w,region}),base,'current')
-  const bookhouse=validateBookhouseState(w.bookhouse,w)
-  if(region.active==='courtyard')return {...old,schemaVersion:12,contentRevision:9,region,bookhouse}
-  if(w.activeEvent!==null||w.neighborhood.event!==null||w.play.active!==null)return invalid()
+function closedActor(a:Actor){exact(a,['id','position','safe','facing','behavior','phase','remaining','destination','intent']);point(a.position,teaSquareScene);point(a.safe,teaSquareScene);if(a.destination!==null)point(a.destination,teaSquareScene);if(a.intent!==null){exact(a.intent,['furnitureId','seat','activity','stage','route','expires']);if(!Array.isArray(a.intent.route))fail();a.intent.route.forEach(p=>point(p,teaSquareScene))}if(['work','eat','rest','sit','read','tend'].includes(a.behavior)&&!a.intent)fail()}
+export function validateLivingWorld(value:unknown,base:Scene):LivingWorld{
+ const w=value as LivingWorld;if(!w||w.schemaVersion!==14||w.contentRevision!==10)throw Error('UNSUPPORTED_WORLD_VERSION')
+ if(new TextEncoder().encode(JSON.stringify(w)).length>48*1024)throw Error('SAVE_TOO_LARGE')
+ const region=validateRegion(w,base),old=v13.validateLivingWorld(previous({...w,region}),base)
+ let actor=old.actor,companions=old.companions,life=old.life
+ if(region.active==='tea-square'){
+  exact(w.life,['social'])
+  if(w.activeEvent||w.play.active||w.neighborhood.event||w.bookhouse.active||w.life?.social!==null)fail()
   actors(w).forEach(closedActor)
-  const current=validateWorld({schemaVersion:3,worldId:w.worldId,sceneVersion:bookhouseScene.version,avatarDefinitionVersion:w.avatarDefinitionVersion,
-    ticks:w.ticks,rng:w.rng,userPaused:w.userPaused,actor:w.actor,companions:w.companions},bookhouseScene,'current')
-  if(!actors(current).every(a=>available(current,a.position,a.id)))return invalid()
-  const life=validateLifeState(w.life,current,bookhouseScene)
-  if(life.social&&['chime','garden'].includes(life.social.kind))return invalid()
-  return {...old,schemaVersion:12,contentRevision:9,actor:current.actor,companions:current.companions,life,region,bookhouse}
+  const current=validateWorld({schemaVersion:3,worldId:w.worldId,sceneVersion:1,avatarDefinitionVersion:w.avatarDefinitionVersion,ticks:w.ticks,rng:w.rng,userPaused:w.userPaused,actor:w.actor,companions:w.companions},teaSquareScene,'current')
+  if(!actors(current).every(a=>available(current,a.position,a.id)))fail()
+  actor=current.actor;companions=current.companions;life={social:null}
+  const m=w.manualMove
+  if(m!==null){
+   exact(m,['actorId','target','route','waitTicks','replans','expires']);const a=actors(w).find(a=>a.id===m.actorId)
+   if(!a||a.intent||a.behavior!=='walk'||!a.destination||!Number.isSafeInteger(m.waitTicks)||m.waitTicks<0||m.waitTicks>=30||!Number.isSafeInteger(m.replans)||m.replans<0||m.replans>3||!Number.isSafeInteger(m.expires)||m.expires<=w.ticks||m.expires>w.ticks+1800||!Array.isArray(m.route)||!m.route.length||m.route.length>9)fail()
+   point(m.target,teaSquareScene);let last=a!.position;for(const p of m.route){point(p,teaSquareScene);if(!reachable(teaSquareScene,last,p))fail();last=p}
+   if(last.x!==m.target.x||last.y!==m.target.y||a!.destination!.x!==m.route[0]!.x||a!.destination!.y!==m.route[0]!.y)fail()
+  }
+ }
+ const result:LivingWorld={...old,schemaVersion:14,contentRevision:10,actor,companions,life,region,manualMove:structuredClone(w.manualMove),teaSquare:w.teaSquare}
+ result.teaSquare=validateTeaSquare(w.teaSquare,result);return result
 }
-export function createLivingWorld(base:Scene):LivingWorld {
-  return migrateLivingWorld(v11.createLivingWorld(base),base)
+export function createLivingWorld(base:Scene):LivingWorld{return migrateLivingWorld(v13.createLivingWorld(base),base)}
+export function migrateLivingWorld(value:unknown,base:Scene):LivingWorld{
+ if((value as LivingWorld)?.schemaVersion===14)return validateLivingWorld(value,base)
+ const old=v13.migrateLivingWorld(value,base)
+ return validateLivingWorld({...old,schemaVersion:14,contentRevision:10,region:{...old.region,version:2,returns:{...old.region.returns,'tea-square':null}},teaSquare:blankTeaSquare()},base)
 }
-export function migrateLivingWorld(value:unknown,base:Scene):LivingWorld {
-  if((value as LivingWorld)?.schemaVersion===12)return validateLivingWorld(value,base)
-  const old=v11.migrateLivingWorld(value,base)
-  return validateLivingWorld({...old,schemaVersion:12,contentRevision:9,
-    home:{...old.home,accessories:{...Object.fromEntries(characterIds.map(id=>[id,'none'])),...old.home.accessories}},bookhouse:{...old.bookhouse,version:2,active:old.bookhouse.active?{...old.bookhouse.active,kind:'reading',board:[-1,-1,-1]}:null,puzzleMemory:null,puzzleLastEventId:null}},base)
-}
-export function livingWorldCodec(base:Scene):WorldCodec<LivingWorld> {
-  return {decode:v=>migrateLivingWorld(v,base),validate:v=>validateLivingWorld(v,base),needsUpgrade:v=>(v as LivingWorld)?.schemaVersion!==12}
-}
+export function livingWorldCodec(base:Scene):WorldCodec<LivingWorld>{return {decode:v=>migrateLivingWorld(v,base),validate:v=>validateLivingWorld(v,base),needsUpgrade:v=>(v as LivingWorld)?.schemaVersion!==14}}

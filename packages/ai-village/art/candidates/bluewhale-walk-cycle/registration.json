@@ -1,0 +1,18 @@
+{
+  "status": "MANUAL_REGISTRATION_REVIEW_REQUIRED",
+  "method": "Manually read shoe soles, hip and head landmarks from individual PNGs. Coordinates are approximate source pixels (about ±10 px); no pixel brightness or alpha-derived world geometry. Full canvas is uniformly resized to256px, never cropped or mirrored. Each frame maps the manually marked top-to-floor distance to108 logical pixels. Anchor x is hip x; sole offsets remain visible for review.",
+  "frames": [
+    {"id":"left-a","file":"../community-next/bluewhale-side-walk-v01.png","top":45,"floor":1208,"hip":[500,790],"head":[180,610],"soles":[[365,1200],[686,1195]]},
+    {"id":"left-pass-a","file":"left-passing-a-study.png","top":44,"floor":1212,"hip":[510,790],"head":[180,610],"soles":[[455,1212],[720,1158]]},
+    {"id":"left-b","file":"left-contact-b-study.png","top":45,"floor":1220,"hip":[500,790],"head":[180,610],"soles":[[370,1220],[701,1203]]},
+    {"id":"left-pass-b","file":"left-passing-b-study.png","top":45,"floor":1210,"hip":[500,790],"head":[180,610],"soles":[[320,1160],[485,1210]]},
+    {"id":"rear-a","file":"../community-next/bluewhale-rear-walk-v01.png","top":12,"floor":1237,"hip":[610,760],"head":[145,700],"soles":[[575,1237],[665,1172]]},
+    {"id":"rear-neutral","file":"rear-neutral-study.png","top":14,"floor":1228,"hip":[610,760],"head":[145,700],"soles":[[575,1228],[655,1228]]},
+    {"id":"rear-b","file":"rear-contact-b-study.png","top":14,"floor":1230,"hip":[610,760],"head":[145,700],"soles":[[540,1160],[655,1230]]},
+    {"id":"rear-pass-unused","file":"rear-passing-study.png","top":14,"floor":1230,"hip":[610,760],"head":[145,700],"soles":[[600,1230],[655,1170]]}
+  ],
+  "leftCycle":["left-a","left-pass-a","left-b","left-pass-b"],
+  "rearCycle":["rear-a","rear-neutral","rear-b","rear-neutral"],
+  "right":"existing front PaperDoll/samplePose, no mirrored candidate",
+  "excluded":["left-cycle-v01-unqualified.png","left-cycle-v02-unqualified.png"]
+}

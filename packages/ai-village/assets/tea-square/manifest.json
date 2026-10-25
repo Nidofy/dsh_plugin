@@ -1,0 +1,121 @@
+{
+  "status": "APPROVED",
+  "approvedForRelease": true,
+  "scope": "tea-square-scene-only",
+  "version": 1,
+  "approval": {
+    "date": "2026-10-25",
+    "userStatement": "批准茶会场景候选，继续集成",
+    "coverage": "Background, tea table, tea counter and message tree. Gameplay, persistence and final package require separate validation."
+  },
+  "source": "Original built-in image_gen PNGs with native alpha; proportional contain resize with transparent padding and lossless PNG encoding for runtime review. No paint/crop/geometry changes.",
+  "license": "MIT",
+  "geometry": "src/core/tea-square-scene.ts, contract v3; furniture and visual feet unchanged, bounded story closing candidates expanded preserving all previous points",
+  "files": [
+    {
+      "id": "background",
+      "file": "background.png",
+      "nativeFile": "background.png",
+      "nativeSize": [
+        1086,
+        1448
+      ],
+      "nativeSha256": "5666220a2e970bdc32bd73271c61ffd2c4c3cf6426e2a7513655e08301412d80",
+      "sha256": "a9df6986bc4a2224f28af236702137a1d940e4b416aadb6f0ca1c2552dbca62a",
+      "bytes": 1632394,
+      "size": [
+        720,
+        960
+      ],
+      "decodedRGBABytes": 2764800,
+      "alpha": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 691200
+      },
+      "prompt": "Original tea-square-background-v01 from community-next/studies-manifest.json. Empty watercolor garden stone terrace, without baked furniture.",
+      "key": "tea-square/background.png",
+      "sourceFile": "art/candidates/tea-square-v01/optimized/background.png"
+    },
+    {
+      "id": "tea-table",
+      "file": "tea-table.png",
+      "nativeFile": "tea-table.png",
+      "nativeSize": [
+        1942,
+        809
+      ],
+      "nativeSha256": "ac4cdbf222906a09ac80705e7e2036227acbf4a454729cd97c4e45e7a13923ed",
+      "sha256": "36c7940e5661a774f660991252eeab45158e02dfe66b72edccf7ea5b8091f28f",
+      "bytes": 282833,
+      "size": [
+        672,
+        280
+      ],
+      "decodedRGBABytes": 752640,
+      "alpha": {
+        "transparent": 92559,
+        "partial": 94439,
+        "opaque": 1162
+      },
+      "prompt": "Original low wide oval honey-wood tea table, gentle elevated frontal angle, width:height2.4:1. Small saucers and teapot, uncluttered center. Native alpha. Watercolor/gouache sage, honey, cream; no text/people/chairs/ground.",
+      "key": "tea-square/tea-table.png",
+      "sourceFile": "art/candidates/tea-square-v01/optimized/tea-table.png"
+    },
+    {
+      "id": "tea-counter",
+      "file": "tea-counter.png",
+      "nativeFile": "tea-counter.png",
+      "nativeSize": [
+        1134,
+        1387
+      ],
+      "nativeSha256": "32ae6de5b4cebfa2f8950adeea05bdb7474f4f7f9c4f95f86ffe5dc45efb2fcb",
+      "sha256": "1f3bd2293a5632f2adb0de9855935a08f7344e215ea369d5f38ddad682015fa8",
+      "bytes": 153345,
+      "size": [
+        288,
+        352
+      ],
+      "decodedRGBABytes": 405504,
+      "alpha": {
+        "transparent": 49094,
+        "partial": 50818,
+        "opaque": 1464
+      },
+      "prompt": "Original garden tea counter, honey wood and sage inset panels, width:height72:88. Canopy, three ceramic jars, cream teapot. Native alpha; complete feet; no text, people or surrounding ground.",
+      "key": "tea-square/tea-counter.png",
+      "sourceFile": "art/candidates/tea-square-v01/optimized/tea-counter.png"
+    },
+    {
+      "id": "message-tree",
+      "file": "message-tree.png",
+      "nativeFile": "message-tree.png",
+      "nativeSize": [
+        936,
+        1681
+      ],
+      "nativeSha256": "2e53fffdc246431d42b0399846b5497909acf6ace594b1a74284b66ddc2a0b59",
+      "sha256": "6a206b6484a0dabdebc8827f680ce16d4fae0e5e6682701ba3cb2299e9648703",
+      "bytes": 212611,
+      "size": [
+        280,
+        504
+      ],
+      "decodedRGBABytes": 564480,
+      "alpha": {
+        "transparent": 79366,
+        "partial": 59729,
+        "opaque": 2025
+      },
+      "prompt": "Original slender garden message tree in honey stone planter, width:height70:126. Cloud/leaf/star paper tags, native alpha; no text, people or scenery.",
+      "key": "tea-square/message-tree.png",
+      "sourceFile": "art/candidates/tea-square-v01/optimized/message-tree.png"
+    }
+  ],
+  "totals": {
+    "bytes": 2281183,
+    "decodedRGBABytes": 4487424,
+    "textures": 4
+  }
+}

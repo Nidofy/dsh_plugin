@@ -1,7 +1,7 @@
 import type { Point } from './world.ts'
 import type { SceneArt } from '../frame/furniture.ts'
 
-/** Original code-drawn development preview; none of these identifiers names an approved raster asset. */
+/** Frozen bookhouse interaction geometry. Approved atlas layers bind separately in the frame; asset labels remain stable geometry identities. */
 export const bookhouseScene: SceneArt = {
   schemaVersion: 1,
   id: 'bookhouse',

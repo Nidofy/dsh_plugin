@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 14,
+  "worldId": "bluewhale-courtyard",
+  "sceneVersion": 3,
+  "avatarDefinitionVersion": 1,
+  "ticks": 4292,
+  "rng": 2387716937,
+  "userPaused": false,
+  "actor": {
+    "id": "gpt",
+    "facing": "right",
+    "position": {
+      "x": 306,
+      "y": 348
+    },
+    "safe": {
+      "x": 306,
+      "y": 348
+    },
+    "behavior": "walk",
+    "phase": 0,
+    "remaining": 3,
+    "intent": null,
+    "destination": {
+      "x": 266,
+      "y": 292
+    }
+  },
+  "companions": [
+    {
+      "id": "claude",
+      "facing": "right",
+      "position": {
+        "x": 304,
+        "y": 258
+      },
+      "safe": {
+        "x": 304,
+        "y": 258
+      },
+      "behavior": "idle",
+      "phase": 76.39999999999823,
+      "remaining": 2.666666666666668,
+      "intent": null,
+      "destination": null
+    },
+    {
+      "id": "gemini",
+      "facing": "left",
+      "position": {
+        "x": 262,
+        "y": 380
+      },
+      "safe": {
+        "x": 262,
+        "y": 380
+      },
+      "behavior": "idle",
+      "phase": 76.39999999999823,
+      "remaining": 2.666666666666668,
+      "intent": null,
+      "destination": null
+    },
+    {
+      "id": "bluewhale",
+      "facing": "left",
+      "position": {
+        "x": 54,
+        "y": 348
+      },
+      "safe": {
+        "x": 54,
+        "y": 348
+      },
+      "behavior": "idle",
+      "phase": 0.3333333333333333,
+      "remaining": 2.666666666666668,
+      "intent": null,
+      "destination": null
+    },
+    {
+      "id": "grok",
+      "facing": "left",
+      "position": {
+        "x": 98,
+        "y": 380
+      },
+      "safe": {
+        "x": 98,
+        "y": 380
+      },
+      "behavior": "idle",
+      "phase": 0.3333333333333333,
+      "remaining": 2.666666666666668,
+      "intent": null,
+      "destination": null
+    },
+    {
+      "id": "kimi",
+      "facing": "right",
+      "position": {
+        "x": 268,
+        "y": 414
+      },
+      "safe": {
+        "x": 268,
+        "y": 414
+      },
+      "behavior": "idle",
+      "phase": 76.39999999999823,
+      "remaining": 2.666666666666668,
+      "intent": null,
+      "destination": null
+    },
+    {
+      "id": "qwen",
+      "facing": "right",
+      "position": {
+        "x": 312,
+        "y": 414
+      },
+      "safe": {
+        "x": 312,
+        "y": 414
+      },
+      "behavior": "idle",
+      "phase": 76.39999999999823,
+      "remaining": 2.666666666666668,
+      "intent": null,
+      "destination": null
+    }
+  ],
+  "simulationRulesVersion": 4,
+  "contentRevision": 10,
+  "activeEvent": null,
+  "progress": {
+    "completedWishes": [],
+    "discovered": [],
+    "unlocked": [],
+    "lastCompletedEventId": null
+  },
+  "journal": [],
+  "decorations": {
+    "layoutRevision": 0,
+    "windChime": null
+  },
+  "neighborhood": {
+    "layout": "courtyard",
+    "layoutRevision": 0,
+    "event": null,
+    "memories": [],
+    "bonds": [],
+    "decorations": {
+      "lantern": null,
+      "planter": null
+    },
+    "nextInteractionTick": 0,
+    "lastEventId": null
+  },
+  "home": {
+    "revision": 0,
+    "positions": {
+      "work": 0,
+      "eat": 0,
+      "bench": 0,
+      "corner": 0
+    },
+    "environment": "afternoon",
+    "accessories": {
+      "bluewhale": "none",
+      "claude": "none",
+      "gemini": "none",
+      "gpt": "none",
+      "grok": "none",
+      "kimi": "none",
+      "qwen": "none",
+      "seedance": "none",
+      "glm": "none",
+      "minimax": "none",
+      "llama": "none",
+      "mistral": "none"
+    }
+  },
+  "play": {
+    "encounterWindow": -1,
+    "tableMode": "dining",
+    "active": null,
+    "decorations": {
+      "message-board": null,
+      "leaf-pot": null,
+      "rice-bowl": null,
+      "page-marker": null,
+      "wind-ribbon": null,
+      "whale-token": null,
+      "desk-star": null,
+      "snack-tray": null,
+      "star-mobile": null,
+      "table-stones": null
+    },
+    "nextTick": 0,
+    "lastEventId": null
+  },
+  "life": {
+    "social": null
+  },
+  "region": {
+    "version": 2,
+    "active": "tea-square",
+    "returns": {
+      "courtyard": [
+        {
+          "id": "bluewhale",
+          "position": {
+            "x": 174,
+            "y": 340
+          },
+          "safe": {
+            "x": 174,
+            "y": 340
+          },
+          "facing": "right"
+        },
+        {
+          "id": "claude",
+          "position": {
+            "x": 60,
+            "y": 350
+          },
+          "safe": {
+            "x": 60,
+            "y": 350
+          },
+          "facing": "right"
+        },
+        {
+          "id": "gemini",
+          "position": {
+            "x": 124,
+            "y": 350
+          },
+          "safe": {
+            "x": 124,
+            "y": 350
+          },
+          "facing": "right"
+        },
+        {
+          "id": "gpt",
+          "position": {
+            "x": 252,
+            "y": 350
+          },
+          "safe": {
+            "x": 252,
+            "y": 350
+          },
+          "facing": "right"
+        },
+        {
+          "id": "grok",
+          "position": {
+            "x": 60,
+            "y": 414
+          },
+          "safe": {
+            "x": 60,
+            "y": 414
+          },
+          "facing": "right"
+        },
+        {
+          "id": "kimi",
+          "position": {
+            "x": 124,
+            "y": 414
+          },
+          "safe": {
+            "x": 124,
+            "y": 414
+          },
+          "facing": "right"
+        },
+        {
+          "id": "qwen",
+          "position": {
+            "x": 188,
+            "y": 414
+          },
+          "safe": {
+            "x": 188,
+            "y": 414
+          },
+          "facing": "right"
+        }
+      ],
+      "bookhouse": null,
+      "tea-square": null
+    }
+  },
+  "bookhouse": {
+    "version": 2,
+    "active": null,
+    "memory": null,
+    "lastEventId": null,
+    "keepsake": null,
+    "puzzleMemory": null,
+    "puzzleLastEventId": null
+  },
+  "manualMove": null,
+  "teaSquare": {
+    "version": 1,
+    "active": null,
+    "activity": {
+      "actorId": "gpt",
+      "stage": "counter",
+      "seat": 0,
+      "route": [
+        {
+          "x": 266,
+          "y": 292
+        },
+        {
+          "x": 54,
+          "y": 266
+        }
+      ],
+      "remainingTicks": 0,
+      "expires": 6692
+    },
+    "memory": {
+      "eventId": "f13a03ed-fd02-4c91-9833-d6070fd7658b",
+      "participants": [
+        "bluewhale",
+        "claude",
+        "gemini"
+      ],
+      "completedTick": 1993,
+      "day": 1,
+      "count": 2
+    },
+    "lastEventId": "1fd0a116-749a-4f0e-a571-cb104e503e58",
+    "keepsake": "message-tree"
+  }
+}

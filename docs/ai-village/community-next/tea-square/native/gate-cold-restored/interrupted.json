@@ -1,0 +1,7 @@
+{
+  "status": "INTERRUPTED",
+  "mode": "restored",
+  "reason": "The native QA client remained pending after native-tea-map-gate.png for over 60 seconds without a completed result. The QA client was interrupted; no Desktop process or world data was removed. A new run adds bounded CDP screenshot and observation waits.",
+  "knownEvidence": ["Installed bundles byte-match the pinned package", "native-tea-map-gate.png retained"],
+  "acceptance": "Not claimed for this interrupted run"
+}

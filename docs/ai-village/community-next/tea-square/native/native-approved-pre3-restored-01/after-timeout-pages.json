@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-25T08:29:39.845Z",
+  "result": [
+    {
+      "url": "dsh-app://app/",
+      "title": "DeepSeek Harness",
+      "iframes": 0,
+      "buttons": [
+        "",
+        "",
+        "New SessionCtrl+N",
+        "Plugins",
+        "Automation tasks",
+        "",
+        "",
+        "",
+        "More",
+        "Update",
+        "",
+        "",
+        "Default workspace",
+        "Standard mode",
+        "",
+        "Workspace Write",
+        "Select model",
+        "",
+        "Click to enter againBack at the entrance. Your village records are preserved.",
+        "Close village"
+      ]
+    },
+    {
+      "url": "file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-phase5/carrier/resources/app.asar/renderer/welcome.html",
+      "title": "DeepSeek Harness",
+      "iframes": 0,
+      "buttons": [
+        "Sign in",
+        "Add API Key"
+      ]
+    }
+  ]
+}

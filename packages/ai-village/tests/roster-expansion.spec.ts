@@ -21,7 +21,7 @@ it('exposes twelve stable names while preserving the approved seven-portrait ent
   expect(approvedEntranceCharacterIds).toEqual(['bluewhale', 'claude', 'gemini', 'gpt', 'grok', 'kimi', 'qwen'])
   expect(approvedEntranceCharacterIds.map((_, i) => portraitFill(3 / 7, i))).toEqual([1, 1, 1, 0, 0, 0, 0])
   expect(residentAssets(['bluewhale', 'claude', ...added]).size).toBe(128)
-  expect(residentAssets(['bluewhale', 'claude', ...added], 'bookhouse').size).toBe(121)
+  expect(residentAssets(['bluewhale', 'claude', ...added], 'bookhouse').size).toBe(123)
   for (const id of added) { expect(isCharacterId(id)).toBe(true); expect(characterNames[id]).toBeTruthy() }
   for (const value of ['Seedance', '../glm', '__proto__', '', null]) expect(isCharacterId(value)).toBe(false)
 })
@@ -31,7 +31,7 @@ it('registers every new runtime part and portrait with exact delivery bytes and 
     expect(manifest.approvedForRelease).toBe(true)
     expect(manifest.parts).toHaveLength(16)
     const selected = residentAssets([id]), bookhouse = residentAssets([id], 'bookhouse')
-    expect(selected.size).toBe(23); expect(bookhouse.size).toBe(16)
+    expect(selected.size).toBe(23); expect(bookhouse.size).toBe(18)
     expect([...selected].some(key => key.startsWith('claude/') || key.startsWith('parts/'))).toBe(false)
     for (const part of manifest.parts) {
       const key = `${id}/${part.file}`, resource = resources.find(entry => entry.key === key)!

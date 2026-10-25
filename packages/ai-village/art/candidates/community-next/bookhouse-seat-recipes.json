@@ -1,0 +1,11 @@
+{
+ "gpt":{"frame":[30,228,250,124],"hip":[155,245],"sole":[155,349],"visualSoleY":250,"upperCutRatio":0.43},
+ "grok":{"frame":[40,220,245,112],"hip":[160,235],"sole":[160,330],"visualSoleY":250,"upperCutRatio":0.43,"note":"Right-side unrelated fragment excluded by frame x<285"},
+ "kimi":{"frame":[4,250,279,100],"hip":[150,260],"sole":[110,348],"visualSoleY":250,"upperCutRatio":0.43,"note":"Original forward-left legs preserved; sole x differs from projected footprint"},
+ "qwen":{"frame":[16,240,253,114],"hip":[143,248],"sole":[143,352],"visualSoleY":250,"upperCutRatio":0.43},
+ "seedance":{"frame":[4,213,260,90],"hip":[145,227],"sole":[111,300],"visualSoleY":248,"upperCutRatio":0.43,"note":"Original forward-left legs preserved, not rotated or mirrored"},
+ "glm":{"frame":[60,453,480,172],"hip":[300,480],"sole":[250,620],"visualSoleY":250,"upperCutRatio":0.43,"bodyLift":175,"note":"Face height605 instead of560; upper-body lift21 logical px"},
+ "minimax":{"frame":[25,280,250,91],"hip":[150,290],"sole":[137,369],"visualSoleY":250,"upperCutRatio":0.43},
+ "llama":{"frame":[25,250,250,112],"hip":[150,270],"sole":[145,360],"visualSoleY":250,"upperCutRatio":0.43},
+ "mistral":{"frame":[65,480,520,127],"hip":[316,500],"sole":[316,607],"visualSoleY":239.4,"upperCutRatio":0.43,"soleOccluded":true,"note":"Cross-legged pose: feet hidden. Lower hem marker239.4 is NOT a visible sole; world projected footprint remains270"}
+}

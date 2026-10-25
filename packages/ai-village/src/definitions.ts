@@ -1331,6 +1331,102 @@ export const resources = [
     "sha256": "90f797e0a791f55aa0e08cb930dda168c7925e3da452efd6c51c014ed0a2d411"
   },
   {
+    "key": "map/terrain.png",
+    "file": "community-map/community-map-terrain.png",
+    "bytes": 1117905,
+    "sha256": "92ca1d4dc7b0ad4ce23a7205d5ceeb8b597369b1fd2642c5b69b76ed9ec42b8a",
+    "width": 768,
+    "height": 576
+  },
+  {
+    "key": "map/courtyard.png",
+    "file": "community-map/community-map-courtyard.png",
+    "bytes": 134116,
+    "sha256": "a30cab326e4a930770be095b2bc1562969cfbdc9bdc3fcbf5297efded1cf9a64",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "key": "map/bookhouse.png",
+    "file": "community-map/community-map-bookhouse.png",
+    "bytes": 155444,
+    "sha256": "a385b193aba93b800e296d57677bd0955a14bce06ba038932e3931f8d6ebe9f3",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "key": "map/tea-square.png",
+    "file": "community-map/community-map-tea-square.png",
+    "bytes": 150160,
+    "sha256": "84af08d3129c9b9f23871f58436711bb1e5a72d72167c7eaf39abc336a866c1e",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "key": "map/lakeside-garden.png",
+    "file": "community-map/community-map-lakeside-garden.png",
+    "bytes": 119894,
+    "sha256": "a16740f06904a182f04614d424e7721411c4c5f5dc1cdc6c414f333cd40e9ba9",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "key": "map/workshop.png",
+    "file": "community-map/community-map-workshop.png",
+    "bytes": 138256,
+    "sha256": "f65002fbb1ddfe2cd234b183407f41432ee377ed6e9bbe29947cb89a34c531fd",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "key": "tea-square/background.png",
+    "file": "tea-square/background.png",
+    "bytes": 1632394,
+    "sha256": "a9df6986bc4a2224f28af236702137a1d940e4b416aadb6f0ca1c2552dbca62a",
+    "width": 720,
+    "height": 960
+  },
+  {
+    "key": "tea-square/tea-table.png",
+    "file": "tea-square/tea-table.png",
+    "bytes": 282833,
+    "sha256": "36c7940e5661a774f660991252eeab45158e02dfe66b72edccf7ea5b8091f28f",
+    "width": 672,
+    "height": 280
+  },
+  {
+    "key": "tea-square/tea-counter.png",
+    "file": "tea-square/tea-counter.png",
+    "bytes": 153345,
+    "sha256": "1f3bd2293a5632f2adb0de9855935a08f7344e215ea369d5f38ddad682015fa8",
+    "width": 288,
+    "height": 352
+  },
+  {
+    "key": "tea-square/message-tree.png",
+    "file": "tea-square/message-tree.png",
+    "bytes": 212611,
+    "sha256": "6a206b6484a0dabdebc8827f680ce16d4fae0e5e6682701ba3cb2299e9648703",
+    "width": 280,
+    "height": 504
+  },
+  {
+    "key": "bookhouse/bookhouse-scene-atlas.png",
+    "file": "bookhouse/bookhouse-scene-atlas.png",
+    "bytes": 2003520,
+    "sha256": "f32af7939140ae8b66c28ec752e29b78507614397b21718c6893fcdec922d724",
+    "width": 1024,
+    "height": 968
+  },
+  {
+    "key": "bookhouse/bookhouse-activity-atlas.png",
+    "file": "bookhouse/bookhouse-activity-atlas.png",
+    "bytes": 464708,
+    "sha256": "a1419d66e142223d076ed06ea58bf8fb23e2cac10334841ba6213602a3ef3ecf",
+    "width": 1024,
+    "height": 640
+  },
+  {
     "key": "portraits/bluewhale.png",
     "file": "portraits/bluewhale.png",
     "bytes": 32688,

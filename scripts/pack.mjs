@@ -6,6 +6,7 @@ import { dirname, join, resolve } from 'node:path'
 import { createRequire } from 'node:module'
 import * as tar from 'tar'
 import { bundleRuntimeDependencies } from './offline-dependencies.mjs'
+import { approvedSceneAssets } from './ai-village-scene-assets.mjs'
 const root = resolve(import.meta.dirname, '..'), require = createRequire(import.meta.url)
 const npm = join(dirname(process.execPath), 'node_modules/npm/bin/npm-cli.js')
 await mkdir(join(root, 'dist'), { recursive: true })
@@ -52,6 +53,17 @@ for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working
   }
   if (name === 'ai-village') {
       if (!entries.includes('package/lib/frame.js')) throw Error('Missing game renderer')
+      for (const region of ['tea-square','bookhouse']) for (const resource of await approvedSceneAssets(join(dir,'assets'),region)) {
+        if (!entries.includes('package/assets/'+resource.file)) throw Error('Missing approved scene asset: '+resource.file)
+      }
+      const map = JSON.parse(await readFile(join(dir, 'assets/community-map/manifest.json'), 'utf8'))
+      if (map.status !== 'APPROVED' || !map.approvedForRelease || map.scope !== 'community-map-only' || map.files.length !== 6) throw Error('Unapproved community map')
+      for (const entry of map.files) {
+        const file = 'assets/community-map/' + entry.file
+        if (!entries.includes('package/' + file)) throw Error('Missing map layer')
+        const bytes = await readFile(join(dir, file))
+        if (bytes.length !== entry.bytes || createHash('sha256').update(bytes).digest('hex') !== entry.sha256) throw Error('Map closure mismatch')
+      }
       for (const id of ['bluewhale', 'claude', 'gemini', 'gpt', 'grok', 'kimi', 'qwen', 'seedance', 'glm', 'minimax', 'llama', 'mistral']) {
         const closure = JSON.parse(await readFile(join(dir, `assets/characters/${id}/manifest.json`), 'utf8'))
         if (!closure.approvedForRelease) throw Error('Unreviewed character ' + id)

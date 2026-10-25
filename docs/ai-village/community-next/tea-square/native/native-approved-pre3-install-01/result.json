@@ -1,0 +1,26 @@
+{
+  "status": "FAIL",
+  "mode": "install",
+  "runRoot": "ai-village-tea-qa-desktop-approved-pre3",
+  "artifact": {
+    "version": "0.13.0-preview.3",
+    "sha256": "50ef2a077fd8df30f89f773ded04bab61a478c1ed4ee4a6b67bd6b9260ef08c2",
+    "file": "nidofy-dsh-ai-village-0.13.0-preview.3.tgz"
+  },
+  "scriptSha": "7c294eeb4db9fac607076f840d06f2edf90e906fd71fda9a281e1574e8eb6d85",
+  "checks": [],
+  "observations": [],
+  "errors": [],
+  "requests": [],
+  "samples": [],
+  "failure": "browserType.connectOverCDP: connect ECONNREFUSED 127.0.0.1:18774\nCall log:\n\u001b[2m  - <ws preparing> retrieving websocket url from http://127.0.0.1:18774\u001b[22m\n\n    at D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-tea-square-native.mjs:167:126",
+  "world": null,
+  "notCovered": [
+    "native foreground hardware FPS (window not activated)",
+    "physical sleep/minimize",
+    "long-duration memory soak",
+    "additional physical DPI",
+    "fault-injected UNKNOWN ACK (covered by separate core/browser tests)",
+    "new direction animation qualification"
+  ]
+}

@@ -1,7 +1,7 @@
 import { defaultCamera, type Camera } from '../core/camera.ts'
 import type { VillageTab } from './ui-contract.ts'
 import type { CharacterId } from '../core/roster.ts'
-export type Overlay = null | 'more' | 'view' | 'notifications' | 'settings' | 'resident'
+export type Overlay = null | 'more' | 'view' | 'notifications' | 'settings' | 'resident' | 'map'
 export type Page = 'quick' | 'residents' | 'admissions' | 'activities' | 'bonds' | 'wishes' | 'furniture' | 'hanging' | 'atmosphere' | 'memories' | 'album' | 'appearance' | 'controls' | 'status'
 export interface NavEntry { tab: VillageTab; drawer: PresentationState['drawer']; overlay: Overlay; page: Page; scrollTop: number; focusKey: string; accessoryTarget: CharacterId | null; residentTarget: CharacterId | null; subpages: PresentationState['subpages']; noticeTarget: string | null }
 export interface PresentationState {

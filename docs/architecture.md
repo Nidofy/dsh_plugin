@@ -1,6 +1,11 @@
 # 架构与兼容边界
 
+
+0.13.0-preview.3 冻结 world13，新增 world14/content10/region2/frame11；茶区只新增有界返回脚点、单个三人活动和单个普通选茶状态，仍由同一 world owner/CAS 保存。持久 serial 防止旧杯垫动作复用，首次回忆派生茶签、通知、收藏和三对关系。用户已分别批准茶会与书屋候选，pre3已注册正式资源并通过410测试、双DPR可玩与离线包验收；隔离原生安装/冷恢复及可见普通活动/重玩/照片补测另有证据。结果与历史失败见 [当前交付](ai-village/community-next/CURRENT_STAGE.md)。
+
 ## AI 小院
+
+0.12 社区地图为独立展示层：五地点目录与邻接图统一校验，当时仅 courtyard/bookhouse 开放；0.13.0-preview.3 加入已验收的 tea-square，湖畔与工坊保持 planned。地图选择不存档，旅行仍走单 owner/CAS 和真实首帧。world13 冻结旧 world12，为点击行走添加单个有界 manualMove，frame10 增加经校验的地面移动/取消输入。路线由既有 residentRoute 生成，真实步进、动态避让、有界重规划与冷恢复保留；剧情参与者拖放也拒绝静默打断。六层绘本地图已获单独批准并按面板生命周期懒加载/释放；书屋与茶会已分别通过独立视觉批准及所列可玩验收；新区域和方向动画继续使用独立资格门禁，见 [社区开发契约](ai-village/community-next/DATA_AND_RECOVERY.md)。
 
 `ai-village` 使用 `shell.overlay` 与会话工具栏入口。世界 owner 在插件生命周期中创建，与会话选择及 React 浮卡挂载解耦。Git 与小院共享右列上下布局；Live2D 通过已有展示事件仅与小院互斥，只有显式打开动作参与抢占。侧栏/空间不足、窗口隐藏、关闭、主面板和断连均暂停，用户暂停偏好独立保存。
 

@@ -1,0 +1,282 @@
+{
+  "status": "APPROVED",
+  "approvedForRelease": true,
+  "runtimeEnabled": false,
+  "date": "2026-10-25",
+  "baseline": "e8fd896ec3713c6023ec17b81e6328055d59cc1c",
+  "generator": "built-in image_gen",
+  "license": "MIT",
+  "images": [
+    {
+      "file": "landmark-bookhouse-v01.png",
+      "bytes": 2648684,
+      "sha256": "5027d1f1061f04e70c9f8564f7e8a828174d87226963671debd1437c0e2a52dc",
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 481680,
+        "partial": 1090111,
+        "opaque": 725
+      },
+      "source": "built-in image_gen; original bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": true
+    },
+    {
+      "file": "landmark-courtyard-v01.png",
+      "bytes": 2430528,
+      "sha256": "db612b9afe8a0fc2a070744534357307771ed92c2987a86b652295c1bfe39b16",
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 665737,
+        "partial": 906645,
+        "opaque": 134
+      },
+      "source": "built-in image_gen; original bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": true
+    },
+    {
+      "file": "landmark-lakeside-garden-v01.png",
+      "bytes": 2254417,
+      "sha256": "51384ff07c0d3a9a7e2e917807fce6281f53a7d88aecaeb24f63670e82d344ab",
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 760133,
+        "partial": 812363,
+        "opaque": 20
+      },
+      "source": "built-in image_gen; original bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": true
+    },
+    {
+      "file": "landmark-tea-square-v01.png",
+      "bytes": 2710718,
+      "sha256": "9aedb4380f4df24a8b86f83af14d50553079b203c29ea6a1a611aed82d3a407d",
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 528006,
+        "partial": 1044303,
+        "opaque": 207
+      },
+      "source": "built-in image_gen; original bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": true
+    },
+    {
+      "file": "landmark-workshop-v01.png",
+      "bytes": 2232979,
+      "sha256": "8da494c87ef05a4d1c60c1bd4086904f8b744cb7db1feb60ef2826844102a3f3",
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 598255,
+        "partial": 973901,
+        "opaque": 360
+      },
+      "source": "built-in image_gen; original bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": true
+    },
+    {
+      "file": "map-concept-v01.png",
+      "bytes": 3690392,
+      "sha256": "9b1659916d7177d19cbf99c57544411ed31c31c32ee4432f4804e142d4d091ac",
+      "size": [
+        1448,
+        1086
+      ],
+      "decodedRGBABytes": 6290112,
+      "alpha": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 1572528
+      },
+      "source": "built-in image_gen; original bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": false
+    },
+    {
+      "file": "map-terrain-v01.png",
+      "bytes": 3117930,
+      "sha256": "dabd02d216be550ffdef31b3a2e4c2c057acbba6ed45ab13e44b7555498a525a",
+      "size": [
+        1448,
+        1086
+      ],
+      "decodedRGBABytes": 6290112,
+      "alpha": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 1572528
+      },
+      "source": "built-in image_gen; original bytes preserved",
+      "license": "MIT",
+      "approvedForRelease": true
+    }
+  ],
+  "nodes": [
+    {
+      "id": "courtyard",
+      "center": [
+        0.55,
+        0.45
+      ],
+      "name": [
+        "白鲸小院",
+        "Whale Courtyard"
+      ],
+      "status": "open",
+      "hit": {
+        "x": 0.45000000000000007,
+        "y": 0.33,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-courtyard-v01.png"
+    },
+    {
+      "id": "bookhouse",
+      "center": [
+        0.22,
+        0.33
+      ],
+      "name": [
+        "AI 书屋",
+        "AI Bookhouse"
+      ],
+      "status": "open",
+      "hit": {
+        "x": 0.12,
+        "y": 0.21000000000000002,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-bookhouse-v01.png"
+    },
+    {
+      "id": "tea-square",
+      "center": [
+        0.6,
+        0.72
+      ],
+      "name": [
+        "茶会广场",
+        "Tea Square"
+      ],
+      "status": "planned",
+      "hit": {
+        "x": 0.5,
+        "y": 0.6,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-tea-square-v01.png"
+    },
+    {
+      "id": "lakeside-garden",
+      "center": [
+        0.76,
+        0.18
+      ],
+      "name": [
+        "湖畔花园",
+        "Lakeside Garden"
+      ],
+      "status": "planned",
+      "hit": {
+        "x": 0.66,
+        "y": 0.06,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-lakeside-garden-v01.png"
+    },
+    {
+      "id": "workshop",
+      "center": [
+        0.23,
+        0.82
+      ],
+      "name": [
+        "AI 工坊",
+        "AI Workshop"
+      ],
+      "status": "planned",
+      "hit": {
+        "x": 0.13,
+        "y": 0.7,
+        "width": 0.2,
+        "height": 0.24
+      },
+      "landmark": "landmark-workshop-v01.png"
+    }
+  ],
+  "edges": [
+    [
+      "courtyard",
+      "bookhouse"
+    ],
+    [
+      "courtyard",
+      "tea-square"
+    ],
+    [
+      "tea-square",
+      "lakeside-garden"
+    ],
+    [
+      "tea-square",
+      "workshop"
+    ]
+  ],
+  "sourceFiles": [
+    "map-terrain-v01.png",
+    "map-roads.svg",
+    "map-selection.svg",
+    "map-geometry.json",
+    "preview.html",
+    "prompts.json"
+  ],
+  "totals": {
+    "bytes": 19085648,
+    "decodedRGBABytes": 44030544
+  },
+  "validation": {
+    "browserErrors": [],
+    "externalRequests": [],
+    "previews": 16,
+    "browserDpr": [
+      1,
+      2
+    ],
+    "nativeDpi": "NOT RUN"
+  },
+  "limitations": [
+    "Candidate-only HTML composition; not final package rendering or GPU resource acceptance.",
+    "Master PNGs are deliberately preserved at native generator resolution and need a release texture optimization pass.",
+    "Map concept v01 has older landmark positions; only map-geometry.json and layered preview define the synchronized candidate layout.",
+    "Map-only visual approval granted; final-package integration/QA is separate. Bluewhale, bookhouse and tea scene studies remain unapproved."
+  ],
+  "scope": "community-map-only",
+  "approval": "production-ready/approval.json"
+}

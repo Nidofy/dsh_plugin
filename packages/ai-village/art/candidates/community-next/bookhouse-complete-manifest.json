@@ -1,0 +1,358 @@
+{
+  "version": 1,
+  "status": "ALL12_ENGINEERING_REVIEW_CANDIDATE_NOT_APPROVED",
+  "approvedForRelease": false,
+  "runtimeEnabled": false,
+  "files": [
+    {
+      "file": "bluewhale-held-book-arms-v01.png",
+      "sha256": "fb19c5803ab07df3741250b48f0848f88240976474bc7611e0887e4aa1b450b8",
+      "bytes": 906003,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 1016065,
+        "partial": 556188,
+        "opaque": 1285
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "claude-held-book-arms-v01.png",
+      "sha256": "a35320b8de21ae66dfdca2055f31dbe7d8650b4fa6e5c9ffaa1aeb91900d9ba4",
+      "bytes": 1278407,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 890636,
+        "partial": 682228,
+        "opaque": 674
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "gemini-held-book-arms-v01.png",
+      "sha256": "514647bcb4e61ad3adfeda9a1f979253a03c7745f8b6dc9439433947973f13a1",
+      "bytes": 1094347,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 1004336,
+        "partial": 568653,
+        "opaque": 549
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "gpt-held-book-arms-v01.png",
+      "sha256": "357fe2e95b66c1f2cb293d2a17c484364b5c796574917c40e4007085b50b778b",
+      "bytes": 1322611,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 888409,
+        "partial": 684880,
+        "opaque": 249
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "grok-held-book-arms-v01.png",
+      "sha256": "2f625bda2d649e48aff28da4628000691cae26b002ec76a4e2fe44718134eb47",
+      "bytes": 1378994,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 858524,
+        "partial": 713979,
+        "opaque": 1035
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "kimi-held-book-arms-v01.png",
+      "sha256": "356443a6759257f2a8b449d0480d069d9c2f012298202427813ab03a793e6c32",
+      "bytes": 1637649,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 758161,
+        "partial": 814945,
+        "opaque": 432
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "qwen-held-book-arms-v01.png",
+      "sha256": "af7ad1a29ae1350cf880c7e6a367b7df215ba82c3b4f3d3eea9796df3964865f",
+      "bytes": 1376800,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 878315,
+        "partial": 694625,
+        "opaque": 598
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "seedance-held-book-arms-v01.png",
+      "sha256": "9f3b1a808505d46d854d52a7434ae92f4a2e6b6daddf118c2e29fb3e8946cacc",
+      "bytes": 1368031,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 804311,
+        "partial": 768518,
+        "opaque": 709
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "glm-held-book-arms-v01.png",
+      "sha256": "3d336b569554bddf574495d855dc40d12e341c978b48e5f59c02adca9fb10dd9",
+      "bytes": 1571020,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 829038,
+        "partial": 743863,
+        "opaque": 637
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "minimax-held-book-arms-v01.png",
+      "sha256": "1782123f80dad22372cd91f1a76d1b6758fe890e4517c3e98d48edd7949bec16",
+      "bytes": 1159171,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 930679,
+        "partial": 642190,
+        "opaque": 669
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "llama-held-book-arms-v01.png",
+      "sha256": "49e06fcfb6b242f66d0d844b2433efe08f3be61ce30553199e66f4b540588d45",
+      "bytes": 1275289,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 821934,
+        "partial": 751421,
+        "opaque": 183
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "mistral-held-book-arms-v01.png",
+      "sha256": "842e6dad16b1be2d019abc9a08ca3a7c1968aad8ea93133ba5179de9efa792fd",
+      "bytes": 1395331,
+      "size": [
+        1774,
+        887
+      ],
+      "decodedRGBABytes": 6294152,
+      "alpha": {
+        "transparent": 890094,
+        "partial": 682953,
+        "opaque": 491
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "bluewhale-seat-lower-v03.png",
+      "sha256": "e567c946b370bffc9d47d10b0adea4cb3e03a8236d144490e9490d9705926d62",
+      "bytes": 919045,
+      "size": [
+        1254,
+        1254
+      ],
+      "decodedRGBABytes": 6290064,
+      "alpha": {
+        "transparent": 1041125,
+        "partial": 529921,
+        "opaque": 1470
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    },
+    {
+      "file": "claude-seat-lower-v01.png",
+      "sha256": "5b5ea4790e5791de61588f3209b1f2883131a6d7637b972b0b13523b82180d84",
+      "bytes": 1231888,
+      "size": [
+        1230,
+        1278
+      ],
+      "decodedRGBABytes": 6287760,
+      "alpha": {
+        "transparent": 978923,
+        "partial": 592245,
+        "opaque": 772
+      },
+      "source": "built-in image_gen original PNG, copied unchanged",
+      "license": "MIT project asset policy; generated original derivative of project identity reference",
+      "approvedForRelease": false
+    }
+  ],
+  "references": [
+    {
+      "id": "claude",
+      "file": "assets/characters/claude/parts/rest-pose.png",
+      "sha256": "7fa393c644472be7d95981b1cf3903a76407a3eaf09daffd0479ea7e6ff0a3ec",
+      "usage": "original candidate pose identity preserved"
+    },
+    {
+      "id": "gemini",
+      "file": "assets/characters/gemini/parts/rest-pose.png",
+      "sha256": "ed1f94818e2b7e103b6be63f5bb000c7a25df9a20032c98ab109c78a2e2a848a",
+      "usage": "original candidate pose identity preserved"
+    },
+    {
+      "id": "gpt",
+      "file": "assets/characters/gpt/parts/rest-pose.png",
+      "sha256": "15fa031044e9893a0661bd9a471aa1378fe5cc005d25b5b6cca6dd194907b9d4",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    },
+    {
+      "id": "grok",
+      "file": "assets/characters/grok/parts/rest-pose.png",
+      "sha256": "449b1f27529f23fbecace10cd2569e749d806ff6cf91985e059fd9bb01c478c2",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    },
+    {
+      "id": "kimi",
+      "file": "assets/characters/kimi/parts/rest-pose.png",
+      "sha256": "667c79adf5c564a5a6bd41da6bb084025fb5bc82f526ff096176d447afad9cb3",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    },
+    {
+      "id": "qwen",
+      "file": "assets/characters/qwen/parts/rest-pose.png",
+      "sha256": "33756957785d61636af08ee6f75d83d65f9906316928446cec3fc5b35ee3867b",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    },
+    {
+      "id": "seedance",
+      "file": "assets/characters/seedance/parts/rest-pose.png",
+      "sha256": "4367c37e606641a3ba91159cb3072db1ffa5a338999de7de400143a9c771622a",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    },
+    {
+      "id": "glm",
+      "file": "assets/characters/glm/parts/rest-pose.png",
+      "sha256": "e416695149b8949dac1ed9de4ea01d8b457579c6907fcc2dcc28f092e7cb8c83",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    },
+    {
+      "id": "minimax",
+      "file": "assets/characters/minimax/parts/rest-pose.png",
+      "sha256": "450c27d2647d13ab6e7f8949a5dd98691f59766917c18c4528a8b100f3976795",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    },
+    {
+      "id": "llama",
+      "file": "assets/characters/llama/parts/rest-pose.png",
+      "sha256": "8a885ae808f2f303923528d2d9096304b8ad75f750c800cdf52c4d1d50ca5674",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    },
+    {
+      "id": "mistral",
+      "file": "assets/characters/mistral/parts/rest-pose.png",
+      "sha256": "a68002deb29f80d49d06627d4d6d7aedbd854b2aaad5ece259837d96ce8e7652",
+      "usage": "original approved identity reference for generated book, seated lower Texture part (Gemini too)"
+    }
+  ],
+  "renderer": "bookhouse-roster-renderer-v06.ts",
+  "validation": "bookhouse-roster-qa-v06/validation.json",
+  "prompts": [
+    "bookhouse-contact-prompts.json",
+    "bookhouse-identity-prompts.json",
+    "bookhouse-roster-prompts.json"
+  ],
+  "scope": "12 own-identity PaperDoll residents, full frozen scene, three stations, day/dusk,340/580,multiple time samples. Software WebGL DPR1 only.",
+  "limitations": [
+    "Mistral crossed legs hide shoes: lower hem marker is not visible sole",
+    "Kimi source held book cuffs nearly touch image edge; review closeup retained",
+    "Grok dark cuffs and GPT/Llama pale cuffs need contrast signoff at340/dusk",
+    "Generated source files are high resolution unoptimized, no production budget claim",
+    "No world simulation activity transitions, real host, final package or original artwork visual approval"
+  ],
+  "totals": {
+    "generatedFiles": 14,
+    "sourceBytes": 17914586,
+    "decodedRGBABytes": 88107648,
+    "screenshots": 48,
+    "samples": 34
+  },
+  "optimized": {
+    "manifest": "bookhouse-optimized-v01/manifest.json",
+    "renderer": "bookhouse-roster-renderer-v07.ts",
+    "validation": "bookhouse-roster-qa-v07/validation.json",
+    "imageSources": 2,
+    "screenshots": 48,
+    "samples": 34
+  }
+}

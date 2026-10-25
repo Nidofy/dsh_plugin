@@ -1,0 +1,125 @@
+{
+  "version": "0.13.0-preview.3",
+  "sourceCount": 129,
+  "sourceCurrentAndBothRunsIdentical": true,
+  "bundles": {
+    "index.js": "84c802881cb4bff381cbdbbbc12f22a4306bae05e9d154022014911457e5f3ae",
+    "client.js": "4182fe1253bb6c8d7212b750baeb90259fd3763feb5b70aaba9d2f8a771ced25",
+    "frame.js": "7bd7bd0b1eed6e8f59c9bdc60ce659629fff4638abba36cb1ba8860b556553ed"
+  },
+  "runnerSha256": "f50cb3255bac3e339cf2a26249135def6aa93e4fb8e5a57024e1cc1166925ef0",
+  "results": [
+    {
+      "label": "approved-play-final-dpr1-03",
+      "status": "PASS",
+      "dpr": 1,
+      "checks": 32,
+      "pathSamples": 2256,
+      "pngCount": 30,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "coldRestoreMs": 1115.0978999999934,
+      "travelCount": 19,
+      "travelMinMs": 813.2786999999662,
+      "travelMaxMs": 1061.3742999999668,
+      "softwareSample": {
+        "elapsedMs": 3149.679999999993,
+        "fps": 23.176899527093116,
+        "p50PaintMs": 0.7999999970197678,
+        "p95PaintMs": 1.5,
+        "sampleCount": 77
+      },
+      "gpu": [
+        {
+          "vendorId": 65535,
+          "deviceId": 65535,
+          "subSysId": 0,
+          "revision": 0,
+          "vendorString": "Google Inc. (Google)",
+          "deviceString": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+          "driverVendor": "SwANGLE",
+          "driverVersion": "5.0.0"
+        }
+      ],
+      "inventory": [
+        {
+          "region": "courtyard",
+          "textures": 128,
+          "sources": 128,
+          "rgbaBytes": 67346784,
+          "blobUrls": 128
+        },
+        {
+          "region": "bookhouse",
+          "textures": 123,
+          "sources": 123,
+          "rgbaBytes": 63796952,
+          "blobUrls": 123
+        },
+        {
+          "region": "tea-square",
+          "textures": 125,
+          "sources": 125,
+          "rgbaBytes": 61698008,
+          "blobUrls": 125
+        }
+      ]
+    },
+    {
+      "label": "approved-play-final-dpr2-01",
+      "status": "PASS",
+      "dpr": 2,
+      "checks": 32,
+      "pathSamples": 2188,
+      "pngCount": 30,
+      "pageErrors": 0,
+      "externalRequests": 0,
+      "coldRestoreMs": 1067.358899999992,
+      "travelCount": 19,
+      "travelMinMs": 861.0658999999869,
+      "travelMaxMs": 1098.0923000000184,
+      "softwareSample": {
+        "elapsedMs": 3166.9980000000214,
+        "fps": 23.365919423510704,
+        "p50PaintMs": 0.7999999970197678,
+        "p95PaintMs": 2.1000000089406967,
+        "sampleCount": 78
+      },
+      "gpu": [
+        {
+          "vendorId": 65535,
+          "deviceId": 65535,
+          "subSysId": 0,
+          "revision": 0,
+          "vendorString": "Google Inc. (Google)",
+          "deviceString": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+          "driverVendor": "SwANGLE",
+          "driverVersion": "5.0.0"
+        }
+      ],
+      "inventory": [
+        {
+          "region": "courtyard",
+          "textures": 128,
+          "sources": 128,
+          "rgbaBytes": 67346784,
+          "blobUrls": 128
+        },
+        {
+          "region": "bookhouse",
+          "textures": 123,
+          "sources": 123,
+          "rgbaBytes": 63796952,
+          "blobUrls": 123
+        },
+        {
+          "region": "tea-square",
+          "textures": 125,
+          "sources": 125,
+          "rgbaBytes": 61698008,
+          "blobUrls": 125
+        }
+      ]
+    }
+  ]
+}

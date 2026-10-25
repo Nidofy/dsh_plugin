@@ -19,7 +19,7 @@ export const relationshipMilestones = [
   { target: 15, title: words('小院的回忆守护者', 'Keeper of courtyard memories') },
 ] as const
 const pairKey = (pair: readonly CharacterId[]) => [...pair].sort().join('/')
-const location = (slot: string | null | undefined): Words => slot === 'bookhouse' ? words('书屋', 'Bookhouse')
+const location = (slot: string | null | undefined): Words => slot === 'message-tree' ? words('茶会广场 · 留言树', 'Tea Square · message tree') : slot === 'bookhouse' ? words('书屋', 'Bookhouse')
   : slot === 'courtyard' ? words('庭院', 'Courtyard')
   : slot === 'window' ? words('庭院 · 窗边', 'Courtyard · window')
   : slot === 'door' ? words('庭院 · 门口', 'Courtyard · doorway')
@@ -59,6 +59,8 @@ export function relationshipFacts(world: LivingWorld) {
     source: words('来源：首次保存的书屋谜题', 'Source: the first saved bookhouse puzzle'), participants: [...puzzle.participants], completedTick: puzzle.completedTick,
     detail: words('首次一起整理书页的两位朋友。后续重玩次数不代表这对居民的次数。', 'The two friends who first arranged the pages together. Later replay totals are not a count for this pair.'), keepsake: null,
   })
+  const tea=world.teaSquare.memory
+  if(tea)sources.push({id:'tea-square-three-cups',eventId:tea.eventId,title:words('三杯不同的下午','Three cups, one afternoon'),source:words('来源：首次保存的三人茶会','Source: the first saved three-person tea story'),participants:[...tea.participants],completedTick:tea.completedTick,detail:words(`第 ${tea.day} 天的三位朋友；重玩不替换首次参与者。`,`Three friends on day ${tea.day}; replays preserve this first cast.`),keepsake:{id:'three-leaf-tea-tag',name:words('三叶茶签','Three-leaf tea tag'),location:location(world.teaSquare.keepsake)}})
   const pairs: Relationship[] = []
   for (let i = 0; i < characterIds.length; i++) for (let j = i + 1; j < characterIds.length; j++) {
     const pair = [characterIds[i]!, characterIds[j]!] as const, id = pairKey(pair)

@@ -57,21 +57,22 @@ it.each([0,1] as const)('binds the game to two real seats, shared geometry, inpu
   const finalToken=token(w);w=playAction(w,scene,'finish',undefined,finalToken);expect(w.neighborhood.memories[0]!.id).toBe('table-game');expect(w.neighborhood.memories[0]!.count).toBe(1)
   expect(w.rng).toBe(rng);expect(()=>playAction(w,scene,'finish',undefined,finalToken)).toThrow('STALE_PLAY_ACTION');expect(homeScene(scene,w.neighborhood.layout,w.home)).toEqual(before)
 })
-it('pauses both marks, rejects forged board/history and cancels on valid departure or drag',()=>{
+it('pauses both marks, rejects forged board/history, cancels on departure and protects a game from drag',()=>{
   let w=ready(startPlay(world(),scene,'table-game',['bluewhale','claude'],crypto.randomUUID()))
   w=playAction(w,scene,'move','0',token(w));const c=new LivingController(w,scene,()=>{})
   c.pause('hidden',true);c.pause('user',true);const before=c.snapshot();c.advance(.1);expect(c.snapshot()).toEqual(before);c.pause('hidden',false);c.advance(.1);expect(c.snapshot()).toEqual(before)
   const forged=structuredClone(w);forged.play.active!.board[8]=1;expect(()=>validateLivingWorld(forged,scene)).toThrow()
   c.setCharacterPresent('claude',false);expect(c.world.play.active).toBeNull();expect(c.world.neighborhood.memories).toEqual([])
   const d=new LivingController(ready(startPlay(world(),scene,'table-game',['bluewhale','claude'],crypto.randomUUID())),scene,()=>{}),a=d.world.actor
+  const protectedWorld=d.snapshot()
   d.pointer({type:'down',id:1,point:{x:a.position.x,y:a.position.y-35},css:{x:100,y:100}})
   d.pointer({type:'move',id:1,point:{x:60,y:385},css:{x:180,y:200}});d.pointer({type:'up',id:1,point:{x:60,y:385},css:{x:180,y:200}})
-  expect(d.lastPlacement).toBe('accepted')
-  expect(d.world.play.active).toBeNull();expect(d.world.neighborhood.memories).toEqual([])
+  expect(d.lastPlacement).toBe('story-blocked')
+  expect(d.snapshot()).toEqual(protectedWorld);expect(d.world.neighborhood.memories).toEqual([])
 })
 it('migrates v7 without changing its original bytes or old codec, preserving upgrade backup after repeated saves',async()=>{
   const old=createV7(scene),raw=JSON.stringify(old),next=migrateLivingWorld(old,scene)
-  expect(next.schemaVersion).toBe(12);expect(next.play.tableMode).toBe('dining');expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV7(scene).validate(next)).toThrow()
+  expect(next.schemaVersion).toBe(14);expect(next.play.tableMode).toBe('dining');expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV7(scene).validate(next)).toThrow()
   const root=await mkdtemp(join(tmpdir(),'village-table-')),legacy=await SaveStore.open(root,scene,codecV7(scene));await legacy.save(0,old,crypto.randomUUID())
   const pointer=await readFile(join(legacy.directory,'current.json'),'utf8'),name=JSON.parse(pointer).snapshot,bytes=await readFile(join(legacy.directory,'snapshots',name))
   const store=await SaveStore.open(root,scene,livingWorldCodec(scene));let saved=(await store.read())!;expect(saved.world).toEqual(next)
@@ -88,7 +89,7 @@ it('keeps a canceled board out of memories and refuses non-closed frame commands
 it('preserves an in-progress v7 story through migration without consuming ticks or adding new rewards',()=>{
   const current=startPlay(migrateLivingWorld(createV7(scene),scene),scene,'find-whale',['bluewhale'],crypto.randomUUID())
   stepLiving(current,scene)
-  const old:any=structuredClone(current);delete old.region;delete old.bookhouse;old.home.accessories=Object.fromEntries(legacyCharacterIds.map(id=>[id,old.home.accessories[id]]));old.schemaVersion=7;old.contentRevision=4;delete old.play.tableMode;delete old.play.encounterWindow;delete old.play.decorations['table-stones'];delete old.play.decorations['message-board'];delete old.play.decorations['leaf-pot']
+  const old:any=structuredClone(current);delete old.teaSquare;delete old.manualMove;delete old.region;delete old.bookhouse;old.home.accessories=Object.fromEntries(legacyCharacterIds.map(id=>[id,old.home.accessories[id]]));old.schemaVersion=7;old.contentRevision=4;delete old.play.tableMode;delete old.play.encounterWindow;delete old.play.decorations['table-stones'];delete old.play.decorations['message-board'];delete old.play.decorations['leaf-pot']
   const checked=codecV7(scene).validate(old),raw=JSON.stringify(checked),next=migrateLivingWorld(checked,scene)
   expect(next.play.active).toEqual(checked.play.active);expect(next.actor).toEqual(checked.actor);expect(next.ticks).toBe(checked.ticks)
   expect(next.neighborhood.memories).toEqual(checked.neighborhood.memories);expect(next.play.decorations['table-stones']).toBeNull();expect(JSON.stringify(checked)).toBe(raw)

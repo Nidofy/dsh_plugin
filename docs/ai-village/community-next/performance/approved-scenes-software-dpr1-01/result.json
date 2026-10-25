@@ -1,0 +1,11 @@
+{
+  "status": "FAIL",
+  "stage": "isolated Host initialization",
+  "failure": "ENOENT realpath .build/ai-village-approved-scenes-perf/approved-scenes-software-dpr1-01/profile: runner had not created the empty isolated profile before SaveStore.open",
+  "packageSha": "50ef2a077fd8df30f89f773ded04bab61a478c1ed4ee4a6b67bd6b9260ef08c2",
+  "browserStarted": false,
+  "measurementStarted": false,
+  "productChanged": false,
+  "cleanup": "Node exited with code 1 before browser creation and before harness HTTP server listen. No browser process or listening Host was started.",
+  "followup": "Create the isolated profile before harness startup; rerun under a new label without overwriting this failure."
+}
