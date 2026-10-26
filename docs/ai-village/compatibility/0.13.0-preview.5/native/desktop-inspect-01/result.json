@@ -1,0 +1,32 @@
+{
+  "status": "FAIL",
+  "mode": "inspect",
+  "launch": {
+    "startedAt": "2026-10-26T06:12:24.2060045Z",
+    "pid": 22064,
+    "port": 18783,
+    "version": "0.2.1-rc.3",
+    "carrier": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-rc3-desktop\\carrier\\DeepSeek Harness.exe",
+    "arguments": [
+      "--user-data-dir=D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-rc3-desktop/electron-data",
+      "--remote-debugging-port=18783",
+      "--remote-debugging-address=127.0.0.1"
+    ],
+    "dshHome": "D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-rc3-desktop/home",
+    "softwareRendering": false,
+    "windowStyle": "Hidden",
+    "asarSha256": "04b32e3a872826ba15cfb2081c6a929a8d4ecaa65e09a2543e5a6b30e2eff1f0"
+  },
+  "checks": [],
+  "observations": [],
+  "errors": [],
+  "requests": [],
+  "notCovered": [
+    "Physical sleep/minimize and physical IME candidate selection",
+    "Long-duration foreground hardware performance",
+    "Existing persisted conversation -> blank-draft restoration (no model calls or session synthesis)",
+    "Native full tea/story replay: separate authenticated browser gameplay suite covers the complete sequence"
+  ],
+  "failure": "Error: Command failed: powershell -NoProfile -Command Get-CimInstance Win32_Process -Filter 'ProcessId = 22064' | Select-Object ExecutablePath,CommandLine | ConvertTo-Json -Compress\nGet-CimInstance : �ܾ����� \r\n����λ�� ��:1 �ַ�: 1\r\n+ Get-CimInstance Win32_Process -Filter 'ProcessId = 22064' | Select-Ob ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : PermissionDenied: (:) [Get-CimInstance], CimException\r\n    + FullyQualifiedErrorId : HRESULT 0x80041003,Microsoft.Management.Infrastructure.CimCmdlets.GetCimInstanceCommand\r\n \r\n\n    at genericNodeError (node:internal/errors:985:15)\n    at wrappedFn (node:internal/errors:539:14)\n    at checkExecSyncError (node:child_process:925:11)\n    at execFileSync (node:child_process:961:15)\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:82:33",
+  "runnerSha256": "86176cfb431fa13c7f83588b575ca57ee09f47b4fd8d61a99d567ccc6ea0b225"
+}

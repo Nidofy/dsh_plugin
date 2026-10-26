@@ -1,0 +1,12 @@
+{
+  "name": "ai-village-official-source-ui-rc3",
+  "private": true,
+  "type": "module",
+  "description": "Build/test-only dependencies for pinned rc.3 Header/Menu source; not plugin runtime dependencies.",
+  "dependencies": {
+    "clsx": "2.1.1",
+    "immer": "10.2.0",
+    "react": "18.3.1",
+    "zustand": "4.5.7"
+  }
+}

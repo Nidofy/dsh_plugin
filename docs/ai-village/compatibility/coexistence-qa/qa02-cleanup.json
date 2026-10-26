@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "scope": "companions-qa-02 synthetic cancel hook only",
+  "verifiedRootPid": 34436,
+  "verifiedCommand": "git.exe --no-pager commit --allow-empty -m \"cancel hook\"",
+  "syntheticReadyCreation": "2026-10-26T16:46:36.9779512+08:00",
+  "action": "Normal-user taskkill ended verified Git root; sandbox ownership then allowed exact PID/start-time verified Node descendant termination; remaining shells exited",
+  "ownedPids": [
+    34436,
+    8068,
+    25912,
+    35180
+  ],
+  "remaining": [],
+  "userProcessesTouched": false
+}

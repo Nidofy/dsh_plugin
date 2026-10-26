@@ -1,0 +1,823 @@
+{
+  "status": "PASS_REMAINING_NATIVE_A_GATES_SAFE_STOP_BEFORE_B",
+  "at": "2026-10-26T09:11:28.812Z",
+  "artifact": {
+    "version": "0.13.0-preview.5",
+    "file": "dist/nidofy-dsh-ai-village-0.13.0-preview.5.tgz",
+    "sha256": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760"
+  },
+  "qaCompanions": [
+    {
+      "name": "@nidofy/dsh-source-control",
+      "version": "0.1.3-rc3-coexistence.qa.1",
+      "sha256": "20fb56cc9fae57dc3c5bef696f3ff30a61150045f0a842bf0c31326b46298e66",
+      "bytes": 30641,
+      "dsh": "0.2.1-rc.3",
+      "qaOnly": true,
+      "file": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\artifacts\\nidofy-dsh-source-control-0.1.3-rc3-coexistence.qa.1.tgz",
+      "scope": "Temporary rc.3 rebuild for combination verification only; formal rc.2 releases unchanged"
+    },
+    {
+      "name": "@nidofy/dsh-live2d",
+      "version": "0.1.2-rc3-coexistence.qa.1",
+      "sha256": "5239666fb905a31b4148abaac3dd92376830c173de3b1b203920747b1336cd63",
+      "bytes": 1434229,
+      "dsh": "0.2.1-rc.3",
+      "qaOnly": true,
+      "file": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\artifacts\\nidofy-dsh-live2d-0.1.2-rc3-coexistence.qa.1.tgz",
+      "scope": "Temporary rc.3 rebuild for combination verification only; formal rc.2 releases unchanged"
+    }
+  ],
+  "distribution": {
+    "version": "0.2.1-rc.3",
+    "sourceTagCommit": "1f81c047fc48fa190a683e469daa699857e9afe8",
+    "desktopEmbeddedCommit": "be72761ee1a6736ebcdf4f3739363b083ae53c98",
+    "asarSha256": "04b32e3a872826ba15cfb2081c6a929a8d4ecaa65e09a2543e5a6b30e2eff1f0",
+    "carrier": "C:\\Users\\enxi1\\AppData\\Local\\Temp\\dsh-ai-village-rc3-qa-ead9a0fb\\carrier\\DeepSeek Harness.exe"
+  },
+  "display": {
+    "visibility": "visible",
+    "dpr": 1.75,
+    "width": 1279,
+    "height": 821
+  },
+  "runs": [
+    {
+      "label": "reinstall-resume-pre5-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "reinstall",
+      "result": "reinstall-resume-pre5-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "Official reinstall preserves exact latest world, revision, operation ID and snapshot hash"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "installed.png",
+          "sha256": "eea4d69ef1206a316ceff9540a7822b581e99aba1845e6a544eba33979a0b4c7"
+        },
+        {
+          "file": "result.json",
+          "sha256": "4322e2883c52bcf9a5675d81bf1d9bfc5b1a25d1f360ab12e405632b4671344e"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "resume-inspect-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "inspect",
+      "result": "resume-inspect-01/result.json",
+      "checks": [
+        "Read-only inspected dedicated rc.3 Desktop"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "inspection.png",
+          "sha256": "209e7138e4c12c203d3562f0af91cac10df76b53b2fe392a52e03774a8114170"
+        },
+        {
+          "file": "result.json",
+          "sha256": "f2eba7d27ed3933805af7d063036f236072f082748158c38255c25ef27ace806"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "drag-pre5-01",
+      "reportedStatus": "FAIL",
+      "acceptedStatus": "FAIL",
+      "mode": "drag",
+      "result": "drag-pre5-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz"
+      ],
+      "failure": "Error: TIMEOUT: legal actual mouse drop committed\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:23:237)\n    at async dragResident (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:194:5)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:307:11",
+      "files": [
+        {
+          "file": "failed.png",
+          "sha256": "bab6a07c94109fdfef7dbee9136ca8fe7e71a30e8e8694cc478c47bcbe701656"
+        },
+        {
+          "file": "result.json",
+          "sha256": "781a32fd2f1d2df89b77dc83be0e33c8c5d01f7c553d8ca8e50bcca7d2e45a6b"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "drag-pre5-02",
+      "reportedStatus": "FAIL",
+      "acceptedStatus": "FAIL",
+      "mode": "drag",
+      "result": "drag-pre5-02/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz"
+      ],
+      "failure": "Error: TIMEOUT: legal actual mouse drop committed\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:23:237)\n    at async dragResident (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:197:5)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:310:11",
+      "files": [
+        {
+          "file": "failed.png",
+          "sha256": "1bf533553447cd2b834127a2c6b72869fbb87ede7c597271d781c62db116723c"
+        },
+        {
+          "file": "result.json",
+          "sha256": "e0a0d0135e11314a31c1cd621f274bed3b3baefdd91e05033cfb7ca78292639d"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "drag-pre5-03",
+      "reportedStatus": "FAIL",
+      "acceptedStatus": "FAIL",
+      "mode": "drag",
+      "result": "drag-pre5-03/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "Real pointer down/move/up moves the selected resident to legal courtyard ground and commits a newer CAS revision in the same profile/epoch"
+      ],
+      "failure": "AssertionError [ERR_ASSERTION]: Actual successful save acknowledgement for target\n    at dragResident (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:210:77)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:312:11",
+      "files": [
+        {
+          "file": "failed.png",
+          "sha256": "fa4eb8a6b2ddad29abee2a49ec2ec751cbb79cc61c8376207d3ac23f4e284a8d"
+        },
+        {
+          "file": "legal-seven-resident-drop.png",
+          "sha256": "cad998ae5954f63cd0bf6413ad9e381fd6977aa2c0ecec534741a3462e1c3836"
+        },
+        {
+          "file": "result.json",
+          "sha256": "8926a4aa6eaad522df799be4a233be8c2ef93aa09e294f596376c45fe9c0ff47"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "drag-pre5-04",
+      "reportedStatus": "FAIL",
+      "acceptedStatus": "FAIL",
+      "mode": "drag",
+      "result": "drag-pre5-04/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "Real pointer down/move/up moves the selected resident to legal courtyard ground and commits a newer CAS revision in the same profile/epoch"
+      ],
+      "failure": "AssertionError [ERR_ASSERTION]: Actual successful save acknowledgement for target\n    at dragResident (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:210:77)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-rc3-native.mjs:312:11",
+      "files": [
+        {
+          "file": "failed.png",
+          "sha256": "7ec8241f914e6ecbfaca8d8a4e1ba5703a1f3f7c165f4c679121c715148d2db9"
+        },
+        {
+          "file": "legal-seven-resident-drop.png",
+          "sha256": "3601cc75675db7a960b296c5fa490fe4eef1278a701ca24a9d010f4e9db00ab7"
+        },
+        {
+          "file": "result.json",
+          "sha256": "b8be1eef2c659d6536f1ce974588436edeba3129debc761671b49d95380eea69"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "drag-pre5-05",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "NOT_ACCEPTED_FALSE_POSITIVE",
+      "mode": "drag",
+      "result": "drag-pre5-05/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "Real pointer down/move/up moves the selected resident to legal courtyard ground and commits a newer CAS revision in the same profile/epoch",
+        "Unsafe real drag is rejected at the original feet; seven members, world ID, memories/keepsakes, one owner and Chinese draft retained; durable hash and save acknowledgements verified"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "legal-seven-resident-drop.png",
+          "sha256": "a65169c7d33308c4c86034155921859c1cbc5b14f3b57f1e64e0f3628943e443"
+        },
+        {
+          "file": "result.json",
+          "sha256": "035acded0df0afd2b5d975621370865727f3c0567481a0ffa1806ac17edf0491"
+        },
+        {
+          "file": "unsafe-drop-rejected.png",
+          "sha256": "fb71e11175989a922f9d199241f6369c68dd6f1bcdbaaa49bdf7dd1756bb053d"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "prepare-coordination-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "prepare-coordination",
+      "result": "prepare-coordination-01/result.json",
+      "checks": [
+        "Created isolated local Git changes and a closed no-model session fixture through official Session/JSONL APIs; no user repository touched"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "result.json",
+          "sha256": "8d1ec9ca401303ae0c0735879dbe15441b842a5262a07cf81a04fcc5eb3230b1"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "coordination-install-qa03-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "coordination-install",
+      "result": "coordination-install-qa03-01/result.json",
+      "checks": [
+        "Official manager accepted QA-only rc.3 @nidofy/dsh-source-control",
+        "Official manager accepted QA-only rc.3 @nidofy/dsh-live2d",
+        "@nidofy/dsh-source-control QA-only candidate exact installed bytes: 21 files",
+        "@nidofy/dsh-live2d QA-only candidate exact installed bytes: 35 files",
+        "Installing coordination candidates retained exact AI Village save"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "installed-dsh-live2d.png",
+          "sha256": "611a61637d0319f6a354d427d1aaa8bbb0f71d84884772f54e54cf6e079ae8bd"
+        },
+        {
+          "file": "installed-dsh-source-control.png",
+          "sha256": "353245bee967f63c67a726e1f900d2e9b95d275d512a8b0dcd59b70ff11c73b4"
+        },
+        {
+          "file": "result.json",
+          "sha256": "e6a9792e106e290b95a4db8529bbe724645155dbd2900a4ca03b218fbce2aa74"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "coexistence-qa03-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "coexistence",
+      "result": "coexistence-qa03-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "@nidofy/dsh-source-control QA-only candidate exact installed bytes: 21 files",
+        "@nidofy/dsh-live2d QA-only candidate exact installed bytes: 35 files",
+        "Three ordered single launchers survive existing/new session remount beside official conversation More; exact Chinese blank draft retained",
+        "Git reads actual status/diff from the registered isolated repository; expanding changes increases Git height and shifts Village downward",
+        "Git stacks above either companion; explicit Live2D open releases Village iframe and passive session remount preserves the selected companion",
+        "Official Sidebar releases both floating cards and companion iframe, then restores Git with the previously selected companion; explicit Village open yields Live2D",
+        "Git close/reopen leaves Village active; no duplicate entry/owner, no clock/RNG/membership/world change, unsent draft intact"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "git-live2d.png",
+          "sha256": "74c61f0ce6c9ac13c9c5b39f399170869bc59103f40e02cfcb7cec08d70f5148"
+        },
+        {
+          "file": "git-village-diff.png",
+          "sha256": "e389cbe4d06842193a6da730fbffbda70029552cdfa5bc15a1f851a90ff6e381"
+        },
+        {
+          "file": "result.json",
+          "sha256": "422935bb49f3479d7eb6bf53d55dce21a3dcc6844b023054d1491c5f5ff824fc"
+        },
+        {
+          "file": "sidebar-restored-git-village.png",
+          "sha256": "64759767a0e60a94c64ae40fe385302d6fd4deb1481571be21028bc628ec2149"
+        },
+        {
+          "file": "three-launchers-conversation-more.png",
+          "sha256": "75489d9afd8ffcba9a79a2561d657b4ab284b9a242414b4655411c72b43af122"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "coordination-space-qa03-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "coordination-space",
+      "result": "coordination-space-qa03-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "@nidofy/dsh-source-control QA-only candidate exact installed bytes: 21 files",
+        "@nidofy/dsh-live2d QA-only candidate exact installed bytes: 35 files",
+        "Git Changes expansion causes documented limited-space pause and iframe release; collapsing Changes restores a real Village frame with exact world/draft, and Git stays in temporary root after session remount"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "collapsed-git-frame-restored.png",
+          "sha256": "2891182215d842e59059ed5f1cad51f896873b862651828b28da407093a7a1e8"
+        },
+        {
+          "file": "collapsed-git-village-rendered.png",
+          "sha256": "a9211b1949e9851662c03b51681bead0e35cd36c54bf7c2764a6b39f62d64c9e"
+        },
+        {
+          "file": "expanded-git-space-released.png",
+          "sha256": "e154b6518a1491696ba82e2551a3e47fc80c73ae80dae6143adda9f06afff8c7"
+        },
+        {
+          "file": "result.json",
+          "sha256": "01e463c2a0f65e37a19b03c1cc3043e06ac52a3361ec16ab52037c2d2ec25003"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "coordination-lifecycle-qa03-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "coordination-lifecycle",
+      "result": "coordination-lifecycle-qa03-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "@nidofy/dsh-source-control QA-only candidate exact installed bytes: 21 files",
+        "@nidofy/dsh-live2d QA-only candidate exact installed bytes: 35 files",
+        "Official disable/enable revokes @nidofy/dsh-source-control resources and retains world/draft",
+        "Official disable/enable revokes @nidofy/dsh-live2d resources and retains world/draft",
+        "Official disable/enable revokes @nidofy/dsh-ai-village resources and retains world/draft"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "coordination-lifecycle.png",
+          "sha256": "cfa0df9b23d02dc67ac74b4fbb945b9e8546cc15b5be33955382ffbf7dfb10de"
+        },
+        {
+          "file": "result.json",
+          "sha256": "1c926c03d016d27bf16c24caa931d07c46fd45aaa19f78d3c2a3f0e8a5bb8516"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "coordination-restored-qa03-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "coordination-restored",
+      "result": "coordination-restored-qa03-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "@nidofy/dsh-source-control QA-only candidate exact installed bytes: 21 files",
+        "@nidofy/dsh-live2d QA-only candidate exact installed bytes: 35 files",
+        "Distinct official Desktop process and three-plugin lifecycle preserve the exact post-drag saved world, revision, operation ID, memories and seven residents; real frame and one of each launcher restored"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "restored-after-drag-and-coordination.png",
+          "sha256": "0f2315cb9f7012dff8dad01df972ea0f6f8734d519303fdb37c32a304331aa2c"
+        },
+        {
+          "file": "result.json",
+          "sha256": "3db86a78506f42594e46a48c7da86355b4fcb89060463f86f44a89ed528c984e"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "coordination-uninstall-qa03-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "coordination-uninstall",
+      "result": "coordination-uninstall-qa03-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "@nidofy/dsh-source-control QA-only candidate exact installed bytes: 21 files",
+        "@nidofy/dsh-live2d QA-only candidate exact installed bytes: 35 files",
+        "Official uninstall revokes @nidofy/dsh-source-control resources and retains world/draft",
+        "Official uninstall revokes @nidofy/dsh-live2d resources and retains world/draft"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "coordination-uninstalled.png",
+          "sha256": "6ca0dd52569d32459ecf1fffe60cd0238f46a5ccdd92e3bc50aebb07fdf36909"
+        },
+        {
+          "file": "result.json",
+          "sha256": "24fc4e56564f33c3cfb4a734c9fb88e7124a53cf7c0c263870d88cd77e8941f2"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "drag-pre5-06",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "drag",
+      "result": "drag-pre5-06/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "Real pointer down/move/up moves the selected resident to legal courtyard ground and commits a newer CAS revision in the same profile/epoch",
+        "Unsafe real drag is rejected at the original feet; seven members, world ID, memories/keepsakes, one owner and Chinese draft retained; durable hash and save acknowledgements verified"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "legal-drag-held.png",
+          "sha256": "cbdeb080353cb005247692605c42b8fdeca5afdfe522767c72390346e5c098ff"
+        },
+        {
+          "file": "legal-seven-resident-drop.png",
+          "sha256": "dc01700a78083a808b75393cccadd560c3bfa64a0ea4ca7b03acad81cb3cce32"
+        },
+        {
+          "file": "result.json",
+          "sha256": "153d22e00332c14cf09fab6f66c59244549d6624a77919c855c007819e6751a9"
+        },
+        {
+          "file": "unsafe-drag-held.png",
+          "sha256": "cde680a490616b376dd8910bdf2240cc29bacb0963bbf335efeda65a89d6c974"
+        },
+        {
+          "file": "unsafe-drop-rejected.png",
+          "sha256": "03b4d70901567471a849a101d6d38c813fe53fe5df48a7bb653343a232b3afaf"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "resume-restored-after-drag06-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "resume-restored",
+      "result": "resume-restored-after-drag06-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "Distinct official Desktop process preserves the exact post-drag saved world, revision, operation ID, memories and seven residents; real frame and expected unique launchers restored"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "restored-after-drag-and-coordination.png",
+          "sha256": "258ae4ccfa5a11f7b4500aabb7cc67fa338fe998712590effc918f92f9cd8610"
+        },
+        {
+          "file": "result.json",
+          "sha256": "9d718fd8e62e5d1ecb7fba9fa66c7490898e4db7c5c3af1414b2bab9bcc2ea19"
+        }
+      ],
+      "missingScreenshots": []
+    },
+    {
+      "label": "uninstall-resume-pre5-01",
+      "reportedStatus": "PASS",
+      "acceptedStatus": "PASS",
+      "mode": "uninstall",
+      "result": "uninstall-resume-pre5-01/result.json",
+      "checks": [
+        "Official manager installed exact package; 306 lib/assets files byte-match pinned tgz",
+        "Official uninstall withdraws Client/Host, retains exact saved world",
+        "All three uninstalled Host routes return 404 and all launcher/overlay registrations are gone; exact world retained"
+      ],
+      "failure": null,
+      "files": [
+        {
+          "file": "result.json",
+          "sha256": "48ca52c8225cc54240431b562b71bed23cf7e71ddb7b06c6559e56b8c95e02c3"
+        }
+      ],
+      "missingScreenshots": []
+    }
+  ],
+  "acceptedEvidence": {
+    "install": "coordination-install-qa03-01/result.json",
+    "moreAndSessionDraftAndExclusiveCompanionsAndSidebar": "coexistence-qa03-01/result.json",
+    "gitDiffExpandedSpaceRecovery": "coordination-space-qa03-01/result.json",
+    "officialThreePluginLifecycle": "coordination-lifecycle-qa03-01/result.json",
+    "officialCompanionUninstall": "coordination-uninstall-qa03-01/result.json",
+    "realLegalAndUnsafeDrag": "drag-pre5-06/result.json",
+    "finalWorldColdRecovery": "resume-restored-after-drag06-01/result.json",
+    "allPluginUninstallAnd404Routes": "uninstall-resume-pre5-01/result.json",
+    "processCleanup": "cleanup-resume.json"
+  },
+  "criticalInterpretations": {
+    "expandedGit": "Actual Git Changes/diff expansion increases its height. Village deliberately pauses for limited space and releases its iframe; collapsing Changes restores a real rendered Village frame and unchanged world. This is not evidence of simultaneous Village rendering while the expanded Git pane leaves insufficient space.",
+    "live2d": "Production data-capability=animated is observed and static fallback image hidden, before and after Sidebar restoration.",
+    "drag05": "Original PASS result is retained unchanged but overridden NOT_ACCEPTED_FALSE_POSITIVE: mouse path 2.138 CSS pixels was below the 5px drag threshold; prior position was already within target tolerance. It is excluded from accepted drag evidence.",
+    "drag06": "Accepted run asserts CSS distance >20, production gesture actor+moved, actual displacement >20, same resident ID, target error <6, exact operation/revision state readback and unchanged memories/membership/draft. Tolerance covers live movement between durable sample and pointerdown; never substitutes for displacement/gesture.",
+    "saveAcknowledgement": "Electron custom dsh-app protocol does not expose response bodies through CDP Network.getResponseBody. Test observes real HTTP200 save and immediately reads official state to verify operationId equality and revision=expectedRevision+1; no replay writes or forged DOM/world."
+  },
+  "drag": {
+    "gestures": [
+      {
+        "name": "legal-drag",
+        "from": {
+          "x": 287.7410251818843,
+          "y": 421.859332659826
+        },
+        "feet": {
+          "x": 65,
+          "y": 425
+        },
+        "cssStart": {
+          "x": 1199.184001538967,
+          "y": 610.0338141787246
+        },
+        "cssEnd": {
+          "x": 988.8174777560764,
+          "y": 613
+        },
+        "cssDistance": 210.38743447940004,
+        "gesture": {
+          "type": "actor",
+          "moved": true
+        },
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 113.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 113.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        }
+      },
+      {
+        "name": "unsafe-drag",
+        "from": {
+          "x": 65.00048069443599,
+          "y": 425.00749729677455
+        },
+        "feet": {
+          "x": 10,
+          "y": 90
+        },
+        "cssStart": {
+          "x": 988.8179317452659,
+          "y": 613.0070807802871
+        },
+        "cssEnd": {
+          "x": 936.873033311632,
+          "y": 296.61111111111114
+        },
+        "cssDistance": 320.6316922828725,
+        "gesture": {
+          "type": "actor",
+          "moved": true
+        },
+        "viewport": {
+          "world": {
+            "scale": 0.9444444444444444,
+            "x": 0,
+            "y": 113.83333333333334
+          },
+          "background": {
+            "x": 0,
+            "y": 113.83333333333334,
+            "width": 340,
+            "height": 453.3333333333333
+          }
+        }
+      }
+    ],
+    "actualDisplacement": 222.76279110108646,
+    "before": {
+      "id": "qwen",
+      "facing": "left",
+      "position": {
+        "x": 287.7410251818843,
+        "y": 421.859332659826
+      },
+      "safe": {
+        "x": 287.7410251818843,
+        "y": 421.859332659826
+      },
+      "behavior": "idle",
+      "phase": 0.39999999999999997,
+      "remaining": 2.6702344505116358,
+      "intent": null,
+      "destination": null
+    },
+    "accepted": {
+      "id": "qwen",
+      "facing": "left",
+      "position": {
+        "x": 65.00048069443599,
+        "y": 425.00749729677455
+      },
+      "safe": {
+        "x": 65.00048069443599,
+        "y": 425.00749729677455
+      },
+      "behavior": "put_down",
+      "phase": 0.1,
+      "remaining": 0.45000000000000007,
+      "intent": null,
+      "destination": null
+    },
+    "rejected": {
+      "id": "qwen",
+      "facing": "left",
+      "position": {
+        "x": 65.00048069443599,
+        "y": 425.00749729677455
+      },
+      "safe": {
+        "x": 65.00048069443599,
+        "y": 425.00749729677455
+      },
+      "behavior": "put_down",
+      "phase": 0.2333333333333333,
+      "remaining": 0.31666666666666676,
+      "intent": null,
+      "destination": null
+    },
+    "saveAcknowledgements": [
+      {
+        "status": 200,
+        "confirmation": "official-state-readback-after-HTTP-response",
+        "expectedRevision": 141,
+        "requestedOperationId": "39fa6848-b3d6-488d-adcb-711d1b2d780e",
+        "confirmed": true,
+        "revision": 142,
+        "operationId": "39fa6848-b3d6-488d-adcb-711d1b2d780e",
+        "epoch": "a4dcf582-f4cf-4e3a-a62c-acd9cd2307e4",
+        "profileId": "46a20ac4-a83e-4967-b1da-ec95d795cfbc",
+        "actorId": "qwen",
+        "actor": {
+          "x": 287.7410251818843,
+          "y": 421.859332659826
+        }
+      },
+      {
+        "status": 200,
+        "confirmation": "official-state-readback-after-HTTP-response",
+        "expectedRevision": 142,
+        "requestedOperationId": "6f3c12d8-bd52-4db6-a639-b76d8784d29a",
+        "confirmed": true,
+        "revision": 143,
+        "operationId": "6f3c12d8-bd52-4db6-a639-b76d8784d29a",
+        "epoch": "a4dcf582-f4cf-4e3a-a62c-acd9cd2307e4",
+        "profileId": "46a20ac4-a83e-4967-b1da-ec95d795cfbc",
+        "actorId": "qwen",
+        "actor": {
+          "x": 287.7410251818843,
+          "y": 421.859332659826
+        }
+      },
+      {
+        "status": 200,
+        "confirmation": "official-state-readback-after-HTTP-response",
+        "expectedRevision": 143,
+        "requestedOperationId": "cc81f04e-09ae-45a6-b77b-8b24bab15632",
+        "confirmed": true,
+        "revision": 144,
+        "operationId": "cc81f04e-09ae-45a6-b77b-8b24bab15632",
+        "epoch": "a4dcf582-f4cf-4e3a-a62c-acd9cd2307e4",
+        "profileId": "46a20ac4-a83e-4967-b1da-ec95d795cfbc",
+        "actorId": "qwen",
+        "actor": {
+          "x": 65.00048069443599,
+          "y": 425.00749729677455
+        }
+      },
+      {
+        "status": 200,
+        "confirmation": "official-state-readback-after-HTTP-response",
+        "expectedRevision": 144,
+        "requestedOperationId": "1a30610f-4abe-4398-b955-e519dbdda01c",
+        "confirmed": true,
+        "revision": 145,
+        "operationId": "1a30610f-4abe-4398-b955-e519dbdda01c",
+        "epoch": "a4dcf582-f4cf-4e3a-a62c-acd9cd2307e4",
+        "profileId": "46a20ac4-a83e-4967-b1da-ec95d795cfbc",
+        "actorId": "qwen",
+        "actor": {
+          "x": 65.00048069443599,
+          "y": 425.00749729677455
+        }
+      },
+      {
+        "status": 200,
+        "confirmation": "official-state-readback-after-HTTP-response",
+        "expectedRevision": 145,
+        "requestedOperationId": "1aa14061-802b-412f-a8b5-f37775bb0efa",
+        "confirmed": true,
+        "revision": 146,
+        "operationId": "1aa14061-802b-412f-a8b5-f37775bb0efa",
+        "epoch": "a4dcf582-f4cf-4e3a-a62c-acd9cd2307e4",
+        "profileId": "46a20ac4-a83e-4967-b1da-ec95d795cfbc",
+        "actorId": "qwen",
+        "actor": {
+          "x": 65.00048069443599,
+          "y": 425.00749729677455
+        }
+      },
+      {
+        "status": 200,
+        "confirmation": "official-state-readback-after-HTTP-response",
+        "expectedRevision": 146,
+        "requestedOperationId": "fd8324f3-031b-40a1-8e23-da68704c4093",
+        "confirmed": true,
+        "revision": 147,
+        "operationId": "fd8324f3-031b-40a1-8e23-da68704c4093",
+        "epoch": "a4dcf582-f4cf-4e3a-a62c-acd9cd2307e4",
+        "profileId": "46a20ac4-a83e-4967-b1da-ec95d795cfbc",
+        "actorId": "qwen",
+        "actor": {
+          "x": 65.00048069443599,
+          "y": 425.00749729677455
+        }
+      }
+    ]
+  },
+  "storage": {
+    "isolatedDshHome": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-rc3-desktop\\home",
+    "sourceRc2": {
+      "path": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-tea-qa-desktop-approved-pre3\\home\\profiles\\desktop\\nidofy-ai-village",
+      "pointer": {
+        "schemaVersion": 1,
+        "revision": 114,
+        "snapshot": "managed-v1-91c90c4c-716b-4f6a-a332-6b308d5ace59.json",
+        "operationId": "bae3f6d0-dc66-4127-b721-4ffcbfcb2fdf",
+        "hash": "b2b2280452cc5392fd54e36929a7b88bde8fe9e114d34781f2b605dec5143e45"
+      },
+      "allOriginalFileHashesRechecked": true,
+      "fileCount": 37
+    },
+    "preResumePointer": {
+      "schemaVersion": 1,
+      "revision": 119,
+      "snapshot": "managed-v1-d0ebc913-bd49-46b3-98d7-81f1907af739.json",
+      "operationId": "e8bd9f84-2333-4505-b99b-bd9a63331156",
+      "hash": "2bf03a33fe1984d2fb3a51c98a3f03f075d2ff5dc03d7f6ce5e544f739f8bb3b"
+    },
+    "finalPointer": {
+      "schemaVersion": 1,
+      "revision": 147,
+      "snapshot": "managed-v1-01af204c-c62a-4acf-beb8-9fc85f6ee342.json",
+      "operationId": "fd8324f3-031b-40a1-8e23-da68704c4093",
+      "hash": "9cbe90f74d0b4a942851421b076d3a616aca0cd608607eaa4baf0d6e39130674"
+    },
+    "finalWorld": {
+      "worldId": "bluewhale-courtyard",
+      "schemaVersion": 14,
+      "region": "courtyard",
+      "paused": true,
+      "ticks": 14078,
+      "residents": [
+        "qwen",
+        "claude",
+        "gemini",
+        "gpt",
+        "grok",
+        "kimi",
+        "bluewhale"
+      ],
+      "teaMemory": {
+        "eventId": "10a45f6e-5525-4921-99ae-f8033f1745f7",
+        "participants": [
+          "bluewhale",
+          "claude",
+          "gemini"
+        ],
+        "completedTick": 2375,
+        "day": 1,
+        "count": 2
+      }
+    },
+    "explanation": "The old rc.2 source and prior evidence are unchanged. Only the retained isolated QA world advances through intentional Resume/Pause and real drag tests, from pre-resume revision119 to final147. Original world identity and existing memories remain. Final uninstall retains all game files."
+  },
+  "cleanup": {
+    "status": "PASS",
+    "at": "2026-10-26T09:09:31.8193373Z",
+    "carrier": "C:\\Users\\enxi1\\AppData\\Local\\Temp\\dsh-ai-village-rc3-qa-ead9a0fb\\carrier\\DeepSeek Harness.exe",
+    "port": 18783,
+    "remainingProcesses": [],
+    "remainingQANodeProcesses": [],
+    "listeners": [],
+    "permissionsWeakened": false,
+    "dailyDshHomeTouched": false
+  },
+  "limits": [
+    "Git/Live2D QA candidates are not formal release declarations of full rc.3 compatibility.",
+    "Native display is DPR1.75 at 1279x821 CSS pixels; no claim of native DPR1/2.",
+    "Physical minimize/sleep and physical IME candidate UI were not exercised; synthetic composing Escape is covered by prior native run.",
+    "No long-duration hardware performance claim.",
+    "Full tea/story replay remains covered by the separate authenticated browser suite, not this focused native combination run."
+  ],
+  "bStarted": false,
+  "oldEvidenceOverwritten": false,
+  "modelCalls": 0,
+  "permissionsWeakened": false,
+  "dailyDshHomeTouched": false,
+  "runnerSha256": "a7d126b3beae87de32236c6810803f9b15d1c0bcb333397969074f3e05f481e4"
+}

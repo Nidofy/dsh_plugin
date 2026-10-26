@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "version": "0.13.0-preview.5",
+  "sha256": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760",
+  "bytes": 53670374,
+  "independentExtractions": true,
+  "firstSource": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-rc3-source\\official-eiZ5g6",
+  "secondSource": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-rc3-source\\official-h47XCO",
+  "buildLogs": [
+    ".build/ai-village-rc3-pre5-build-02.log",
+    ".build/ai-village-rc3-pre5-repro-build-02.log"
+  ],
+  "packLogs": [
+    ".build/ai-village-rc3-pre5-pack.log",
+    ".build/ai-village-rc3-pre5-repro-pack-02.log"
+  ],
+  "priorAttempt": "Source-generator transient file-open failure retained in .build/ai-village-rc3-pre5-repro-build.log; not counted as a successful build."
+}

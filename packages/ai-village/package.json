@@ -1,13 +1,13 @@
 {
   "name": "@nidofy/dsh-ai-village",
-  "version": "0.13.0-preview.3",
+  "version": "0.13.0-preview.5",
   "private": true,
   "description": "Offline AI community with a storybook map, resident walking, illustrated bookhouse life and a playable three-friend tea square.",
   "type": "module",
   "license": "MIT",
   "engines": {
     "node": ">=24",
-    "dsh": "0.2.1-rc.2"
+    "dsh": "0.2.1-rc.3"
   },
   "main": "lib/index.js",
   "exports": {
@@ -32,14 +32,14 @@
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "4.0.5",
-    "@deepseek-ai/dsh-app-boot": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-client-ui-renderer": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-client-ui-conversation": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-client-ui-session": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-client-ui-layout": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-client-ui-slots": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-client-locale": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-app-boot": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-renderer": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-conversation": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-session": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-layout": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-locale": "0.2.1-rc.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

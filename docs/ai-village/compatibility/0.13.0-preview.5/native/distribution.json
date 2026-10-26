@@ -1,0 +1,9 @@
+{
+  "url": "https://download.deepseek.com/dsh-desk/bin/win-x64/deepseek-harness-0.2.1-rc.3-win-x64.exe",
+  "feed": "https://download.deepseek.com/dsh-desk/feeds/win-x64/nightly.yml",
+  "version": "0.2.1-rc.3",
+  "bytes": 289415960,
+  "sha256": "1e3876baaa20c3f26371dba7b6873bb70c3ef9b91403f6d3f87d2b27d4fd1e3a",
+  "sha512": "q5IGr2Bf+TvvCpagHj49Ypn/ZrqR7kqrYpLjqXP7VfDINmddlqZQmG+YfsdL3q3EdTRMRlKz/a3jDAEzdNdDOw==",
+  "asarSha256": "04b32e3a872826ba15cfb2081c6a929a8d4ecaa65e09a2543e5a6b30e2eff1f0"
+}

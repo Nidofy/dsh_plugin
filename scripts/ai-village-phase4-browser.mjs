@@ -5,10 +5,12 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import assert from 'node:assert/strict'
+import { villageCompatibility } from './ai-village-compatibility.mjs'
 export async function runPreview({ root, pkg, out, serve, buildOnly = false, entranceReview = false }) {
   const { source } = JSON.parse(await readFile(join(root, '.local/environment.json'), 'utf8'))
-  const dependency = createRequire(join(source, 'packages/client/connection/package.json'))
-  const baseline = JSON.parse(await readFile(join(root, '.build/sandbox-enhanced/baseline.json'), 'utf8'))
+  const compatibility = villageCompatibility()
+  const dependency = createRequire(join(compatibility.runtime, 'node_modules/@deepseek-ai/dsh-client-connection/package.json'))
+  const baseline = compatibility.baseline
   const upstream = ts.parseConfigFileTextToJson('tsconfig.base.json', await readFile(join(baseline.source, 'tsconfig.base.json'), 'utf8')).config.compilerOptions.paths
   const alias = Object.fromEntries(Object.entries(upstream).filter(([k]) => !k.includes('*') && k.startsWith('@deepseek-ai/dsh-')).map(([k, v]) => [k, resolve(baseline.source, v[0])]))
   alias.zod = dependency.resolve('zod')
@@ -44,7 +46,8 @@ export async function runPreview({ root, pkg, out, serve, buildOnly = false, ent
     const p = join(cache, folder, c); if (await stat(p).catch(() => false)) { executablePath = p; break }
   }
   const browser = await chromium.launch({ headless: true, executablePath, args: ['--enable-unsafe-swiftshader'] })
-  const qa = join(root, '.build/ai-village-v0.6-qa/browser'); await mkdir(qa, { recursive: true })
+  const qaRoot = join(root, '.build', 'ai-village-' + compatibility.lane + '-integration'); await mkdir(qaRoot, { recursive: true })
+  const qa = await mkdtemp(join(qaRoot, 'browser-'))
   const errors = [], external = [], checks = []
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 960 }, deviceScaleFactor: 1 })

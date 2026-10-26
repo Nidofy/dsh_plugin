@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "at": "2026-10-26T09:09:31.8193373Z",
+  "carrier": "C:\\Users\\enxi1\\AppData\\Local\\Temp\\dsh-ai-village-rc3-qa-ead9a0fb\\carrier\\DeepSeek Harness.exe",
+  "port": 18783,
+  "remainingProcesses": [],
+  "remainingQANodeProcesses": [],
+  "listeners": [],
+  "permissionsWeakened": false,
+  "dailyDshHomeTouched": false
+}

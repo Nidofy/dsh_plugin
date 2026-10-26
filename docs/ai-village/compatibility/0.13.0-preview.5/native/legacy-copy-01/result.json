@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "mode": "prepare-legacy",
+  "checks": [
+    "Copied only paused prior isolated QA game data; original bytes unchanged, no sessions/accounts/profile configuration copied"
+  ],
+  "observations": [],
+  "errors": [],
+  "requests": [],
+  "notCovered": [
+    "Physical sleep/minimize and physical IME candidate selection",
+    "Long-duration foreground hardware performance",
+    "Existing persisted conversation -> blank-draft restoration (no model calls or session synthesis)",
+    "Native full tea/story replay: separate authenticated browser gameplay suite covers the complete sequence"
+  ],
+  "runnerSha256": "86176cfb431fa13c7f83588b575ca57ee09f47b4fd8d61a99d567ccc6ea0b225"
+}

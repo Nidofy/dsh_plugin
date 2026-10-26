@@ -1,0 +1,22 @@
+{
+  "status": "PAUSED_BY_USER_A6_BLOCKED",
+  "branch": "codex/feature-ai-village-entrance",
+  "head": "ead9a0fb97631bf651421ebac9e1e6ab78012950",
+  "committed": false,
+  "snapshot": ".build/ai-village-rc3-pre5-paused-20261026",
+  "version": "0.13.0-preview.5",
+  "dsh": "0.2.1-rc.3",
+  "world": 14,
+  "content": 10,
+  "region": 2,
+  "frame": 11,
+  "sha256": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760",
+  "blocker": "Official rc.3 rejects unchanged rc.2 Source Control engines.dsh; native Git/Live2D coexistence unverified",
+  "userDecision": "Keep blocker, do not mark A6 fully passed, pause safely before B",
+  "phaseB": "NOT_STARTED",
+  "userFilesPreserved": [
+    "docs/ai-village/NEXT_FEATURES_2026-10-21.md",
+    "docs/ai-village/UI_VISUAL_DIRECTION_REVIEW_2026-10-22.md",
+    "output/"
+  ]
+}

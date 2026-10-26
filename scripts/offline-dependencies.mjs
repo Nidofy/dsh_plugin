@@ -56,6 +56,6 @@ export async function bundleRuntimeDependencies(root, directory, copyLocal) {
   manifest.os = ['win32']; manifest.cpu = ['x64']
   delete manifest.devDependencies
   await writeFile(join(directory, 'package.json'), JSON.stringify(manifest, null, 2) + '\n')
-  await writeFile(join(directory, 'OFFLINE-DEPENDENCIES.json'), JSON.stringify({ platform: 'win32-x64', host: 'DSH 0.2.1-rc.2', packages: records.sort((a,b) => a.name.localeCompare(b.name)) }, null, 2) + '\n')
+  await writeFile(join(directory, 'OFFLINE-DEPENDENCIES.json'), JSON.stringify({ platform: 'win32-x64', host: 'DSH ' + manifest.engines.dsh, packages: records.sort((a,b) => a.name.localeCompare(b.name)) }, null, 2) + '\n')
   return manifest
 }

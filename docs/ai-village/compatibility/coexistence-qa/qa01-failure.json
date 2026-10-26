@@ -1,0 +1,5 @@
+{
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Peer escaped rc.3 runtime: @deepseek-ai/dsh-client-ui-primitives\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/rc3-coexistence-build.mjs:73:14",
+  "typeResults": []
+}

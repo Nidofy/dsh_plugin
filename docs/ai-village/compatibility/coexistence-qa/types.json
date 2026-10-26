@@ -1,0 +1,34 @@
+[
+  {
+    "name": "@nidofy/dsh-source-control",
+    "face": "host",
+    "files": 5,
+    "strict": true,
+    "status": "PASS",
+    "upstream": "1f81c047fc48fa190a683e469daa699857e9afe8"
+  },
+  {
+    "name": "@nidofy/dsh-source-control",
+    "face": "client",
+    "files": 10,
+    "strict": true,
+    "status": "PASS",
+    "upstream": "1f81c047fc48fa190a683e469daa699857e9afe8"
+  },
+  {
+    "name": "@nidofy/dsh-live2d",
+    "face": "host",
+    "files": 3,
+    "strict": true,
+    "status": "PASS",
+    "upstream": "1f81c047fc48fa190a683e469daa699857e9afe8"
+  },
+  {
+    "name": "@nidofy/dsh-live2d",
+    "face": "client",
+    "files": 11,
+    "strict": true,
+    "status": "PASS",
+    "upstream": "1f81c047fc48fa190a683e469daa699857e9afe8"
+  }
+]

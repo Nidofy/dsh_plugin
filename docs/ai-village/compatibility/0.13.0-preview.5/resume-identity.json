@@ -1,0 +1,18 @@
+{
+  "status": "RESUMED_A6_ONLY",
+  "recordedAt": "2026-10-26T08:37:06.794Z",
+  "userInstruction": "完成剩余的A6及其之前的工作，暂时不要进入B阶段",
+  "previousCheckpoint": "checkpoint.json",
+  "phaseB": "NOT_STARTED",
+  "packageHash": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760",
+  "sourceFiles": 129,
+  "runtimeFiles": 306,
+  "preservedBaselines": {
+    "compatibility.json": "ea69002a3e9f400e8e81673c0b6ddc93ed5b934cc6c668f8e2dfd800085bd1c9",
+    "tools/official-runtime/package.json": "93dd905c062b2de7beb6cb4ee229cdf2b76d30e6ccf0eca825323f0ab4f97ba1",
+    "tools/official-runtime/package-lock.json": "e2ab50a90c579d4d9c082e2b52087afe9950414296429cc4dc41a05dcca83345",
+    "packages/source-control/package.json": "598f0985785bfa88dee1240717d336a3350cee7b084950efd6faef7266cf946f",
+    "packages/live2d/package.json": "be451aa94c4b603c23b0986b86dd3ceec9ca1b3304c60f16d807779c3afc5c4f"
+  },
+  "qaStrategy": "Independently rebuild and qualify rc.3 QA peers without changing production rc.2 manifests or artifacts; then use official Desktop manager for coexistence."
+}

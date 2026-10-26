@@ -1,0 +1,294 @@
+[
+  {
+    "name": "@nidofy/dsh-source-control",
+    "version": "0.1.3-rc3-coexistence.qa.1",
+    "originalVersion": "0.1.3",
+    "qaOnly": true,
+    "dsh": "0.2.1-rc.3",
+    "source": {
+      "index.ts": "485a8eef7f42346c2671456cc0dab5891aa1947df265fc7993ab7d8191af5361",
+      "parsers.ts": "cf176d3d13d3750ee24340082996962e88192001ff09ff651bf0d3ba6802b164",
+      "process.ts": "f274582df54f6580225cf54a6381283ae57ce2a56df32fbd8cb4997b4c09edd3",
+      "service.ts": "f036f6bb03d6a5b557ecd296d5c907828dc5fdedcd35f8e061a28806a654e8d6",
+      "shared.ts": "84e689c5028457a6ed0263001e0677f2554fe4b821a76802b102033a06e7b71c",
+      "client/floating-layout.ts": "edf63c76c8c833cffcf58e566fa5c9389163a7a6034c15dff405407ab82721c1",
+      "client/Floating.tsx": "71aa5a11d41aa6643bba1d278844f17744c9dc1c989988c725ff9f47e429542f",
+      "client/Graph.tsx": "cb4b0d5aa26d2f3130199702da0e019c8fd753e6e5fba7efe515cbf4179a72a4",
+      "client/header-launcher.tsx": "d2a6323d66b4350090e6396bdde6612a2802cffb751ae3953dce5e81aa4dd4df",
+      "client/index.ts": "194335ceda4701c6c0f6d62bd4ebfbea8e782591737ec1627b3243d6acb477a9",
+      "client/Launcher.tsx": "61406d2ece39da8000e9bd9c505c70faa5bee3683a4bdcff861e7042296a245c",
+      "client/messages.ts": "8a4730b9df3c81ac33f40b87757e05d0ae995ea90680c421067b0fdaf1575526",
+      "client/Panel.tsx": "b09023927877bd9aeb4fcb1b73ffa76440cda34228dd0bef4e54a5c49cb8e364",
+      "client/project.ts": "a09c607ddbbe242c319ce443e02d5865fd8e1a9258143bcceb0e4b93d8e2c4c4",
+      "client/style.ts": "fb14d15e569391913e257ddc6b99e37a6eebc08e6e8894d3e5aa8fd28d79c787"
+    },
+    "testSource": {
+      "floating-layout.client.spec.ts": "e0fdcb392f5481e97e9a816c6ccb086b60fd7bab928c18abe68df1d2bc8e04ff",
+      "http.spec.ts": "de921d4ff5d71513cb7628ada9313b5b4c11bef98151f8e0dc11060218b70e79",
+      "lifecycle.spec.ts": "8b8c1304dd23f2697834f3959d4bf8a9f6f3b795f2c39b7a23b24e221e0df7c3",
+      "panel.client.spec.tsx": "3ae5a2d7ef90ca49ffea0fdfc6eca77fb2f083c5253d3b702373de36d69a5c54",
+      "project.spec.ts": "bd6a96786e9e5b5f8b4f918777c02c34c2a81b3968bcc92a173b30091eeb0ab7",
+      "registration.client.spec.tsx": "4e3c50f7170ab8968c5e2aa27c699dcfea877ab172994257c64955fab4eb7076",
+      "service.spec.ts": "4618ddf9136b74f0381eb71f87df292d0e3eeb063c4cb68911f5d9c59eaca9df"
+    },
+    "peers": {
+      "@deepseek-ai/dsh-client-connection": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-connection/package.json",
+        "sha256": "f8c720cc0affb91e02e6f982617fb048a7a21c6231cde09728d22ad3dba31978"
+      },
+      "@deepseek-ai/dsh-workspace": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-workspace/package.json",
+        "sha256": "a8a379c60ba5daf286a13f758ba3f9593197714eb727bc619eb3330c8f529dcd"
+      },
+      "@deepseek-ai/dsh-client-ui-settings": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-settings/package.json",
+        "sha256": "b4452b8ab484f221bb0babf6f2b144133d21b15f510d3921df1d55238d29a26d"
+      },
+      "@deepseek-ai/dsh-client-ui-renderer": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-renderer/package.json",
+        "sha256": "886cfbb2fde1588c1f89c4c2bb712377ac5f54745ef71c4b81515210792fc792"
+      },
+      "@deepseek-ai/dsh-client-ui-conversation": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-conversation/package.json",
+        "sha256": "126ed6658b3763658fdac3acb0adbc9b8aa1c508f979db9f963394affdcee289"
+      },
+      "@deepseek-ai/dsh-client-ui-session": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-session/package.json",
+        "sha256": "4d861c11946ed12f6200751979edfd67610de6fdcc5abdd64f1bdfb76d490ba9"
+      },
+      "@deepseek-ai/dsh-client-ui-layout": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-layout/package.json",
+        "sha256": "1a879c6fedf6bbea7d5f82c5e2a8bf52141ec64eb234bb031b6ae0c98916c099"
+      },
+      "@deepseek-ai/dsh-client-ui-slots": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-slots/package.json",
+        "sha256": "204eb69bfebf973ea8ea8d59ae13a6f314639418f44150bffd5f1c6ec0f5a7f9"
+      },
+      "@deepseek-ai/dsh-client-ui-primitives": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/rc3-coexistence-deps/node_modules/@deepseek-ai/dsh-client-ui-primitives/package.json",
+        "sha256": "42126913d3ad10238aece4d0ac96eeec91df8ab6f22d76320e7bf1d3f346cf4a"
+      },
+      "@deepseek-ai/dsh-client-locale": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-locale/package.json",
+        "sha256": "2b1a004a7c217005df902e552192bcab8080f4977574be0dcaaaa25d7f59ed98"
+      },
+      "@deepseek-ai/dsh-client-ui-workspace": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-workspace/package.json",
+        "sha256": "e2f4c4a3f64b4a01d16e0dd370a33be56340d5555b739dfe8592b5bdac9f5be7"
+      }
+    },
+    "work": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\work\\source-control",
+    "output": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\packed\\source-control\\package",
+    "file": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\artifacts\\nidofy-dsh-source-control-0.1.3-rc3-coexistence.qa.1.tgz",
+    "sha256": "20fb56cc9fae57dc3c5bef696f3ff30a61150045f0a842bf0c31326b46298e66",
+    "bytes": 30641,
+    "files": {
+      "cordis.patch.yml": "8ca5a0a7fbeeecda90cdf31d5537365dbfc89cb96ffb18a14ee28399dc4cef4a",
+      "LICENSE": "a0e65e0111e605bf1187ab4191b2160e405b7a1fbce76e2309e20c4b8423732b",
+      "package.json": "8a0146811e0c7006fbb5ec94f86325b43b4d7f066150435227d53d878be71ab1",
+      "README.md": "807c8ceab27a8553d7ef5842098c9c69cbcc27a3bab1b910ee4c0e945113ba3d",
+      "lib/client.js": "a5d121940dd621d09a63f01bb01db343dfb22bd7ae7420c31a44a6f531088935",
+      "lib/index.js": "9b48878fab0d958c34693abfe7a8e8fdc03e9f1fce6f13c751c8bff4d0d84246",
+      "lib/types/index.d.ts": "0b4848ddfeff34518ba4af88b2e148aa651086a9cb4af42debabca29778f250d",
+      "lib/types/parsers.d.ts": "d0a58668fa837b397fb3613a17605f8cacd8a1febb078337e94996383db7d337",
+      "lib/types/process.d.ts": "c16c869f67a961b149e2a8e4888b34c7fc4d193d0d333ff4becf0e63f5e4e8d3",
+      "lib/types/service.d.ts": "6415580cbb0f147cd12205e2923ae40dcb670443fdb60a4caf47ff3ee147d945",
+      "lib/types/shared.d.ts": "ceb36a3fffee2c0e198700cf5d11c22fce77b90fb5a5744cd806f6214553a7b2",
+      "lib/types/client/floating-layout.d.ts": "9cfb5703bc07e5cd50afa7d8f383e6c153441ea301b4c16cdb38a71b7a62ede2",
+      "lib/types/client/Floating.d.ts": "b0629f210138218975c71044d5a43f7a8e35b80eac10976f3e8aeb56b5b39244",
+      "lib/types/client/Graph.d.ts": "7a85c12a63c67bea2254498aa92a7199009a04e3dd607bb9dd9d4d3929cfdc83",
+      "lib/types/client/header-launcher.d.ts": "4638695e79bfe27fe6722e1a844fdc6e9023dc3593d30b8795fb48f479984044",
+      "lib/types/client/index.d.ts": "d31e5850aa82bbcd43170f258e780c9916cc48485cf7b6fb7d724ea74cdbbe3f",
+      "lib/types/client/Launcher.d.ts": "ca33e50ed46e328ca78e0dfae33e475ed220825f53edb3605b684586d015e7e1",
+      "lib/types/client/messages.d.ts": "e840b3b54ddb9b191423aa7fecd15543fa69cd1dde399e027f4027c33cb309b1",
+      "lib/types/client/Panel.d.ts": "67f2e56b5f22a25826fb626fd0b772d810d68554594317de35ce09c34279b346",
+      "lib/types/client/project.d.ts": "12d6a789d1aab432acbb0b487520bbde3d4663f8ffad842db2f56da29fa45091",
+      "lib/types/client/style.d.ts": "b4d74d29f5fa7a12fe7f7ae333a866f433012f642c9d35c21f729b59af7709d5"
+    },
+    "bundles": {
+      "lib/client.js": "a5d121940dd621d09a63f01bb01db343dfb22bd7ae7420c31a44a6f531088935",
+      "lib/index.js": "9b48878fab0d958c34693abfe7a8e8fdc03e9f1fce6f13c751c8bff4d0d84246"
+    },
+    "revision": "1f81c047fc48fa190a683e469daa699857e9afe8",
+    "archiveHash": "fc671f856222bef95c7f6bd65b5adfb6c09770ffd5b1f3f61b7b1e1cbe582c60",
+    "runtimeLockSha256": "cb921ac43ecb67ddf6a9aea667b362848a7b8d5795a1bc2d7686db1eee7c6ba9",
+    "extraPeerLockSha256": "d9e4d759affb0c6e7561b89aecb0e43723fb7962438b05d1b5dc58223fbcae27",
+    "sourceUiLockSha256": "dcacb3b3003919f5d7f6e1fbe75a2470f85135c3a1868d7e894570931e887a9c",
+    "toolVersions": {
+      "node": "v24.16.0",
+      "typescript": "6.0.3",
+      "tsdown": "0.22.2",
+      "vitest": "4.1.8"
+    },
+    "scripts": {
+      "rc3-coexistence-build.mjs": "a84c4cd685e94bd6691b5dbaa32b88106f3386cf83f05a646406a458e572f6ba",
+      "rc3-coexistence.vitest.mjs": "a7ba4fbfdfe74a755a28e5ebbdb4291d7124e7c7c69c8df3c8d91de3a678a094",
+      "rc3-coexistence-prepare.mjs": "d1bf3f238f411b501a59cf5d15aeadecf4e107606185cc6165f2b30f7350351a",
+      "ai-village-rc3.vitest.mjs": "e3d0c86008682a9615f16f087fba93e02b6afd2321aa181c87a8b904327cc76d",
+      "ai-village-compatibility.mjs": "9c55927b50ba8fa1a9014f0c87c5a73c58421977e2f07e77195da3586b8d28fe"
+    },
+    "tests": {
+      "suites": 16,
+      "total": 38,
+      "passed": 36,
+      "failed": 0,
+      "pending": 2,
+      "reportSha256": "c70461912ca0608852db45ce7945719bdfb22ceb65e86b338463eea25ea30f8c"
+    },
+    "status": "SOURCE_TYPES_TESTS_BUILD_PASS_NATIVE_COMBINATION_PENDING"
+  },
+  {
+    "name": "@nidofy/dsh-live2d",
+    "version": "0.1.2-rc3-coexistence.qa.1",
+    "originalVersion": "0.1.2",
+    "qaOnly": true,
+    "dsh": "0.2.1-rc.3",
+    "source": {
+      "assets.ts": "df4fb5748f406b5e1445ea6b6004e6f72d32babbccedcc1f92698fb23fe71f7e",
+      "index.ts": "f66ac978865bbdcada3953efeb788206d88055fc321f10e99f797d7993a38708",
+      "protocol.ts": "a203e5a3d6650a449abf2db9ba7fc9f9da9fa4a2c64547794d12aeffe1592b78",
+      "frame/index.ts": "48dea57829e993bcd3581efbbdf85689f9b219b6c45147509a52172689660d45",
+      "client/bridge.ts": "8e3deec41f6a079b2824712e3a499b7fea8cf6aa5fa093c06934bb1a9c773c93",
+      "client/floating-layout.ts": "1543503c32a12802aa17868e001c16d313741ff878a6d8b092c3c9099f4ea4d0",
+      "client/Floating.tsx": "562b374430241ed4c6959fa568f634347e9e2f05665f90baaaf621a7314e9fcc",
+      "client/header-launcher.tsx": "d2a6323d66b4350090e6396bdde6612a2802cffb751ae3953dce5e81aa4dd4df",
+      "client/index.ts": "a6e5bc7936e95a6d64835232b631b1e01635866b66711459ce424ef8ab13a1dc",
+      "client/messages.ts": "9b5bce5a3386c2cb9dbd7c5e661a1626254eb339261cb1c8ff533d1b480af2be",
+      "client/Portrait.tsx": "1a4c1e79b8f1f890e795a5cb87c2a2a19511cbfde9e1c6caf4a39875fc8a39d5",
+      "client/presentation.ts": "84e04e8508ddc8a3d20d521dcf252cba89e040d0bda39ffdf9c375e25ed2154d",
+      "client/resources.ts": "0fe54b76ece813b06f2e70b841b290af1e535dfc39a3ed44efe577583bd57b73",
+      "client/style.ts": "37529a3bc70173d32b5b91a09dd6557c2fb9122dc8ef5b25a6132cfea5aeb0b7"
+    },
+    "testSource": {
+      "bridge.client.spec.ts": "8c0ea9d15ed84c2fd477cecb43a84940e4afea5b9778888a7e7ecb196d7d43b4",
+      "floating-layout.client.spec.ts": "1dac2cfd5d005088f90b42ceb0ece858b017a11fa4c038d7fd9783c50d6b6c0e",
+      "http.spec.ts": "b23c7fc4866286fa6ed22901b6c039f44b62b2edc1493ef2934a3ed647704616",
+      "lifecycle.spec.ts": "33ac496ebb9c917b402f6b01044835f84595d909a31fcfcdd1cba07a8eb3c296",
+      "panel.client.spec.tsx": "ab9459cd48d196d2d3caf24dddf643d8ffb486fe56e41480db6b35fc8132c2a7",
+      "registration.client.spec.tsx": "0e3d8adb3335628671586f44f1b6e1b467fba9e7c5a8cb012142e8f5ec8a1ed0",
+      "resources.spec.ts": "d282854b844f59719e1ec34a2d596803d11a6e62501d6ba9b811a64312a9b62f"
+    },
+    "peers": {
+      "@deepseek-ai/dsh-client-connection": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-connection/package.json",
+        "sha256": "f8c720cc0affb91e02e6f982617fb048a7a21c6231cde09728d22ad3dba31978"
+      },
+      "@deepseek-ai/dsh-client-ui-renderer": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-renderer/package.json",
+        "sha256": "886cfbb2fde1588c1f89c4c2bb712377ac5f54745ef71c4b81515210792fc792"
+      },
+      "@deepseek-ai/dsh-client-ui-conversation": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-conversation/package.json",
+        "sha256": "126ed6658b3763658fdac3acb0adbc9b8aa1c508f979db9f963394affdcee289"
+      },
+      "@deepseek-ai/dsh-client-ui-session": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-session/package.json",
+        "sha256": "4d861c11946ed12f6200751979edfd67610de6fdcc5abdd64f1bdfb76d490ba9"
+      },
+      "@deepseek-ai/dsh-client-ui-layout": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-layout/package.json",
+        "sha256": "1a879c6fedf6bbea7d5f82c5e2a8bf52141ec64eb234bb031b6ae0c98916c099"
+      },
+      "@deepseek-ai/dsh-client-ui-slots": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-ui-slots/package.json",
+        "sha256": "204eb69bfebf973ea8ea8d59ae13a6f314639418f44150bffd5f1c6ec0f5a7f9"
+      },
+      "@deepseek-ai/dsh-client-locale": {
+        "version": "0.2.1-rc.3",
+        "packageJson": ".build/official-runtime-rc3/node_modules/@deepseek-ai/dsh-client-locale/package.json",
+        "sha256": "2b1a004a7c217005df902e552192bcab8080f4977574be0dcaaaa25d7f59ed98"
+      }
+    },
+    "work": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\work\\live2d",
+    "output": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\packed\\live2d\\package",
+    "file": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\artifacts\\nidofy-dsh-live2d-0.1.2-rc3-coexistence.qa.1.tgz",
+    "sha256": "5239666fb905a31b4148abaac3dd92376830c173de3b1b203920747b1336cd63",
+    "bytes": 1434229,
+    "files": {
+      "cordis.patch.yml": "fbd973be076c3261f56c97efab560a5ca451c08e15e6885e6e8c7c3c4bad171d",
+      "LICENSE": "a0e65e0111e605bf1187ab4191b2160e405b7a1fbce76e2309e20c4b8423732b",
+      "package.json": "1b5dcc63a8924058ad09070ecfea75af3b6eb0ec72ae0998790e79c72d1ebd6d",
+      "README.md": "70523e748a4d8a74811ad8904ce13fd8001ed4ef4d1d4ca4c8dcd71f31ce4734",
+      "lib/client.js": "9f73b3f777332c98dcea9aff6e94e14e9b866004f6377f17280613e3cc26833d",
+      "lib/frame.js": "853f9122c35db5d4f38aae3dd25fd9f20d0c5188ab780e83152b3d0a4d4ca72f",
+      "lib/index.js": "d4d48fda24f55ea7b4c07ff52b0491070bb1d72f32ee002a1e26e995872d6fe5",
+      "lib/types/assets.d.ts": "ee2960447235cf20715172919fa12a3be3a910feacd22ee5e26ae4fed8c09819",
+      "lib/types/index.d.ts": "74b8e5d83baa3825e1da4fe12ed2c51b518f88c949a7430a5de6f03b487dcbe6",
+      "lib/types/protocol.d.ts": "2548dea7ceb838a3ccf0db69e96279249c00fa1fc0a65cf22442ee00ec023016",
+      "lib/types/frame/index.d.ts": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "lib/types/client/bridge.d.ts": "5880e1594d081db5562e94857836b28dc4b793907f4bf201c1ee8501e82d0b30",
+      "lib/types/client/floating-layout.d.ts": "9cfb5703bc07e5cd50afa7d8f383e6c153441ea301b4c16cdb38a71b7a62ede2",
+      "lib/types/client/Floating.d.ts": "7ba9830e983443e96e8016e1f8e345bb0739decb308a3b163c202f25a7eab1e8",
+      "lib/types/client/header-launcher.d.ts": "4638695e79bfe27fe6722e1a844fdc6e9023dc3593d30b8795fb48f479984044",
+      "lib/types/client/index.d.ts": "9ecf5fc0e4f2d0bb587ea37280909fd3d7fc3404a7ac636a8a13e94027b977cf",
+      "lib/types/client/messages.d.ts": "2ce8f1d8dd85429345cf5f4e9f197d3a2156abf2314ec35e550b8a4b94be9c3c",
+      "lib/types/client/Portrait.d.ts": "257fd53e2e75563ffcc62324d6460aff7a09b49ee2bb673df323dec2afc73fbe",
+      "lib/types/client/presentation.d.ts": "1804aa22d10e4f4090c1ced3d23f611e1d811be4bc28a7c93897dcfb13b9084f",
+      "lib/types/client/resources.d.ts": "351bcfc7371b14be40f223b5617837defe8e41bb067b34fb5d0f5212ee74ab81",
+      "lib/types/client/style.d.ts": "a446520b500af8e3ac5be524f1a1b6a25854364d71b87e7ebabe0683df2653cb",
+      "assets/manifest.json": "ae4f4dc5a21ed9a32e1cdb1b3e2b30ddf877729eb0b1c89bee09809ce08ba408",
+      "assets/upperbody.png": "0c7d8b4d1c48f2a9c22ad5e5973d8f992b060bbcee715c561c3ebd3343bcb83a",
+      "assets/live2d/bluewhale-sdk.mjs": "0e49aff3c9efba38170b8f5286ae3b36901b7a3c9e4d33c5efec3deab0ea11f2",
+      "assets/live2d/bluewhale.cdi3.json": "ce21ebb69ae2a3bb75c0f19b67db722fc805ccbc627806e69d0e735982669daa",
+      "assets/live2d/bluewhale.moc3": "c861f1f22d6a990fb7d2d528c521306001dc3f176cb552b9049afd6a8a83fff4",
+      "assets/live2d/bluewhale.model3.json": "25be742b46f64831116abe370b25a3038c0ffaaba732799c4c62c4d10a03abc3",
+      "assets/live2d/CORE-LICENSE.md": "b81e37048010ef1d336106151201a0323c3309cae44aecdedf57831fe88fa991",
+      "assets/live2d/FRAMEWORK-LICENSE.md": "7ed849bff1e6499aa7cd882e47d246ddbbe06817c1e84cb974df949488302614",
+      "assets/live2d/live2dcubismcore.min.js": "8741f739779b5d5210872bd3d7d99f0f1e56e6c87409e7d26d6bb4b80aa1ef47",
+      "assets/live2d/SDK-INFO.yml": "27b58836e16ca7e43d8df2d05ea1cf3671caf9c426e7e62951acfc62c173e822",
+      "assets/live2d/SDK-NOTICE.md": "fa72aa00a7bf8b98a7617a9d67a3530a9fe23705808163cf54ca799398b22fbc",
+      "assets/live2d/SOURCE.txt": "a3f2994404da72ff0f35fa1a2fe9261ba369db01da8d4a76e37069c53c42c5a0",
+      "assets/live2d/motions/idle.motion3.json": "4d556894f30a84097a56ba8a197b8d093aa83164f9bc7ecd49dab0bbe81be74a",
+      "assets/live2d/bluewhale.2048/texture_00.png": "8f9eca6ebdf13309c1657b418f7523b643fb99b10e9ffdc1a63338c547d2e027"
+    },
+    "bundles": {
+      "lib/client.js": "9f73b3f777332c98dcea9aff6e94e14e9b866004f6377f17280613e3cc26833d",
+      "lib/frame.js": "853f9122c35db5d4f38aae3dd25fd9f20d0c5188ab780e83152b3d0a4d4ca72f",
+      "lib/index.js": "d4d48fda24f55ea7b4c07ff52b0491070bb1d72f32ee002a1e26e995872d6fe5"
+    },
+    "revision": "1f81c047fc48fa190a683e469daa699857e9afe8",
+    "archiveHash": "fc671f856222bef95c7f6bd65b5adfb6c09770ffd5b1f3f61b7b1e1cbe582c60",
+    "runtimeLockSha256": "cb921ac43ecb67ddf6a9aea667b362848a7b8d5795a1bc2d7686db1eee7c6ba9",
+    "extraPeerLockSha256": "d9e4d759affb0c6e7561b89aecb0e43723fb7962438b05d1b5dc58223fbcae27",
+    "sourceUiLockSha256": "dcacb3b3003919f5d7f6e1fbe75a2470f85135c3a1868d7e894570931e887a9c",
+    "toolVersions": {
+      "node": "v24.16.0",
+      "typescript": "6.0.3",
+      "tsdown": "0.22.2",
+      "vitest": "4.1.8"
+    },
+    "scripts": {
+      "rc3-coexistence-build.mjs": "a84c4cd685e94bd6691b5dbaa32b88106f3386cf83f05a646406a458e572f6ba",
+      "rc3-coexistence.vitest.mjs": "a7ba4fbfdfe74a755a28e5ebbdb4291d7124e7c7c69c8df3c8d91de3a678a094",
+      "rc3-coexistence-prepare.mjs": "d1bf3f238f411b501a59cf5d15aeadecf4e107606185cc6165f2b30f7350351a",
+      "ai-village-rc3.vitest.mjs": "e3d0c86008682a9615f16f087fba93e02b6afd2321aa181c87a8b904327cc76d",
+      "ai-village-compatibility.mjs": "9c55927b50ba8fa1a9014f0c87c5a73c58421977e2f07e77195da3586b8d28fe"
+    },
+    "tests": {
+      "suites": 16,
+      "total": 38,
+      "passed": 36,
+      "failed": 0,
+      "pending": 2,
+      "reportSha256": "c70461912ca0608852db45ce7945719bdfb22ceb65e86b338463eea25ea30f8c"
+    },
+    "status": "SOURCE_TYPES_TESTS_BUILD_PASS_NATIVE_COMBINATION_PENDING"
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "cleanup": "Normal runner finally closed context/browser/Host; both QA commands exited 0; no force termination used",
+  "recordedDpr2Processes": [
+    {
+      "ProcessId": 38224,
+      "ParentProcessId": 25776,
+      "Name": "node.exe",
+      "ExecutablePath": "C:\\Program Files\\nodejs\\node.exe",
+      "CreationDate": "2026-10-26T14:48:08.579112+08:00"
+    },
+    {
+      "ProcessId": 35896,
+      "ParentProcessId": 38224,
+      "Name": "chrome-headless-shell.exe",
+      "ExecutablePath": "C:\\Users\\enxi1\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1228\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+      "CreationDate": "2026-10-26T14:48:09.721437+08:00"
+    },
+    {
+      "ProcessId": 23160,
+      "ParentProcessId": 35896,
+      "Name": "chrome-headless-shell.exe",
+      "ExecutablePath": "C:\\Users\\enxi1\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1228\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+      "CreationDate": "2026-10-26T14:48:09.930442+08:00"
+    },
+    {
+      "ProcessId": 9248,
+      "ParentProcessId": 35896,
+      "Name": "chrome-headless-shell.exe",
+      "ExecutablePath": "C:\\Users\\enxi1\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1228\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+      "CreationDate": "2026-10-26T14:48:09.942509+08:00"
+    },
+    {
+      "ProcessId": 37944,
+      "ParentProcessId": 35896,
+      "Name": "chrome-headless-shell.exe",
+      "ExecutablePath": "C:\\Users\\enxi1\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1228\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+      "CreationDate": "2026-10-26T14:48:10.007202+08:00"
+    }
+  ],
+  "remainingRecordedProcesses": [],
+  "remainingPre5RunnerProcesses": [],
+  "recordedDpr2Listeners": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 63425,
+      "OwningProcess": 38224
+    }
+  ],
+  "remainingRecordedListeners": [],
+  "remainingHeadlessProcesses": []
+}

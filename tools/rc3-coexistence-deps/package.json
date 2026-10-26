@@ -1,0 +1,8 @@
+{
+  "name": "rc3-coexistence-qa-dependencies",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@deepseek-ai/dsh-client-ui-primitives": "0.2.1-rc.3"
+  }
+}

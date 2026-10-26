@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "passedSuites": 89,
+  "tests": 415,
+  "passed": 415,
+  "failed": 0,
+  "pending": 0,
+  "rawReport": ".build/ai-village-rc3-pre5-tests.json",
+  "rawReportSha256": "1f6ac79cb54565ac24b2995e72859676a597918152ce6870c159bb35a59fad38",
+  "version": "0.13.0-preview.5",
+  "artifactSha256": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760",
+  "sourceIdentity": "package-identity.json",
+  "note": "Vitest suite counters include nested describe groups; executed file count from runner log is 77.",
+  "executedFiles": 77,
+  "suites": 89
+}

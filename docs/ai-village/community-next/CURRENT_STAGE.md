@@ -1,4 +1,8 @@
-# 当前开发结果：0.13.0-preview.3
+# 当前暂停点：0.13.0-preview.5 / rc.3 A6 通过
+
+2026-10-26：用户恢复后，独立重建并验证Git/Live2D的本地rc.3 QA候选，补齐真实三插件共存和有效角色拖放；A1–A6已通过，按要求安全暂停，B未启动。此前415测试、双DPR玩法、旧档、离线安装和可复现包身份不变；正式Git/Live2D仍保留rc.2。固定包、SHA、清理及新检查点见 [rc.3实施记录](../compatibility/DSH_0.2.1_RC3_RESULTS.md)。下方pre3及旧阻塞记录保留为历史。
+
+# 历史开发结果：0.13.0-preview.3
 
 2026-10-25，独立仓库 dsh_plugin，分支 codex/feature-ai-village-entrance，基线 HEAD e8fd896ec3713c6023ec17b81e6328055d59cc1c。工作树未提交/推送，没有发布 npm 或修改日常 DSH_HOME。用户原规划文件和 output 均保留。远端最新 HEAD 此前未能认证读取；结果以本地基线、源文件哈希和固定包为准。
 

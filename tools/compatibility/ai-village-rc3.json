@@ -1,0 +1,23 @@
+{
+  "dshVersion": "0.2.1-rc.3",
+  "originalRevision": "1f81c047fc48fa190a683e469daa699857e9afe8",
+  "officialTag": "dsh-v0.2.1-rc.3",
+  "officialArchiveUrl": "https://codeload.github.com/deepseek-ai/deepseek-harness/tar.gz/1f81c047fc48fa190a683e469daa699857e9afe8",
+  "officialArchiveSha256": "fc671f856222bef95c7f6bd65b5adfb6c09770ffd5b1f3f61b7b1e1cbe582c60",
+  "officialRelease": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.1-rc.3",
+  "sourceIncludesUncommittedChanges": false,
+  "node": ">=24.0.0",
+  "scope": [
+    "@nidofy/dsh-ai-village"
+  ],
+  "qualification": "a6-passed-paused-before-b",
+  "runtimeManifest": "tools/official-runtime-rc3/package.json",
+  "runtimeLock": "tools/official-runtime-rc3/package-lock.json",
+  "historicalCompatibility": "compatibility.json",
+  "workerBaseline": {
+    "source": "official rc.3 archive and published runtime",
+    "revision": "1f81c047fc48fa190a683e469daa699857e9afe8",
+    "embedsDesktopCheckout": false,
+    "note": "AI Village owns no agent loop or session worker; other plugins retain the rc.2 worker lane."
+  }
+}

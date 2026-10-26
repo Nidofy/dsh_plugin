@@ -53,6 +53,7 @@ await writeFile(join(stage, 'verify.mjs'), verifier)
 const verified = spawnSync(process.execPath, [join(stage, 'verify.mjs')], { cwd: stage, encoding: 'utf8', windowsHide: true })
 if (verified.status !== 0) throw Error(verified.stdout + verified.stderr)
 console.log(verified.stdout.trim())
-await writeFile(join(root, 'dist/offline-validation.json'), JSON.stringify({ dsh: '0.2.1-rc.2', platform: 'win32-x64',
+const versions = [...new Set(manifest.map(item => item.dsh))]
+await writeFile(join(root, 'dist/offline-validation.json'), JSON.stringify({ dsh: versions.length === 1 ? versions[0] : 'mixed-per-artifact', dshVersions: versions, platform: 'win32-x64',
   passed: true, packageManager: 'pnpm', emptyStore: true, offline: true, lifecycleScripts: false,
   nativeChecks: ['koffi', 'sharp PNG encoding', ...excludeSandbox ? [] : ['self-contained sandbox audit helper']], artifacts: manifest }, null, 2) + '\n')

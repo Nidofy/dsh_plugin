@@ -39,7 +39,8 @@ it('registers every new runtime part and portrait with exact delivery bytes and 
       expect(resource.sha256).toBe(part.sha256)
       const bytes = await readFile(join(pkg, 'assets', resource.file))
       expect(hash(bytes)).toBe(resource.sha256); expect(bytes.length).toBe(resource.bytes)
-      expect(bytes).toEqual(await readFile(join(pkg, 'art/deliverables/roster-expansion/characters', id, part.file)))
+      // Buffer.equals still compares every byte, without walking millions of numeric properties.
+      expect(bytes.equals(await readFile(join(pkg, 'art/deliverables/roster-expansion/characters', id, part.file)))).toBe(true)
     }
     const portrait = resources.find(entry => entry.key === `portraits/${id}.png`)!
     expect(hash(await readFile(join(pkg, 'assets', portrait.file)))).toBe(portrait.sha256)

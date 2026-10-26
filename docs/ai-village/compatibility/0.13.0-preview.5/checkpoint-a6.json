@@ -1,0 +1,84 @@
+{
+  "status": "A6_PASS_PAUSED_BEFORE_B",
+  "createdAt": "2026-10-26T09:15:37.909Z",
+  "phaseB": "NOT_STARTED",
+  "branch": "codex/feature-ai-village-entrance",
+  "head": "ead9a0fb97631bf651421ebac9e1e6ab78012950",
+  "committed": false,
+  "pushed": false,
+  "snapshot": ".build/ai-village-rc3-pre5-a6-complete-20261026",
+  "snapshotManifestSha256": "a47dcaacc506bf129cffe6963587242e79caf294648f452d0b122b642efd5f08",
+  "frozenFiles": 876,
+  "previousCheckpoint": "checkpoint.json",
+  "artifact": {
+    "file": "dist/nidofy-dsh-ai-village-0.13.0-preview.5.tgz",
+    "version": "0.13.0-preview.5",
+    "sha256": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760",
+    "bytes": 53670374
+  },
+  "dsh": "0.2.1-rc.3",
+  "officialSourceRevision": "1f81c047fc48fa190a683e469daa699857e9afe8",
+  "officialArchiveSha256": "fc671f856222bef95c7f6bd65b5adfb6c09770ffd5b1f3f61b7b1e1cbe582c60",
+  "runtimeLockSha256": "cb921ac43ecb67ddf6a9aea667b362848a7b8d5795a1bc2d7686db1eee7c6ba9",
+  "desktop": {
+    "version": "0.2.1-rc.3",
+    "sourceTagCommit": "1f81c047fc48fa190a683e469daa699857e9afe8",
+    "desktopEmbeddedCommit": "be72761ee1a6736ebcdf4f3739363b083ae53c98",
+    "asarSha256": "04b32e3a872826ba15cfb2081c6a929a8d4ecaa65e09a2543e5a6b30e2eff1f0",
+    "carrier": "C:\\Users\\enxi1\\AppData\\Local\\Temp\\dsh-ai-village-rc3-qa-ead9a0fb\\carrier\\DeepSeek Harness.exe"
+  },
+  "world": 14,
+  "content": 10,
+  "region": 2,
+  "frame": 11,
+  "qaOnlyCompanions": [
+    {
+      "name": "@nidofy/dsh-source-control",
+      "version": "0.1.3-rc3-coexistence.qa.1",
+      "sha256": "20fb56cc9fae57dc3c5bef696f3ff30a61150045f0a842bf0c31326b46298e66",
+      "bytes": 30641,
+      "dsh": "0.2.1-rc.3",
+      "qaOnly": true,
+      "file": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\artifacts\\nidofy-dsh-source-control-0.1.3-rc3-coexistence.qa.1.tgz",
+      "scope": "Temporary rc.3 rebuild for combination verification only; formal rc.2 releases unchanged"
+    },
+    {
+      "name": "@nidofy/dsh-live2d",
+      "version": "0.1.2-rc3-coexistence.qa.1",
+      "sha256": "5239666fb905a31b4148abaac3dd92376830c173de3b1b203920747b1336cd63",
+      "bytes": 1434229,
+      "dsh": "0.2.1-rc.3",
+      "qaOnly": true,
+      "file": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-03\\artifacts\\nidofy-dsh-live2d-0.1.2-rc3-coexistence.qa.1.tgz",
+      "scope": "Temporary rc.3 rebuild for combination verification only; formal rc.2 releases unchanged"
+    }
+  ],
+  "tests": {
+    "village": {
+      "files": 77,
+      "passed": 415
+    },
+    "companion": {
+      "files": 14,
+      "passed": 36,
+      "skipped": 2,
+      "skippedReason": "Mercurial not installed; no new Hg compatibility claim"
+    }
+  },
+  "nativeSummary": "native/coexistence-summary.json",
+  "nativeSummarySha256": "99c91f591601653bcf558d3435e392c6ccc71e018f9c638679c8abc6ed31e999",
+  "acceptedDrag": "native/drag-pre5-06/result.json",
+  "rejectedFalsePositive": "native/drag-pre5-05/result.json",
+  "cleanup": "native/cleanup-resume.json",
+  "cleanupSha256": "d30e29cebf3e62a5c80e78e8a73b5239a223dd3ed9d83053ade1d7b027465d02",
+  "finalRetainedQaPointer": {
+    "schemaVersion": 1,
+    "revision": 147,
+    "snapshot": "managed-v1-01af204c-c62a-4acf-beb8-9fc85f6ee342.json",
+    "operationId": "fd8324f3-031b-40a1-8e23-da68704c4093",
+    "hash": "9cbe90f74d0b4a942851421b076d3a616aca0cd608607eaa4baf0d6e39130674"
+  },
+  "productionRc2Preserved": true,
+  "userFilesPreserved": true,
+  "userInstruction": "完成剩余的A6及其之前的工作，暂时不要进入B阶段"
+}

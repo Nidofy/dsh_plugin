@@ -7,7 +7,7 @@ import { request } from 'node:http'
 import { harness } from '../experiments/phase4-host.ts'
 import { createLivingWorld as createWorld, type LivingWorld as ContentWorld } from '../src/core/living-state.ts'
 import { scene } from '../src/definitions.ts'
-const out = resolve('.build/ai-village-phase4')
+const out = resolve(process.env.DSH_VILLAGE_BUILD ?? '.build/ai-village-phase4')
 it('official authenticated Connection routes, profile lease, CAS, recovery, unload and cold reenable', async () => {
   const profile = await mkdtemp(join(out, 'host-test-'))
   const plugin = await import(pathToFileURL(join(out, 'lib/index.js')).href)

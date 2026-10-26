@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "stoppedPid": 36764,
+  "checkedAt": "2026-10-26T06:54:23.0666986Z",
+  "remainingProcesses": [],
+  "listener18783": [],
+  "userProfileTouched": false,
+  "aclChanged": false,
+  "hostSandboxDisabled": false,
+  "qaDataRetained": true
+}

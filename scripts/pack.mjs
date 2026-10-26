@@ -77,7 +77,7 @@ for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working
     if (Object.values(pkg[section] ?? {}).some(value => /^(?:workspace|link|file):/.test(value))) throw Error('Local dependency leaked into tarball')
   }
   artifacts.push({ name: pkg.name, version: pkg.version, file: result.filename, bytes: (await stat(file)).size,
-    sha256: createHash('sha256').update(await readFile(file)).digest('hex'), files: entries.length, platform: 'win32-x64', dsh: '0.2.1-rc.2', offline: true })
+    sha256: createHash('sha256').update(await readFile(file)).digest('hex'), files: entries.length, platform: 'win32-x64', dsh: pkg.engines.dsh, offline: true })
   console.log('Packed', result.filename, entries.length, 'files')
 }
 if (only) {

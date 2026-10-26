@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "sourceAndFormalRc2FilesUnchanged": true,
+  "before": "protected-before.json",
+  "after": "protected-after.json"
+}

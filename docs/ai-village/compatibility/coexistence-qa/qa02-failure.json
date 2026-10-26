@@ -1,0 +1,38 @@
+{
+  "status": "FAIL",
+  "error": "Error: \n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  .build/rc3-coexistence/companions-qa-02/work/source-control/tests/service.spec.ts > Git service on real isolated repositories > cancels an owned Git hook process tree and returns without waiting for the hook timer\nError: EBUSY: resource busy or locked, rmdir 'D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\rc3-coexistence\\companions-qa-02\\tmp\\dsh-vcs-test-awN6ye'\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\n\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/rc3-coexistence-build.mjs:139:60",
+  "typeResults": [
+    {
+      "name": "@nidofy/dsh-source-control",
+      "face": "host",
+      "files": 5,
+      "strict": true,
+      "status": "PASS",
+      "upstream": "1f81c047fc48fa190a683e469daa699857e9afe8"
+    },
+    {
+      "name": "@nidofy/dsh-source-control",
+      "face": "client",
+      "files": 10,
+      "strict": true,
+      "status": "PASS",
+      "upstream": "1f81c047fc48fa190a683e469daa699857e9afe8"
+    },
+    {
+      "name": "@nidofy/dsh-live2d",
+      "face": "host",
+      "files": 3,
+      "strict": true,
+      "status": "PASS",
+      "upstream": "1f81c047fc48fa190a683e469daa699857e9afe8"
+    },
+    {
+      "name": "@nidofy/dsh-live2d",
+      "face": "client",
+      "files": 11,
+      "strict": true,
+      "status": "PASS",
+      "upstream": "1f81c047fc48fa190a683e469daa699857e9afe8"
+    }
+  ]
+}

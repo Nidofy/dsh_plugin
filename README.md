@@ -4,6 +4,8 @@
 
 # DSH 独立插件仓库
 
+AI Village `0.13.0-preview.5` 已通过官方 **DSH 0.2.1-rc.3 的 A1–A6 兼容门禁**：415测试、双DPR玩法、原生生命周期、独立QA候选三插件共存及真实角色拖放均有证据。**按用户要求停在A6，B未启动**。世界与协议不变；包和检查点见 [rc.3 实施记录](docs/ai-village/compatibility/DSH_0.2.1_RC3_RESULTS.md)。Git/Live2D本轮仅验证独立本地QA候选，正式包仍保持rc.2；下面的pre3及全仓发行记录为历史证据。
+
 [AI 社区](packages/ai-village/README.md) 的 0.12.0-preview.1 已完成获批绘本地图、点击散步与离线包验收（world13/frame10）。当前 0.13.0-preview.3 已接入获批书屋与茶会场景、三人杯垫故事和普通坐姿（world14/content10/region2/frame11），通过410测试、双DPR交互、离线安装及隔离原生可见补测。旧超时记录保留，新方向动画未启用；交付包身份、性能范围与缺口见 [当前结果](docs/ai-village/community-next/CURRENT_STAGE.md)。
 
 [AI 小院 0.11.0-preview.1](packages/ai-village/README.md) 增加真实来源的共同回忆册、五位新人初见、固定配对故事与可重复书屋谜题。正式书屋分层美术独立待签收，运行场景保持开发样板；验证范围及离线包身份见 [0.11 记录](docs/ai-village/v011/RESULTS.md)。
@@ -16,7 +18,7 @@
 当前提供只读 ACL 诊断、恢复计划和可选拒绝执行 guard，**尚无隔离执行后端**。
 开发、安装限制与待验收项目见 [实施记录](docs/windows-sandbox-enhanced.md)，验证命令为 `npm run sandbox:check`。
 
-全仓库十个包统一面向官方 **DSH 0.2.1-rc.2**，Windows x64 离线安装包位于 `dist/`。安装包内嵌第三方运行依赖，DSH/Cordis/React 复用已有宿主；保留既有数据路径与笔记格式。版本、验证与安装顺序见 [本次发行](docs/releases/0.2.1-rc.2.md)。
+历史全仓库十包发行面向官方 **DSH 0.2.1-rc.2**；当前仅 AI Village 新候选转入独立 rc.3 通道。Windows x64 离线安装包位于 `dist/`，以每包 manifest 的 dsh 字段为准。安装包内嵌第三方运行依赖，DSH/Cordis/React 复用已有宿主；保留既有数据路径与笔记格式。历史版本、验证与安装顺序见 [rc.2 发行](docs/releases/0.2.1-rc.2.md)。
 
 | 包 | 用途 |
 | --- | --- |
@@ -26,7 +28,7 @@
 | `@nidofy/dsh-plugin-shared` | 共享设置、持久化契约和类型；不自动启用功能 |
 | `@nidofy/dsh-source-control` | 跟随当前项目的 Git/Hg 状态、差异、提交、分支与远端操作面板 |
 | `@nidofy/dsh-live2d` | 官方桌面可用的离线 Live2D 伙伴，采用与 Git 相同的右侧浮动卡片，独立启停 |
-| `@nidofy/dsh-ai-village` | 七位 Q 版角色同场、工作/吃饭/休息、跨会话持久化小院；官方 0.2.1-rc.2 |
+| `@nidofy/dsh-ai-village` | 七位 Q 版角色同场、跨会话持久化社区；pre5已验证官方rc.3，pre3保留rc.2历史基线 |
 | `@nidofy/dsh-whale-skin` | 官方设置内切换的鲸屿浅深色皮肤、本地背景和装饰 |
 | `@dsh-extensions/windows-sandbox-enhanced` | 只读 Windows ACL 诊断与恢复计划预览；内嵌自包含 .NET helper |
 | `@dsh-extensions/windows-sandbox-guard` | 专用验收 profile 的拒绝执行 guard，不是可用隔离后端 |

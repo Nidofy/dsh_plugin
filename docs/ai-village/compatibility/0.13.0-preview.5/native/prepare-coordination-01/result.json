@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "mode": "prepare-coordination",
+  "checks": [
+    "Created isolated local Git changes and a closed no-model session fixture through official Session/JSONL APIs; no user repository touched"
+  ],
+  "observations": [
+    {
+      "id": "session-94beaaca-ac82-4aee-a0d1-8722bebd725a",
+      "header": {
+        "version": 4,
+        "id": "session-94beaaca-ac82-4aee-a0d1-8722bebd725a",
+        "createdAt": 1793004934820,
+        "cwd": "D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-rc3-desktop\\coordination-repo",
+        "isSeeded": false,
+        "delegationDepth": 0,
+        "agentPreset": "standard"
+      },
+      "message": "Offline rc.3 three-plugin QA in a temporary Git repository. No model was called.",
+      "modelCalls": 0,
+      "gitStatus": " M coordination.txt\n?? untracked-qa.txt\n",
+      "writer": "@deepseek-ai/dsh-session-persistence-jsonl@0.2.1-rc.3"
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "notCovered": [
+    "Physical sleep/minimize and physical IME candidate selection",
+    "Long-duration foreground hardware performance",
+    "Native full tea/story replay: separate authenticated browser gameplay suite covers the complete sequence"
+  ],
+  "runnerSha256": "51270474a796bb8ac79aa2bb58702691b1c3a5f00fefb4cbdd9b379903c010f4"
+}

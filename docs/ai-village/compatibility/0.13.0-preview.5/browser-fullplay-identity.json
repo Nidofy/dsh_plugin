@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "scope": "OFFICIAL_RC3_AUTHENTICATED_HOST_WITH_LAYOUT_FIXTURE_NOT_FULL_OFFICIAL_CLIENT",
+  "version": "0.13.0-preview.5",
+  "file": "nidofy-dsh-ai-village-0.13.0-preview.5.tgz",
+  "sha256": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760",
+  "bytes": 53670374,
+  "dsh": "0.2.1-rc.3",
+  "revision": "1f81c047fc48fa190a683e469daa699857e9afe8",
+  "runtimeLockSha256": "cb921ac43ecb67ddf6a9aea667b362848a7b8d5795a1bc2d7686db1eee7c6ba9",
+  "packageIdentitySha256": "96e784e66b060881966bdb5f52cbb2d18be1d47e491b7cf77cc472ae7c1f6e0a",
+  "sourceFiles": 129,
+  "runtimeFiles": 306,
+  "bundles": {
+    "index.js": "45a51bc452888b22e41348a09bc423748ba3d1ee5182f655a2815494cd6e9199",
+    "client.js": "4182fe1253bb6c8d7212b750baeb90259fd3763feb5b70aaba9d2f8a771ced25",
+    "frame.js": "7bd7bd0b1eed6e8f59c9bdc60ce659629fff4638abba36cb1ba8860b556553ed"
+  },
+  "runs": [
+    {
+      "label": "rc3-pre5-dpr1-01",
+      "dpr": 1,
+      "status": "PASS",
+      "sourceAndBundles": "MATCH",
+      "copiedLibAndAssetFiles": 306,
+      "checks": 32,
+      "png": 30,
+      "travels": 19,
+      "errors": 0,
+      "external": 0,
+      "runnerSha256": "f50cb3255bac3e339cf2a26249135def6aa93e4fb8e5a57024e1cc1166925ef0",
+      "buildSha256": "29423bcd6f234a3f79127390b229b84b661ffc9315ebf243bc03ce294b78a38c",
+      "resultSha256": "e9aed46f5fc8546dd4b06a5cd1aebb9e1071212d5a5e19e5b4bb57ef22658a39"
+    },
+    {
+      "label": "rc3-pre5-dpr2-01",
+      "dpr": 2,
+      "status": "PASS",
+      "sourceAndBundles": "MATCH",
+      "copiedLibAndAssetFiles": 306,
+      "checks": 32,
+      "png": 30,
+      "travels": 19,
+      "errors": 0,
+      "external": 0,
+      "runnerSha256": "f50cb3255bac3e339cf2a26249135def6aa93e4fb8e5a57024e1cc1166925ef0",
+      "buildSha256": "ddc2d8087987b37035d6dbfe0e149708426290f456af541f5f78bfe0d15723dd",
+      "resultSha256": "bb87eefba03d590889e11a11025aadc1735918e1e7beb1372e33c9acc74ee2f0"
+    }
+  ]
+}

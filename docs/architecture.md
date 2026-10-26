@@ -1,5 +1,7 @@
 # 架构与兼容边界
 
+2026-10-26：AI Village rc.3 适配使用独立 `tools/compatibility/ai-village-rc3.json` 与 runtime/source-ui 锁文件，默认构建由该包精确 `engines.dsh` 选择并检查源码/依赖身份。其他插件继续 rc.2 通道。A6兼容检查点 world14/content10/region2/frame11 不变；Git/Live2D仅通过独立本地QA候选的组合专项，正式包仍为rc.2；当前门禁结果见 [rc.3 记录](ai-village/compatibility/DSH_0.2.1_RC3_RESULTS.md)，不以源码相同替代 Desktop 验收。
+
 
 0.13.0-preview.3 冻结 world13，新增 world14/content10/region2/frame11；茶区只新增有界返回脚点、单个三人活动和单个普通选茶状态，仍由同一 world owner/CAS 保存。持久 serial 防止旧杯垫动作复用，首次回忆派生茶签、通知、收藏和三对关系。用户已分别批准茶会与书屋候选，pre3已注册正式资源并通过410测试、双DPR可玩与离线包验收；隔离原生安装/冷恢复及可见普通活动/重玩/照片补测另有证据。结果与历史失败见 [当前交付](ai-village/community-next/CURRENT_STAGE.md)。
 

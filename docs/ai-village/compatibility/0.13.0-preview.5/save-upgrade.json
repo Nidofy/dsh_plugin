@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "oldPackageSha256": "50ef2a077fd8df30f89f773ded04bab61a478c1ed4ee4a6b67bd6b9260ef08c2",
+  "dsh": "0.2.1-rc.3",
+  "world": 14,
+  "fixture": "tea-ordinary-world14.json",
+  "fixtureSha256": "3228cb4ee8c650a01ed9530e4771aedfe509e4736b0f1d70ace1615adc61bc41",
+  "checks": [
+    "rc.2 frozen Host wrote save",
+    "rc.3 Host restored identical world, revision, operation and profile identity",
+    "stale epoch rejected",
+    "opening did not rewrite old pointer or snapshot",
+    "continued CAS save retained old snapshot bytes"
+  ],
+  "candidateBundles": {
+    "index": "45a51bc452888b22e41348a09bc423748ba3d1ee5182f655a2815494cd6e9199",
+    "service": "30f77d6eb56ce01d69fbf64f3d6e92e9658e04ab8533629f1a17b9e3d5c196eb"
+  }
+}
