@@ -23,7 +23,7 @@ function exact(v:unknown,keys:string[]):asserts v is Record<string,any>{if(!v||t
 const integer=(n:unknown,min:number,max:number):n is number=>Number.isSafeInteger(n)&&(n as number)>=min&&(n as number)<=max
 const same=(a:Point,b:Point)=>a.x===b.x&&a.y===b.y
 function triple(v:unknown):v is [CharacterId,CharacterId,CharacterId]{return Array.isArray(v)&&v.length===3&&v.every(isCharacterId)&&new Set(v).size===3}
-export function teaSquareUsedIds(w:LivingWorld){return new Set([...w.journal.map(m=>m.eventId),...w.neighborhood.memories.map(m=>m.eventId),w.play.lastEventId,w.neighborhood.lastEventId,w.progress.lastCompletedEventId,w.play.active?.id,w.neighborhood.event?.id,w.activeEvent?.id,w.bookhouse.active?.id,w.bookhouse.memory?.eventId,w.bookhouse.lastEventId,w.bookhouse.puzzleMemory?.eventId,w.bookhouse.puzzleLastEventId])}
+export function teaSquareUsedIds(w:LivingWorld){return new Set([...w.afternoon.memories.map(m=>m.eventId),...Object.values(w.afternoon.lastEventIds),w.afternoon.active?.id,...w.journal.map(m=>m.eventId),...w.neighborhood.memories.map(m=>m.eventId),w.play.lastEventId,w.neighborhood.lastEventId,w.progress.lastCompletedEventId,w.play.active?.id,w.neighborhood.event?.id,w.activeEvent?.id,w.bookhouse.active?.id,w.bookhouse.memory?.eventId,w.bookhouse.lastEventId,w.bookhouse.puzzleMemory?.eventId,w.bookhouse.puzzleLastEventId])}
 function route(w:LivingWorld,id:CharacterId,path:unknown,target:Point,moving:boolean,seatedAt?:number){
  const a=actors(w).find(a=>a.id===id);if(!Array.isArray(path))return fail();if(!a||path.length>9)fail()
  const sitting=seatedAt!==undefined&&a!.behavior==='sit'&&a!.intent?.furnitureId==='tea-table'

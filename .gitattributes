@@ -10,3 +10,11 @@ packages/live2d/assets/live2d/bluewhale-sdk.mjs whitespace=-blank-at-eol
 # Archived rc.3 evidence is SHA256-addressed; preserve original JSON bytes.
 docs/ai-village/compatibility/**/*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/ai-village/community-next/tea-square/browser/rc3-pre*/**/*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+
+# Qualification JSON contains hashes of exact saved bytes.
+docs/ai-village/afternoon/**/*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/ai-village/afternoon/native/**/runner.mjs -text whitespace=trailing-space,space-before-tab,cr-at-eol
+# Raw qualification logs retain their exact bytes and intentional final blank line.
+docs/ai-village/afternoon/validation/*.log -text whitespace=blank-at-eol,space-before-tab,cr-at-eol,-blank-at-eof
+# Large sampled-world evidence is reviewed through the compact evidence index.
+docs/ai-village/afternoon/**/result.json binary

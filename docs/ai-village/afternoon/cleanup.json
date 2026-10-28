@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-28T07:55:17.5920939Z",
+  "status": "PASS",
+  "isolatedDesktopPid": 36500,
+  "processPresent": false,
+  "cdpPort": 18784,
+  "listeners": 0,
+  "savedGameRetained": true,
+  "officialUninstallEvidence": "native/b-native-pre6-uninstall-01/result.json"
+}

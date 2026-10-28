@@ -1,3 +1,17 @@
+# AI 社区 · 0.14.0-preview.6 · 午后小插曲
+
+面向官方 DSH **0.2.1-rc.3**。在茶会广场体验蓝鲸与 Claude 的「茶香书签」、Gemini 与 Grok 的「倒影寻形」；选纸签、折叠压平或匹配镜像，然后留下可追溯的回忆与可收起的纪念物。重玩保留首次选择与参与者。
+
+三地经历会进入居民的短交流。社交复用现有移动、时钟与关系事实，有持久冷却，不自动完成玩家心愿。庭院、书屋、茶会广场各有一次已保存经历后，庭院会展示三地纪念卡。
+
+世界 **world15 / content11 / region2 / frame12**；冻结 world14 解码器，旧存档读取不改写原始快照，首次明确保存前保留升级检查点。继续使用已批准的三场景与角色美术，新纸道具仅为轻量矢量绘制。
+
+实际构建、测试、包身份及原生覆盖见 [B 阶段实施记录](../../docs/ai-village/afternoon/IMPLEMENTATION.md) 和 [当前交接](../../docs/ai-village/afternoon/HANDOFF.md)。A1–A6 历史兼容证据见 [rc.3 记录](../../docs/ai-village/compatibility/DSH_0.2.1_RC3_RESULTS.md)。其他插件正式包仍按自身声明的 DSH 版本使用。
+
+以下为保留的历史版本说明。
+
+---
+
 # AI 社区 · 0.13.0-preview.5 · DSH rc.3 适配候选
 
 此候选仅面向官方 DSH `0.2.1-rc.3`，使用独立的固定源码和 npm lock。世界仍为 world14/content10/region2/frame11，保持已有三场景、角色资源和存档规则。完整原生门禁通过前不标记正式兼容；验证进展见 [rc.3 实施记录](../../docs/ai-village/compatibility/DSH_0.2.1_RC3_RESULTS.md)。其他插件和全仓历史通道仍为 rc.2，不据此声明兼容 rc.3。

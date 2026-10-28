@@ -1,0 +1,4 @@
+PASS Official manager installed exact 398 package files from pinned tgz
+PASS Two actual disable/enable cycles revoke resources and restore one launcher/owner with exact persisted state
+PASS Original A6 game/profile evidence remains byte-identical
+{"status":"PASS","evidence":"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-afternoon-desktop\\evidence\\b-native-pre6-lifecycle-01","checks":["Official manager installed exact 398 package files from pinned tgz","Two actual disable/enable cycles revoke resources and restore one launcher/owner with exact persisted state","Original A6 game/profile evidence remains byte-identical"]}

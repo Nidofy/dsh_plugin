@@ -5,7 +5,7 @@ import { residentRoute, clearSegment } from './navigation.ts'
 import { cancelManualMove } from './manual-move.ts'
 import { assertCommunityTravel } from './community-map.ts'
 import { bookhouseScene, bookhouseEntries } from './bookhouse-scene.ts'
-import { cancelLifeSocial } from './life-engine.ts'
+import { cancelCommunitySocial as cancelLifeSocial } from './community-life.ts'
 import { idlePose, isRegionId, validateLivingWorld, type LivingWorld, type ParkedPose } from './living-state.ts'
 
 /** Explicit travel: inactive areas retain only bounded feet, never a second simulation or clock. */
@@ -14,7 +14,7 @@ export function switchRegion(source:LivingWorld,base:Scene,target:unknown):Livin
   assertCommunityTravel(w.region.active,target)
   if(!isRegionId(target))throw Error('INVALID_REGION')
   if(target===w.region.active)throw Error('REGION_UNCHANGED')
-  if(w.teaSquare.active||w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')
+  if(w.afternoon.active||w.teaSquare.active||w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')
   const departing=actors(w).map(a=>({id:a.id,position:{...a.position},safe:{...a.safe},facing:a.facing}))
   cancelTeaSquareActivity(w);cancelManualMove(w);cancelLifeSocial(w)
   const restored:ParkedPose[]=structuredClone(w.region.returns[target]??[])

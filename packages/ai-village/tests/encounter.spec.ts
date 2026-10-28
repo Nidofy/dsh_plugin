@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { scene } from '../src/definitions.ts'
 import { createLivingWorld, migrateLivingWorld, livingWorldCodec, validateLivingWorld } from '../src/core/living-state.ts'
+import { frozenV14 } from './legacy-v14.fixture.ts'
 import { createLivingWorld as createV8, livingWorldCodec as codecV8 } from '../src/core/living-state-v8.ts'
 import { currentEncounter, dismissEncounter, encounterWindow, encounterPeriod } from '../src/core/encounter.ts'
 import { startPlay, cancelPlay, stepLiving, setTableMode } from '../src/core/living-engine.ts'
@@ -62,7 +63,7 @@ it('rejects malformed counters and preserves natural simulation when offers are 
 })
 it('migrates v8 with exact original snapshot protection and cold-restores a consumed offer',async()=>{
   const old=createV8(scene),raw=JSON.stringify(old),next=migrateLivingWorld(old,scene)
-  expect(next.schemaVersion).toBe(14);expect(next.play.encounterWindow).toBe(-1)
+  expect(next.schemaVersion).toBe(15);expect(next.play.encounterWindow).toBe(-1)
   expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV8(scene).validate(next)).toThrow()
   const root=await mkdtemp(join(tmpdir(),'village-encounter-')),legacy=await SaveStore.open(root,scene,codecV8(scene))
   await legacy.save(0,old,crypto.randomUUID())
@@ -77,7 +78,7 @@ it('migrates v8 with exact original snapshot protection and cold-restores a cons
 it('preserves a checked v8 in-flight table game without moving residents, consuming RNG or changing the board',()=>{
   const source=offered(),current=startPlay(setTableMode(source,scene,'game'),scene,'table-game',['bluewhale','claude'],crypto.randomUUID())
   stepLiving(current,scene)
-  const legacy:any=structuredClone(current)
+  const legacy:any=frozenV14(current,scene)
   delete legacy.teaSquare;delete legacy.manualMove;delete legacy.region;delete legacy.bookhouse;legacy.home.accessories=Object.fromEntries(legacyCharacterIds.map(id=>[id,legacy.home.accessories[id]]));legacy.schemaVersion=8;legacy.contentRevision=5;delete legacy.play.encounterWindow
   delete legacy.play.decorations['message-board'];delete legacy.play.decorations['leaf-pot']
   const old=codecV8(scene).validate(legacy),raw=JSON.stringify(old),next=migrateLivingWorld(old,scene)

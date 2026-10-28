@@ -11,7 +11,7 @@ export function TeaSquarePanel({runtime:r,tab,locale,locked}:{runtime:VillageRun
   if(!w||w.region.active!=='tea-square'||tab==='journal')return null
   const s=w.teaSquare,e=s.active,members=actors(w),guests:CharacterId[]=[]
   for(let i=0;i<3;i++){const id=members.find(a=>a.id===chosen[i]&&!guests.includes(a.id))?.id??members.find(a=>!guests.includes(a.id))?.id;if(id)guests.push(id)}
-  const paused=!!r.controller?.pauseReasons.size,busy=locked||r.arranging||r.photoMode||r.regionTransition||!!r.controller?.drag
+  const paused=!!r.controller?.pauseReasons.size,busy=!!w.afternoon.active||locked||r.arranging||r.photoMode||r.regionTransition||!!r.controller?.drag
   const shapes=[t('云','Cloud'),t('叶','Leaf'),t('星','Star')],ready=!busy&&!paused&&e?.phase==='ready'
   const selectGuest=(index:number,id:CharacterId)=>setChosen(guests.map((old,i)=>i===index?id:old))
   return <section className="village-neighborhood village-tea-square" data-stage={e?.stage??'idle'} aria-label={t('AI 茶会广场','AI Tea Square')}>

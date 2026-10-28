@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "mode": "inspect",
+  "launch": {
+    "startedAt": "2026-10-28T04:49:39.1546531Z",
+    "processCreatedAt": "2026-10-28T04:49:38.8439250Z",
+    "pid": 40820,
+    "port": 18784,
+    "version": "0.2.1-rc.3",
+    "carrier": "C:\\Users\\enxi1\\AppData\\Local\\Temp\\dsh-ai-village-rc3-qa-ead9a0fb\\carrier\\DeepSeek Harness.exe",
+    "arguments": [
+      "--user-data-dir=D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-afternoon-desktop/electron-data",
+      "--remote-debugging-port=18784",
+      "--remote-debugging-address=127.0.0.1"
+    ],
+    "dshHome": "D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-afternoon-desktop/home",
+    "softwareRendering": false,
+    "windowStyle": "Hidden",
+    "asarSha256": "04b32e3a872826ba15cfb2081c6a929a8d4ecaa65e09a2543e5a6b30e2eff1f0"
+  },
+  "checks": [
+    "Read-only inspected exact new afternoon Desktop process",
+    "Original A6 game/profile evidence remains byte-identical"
+  ],
+  "observations": [
+    {
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.130",
+        "revision": "@58da080b2b7c38a02e066a911d0b9cd0e9daa70d",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) @deepseek-ai/dsh-desktop/0.2.1-rc.3 Chrome/152.0.7977.130 Electron/44.7.0 Safari/537.36",
+        "jsVersion": "15.2.124.28"
+      },
+      "display": {
+        "visibility": "visible",
+        "dpr": 1.75,
+        "width": 1279,
+        "height": 821
+      }
+    },
+    {
+      "buttons": [
+        "",
+        "",
+        "New SessionCtrl+N",
+        "Plugins",
+        "Automation tasks",
+        "More",
+        "",
+        "",
+        "",
+        "More",
+        "",
+        "Default workspace",
+        "Standard mode",
+        "",
+        "Workspace Write",
+        "Select model",
+        ""
+      ],
+      "text": "New Session\nCtrl\n+\nN\nPlugins\nAutomation tasks\nMore\nWorkspaces\nDefault workspace\nNew Session\nMore\nInto the Unknown\nPreview\nDefault workspace\nStandard mode\nDescribe what you want to build, / commands, @ files or sessions\nWorkspace Write\nSelect model"
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "notCovered": [
+    "Physical sleep/minimize, IME candidate selection and long-duration hardware performance",
+    "Unknown-ACK fault injection belongs to the separate authenticated browser and runtime suites",
+    "Git/Live2D coordination belongs to A6; these packages are not installed here"
+  ],
+  "runnerSha256": "957e31dc94efef2e2c5ee68c3f4ba39e1bebfbdda4e16a55ec24298fa41294d0"
+}

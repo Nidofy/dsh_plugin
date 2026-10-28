@@ -1,7 +1,7 @@
 import { isCharacterId, type CharacterId } from './roster.ts'
 import { validCamera, type Camera } from './camera.ts'
 import type { PointerIntent } from './controller.ts'
-export const frameChannel = 'nidofy-ai-village', frameVersion = 11
+export const frameChannel = 'nidofy-ai-village', frameVersion = 12
 export function validFrameRegion(value: unknown): value is 'courtyard' | 'bookhouse' | 'tea-square' { return value === 'courtyard' || value === 'bookhouse' || value === 'tea-square' }
 export type UIInput = { kind: 'ground-move'; point: { x: number; y: number } } | { kind: 'cancel-move' } | { kind: 'table-move'; token: string; cell: number; point: { x: number; y: number } } | { kind: 'play-find'; token: string; point: { x: number; y: number } } | { kind: 'camera'; camera: Camera } | { kind: 'scene' } | { kind: 'resident'; id: CharacterId } | { kind: 'arrange'; phase: 'down' | 'up' | 'cancel'; pointerId: number; id: string; index?: number }
 export function validPointer(value: unknown): value is PointerIntent {

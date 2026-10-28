@@ -10,7 +10,8 @@ import { residentRoute, clearSegment } from './navigation.ts'
 import { uuid, type Food, type BellSlot } from './content-state.ts'
 import type { CharacterId } from './roster.ts'
 import type { LayoutId, ExtraDecoration } from './neighborhood-catalog.ts'
-import { cancelLifeSocial, stepLifeSocial, settleLifeSocial } from './life-engine.ts'
+import { cancelCommunitySocial as cancelLifeSocial, stepCommunitySocial, settleCommunitySocial } from './community-life.ts'
+import { stepAfternoon, cancelAfternoon } from './afternoon-engine.ts'
 import { blankTableBoard, tableRound, tableResult } from './table-game.ts'
 import { currentEncounter } from './encounter.ts'
 import { cancelManualMove, stepManualMove } from './manual-move.ts'
@@ -32,7 +33,7 @@ export function placeBell(w:LivingWorld,b:Scene,s:BellSlot|null) { requireCourty
 export function decorateExtra(w:LivingWorld,b:Scene,id:ExtraDecoration,s:BellSlot|null) { requireCourtyard(w); return withLiving(home.decorateExtra(homeProjection(w),b,id,s),w) }
 export function arrangeHome(w:LivingWorld,b:Scene,h:Home,l:LayoutId,r:number) {const n=validateLivingWorld(w,b);availableForCommand(n);return withLiving(arrangeV6(homeProjection(n),b,h,l,r),n)}
 export function changeLayout(w:LivingWorld,b:Scene,l:LayoutId) { return arrangeHome(w,b,w.home,l,w.home.revision) }
-export function cancelTea(w:LivingWorld) { if(w.region.active==='tea-square'){cancelTeaSquareStory(w);cancelTeaSquareActivity(w);return} if(w.region.active==='bookhouse'){cancelPlay(w);cancelLifeSocial(w);return}; const n=homeProjection(w);home.cancelTea(n);Object.assign(w,withLiving(n,w));cancelPlay(w);cancelLifeSocial(w) }
+export function cancelTea(w:LivingWorld) { if(w.region.active==='tea-square'){cancelAfternoon(w);cancelLifeSocial(w);cancelTeaSquareStory(w);cancelTeaSquareActivity(w);return} if(w.region.active==='bookhouse'){cancelPlay(w);cancelLifeSocial(w);return}; const n=homeProjection(w);home.cancelTea(n);Object.assign(w,withLiving(n,w));cancelPlay(w);cancelLifeSocial(w) }
 export function settleTea(w:LivingWorld,b:Scene) {
   if(w.region.active==='tea-square')return null
   if(w.region.active==='bookhouse'){if(w.bookhouse.active?.phase==='approaching'&&w.bookhouse.active.approachRemainingTicks===0){const n=validateLivingWorld(w,b);cancelBookhouseStory(n);return n};return null}
@@ -40,7 +41,7 @@ export function settleTea(w:LivingWorld,b:Scene) {
   const n=home.settleTea(homeProjection(w),b);return n?withLiving(n,w):null
 }
 export function cancelPlay(w:LivingWorld) { for(const a of actors(w))if(w.play.active?.participants.includes(a.id))abandon(a);w.play.active=null }
-function usedId(w:LivingWorld,id:string) {return w.teaSquare.lastEventId===id||w.teaSquare.memory?.eventId===id||w.bookhouse.puzzleLastEventId===id||w.bookhouse.puzzleMemory?.eventId===id||w.bookhouse.lastEventId===id||w.bookhouse.memory?.eventId===id||w.play.lastEventId===id||w.journal.some(m=>m.eventId===id)||w.neighborhood.memories.some(m=>m.eventId===id)||w.progress.lastCompletedEventId===id||w.neighborhood.lastEventId===id}
+function usedId(w:LivingWorld,id:string) {return Object.values(w.afternoon.lastEventIds).includes(id)||w.afternoon.memories.some(m=>m.eventId===id)||w.afternoon.active?.id===id||w.teaSquare.lastEventId===id||w.teaSquare.memory?.eventId===id||w.bookhouse.puzzleLastEventId===id||w.bookhouse.puzzleMemory?.eventId===id||w.bookhouse.lastEventId===id||w.bookhouse.memory?.eventId===id||w.play.lastEventId===id||w.journal.some(m=>m.eventId===id)||w.neighborhood.memories.some(m=>m.eventId===id)||w.progress.lastCompletedEventId===id||w.neighborhood.lastEventId===id}
 export { whalePlace } from './play-catalog.ts'
 export function whalePoint(w:LivingWorld,base:Scene):Point|null {
   const e=w.play.active;if(e?.definitionId!=='find-whale'||e.stage!==0)return null
@@ -97,18 +98,22 @@ export function startPlay(source:LivingWorld,base:Scene,definitionId:string,part
 export function stepLiving(w:LivingWorld,base:Scene) {
   const e=w.play.active,g=geometry(w,base)
   if(w.manualMove)return stepManualMove(w,g)
-  if(w.region.active==='tea-square')return stepTeaSquare(w)
+  if(w.afternoon.active)return stepAfternoon(w)
+  if(w.region.active==='tea-square'){
+    if(w.teaSquare.active||w.teaSquare.activity)return stepTeaSquare(w)
+    const held=stepCommunitySocial(w,g,[]);step(w,g,undefined,new Set(held));settleCommunitySocial(w,g);return
+  }
   if(w.region.active==='bookhouse'){
     if(w.bookhouse.active){stepBookhouseStory(w);return}
-    const {decorations:_courtyardDecorations,...book}=w
-    const held=stepLifeSocial(book,g)
-    const outcome=stepBookhouseActivities(w,held);book.ticks=w.ticks;settleLifeSocial(book,g)
+
+    const held=stepCommunitySocial(w,g,[])
+    const outcome=stepBookhouseActivities(w,held);settleCommunitySocial(w,g)
     return outcome
   }
   if(!e){
     if(w.activeEvent||w.neighborhood.event){cancelLifeSocial(w);const n=homeProjection(w);home.stepHome(n,base);Object.assign(w,withLiving(n,w));return}
-    const held=stepLifeSocial(w,g)
-    step(w,g,undefined,new Set(held));settleLifeSocial(w,g);return
+    const held=stepCommunitySocial(w,g,[])
+    step(w,g,undefined,new Set(held));settleCommunitySocial(w,g);return
   }
   w.ticks++
   for(const a of actors(w)){a.phase+=1/30;if(a.intent)a.intent.expires++}

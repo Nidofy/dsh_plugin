@@ -9,6 +9,7 @@ import { teaSquareClosing,teaSquareScene } from '../src/core/tea-square-scene.ts
 import { startTeaSquareStory,actTeaSquareStory,cancelTeaSquareStory,startTeaSquareActivity,cancelTeaSquareActivity,placeTeaSquareKeepsake } from '../src/core/tea-square-engine.ts'
 import { teaSquareToken,teaSquareOrder } from '../src/core/tea-square-state.ts'
 import { validateLivingWorld,migrateLivingWorld,livingWorldCodec,type LivingWorld } from '../src/core/living-state.ts'
+import { frozenV14 } from './legacy-v14.fixture.ts'
 import { createLivingWorld as create13,livingWorldCodec as codec13 } from '../src/core/living-state-v13.ts'
 import { stepLiving } from '../src/core/living-engine.ts'
 import { switchRegion } from '../src/core/region-engine.ts'
@@ -63,8 +64,9 @@ it('retains legacy world14 idle waiting checkpoints and rejects forged seated ac
  const seated=validateLivingWorld(JSON.parse(JSON.stringify(w)),scene),bad=structuredClone(seated)
  bad.teaSquare.activity!.seat=(bad.teaSquare.activity!.seat+1)%3
  expect(()=>validateLivingWorld(bad,scene)).toThrow()
- const legacy=structuredClone(seated);legacy.actor.behavior='idle';legacy.actor.intent=null
- expect(migrateLivingWorld(legacy,scene)).toEqual(legacy)
+ const legacy=frozenV14(seated,scene);legacy.actor.behavior='idle';legacy.actor.intent=null
+ const raw=JSON.stringify(legacy),migrated=migrateLivingWorld(legacy,scene)
+ expect(migrated.schemaVersion).toBe(15);expect(frozenV14(migrated,scene)).toEqual(legacy);expect(JSON.stringify(legacy)).toBe(raw)
  cancelTeaSquareActivity(seated);expect(seated.actor.behavior).toBe('idle');expect(seated.actor.intent).toBeNull()
 })
 it('advances the ordinary tea resident animation with its real route and freezes both under pause',()=>{
@@ -95,10 +97,10 @@ it('round-trips seven residents through approved tea travel and preserves both p
 })
 it('migrates frozen world13 including manual intent without mutation and protects original bytes across 42 saves',async()=>{
  const current=requestManualMove(switchRegion(migrateLivingWorld(create13(scene),scene),scene,'bookhouse'),scene,{x:300,y:310})
- const {teaSquare:_teaSquare,region,...rest}=current
+ const {teaSquare:_teaSquare,region,...rest}=frozenV14(current,scene)
  const old=codec13(scene).validate({...rest,schemaVersion:13,contentRevision:9,region:{version:1,active:region.active,returns:{courtyard:region.returns.courtyard,bookhouse:region.returns.bookhouse}}}),original=JSON.stringify(old),root=await mkdtemp(join(tmpdir(),'tea-square-v13-')),store=await SaveStore.open(root,scene,codec13(scene))
  await store.save(0,old,crypto.randomUUID());const pointer=await readFile(join(store.directory,'current.json'),'utf8'),name=JSON.parse(pointer).snapshot,bytes=await readFile(join(store.directory,'snapshots',name))
- const upgraded=await SaveStore.open(root,scene,livingWorldCodec(scene));let saved=(await upgraded.read())!;expect(saved.world.schemaVersion).toBe(14);expect(saved.world.region.version).toBe(2);expect(saved.world.actor).toEqual(old.actor);expect(saved.world.manualMove).toEqual(old.manualMove);expect(saved.world.region.returns.courtyard).toEqual(old.region.returns.courtyard);expect(saved.world.worldId).toBe(old.worldId);expect(JSON.stringify(old)).toBe(original)
+ const upgraded=await SaveStore.open(root,scene,livingWorldCodec(scene));let saved=(await upgraded.read())!;expect(saved.world.schemaVersion).toBe(15);expect(saved.world.region.version).toBe(2);expect(saved.world.actor).toEqual(old.actor);expect(saved.world.manualMove).toEqual(old.manualMove);expect(saved.world.region.returns.courtyard).toEqual(old.region.returns.courtyard);expect(saved.world.worldId).toBe(old.worldId);expect(JSON.stringify(old)).toBe(original)
  for(let i=0;i<42;i++)saved=await upgraded.save(saved.revision,saved.world,crypto.randomUUID())
  expect(await readFile(join(store.directory,'snapshots',name))).toEqual(bytes);const refs=(await readdir(store.directory)).filter(n=>n.startsWith('upgrade-v1-'));expect(await Promise.all(refs.map(n=>readFile(join(store.directory,n),'utf8')))).toContain(pointer)
  expect(()=>codec13(scene).decode(saved.world)).toThrow();expect(()=>livingWorldCodec(scene).decode({...old,teaSquare:{}})).toThrow()

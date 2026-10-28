@@ -1,3 +1,5 @@
+import { startAfternoon, actAfternoon, cancelAfternoon, placeAfternoonKeepsake } from '../core/afternoon-engine.ts'
+import type { AfternoonStoryId, AfternoonAction } from '../core/afternoon-catalog.ts'
 import { startTeaSquareStory, actTeaSquareStory, cancelTeaSquareStory, startTeaSquareActivity, cancelTeaSquareActivity, placeTeaSquareKeepsake, type TeaSquareAction } from '../core/tea-square-engine.ts'
 import { startBookhouseStory, startBookhousePuzzle, bookhouseStoryAction, cancelBookhouseStory, placeBookhouseKeepsake } from '../core/bookhouse-engine.ts'
 import type { BookTheme } from '../core/bookhouse-state.ts'
@@ -238,7 +240,7 @@ export class VillageRuntime {
   get canUndoHome() { return this.homeHistory.length > 0 }
   beginHome() {
     const world = this.controller?.world
-    if (!world || world.region.active !== 'courtyard' || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.teaSquare.active || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) return
+    if (!world || world.region.active !== 'courtyard' || this.arranging || !this.ready || this.error || this.criticalCandidate || this.photoMode || world.afternoon.active || world.teaSquare.active || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) return
     this.cancelArrangements()
     this.homeDraft = { home: structuredClone(world.home), layout: world.neighborhood.layout }
     this.homeHistory = []; this.homeDraftError = ''; this.homePreview = null; this.pause('arrange', true)
@@ -513,7 +515,7 @@ export class VillageRuntime {
     if (this.arranging) return 'REGION_ARRANGING'
     if (this.photoMode) return 'REGION_PHOTO'
     if (this.controller?.drag) return 'REGION_DRAGGING'
-    if (world.teaSquare.active || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) return 'EVENT_ACTIVE'
+    if (world.afternoon.active || world.teaSquare.active || world.activeEvent || world.neighborhood.event || world.play.active || world.bookhouse.active) return 'EVENT_ACTIVE'
     return null
   }
   async switchRegion(id: RegionId) {
@@ -522,6 +524,21 @@ export class VillageRuntime {
     await this.neighborhoodCommand(() => travelRegion(this.controller!.world, scene, id))
   }
   private teaSquareInputReady() { return this.foreground() && this.frameReady && !this.entrance.blocking && !this.arranging && !this.photoMode && !this.controller?.drag && !this.controller?.pauseReasons.size }
+  async startAfternoon(storyId: AfternoonStoryId, participants: CharacterId[]) {
+    if (!this.teaSquareInputReady()) return
+    await this.neighborhoodCommand(() => startAfternoon(this.controller!.world, scene, storyId, participants, crypto.randomUUID()))
+  }
+  async actAfternoon(token: string, action: AfternoonAction, choice?: string) {
+    if (!this.teaSquareInputReady()) return
+    await this.neighborhoodCommand(() => actAfternoon(this.controller!.world, scene, token, action, choice))
+  }
+  async cancelAfternoon() {
+    await this.neighborhoodCommand(() => { const w=this.controller!.snapshot(); cancelAfternoon(w); return w })
+  }
+  async placeAfternoonKeepsake(storyId: AfternoonStoryId, place: 'message-tree' | null) {
+    if (!this.teaSquareInputReady()) return
+    await this.neighborhoodCommand(() => placeAfternoonKeepsake(this.controller!.world, scene, storyId, place))
+  }
   async startTeaSquareStory(participants: CharacterId[]) {
     if (!this.teaSquareInputReady()) return
     await this.neighborhoodCommand(() => startTeaSquareStory(this.controller!.world, scene, participants, crypto.randomUUID()))

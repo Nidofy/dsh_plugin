@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "mode": "prepare",
+  "checks": [
+    "Copied only frozen A6 r147 game bytes and created empty independent profile; original A6 untouched",
+    "Original A6 game/profile evidence remains byte-identical"
+  ],
+  "observations": [],
+  "errors": [],
+  "requests": [],
+  "notCovered": [
+    "Physical sleep/minimize, IME candidate selection and long-duration hardware performance",
+    "Unknown-ACK fault injection belongs to the separate authenticated browser and runtime suites",
+    "Git/Live2D coordination belongs to A6; these packages are not installed here"
+  ],
+  "runnerSha256": "957e31dc94efef2e2c5ee68c3f4ba39e1bebfbdda4e16a55ec24298fa41294d0"
+}

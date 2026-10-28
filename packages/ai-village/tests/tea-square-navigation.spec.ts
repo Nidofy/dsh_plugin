@@ -3,7 +3,7 @@ import { expect,it } from 'vitest'
 import { teaSquareFixture } from './tea-square.fixture.ts'
 import { scene } from '../src/definitions.ts'
 import { startTeaSquareActivity,cancelTeaSquareActivity } from '../src/core/tea-square-engine.ts'
-import { validateLivingWorld } from '../src/core/living-state.ts'
+import { validateLivingWorld, migrateLivingWorld } from '../src/core/living-state.ts'
 import { stepLiving } from '../src/core/living-engine.ts'
 import { actors,available,seatKey } from '../src/core/world.ts'
 import { residentRoute } from '../src/core/navigation.ts'
@@ -12,7 +12,7 @@ import { teaSquareScene } from '../src/core/tea-square-scene.ts'
 it('completes the real seven-body GPT tea checkpoint with bounded rerouting, reserved destinations and exact cold replay',()=>{
  // Copy of isolated approved-tea-dpr1-diagnostic-01 snapshot revision57, tick4292.
  // Source managed-v1-731054cc-013c-4574-a84a-3cb6ed72d51d.json remains unchanged.
- let w=validateLivingWorld(JSON.parse(readFileSync(new URL('./fixtures/tea-ordinary-world14.json',import.meta.url),'utf8')),scene),cold=structuredClone(w)
+ let w=migrateLivingWorld(JSON.parse(readFileSync(new URL('./fixtures/tea-ordinary-world14.json',import.meta.url),'utf8')),scene),cold=structuredClone(w)
  const initial=structuredClone(w),activity=w.teaSquare.activity!,deadline=activity.expires,id=activity.actorId,stages=new Set<string>(),movers=new Set<string>()
  const reserved=new Set([seatKey(teaSquareScene.hotspots[3]!),seatKey(teaSquareScene.hotspots[activity.seat]!)])
  let rerouted=false

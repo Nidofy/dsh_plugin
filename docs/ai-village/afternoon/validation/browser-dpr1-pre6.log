@@ -1,0 +1,37 @@
+ℹ entry: .build\ai-village-afternoon\pre6-all-dpr1-01\packages\ai-village\experiments\phase4-host.ts
+ℹ target: es2024
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- zod
+ℹ .build\ai-village-afternoon\pre6-all-dpr1-01\harness.mjs  631.82 kB │ gzip: 98.55 kB
+ℹ 1 files, total: 631.82 kB
+✔ Build complete in 167ms
+ℹ entry: .build\ai-village-afternoon\pre6-all-dpr1-01\packages\ai-village\experiments\phase4-client.tsx
+ℹ target: es2022
+ℹ Build start
+ℹ Hint: consider adding deps.onlyBundle option to avoid unintended bundling of dependencies, or set deps.onlyBundle: false to disable this hint.
+See more at https://tsdown.dev/options/dependencies#deps-onlybundle
+Detected dependencies in bundle:
+- react
+- scheduler
+- react-dom
+ℹ .build\ai-village-afternoon\pre6-all-dpr1-01\fixture.js  1.22 MB
+ℹ 1 files, total: 1.22 MB
+✔ Build complete in 121ms
+PASS Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes
+PASS tea-bookmark: real approach cancelled without memory or award
+PASS Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation
+PASS tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake
+PASS tea-bookmark: replay preserves first source/choice and stored keepsake placement
+PASS reflection-shapes: real approach cancelled without memory or award
+PASS reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake
+PASS reflection-shapes: replay preserves first source/choice and stored keepsake placement
+PASS Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips
+PASS Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above
+PASS bookhouse: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts; actual recall bubble matches original memory source/event/cast
+PASS courtyard: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts
+PASS Explicit courtyard activity creates a source fact; simple region visits and autonomous greetings did not
+PASS Cross-region UI carries exact original event/cast provenance; three-place card unlocks only after real saved courtyard/bookhouse/tea experiences and survives cold recovery
+PASS Original A6 source game files remain byte-identical

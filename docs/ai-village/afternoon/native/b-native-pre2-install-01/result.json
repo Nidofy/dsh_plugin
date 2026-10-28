@@ -1,0 +1,928 @@
+{
+  "status": "PASS",
+  "mode": "install",
+  "artifact": {
+    "version": "0.14.0-preview.2",
+    "sha256": "22d41072b0931a3ae58fc1b441b6c786403ec023008e8b87bdb1484327427cbc",
+    "file": "nidofy-dsh-ai-village-0.14.0-preview.2.tgz"
+  },
+  "launch": {
+    "startedAt": "2026-10-28T04:49:39.1546531Z",
+    "processCreatedAt": "2026-10-28T04:49:38.8439250Z",
+    "pid": 40820,
+    "port": 18784,
+    "version": "0.2.1-rc.3",
+    "carrier": "C:\\Users\\enxi1\\AppData\\Local\\Temp\\dsh-ai-village-rc3-qa-ead9a0fb\\carrier\\DeepSeek Harness.exe",
+    "arguments": [
+      "--user-data-dir=D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-afternoon-desktop/electron-data",
+      "--remote-debugging-port=18784",
+      "--remote-debugging-address=127.0.0.1"
+    ],
+    "dshHome": "D:/Documents/FeiyangChen/devApps/dsh_plugin/.build/ai-village-afternoon-desktop/home",
+    "softwareRendering": false,
+    "windowStyle": "Hidden",
+    "asarSha256": "04b32e3a872826ba15cfb2081c6a929a8d4ecaa65e09a2543e5a6b30e2eff1f0"
+  },
+  "checks": [
+    "Official manager installed exact 398 package files from pinned tgz",
+    "Actual Host/Client migrated paused world14 to15 with exact prior fields/poses/clock/RNG and protected original r147 snapshot",
+    "Original A6 game/profile evidence remains byte-identical"
+  ],
+  "observations": [
+    {
+      "browser": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/152.0.7977.130",
+        "revision": "@58da080b2b7c38a02e066a911d0b9cd0e9daa70d",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) @deepseek-ai/dsh-desktop/0.2.1-rc.3 Chrome/152.0.7977.130 Electron/44.7.0 Safari/537.36",
+        "jsVersion": "15.2.124.28"
+      },
+      "display": {
+        "visibility": "visible",
+        "dpr": 1.75,
+        "width": 1279,
+        "height": 821
+      }
+    },
+    {
+      "installedFiles": 398,
+      "buildIdentity": {
+        "package": "@nidofy/dsh-ai-village",
+        "version": "0.14.0-preview.2",
+        "dsh": "0.2.1-rc.3",
+        "revision": "1f81c047fc48fa190a683e469daa699857e9afe8",
+        "archiveSha256": "fc671f856222bef95c7f6bd65b5adfb6c09770ffd5b1f3f61b7b1e1cbe582c60",
+        "runtimeLockSha256": "cb921ac43ecb67ddf6a9aea667b362848a7b8d5795a1bc2d7686db1eee7c6ba9",
+        "source": {
+          "src/definitions.ts": "0b73fc2d7cd64bc63bbb281159ef669a915ab8e70da87fe8b5696f4200d414c2",
+          "src/entrance-manifest.ts": "74b344e14d7aac8e735c5952d2914e3cf9466b21e5a192b12a91b5f69dc91203",
+          "src/index.ts": "af572955db4c83e47d9d6b8d2a88f357e33b2a4e660ebf32e68fd539f6f0992f",
+          "src/host/photo-store.ts": "6a704faf96d709bc982c52cdce5327da771983059dfddf68b4595fd9be1a10b4",
+          "src/host/save-store.ts": "f9c081051d70e231023237294c45110bf34d2857c61be283b0b2421da34ff127",
+          "src/host/service.ts": "2396650fa8c1a851b337f5fd7a87d6f2737a1d34b86ea484e28ce584998d20dc",
+          "src/frame/afternoon-art.ts": "f99769da78fb76d9005aacb1585963e2c9a820e6d4c4b29f56f2a852a043cd5b",
+          "src/frame/atmosphere.ts": "e655680b0fe15473e961ca4bfaaa2022fbd2148d6ab3412982ef0d3c064d82e4",
+          "src/frame/bookhouse-art.ts": "5240ee0f714fbbd6a2c6a8899c1f78c914f956ba9feae07a9f010854c0296ce5",
+          "src/frame/bookhouse-contact-data.ts": "d5bf3a3496fac8cd3278053c78d55d76dc1a9ae0d69a4d5c190745cd5b6b4516",
+          "src/frame/bookhouse-contact.ts": "a7aa109692b456eb22c24d99b0f19772af638937f88eff02b156df704d9695ea",
+          "src/frame/furniture.ts": "773dcab79219a3d52a2ce9a27fcc8b35edd2c649403137d12cafe31a98dbf01a",
+          "src/frame/input-router.ts": "83935227e9255f1930916d4401eb640470f7c587fd036306b8863eb3b6324681",
+          "src/frame/neighborhood-art.ts": "f11e43ebb332e895c4a3ba21aa4ede52c1bef1f40f06a39990f86f4b74c2f089",
+          "src/frame/play-art.ts": "42900af81cdf37c7bab95acd412023306b9e217899cc1f7a3598e439edb1a6ea",
+          "src/frame/quality.ts": "70e7096da385d9489de7fc5e219920c6974a450ebc0dbf7778f0fe53e614d02a",
+          "src/frame/scene.ts": "a2bb48124c5524022cfd36e32b3c98b6b71fdbf7ac5b67ee8abbfe0e874ebbb9",
+          "src/frame/table-art.ts": "a2db5313fa95b63eb9838576317f958061b985df249b8cf7cbad7b4d1688d937",
+          "src/frame/tea-seat-pose.ts": "b67840fb1fe2bda04d922bf26cd6c26e1c7e3d26a641a5d733e85e44b93ebe7f",
+          "src/frame/tea-square-art.ts": "3221728d62033bfb2fb9cf9890fa058228d26ee435fda14724a85fa162f7ec0e",
+          "src/frame/viewport.ts": "94df89d1ac494bfef68f52aa1bc7801d62ed7e4a5ceeebd1c93e570482d32cae",
+          "src/core/afternoon-catalog.ts": "d7f9f68e851d3e786a289b78fc1a5d807ecde31ad1fc08d4984f76c64ab063a0",
+          "src/core/afternoon-engine.ts": "6b5f58df676f4f772141fe4f118e478224703141b0554f7410796c8d54a3ef90",
+          "src/core/afternoon-state.ts": "5571b817519166d8f1b366bccf0c1f7e473ed30935f1f3b654eafb8a39b2e91d",
+          "src/core/arrangement.ts": "70945c26118de8e4c366407bcf5b86fffed69cf027ab192f9b38f349550495e5",
+          "src/core/bookhouse-engine.ts": "6944397308236f2294f4eaaeb5b7913bdeea96ac73d48320b2e7307b8d49aff0",
+          "src/core/bookhouse-scene.ts": "c34b7b1b3b73dd908d55f0ab58523beff18b1e3eca5d96c80003a137fec73ea4",
+          "src/core/bookhouse-state-v1.ts": "1a4725e7dd5fee5fef958776ca007f805cf5a0b1c627471702ea54d176649013",
+          "src/core/bookhouse-state.ts": "b4b2cc77c4d3a32e8fbba5e83ab05407de519424bc51a4d65e1894a62687a035",
+          "src/core/camera.ts": "ae9748fb7afbcbde8fd004f79eeb366d1ef5a44012809a770dff71237851b0f1",
+          "src/core/collection-catalog.ts": "8f2ed273b9facd225e38859c265cab22b88775aea3c569948808d396041e6c08",
+          "src/core/community-life.ts": "dbf9d69a58f05e6884a5ef146b6063c02402bb1b6bdef0c60f358dbb8d8e4019",
+          "src/core/community-map.ts": "017497259f2b50e4447d7fef7021191487b7e5070046c6c8b127abefdea57876",
+          "src/core/content-controller.ts": "2912ab8a26425943e8605007d3686e6661b3144bcdf987cda119889fae92b361",
+          "src/core/content-engine.ts": "5d035aa366a48506bd40b12fb2e6280dc743c768dfd6a49ea12675aab6ac38dd",
+          "src/core/content-state.ts": "dfa012027bc309056a110df89ea8d50863d4e5a1203552ef995424e0078bc270",
+          "src/core/controller.ts": "8bb4376d7481eea1c2c05b5d5151b3ede1e80862d7007cd4fe14a8449c9adca0",
+          "src/core/dialogue.ts": "b3c117669474afb98af79921c7df4652314c76c775c1a723a41874bfc7747753",
+          "src/core/encounter.ts": "fb68f52c3cc682514b3045d2e683f93454665dc00f51295317c4bdf732c8796d",
+          "src/core/frame-protocol.ts": "22816275b956af6dfc86c13c54cae33e823bea8c9a6cf3a06771dd1379f5daea",
+          "src/core/frame-world.ts": "c1b589b44f08433af226551082cfa0927da30277055c5ea077a681ff6734e9ec",
+          "src/core/home-controller.ts": "b818411c89d3c228576f3a4d7241597cca64e8725c6a627028b5a211bc0a6eb3",
+          "src/core/home-engine.ts": "74e3e6133ce7133ca7349f2ca778f07979d6b2300048aa5f1a68bad25e9e64d7",
+          "src/core/home-state.ts": "9d92acd8fce0c0c1160cd1527f948ecce9d9f9532cc4f435352bea7c3e4256dc",
+          "src/core/keepsake-observation.ts": "0cdaa6d014d3acf3d3c0b552c9be3a9955e1389b3d9b280d7a723068dd3ab526",
+          "src/core/life-catalog.ts": "46a3e29b9401efd614b15462d13d0bf5aa884aa35d42a85e512b4b269bec03d8",
+          "src/core/life-dialogue.ts": "cb10208833cc5701d6700a7d14cb49eb693b644fb90685ee971f711783bdf4bf",
+          "src/core/life-engine.ts": "91177f9a37f535d591e937ef7c4dcd625a45a4f85bd99baa49dfad14083e6f0e",
+          "src/core/living-controller.ts": "eacad9bc554b48d60d8fff93d6c056d16f1a5fc9e576e59a935d3a866ccae8ce",
+          "src/core/living-engine.ts": "98e3546d3087d9ef210b0e0f134e599e4ec03b48e9391095cf695635ca12031c",
+          "src/core/living-play-state.ts": "af2b20bf03600880e6c4ad9f0455448cbb951cf677b0ebc73245b6612a201d64",
+          "src/core/living-state-v10.ts": "ef4589dfeb280f58dbc066b82af3af8f59809e4b269cf1bb20ad067ebc8546a2",
+          "src/core/living-state-v11.ts": "55373fabee3b2fd69a1b55d71c2598d60779499dada383fd7c95e80394949055",
+          "src/core/living-state-v12.ts": "2e8ca50272b71c3bb24bd69d15d539c4524f466266869fd8e041a0c6b5633c98",
+          "src/core/living-state-v13.ts": "5962e97d0c01199967ce32f3438b0b77f9d3c6eedf15573d494692718e790560",
+          "src/core/living-state-v14.ts": "121ef555d6e584db8642c58b40383f4d0f62d8ab501c1228bba84464536ac079",
+          "src/core/living-state-v7.ts": "139806f3626d42148acf3fa9f89a7ac9512fcde765aabdb9ae406628cf8e78e5",
+          "src/core/living-state-v8.ts": "2854f1f5e5fe3d59840344c361428a8acfb65e87e424cea3b61501c1420b7d88",
+          "src/core/living-state-v9.ts": "992476c61c7042c0c31b4cb9e9ed63a8da75452d21f3cfa81ff3d68895b0efa2",
+          "src/core/living-state.ts": "5075eba6da14dc75a778fc0b8e62f22bb6644844fca6fb33d02267e9d68f2696",
+          "src/core/manual-move.ts": "e17337cc7b80fdeb27169cf4c5cd8de3a5927657df268689c4f1e31b4e48b842",
+          "src/core/migrations.ts": "08b9249682751b9ab454ad18378694f15ef68f1d9c0a79c1d6e837fa40e40126",
+          "src/core/navigation.ts": "f6fbcacf6be75014119dee59d112e785fbc9a721a89de1a68dce47515f7cd33c",
+          "src/core/neighborhood-catalog.ts": "b90b0bea5d194065462be3dbf1aa09ca1a5d2e9af6c7b36c4503566bcb4cdfa0",
+          "src/core/neighborhood-controller.ts": "97a6c3430c7e08fee2341adbfeb57f0d7d3f518dac91dffb66750fa77c80c611",
+          "src/core/neighborhood-engine.ts": "6391fbd272bd0e57c8fb0dffe5110d656d7ebefb15fbafb5eb106b1584c9ac5f",
+          "src/core/neighborhood-state.ts": "2460a48c3e13da4eef0f6eb210a678acebadf2ec4b6176016d0d49b4cb87ea58",
+          "src/core/notifications.ts": "a429eacf874991ded069c4780d96bbb1cf26236863d88c71d0e3585f84b0e233",
+          "src/core/photo.ts": "4f758f0dbc4ef88c68ea3656eff88735d0c8fb7127b609dc05b3c5170d689a9c",
+          "src/core/play-catalog-v4.ts": "66a5269cacaeea6f7c93f6b1ff287369a0dd39364b7131a0a5076227c1082098",
+          "src/core/play-catalog-v5.ts": "a58f59f047abab01582312ec63f2b67a4e7f28b7a6dad81d3207bfcd2b5fae59",
+          "src/core/play-catalog-v6.ts": "0f6bc0bf457dbbbc90763de6fb088510682e16a4f0b9df2e3e5fd8cf0a684e85",
+          "src/core/play-catalog.ts": "cabea0bfe5d52b2d8553def8dc5670320f8a301eab3cc5d9ee61d5a47a6cc2f8",
+          "src/core/preferences.ts": "f27e9bdd0c61393ff5fadab8f4a460f46ad35d9b618a197438bf09996c891f5a",
+          "src/core/region-engine.ts": "b6bee1f67490a5ce90ce48103c462eb262528c1061135b4da3ea7117d0413d85",
+          "src/core/relationship-catalog.ts": "b831d47302903414cd9e156b90ef99bbb100d7bc97453c3773b86bf9179852ec",
+          "src/core/roster-policy.ts": "2a896fc95685d86656bf3c7fe3c2cbed3ebf4c1086405e524703c94120d1f119",
+          "src/core/roster.ts": "c1bc067636a6050896a86ec8296ccbd282fda21f383bc843fdf208ca33416085",
+          "src/core/table-game.ts": "14db1e508fc9d1700b1f4c5fa37938aa6f94e1e766a49abcdcc5b89f659ff258",
+          "src/core/table-geometry.ts": "9a8d56792a964cba38edf3f55bcec7955102c3caf8036546e244cb0874917512",
+          "src/core/tea-square-engine.ts": "14e28278212e01c04a9a8391b9b96317a52316d3e70d9d94a3eeab17b8f849e1",
+          "src/core/tea-square-scene.ts": "d2c5d3ccaea10a5107e0e6f13e91ac9ad11b86ba4994ff74ce28d9ff27b0d3da",
+          "src/core/tea-square-state-v1.ts": "59abb05267a387409a2d821a9afae7213b03300f7e505e0eb1267c659f9e041c",
+          "src/core/tea-square-state.ts": "5b601cea757d5d85b80b66d38502ba5de582554c9b4f1bf015305c133f13559f",
+          "src/core/ui-v11-contract.ts": "0a2f9a0783c37213ac6c136dac606799e0e0f84e3f765161ed2bb9b1a65317b4",
+          "src/core/world.ts": "679f987b512a33d277b37ce8f4aa229ec18383d755a86be78d06dc7e282ddcbe",
+          "src/client/AfternoonPanel.tsx": "aa277293abd4754c5ff59f13108060a1f349fe8036752b7e842ca32adae478c5",
+          "src/client/album-client.ts": "7688d801c3e44ae9008f158660a7e63d7428bcb71152fea2b0438adff4eba5a1",
+          "src/client/ArrangementControls.tsx": "d8e2a4004bf3b56cc37b5c6c83194e6082a329c9db37688b3895dbfa1a867deb",
+          "src/client/asset-selection.ts": "d0c4ad33afb5bd5311fc7bcf0fbe7a3ae834b8695a540f73b8a016f99586b102",
+          "src/client/BookhouseStoryPanel.tsx": "e0d71e8c8168a151c0c5b30ab988806b44911de44346e6c29361f50e13cad7e2",
+          "src/client/CollectionPanel.tsx": "998c8a272245f190347b0b18a14e6212e5c886c2ceb2bff5883ad6c91e93a890",
+          "src/client/community-art.ts": "d370af91f4ea2c74927b7e878c85a1cf80e337852e0c1db286e02c038ddd5e5b",
+          "src/client/CommunityMap.tsx": "695311024a6690bdd3acef404dd84140096b8a63731f858b2ab582a52b67a4f2",
+          "src/client/CommunityPanel.tsx": "6eca20a00c21e6cdfb7c1965c2f1ff3095348e1866ba61e0293af5503b67ff3a",
+          "src/client/content-style.ts": "dd3290ff50a9aba4c17712779abdf53bb2e316f1a9740f033d5ce31adccf4cc3",
+          "src/client/diagnostic-trace.ts": "1129c1c0c725e54e861375cb91df29340b949d1c7f4ec556ac6860dd31b4dff0",
+          "src/client/entrance-art.ts": "80af872c13390c56f28ad1f55fadb932d260efbff434ea0ccef47b9121290b30",
+          "src/client/entrance-motion.ts": "eb4c91778cbc6db1de5a6a60fefff69d370eec8c01ff26882cc1a0b15235c9e6",
+          "src/client/entrance-state.ts": "b6b3118004f839732c15629ac3f6f47be9a1bf47b9d344ada579fe8f5595528e",
+          "src/client/entrance-theme.ts": "98c9659e6183ba1236ec0cf9ce66adf3ee8f9516fb56d194a2816be1a4af7037",
+          "src/client/EntranceOverlay.tsx": "e4fd451de8f16b0389c0648bdf32b80df1dc5db8e73cc98485623452455aed96",
+          "src/client/floating-layout.ts": "6023653cdeea9efb4d0d4400dad87d1469d261dbc503e279bde71e5d35d33ad7",
+          "src/client/Floating.tsx": "7e98e25556676ca603aced971e7b9db45f0c2917caf71d8249b31d0b8dcfcc3a",
+          "src/client/frame-bridge.ts": "a5df9f033f5ed955a8392b2ac26beed53b752fa0f9cb1bd948a0aa7a0465bff3",
+          "src/client/header-launcher.tsx": "d2a6323d66b4350090e6396bdde6612a2802cffb751ae3953dce5e81aa4dd4df",
+          "src/client/HomePanel.tsx": "72e36fede3780e2a9a8166426d211d71112c86102403cdcdd6da91bb787679c3",
+          "src/client/Hud.tsx": "ed06f22176d40b72c16d6f17f66e1d15df2c1516d9eb6bb8cec4e9244706e86b",
+          "src/client/Icon.tsx": "b3d2f9d681331400d885a1cbe6f2bf912168906a72e9a5b077338f293a1eb9d6",
+          "src/client/index.ts": "05de9285eb2e2fb2be1d56fd265cbb1bd02d8086271f8b717ec0c602d9ef8347",
+          "src/client/IntroductionPanel.tsx": "02b078a629a87bc72ea58a37f82bf5225d268b95a605a5ffea2c3f3ed7af9b90",
+          "src/client/json-response.ts": "2a3d52b6a17ffc31b0a0d2131ada4611339e40fbab3f330ccabc36a448ff99d9",
+          "src/client/ManagementPanel.tsx": "745759c980ce8bbb06c4b4703e60ad83dcf404a29aeb5bfae1f59b8975eb7f27",
+          "src/client/messages.ts": "316fcb91ed425ee737d08c4bd71d3c329eddf3a1c708b7b4c32f2c9f5b0131dd",
+          "src/client/MovementFeedback.tsx": "baaaac629a962bf82853288f0ff69268aa824a6d8a7f0a66b043d29da3cd25f1",
+          "src/client/NeighborhoodPanel.tsx": "ad5a9d31b56a51c9157325c06ed3e558748be2144f21e451d629da2e05789270",
+          "src/client/Notifications.tsx": "9cdcf050a695898fad1def2ecbe91e6988cf092d472acc173f575b85f482e930",
+          "src/client/PanelShell.tsx": "bf66996e949e2aba72ad8d2aeada9eef725d704c7fd4952757823dee9340f964",
+          "src/client/PhotoPanel.tsx": "dd1cfdac4ff10e9e229d6f6f778febf56832e5985ac7390b2f4ba6fd190fcdfc",
+          "src/client/PlayPanel.tsx": "147190cab535b635e770ba07fd97243a60fa8c95e0c0eeddc5329faf377b694a",
+          "src/client/recovery-policy.ts": "cc8af9dfc187b42b0b0dab341cc9ac2e02872301de98c043c758c0f48c50fa93",
+          "src/client/RecoveryEntrance.tsx": "30dfd166ad917a2a90f5a26b80e21dc72e9f261c354134c7f143623c6f30460d",
+          "src/client/RegionPanel.tsx": "7796bfe437915ac3f1f319e92ce880b758eb1f46f2e4bbebd9759b399100766a",
+          "src/client/RegionTransitionOverlay.tsx": "e2fae9b8324a05cea3f082cd5d53ebade85b75a337f37530e8485833f50a3cc9",
+          "src/client/relationship-panel.tsx": "22e7a765f7018ebfe7a203f17dd71c448be16840772ee8895e2c9528a03f2051",
+          "src/client/runtime.ts": "835c3787c3ba33246f0f1bf5860eed10361eea62f4ab5b3a274d64873bce6f52",
+          "src/client/save-transaction.ts": "5ea5bdc34df28f90fa93c55c74e043dca370aa3a5b219bd9b939c4a40fced980",
+          "src/client/SettingsPanel.tsx": "c6bfbc6d519ee16ecaeb05c1e3439b6b3dcc4fb04765419d592c135b7bcf7020",
+          "src/client/standalone.ts": "afc6cd105a9ccc052d50ec622a52b0611e198b7b1a21ca539c251bc7e70f05c6",
+          "src/client/TableGamePanel.tsx": "1f656a96aabb8739150d73da91d0401ce8d9f298bbe3e3a30580cd1ebedff6b3",
+          "src/client/TeaSquarePanel.tsx": "27d6e5dd4647b5f691cdc5488dea9db74515bc910700de2dfd3ca5e303aab6f6",
+          "src/client/theme-bridge.ts": "888f615fefdb4673af66a219987b8067fb41b74878d8ba89232df8eac4c43d0f",
+          "src/client/ui-contract.ts": "1eeb8dd9757a00c24e3b7a43ad416b43c059edeba1d27a9e96af498cd66b6ba4",
+          "src/client/ui-state.ts": "892e5ca2a1449e166013fd736027898ec915949642d27816b4a18422072714b3",
+          "src/client/ui-theme.ts": "5c8b95adb651176f12352ea4b46fe20905a25e569e29c602e371b75215cdcc48",
+          "src/art/animation.ts": "b73c5c9eacf624d979199faf075375b1018787b10cdce9f2420046be000494ff",
+          "src/art/paper-doll.ts": "6179cbe36a5d98d5509bd450a81ee84486db9c6c33c5a059fe3d758d58c80b8f",
+          "src/art/types.ts": "62e72965bf677f5975c912c2606face2da8b3e338c77986250e6c76241666e48",
+          "experiments/content-ui/client.ts": "49967f355a4f97ed1b6411793d92d128d4730d0f79c0d265349b90f4be79606a",
+          "experiments/content-ui/contracts.ts": "1b82fc18a6ca736d3271df8df032221c39b71963890d1f552da7b706ca3b3c3f",
+          "experiments/content-ui/model.ts": "d8d20f90f6f8ad676189221ec08d673129146b88861de96ee6fa92bf291b0833",
+          "experiments/content-ui/scene.ts": "36c58ee2414e2ac412a5d50f391b1f6fc4388c89d7e368c4d28325cf219a51f8"
+        },
+        "embeddedInputs": {
+          "packages/plugin-shared/src/durable-file.ts": "5d6483c9554ab2523a0759241391ac6240b83d784602d6692f487190dae590c9",
+          "official/packages/util/atomic-write/src/index.ts": "dfcdf7ab738f1cc9c5fcbc583dd4b96c5f299f4c707e1a47ffdeb7fcbe18ad2e"
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "productAnalytics/report",
+      "method": "POST"
+    },
+    {
+      "path": "pluginInventory/list",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listBundles",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listPlugins",
+      "method": "POST"
+    },
+    {
+      "path": "productAnalytics/report",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/registries",
+      "method": "POST"
+    },
+    {
+      "path": "productAnalytics/report",
+      "method": "POST"
+    },
+    {
+      "path": "pluginRegistryProbe/fastest",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/inspect",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/installBundle",
+      "method": "POST"
+    },
+    {
+      "path": "pluginInventory/list",
+      "method": "POST"
+    },
+    {
+      "path": "productAnalytics/report",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listBundles",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listPlugins",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/setBundleEnabled",
+      "method": "POST"
+    },
+    {
+      "path": "pluginInventory/list",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listBundles",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listPlugins",
+      "method": "POST"
+    },
+    {
+      "path": "pluginInventory/list",
+      "method": "POST"
+    },
+    {
+      "path": "productAnalytics/report",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listBundles",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listPlugins",
+      "method": "POST"
+    },
+    {
+      "path": "pluginInventory/list",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listBundles",
+      "method": "POST"
+    },
+    {
+      "path": "pluginManager/listPlugins",
+      "method": "POST"
+    },
+    {
+      "path": "productAnalytics/report",
+      "method": "POST"
+    },
+    {
+      "path": "session/create",
+      "method": "POST"
+    },
+    {
+      "path": "agentPresets/list",
+      "method": "POST"
+    },
+    {
+      "path": "nidofy-ai-village/assets/entrance/entrance-bg-far.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/acquire",
+      "method": "POST"
+    },
+    {
+      "path": "nidofy-ai-village/assets/entrance/entrance-bg-mid.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/entrance/entrance-path.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/entrance/entrance-gate-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/entrance/entrance-gate-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/entrance/entrance-gate-frame.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/entrance/entrance-fg-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/entrance/entrance-fg-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/portraits/bluewhale.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/portraits/claude.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/portraits/gemini.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/portraits/gpt.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/portraits/grok.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/portraits/kimi.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/portraits/qwen.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/state",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/state",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/preferences-state",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/back-hair.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/front-hair.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/curl-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/curl-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/headband.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/ear-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/ear-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/torso.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/skirt.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/leg-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/leg-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/arm-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/arm-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/tail-root.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/tail-fin.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/face-neutral.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/face-happy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/face-surprised.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/face-sleepy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/parts/ahoge.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/desk-back.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/desk-front.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/table-back.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/table-front.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/cushion.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/bowl.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/work-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/work-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/eat-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/eat-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/rest-pose.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/scene/background.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/face-neutral.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/face-happy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/face-surprised.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/face-sleepy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/torso.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/arm-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/arm-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/leg-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/leg-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/work-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/work-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/eat-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/eat-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/rest-pose.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/back-hair.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/claude/parts/ornament.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/face-neutral.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/face-happy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/face-surprised.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/face-sleepy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/torso.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/arm-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/arm-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/leg-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/leg-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/work-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/work-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/eat-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/eat-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/rest-pose.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/back-hair.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gemini/parts/ornament.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/face-neutral.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/face-happy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/face-surprised.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/face-sleepy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/torso.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/arm-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/arm-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/leg-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/leg-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/work-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/work-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/eat-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/eat-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/rest-pose.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/back-hair.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/gpt/parts/ornament.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/face-neutral.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/face-happy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/face-surprised.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/face-sleepy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/torso.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/arm-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/arm-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/leg-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/leg-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/work-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/work-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/eat-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/eat-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/rest-pose.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/back-hair.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/grok/parts/ornament.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/face-neutral.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/face-happy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/face-surprised.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/face-sleepy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/torso.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/arm-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/arm-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/leg-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/leg-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/work-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/work-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/eat-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/eat-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/rest-pose.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/back-hair.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/kimi/parts/ornament.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/face-neutral.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/face-happy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/face-surprised.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/face-sleepy.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/torso.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/arm-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/arm-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/leg-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/leg-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/work-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/work-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/eat-left.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/eat-right.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/rest-pose.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/back-hair.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/assets/qwen/parts/ornament.png",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/frame",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/state",
+      "method": "GET"
+    },
+    {
+      "path": "nidofy-ai-village/state",
+      "method": "GET"
+    }
+  ],
+  "notCovered": [
+    "Physical sleep/minimize, IME candidate selection and long-duration hardware performance",
+    "Unknown-ACK fault injection belongs to the separate authenticated browser and runtime suites",
+    "Git/Live2D coordination belongs to A6; these packages are not installed here"
+  ],
+  "runnerSha256": "957e31dc94efef2e2c5ee68c3f4ba39e1bebfbdda4e16a55ec24298fa41294d0"
+}

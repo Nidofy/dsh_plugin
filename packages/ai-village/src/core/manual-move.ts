@@ -2,7 +2,7 @@ import { cancelTeaSquareActivity } from './tea-square-engine.ts'
 import { actors, abandon, available, contains, step, walkable, type Point, type Scene } from './world.ts'
 import { residentRoute, clearSegment } from './navigation.ts'
 import { regionScene, validateLivingWorld, type LivingWorld } from './living-state.ts'
-import { cancelLifeSocial } from './life-engine.ts'
+import { cancelCommunitySocial as cancelLifeSocial } from './community-life.ts'
 
 export function cancelManualMove(w: LivingWorld) {
   const a = w.manualMove && actors(w).find(a => a.id === w.manualMove!.actorId)
@@ -11,7 +11,7 @@ export function cancelManualMove(w: LivingWorld) {
 }
 export function requestManualMove(source: LivingWorld, base: Scene, target: Point): LivingWorld {
   const w = validateLivingWorld(source,base), scene = regionScene(w,base)
-  if (w.teaSquare.active || w.activeEvent || w.neighborhood.event || w.play.active || w.bookhouse.active) throw Error('EVENT_ACTIVE')
+  if (w.afternoon.active || w.teaSquare.active || w.activeEvent || w.neighborhood.event || w.play.active || w.bookhouse.active) throw Error('EVENT_ACTIVE')
   if (w.userPaused) throw Error('MOVE_PAUSED')
   if (!target || !walkable(scene,target)) throw Error('INVALID_MOVE_TARGET')
   if (scene.hotspots.some(h => contains(h.hit,target))) throw Error('MOVE_FURNITURE')

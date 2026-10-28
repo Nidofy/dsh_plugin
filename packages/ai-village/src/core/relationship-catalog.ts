@@ -1,3 +1,4 @@
+import { afternoonStory } from './afternoon-catalog.ts'
 import type { LivingWorld } from './living-state.ts'
 import { characterIds, type CharacterId } from './roster.ts'
 import { stories, words, type Words } from './neighborhood-catalog.ts'
@@ -61,6 +62,7 @@ export function relationshipFacts(world: LivingWorld) {
   })
   const tea=world.teaSquare.memory
   if(tea)sources.push({id:'tea-square-three-cups',eventId:tea.eventId,title:words('三杯不同的下午','Three cups, one afternoon'),source:words('来源：首次保存的三人茶会','Source: the first saved three-person tea story'),participants:[...tea.participants],completedTick:tea.completedTick,detail:words(`第 ${tea.day} 天的三位朋友；重玩不替换首次参与者。`,`Three friends on day ${tea.day}; replays preserve this first cast.`),keepsake:{id:'three-leaf-tea-tag',name:words('三叶茶签','Three-leaf tea tag'),location:location(world.teaSquare.keepsake)}})
+  for(const m of world.afternoon.memories){const d=afternoonStory(m.storyId);sources.push({id:m.storyId,eventId:m.eventId,title:d.title,source:words('来源：亲手完成并保存的下午茶小插曲','Source: a completed, saved afternoon story'),participants:[...m.participants],completedTick:m.completedTick,detail:words('保留首次选择和参与者，重玩不会改写这段回忆。','The first choice and cast are preserved across replays.'),keepsake:{id:m.storyId,name:d.keepsakeTitle,location:location(world.afternoon.keepsakes[m.storyId])}})}
   const pairs: Relationship[] = []
   for (let i = 0; i < characterIds.length; i++) for (let j = i + 1; j < characterIds.length; j++) {
     const pair = [characterIds[i]!, characterIds[j]!] as const, id = pairKey(pair)

@@ -1,0 +1,2728 @@
+{
+  "generatedAt": "2026-10-28T07:57:11.348Z",
+  "policy": "Original files remain unmodified locally. Commit final pre6 full browser evidence and native root files; historical browser files are indexed by exact hash, not relabeled PASS.",
+  "browser": [
+    {
+      "label": "b1-slice-dpr1-01",
+      "status": "FAIL",
+      "version": "0.14.0-preview.1",
+      "artifact": null,
+      "failure": "AssertionError [ERR_ASSERTION]: Production build source identity src/core/bookhouse-engine.ts\n+ actual - expected\n\n+ '6944397308236f2294f4eaaeb5b7913bdeea96ac73d48320b2e7307b8d49aff0'\n- 'ce825625de5060c3923a6a4f0184ad7809012654db7eebdd030ff24592a19247'\n\n    at freeze (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:63:75)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:183:3",
+      "classification": "SOURCE_IDENTITY: source changed after build; rejected before gameplay",
+      "checks": [],
+      "resultSha256": "634c515736488481d0544769e60f97ba2c23bb17e2905c0ebc34224b5a8af0e8",
+      "files": {
+        "build.json": {
+          "bytes": 32188,
+          "sha256": "30780ebe54f073b344f066b03512d59cde968badcbeca1ef147cc5704fec1170"
+        },
+        "result.json": {
+          "bytes": 33707,
+          "sha256": "634c515736488481d0544769e60f97ba2c23bb17e2905c0ebc34224b5a8af0e8"
+        }
+      }
+    },
+    {
+      "label": "b1-slice-dpr1-02",
+      "status": "FAIL",
+      "version": "0.14.0-preview.1",
+      "artifact": null,
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at act (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:122:82)\n    at async story (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:143:5)\n    at async b1 (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:171:23)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:209:29",
+      "classification": "RUNNER_TIMING: controlled action observed before React confirmation",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "74aaac78183be8618dd61556bfacd734640ddadb84f6b67cbee52ced432c40fa",
+      "files": {
+        "build.json": {
+          "bytes": 32529,
+          "sha256": "32380caa9f7f2c31c45b267ad8fe547d5ecde0f6f28a34ea7d6bfc4f9f429af6"
+        },
+        "failure.png": {
+          "bytes": 319029,
+          "sha256": "16dd368b4de4edd098018bfabbc57a1915a3974c6a38cf0793a354c5ce0ea231"
+        },
+        "result.json": {
+          "bytes": 524179,
+          "sha256": "74aaac78183be8618dd61556bfacd734640ddadb84f6b67cbee52ced432c40fa"
+        },
+        "runner.mjs": {
+          "bytes": 20794,
+          "sha256": "0bf4b414b0cf9576f0343a983d3d348591fb9aa0f0b99f727801d2afb0c33615"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 318911,
+          "sha256": "ea1c299295c4137a1745682b5d6f8405eaa0b0d2c928a048f392cc434f60c4e6"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "b1-slice-dpr1-03",
+      "status": "FAIL",
+      "version": "0.14.0-preview.1",
+      "artifact": null,
+      "failure": "Error: Error: SAVE_UNCONFIRMED\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:29:89\n    at async until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:27:138)\n    at async story (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:160:91)\n    at async b1 (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:171:23)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:209:29",
+      "classification": "RUNNER_TIMING: unknown ACK entrance recovery checked too early",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "166edb54845f4d6802f69b815b165ff0e97849fd81ec3b3178d780a5cca8b545",
+      "files": {
+        "bookmark-partial-cold.png": {
+          "bytes": 372401,
+          "sha256": "964cbb9313b646bf6b50c8ceb74cb4ed19815c4c7712d855d78b250a8753a424"
+        },
+        "build.json": {
+          "bytes": 32529,
+          "sha256": "fb0585c19a6666db8d155a8ccd3fcfbba54c6320752d1fc527c6fc6ab7e43fd1"
+        },
+        "failure.png": {
+          "bytes": 402546,
+          "sha256": "0d27d80a1977f2c2f2416023fb384433b4e7f89b78e994a277fa1050320e3726"
+        },
+        "result.json": {
+          "bytes": 1197710,
+          "sha256": "166edb54845f4d6802f69b815b165ff0e97849fd81ec3b3178d780a5cca8b545"
+        },
+        "runner.mjs": {
+          "bytes": 20879,
+          "sha256": "548319e2580f402bcac62533454f56db204581a5650ef96fa9a386bc870716ea"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 309890,
+          "sha256": "d256c01573c1e2f902e0cb0162c08cf23e366146b365dafd68da56a6b052afd1"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 319035,
+          "sha256": "7145e754f083e9464f7d8d4149c4b3c341743f22eb2d3a3212371faab9c17b4f"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 459432,
+          "sha256": "e91d79e048004f34affeef5870bf4630fd871d89960c175a77d115f26ce96c0c"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "pre2-all-dpr1-01",
+      "status": "FAIL",
+      "version": "0.14.0-preview.2",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.2.tgz",
+        "bytes": 53687508,
+        "sha256": "22d41072b0931a3ae58fc1b441b6c786403ec023008e8b87bdb1484327427cbc"
+      },
+      "failure": "TypeError: community is not a function\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:292:29",
+      "classification": "RUNNER: B1 passed, community function shadowed by variable",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "97ca6ffb2eb4ab952e02f53a321beb662ebbde3026ece24d56a0aeacd27a2a6f",
+      "files": {
+        "bookmark-partial-cold.png": {
+          "bytes": 372438,
+          "sha256": "601c2e2eb3060b4e432c6b1a83e64ccd8f3e61b4fa2d8b9880d7be71a3bb1838"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "cab338c4ecc2c89b1ea1a63f22961ebb1a14ec4373f5f50ae4221fa48698f086"
+        },
+        "failure.png": {
+          "bytes": 400015,
+          "sha256": "fff70cf7a96c7518d16d172f9c4a13d5b90a40d6f0070910f87f12404f6502ca"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 400631,
+          "sha256": "544b78c6769719ead3bb47d735aa6a1184d7cd2b45be52425fd5deefa24634c8"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 314539,
+          "sha256": "494dd61692aa9b5c7753982b707af90225bee0b68b8d27ecf0fb742b0ced2db8"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 318121,
+          "sha256": "e86ba101ba30f72a8fad1b957946955f4c380a3c813e5b0c421fabead0d7d7bb"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 400032,
+          "sha256": "c8258fbc54bab3f15aa42b8726ca0631813fa5c6a0cbb955e97cf09182a23da7"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 314601,
+          "sha256": "7fd5db6ef9cee877c7e6ac17bb77ae500bab264ba68727200340326640f845e8"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 312617,
+          "sha256": "c2edbc8fee0d48ca39d6e2284998b75e5b445f88da084adad0850a5e359db503"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 400706,
+          "sha256": "b714c78d1b4da7b6b97c86b636af209b52659408c79eabf9bb5f23d7e794c0b5"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 400878,
+          "sha256": "6126131deff0d3fb313f8b5c6ea795aa4581b8da7389ccba31025256f3001e01"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 377552,
+          "sha256": "0754026f2d4439af9395188fd3316dfe20d8bf6f055b45645fac334fe16c589c"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 400654,
+          "sha256": "bbc80086bfd407c1cfa40c19f9185bfbc5e9ff3f91f680e4bee67892aacb6a5c"
+        },
+        "result.json": {
+          "bytes": 4581014,
+          "sha256": "97ca6ffb2eb4ab952e02f53a321beb662ebbde3026ece24d56a0aeacd27a2a6f"
+        },
+        "runner.mjs": {
+          "bytes": 29864,
+          "sha256": "0988cf20c581d08e625241a51c9c5b71223021196fb11f928f6123a4be591a6a"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 398964,
+          "sha256": "10fe2c8ee8bf973f9bd0fca882dee140f7282dea63e696c08280fb1a96e65a52"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 309914,
+          "sha256": "7d2943749df4750d4145cadc0d28497ded154bef281d3386e97931ee8d34b80d"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 318980,
+          "sha256": "3c67f640f4fd2aebf9b18f9c2b7cca4a86ff67b39f75f9d8624ea3ecfbcb8e90"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 398167,
+          "sha256": "1a01a1fd9e6b12a2e1bfc90fe30e8d7cfd50003c4a90f4a9f704fa702ef171bc"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 312320,
+          "sha256": "b8268e898733061e1b3f31a5fd4df0ff54e30cd0b1a506b7a8d95b0722513e15"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 317085,
+          "sha256": "2cfcabf77cebd633aef2b300fcd77d874bb758c839684049a0b95384724d3264"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 398951,
+          "sha256": "01ad55e2c02f76f50c5f859d1f1b92e70b08dc26ee7a92e7d87602caf1eb092a"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 398908,
+          "sha256": "3657dde6be4e3e90e5a0be8c814d00509f07a6b70093c8a362d655cc4c10ff38"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 373386,
+          "sha256": "4bc5cd605938595b267621adea0e727312c1cacb043375b41e792c3fdc2083c5"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 396340,
+          "sha256": "d428f4ddafaf5e8ae384be06b44d926bc05d2fbcfad088d7537f0936c2f47314"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 459432,
+          "sha256": "e91d79e048004f34affeef5870bf4630fd871d89960c175a77d115f26ce96c0c"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 238771,
+          "sha256": "af6371740eaea62e956f6207e96b98b5d17c94645ddab8647bc12ef21ccbe6b4"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "pre3-all-dpr1-01",
+      "status": "FAIL",
+      "version": "0.14.0-preview.3",
+      "artifact": null,
+      "failure": "locator.setChecked: Clicking the checkbox did not change its state\nCall log:\n\u001b[2m  - waiting for getByLabel('显示对话气泡', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <input checked type=\"checkbox\"/>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - performing click action\u001b[22m\n\u001b[2m    - click action done\u001b[22m\n\u001b[2m    - waiting for scheduled navigations to finish\u001b[22m\n\u001b[2m    - navigations have finished\u001b[22m\n\n    at bubbles (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:181:127)\n    at async propShot (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:175:22)\n    at async story (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:144:18)\n    at async b1 (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:191:23)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:323:29",
+      "classification": "RUNNER: controlled asynchronous preference cannot use setChecked immediate assertion",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "2d6537fb3abef4c9642fc5c6f1809a2db36a6eb674e542708cb1f7ec54cc0530",
+      "files": {
+        "build.json": {
+          "bytes": 32530,
+          "sha256": "a0526224a0275ddf487d0f7886b388bc38b61498416e4942ecb788ed66e9e599"
+        },
+        "failure.png": {
+          "bytes": 228959,
+          "sha256": "6537a03e41add15a7b122f161b4f89a92bbf455ba5bc1cc05d111c95741dcb0f"
+        },
+        "result.json": {
+          "bytes": 462254,
+          "sha256": "2d6537fb3abef4c9642fc5c6f1809a2db36a6eb674e542708cb1f7ec54cc0530"
+        },
+        "runner.mjs": {
+          "bytes": 32407,
+          "sha256": "86bae4a8aedf329d5c0b6f1197192959e6fba5860bcc10251257e03eb2bddc94"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 318773,
+          "sha256": "4942735cccf27a7f36571d75b0256a26a441030158cedd9658839af98cb246d2"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "pre3-all-dpr1-02",
+      "status": "PASS",
+      "version": "0.14.0-preview.3",
+      "artifact": null,
+      "failure": null,
+      "classification": "HISTORICAL_PASS: no artifact argument; not final package qualification",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "bookhouse: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts; actual recall bubble matches original memory source/event/cast",
+        "courtyard: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts",
+        "Explicit courtyard activity creates a source fact; simple region visits and autonomous greetings did not",
+        "Cross-region UI carries exact original event/cast provenance; three-place card unlocks only after real saved courtyard/bookhouse/tea experiences and survives cold recovery",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "3a971aca0a3443623fcd63a1fac4879c135e03c3febbfec084264a8359a881fb",
+      "files": {
+        "autonomy-bookhouse-cooldown-cold.png": {
+          "bytes": 362812,
+          "sha256": "0b5e720a253bacb3cbed43c5bca2f8de45c996da67dfb60cf62f2a3c788a6b5a"
+        },
+        "autonomy-courtyard-cooldown-cold.png": {
+          "bytes": 383684,
+          "sha256": "6f4fd9e4748d57e59c1056e3fa6a62d309ffc535628621f8345395a868621c78"
+        },
+        "bookmark-partial-cold.png": {
+          "bytes": 372275,
+          "sha256": "fd422aa90146e530f22e5474eff4a4824c95d90800080c97428b09d336ab442b"
+        },
+        "build.json": {
+          "bytes": 32530,
+          "sha256": "a1a04fb90ed04e3f791da251bd32b223246c9853a3e296f1d9494ad88fc9cb36"
+        },
+        "new-bookhouse-source.png": {
+          "bytes": 361867,
+          "sha256": "93ff2549a4c6b9ade4454ba9f26af53b54e4f39ca1ce0e8ba978a0b8e6b8813c"
+        },
+        "new-courtyard-source.png": {
+          "bytes": 384281,
+          "sha256": "c79ab5ae1b8201785cf2dee0a51879ebe879eed2fc9b35e7f6a0f9ead3300bf4"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 400272,
+          "sha256": "2593cb5d75aa075d021b2f74dab762b1f4bd63d187c79334b5199a547ff95c54"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 314196,
+          "sha256": "eb9dd67f4649dd3cf9b6a725aa25a088fcf8035c97514dfe2990183ea5c348c4"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 317853,
+          "sha256": "263f65e6c2e449a264824904555812593d346ab7afc4fcd82b5bb2f4603a8c1a"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 399936,
+          "sha256": "8cda3775a932aef9dce5e61c8a0e8afcfe832f50e2eb66a4d875a7445e6fe98b"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 314307,
+          "sha256": "813a808b5731d25cb4a9e9ec0e5d18ac8b50196641b10ceac4d2e975fb6ea8e2"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 312509,
+          "sha256": "39b0fd1f63588ed8c942c2b1b9834d42c11e81c6559b46bfe9d0beac6f2ccb50"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 400626,
+          "sha256": "2b7bcf74bf04a75d0e81df3d0da2fb602fe904e2119418809bef9768fd55c1fb"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 400519,
+          "sha256": "069d28faa6c682bf837c364d73ed6476e9d3a4bd1304aa5c2e8505e77c5af79c"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 399607,
+          "sha256": "ebd17e79362b7a75b4212e504792893eace5e2ba65dff6f0f6776ce6010c1bad"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 400788,
+          "sha256": "4fa609be7119c4d98639014c0fea7ef9ac790b1a10e5fe9955fcb0fafd58e005"
+        },
+        "result.json": {
+          "bytes": 10322955,
+          "sha256": "3a971aca0a3443623fcd63a1fac4879c135e03c3febbfec084264a8359a881fb"
+        },
+        "runner.mjs": {
+          "bytes": 32535,
+          "sha256": "263ec4b2c31bdbabf0336a909cfa5b2b13e69cb5e6ae7b30e4d475f1c8648abd"
+        },
+        "saved-tea-experience-recalled-in-bookhouse.png": {
+          "bytes": 325365,
+          "sha256": "9afb268b9e24d7bacd638f6f547da0ec205ecb822fc94543122c73b49298cf91"
+        },
+        "social-bookhouse-20298-invite.png": {
+          "bytes": 352509,
+          "sha256": "91aee06f8b869dc7d02817a11d9e6c5c5c94a53fb14ab07d5561135e0275bfd1"
+        },
+        "social-bookhouse-22998-greet.png": {
+          "bytes": 350935,
+          "sha256": "0be01180fa19ee9b1dad181c1cfacb2ac01258c8f455470c8236986c5ee2a3dc"
+        },
+        "social-bookhouse-23898-recall.png": {
+          "bytes": 348663,
+          "sha256": "f0f995ce250114fc5a58b6c95d4af2e99b52378c4761e1e7990b1bb106ef053b"
+        },
+        "social-courtyard-26598-greet.png": {
+          "bytes": 368231,
+          "sha256": "c565c6ec0ce8bc2f8ef7ea5e8321c2d5039cb19712f5e8cec91b9ca72c971b61"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 398672,
+          "sha256": "1072daf43173ef5b9efde891de746001971d6225c6dcf78562de33b6067d8265"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 309956,
+          "sha256": "5273f73fe4482913cbe14628b7258257eff140e7b620417de4322056e36270e6"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 318780,
+          "sha256": "2b9eed4521b9880f9fa275aa9c4222c747c9406c74b60ebd764631ba62685d8c"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 398111,
+          "sha256": "6d5d303a5cfdbf5a7346c2933fce99be10f7dca1cd6561715f8d05500b3a965d"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 312347,
+          "sha256": "8b730499e117ab47e233af29d7b2347b8fc292ecce191387dbe7c76672c8b9eb"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 316866,
+          "sha256": "ff2233e6c615d1325b0e2bab3126e167742d9fdf475033a7e945ddced1eed725"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 398884,
+          "sha256": "6d033828fa80131e1c1aadb5cc653a2faa53791d079c44b64373b447499c150c"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 398327,
+          "sha256": "730a1450a96428a14639a0dbed3ab945a2ef22d7d38ff0f22c9dacdb61784c7c"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 400269,
+          "sha256": "d839b38aa12639169d66fe3061739d45cb0b3f55cf83abc9ef9d2e1a519ed821"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 396347,
+          "sha256": "aff6b8f232a6768d1b9342128d07437b40da8441a56cc5259251129f6122cc6c"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 459432,
+          "sha256": "e91d79e048004f34affeef5870bf4630fd871d89960c175a77d115f26ce96c0c"
+        },
+        "three-region-card-in-courtyard.png": {
+          "bytes": 383693,
+          "sha256": "4d296680c606ab124426b6f4efc850224e563f73781ce2bcfc2bb81e2a4257e6"
+        },
+        "three-region-collection-cold.png": {
+          "bytes": 383693,
+          "sha256": "4d296680c606ab124426b6f4efc850224e563f73781ce2bcfc2bb81e2a4257e6"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 238348,
+          "sha256": "472dbbe539a22bbd06c83f950628cb4c2af4c3f64fea31f5e7a677a2d9529fd9"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "pre3-all-dpr2-01",
+      "status": "FAIL",
+      "version": "0.14.0-preview.3",
+      "artifact": null,
+      "failure": "locator.setChecked: Clicking the checkbox did not change its state\nCall log:\n\u001b[2m  - waiting for getByLabel('显示对话气泡', { exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <input checked type=\"checkbox\"/>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - performing click action\u001b[22m\n\u001b[2m    - click action done\u001b[22m\n\u001b[2m    - waiting for scheduled navigations to finish\u001b[22m\n\u001b[2m    - navigations have finished\u001b[22m\n\n    at bubbles (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:181:127)\n    at async propShot (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:175:22)\n    at async story (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:144:18)\n    at async b1 (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:191:23)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:323:29",
+      "classification": "RUNNER: controlled asynchronous preference cannot use setChecked immediate assertion",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "a60aad4d107371d2b5cd3c2e498c107998173ba4749757fde407e7e0c1cf4113",
+      "files": {
+        "build.json": {
+          "bytes": 32530,
+          "sha256": "2d41fb645d23d1873115ed0cda1e56d013f3a73f8a312f73b36934c08b0c135c"
+        },
+        "failure.png": {
+          "bytes": 884176,
+          "sha256": "36a8fef2269cbb9c5765cb8b1846d560ae879df9a45689953b2558a9fb7edf3f"
+        },
+        "result.json": {
+          "bytes": 466251,
+          "sha256": "a60aad4d107371d2b5cd3c2e498c107998173ba4749757fde407e7e0c1cf4113"
+        },
+        "runner.mjs": {
+          "bytes": 32407,
+          "sha256": "86bae4a8aedf329d5c0b6f1197192959e6fba5860bcc10251257e03eb2bddc94"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 1152032,
+          "sha256": "6d7a4fdc2c7d7e382f9eaabd65788902e42c2dbd41ada9c974cce00296f4be2f"
+        },
+        "world14-migrated.png": {
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      }
+    },
+    {
+      "label": "pre3-all-dpr2-02",
+      "status": "FAIL",
+      "version": "0.14.0-preview.3",
+      "artifact": null,
+      "failure": "Error: TIMEOUT: actual cross-region recall bubble with original source and full duration\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:27:226)\n    at async autonomy (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:233:3)\n    at async community (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:286:3)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:324:23",
+      "classification": "SOCIAL_TIMEOUT: no qualifying full recall bubble within bounded observation",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "53d7bc95557ac1a2ba28132abbefc7ad295acdb5cf88df32981124434bbd6d39",
+      "files": {
+        "bookmark-partial-cold.png": {
+          "bytes": 1343638,
+          "sha256": "51c7ac8a807896ad9032c0805bc98e527f38f33663ce875d299d05158fcda5cd"
+        },
+        "build.json": {
+          "bytes": 32530,
+          "sha256": "95118842f76a79c4bcced8ec0d26be38c8bef9f5c3ff1ade61b61fdae8c55bd8"
+        },
+        "failure.png": {
+          "bytes": 1285974,
+          "sha256": "bd2c334b780282e29f093359c116459f68661c701e8de2d4b5b27a7df5bea822"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 1454635,
+          "sha256": "49b9f88a82a29feadc0745dcdf32ff726e1898cd865a8e6a1d1fc1b76ccee3f8"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 1135763,
+          "sha256": "0c4b990246ed5bbf5fcefe899efd4d868c52aa920cd63d64429fe83606c53121"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 1145726,
+          "sha256": "94e3d3705f9471034fd73579253c4ed357d8a2b5aab50a731b09fde6a5e98324"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 1451549,
+          "sha256": "28e30991834b1da0657d36d2235e42084874e99df05c3a1b8a7e5f516e98bb70"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 1135713,
+          "sha256": "d4477e59db7fc7471f4b9d69b296bda22b0c3d8ddcf985c2f8c04fdfcac66606"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 1126101,
+          "sha256": "9c2542c9b7c9b129ee65ff4684768b0cc1fe268bfbd9a34a0b775480b6cf22bc"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 1454536,
+          "sha256": "1b4f2c006493784d7fb2cdb579f767b0be2bd51d059bc2fd1513b5d6bdff397f"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 1451781,
+          "sha256": "6b1bffbf8bba5dbad946dc0488cc1874a5af564c3b34718488d22afb70029884"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 1448701,
+          "sha256": "91d4f3e6daa2723d43c218eb5eca98e055c5644b261f3f3a617227095459da9d"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 1455770,
+          "sha256": "e069b70f570c90d90527afa9d3cff99a941495936145bb43f67f0bc6fa563666"
+        },
+        "result.json": {
+          "bytes": 15194155,
+          "sha256": "53d7bc95557ac1a2ba28132abbefc7ad295acdb5cf88df32981124434bbd6d39"
+        },
+        "runner.mjs": {
+          "bytes": 32535,
+          "sha256": "263ec4b2c31bdbabf0336a909cfa5b2b13e69cb5e6ae7b30e4d475f1c8648abd"
+        },
+        "saved-tea-experience-recalled-in-bookhouse.png": {
+          "bytes": 1142194,
+          "sha256": "6a5fc1c1d16758bcd007f232246f20b3659ef01ee8fc60ebb1fcaa95d3c01333"
+        },
+        "social-bookhouse-21286-greet.png": {
+          "bytes": 1262769,
+          "sha256": "17686a1649a0a01a4557d9017904d40b8c5e5b02818ff77c55dd9e5abdd7cda9"
+        },
+        "social-bookhouse-22186-invite.png": {
+          "bytes": 1241787,
+          "sha256": "ad7fe280400002278771ac448fe2837c54394e4696cf1a047ab7387ba1570c43"
+        },
+        "social-bookhouse-23986-invite.png": {
+          "bytes": 1240319,
+          "sha256": "2727fbfee2874cba6fa59a04b16c9982703d8d505ec0979bf172e5fb42657be4"
+        },
+        "social-bookhouse-24886-greet.png": {
+          "bytes": 1255157,
+          "sha256": "5ce13fa443c24a57464404872756fa1274a7c47e88b5ba3d17a0b07cb01079ee"
+        },
+        "social-bookhouse-27586-invite.png": {
+          "bytes": 1221374,
+          "sha256": "7170019bcb706a4557f634a8b361c3716ec3f9807eee5ea5257887501f298b1c"
+        },
+        "social-bookhouse-29386-invite.png": {
+          "bytes": 1243717,
+          "sha256": "fab16933efaeae3d330b1527a0902fa3d83f88a5c00719c8958faf6bccc45e9d"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 1444231,
+          "sha256": "2775f86c1e50eb40c50a0df6de565004f72ec85144da2a91c509f8a182e48f41"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 1117318,
+          "sha256": "8ddafe1cd3a76a7077e7c4cb2bb9b499afb86900f53f20dd85bfa50f672af28c"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 1151987,
+          "sha256": "f07cb41cdbb7a16e90767fbbea65203b36255788c2b4bfa87ab8dfa4bb69aec7"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 1441598,
+          "sha256": "721a583ba80a9ac260bbb01d4bd153e9073747d90e8a2402c21a06d059b774e9"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 1125437,
+          "sha256": "0099dcdfded4e5213bb5b1e865fdb2cc3d91e1043a0f5299b7623c4022691c78"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 1144334,
+          "sha256": "d94487af4de637c3ad962888c5d21fce3febd5548ec0242e3372e71252b9dada"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 1444813,
+          "sha256": "f11add834604c71df456f6a6a8aa923a2e8cee32936dc1ce1e2144fd6705024d"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 1443475,
+          "sha256": "d207040826e94852a85edaa3b84e9bdf4f7cffbcd722e75c3f5741744de6c005"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 1453470,
+          "sha256": "8cdc8119c3d283ce6ced60669f80fdfdfddcc0b3b3bb87a12af5ae976fe014bc"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 1433049,
+          "sha256": "c309544624d0cb4b49e501d7e827f569098d4eac24e01305a8e376606ccbbef3"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 1410370,
+          "sha256": "13fc42fbe6be4f9974a27a00c40e0c27f7e43686eac8202bdf9b06d3f5b053b1"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 852470,
+          "sha256": "7c402ef04add473e00f28f2d3e7112e5553856a20d12d890cd9ea86e8e338a06"
+        },
+        "world14-migrated.png": {
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      }
+    },
+    {
+      "label": "pre4-all-dpr1-01",
+      "status": "FAIL",
+      "version": "0.14.0-preview.4",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.4.tgz",
+        "bytes": 53688339,
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83"
+      },
+      "failure": "AssertionError [ERR_ASSERTION]: Roundtrip resource owner grew: bookhouse\n+ actual - expected\n... Skipped lines\n\n  {\n    keys: [\n      'bookhouse/bookhouse-activity-atlas.png',\n      'bookhouse/bookhouse-scene-atlas.png',\n      'claude/parts/arm-left.png',\n...\n      'claude/parts/work-right.png',\n-     'gemini/parts/arm-left.png',\n-     'gemini/parts/arm-right.png',\n-     'gemini/parts/back-hair.png',\n-     'gemini/parts/eat-left.png',\n-     'gemini/parts/eat-right.png',\n-     'gemini/parts/face-happy.png',\n-     'gemini/parts/face-neutral.png',\n-     'gemini/parts/face-sleepy.png',\n-     'gemini/parts/face-surprised.png',\n-     'gemini/parts/leg-left.png',\n-     'gemini/parts/leg-right.png',\n-     'gemini/parts/ornament.png',\n-     'gemini/parts/rest-pose.png',\n-     'gemini/parts/torso.png',\n-     'gemini/parts/work-left.png',\n-     'gemini/parts/work-right.png',\n-     'gpt/parts/arm-left.png',\n-     'gpt/parts/arm-right.png',\n-     'gpt/parts/back-hair.png',\n-     'gpt/parts/eat-left.png',\n-     'gpt/parts/eat-right.png',\n-     'gpt/parts/face-happy.png',\n-     'gpt/parts/face-neutral.png',\n-     'gpt/parts/face-sleepy.png',\n-     'gpt/parts/face-surprised.png',\n-     'gpt/parts/leg-left.png',\n-     'gpt/parts/leg-right.png',\n-     'gpt/parts/ornament.png',\n-     'gpt/parts/rest-pose.png',\n-     'gpt/parts/torso.png',\n-     'gpt/parts/work-left.png',\n-     'gpt/parts/work-right.png',\n-     'grok/parts/arm-left.png',\n-     'grok/parts/arm-right.png',\n-     'grok/parts/back-hair.png',\n-     'grok/parts/eat-left.png',\n-     'grok/parts/eat-right.png',\n-     'grok/parts/face-happy.png',\n-     'grok/parts/face-neutral.png',\n-     'grok/parts/face-sleepy.png',\n-     'grok/parts/face-surprised.png',\n-     'grok/parts/leg-left.png',\n-     'grok/parts/leg-right.png',\n-     'grok/parts/ornament.png',\n-     'grok/parts/rest-pose.png',\n-     'grok/parts/torso.png',\n-     'grok/parts/work-left.png',\n-     'grok/parts/work-right.png',\n-     'kimi/parts/arm-left.png',\n-     'kimi/parts/arm-right.png',\n-     'kimi/parts/back-hair.png',\n-     'kimi/parts/eat-left.png',\n-     'kimi/parts/eat-right.png',\n-     'kimi/parts/face-happy.png',\n-     'kimi/parts/face-neutral.png',\n-     'kimi/parts/face-sleepy.png',\n-     'kimi/parts/face-surprised.png',\n-     'kimi/parts/leg-left.png',\n-     'kimi/parts/leg-right.png',\n-     'kimi/parts/ornament.png',\n-     'kimi/parts/rest-pose.png',\n-     'kimi/parts/torso.png',\n-     'kimi/parts/work-left.png',\n-     'kimi/parts/work-right.png',\n      'parts/ahoge.png',\n      'parts/arm-left.png',\n      'parts/arm-right.png',\n      'parts/back-hair.png',\n      'parts/curl-left.png',\n...\n      'parts/torso.png',\n-     'qwen/parts/arm-left.png',\n-     'qwen/parts/arm-right.png',\n-     'qwen/parts/back-hair.png',\n-     'qwen/parts/eat-left.png',\n-     'qwen/parts/eat-right.png',\n-     'qwen/parts/face-happy.png',\n-     'qwen/parts/face-neutral.png',\n-     'qwen/parts/face-sleepy.png',\n-     'qwen/parts/face-surprised.png',\n-     'qwen/parts/leg-left.png',\n-     'qwen/parts/leg-right.png',\n-     'qwen/parts/ornament.png',\n-     'qwen/parts/rest-pose.png',\n-     'qwen/parts/torso.png',\n-     'qwen/parts/work-left.png',\n-     'qwen/parts/work-right.png',\n      'scene/eat-left.png',\n      'scene/eat-right.png',\n      'scene/rest-pose.png',\n      'scene/work-left.png',\n      'scene/work-right.png'\n    ],\n+   rgba: 37410772,\n+   sources: 43,\n+   textures: 43,\n+   urls: 43\n-   rgba: 63796952,\n-   sources: 123,\n-   textures: 123,\n-   urls: 123\n  }\n\n    at sceneResources (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:98:35)\n    at async travel (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:89:3)\n    at async community (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:294:27)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:334:23",
+      "classification": "RUNNER: texture inventory must be keyed by region and resident roster",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "9b8c6c5682496dfb62a4e41cca563fb81e240ba41c5d7a80c15ad3e0bc616a19",
+      "files": {
+        "bookmark-partial-cold.png": {
+          "bytes": 372341,
+          "sha256": "3f1a0547d50631386cba20115c4aa0f6103d4bb10009585cd0c1257db4fa8485"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "630fbab217af6b1929b646cea34b723c0d85d5090b66fdbfc7eff0de934833fa"
+        },
+        "failure.png": {
+          "bytes": 346753,
+          "sha256": "9bb96429e6250dc1260d01ebdab1ca58ef3c3bb52e5160b43f2a0107d4ecd1d9"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 400316,
+          "sha256": "9d37ce19debfbd3b622bd44ddc5c04da1dfe028cff15afc5a0448c972d619a1f"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 314317,
+          "sha256": "9b00f4a184e90c25a0e12c27242c298607de25069f32aeb95a04e0c0139fbcba"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 317769,
+          "sha256": "0d87bd7850ac291a21b6e9e9775d7cb83af27fd6d8177095605bf6ad02bbc7a5"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 399865,
+          "sha256": "d502d2d9af57d745e00cb3dbf378224a053546c6016fd74c1d58548415bb01d7"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 314243,
+          "sha256": "58a15536bf4bc517244e3df1ce7fa6f008ed487cd472b45f96aa0bbaab50515d"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 312285,
+          "sha256": "3da9d3a3f25bfdca5f74e5152aa6e12d565f4628711e281bd0cdb47e38fce583"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 400548,
+          "sha256": "c0ea2b18c815945ae51aacbaa855be18ea7c09d4eb5113cdbb469c415569c39c"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 400379,
+          "sha256": "64b82258224b065cc6c179f8090f51b9dbccb7079bd2be185135188c44aa20c5"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 399392,
+          "sha256": "c24d097e38c6a76e246deabdf8ef5ca265c46ff056f4aec0c64dc881115b65a2"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 400468,
+          "sha256": "7fd3731d8546eb341f7c1ccba54320fb17028e533359dfb55051e0652fc6fb89"
+        },
+        "result.json": {
+          "bytes": 4318242,
+          "sha256": "9b8c6c5682496dfb62a4e41cca563fb81e240ba41c5d7a80c15ad3e0bc616a19"
+        },
+        "runner.mjs": {
+          "bytes": 33454,
+          "sha256": "99c0bc1a12efc145e68400316d7b12e79a8de3499038a237a96165eed47d2b72"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 398665,
+          "sha256": "d545aa1e82fae1c3216fe551d6c61ae380dad15d2f6b1cc3836cf53e98674f07"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 310050,
+          "sha256": "2c5621545709941c396ffa4e6151f31a5cf4d0482c4251c2e43ed96b9690d737"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 318867,
+          "sha256": "6ded5ea5f45672a183d048cffcb20ffb0ff65e03bd2348fec42377e587d8a2f2"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 397969,
+          "sha256": "8583f880a1d9922aac06067df08f1250e8b40fa08c0d3841b6c0c84359def562"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 312331,
+          "sha256": "c2a45f6ec4eab80991e6f3276d7024bc6a01bd15aee58076e259abb5ae0f7191"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 316919,
+          "sha256": "0eeab7a5718b45287a6d32c65a63488709292d675c5b4dd72e059321cc5b36d6"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 398756,
+          "sha256": "e0bfb2651c546694294f5bb291f4178a7ef5116cf7e84ac294bff590231bd038"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 398343,
+          "sha256": "6d6d5565cf7fc9470d01b8da415902a6137138d1ae60f4087ec1a17f220b8b9d"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 400193,
+          "sha256": "84892c75987f3b1c948c15462a1e9389e6b2f144c126a8babce08c9e3b49e4f8"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 396121,
+          "sha256": "50ee7eb2048673b7b8ca4cca6f8255f6ff4a9c2b9a9536b68724dda2863c9d45"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 459432,
+          "sha256": "e91d79e048004f34affeef5870bf4630fd871d89960c175a77d115f26ce96c0c"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 238312,
+          "sha256": "319abd96ac8191e2d7e1edbb2696bed12710c5ff2562242da7aa0f6d027a7929"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "pre4-all-dpr1-02",
+      "status": "FAIL",
+      "version": "0.14.0-preview.4",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.4.tgz",
+        "bytes": 53688339,
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83"
+      },
+      "failure": "Error: TIMEOUT: actual cross-region recall bubble with original source and full duration\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:27:226)\n    at async autonomy (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:234:3)\n    at async community (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:297:3)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:335:23",
+      "classification": "PRODUCT_OPPORTUNITY: 900-tick missed idle windows; retry90 in pre5",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "8df82d8027d0cb6f94c5d29f245850ab674f87d0f23c6143506b793ec7474d24",
+      "files": {
+        "bookmark-partial-cold.png": {
+          "bytes": 372320,
+          "sha256": "cccbd72fe3207591bf1d4f5729fe5159f14cd0c0a312b06abf0c055a1d44be17"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "bf75264748b0a6c3af9dcf444e7a5d04b198f5fffa78f596e876ba499613e985"
+        },
+        "failure.png": {
+          "bytes": 348993,
+          "sha256": "ab71dc6ee42d524350578eeeba6188fcb450f230f175edb5e2956937b258acf9"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 400320,
+          "sha256": "2b918d532cb42b7874a4f6fc89ff9d1c4cf7a971c7c77ffe5f82653d8c63e478"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 314071,
+          "sha256": "6731a649ba554e07fa927d0b418424d165e1d44c1d242ad28220d3649dde3ec7"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 317673,
+          "sha256": "85dbc9e617ff129f0f84bdd879b36671afc611a001ebeda718f7ae7d566d789a"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 399818,
+          "sha256": "f082d7a72795daefd06b1aeb8f8c43281a2dddf75e5dfb0414d5642fb0aa6bf4"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 314180,
+          "sha256": "6988384254a2e34056e99c4abba0e436c4878871e46eee911c9490a5b79ef914"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 312057,
+          "sha256": "2269db32da9b9cccd340fc998c98cbc186ed6d364f87cb86343a9fa87b9f5b1b"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 400501,
+          "sha256": "7d4ac2d6e782ebcccbb25a223ba4a2340158b32253c30a39d65bfad38bd2d6ae"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 400275,
+          "sha256": "0a5229dac500aaa0fec14f37adcaa0023bf09f490f05d16b8b10025baa8ffadf"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 399226,
+          "sha256": "f0157979831a0e02288b3c94fd4d7a38bacdcb3ff689a2f8e7c47aeaf23af336"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 400136,
+          "sha256": "26eb2552efd6b600f1909c925c33fc46dc68c017250250a5e6efe71125a82092"
+        },
+        "result.json": {
+          "bytes": 10114352,
+          "sha256": "8df82d8027d0cb6f94c5d29f245850ab674f87d0f23c6143506b793ec7474d24"
+        },
+        "runner.mjs": {
+          "bytes": 33569,
+          "sha256": "e5c69d5165d9109d1b03c1295916d5a5d9dbebf45db1f70d68c42d4057f0e368"
+        },
+        "saved-tea-experience-recalled-in-bookhouse.png": {
+          "bytes": 306215,
+          "sha256": "71fa0997a5de9c24d33a7480ab449c2ef8bc6b457fa63b4641d54dd61721b33f"
+        },
+        "social-bookhouse-28441-recall.png": {
+          "bytes": 331217,
+          "sha256": "2f2f0d8eb5c08f16db1c1790a2fb9fb191b3890b5d02ac144375a8e7046f62b9"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 398527,
+          "sha256": "77dbbbe253a4aef8a2144dc046b9892e2db374082a6eb519cd09f6a21b7976d2"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 309908,
+          "sha256": "d87eba7c258b16cd6c42707759e5eb0ebc634641f4c9236ed1412b860d1567c4"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 318809,
+          "sha256": "915637a2e3688e9b4baaa7ee798314303ff4e49e2da08d495c6cb15267c09037"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 398050,
+          "sha256": "b3cc2938c572967d96f0a6243aaadd9cb9a5984d2058ab0a9c35354ae80c1efd"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 312223,
+          "sha256": "8f3669283ff34dad2e1494de873056a6f122f6b5c15fafb9d4d98b3e42ee68cc"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 316906,
+          "sha256": "9fb1c2e44047eca6f273c96b7a470c9c1ddb8fef020fd84ca714741a833acc41"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 398861,
+          "sha256": "de10e4b37a84c4f989589390706b880e73a8da8c7c3212d836ee91a397151f25"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 398330,
+          "sha256": "c2b6bd38abb2029251347ec0c36806074148bffd8eabe35f5237b2a90f56f5a8"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 400165,
+          "sha256": "ed18f516628bfe94e617154a637b582aba636b9ec9afd33c67c58ac679f51541"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 396213,
+          "sha256": "cfc4d6db993a6c718b5f38ca4644bb3a8e0ae6f49946879859bbef0ec1cf0359"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 459432,
+          "sha256": "e91d79e048004f34affeef5870bf4630fd871d89960c175a77d115f26ce96c0c"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 238302,
+          "sha256": "43d6ad1222351c638ae4762dc2a92a8216e1f9caed4106f417ea25526fb93bb5"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "pre4-all-dpr2-01",
+      "status": "FAIL",
+      "version": "0.14.0-preview.4",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.4.tgz",
+        "bytes": 53688339,
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83"
+      },
+      "failure": "AssertionError [ERR_ASSERTION]: Roundtrip resource owner grew: bookhouse\n+ actual - expected\n... Skipped lines\n\n  {\n    keys: [\n      'bookhouse/bookhouse-activity-atlas.png',\n      'bookhouse/bookhouse-scene-atlas.png',\n      'claude/parts/arm-left.png',\n...\n      'claude/parts/work-right.png',\n-     'gemini/parts/arm-left.png',\n-     'gemini/parts/arm-right.png',\n-     'gemini/parts/back-hair.png',\n-     'gemini/parts/eat-left.png',\n-     'gemini/parts/eat-right.png',\n-     'gemini/parts/face-happy.png',\n-     'gemini/parts/face-neutral.png',\n-     'gemini/parts/face-sleepy.png',\n-     'gemini/parts/face-surprised.png',\n-     'gemini/parts/leg-left.png',\n-     'gemini/parts/leg-right.png',\n-     'gemini/parts/ornament.png',\n-     'gemini/parts/rest-pose.png',\n-     'gemini/parts/torso.png',\n-     'gemini/parts/work-left.png',\n-     'gemini/parts/work-right.png',\n-     'gpt/parts/arm-left.png',\n-     'gpt/parts/arm-right.png',\n-     'gpt/parts/back-hair.png',\n-     'gpt/parts/eat-left.png',\n-     'gpt/parts/eat-right.png',\n-     'gpt/parts/face-happy.png',\n-     'gpt/parts/face-neutral.png',\n-     'gpt/parts/face-sleepy.png',\n-     'gpt/parts/face-surprised.png',\n-     'gpt/parts/leg-left.png',\n-     'gpt/parts/leg-right.png',\n-     'gpt/parts/ornament.png',\n-     'gpt/parts/rest-pose.png',\n-     'gpt/parts/torso.png',\n-     'gpt/parts/work-left.png',\n-     'gpt/parts/work-right.png',\n-     'grok/parts/arm-left.png',\n-     'grok/parts/arm-right.png',\n-     'grok/parts/back-hair.png',\n-     'grok/parts/eat-left.png',\n-     'grok/parts/eat-right.png',\n-     'grok/parts/face-happy.png',\n-     'grok/parts/face-neutral.png',\n-     'grok/parts/face-sleepy.png',\n-     'grok/parts/face-surprised.png',\n-     'grok/parts/leg-left.png',\n-     'grok/parts/leg-right.png',\n-     'grok/parts/ornament.png',\n-     'grok/parts/rest-pose.png',\n-     'grok/parts/torso.png',\n-     'grok/parts/work-left.png',\n-     'grok/parts/work-right.png',\n-     'kimi/parts/arm-left.png',\n-     'kimi/parts/arm-right.png',\n-     'kimi/parts/back-hair.png',\n-     'kimi/parts/eat-left.png',\n-     'kimi/parts/eat-right.png',\n-     'kimi/parts/face-happy.png',\n-     'kimi/parts/face-neutral.png',\n-     'kimi/parts/face-sleepy.png',\n-     'kimi/parts/face-surprised.png',\n-     'kimi/parts/leg-left.png',\n-     'kimi/parts/leg-right.png',\n-     'kimi/parts/ornament.png',\n-     'kimi/parts/rest-pose.png',\n-     'kimi/parts/torso.png',\n-     'kimi/parts/work-left.png',\n-     'kimi/parts/work-right.png',\n      'parts/ahoge.png',\n      'parts/arm-left.png',\n      'parts/arm-right.png',\n      'parts/back-hair.png',\n      'parts/curl-left.png',\n...\n      'parts/torso.png',\n-     'qwen/parts/arm-left.png',\n-     'qwen/parts/arm-right.png',\n-     'qwen/parts/back-hair.png',\n-     'qwen/parts/eat-left.png',\n-     'qwen/parts/eat-right.png',\n-     'qwen/parts/face-happy.png',\n-     'qwen/parts/face-neutral.png',\n-     'qwen/parts/face-sleepy.png',\n-     'qwen/parts/face-surprised.png',\n-     'qwen/parts/leg-left.png',\n-     'qwen/parts/leg-right.png',\n-     'qwen/parts/ornament.png',\n-     'qwen/parts/rest-pose.png',\n-     'qwen/parts/torso.png',\n-     'qwen/parts/work-left.png',\n-     'qwen/parts/work-right.png',\n      'scene/eat-left.png',\n      'scene/eat-right.png',\n      'scene/rest-pose.png',\n      'scene/work-left.png',\n      'scene/work-right.png'\n    ],\n+   rgba: 37410772,\n+   sources: 43,\n+   textures: 43,\n+   urls: 43\n-   rgba: 63796952,\n-   sources: 123,\n-   textures: 123,\n-   urls: 123\n  }\n\n    at sceneResources (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:98:35)\n    at async travel (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:89:3)\n    at async community (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:294:27)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:334:23",
+      "classification": "RUNNER: texture inventory must be keyed by region and resident roster",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "b813bc72836e466a162e3b5ed77b22fa1ac5ddb6a8c3186e40799c1264d2d26e",
+      "files": {
+        "bookmark-partial-cold.png": {
+          "bytes": 1343831,
+          "sha256": "75fec4f33f7096e10051fc2ce74061b87146a5cbd49f8af4a7f83367ae1caf43"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "dffc0f9eb33128aa867d4b119cf2979817ed6a3abec35d0040981c86e5362acb"
+        },
+        "failure.png": {
+          "bytes": 1200190,
+          "sha256": "e5b87c65c291482f420576ad8348fc2c428b7500df2228f214eef8277206f875"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 1455062,
+          "sha256": "10c09ca2c517156dca23f5b28a651c7c5ccb2bdf91938003c2c53376e8d49a68"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 1136183,
+          "sha256": "a6e5d4bc0b0d9ff0938c200d365fe2c9ee75ef6958aeed8c5385290e46c05bff"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 1143035,
+          "sha256": "87456949527c27e3fa9c6a5528ceac115c8e22ae177cb8bc3b184cc96e5133a3"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 1453818,
+          "sha256": "7e1ca28a3ebc5f601464f550109891f93de40861d048c7c713441762f45d9386"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 1137596,
+          "sha256": "aa55f887eb5688a7feb2d1fac5f1b468e5b28b5b6c8b12de7bb550a48ae68a30"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 1123729,
+          "sha256": "025c4b10f0aa3dcb3e56ef6a4c124f6187136a50adb7d6c8f5cc15c5cdf8922e"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 1456738,
+          "sha256": "201be00632292dc1aa870b306d5678311b76a81b4cf9b4201fb0b92a299789a9"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 1455306,
+          "sha256": "e09477135c86779d97143e7b792aa78286a53039e799dedc4cf7d247e729eaa1"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 1446946,
+          "sha256": "26626442329dd7964393cbdde4d6269daac5cd605cfad9a178c84323f07c5f9c"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 1456799,
+          "sha256": "9a25fbeb043f8dea932ba3cee3a142768559038df4b4722f30e7a418f5de428d"
+        },
+        "result.json": {
+          "bytes": 4314132,
+          "sha256": "b813bc72836e466a162e3b5ed77b22fa1ac5ddb6a8c3186e40799c1264d2d26e"
+        },
+        "runner.mjs": {
+          "bytes": 33454,
+          "sha256": "99c0bc1a12efc145e68400316d7b12e79a8de3499038a237a96165eed47d2b72"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 1430167,
+          "sha256": "d45d5de5793c245b05bfb29a6096c46cd347954c12535a3a5586755c721f820f"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 1117082,
+          "sha256": "ba1bf03a2c33a6477e671aa745b5fe31e503e74a3d118d5678f4e596cba3832b"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 1151434,
+          "sha256": "97ea4be051b83c044fec64f00a1038ac742752fd6897d13b0b3d6c773a4436d7"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 1442398,
+          "sha256": "13b1f2aa322a4f7055e34d60dc0e0204fd1a13dd3049d8a00a9c47132f77ab5f"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 1125389,
+          "sha256": "d6c93821b1a4ac0d85920cea9636ad177e4c20b7c5efe83534ce9653ce8d5272"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 1144182,
+          "sha256": "adc883d3de4aa9292861591627c71c14617cd356c1e6bf0992f4b65e23648bca"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 1445432,
+          "sha256": "3698c8a1479f0059e706e3f565b1f27e6546de8662b6a82576ba16a7222521f5"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 1443577,
+          "sha256": "91d8fd87f0a73f8fe9ad0fb3ccc9530839474f7db3b671f7d08041b36cd688dc"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 1453306,
+          "sha256": "35fa7464461a58e6360dc22a46a5ea59d61e7920404fece7e68e316d3355afb8"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 1433188,
+          "sha256": "9c54407114460413b27684a1d0a3e1a95a739d3b361de49646256cbf99dd7749"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 1410370,
+          "sha256": "13fc42fbe6be4f9974a27a00c40e0c27f7e43686eac8202bdf9b06d3f5b053b1"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 852517,
+          "sha256": "88826df353f39806f590fadce979ac777b1b47ddd5d6f3b546dde53b0f81612e"
+        },
+        "world14-migrated.png": {
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      }
+    },
+    {
+      "label": "pre4-all-dpr2-02",
+      "status": "FAIL",
+      "version": "0.14.0-preview.4",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.4.tgz",
+        "bytes": 53688339,
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83"
+      },
+      "failure": "Error: TIMEOUT: actual cross-region recall bubble with original source and full duration\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:27:226)\n    at async autonomy (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:234:3)\n    at async community (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:297:3)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:335:23",
+      "classification": "PRODUCT_OPPORTUNITY: 900-tick missed idle windows; retry90 in pre5",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "2a94fce0b5e8974e8655108f11420a647bead59f01f7839f18600a9353c2c0fd",
+      "files": {
+        "bookmark-partial-cold.png": {
+          "bytes": 1344100,
+          "sha256": "4454e336c2c8b12281c5174775232ff25bf45aed976e77f84fb967c8cce0fcda"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "695fa44acfd989e86d93c9e5fc951ed568e76c5af4934dfb58133582799b6307"
+        },
+        "failure.png": {
+          "bytes": 1206693,
+          "sha256": "9d9379977088ef3b5e034cd057863d12372d18d5147602391a4876542310c48b"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 1454775,
+          "sha256": "dedd7c06685e050f7e284da7a681e6088d93c26982aaa62f263a8d5951fd60d3"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 1135871,
+          "sha256": "ec7bb62811b10ba4b7a0970f98f9382bce074585a5a9565798e008a04e54b033"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 1143132,
+          "sha256": "16186e899c4919152602fe973bb21fa9d34c61b3a3162a8b80a56118c5d3da84"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 1451049,
+          "sha256": "598b62ee1f71c71801b7bf2c5892f39205fe7cee7a651f4b96a467b67d74b54c"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 1135949,
+          "sha256": "7b1d6c3492d8de9475eed50fd1848c433e1df0c9dbd4ce3da3ece15d53ee500d"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 1124721,
+          "sha256": "33957b3e800735470355d851e2cd1c4ac9abacac169a955de171e98ec3be8990"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 1454074,
+          "sha256": "74d908e703a9b90b4fc1c441ec323091a6a3bdabd792f563c6447b2fd94df19d"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 1451556,
+          "sha256": "fcd0b903768114a285fc95c109deea1ac64fb0d8d7b0b618cc7414d6682881be"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 1447148,
+          "sha256": "65c1e2b050082decd73c47a2746189157f1eba7fb0d78d236953a43abc3489b1"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 1442124,
+          "sha256": "2f27e0c69a62a133bf5b103ba0bc4bbbc50597c9a7a6acc957b02dd8bfac3a3f"
+        },
+        "result.json": {
+          "bytes": 10158424,
+          "sha256": "2a94fce0b5e8974e8655108f11420a647bead59f01f7839f18600a9353c2c0fd"
+        },
+        "runner.mjs": {
+          "bytes": 33569,
+          "sha256": "e5c69d5165d9109d1b03c1295916d5a5d9dbebf45db1f70d68c42d4057f0e368"
+        },
+        "saved-tea-experience-recalled-in-bookhouse.png": {
+          "bytes": 1059675,
+          "sha256": "71cf0084e39c65485b639f28c1ac9987cab073ab7f8021be772de8f2ab56bb57"
+        },
+        "social-bookhouse-28546-recall.png": {
+          "bytes": 1142848,
+          "sha256": "3bc85b3651fa5334f5192c8bb69ca65450f54f7cd87abd11815212d440ac8299"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 1444375,
+          "sha256": "05dd7ad6bb8d7a7d37f901b5de5efe1a997024c088ce35e0971c893dd319cfb0"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 1117776,
+          "sha256": "0d027938c3d3a304d8f05d9344e2cad2ff912d6a68633e7d51c6dda7de1e91c5"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 1151702,
+          "sha256": "22dcf81ed7d93899dfcf037c0e4be5c5dc53387e2a76007466844054030c72db"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 1442078,
+          "sha256": "bca8e816d1f806debcdfb254f981cf1188f40cfd0ca475b4b70b170db6b14931"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 1125786,
+          "sha256": "55b1b8495989f012a4630401f36cce2dfdab73a3f32d0466934f62a84e928299"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 1144279,
+          "sha256": "4d15d3f27ef1bebcb1da2be21f8d3d723107aa8d9bb73084ee4084b08120d024"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 1445147,
+          "sha256": "7dc1bdb1b16a6ab1fafc970a89b87cc089d509a9769e38f1381a4a966adb38ab"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 1444753,
+          "sha256": "f8e3cbcaf5c4c4be0fa444f88ecab3a0e558416fed7958a97da09f595e96d235"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 1453288,
+          "sha256": "bb68d693f2e0454e6411b3da6a79222eedc5166818797d96cd885bd0d8b80e9e"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 1432763,
+          "sha256": "24fc519b7f6789e81a252e4302cae37c23c17cd39823fa38864e36e22b524dd7"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 1410370,
+          "sha256": "13fc42fbe6be4f9974a27a00c40e0c27f7e43686eac8202bdf9b06d3f5b053b1"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 851907,
+          "sha256": "1f442ae8fb48fb3e90ef30a2d3e11e933c7e122493b18dfd987d57fcc39791ed"
+        },
+        "world14-migrated.png": {
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      }
+    },
+    {
+      "label": "pre5-all-dpr1-01",
+      "status": "FAIL",
+      "version": "0.14.0-preview.5",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.5.tgz",
+        "bytes": 53688376,
+        "sha256": "856f685f059e7f771dae92a6fe2cd3c8a302f0a260f6096562bd34976bd58e47"
+      },
+      "failure": "page.evaluate: Error: INVALID_REGION_WORLD\n    at invalid (http://127.0.0.1:56382/:11515:9)\n    at validateLivingWorld$3 (http://127.0.0.1:56382/:11694:77)\n    at validateLivingWorld$2 (http://127.0.0.1:56382/:11766:15)\n    at validateLivingWorld$1 (http://127.0.0.1:56382/:12341:49)\n    at validateLivingWorld (http://127.0.0.1:56382/:12828:15)\n    at LivingController.snapshot (http://127.0.0.1:56382/:27639:11)\n    at Object.inspect (http://127.0.0.1:56382/:37241:31)\n    at eval (eval at evaluate (:303:30), <anonymous>:1:35)\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at inspect (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:25:28)\n    at D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:28:59\n    at until (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:27:144)\n    at async bookhouseMemory (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:271:166)\n    at async community (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:298:16)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:335:23",
+      "classification": "PRODUCT: bookhouse keepsake social chime rejected by frozen codec; fixed chat in pre6",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "bookhouse: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts; actual recall bubble matches original memory source/event/cast",
+        "courtyard: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "4ae63f5dbd34ed8c92002b5cd8cc93b0f21c57260ff7945e8feee1977714ab0b",
+      "files": {
+        "autonomy-bookhouse-cooldown-cold.png": {
+          "bytes": 348308,
+          "sha256": "05caf1bedeb34d6d33e6b49555e28fc00cea27133457c0f9c6426df75811f983"
+        },
+        "autonomy-courtyard-cooldown-cold.png": {
+          "bytes": 360183,
+          "sha256": "43f9ff7b2e77b9b7a5608a5010d2d44bf61ba6cc204aecbaab39ad7e3b604dd1"
+        },
+        "bookmark-partial-cold.png": {
+          "bytes": 372402,
+          "sha256": "557687e1764f16235b7538cf0a4485fe323cad2a070b4011b78109b02140c244"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "838a7df0de2f87855455a9d02ddfa9c4f249020ea01836a20e088b274298e349"
+        },
+        "failure.png": {
+          "bytes": 123399,
+          "sha256": "245ccaca8649cac3c5b229b7d33d1ab8b72e602eac1f283803ddcbd5a6b9ebc8"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 400502,
+          "sha256": "deec9666083c651f391c89f5809c592888a01d3a672cb46a71f3d23e1be9004e"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 314443,
+          "sha256": "c6d563db2f59ea5752ad1878bfc9b6599d51c5e5f83ea5c8c59ed782043eda5c"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 317821,
+          "sha256": "be280cbeacd02b285e8d33f9682fa696290c23c067ed5e418462253dcf343d96"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 399915,
+          "sha256": "9980df7e228025d0de7cd86517a8730825ea3d565436120a36881ec8922c1755"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 314334,
+          "sha256": "d946fbce15c52159b277d8e327e4ee5e911dafbba0d0367b2c9fdad00866e042"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 312233,
+          "sha256": "f3dfc9258cac06fe8e9fed3909e10a97ab66115cb1d2a4ddb9fd620a2711de58"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 400618,
+          "sha256": "862e340865d701c9911c4864e1184a90d90e24d8a045c1fa024f3e3181351956"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 400183,
+          "sha256": "dacb19c192d8c46f2cff9a4fa315f844f02d2064c15948497bb9f55a4cc7bbed"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 399492,
+          "sha256": "202c99629dde890a2f079f149651e6e028af1d55e94fe35dbedc93fe20af62fb"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 400932,
+          "sha256": "0bfa5a006966e05fba89f77aaa03a69c60a346305953993ac068a89c6014a734"
+        },
+        "result.json": {
+          "bytes": 9143663,
+          "sha256": "4ae63f5dbd34ed8c92002b5cd8cc93b0f21c57260ff7945e8feee1977714ab0b"
+        },
+        "runner.mjs": {
+          "bytes": 33569,
+          "sha256": "e5c69d5165d9109d1b03c1295916d5a5d9dbebf45db1f70d68c42d4057f0e368"
+        },
+        "saved-tea-experience-recalled-in-bookhouse.png": {
+          "bytes": 306161,
+          "sha256": "82021dcaed0d681c38ff78475f2e5f1c4c5b76165cf1551c1c1cafc25cc6dd45"
+        },
+        "social-bookhouse-21006-recall.png": {
+          "bytes": 332897,
+          "sha256": "6a3f66d9e00f769067eae8423576c8d19e942fe1f9a2ad4f4e8e10b94ef6a516"
+        },
+        "social-courtyard-27846-recall.png": {
+          "bytes": 348110,
+          "sha256": "da7b3044d88f51d55653c43bd3bcc133bc40a33622651b96547b90d31ca282f5"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 395853,
+          "sha256": "8f3e79e0b9c99533ed8cb9797e8d1813a895395263e52b71ea28cd46ef317311"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 309955,
+          "sha256": "475ed75a27ccfc4876ace3299d9a8e5f71cd89cad006733eccb8a8587544ac00"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 318652,
+          "sha256": "caf5c0b0630619090a11a1bb9981161bda715e69ad358c476f25ef18883e8eca"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 398278,
+          "sha256": "dc361d43d413f4594957fcff6a207d0b7ca45ddeee677006a0aa69621dd7e952"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 312142,
+          "sha256": "24db38e167d366f1012af0418ee94b4dde8da33c03bf838e0ebccae3d70caad8"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 316826,
+          "sha256": "499395f741532730599f6b004d44c4281fa3cc519ac4c4bd978c34c4866107cf"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 399046,
+          "sha256": "932ba882948778d701d8ffaeef12347ce78f3029e7fe2a73f17c6bef13781b21"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 398451,
+          "sha256": "bb269ba348292ca424f771bd88a1ad3519dbfbbfc56f87dd3290fa5ec4c9c130"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 400087,
+          "sha256": "cc6ddced112a1e3c870448cc722739d09d689bf79c7da0a131ca719974f2622a"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 396108,
+          "sha256": "d741aa8aa3e1ebee5467638e35446d0dc8b62609b515660d0184fdb6bd708ea5"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 459432,
+          "sha256": "e91d79e048004f34affeef5870bf4630fd871d89960c175a77d115f26ce96c0c"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 238120,
+          "sha256": "de51543967105a47ba19e7945a32fe00defbcf01ee98acf4c0bc61829191a371"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "pre5-all-dpr2-01",
+      "status": "FAIL",
+      "version": "0.14.0-preview.5",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.5.tgz",
+        "bytes": 53688376,
+        "sha256": "856f685f059e7f771dae92a6fe2cd3c8a302f0a260f6096562bd34976bd58e47"
+      },
+      "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '关闭面板', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button aria-label=\"关闭面板\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n    at close (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:30:129)\n    at async pause (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:32:32)\n    at async bookhouseMemory (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:273:3)\n    at async community (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-qa.mjs:298:16)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-qa.mjs:335:23",
+      "classification": "PRODUCT: UI detached after same bookhouse keepsake transition; final failure surfaces as close timeout",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "bookhouse: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts; actual recall bubble matches original memory source/event/cast",
+        "courtyard: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "92b0301fdc798df400197bfdffef3a7c72112523165e85db59ad5ac1c5655e27",
+      "files": {
+        "autonomy-bookhouse-cooldown-cold.png": {
+          "bytes": 1206980,
+          "sha256": "96c771ddf33bed7553fc44147e6c289314878775a78c02d77cd04a2641c853b1"
+        },
+        "autonomy-courtyard-cooldown-cold.png": {
+          "bytes": 1250977,
+          "sha256": "7a0054ad57fb4dd54554549e940b9ce2eb9433c6874a7252f19605d00fc88eb3"
+        },
+        "bookmark-partial-cold.png": {
+          "bytes": 1344245,
+          "sha256": "91c9d42994bd7e1b802f462f71216ba2bddd296a83f73d21725afdc66b09024e"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "614b15b1e1a3b94aee55bd5898b53a5456d1bfa25678dab4039bf472982657c5"
+        },
+        "failure.png": {
+          "bytes": 1410370,
+          "sha256": "13fc42fbe6be4f9974a27a00c40e0c27f7e43686eac8202bdf9b06d3f5b053b1"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 1455602,
+          "sha256": "d6ad03a741b03ef0cd67f4ce7e2f7abb1bb754dcaf1aed6a852196009398877b"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 1137150,
+          "sha256": "b5bf239d17b9912fb2761ba524843fadcb40e8d3120e74b9c421623c28775ebe"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 1142498,
+          "sha256": "1f4b36232f604665565e1d642660af2215bd15c3373fc04b61fb2853ee435348"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 1452550,
+          "sha256": "385f2cbadde3a93b4b56f437f8fbdcc66cce92b8d793af34df3f40b8d6831bf5"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 1137482,
+          "sha256": "859bc100dd1923efd4fcfaafd1a8029843ad81ab68e92339c205b4599e3ba18f"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 1124539,
+          "sha256": "33c6fd8ec36e25fc79d6a455a563bf2a4638fbe997fbecc9ff48c35e6c4830f3"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 1455542,
+          "sha256": "a2a576cb099a206f7a75f0ae26222d17829648789b89239f0f637e186724f592"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 1453373,
+          "sha256": "405d930ed5dfdfd86cd00bb16eb2fcf9f895cb00d06baf6cdd9d90c7ea7e639a"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 1445504,
+          "sha256": "9ce33cc117adbd3272419d981f5f9ab469381b7e2cc1e713db16d84d24369b52"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 1443658,
+          "sha256": "7f1105ec87b551910d32e6bfe7aebfba531951cb6091df04215427f39c15b8bc"
+        },
+        "result.json": {
+          "bytes": 9175138,
+          "sha256": "92b0301fdc798df400197bfdffef3a7c72112523165e85db59ad5ac1c5655e27"
+        },
+        "runner.mjs": {
+          "bytes": 33569,
+          "sha256": "e5c69d5165d9109d1b03c1295916d5a5d9dbebf45db1f70d68c42d4057f0e368"
+        },
+        "saved-tea-experience-recalled-in-bookhouse.png": {
+          "bytes": 1060399,
+          "sha256": "04cd552e1dd605cff54ba5425779170e319a108dbf148e1ed7b21abb93a2c9ba"
+        },
+        "social-bookhouse-21107-recall.png": {
+          "bytes": 1149991,
+          "sha256": "12c27be6d760d806f28397127de3a3c4715a2b345ab71376d1ed2f8fea966d21"
+        },
+        "social-courtyard-27947-recall.png": {
+          "bytes": 1203594,
+          "sha256": "f0b0d370a1038bd7dc5586c7fea093242a451e9391592df7d1353ced654c536d"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 1430497,
+          "sha256": "5cd9b01c0bd0b82b795f5d7489da99ad1254ffbe611d3a44ca8f3c0de22f4f76"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 1117362,
+          "sha256": "77510bf14097422b92ac83a230fe7265a540a1d7317eed4996fb70e164ef3752"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 1151909,
+          "sha256": "b87d317658ce46f00a825eda3af0a2f81097ba7dfa9aba6f790164a9647a5609"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 1442206,
+          "sha256": "291fe1c99ce0e7520930073aca09803c561d9f1b6a7b3dd6eed13b221005b2dc"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 1123959,
+          "sha256": "668a4c1ea7fe6c6b8eda1f488a2c37417c6232000d5e025952a8a9bc45aedcec"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 1143567,
+          "sha256": "db8309ac876ea4fd0c6c58e1e58da383b9c8cf7bd2aa253c063cabe4886d4b76"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 1445189,
+          "sha256": "90b91ede774e685c0c6c777c8001dfca49d6c4116333ce0c8cbc02e5781a44d9"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 1443140,
+          "sha256": "e75d2ac8ebe2333205c7637aadea672f40dd33f97b09ff7c43f2f3d9278c8235"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 1453701,
+          "sha256": "45754d5451bc9195bd8f7dc6acea4029eb09a0331017ab5ac3f693f7d73a5303"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 1430734,
+          "sha256": "c7dfd5d3a5138230ef5b88b97201f9e34101d7d05cbd1bf2314da8968b6e330b"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 1410370,
+          "sha256": "13fc42fbe6be4f9974a27a00c40e0c27f7e43686eac8202bdf9b06d3f5b053b1"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 851673,
+          "sha256": "4d474813fa5cede366a768c6aa46338af40fcce424d6782374f3699f25379c2e"
+        },
+        "world14-migrated.png": {
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      }
+    },
+    {
+      "label": "pre6-all-dpr1-01",
+      "status": "PASS",
+      "version": "0.14.0-preview.6",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.6.tgz",
+        "bytes": 53688401,
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098"
+      },
+      "failure": null,
+      "classification": "FINAL_PACKAGE_QUALIFICATION",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "bookhouse: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts; actual recall bubble matches original memory source/event/cast",
+        "courtyard: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts",
+        "Explicit courtyard activity creates a source fact; simple region visits and autonomous greetings did not",
+        "Cross-region UI carries exact original event/cast provenance; three-place card unlocks only after real saved courtyard/bookhouse/tea experiences and survives cold recovery",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "9042d54046e129ab968ca8a8dd6e72e47991d8f4a95bfdcaa32d3b794f3d62af",
+      "files": {
+        "autonomy-bookhouse-cooldown-cold.png": {
+          "bytes": 348403,
+          "sha256": "1d3b8b6dbc533fb4f4061e88e782176b47a9cc27be2f75fb5ceb6b24a5fb59d3"
+        },
+        "autonomy-courtyard-cooldown-cold.png": {
+          "bytes": 360170,
+          "sha256": "ae6596fa13e247f69161c61fc09e69f835ce83f0835ed3c939ba896b8a3c5732"
+        },
+        "bookmark-partial-cold.png": {
+          "bytes": 372114,
+          "sha256": "a19d5935d8955de932a89bab83fd7988a52f5ecf483b679d7ef6dff97ed55858"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "5fdec545b10558502b0d11fdfedb09bf02593f73cf901db0f0af0cf450274a26"
+        },
+        "new-bookhouse-source.png": {
+          "bytes": 347615,
+          "sha256": "fbe4b558652679af8995bc451e2f51cf9d121cc8aa669305bfe9d59f12ed8c63"
+        },
+        "new-courtyard-source.png": {
+          "bytes": 360353,
+          "sha256": "9ed46ca907f40e0dabe6c07c2fcb9a115f5516fddd6825e4a70a3a23320ee80b"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 400650,
+          "sha256": "55e9c0d8d3ada5a559924330a4f47b60528716b5d86df1e37687a694092db910"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 314638,
+          "sha256": "bd18b4ca639ba22cf4b7ef1c74d9181639a4ecea99d40273585ef62a216ecdf3"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 317546,
+          "sha256": "4bcc0a187765a6d17f866f5f55d7180ba7498d6feee6220743d561aa4f3b485a"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 400019,
+          "sha256": "0e9ab4cc048009415139b78f9f54948035c658801d2f615f7d044e08a6f922ff"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 314385,
+          "sha256": "4555a9c709cde9a5dd470160bd31319104b74d46044edd39a9d6f6c25c600733"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 312129,
+          "sha256": "b04e80e04429928161b60acde0cf2cc80d87502fe5be119eb7090a46c368ead6"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 400696,
+          "sha256": "ad1e90133d54bfb8c2660b0546d39d8c7cc25ab98ab3bc136ef9a9f04b074109"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 400207,
+          "sha256": "3ec174c7fffe917af067f7d47a04b7deb9a97d0c043e1007a7bbbe7e5eb61d5d"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 399283,
+          "sha256": "5a5d14980f563cf27fc9d9b1d6021a5e15e980201e1cd20e4e3782f9e68d7bc6"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 398326,
+          "sha256": "202b13d41a2cbdec870e6e4255c48c9594a88bd8e1bf4a97a1e8caa0df96f1af"
+        },
+        "result.json": {
+          "bytes": 9489867,
+          "sha256": "9042d54046e129ab968ca8a8dd6e72e47991d8f4a95bfdcaa32d3b794f3d62af"
+        },
+        "runner.mjs": {
+          "bytes": 33569,
+          "sha256": "e5c69d5165d9109d1b03c1295916d5a5d9dbebf45db1f70d68c42d4057f0e368"
+        },
+        "saved-tea-experience-recalled-in-bookhouse.png": {
+          "bytes": 306044,
+          "sha256": "80bce3433fc057b7816a0b55b7effae400daf99f843e71ea212f6c4ce4f3ba8e"
+        },
+        "social-bookhouse-20983-recall.png": {
+          "bytes": 333042,
+          "sha256": "e1ff445d0b4980894e151a4c3419ba1eadcb80072757ce5e720ed44eadeee3f8"
+        },
+        "social-courtyard-27823-recall.png": {
+          "bytes": 348091,
+          "sha256": "bd31bdeaea50241892912cb12d8e1c6c3fbff3fab3eae30e9e0b370891151f02"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 395777,
+          "sha256": "363b480d01953b5f9a9254cf76c9e921b03de09ebe8e668c7a8f602e3a7a4523"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 309824,
+          "sha256": "8fc9bfa6bab6b6b7a6fc4f1e8d4261a9959ef91cb1901f810f426b52d61ed619"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 318575,
+          "sha256": "26932d060fdc63422fbd60298f672504e4e75f70e83f550286140f0b24d11b45"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 397947,
+          "sha256": "0ec99b3fdc7b3c565bf3b86f3355abdd0369dc4fab37e0824f07489d9fad77f7"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 311787,
+          "sha256": "7a5f931a4546ed5f2edecf83b74b23400b81e60495200279598d523c3ff9d573"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 316762,
+          "sha256": "c266b4997484f5db9b55ec24224a6726dc604948a38b760e9e03f91cb8d245ee"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 398744,
+          "sha256": "211299643aa1b6ed7cbedb1e6d9e4b8aead5040d0adc1d3a676bd913fd3f2271"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 398448,
+          "sha256": "19bcc4bce797f2f6ac3c0e2b71b4d083f7a4582a1e5ee2eadb4c471e64b0a2f9"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 400193,
+          "sha256": "098beca415c43da60be42d30cab0d17d8f1bf56465eae7d67dfa500c2fcb3b12"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 396162,
+          "sha256": "803aa9cdb656fc862defcb1a7cb6607f0424603d01c71a678396a31dd98794e1"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 459432,
+          "sha256": "e91d79e048004f34affeef5870bf4630fd871d89960c175a77d115f26ce96c0c"
+        },
+        "three-region-card-in-courtyard.png": {
+          "bytes": 359833,
+          "sha256": "b5ff96c6594e7f028c811fd40f899fc1dc4001112dedab29e5485d6b259e8622"
+        },
+        "three-region-collection-cold.png": {
+          "bytes": 359833,
+          "sha256": "b5ff96c6594e7f028c811fd40f899fc1dc4001112dedab29e5485d6b259e8622"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 237945,
+          "sha256": "aa28968c3182cf559d491222f8ca02a92b6715b324cec43dc01e2e110e803184"
+        },
+        "world14-migrated.png": {
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      }
+    },
+    {
+      "label": "pre6-all-dpr2-01",
+      "status": "PASS",
+      "version": "0.14.0-preview.6",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.6.tgz",
+        "bytes": 53688401,
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098"
+      },
+      "failure": null,
+      "classification": "FINAL_PACKAGE_QUALIFICATION",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "bookhouse: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts; actual recall bubble matches original memory source/event/cast",
+        "courtyard: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts",
+        "Explicit courtyard activity creates a source fact; simple region visits and autonomous greetings did not",
+        "Cross-region UI carries exact original event/cast provenance; three-place card unlocks only after real saved courtyard/bookhouse/tea experiences and survives cold recovery",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "resultSha256": "c4077092a75e8f1948bf697d3910baad2d6829aba2d1055c71b1805f01d04131",
+      "files": {
+        "autonomy-bookhouse-cooldown-cold.png": {
+          "bytes": 1206503,
+          "sha256": "cdf09e402c7192b89fcf5dc4148fdaa6d2f61eaf996ad129a4927f954d659f3e"
+        },
+        "autonomy-courtyard-cooldown-cold.png": {
+          "bytes": 1251616,
+          "sha256": "0f28908b8701f7a633a0f83c9d67ca6e8ccd23bba1e93b0ec216dc74b6c762fd"
+        },
+        "bookmark-partial-cold.png": {
+          "bytes": 1343780,
+          "sha256": "4c8dc5079bca3bec97f84ad12259056167b3222d89eac91fb298b4f98502426b"
+        },
+        "build.json": {
+          "bytes": 32719,
+          "sha256": "9ebfaaec22e844d948c98461e84d5c16525a3af2a219ce4b1090ab850f0b29b8"
+        },
+        "new-bookhouse-source.png": {
+          "bytes": 1204096,
+          "sha256": "c2f698471384e43908cec71c657adf9786114a649bd4cab53d75aa675b03f588"
+        },
+        "new-courtyard-source.png": {
+          "bytes": 1251182,
+          "sha256": "d22d8061f8b0a7d5247fe93c00171401089e88121c1934e78d44356843a78fd6"
+        },
+        "reflection-shapes-earned.png": {
+          "bytes": 1455748,
+          "sha256": "9d77a1a6f6491c8756eb2d6a5ebe7fb8471596b226aaaf4c9e43a72ce2b76bb7"
+        },
+        "reflection-shapes-first-closing.png": {
+          "bytes": 1137233,
+          "sha256": "34f9beecad96a9f03bc5c3942030a7e7a4e4c202b8bc988bfe4f4e534bb0f748"
+        },
+        "reflection-shapes-first-ready.png": {
+          "bytes": 1142635,
+          "sha256": "8e429d57661191ef65a34715fc409478486a5af74460c415cfe5c8ab599c49f2"
+        },
+        "reflection-shapes-hidden-keepsake-cold.png": {
+          "bytes": 1452378,
+          "sha256": "b4a79e4bef5850786ec7e20d05fa6d45493daf468c8c030e476975dd9a011439"
+        },
+        "reflection-shapes-replay-closing.png": {
+          "bytes": 1136894,
+          "sha256": "148b43cf2d182971af94f24f5f17f1c699c1fffeafdc11ded5f9549850da2c7b"
+        },
+        "reflection-shapes-replay-ready.png": {
+          "bytes": 1124292,
+          "sha256": "6f4c619279cbfab670893d3b609548efa024a2067632ae7de3a7a4e4a983d283"
+        },
+        "reflection-shapes-replayed.png": {
+          "bytes": 1455344,
+          "sha256": "560b6d9d3c8f2f5a17d28d887fee4cb4a261796928c4f83a9cf63f30d65250c0"
+        },
+        "reflection-shapes-shown-canvas.png": {
+          "bytes": 1452546,
+          "sha256": "93626d8d36d35609fda94e6f488b6345fe973f328de4a9847d4d640e542248bb"
+        },
+        "reflection-shapes-stage1-prop-canvas.png": {
+          "bytes": 1446308,
+          "sha256": "5b85fe2821092ccc7da46f3d4edc7746c219b78a15dfa0483eafb264c5ff5be6"
+        },
+        "reflection-shapes-stored-canvas.png": {
+          "bytes": 1444103,
+          "sha256": "ec26189ee01839002ce2f08e0c7727994ffc932b2f31fe48ca74155586f99d7e"
+        },
+        "result.json": {
+          "bytes": 9519141,
+          "sha256": "c4077092a75e8f1948bf697d3910baad2d6829aba2d1055c71b1805f01d04131"
+        },
+        "runner.mjs": {
+          "bytes": 33569,
+          "sha256": "e5c69d5165d9109d1b03c1295916d5a5d9dbebf45db1f70d68c42d4057f0e368"
+        },
+        "saved-tea-experience-recalled-in-bookhouse.png": {
+          "bytes": 1059768,
+          "sha256": "cbd0af7988a34b97e1f2c30ee263744ae5ce390c7d4405f00174666bb3aef051"
+        },
+        "social-bookhouse-21045-recall.png": {
+          "bytes": 1149207,
+          "sha256": "deaaa65c684f6d1a9842891d672d57bde5b427483838191f352dddfcc76e8128"
+        },
+        "social-courtyard-27885-recall.png": {
+          "bytes": 1203513,
+          "sha256": "4940fdfb9c16f4d309d77b4aea861ac54c8e267da5a53b772a425329b8645e23"
+        },
+        "tea-bookmark-earned.png": {
+          "bytes": 1445715,
+          "sha256": "7e991e5b442f88b5bbb4df38791fafa471957554cfd21a0e428c166bfa665f32"
+        },
+        "tea-bookmark-first-closing.png": {
+          "bytes": 1117294,
+          "sha256": "3480d9ba2ff70ca83c0310c18aa0162fbe49f375d9588aff353a7446d6184a05"
+        },
+        "tea-bookmark-first-ready.png": {
+          "bytes": 1151329,
+          "sha256": "40f80b67280cd6a5e926ab819956adfcb79d93579479e069606cd8c6fc2c75cd"
+        },
+        "tea-bookmark-hidden-keepsake-cold.png": {
+          "bytes": 1442150,
+          "sha256": "4f14c59db8f4324eb84c1367949690c4470cf197235c50499a5cc219183c38c3"
+        },
+        "tea-bookmark-replay-closing.png": {
+          "bytes": 1124766,
+          "sha256": "a88f73d5ff66ee111cce2ff47c45aceff849ba267433145129a29e187ea32b9e"
+        },
+        "tea-bookmark-replay-ready.png": {
+          "bytes": 1144082,
+          "sha256": "306e20a1f815f8bd0f76207f18f7f097683fb6fd83457a1879085288fa48f138"
+        },
+        "tea-bookmark-replayed.png": {
+          "bytes": 1445200,
+          "sha256": "9b5acbaa0f56586eb94e20b5f86b04915e4fc6e625c2e310a3680db2c2bbb786"
+        },
+        "tea-bookmark-shown-canvas.png": {
+          "bytes": 1442023,
+          "sha256": "c72a77c53ebd276c289a5cea920c3054dcaa4ddfa088c23757d09bbdbfae7f1e"
+        },
+        "tea-bookmark-stage1-prop-canvas.png": {
+          "bytes": 1453128,
+          "sha256": "2ed8bd1b70fa55feb154689f250dd159d336ad0c864d6d07a1211de925e8bfa6"
+        },
+        "tea-bookmark-stored-canvas.png": {
+          "bytes": 1432436,
+          "sha256": "8358b1e8f5e7494c59f397a90dc4ff721a3e61b54c9686c40592f2b518b08510"
+        },
+        "tea-bookmark-unknown-ack.png": {
+          "bytes": 1410370,
+          "sha256": "13fc42fbe6be4f9974a27a00c40e0c27f7e43686eac8202bdf9b06d3f5b053b1"
+        },
+        "three-region-card-in-courtyard.png": {
+          "bytes": 1249208,
+          "sha256": "ef82cda722324b0ee21a62c70c39dbb3f2a8a4b481584e394882cd9897a94790"
+        },
+        "three-region-collection-cold.png": {
+          "bytes": 1249208,
+          "sha256": "ef82cda722324b0ee21a62c70c39dbb3f2a8a4b481584e394882cd9897a94790"
+        },
+        "two-traceable-memories.png": {
+          "bytes": 851324,
+          "sha256": "a79bf815441469f894f6466182eda8c3912f406d978b88cc456ab528585468e7"
+        },
+        "world14-migrated.png": {
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      }
+    }
+  ],
+  "native": [
+    {
+      "label": "b-native-inspect-01",
+      "status": "PASS",
+      "artifact": null,
+      "checks": [
+        "Read-only inspected exact new afternoon Desktop process",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "inspect.png": {
+          "bytes": 94894,
+          "sha256": "bd734105a319bec7e1e5a6a6e7eee6910b517ab0af5134d78603363bd07b48f0"
+        },
+        "result.json": {
+          "bytes": 2590,
+          "sha256": "7b31436b6d76f98f648201bff5be615b76051d0d1766f10a761b6a441eb3ca34"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre2-install-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.2",
+        "sha256": "22d41072b0931a3ae58fc1b441b6c786403ec023008e8b87bdb1484327427cbc",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.2.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Actual Host/Client migrated paused world14 to15 with exact prior fields/poses/clock/RNG and protected original r147 snapshot",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "installed.png": {
+          "bytes": 208988,
+          "sha256": "30d37392243785a49ed95d763edf2ba37779852b4dc35cc061915df092ff3ec1"
+        },
+        "migrated.png": {
+          "bytes": 1010402,
+          "sha256": "6ab30a74cdfd1a514eaad66024bd8a7c08c4342e710be5eef30d28ba88e8df54"
+        },
+        "result.json": {
+          "bytes": 35619,
+          "sha256": "ee25b677fd3bffa06f29a9cb734fc8916281df1bc12d9286eb43cdedc057eaed"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre2-lifecycle-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.2",
+        "sha256": "22d41072b0931a3ae58fc1b441b6c786403ec023008e8b87bdb1484327427cbc",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.2.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Two actual disable/enable cycles revoke resources and restore one launcher/owner with exact persisted state",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "lifecycle.png": {
+          "bytes": 1010101,
+          "sha256": "42062f0212aefa03f93401e133c312581bf7efe26db7aedca7b9506c4466d44b"
+        },
+        "result.json": {
+          "bytes": 51541,
+          "sha256": "558ec140f55f5c487db7556c00b9851a888d1130dbacd8777e4baaef1728039d"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre2-play-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.2",
+        "sha256": "22d41072b0931a3ae58fc1b441b6c786403ec023008e8b87bdb1484327427cbc",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.2.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "tea-bookmark completed through real official UI, real paths, distinct effective choices and one first reward",
+        "reflection-shapes completed through real official UI, real paths, distinct effective choices and one first reward",
+        "All three actual scene frames restore through public map with same two memories and one paused clock",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "bookhouse.png": {
+          "bytes": 957821,
+          "sha256": "937130a2a41e8b0a1c25c2d03ccf70eb97439e291fa979165e35e535678025a1"
+        },
+        "courtyard.png": {
+          "bytes": 1011490,
+          "sha256": "f97a9522a0b1e95fe1481dd52340c88652b3576388bfff6ce0cce9de0780637f"
+        },
+        "reflection-shapes-closing.png": {
+          "bytes": 845674,
+          "sha256": "c26c67419e164efcc694d565fe129185a879150dcebe5319345d157b68a94451"
+        },
+        "reflection-shapes-ready.png": {
+          "bytes": 861470,
+          "sha256": "d7c58e480363882021ccf71641686da17ed3e740ff430421afef4626548b3d10"
+        },
+        "reflection-shapes-remembered.png": {
+          "bytes": 1079829,
+          "sha256": "d8d200dbec7b6dc82ba05a3c3d930d0c97c9026f6b28d561b94c904a2c999144"
+        },
+        "result.json": {
+          "bytes": 205305,
+          "sha256": "2166833ed7bb485a9a950630f074319028ea6f3961c544084241ed3aaae6fe5a"
+        },
+        "tea-bookmark-closing.png": {
+          "bytes": 850954,
+          "sha256": "1e543285cb53f6017285c0e7a157d07ca195115f3b79414884bf59696444905c"
+        },
+        "tea-bookmark-ready.png": {
+          "bytes": 876660,
+          "sha256": "00c3bb082bb296dd687d46d6466cc727843800acdd181944ccb7486849cc3d15"
+        },
+        "tea-bookmark-remembered.png": {
+          "bytes": 1071463,
+          "sha256": "d6708a658c26f56a2a01c148e8706a9c2169956ec7895bccce2bc0e11f1997d3"
+        },
+        "tea-square.png": {
+          "bytes": 1081547,
+          "sha256": "29f4fc1acdba7eefff541ad11384198ed1fd10e22c5aaef6e674782f317d72d8"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre2-restored-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.2",
+        "sha256": "22d41072b0931a3ae58fc1b441b6c786403ec023008e8b87bdb1484327427cbc",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.2.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Distinct official Desktop process cold-restored exact revision/operation/world and actual first frame",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "cold-restored.png": {
+          "bytes": 1009123,
+          "sha256": "8dc5510d1406700dcf5a2231334929e89f3786f6e79f915a810d9389bf08cb14"
+        },
+        "result.json": {
+          "bytes": 51294,
+          "sha256": "b6a2b292b6a10b24d82e19724e1870930cd44157d8a37be1841785d04b248c3d"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre3-upgrade-01",
+      "status": "FAIL",
+      "artifact": null,
+      "checks": [],
+      "failure": "Error: Command failed: powershell -NoProfile -Command Get-CimInstance Win32_Process -Filter 'ProcessId = 43436' | Select-Object ExecutablePath,CommandLine,@{Name='Created';Expression={$_.CreationDate.ToUniversalTime().ToString('o')}} | ConvertTo-Json -Compress\nGet-CimInstance : �ܾ����� \r\n����λ�� ��:1 �ַ�: 1\r\n+ Get-CimInstance Win32_Process -Filter 'ProcessId = 43436' | Select-Ob ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : PermissionDenied: (:) [Get-CimInstance], CimException\r\n    + FullyQualifiedErrorId : HRESULT 0x80041003,Microsoft.Management.Infrastructure.CimCmdlets.GetCimInstanceCommand\r\n \r\n\n    at genericNodeError (node:internal/errors:985:15)\n    at wrappedFn (node:internal/errors:539:14)\n    at checkExecSyncError (node:child_process:925:11)\n    at execFileSync (node:child_process:961:15)\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:103:33",
+      "files": {
+        "result.json": {
+          "bytes": 2327,
+          "sha256": "6135a5848a2f937ef233a8a96f6316b2a1591459b3b3b885354ce62f22ab1853"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre3-upgrade-02",
+      "status": "FAIL",
+      "artifact": {
+        "version": "0.14.0-preview.3",
+        "sha256": "cb59bab5e8336e363f1fde4a5d9e36e409671e525de880a94572d46510c852f8",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.3.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz"
+      ],
+      "failure": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'New session', exact: true }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-label=\"New session\" aria-keyshortcuts=\"Control+N\" class=\"wtg9ga_brand wtg9ga_wide\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div aria-hidden=\"true\" class=\"_mask_o6lrb_18\"></div> from <div role=\"presentation\" class=\"_root_o6lrb_6\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div aria-hidden=\"true\" class=\"_mask_o6lrb_18\"></div> from <div role=\"presentation\" class=\"_root_o6lrb_6\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    6 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div aria-hidden=\"true\" class=\"_mask_o6lrb_18\"></div> from <div role=\"presentation\" class=\"_root_o6lrb_6\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n\n    at newBlank (D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-native.mjs:42:106)\n    at D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\scripts\\ai-village-afternoon-native.mjs:122:32",
+      "files": {
+        "failed.png": {
+          "bytes": 182809,
+          "sha256": "ed3f807cc3cfb07bc9f52b3d5f7f7971764b83e3b9bec29be9b32bd218f42526"
+        },
+        "result.json": {
+          "bytes": 21965,
+          "sha256": "1765b4e8e67e7667444ea8e55156018d4be32c82109faefadab6a8eb72e1967c"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre3-upgraded-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.3",
+        "sha256": "cb59bab5e8336e363f1fde4a5d9e36e409671e525de880a94572d46510c852f8",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.3.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Installed upgraded package cold UI retains exact prior revision, operation and two story memories",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "result.json": {
+          "bytes": 33730,
+          "sha256": "aa693132313bd0213f7f86004c331ed9cfa452216a4da722994f15023237be74"
+        },
+        "upgraded-restored.png": {
+          "bytes": 1010129,
+          "sha256": "fa213322c82ddbcf731c5e9fa562481ab928481b5b8199872695427aff30f993"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-disable-before-upgrade-01",
+      "status": "FAIL",
+      "artifact": {
+        "version": "0.14.0-preview.3",
+        "sha256": "cb59bab5e8336e363f1fde4a5d9e36e409671e525de880a94572d46510c852f8",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.3.tgz"
+      },
+      "checks": [],
+      "failure": "Error: ENOENT: no such file or directory, open 'D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-afternoon-desktop\\home\\profiles\\desktop\\node_modules\\@nidofy\\dsh-ai-village\\cordis.patch.yml'\n    at async open (node:internal/fs/promises:640:25)\n    at async readFile (node:internal/fs/promises:1287:14)\n    at async identify (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:56:213)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:133:9",
+      "files": {
+        "failed.png": {
+          "bytes": 197167,
+          "sha256": "43a84c08beba60a94093115a2ce7d9f7bb686beb7b71dab3ff7571e0fab854f0"
+        },
+        "result.json": {
+          "bytes": 2608,
+          "sha256": "f3e9a3a4a107ec8e2c2ad332eba9a618d5d8cc9954f77eecf762e1d02c00f4a2"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-disable-before-upgrade-02",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.3",
+        "sha256": "cb59bab5e8336e363f1fde4a5d9e36e409671e525de880a94572d46510c852f8",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.3.tgz"
+      },
+      "checks": [
+        "Official disable preserves exact game data before process restart and package retry",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "manager-before-disable.txt": {
+          "bytes": 964,
+          "sha256": "cb9e636388b59c6583252536d49f28213038305eec1072167b241230c0ef3dd3"
+        },
+        "result.json": {
+          "bytes": 17400,
+          "sha256": "413ac6dee473c6c0ecf7e398fd7aba495cf7e8ede3fdf04fc007292442d678a4"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-lifecycle-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.4",
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.4.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Two actual disable/enable cycles revoke resources and restore one launcher/owner with exact persisted state",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "lifecycle.png": {
+          "bytes": 1089195,
+          "sha256": "95c4d244242db84a8952cf9e547ec34622e2b5bd36a1771fb05ce6284f879358"
+        },
+        "result.json": {
+          "bytes": 52600,
+          "sha256": "18fe3b99e4e65c2b7102f918e0341be2843b6eba1ccae494de4e2b0395289e3e"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-official-remove-failed-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.3",
+        "sha256": "cb59bab5e8336e363f1fde4a5d9e36e409671e525de880a94572d46510c852f8",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.3.tgz"
+      },
+      "checks": [
+        "Official uninstall removes Host/Client and retains exact current save including both new memories",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "result.json": {
+          "bytes": 17717,
+          "sha256": "fdfa87e86e1bc30b9b7a96dc35886c74aa748b164503e56ecf4b32bd9ee2ee6f"
+        },
+        "runner.mjs": {
+          "bytes": 25192,
+          "sha256": "5ffdd2e177ff75c617bf5ed8ef5655df9cf375bf0253b64007bcaf2aeacc6489"
+        },
+        "uninstalled.png": {
+          "bytes": 94963,
+          "sha256": "9dd51e51556fb7937c7185d5117cc60537517dcb8807513987eaa59d1776d37b"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-reinstall-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.4",
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.4.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Official reinstall retains exact saved world, two story memories and revision",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "installed.png": {
+          "bytes": 209112,
+          "sha256": "b5f90764a1aa44ca845228fd4037fc28b69928819c268f730eb39e150fc8f1dd"
+        },
+        "result.json": {
+          "bytes": 35260,
+          "sha256": "7d29f124854897435c5894fced2a1cbf9ea720dc5bd97d9606b819d541f1e65d"
+        },
+        "runner.mjs": {
+          "bytes": 25192,
+          "sha256": "5ffdd2e177ff75c617bf5ed8ef5655df9cf375bf0253b64007bcaf2aeacc6489"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-restored-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.4",
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.4.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Distinct official Desktop process cold-restored exact revision/operation/world and actual first frame",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "cold-restored.png": {
+          "bytes": 1091012,
+          "sha256": "f84216fa838ed296f8b9621d2e448dcf311b3871ada2cf5041a5d07607392a7b"
+        },
+        "result.json": {
+          "bytes": 55825,
+          "sha256": "cc23d14ca32b5b2ecbe98c128eea6e65a64942f4fc080e88f39517885a631a56"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-uninstall-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.4",
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.4.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Official uninstall removes Host/Client and retains exact current save including both new memories",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "result.json": {
+          "bytes": 34678,
+          "sha256": "2180991622e7d7d2d91396f1bfc9c98f113142513d748190aebc2743ab1665c7"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        },
+        "uninstalled.png": {
+          "bytes": 94963,
+          "sha256": "9dd51e51556fb7937c7185d5117cc60537517dcb8807513987eaa59d1776d37b"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-upgrade-01",
+      "status": "FAIL",
+      "artifact": {
+        "version": "0.14.0-preview.4",
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.4.tgz"
+      },
+      "checks": [],
+      "failure": "Error: TIMEOUT: official upgrade\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:18:214)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:121:9",
+      "files": {
+        "failed.png": {
+          "bytes": 195411,
+          "sha256": "2160d409157e6be6786faf704518ea7cc36d9dae351497c30ad233fc070bc87b"
+        },
+        "result.json": {
+          "bytes": 3627,
+          "sha256": "c3dc1c4b03f5bcacb9777550f4184cde8ce6eacc2590569ac045c1d13790f7c8"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-upgrade-02",
+      "status": "FAIL",
+      "artifact": {
+        "version": "0.14.0-preview.4",
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.4.tgz"
+      },
+      "checks": [],
+      "failure": "Error: TIMEOUT: official upgrade\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:18:214)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:122:9",
+      "files": {
+        "failed.png": {
+          "bytes": 195411,
+          "sha256": "2160d409157e6be6786faf704518ea7cc36d9dae351497c30ad233fc070bc87b"
+        },
+        "result.json": {
+          "bytes": 3617,
+          "sha256": "d6ba28f50dd1e228d0e31b06e1ff2e1feb588c14c7768b4d1547ac3a1f7462fb"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-visual-01",
+      "status": "FAIL",
+      "artifact": {
+        "version": "0.14.0-preview.4",
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.4.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz"
+      ],
+      "failure": "AssertionError [ERR_ASSERTION]: Event must remain active\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:61:86\n    at async until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:19:134)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-afternoon-native.mjs:156:110",
+      "files": {
+        "failed.png": {
+          "bytes": 959668,
+          "sha256": "2ba38323f42b291909f7175ca7e673edfe344b4e92e2546b4c794b911811ec51"
+        },
+        "result.json": {
+          "bytes": 27821,
+          "sha256": "95690967515ff866266fd7db6245aebfa663f1251e9e6e1c73a5661b3fbd82cb"
+        },
+        "runner.mjs": {
+          "bytes": 25192,
+          "sha256": "5ffdd2e177ff75c617bf5ed8ef5655df9cf375bf0253b64007bcaf2aeacc6489"
+        },
+        "tea-square.png": {
+          "bytes": 1078254,
+          "sha256": "9c2a062a206247f19dc74e7e3b9cc1e9fb69e7ebdbcce12d26521d7af2427070"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre4-visual-02",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.4",
+        "sha256": "1af57205ed90e5a11b28dcb4e20b67d0a1e8e999c439bdcef690e49065e5cd83",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.4.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Both story props inspected on real paused canvas without speech overlays; cancelled replays leave first memories unchanged",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "reflection-shapes-unoccluded-prop.png": {
+          "bytes": 1090174,
+          "sha256": "4a1ebc282773f7d763164f670137210d8511e3f531e2e1ed21aaaf44cb40c1de"
+        },
+        "result.json": {
+          "bytes": 90187,
+          "sha256": "3a0d84f5763a110438dee2c170b8b0e7355cf07f7bcc91c4a2a28aa3ee18f6a6"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        },
+        "tea-bookmark-unoccluded-prop.png": {
+          "bytes": 1084682,
+          "sha256": "fed20ff3646fcb9f776653a9f6846cee35256ef2790ea6d47a62b839abb2e495"
+        },
+        "two-visible-keepsakes.png": {
+          "bytes": 1091026,
+          "sha256": "a2e4558df080676f567bb46b7d49bd8b5c23fdd55eef8b5c41a137140bf1450b"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre5-lifecycle-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.5",
+        "sha256": "856f685f059e7f771dae92a6fe2cd3c8a302f0a260f6096562bd34976bd58e47",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.5.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Two actual disable/enable cycles revoke resources and restore one launcher/owner with exact persisted state",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "lifecycle.png": {
+          "bytes": 1091019,
+          "sha256": "4e3baa265fd9c22432911a669e31361526390fb0a46074f7722c26c8b53b8b70"
+        },
+        "result.json": {
+          "bytes": 53031,
+          "sha256": "824af90ffd8c9cf1a14d2b96d0de5dfc55acaed350f3be58ffbbe192d27389a3"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre5-reinstall-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.5",
+        "sha256": "856f685f059e7f771dae92a6fe2cd3c8a302f0a260f6096562bd34976bd58e47",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.5.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Official reinstall retains exact saved world, two story memories and revision",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "result.json": {
+          "bytes": 35124,
+          "sha256": "cc125bb863513945a7804c5c5cdbcec6e17726cbfcf350fe6f3e1c0b4496013b"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre5-restored-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.5",
+        "sha256": "856f685f059e7f771dae92a6fe2cd3c8a302f0a260f6096562bd34976bd58e47",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.5.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Distinct official Desktop process cold-restored exact revision/operation/world and actual first frame",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "cold-restored.png": {
+          "bytes": 1091013,
+          "sha256": "f558dfba97b7ddeedb189974b2d2ff320c0ec95c2e5d405f1809c93f77084ada"
+        },
+        "result.json": {
+          "bytes": 55828,
+          "sha256": "d9c6dee2443af9b79f62b9f10521bd89cec94e6ee530ffc719477a7d53b71c8e"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre5-uninstall-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.5",
+        "sha256": "856f685f059e7f771dae92a6fe2cd3c8a302f0a260f6096562bd34976bd58e47",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.5.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Official uninstall removes Host/Client and retains exact current save including both new memories",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "result.json": {
+          "bytes": 34759,
+          "sha256": "c263722ce1d58a4ca8abf101aa1534a602da42a3961c739ea701af20503d18cd"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        },
+        "uninstalled.png": {
+          "bytes": 94963,
+          "sha256": "9dd51e51556fb7937c7185d5117cc60537517dcb8807513987eaa59d1776d37b"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre6-lifecycle-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.6",
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.6.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Two actual disable/enable cycles revoke resources and restore one launcher/owner with exact persisted state",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "lifecycle.png": {
+          "bytes": 1083617,
+          "sha256": "134639ef798fd170276a0b96b2dcca77c7fb8ca8ca9dff11ad2696e0c7d1759c"
+        },
+        "result.json": {
+          "bytes": 52682,
+          "sha256": "033353453299384e9ba478b4a0c4badf2d9f5675759dcc12369ce0f0699b65e7"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre6-reinstall-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.6",
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.6.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Official reinstall retains exact saved world, two story memories and revision",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "result.json": {
+          "bytes": 37218,
+          "sha256": "1044b1cd887a254dae0cfcbb3a9bbb0aab685c8650d2a980e580f08c6c91f708"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre6-restored-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.6",
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.6.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Distinct official Desktop process cold-restored exact revision/operation/world and actual first frame",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "cold-restored.png": {
+          "bytes": 1083909,
+          "sha256": "07979dd0036464a6170b762b000f039d68d778953135820e46934f5b4fef6d00"
+        },
+        "result.json": {
+          "bytes": 56123,
+          "sha256": "7a3475a88240b536e66c56eb0fcc9b9a2ecb06c9e48dc985ca17c2e71f2c1a12"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre6-uninstall-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.6",
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.6.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Official uninstall removes Host/Client and retains exact current save including both new memories",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "result.json": {
+          "bytes": 35127,
+          "sha256": "5685b5d811eb31eb5677ecc838af9860a8674d27862ff48d20b1d75f6b17442a"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        },
+        "uninstalled.png": {
+          "bytes": 94963,
+          "sha256": "9dd51e51556fb7937c7185d5117cc60537517dcb8807513987eaa59d1776d37b"
+        }
+      }
+    },
+    {
+      "label": "b-native-pre6-visual-01",
+      "status": "PASS",
+      "artifact": {
+        "version": "0.14.0-preview.6",
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098",
+        "file": "nidofy-dsh-ai-village-0.14.0-preview.6.tgz"
+      },
+      "checks": [
+        "Official manager installed exact 398 package files from pinned tgz",
+        "Both story props inspected on real paused canvas without speech overlays; cancelled replays leave first memories unchanged",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "reflection-shapes-unoccluded-prop.png": {
+          "bytes": 1083252,
+          "sha256": "8079b879532e278fc7543617ad795723b1b7f88fc3bbc0f74f2d3b921e8f788e"
+        },
+        "result.json": {
+          "bytes": 81794,
+          "sha256": "9f1f5cb84f18144552d031c03317839228cefb801f7948b44f8b6f65f47da4d5"
+        },
+        "runner.mjs": {
+          "bytes": 25532,
+          "sha256": "544a71e103a4b970e9ea913a02926c5b95a99cd1650f1bb3b9e74ff65170fe95"
+        },
+        "tea-bookmark-unoccluded-prop.png": {
+          "bytes": 1083562,
+          "sha256": "56140516af496fd3105424f101375cc976df1e32448bc082219299418e19e22d"
+        },
+        "two-visible-keepsakes.png": {
+          "bytes": 1083913,
+          "sha256": "0dbeb3a686dd55f65848ebbe12f01148bb1acd1a5c427a39f524ace9a8e32873"
+        }
+      }
+    },
+    {
+      "label": "b-native-prepare-01",
+      "status": "PASS",
+      "artifact": null,
+      "checks": [
+        "Copied only frozen A6 r147 game bytes and created empty independent profile; original A6 untouched",
+        "Original A6 game/profile evidence remains byte-identical"
+      ],
+      "failure": null,
+      "files": {
+        "result.json": {
+          "bytes": 675,
+          "sha256": "121bd49ce6478c4616443f273464ee6fe7819ec908121fac8588918edfece3f8"
+        }
+      }
+    }
+  ]
+}

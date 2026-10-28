@@ -1,5 +1,7 @@
 # 架构与兼容边界
 
+2026-10-28：B 阶段采用 world15/content11/region2/frame12，冻结 world14 与旧茶区解码器。afternoon 保存最多两段首次故事及最近完成 ID，community 只保存调度与最多 12 条近期社交；所有事实仍来自既有手账、书屋、茶会及新下午茶回忆，不增加关系数据库、世界 owner 或时钟。真实移动复用 life.social，跨区/取消同步清理瞬时状态；已保存事实派生纸纪念和三地卡。实现与门禁见 [B 阶段记录](ai-village/afternoon/IMPLEMENTATION.md)。
+
 2026-10-26：AI Village rc.3 适配使用独立 `tools/compatibility/ai-village-rc3.json` 与 runtime/source-ui 锁文件，默认构建由该包精确 `engines.dsh` 选择并检查源码/依赖身份。其他插件继续 rc.2 通道。A6兼容检查点 world14/content10/region2/frame11 不变；Git/Live2D仅通过独立本地QA候选的组合专项，正式包仍为rc.2；当前门禁结果见 [rc.3 记录](ai-village/compatibility/DSH_0.2.1_RC3_RESULTS.md)，不以源码相同替代 Desktop 验收。
 
 

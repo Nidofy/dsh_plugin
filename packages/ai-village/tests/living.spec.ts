@@ -80,7 +80,7 @@ it('migrates v6 byte-preservingly, retains old activities, protects original dis
   const old=createHomeWorld(scene),raw=JSON.stringify(old),migrated=migrateLivingWorld(old,scene);expect(homeProjection(migrated)).toEqual({...old,home:{...old.home,accessories:migrated.home.accessories}});expect(migrated.home.accessories).toMatchObject(old.home.accessories);expect(JSON.stringify(old)).toBe(raw)
   const dir=await mkdtemp(join(tmpdir(),'village-living-')),v6=await SaveStore.open(dir,scene,homeWorldCodec(scene))
   await v6.save(0,old,crypto.randomUUID());const pointer=await readFile(join(v6.directory,'current.json'),'utf8')
-  const store=await SaveStore.open(dir,scene,livingWorldCodec(scene));expect((await store.read())?.world.schemaVersion).toBe(14)
+  const store=await SaveStore.open(dir,scene,livingWorldCodec(scene));expect((await store.read())?.world.schemaVersion).toBe(15)
   const snapshot=JSON.parse(pointer).snapshot, bytes=await readFile(join(v6.directory,'snapshots',snapshot));let saved=await store.save(1,migrated,crypto.randomUUID());expect((await store.read())?.world).toEqual(migrated)
   for(let i=0;i<42;i++)saved=await store.save(saved.revision,saved.world,crypto.randomUUID())
   expect(await readFile(join(v6.directory,'snapshots',snapshot))).toEqual(bytes)
@@ -99,9 +99,9 @@ it('runs seven residents deterministically with current social state and bounded
 it('reads every historical schema 1–6 without mutating raw input, refusing future fields and forged play clicks',()=>{
  const v3=createWorld(legacySceneV1),v1={...v3,schemaVersion:1};delete (v1 as any).companions
  for(const old of [v1,{...v3,schemaVersion:2},v3,createContentWorld(scene),createNeighborhoodWorld(scene),createHomeWorld(scene)]){
-  const raw=JSON.stringify(old),next=migrateLivingWorld(old,scene);expect(next.schemaVersion).toBe(14);expect(next.play.active).toBeNull();expect(JSON.stringify(old)).toBe(raw)
+  const raw=JSON.stringify(old),next=migrateLivingWorld(old,scene);expect(next.schemaVersion).toBe(15);expect(next.play.active).toBeNull();expect(JSON.stringify(old)).toBe(raw)
  }
- expect(()=>migrateLivingWorld({...createLivingWorld(scene),schemaVersion:15},scene)).toThrow()
+ expect(()=>migrateLivingWorld({...createLivingWorld(scene),schemaVersion:16},scene)).toThrow()
  const token=crypto.randomUUID()+':0';expect(validUIInput({kind:'play-find',token,point:{x:100,y:200}})).toBe(true)
  for(const bad of [{kind:'play-find',token:'bad',point:{x:1,y:2}},{kind:'play-find',token,point:{x:NaN,y:2}},{kind:'play-find',token,point:{x:1,y:2},extra:true}])expect(validUIInput(bad)).toBe(false)
 })

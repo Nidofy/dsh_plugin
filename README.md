@@ -4,7 +4,7 @@
 
 # DSH 独立插件仓库
 
-AI Village `0.13.0-preview.5` 已通过官方 **DSH 0.2.1-rc.3 的 A1–A6 兼容门禁**：415测试、双DPR玩法、原生生命周期、独立QA候选三插件共存及真实角色拖放均有证据。**按用户要求停在A6，B未启动**。世界与协议不变；包和检查点见 [rc.3 实施记录](docs/ai-village/compatibility/DSH_0.2.1_RC3_RESULTS.md)。Git/Live2D本轮仅验证独立本地QA候选，正式包仍保持rc.2；下面的pre3及全仓发行记录为历史证据。
+AI Village `0.13.0-preview.5` 已通过官方 **DSH 0.2.1-rc.3 的 A1–A6 兼容门禁**：415测试、双DPR玩法、原生生命周期、独立QA候选三插件共存及真实角色拖放均有证据。该 A6 检查点保留；2026-10-28 用户已授权推进 B，最新玩法与验收见 [B 阶段实施记录](docs/ai-village/afternoon/IMPLEMENTATION.md)。A6 世界与协议不变；历史包和检查点见 [rc.3 实施记录](docs/ai-village/compatibility/DSH_0.2.1_RC3_RESULTS.md)。Git/Live2D本轮仅验证独立本地QA候选，正式包仍保持rc.2；下面的pre3及全仓发行记录为历史证据。
 
 [AI 社区](packages/ai-village/README.md) 的 0.12.0-preview.1 已完成获批绘本地图、点击散步与离线包验收（world13/frame10）。当前 0.13.0-preview.3 已接入获批书屋与茶会场景、三人杯垫故事和普通坐姿（world14/content10/region2/frame11），通过410测试、双DPR交互、离线安装及隔离原生可见补测。旧超时记录保留，新方向动画未启用；交付包身份、性能范围与缺口见 [当前结果](docs/ai-village/community-next/CURRENT_STAGE.md)。
 

@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "from": "0.13.0-preview.5 / world14",
+  "to": "0.14.0-preview.6 / world15",
+  "oldPackageSha256": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760",
+  "checks": [
+    "Frozen A6 Host writes genuine old-format save",
+    "Read decodes world15 without changing pointer or snapshot",
+    "All prior fields retained, new bounded states empty",
+    "Stale epoch rejected",
+    "One explicit CAS publishes revision2; same operation returns identical ACK",
+    "Exact old pointer protected before publication",
+    "Cold reopen preserves world15"
+  ],
+  "candidateBundles": {
+    "service.mjs": "6709176fc6f0662bef726db9ad408b182586908a54a004d7624597eb5238f0c1",
+    "client.js": "2d391aa03148c4a245462c5b056a57c4990918cf8c697f5c5920574be83a8f83",
+    "frame.js": "41bc509f97781ecf99ece434e3184cc85598d22b4a90ccd6a06d369c233f8a74",
+    "build-identity.json": "fa2881517d4d10162632227437df4f5db4ead51de4b40f97e66c18b795e23072"
+  }
+}

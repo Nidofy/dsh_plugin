@@ -1,0 +1,4 @@
+PASS Official manager installed exact 398 package files from pinned tgz
+PASS Both story props inspected on real paused canvas without speech overlays; cancelled replays leave first memories unchanged
+PASS Original A6 game/profile evidence remains byte-identical
+{"status":"PASS","evidence":"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-afternoon-desktop\\evidence\\b-native-pre6-visual-01","checks":["Official manager installed exact 398 package files from pinned tgz","Both story props inspected on real paused canvas without speech overlays; cancelled replays leave first memories unchanged","Original A6 game/profile evidence remains byte-identical"]}

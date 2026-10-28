@@ -1,0 +1,4 @@
+PASS Official manager installed exact 398 package files from pinned tgz
+PASS Official uninstall removes Host/Client and retains exact current save including both new memories
+PASS Original A6 game/profile evidence remains byte-identical
+{"status":"PASS","evidence":"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-afternoon-desktop\\evidence\\b-native-pre6-uninstall-01","checks":["Official manager installed exact 398 package files from pinned tgz","Official uninstall removes Host/Client and retains exact current save including both new memories","Original A6 game/profile evidence remains byte-identical"]}

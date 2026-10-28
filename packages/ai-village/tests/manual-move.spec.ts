@@ -58,7 +58,7 @@ it('waits and retries at most three times when a new resident blocks the destina
 })
 it('migrates frozen schema12 without mutating it, rejects forged intent and freezes the old writer',()=>{
   const old=createV12(scene),raw=JSON.stringify(old),next=migrateLivingWorld(old,scene)
-  expect(next.schemaVersion).toBe(14);expect(next.manualMove).toBeNull();expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV12(scene).validate(next)).toThrow()
+  expect(next.schemaVersion).toBe(15);expect(next.manualMove).toBeNull();expect(JSON.stringify(old)).toBe(raw);expect(()=>codecV12(scene).validate(next)).toThrow()
   const moving=requestManualMove(book(),scene,{x:180,y:300})
   for(const mutate of [(w:typeof moving)=>{w.manualMove!.route=[]},(w:typeof moving)=>{w.manualMove!.expires=w.ticks},(w:typeof moving)=>{w.manualMove!.replans=4},(w:typeof moving)=>{w.manualMove!.route[0]={x:100,y:345}},(w:typeof moving)=>{(w.manualMove as any).extra=true}]){const bad=structuredClone(moving);mutate(bad);expect(()=>validateLivingWorld(bad,scene)).toThrow()}
   expect(validUIInput({kind:'ground-move',point:{x:180,y:300}})).toBe(true);expect(validUIInput({kind:'ground-move',point:{x:NaN,y:300}})).toBe(false);expect(validUIInput({kind:'cancel-move',extra:true})).toBe(false)
@@ -69,6 +69,6 @@ it('protects schema12 original snapshot bytes beyond ordinary retention after th
  const pointer=await readFile(join(legacy.directory,'current.json'),'utf8'),file=JSON.parse(pointer).snapshot,bytes=await readFile(join(legacy.directory,'snapshots',file))
  const store=await SaveStore.open(root,scene,livingWorldCodec(scene));let saved=(await store.read())!
  for(let i=0;i<42;i++)saved=await store.save(saved.revision,saved.world,crypto.randomUUID())
- expect(saved.world.schemaVersion).toBe(14);expect(await readFile(join(legacy.directory,'snapshots',file))).toEqual(bytes)
+ expect(saved.world.schemaVersion).toBe(15);expect(await readFile(join(legacy.directory,'snapshots',file))).toEqual(bytes)
  const refs=(await readdir(legacy.directory)).filter(n=>n.startsWith('upgrade-v1-'));expect(await Promise.all(refs.map(n=>readFile(join(legacy.directory,n),'utf8')))).toContain(pointer)
 })

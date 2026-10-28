@@ -5,7 +5,7 @@ import { cancelManualMove } from './manual-move.ts'
 
 import { validateLivingWorld, regionScene, type LivingWorld } from './living-state.ts'
 import { cancelTea, cancelPlay, stepLiving } from './living-engine.ts'
-import { cancelLifeSocial } from './life-engine.ts'
+import { cancelCommunitySocial as cancelLifeSocial } from './community-life.ts'
 import { actors, type Scene } from './world.ts'
 export class LivingController extends WorldController<LivingWorld> {
   moveOutcome: 'arrived' | 'blocked' | null = null
@@ -15,7 +15,7 @@ export class LivingController extends WorldController<LivingWorld> {
     const drag=this.drag,w=this.world
     // Selection is still allowed. A drag cannot implicitly cancel an important event.
     if(input.type==='up'&&drag?.id===input.id&&(drag.active||Math.hypot(input.css.x-drag.origin.x,input.css.y-drag.origin.y)>=5)){
-      const participants=[...w.teaSquare.active?.participants??[],...w.bookhouse.active?.participants??[],...w.play.active?.participants??[],...w.activeEvent?.participants??[],...w.neighborhood.event?.participants??[]]
+      const participants=[...w.afternoon.active?.participants??[],...w.teaSquare.active?.participants??[],...w.bookhouse.active?.participants??[],...w.play.active?.participants??[],...w.activeEvent?.participants??[],...w.neighborhood.event?.participants??[]]
       if(participants.includes(drag.actorId)){this.cancelDrag();this.lastPlacement='story-blocked';return}
     }
     super.pointer(input)
@@ -50,7 +50,7 @@ export class LivingController extends WorldController<LivingWorld> {
   }
   override selectCharacter(id:unknown){
     if(!isCharacterId(id))return
-    if((this.world.teaSquare.active||this.world.play.active||this.world.activeEvent||this.world.neighborhood.event)&&!actors(this.world).some(a=>a.id===id))return
+    if((this.world.afternoon.active||this.world.teaSquare.active||this.world.play.active||this.world.activeEvent||this.world.neighborhood.event)&&!actors(this.world).some(a=>a.id===id))return
     if(!actors(this.world).some(a=>a.id===id)){
       cancelManualMove(this.world)
       if(this.world.region.active!=='courtyard')return

@@ -3,12 +3,12 @@ import { residentRoute, clearSegment } from './navigation.ts'
 import { validateLivingWorld, type LivingWorld } from './living-state.ts'
 import { teaSquareScene, teaSquareSeats, teaSquareClosing } from './tea-square-scene.ts'
 import { teaSquareOrder, teaSquareToken, teaSquareUsedIds, type TeaSquareEvent } from './tea-square-state.ts'
-import { cancelLifeSocial } from './life-engine.ts'
+import { cancelCommunitySocial as cancelLifeSocial } from './community-life.ts'
 import { cancelManualMove } from './manual-move.ts'
 import type { CharacterId } from './roster.ts'
 import { uuid } from './content-state.ts'
 import { villageTime } from './dialogue.ts'
-function available(w:LivingWorld){if(w.region.active!=='tea-square')throw Error('TEA_SQUARE_REQUIRED');if(w.teaSquare.active||w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')}
+function available(w:LivingWorld){if(w.region.active!=='tea-square')throw Error('TEA_SQUARE_REQUIRED');if(w.afternoon.active||w.teaSquare.active||w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')}
 function path(w:LivingWorld,id:CharacterId,target:Point,occupied:Point[]){const a=actors(w).find(a=>a.id===id)!;if(!walkable(teaSquareScene,target)||occupied.some(p=>Math.hypot(p.x-target.x,p.y-target.y)<24))throw Error('FURNITURE_OCCUPIED');const route=residentRoute(teaSquareScene,a.position,target,occupied);if(!route||route.length>9)throw Error('PATH_BLOCKED');return route.filter((p,i)=>i!==0||Math.hypot(p.x-a.position.x,p.y-a.position.y)>.001)}
 function assign(w:LivingWorld,id:CharacterId,route:Point[]){const a=actors(w).find(a=>a.id===id)!;abandon(a);a.destination=route[0]??null;a.behavior=a.destination?'walk':'idle'}
 function prepare(w:LivingWorld){
@@ -111,4 +111,4 @@ export function startTeaSquareActivity(source:LivingWorld,base:Scene){
  cancelManualMove(w);cancelLifeSocial(w);w.teaSquare.activity={actorId:id,stage:'counter',seat,route,remainingTicks:0,expires:w.ticks+2400};assign(w,id,route);return validateLivingWorld(w,base)
 }
 export function cancelTeaSquareActivity(w:LivingWorld){const a=actors(w).find(a=>a.id===w.teaSquare.activity?.actorId);if(a)abandon(a);w.teaSquare.activity=null}
-export function placeTeaSquareKeepsake(source:LivingWorld,base:Scene,place:'message-tree'|null){const w=validateLivingWorld(source,base);if(!w.teaSquare.memory)throw Error('DECORATION_LOCKED');if(w.teaSquare.active||w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE');if(place!==null&&place!=='message-tree')throw Error('INVALID_SLOT');w.teaSquare.keepsake=place;return validateLivingWorld(w,base)}
+export function placeTeaSquareKeepsake(source:LivingWorld,base:Scene,place:'message-tree'|null){const w=validateLivingWorld(source,base);if(!w.teaSquare.memory)throw Error('DECORATION_LOCKED');if(w.afternoon.active||w.teaSquare.active||w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE');if(place!==null&&place!=='message-tree')throw Error('INVALID_SLOT');cancelLifeSocial(w);w.teaSquare.keepsake=place;return validateLivingWorld(w,base)}

@@ -1,0 +1,4 @@
+PASS Official manager installed exact 398 package files from pinned tgz
+PASS Distinct official Desktop process cold-restored exact revision/operation/world and actual first frame
+PASS Original A6 game/profile evidence remains byte-identical
+{"status":"PASS","evidence":"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-afternoon-desktop\\evidence\\b-native-pre6-restored-01","checks":["Official manager installed exact 398 package files from pinned tgz","Distinct official Desktop process cold-restored exact revision/operation/world and actual first frame","Original A6 game/profile evidence remains byte-identical"]}

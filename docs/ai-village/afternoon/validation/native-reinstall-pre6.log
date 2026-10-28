@@ -1,0 +1,4 @@
+PASS Official manager installed exact 398 package files from pinned tgz
+PASS Official reinstall retains exact saved world, two story memories and revision
+PASS Original A6 game/profile evidence remains byte-identical
+{"status":"PASS","evidence":"D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-afternoon-desktop\\evidence\\b-native-pre6-reinstall-01","checks":["Official manager installed exact 398 package files from pinned tgz","Official reinstall retains exact saved world, two story memories and revision","Original A6 game/profile evidence remains byte-identical"]}

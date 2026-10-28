@@ -3,7 +3,7 @@ import { residentRoute, clearSegment } from './navigation.ts'
 import { bookhouseScene } from './bookhouse-scene.ts'
 import { bookhouseEventStages, type BookTheme } from './bookhouse-state.ts'
 import { validateLivingWorld, type LivingWorld } from './living-state.ts'
-import { cancelLifeSocial } from './life-engine.ts'
+import { cancelCommunitySocial as cancelLifeSocial } from './community-life.ts'
 import type { CharacterId } from './roster.ts'
 import { uuid } from './content-state.ts'
 import { cancelManualMove } from './manual-move.ts'
@@ -83,7 +83,7 @@ export function placeBookhouseKeepsake(source:LivingWorld,base:Scene,place:Livin
  if(!w.bookhouse.memory)throw Error('DECORATION_LOCKED')
  if(w.bookhouse.active||w.play.active||w.activeEvent||w.neighborhood.event)throw Error('EVENT_ACTIVE')
  if(![null,'courtyard','bookhouse'].includes(place))throw Error('INVALID_SLOT')
- w.bookhouse.keepsake=place;return validateLivingWorld(w,base)
+ cancelLifeSocial(w);w.bookhouse.keepsake=place;return validateLivingWorld(w,base)
 }
 
 export function startBookhousePuzzle(source:LivingWorld,base:Scene,friend:CharacterId,id:string){return startBookhouseStory(source,base,friend,id,'puzzle')}

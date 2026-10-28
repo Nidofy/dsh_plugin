@@ -7,7 +7,7 @@ import { validateWorld, type Scene } from './world.ts'
 /** Render messages use the same current codec as the owner; never guess a future schema. */
 export function decodeFrameWorld(value: unknown, scene: Scene) {
   const version = (value as { schemaVersion?: number } | null)?.schemaVersion
-  if (version === 7 || version === 8 || version === 9 || version === 10 || version === 11 || version === 12 || version === 13 || version === 14) return migrateLivingWorld(value, scene)
+  if (version === 7 || version === 8 || version === 9 || version === 10 || version === 11 || version === 12 || version === 13 || version === 14 || version === 15) return migrateLivingWorld(value, scene)
   if (version === 6) return validateHomeWorld(value, scene)
   if (version === 5) return validateNeighborhoodWorld(value, scene)
   if (version === 4) return validateContentWorld(value, scene)

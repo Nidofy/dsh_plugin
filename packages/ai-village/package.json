@@ -1,6 +1,6 @@
 {
   "name": "@nidofy/dsh-ai-village",
-  "version": "0.13.0-preview.5",
+  "version": "0.14.0-preview.6",
   "private": true,
   "description": "Offline AI community with a storybook map, resident walking, illustrated bookhouse life and a playable three-friend tea square.",
   "type": "module",
