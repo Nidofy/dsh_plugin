@@ -1,0 +1,1822 @@
+{
+  "runs": [
+    {
+      "label": "baseline-fresh-dpr2-01",
+      "status": "PASS",
+      "version": "0.14.0-preview.6",
+      "mode": "fresh",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.6.tgz",
+        "bytes": 53688401,
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098"
+      },
+      "checks": [
+        "Fresh profile: two residents, three regions, scene-click minigame, persisted collection, sidebar hide/resume, cold restore, expanded view and English/dark UI"
+      ],
+      "screenshots": 11,
+      "videos": 0,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 32825,
+          "sha256": "55980eb998d18bfdd20cf1504d802091ddde4f767418cbdf7370b1e6b75c7bcb"
+        },
+        {
+          "file": "fresh-cold-restored.png",
+          "bytes": 1271457,
+          "sha256": "6b7141182927fb520734ca2e218fb00ec6d2dd09edd051c8e709d5c0b3428cb3"
+        },
+        {
+          "file": "fresh-courtyard-two-residents.png",
+          "bytes": 1271108,
+          "sha256": "8ff7637f0d95d98c5190d812a7063526b2024996c76614a16d36d531e273232d"
+        },
+        {
+          "file": "fresh-expanded-dark-en.png",
+          "bytes": 2572592,
+          "sha256": "768864e65ab05fd5f72c4399f7c09b411452cc50af6b8a88833a79ec1ff09869"
+        },
+        {
+          "file": "fresh-expanded.png",
+          "bytes": 2570024,
+          "sha256": "f50922147c25424e7e5efa0d57a81356c6d9d1c4343bf52658899a092c06310d"
+        },
+        {
+          "file": "fresh-find-whale-target.png",
+          "bytes": 1270036,
+          "sha256": "c91351c00089264501a85921bef9902d297c1f588cbed5b0f669d6a9b3c311c4"
+        },
+        {
+          "file": "fresh-first-open.png",
+          "bytes": 1244512,
+          "sha256": "60838f0faf0194b28c60047097264fef32190dc4775712a06a75ab8ef15ba2ec"
+        },
+        {
+          "file": "fresh-game-memory-collection.png",
+          "bytes": 804822,
+          "sha256": "a4fabddfcc6a96df450ae54a80c6e295de6406fc7f0becb188587a2b2b972ee7"
+        },
+        {
+          "file": "fresh-resident-list.png",
+          "bytes": 1035906,
+          "sha256": "56322e559022f871402d910d86a23d6bbbab269961fd38ee0f0010fc8b4983d0"
+        },
+        {
+          "file": "fresh-visit-bookhouse.png",
+          "bytes": 1201727,
+          "sha256": "ad1c065542eace8b921f091ab969afd95faad8788c109102f5000e9b0d8428f1"
+        },
+        {
+          "file": "fresh-visit-courtyard.png",
+          "bytes": 1271392,
+          "sha256": "5fcf0e3797ce22f1c4e69a59b55ea5318a7c800dd83f5eec7f4acce501a2d11d"
+        },
+        {
+          "file": "fresh-visit-tea-square.png",
+          "bytes": 1385599,
+          "sha256": "9e2361e5a909fffcceacc4e17f67bc09368f2dc0394eb89254b882c18a7dda91"
+        },
+        {
+          "file": "result.json",
+          "bytes": 209603,
+          "sha256": "bc020d706f3ff23c38b44c1a6f18168c7843a76463222c5bed5923d10d23a26a"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 36825,
+          "sha256": "131c093b395bd9bccb77777440f83afe9dca7492515cef46352e4330f61c53a9"
+        }
+      ]
+    },
+    {
+      "label": "baseline-pre6-dpr1-01",
+      "status": "PASS",
+      "version": "0.14.0-preview.6",
+      "mode": "all",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.6.tgz",
+        "bytes": 53688401,
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098"
+      },
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "tea-bookmark: real approach cancelled without memory or award",
+        "Committed afternoon ACK loss reconciles by read-only recovery, with exactly one write for the operation",
+        "tea-bookmark: real movement, meaningful operation and first traceable memory/keepsake",
+        "tea-bookmark: replay preserves first source/choice and stored keepsake placement",
+        "reflection-shapes: real approach cancelled without memory or award",
+        "reflection-shapes: real movement, meaningful operation and first traceable memory/keepsake",
+        "reflection-shapes: replay preserves first source/choice and stored keepsake placement",
+        "Both distinct slices cancel, complete, replay and retain keepsakes across cold recovery and all three scene resource roundtrips",
+        "Public resident controls retain the two actual bookmark participants for a focused recall observation; seven-resident scenes were exercised above",
+        "bookhouse: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts; actual recall bubble matches original memory source/event/cast",
+        "courtyard: visible autonomous interaction reaches its scheduled end, resumes daily life, preserves cooldown and all reward facts",
+        "Explicit courtyard activity creates a source fact; simple region visits and autonomous greetings did not",
+        "Cross-region UI carries exact original event/cast provenance; three-place card unlocks only after real saved courtyard/bookhouse/tea experiences and survives cold recovery",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "screenshots": 33,
+      "videos": 0,
+      "files": [
+        {
+          "file": "autonomy-bookhouse-cooldown-cold.png",
+          "bytes": 347904,
+          "sha256": "a96442c371f43478aef1c794e7972d7aa116f9d42c0b6c8d579094ef4382b58e"
+        },
+        {
+          "file": "autonomy-courtyard-cooldown-cold.png",
+          "bytes": 359816,
+          "sha256": "d602bc448be985eb88cd06c34bfb1095ef7edda39e29df9780b26b6431d78c61"
+        },
+        {
+          "file": "bookmark-partial-cold.png",
+          "bytes": 372247,
+          "sha256": "0e2c1a53c9f1e7e04c6dbe1bfa378871187c03f782b5f10ae587151467bfe491"
+        },
+        {
+          "file": "build.json",
+          "bytes": 32823,
+          "sha256": "9c2472b750566abc565ea5cc73b50e57e072a12ae381f876e7503ae7f14dcc0d"
+        },
+        {
+          "file": "new-bookhouse-source.png",
+          "bytes": 347793,
+          "sha256": "ed9af98e4e531861760e6d47a89da1f3420cc0f0a3e941f20af57abdd1142d69"
+        },
+        {
+          "file": "new-courtyard-source.png",
+          "bytes": 360255,
+          "sha256": "9a693083e1501d6f45c7fbb15440d04514fe5e224d9690d03d93ba5b754c0c42"
+        },
+        {
+          "file": "reflection-shapes-earned.png",
+          "bytes": 400102,
+          "sha256": "5b13642a9f942779ac65a15b9e55d1f3285f10fae6a463df341f894427a0c150"
+        },
+        {
+          "file": "reflection-shapes-first-closing.png",
+          "bytes": 314058,
+          "sha256": "8360b3fd2e8dce5fbcd54990e3c00b3342b40b134c4bba3a5f2c6d49c3e699fc"
+        },
+        {
+          "file": "reflection-shapes-first-ready.png",
+          "bytes": 317503,
+          "sha256": "36cfcfbbeb05c4c2bcf5622537ce0a636429c16fead2b4aa4cf3fe645be9794f"
+        },
+        {
+          "file": "reflection-shapes-hidden-keepsake-cold.png",
+          "bytes": 399509,
+          "sha256": "733f938bac3a3b82e79596135971c813bb9c47f4cd335b25c0fe59fb88319eb1"
+        },
+        {
+          "file": "reflection-shapes-replay-closing.png",
+          "bytes": 313811,
+          "sha256": "615a20117678d925a94555b68c295829edb2939b80d91faf91bf4c9a54226dcb"
+        },
+        {
+          "file": "reflection-shapes-replay-ready.png",
+          "bytes": 312263,
+          "sha256": "3f28c41e7749e96c879f1c5eadc4f2041efddf5720300c9bdd524a54655e50a7"
+        },
+        {
+          "file": "reflection-shapes-replayed.png",
+          "bytes": 400205,
+          "sha256": "8917667205cbe21bed33deb0e4355cd27709c60ea36ba77735e3ee279c848950"
+        },
+        {
+          "file": "reflection-shapes-shown-canvas.png",
+          "bytes": 400100,
+          "sha256": "4066c60c1c92b2f54edfc8ed8b0a5c58811dd77c534856cad0e4630e323fcf61"
+        },
+        {
+          "file": "reflection-shapes-stage1-prop-canvas.png",
+          "bytes": 399226,
+          "sha256": "f3d75f33d030eebca5d0e2c2f528883eca536cda7a32a7bc98fd0b64e99418b8"
+        },
+        {
+          "file": "reflection-shapes-stored-canvas.png",
+          "bytes": 400314,
+          "sha256": "6178e2ba0bfd1cbd584b025fee8299fc0f98210d9d6c7ca84e30f174e6ecd42d"
+        },
+        {
+          "file": "result.json",
+          "bytes": 9432010,
+          "sha256": "62d91189ba4d4e5dd74c7cee1e9d9c9c9056087b6e776514f4666c5aea19d91e"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 33567,
+          "sha256": "b8d07763eb3624fa4934ad6741d25c3b390a57d4b21c3bb9523af98cf578a3f9"
+        },
+        {
+          "file": "saved-tea-experience-recalled-in-bookhouse.png",
+          "bytes": 306096,
+          "sha256": "7b04b74c7e0baf5af6ab9eadc5f4431064469c1ee64b0de19a7f12d49aeff0bc"
+        },
+        {
+          "file": "social-bookhouse-20686-recall.png",
+          "bytes": 332352,
+          "sha256": "c4733eb4573d4ac4d4797b1368067684ef57fda323fffa294fbd06425a526ebc"
+        },
+        {
+          "file": "social-courtyard-27526-recall.png",
+          "bytes": 348140,
+          "sha256": "9c884095010265c87fa2d7f25afc9774e907f477461a6324670c6f813537afe4"
+        },
+        {
+          "file": "tea-bookmark-earned.png",
+          "bytes": 398560,
+          "sha256": "d6239616926bcff8d8474b1747e0f7fd7cfa425d1a926adb6679d04e3c25daa6"
+        },
+        {
+          "file": "tea-bookmark-first-closing.png",
+          "bytes": 309913,
+          "sha256": "2e037690d26c7948e162cfcf87cc20916f0f2a0b4bfab6b22ed4d2457da06e20"
+        },
+        {
+          "file": "tea-bookmark-first-ready.png",
+          "bytes": 318811,
+          "sha256": "501d9667b017e9826535aa86f3fd96f9d0674a6a0bd447a57394b36dcf5c6313"
+        },
+        {
+          "file": "tea-bookmark-hidden-keepsake-cold.png",
+          "bytes": 398100,
+          "sha256": "dbaff66e4f12be031bd9f084dd85ec9a30a19952dee9cb312e57a54d89bb410e"
+        },
+        {
+          "file": "tea-bookmark-replay-closing.png",
+          "bytes": 312401,
+          "sha256": "90ac5dcc8f574c01c6b99093b4e656b346462abc57aae34e79b27390ac7d59e0"
+        },
+        {
+          "file": "tea-bookmark-replay-ready.png",
+          "bytes": 316882,
+          "sha256": "1db2938f2e38d450784579bc6e1ab5ad51a2bc67d5624d12a54c4f7fcd1ffd5d"
+        },
+        {
+          "file": "tea-bookmark-replayed.png",
+          "bytes": 398893,
+          "sha256": "15ae33d144d7df9417347d3e0ece6a9c8cbc61b3ea3ebb439eac00cb2120a3e1"
+        },
+        {
+          "file": "tea-bookmark-shown-canvas.png",
+          "bytes": 398577,
+          "sha256": "24b71edcdecdcf7bfc6780169723c0bdd543c2d11e21d664f0b1d8e2462801ca"
+        },
+        {
+          "file": "tea-bookmark-stage1-prop-canvas.png",
+          "bytes": 400220,
+          "sha256": "7b0a075408433a9fb335d079436d6f2a46448133c006ff5fc67b179ea339a723"
+        },
+        {
+          "file": "tea-bookmark-stored-canvas.png",
+          "bytes": 398940,
+          "sha256": "0aeaf54a7ca40742b0a2af3d296feec48f095df105e8d898fd07aaac56f0dfc0"
+        },
+        {
+          "file": "tea-bookmark-unknown-ack.png",
+          "bytes": 459432,
+          "sha256": "e91d79e048004f34affeef5870bf4630fd871d89960c175a77d115f26ce96c0c"
+        },
+        {
+          "file": "three-region-card-in-courtyard.png",
+          "bytes": 359727,
+          "sha256": "899cdde40198b00b0965be06c5de13cb697f4f576229e60f4220755364bb02ce"
+        },
+        {
+          "file": "three-region-collection-cold.png",
+          "bytes": 359727,
+          "sha256": "899cdde40198b00b0965be06c5de13cb697f4f576229e60f4220755364bb02ce"
+        },
+        {
+          "file": "two-traceable-memories.png",
+          "bytes": 238045,
+          "sha256": "bca77fd1bd4c2954f960b8ff293d1d754f50238e33caa6fc99132428f631c885"
+        },
+        {
+          "file": "world14-migrated.png",
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      ]
+    },
+    {
+      "label": "m1-pre2-dpr2-01",
+      "status": "FAIL",
+      "version": "0.16.0-preview.2",
+      "mode": "scene",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.2.tgz",
+        "bytes": 53735544,
+        "sha256": "db489226be230fa1b9fa68bacc2a5a13da73fb1124dd762f643efd4c7e9c09df"
+      },
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "failure": "Error: TIMEOUT: scene command acknowledged afternoon:keep\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:27:226)\n    at async sceneClick (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:326:3)\n    at async sceneExperience (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:354:3)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:484:25",
+      "screenshots": 9,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 35057,
+          "sha256": "6110c81f2a6694bbcdf07b74696c979202c0d89b48e38857d6d665c8ce36b7d6"
+        },
+        {
+          "file": "failure.png",
+          "bytes": 1413119,
+          "sha256": "700e2852a6eca9b4026c75eb4bdb249a7d2f7578b41e9ab13dcf63c5c6dc0515"
+        },
+        {
+          "file": "result.json",
+          "bytes": 1247251,
+          "sha256": "58c3ab7abea32625011b571b1ecb704e9242b20f037f7b2484640f490a3b51db"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 48360,
+          "sha256": "c00a910dfd7d1c9c00f015e65fadee760f9a2844e55f1dada98feebf91b4815f"
+        },
+        {
+          "file": "scene-discovery-340.png",
+          "bytes": 1429550,
+          "sha256": "91bff0e2c96ce40bd72c29ab87d438fa84539cf5042525db21f53a6e13e728d9"
+        },
+        {
+          "file": "scene-final-participants.png",
+          "bytes": 1409818,
+          "sha256": "fa652fc37298a71635316c5bf086ba250622b20bb6d284da2c7ab62a3324d633"
+        },
+        {
+          "file": "scene-leaf-selected.png",
+          "bytes": 1380694,
+          "sha256": "b5f0eca712a64871aeec7105b901e300926b9551447ccda94aca74a9d5b1e395"
+        },
+        {
+          "file": "scene-note-ready.png",
+          "bytes": 1461699,
+          "sha256": "608261dbeb2bd589a6b1ef573fa15123fd9ac9f2fc8ba93f42a0a4e64ce7eb7c"
+        },
+        {
+          "file": "scene-selected-cold.png",
+          "bytes": 1377490,
+          "sha256": "74943d08335eb4330cec890ad546d7647bdda8e78bf6029dc482b523baf4780c"
+        },
+        {
+          "file": "scene-wave-replaced.png",
+          "bytes": 1380273,
+          "sha256": "875daa470b173427b64a711ff1857385ceafb8576155dbd6c97067d347b5da08"
+        },
+        {
+          "file": "scene-zoomed-choice.png",
+          "bytes": 1383087,
+          "sha256": "23c8639984caeca22a386b05fd059414f3d081a3c15ed7480a6e5650cf76dc8b"
+        },
+        {
+          "file": "video/page@1afd337a12f9b984798706fd2981e845.webm",
+          "bytes": 11681611,
+          "sha256": "1fe9778672e228679ab65c12a7ce192ae0a530a286f1f6e3fc8909f242b43dab"
+        },
+        {
+          "file": "world14-migrated.png",
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      ]
+    },
+    {
+      "label": "m1-pre2-dpr2-02",
+      "status": "PASS",
+      "version": "0.16.0-preview.2",
+      "mode": "scene",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.2.tgz",
+        "bytes": 53735544,
+        "sha256": "db489226be230fa1b9fa68bacc2a5a13da73fb1124dd762f643efd4c7e9c09df"
+      },
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "Scene pointer chain: discover, read, select/replace/press, real resident arrival, CAS completion, recall/cold recovery; drag/Escape cancellation; REGION_BUSY; distinct reflection retry; expanded projection",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "screenshots": 16,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 35057,
+          "sha256": "91cd58ab27eab00426c8d23677e2211a0aa56e092ee78fe0b2ee0ff7102c5b51"
+        },
+        {
+          "file": "result.json",
+          "bytes": 2105644,
+          "sha256": "7a46f9db50bf821dce85bc4995626100fec67345180a83cc6205492e48c16731"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 53192,
+          "sha256": "6443eac8fce2bac5e41d37894a045a8c777a7703e92a73316a392b5201985e41"
+        },
+        {
+          "file": "scene-both-stories-complete.png",
+          "bytes": 1445613,
+          "sha256": "90a71b0e472297f00daabaa8595b4cbbbbc84d56a2eba432e77e1e608a1f76dc"
+        },
+        {
+          "file": "scene-complete-cold.png",
+          "bytes": 1427452,
+          "sha256": "f0f06d092f5dc1b560c1f91abb2bbeb8e7eb517c281cf14c5f07f903fb912d68"
+        },
+        {
+          "file": "scene-discovery-340.png",
+          "bytes": 1429684,
+          "sha256": "2d33424d5a85f3347b9e15ead42fc74a8c2a0ab5830d58f6e226c91cc6a41de1"
+        },
+        {
+          "file": "scene-expanded-dark-en.png",
+          "bytes": 2522227,
+          "sha256": "6ff8e862305294448665607121945905f15d540f30227bbd35b8bf0bdaf32c9a"
+        },
+        {
+          "file": "scene-expanded-recall.png",
+          "bytes": 2646313,
+          "sha256": "dd767dce53e7e5e56e65deaa554966075748f4a2653a06fceb7a9ddf05763e8b"
+        },
+        {
+          "file": "scene-expanded.png",
+          "bytes": 2648044,
+          "sha256": "0d9db96fccfc29862f68ac477e389c5f85efbe5041e20d2db6a22fbc1bed9a1d"
+        },
+        {
+          "file": "scene-final-participants.png",
+          "bytes": 1410190,
+          "sha256": "0d79bb2c07320bafec8ed3ed670d808eec9bfa80b659f6e792fafbafd8017ce8"
+        },
+        {
+          "file": "scene-insufficient-space.png",
+          "bytes": 88387,
+          "sha256": "a251525deac38e661c3ccb717cd69a17a2d8ea5554a3d2f2c08b1386d7cb068e"
+        },
+        {
+          "file": "scene-leaf-selected.png",
+          "bytes": 1379879,
+          "sha256": "aebb63dc3b8b6de46734eb0c18901bec2940e28b34af6df6b2e4d3358975b60f"
+        },
+        {
+          "file": "scene-note-ready.png",
+          "bytes": 1461819,
+          "sha256": "65680ee322d1f84d0e8dea6a32d671f5dff2031ba6b1527460bb1d5111e57a1b"
+        },
+        {
+          "file": "scene-saved-recall.png",
+          "bytes": 1444270,
+          "sha256": "cbe4110ccfbdcded5d52d5b2219960b9251c08df1758e413599f3070703ac319"
+        },
+        {
+          "file": "scene-selected-cold.png",
+          "bytes": 1377128,
+          "sha256": "2eb4b2d6d4ec5419301201c7d25811ff7557d98810b554bfdbe81b0448fa2b7e"
+        },
+        {
+          "file": "scene-short-dark-en.png",
+          "bytes": 955999,
+          "sha256": "82fdd6c953139e9cc599177fa6877156128132a362bf50b942f2c90756544cd3"
+        },
+        {
+          "file": "scene-wave-replaced.png",
+          "bytes": 1380121,
+          "sha256": "7264b6ac3296b751f590830123200d5c73c7255d52abf51d3a6fe54232118a36"
+        },
+        {
+          "file": "scene-zoomed-choice.png",
+          "bytes": 1379996,
+          "sha256": "925e86c24024b38519548d507b50024fdfea21c5d6e26f63a0a3aa48832fa055"
+        },
+        {
+          "file": "video/page@c798fcd348482dd5edd03a51dd261ac8.webm",
+          "bytes": 12238989,
+          "sha256": "b69d709c4b37f80fb3d20642e72248e839291adeee467d10ddb218cac869be7e"
+        },
+        {
+          "file": "world14-migrated.png",
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      ]
+    },
+    {
+      "label": "m1-pre2-probe-01",
+      "status": "PASS",
+      "version": "0.16.0-preview.2",
+      "mode": "probe",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.2.tgz",
+        "bytes": 53735544,
+        "sha256": "db489226be230fa1b9fa68bacc2a5a13da73fb1124dd762f643efd4c7e9c09df"
+      },
+      "checks": [
+        "Single fresh explicit pointer action in copied uncommitted QA state",
+        "Prior QA profile remains byte-identical; continuation used an independent copy"
+      ],
+      "screenshots": 1,
+      "videos": 0,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 41136,
+          "sha256": "8df75f5090c8af382bd39748657b864bdda5f3541d121648ff8cfb9ea1ae6e01"
+        },
+        {
+          "file": "probe-result.png",
+          "bytes": 1424095,
+          "sha256": "55896141fed0219dfd5e952a28ebdcdabe6b8d7d72f00ddb6967ddc79ad9b4f3"
+        },
+        {
+          "file": "result.json",
+          "bytes": 75031,
+          "sha256": "60786be2c93ebb5e19d6d82781c7ccd3e7489e75914e42182f0d3bf99c7f5a4e"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 53192,
+          "sha256": "6443eac8fce2bac5e41d37894a045a8c777a7703e92a73316a392b5201985e41"
+        }
+      ]
+    },
+    {
+      "label": "m1-scene-dpr1-01",
+      "status": "FAIL",
+      "version": "0.15.0-preview.1",
+      "mode": "scene",
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "failure": "AssertionError [ERR_ASSERTION]: Afternoon event ended before expected stage\n    at file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:118:80\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:472:9)\n    at async until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:27:138)\n    at async sceneExperience (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:324:46)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:413:25",
+      "screenshots": 3,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 34448,
+          "sha256": "406e0bece33022341d5cacadb046fa3d4a093a610b5c2c7fd6d1ba877accd5d1"
+        },
+        {
+          "file": "failure.png",
+          "bytes": 398764,
+          "sha256": "45d3ad50495a7b4599a79478fd9895893e9a30ac8b1139f80a223c8aec0ec0b4"
+        },
+        {
+          "file": "result.json",
+          "bytes": 128647,
+          "sha256": "ee6338a45e643649fe16fd32d3d0b13d4963d48e9ccfed015bc577e58002dd3f"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 40979,
+          "sha256": "de36b83c346c1b30c4f583b2e099e49ad64911fde237de6f3ba8044dc3402e53"
+        },
+        {
+          "file": "scene-discovery-340.png",
+          "bytes": 399267,
+          "sha256": "472433300f16365fadf2f0af122b1579c1bd02063e5590f9954486d99c604fcc"
+        },
+        {
+          "file": "video/page@4a8336676e7d5558167cb6414bba6750.webm",
+          "bytes": 758997,
+          "sha256": "8fc19e453eaf92e60235b7dca819f940ba18b8d8170bf64053d9bc4042537ee1"
+        },
+        {
+          "file": "world14-migrated.png",
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      ]
+    },
+    {
+      "label": "m1-scene-dpr1-02",
+      "status": "PASS",
+      "version": "0.15.0-preview.1",
+      "mode": "scene",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.15.0-preview.1.tgz",
+        "bytes": 53695306,
+        "sha256": "b08fd7355b2d85c4bd95dfcacdf751027b01ae7b319ba92a25a72e80389551b5"
+      },
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "Scene pointer chain: discover, read, select/replace/press, real resident arrival, CAS completion, recall/cold recovery; drag/Escape cancellation; REGION_BUSY; distinct reflection retry; expanded projection",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "screenshots": 12,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 34637,
+          "sha256": "540dac08db439b3845ad22afcfd3ae8b527d627483fc3a2457ce1c4fe2beb9c2"
+        },
+        {
+          "file": "result.json",
+          "bytes": 1889609,
+          "sha256": "b267dab5b6a20b047e4881db4e1b2d2732eaf2bc0356020286374cbd4565b020"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 41507,
+          "sha256": "5a279f86bb3fffc269ac1bde448e72fb8622cbebe7b18557101af39fcb658e53"
+        },
+        {
+          "file": "scene-both-stories-complete.png",
+          "bytes": 397675,
+          "sha256": "184f1002a188f65bd26ef4e9fe13dba6ecece68ead64012dd3a74b8cbfea742b"
+        },
+        {
+          "file": "scene-complete-cold.png",
+          "bytes": 396352,
+          "sha256": "51ef001154a809506c557e719dacc8c155e1bab5559cd5b4f31fed68b98420c2"
+        },
+        {
+          "file": "scene-discovery-340.png",
+          "bytes": 399267,
+          "sha256": "472433300f16365fadf2f0af122b1579c1bd02063e5590f9954486d99c604fcc"
+        },
+        {
+          "file": "scene-expanded-recall.png",
+          "bytes": 776967,
+          "sha256": "5b21368cf8fa3b9592df5b178bb2daa0671837560dfd1ca706a90ef2da583323"
+        },
+        {
+          "file": "scene-expanded.png",
+          "bytes": 848514,
+          "sha256": "bb9047812ee8363bf7f0e9903c6fb5510db21a10ff4106fca41ec827396abf36"
+        },
+        {
+          "file": "scene-final-participants.png",
+          "bytes": 367691,
+          "sha256": "6730d1c1493cc97c0f6722175591c521e94b78c215de30f6232fa8e23a51f63a"
+        },
+        {
+          "file": "scene-leaf-selected.png",
+          "bytes": 371992,
+          "sha256": "ad523012142640e0f8f0a510b743356f31c5d486fbcc622ae5a7bdb3eb2362ac"
+        },
+        {
+          "file": "scene-note-ready.png",
+          "bytes": 374718,
+          "sha256": "028fcb224776354e69efb0ee558f23fc2fccc3c3abe14b76a783dfde2ee795ce"
+        },
+        {
+          "file": "scene-saved-recall.png",
+          "bytes": 395964,
+          "sha256": "4f55655be92395f5bd0ae7b2d675776b839d5c7d1d8cf41fef76187b78897b43"
+        },
+        {
+          "file": "scene-selected-cold.png",
+          "bytes": 371703,
+          "sha256": "2093edc7481088b1278d5ef09ef3c6a78318ce6ef7098501cfcde45f2e2b3ad1"
+        },
+        {
+          "file": "scene-wave-replaced.png",
+          "bytes": 372104,
+          "sha256": "7be8e7d45c315306ed3a419a0d201d85762a38f7ec16e8426b5672b59ea62a34"
+        },
+        {
+          "file": "video/page@e298f02611a8d2bf6ceba3d29559a06a.webm",
+          "bytes": 11046305,
+          "sha256": "f4cb0e0cb670b2aae09930d3bad3559a51adaa4a041a7b3309cf946c47b3ac70"
+        },
+        {
+          "file": "world14-migrated.png",
+          "bytes": 391159,
+          "sha256": "72f5b5d899fd47568e30050862c4b353cce014e7de311241204044d8977408dd"
+        }
+      ]
+    },
+    {
+      "label": "m1-scene-dpr2-01",
+      "status": "FAIL",
+      "version": "0.15.0-preview.1",
+      "mode": "scene",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.15.0-preview.1.tgz",
+        "bytes": 53695306,
+        "sha256": "b08fd7355b2d85c4bd95dfcacdf751027b01ae7b319ba92a25a72e80389551b5"
+      },
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "failure": "Error: TIMEOUT: visible scene object recall:tea-bookmark\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:27:226)\n    at async scenePoint (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:311:13)\n    at async sceneClick (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:316:28)\n    at async sceneExperience (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:363:77)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:429:25",
+      "screenshots": 15,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 34637,
+          "sha256": "d8cccec42b9582092e35f031b19cf896998020847e611e9be38b885cd74da1aa"
+        },
+        {
+          "file": "failure.png",
+          "bytes": 88198,
+          "sha256": "b297dfa7a72f8b8bf930dd09617ff24ea53509a81d441f6f52ab6ec6f205ede1"
+        },
+        {
+          "file": "result.json",
+          "bytes": 1974643,
+          "sha256": "bad20b5d3a7611dfa8943edfab88bc6e034931ced76615852c697093e9c31fe6"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 42490,
+          "sha256": "1efad1beaccf9e9dc982ff6a544f98dd1f514b412bcb6001629f7144af3ea101"
+        },
+        {
+          "file": "scene-both-stories-complete.png",
+          "bytes": 1440938,
+          "sha256": "e5d6d75a162da136e394491c2e5c8fbd016b3b32518999bfa3d07f8a5d6c3fd8"
+        },
+        {
+          "file": "scene-complete-cold.png",
+          "bytes": 1432444,
+          "sha256": "b6cc38281a577dd8c307e7a3ad7cde991108d5c3181c9468f3c92f5e3ded3dc6"
+        },
+        {
+          "file": "scene-discovery-340.png",
+          "bytes": 1442614,
+          "sha256": "9ef3aaab11939e742d3bc585c8efff95012dee3213d83e56c4ce36aeffdcfc07"
+        },
+        {
+          "file": "scene-expanded-dark-en.png",
+          "bytes": 2537111,
+          "sha256": "5adf8f60ee362697f8c74eaae49492527bc77541b9c9e3ee13e1d5eb5dd07dcf"
+        },
+        {
+          "file": "scene-expanded-recall.png",
+          "bytes": 2645371,
+          "sha256": "e29574f65365b2650f7ad2f019353ec5e9a89c7262fef29fafdcfd08d12bc701"
+        },
+        {
+          "file": "scene-expanded.png",
+          "bytes": 2887682,
+          "sha256": "de6c9221e4afbadfcf442c4cb4042ba8e54db5c69f1fc38ade6a2e3bb8fd7573"
+        },
+        {
+          "file": "scene-final-participants.png",
+          "bytes": 1368841,
+          "sha256": "0110d08ad3fdf861ac8df2e6456372feff25f1aac3ab00c24647af7f79eb9089"
+        },
+        {
+          "file": "scene-leaf-selected.png",
+          "bytes": 1339448,
+          "sha256": "355d25f4ab774628b0c5ad9a65f85ee31b8270be888c9c6963a926f3121833f3"
+        },
+        {
+          "file": "scene-note-ready.png",
+          "bytes": 1356564,
+          "sha256": "9252a43346d24860175d2d74688ba12690e8e2d0c4626092356cbef6d4a0f9a1"
+        },
+        {
+          "file": "scene-saved-recall.png",
+          "bytes": 1450808,
+          "sha256": "fcdcc2a5b3656eae7f566aded2975fdbf207eece18c324a07d8fd23f7586065c"
+        },
+        {
+          "file": "scene-selected-cold.png",
+          "bytes": 1336186,
+          "sha256": "23380ba68a37dbb8e760dc6feecc901477a417ee944aba28ca4ce5ed1e7e2dd3"
+        },
+        {
+          "file": "scene-wave-replaced.png",
+          "bytes": 1339921,
+          "sha256": "b1103b694a74848901eda3478e49fe59f6c6474182f12613f09e12469940b782"
+        },
+        {
+          "file": "scene-zoomed-choice.png",
+          "bytes": 1280319,
+          "sha256": "e0c8906f4bd826ee539c0ac18893b8d021190be21f20b8feb3f942f0eab1d0eb"
+        },
+        {
+          "file": "video/page@29988be243bc88a1fc56eb86ad78248c.webm",
+          "bytes": 13045108,
+          "sha256": "8242571a1f7f057d4d6ff4e732eaf4ae299decce3b34d9b0fbfa949fb7a510f2"
+        },
+        {
+          "file": "world14-migrated.png",
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      ]
+    },
+    {
+      "label": "m1-scene-dpr2-02",
+      "status": "PASS",
+      "version": "0.15.0-preview.1",
+      "mode": "scene",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.15.0-preview.1.tgz",
+        "bytes": 53695306,
+        "sha256": "b08fd7355b2d85c4bd95dfcacdf751027b01ae7b319ba92a25a72e80389551b5"
+      },
+      "checks": [
+        "Actual paused seven-resident world14 snapshot migrates without altering prior fields or original snapshot bytes",
+        "Scene pointer chain: discover, read, select/replace/press, real resident arrival, CAS completion, recall/cold recovery; drag/Escape cancellation; REGION_BUSY; distinct reflection retry; expanded projection",
+        "Original A6 source game files remain byte-identical"
+      ],
+      "screenshots": 16,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 34637,
+          "sha256": "03661a34587f715a3077ce139269845bf9c911447d7e3ce0e89ccb69d9e51823"
+        },
+        {
+          "file": "result.json",
+          "bytes": 2009170,
+          "sha256": "3ea457b8a781b251a3fd830e41cb0ce77904b01455f4677f76ca64a034ae3a3d"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 45965,
+          "sha256": "ab15b4d7692111dabce8aca8e9d21a2a5d6082609e01ebb94b1754b7e17dd8a0"
+        },
+        {
+          "file": "scene-both-stories-complete.png",
+          "bytes": 1440816,
+          "sha256": "e4cffc5135027717dfd5f59e97cea2b16e6029bcdec5dcc85a063f5e64db4230"
+        },
+        {
+          "file": "scene-complete-cold.png",
+          "bytes": 1432618,
+          "sha256": "daec0a46993faacac017fb8b16d4910e22ac00b2ec376121bd910a5bb8234354"
+        },
+        {
+          "file": "scene-discovery-340.png",
+          "bytes": 1442614,
+          "sha256": "9ef3aaab11939e742d3bc585c8efff95012dee3213d83e56c4ce36aeffdcfc07"
+        },
+        {
+          "file": "scene-expanded-dark-en.png",
+          "bytes": 2543031,
+          "sha256": "13cf56c63c98282f98975fedef1645902868c21094a2c7b1a2b4e000feb4d90d"
+        },
+        {
+          "file": "scene-expanded-recall.png",
+          "bytes": 2645532,
+          "sha256": "a4c45dd6227fad5a866eb49d00dbd2a0c411453503428ff035f4cf6aa9e94c53"
+        },
+        {
+          "file": "scene-expanded.png",
+          "bytes": 2888061,
+          "sha256": "144821535363309a0b380ec9b3b7a6b1202512223cdc7459b987bf70bf3b8b4f"
+        },
+        {
+          "file": "scene-final-participants.png",
+          "bytes": 1368679,
+          "sha256": "c263620c5da6bf4cd3d328cf61f335ae323625ff1a39683e2ad5a4019a96cb40"
+        },
+        {
+          "file": "scene-insufficient-space.png",
+          "bytes": 88387,
+          "sha256": "a251525deac38e661c3ccb717cd69a17a2d8ea5554a3d2f2c08b1386d7cb068e"
+        },
+        {
+          "file": "scene-leaf-selected.png",
+          "bytes": 1339248,
+          "sha256": "5f4cc02cd44266396c5a13629a5fb5efad4b181ff652e1c2be73bf9f1b358530"
+        },
+        {
+          "file": "scene-note-ready.png",
+          "bytes": 1351670,
+          "sha256": "3b0de28c461b8ffaaf8a3e498c7c32659543cd5760eed88a5a1d42766348f143"
+        },
+        {
+          "file": "scene-saved-recall.png",
+          "bytes": 1450942,
+          "sha256": "051a5c15ca229b1251b0f4bc06267a6a088c67645df22a02dbce59cf7a07e73d"
+        },
+        {
+          "file": "scene-selected-cold.png",
+          "bytes": 1336378,
+          "sha256": "65976ac2fac89bc2495a8dadc9e544ec3182ea458acb75eac9d1566d6e96a785"
+        },
+        {
+          "file": "scene-short-dark-en.png",
+          "bytes": 963346,
+          "sha256": "65030a2c5944f667b2c69241cf40aafbafb2dfca5c536331664baae3752d584d"
+        },
+        {
+          "file": "scene-wave-replaced.png",
+          "bytes": 1339668,
+          "sha256": "0dc4e27b1fde2eb4888d15594359dd6c7a685b0a0d61c26b6ea206c2fec74334"
+        },
+        {
+          "file": "scene-zoomed-choice.png",
+          "bytes": 1280319,
+          "sha256": "e0c8906f4bd826ee539c0ac18893b8d021190be21f20b8feb3f942f0eab1d0eb"
+        },
+        {
+          "file": "video/page@126476b0c795f7790974dceac898ff2c.webm",
+          "bytes": 12182703,
+          "sha256": "12381af00347b260e45d50309dc369793259be07d8b7f4dad7884fd3c31a7362"
+        },
+        {
+          "file": "world14-migrated.png",
+          "bytes": 1367360,
+          "sha256": "0ff30578433049ae1f21c601044dda8f2b4653cb4d9e7ad1b15de4a6494c25db"
+        }
+      ]
+    },
+    {
+      "label": "m2-ab-dpr1-01",
+      "status": "FAIL",
+      "version": "0.16.0-preview.1",
+      "mode": "residents",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.1.tgz",
+        "bytes": 53734594,
+        "sha256": "ea77c980967b2b080af4f6f8875aea7fac1df19ce9bb9ff1084a6380b20d7cf0"
+      },
+      "checks": [
+        "rice-and-tea: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, placed keepsake recall"
+      ],
+      "failure": "Error: TIMEOUT: visible scene object discover:wind-scroll\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:27:226)\n    at async scenePoint (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:318:13)\n    at async sceneClick (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:323:28)\n    at async residentExperiences (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:420:5)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:459:34",
+      "screenshots": 13,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 35061,
+          "sha256": "2404a5a2700db3ddc6d0084cd61c954a00ec231391fdeaa85f306fdc795c8266"
+        },
+        {
+          "file": "failure.png",
+          "bytes": 371895,
+          "sha256": "94d7eea07ef5cae8336a9366942e952fa6f73f954f38e55a2c6479a161890d3f"
+        },
+        {
+          "file": "result.json",
+          "bytes": 827958,
+          "sha256": "f82ff40d539bf62d5394925b1fdde8840098cfc19f90e63beda77bdde9e2fe90"
+        },
+        {
+          "file": "rice-and-tea-arrived.png",
+          "bytes": 390725,
+          "sha256": "1bceb33aac44aae391898aabf973d50b48ba71810f92cad418a6dadc493a9bc3"
+        },
+        {
+          "file": "rice-and-tea-closing.png",
+          "bytes": 385793,
+          "sha256": "611c5eff40cc9fcdfc5de4ff76bd2c7b998e2e5a33bc9a867ca57acf492b3ec7"
+        },
+        {
+          "file": "rice-and-tea-confirmed-cold.png",
+          "bytes": 382406,
+          "sha256": "a61376f763d3e5e40c35fb63f9d1f5e06846099cb9e78c1e57060346b84f8e74"
+        },
+        {
+          "file": "rice-and-tea-confirmed.png",
+          "bytes": 382399,
+          "sha256": "69528428dda7cb8ac29704d25da722ba89bc47271322886819e7bb601506cfd4"
+        },
+        {
+          "file": "rice-and-tea-discovery.png",
+          "bytes": 384014,
+          "sha256": "b162fb2996d21583ecbb9a2d21981f7f2bffb30356b24342d6964e6f5f651175"
+        },
+        {
+          "file": "rice-and-tea-partial-cold.png",
+          "bytes": 371566,
+          "sha256": "4742543c5d4e618e8c60e1a6246d02c2e999acd47ecb492106b0c3fcc513095a"
+        },
+        {
+          "file": "rice-and-tea-recall.png",
+          "bytes": 382302,
+          "sha256": "498828d74a4164b620c6ca70a782e7873779e4d7aa1a4e28255ab3fcd2402ff2"
+        },
+        {
+          "file": "rice-and-tea-retry-0.png",
+          "bytes": 370999,
+          "sha256": "ebe8549bbbfa01d077163147b6fb2b2dd074972047ad55924fd257a3effc466c"
+        },
+        {
+          "file": "rice-and-tea-retry-1.png",
+          "bytes": 383909,
+          "sha256": "658e16ced4c1fe8a5619700860cde89216d907cc37ea95087b6f94e4fe1a98c7"
+        },
+        {
+          "file": "rice-and-tea-step-0.png",
+          "bytes": 371621,
+          "sha256": "b27f9979cb8ba68eb29f7af96adc3634e467c0512523ecd453bb81af0bf1c102"
+        },
+        {
+          "file": "rice-and-tea-step-1.png",
+          "bytes": 389642,
+          "sha256": "ae0617f52ec9d8cf51edd501f8c29a577207514a77272ac90a2257d0a5cff917"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 46747,
+          "sha256": "ce577f38ddf86eac44cd3e0f56b755ac8beb69f369cf015defc70b42d39a93f9"
+        },
+        {
+          "file": "video/page@20e329dbec7b71fce36a981d19d40347.webm",
+          "bytes": 17649012,
+          "sha256": "62e484a432c2e4edc08525fe939c3ebb810ec08a5f6a04d08b67ca7a089fa519"
+        },
+        {
+          "file": "wind-scroll-discovery.png",
+          "bytes": 369426,
+          "sha256": "2f69e4dbe1e941557b33ffb083e15d16b00b438520f4979c1c37f491873c5d68"
+        }
+      ]
+    },
+    {
+      "label": "m2-b-dpr1-02",
+      "status": "PASS",
+      "version": "0.16.0-preview.1",
+      "mode": "residents",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.1.tgz",
+        "bytes": 53734594,
+        "sha256": "ea77c980967b2b080af4f6f8875aea7fac1df19ce9bb9ff1084a6380b20d7cf0"
+      },
+      "checks": [
+        "wind-scroll: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, placed keepsake recall",
+        "Prior QA profile remains byte-identical; continuation used an independent copy"
+      ],
+      "screenshots": 13,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 40790,
+          "sha256": "0d777d364d75c14017c3afb4c429047c7fd9927e63258832842d8edb1fe08642"
+        },
+        {
+          "file": "result.json",
+          "bytes": 938967,
+          "sha256": "7aeec2ba6b24a45b1bcad684f572acec4ac860969dd2ee7243c2e185ebe9db08"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 47660,
+          "sha256": "d5931e9287ad0d27fe1816dbbc99d7981e8f44b244b04d6544e46dda0c994ac2"
+        },
+        {
+          "file": "video/page@dd58434c5684ce540fc4e8183fada0b8.webm",
+          "bytes": 6050816,
+          "sha256": "64fb5170fa55de037a39350649084101cad1ef5f99ae96e5f4506b1990ae49e8"
+        },
+        {
+          "file": "wind-scroll-arrived.png",
+          "bytes": 367921,
+          "sha256": "c04af1a78009ed11492a6a1898365cd8ee8fb960803b8e5dd09858ec28a70e31"
+        },
+        {
+          "file": "wind-scroll-closing.png",
+          "bytes": 365440,
+          "sha256": "9f14345b15a8faf8bc49cc72694738284e494475201652b82f9b5d070f769e1d"
+        },
+        {
+          "file": "wind-scroll-confirmed-cold.png",
+          "bytes": 371558,
+          "sha256": "b00f38332db1112a37336988bc86c637a923baff0dfd3c84c135f514a0ef644a"
+        },
+        {
+          "file": "wind-scroll-confirmed.png",
+          "bytes": 364813,
+          "sha256": "d61caff628ae46d0ef6a281f4560df12c9b9e9f5b5c00f677520976f6624bab6"
+        },
+        {
+          "file": "wind-scroll-discovery.png",
+          "bytes": 370679,
+          "sha256": "d467837e7c4524eef0b76536745572cfe79c25332e73d899a39a2c894d915455"
+        },
+        {
+          "file": "wind-scroll-partial-cold.png",
+          "bytes": 354246,
+          "sha256": "b99f3ea7a70e7b7a792a68a7b9f0dab1b873b95692d5f9d5fddfaa4103169b33"
+        },
+        {
+          "file": "wind-scroll-recall.png",
+          "bytes": 347916,
+          "sha256": "d51fb9ba9c3292876b3833cac3ac881587a825cd51f1d1cfb7a232876346fef3"
+        },
+        {
+          "file": "wind-scroll-retry-0.png",
+          "bytes": 354706,
+          "sha256": "e556d6cf857cd14b4c980dad9daaab5179d530baa044d858cbf9dd609c167301"
+        },
+        {
+          "file": "wind-scroll-retry-1.png",
+          "bytes": 363643,
+          "sha256": "e2e08717bc09e06f5d278040145eef4f8e5b85144a4dbf081364a11b99a8a830"
+        },
+        {
+          "file": "wind-scroll-retry-2.png",
+          "bytes": 354350,
+          "sha256": "401570c36a32256d99017ae66d52f21ebd3772ed73271e20ae1c186fdf0a4340"
+        },
+        {
+          "file": "wind-scroll-step-0.png",
+          "bytes": 354097,
+          "sha256": "845621148a43c9eaa4524d8bd8320b5b68b10322d6507e1c3e979f891dbbbb83"
+        },
+        {
+          "file": "wind-scroll-step-1.png",
+          "bytes": 363423,
+          "sha256": "11fce2bd9edd52b90d7f70a5b9d2ccee9b6ef4c0c1fae4fc3c68023010a30386"
+        },
+        {
+          "file": "wind-scroll-step-2.png",
+          "bytes": 367235,
+          "sha256": "8e5e906713c0a78fd60984ddc4933e6a782ba2ce26c97d089272c62bb77b3703"
+        }
+      ]
+    },
+    {
+      "label": "m2-rest-m3-pre2-dpr1-01",
+      "status": "FAIL",
+      "version": "0.16.0-preview.2",
+      "mode": "residents",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.2.tgz",
+        "bytes": 53735544,
+        "sha256": "db489226be230fa1b9fa68bacc2a5a13da73fb1124dd762f643efd4c7e9c09df"
+      },
+      "checks": [
+        "rice-and-tea: previous confirmed fact renders current-package authored recall and cold-restores unchanged",
+        "wind-scroll: previous confirmed fact renders current-package authored recall and cold-restores unchanged",
+        "odd-answers: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, placed keepsake recall",
+        "broken-rhythm: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, placed keepsake recall",
+        "tomorrow-plan: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, placed keepsake recall",
+        "reading-corner: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, placed keepsake recall",
+        "Prior QA profile remains byte-identical; continuation used an independent copy"
+      ],
+      "failure": "Error: TIMEOUT: scene command acknowledged afternoon:interact:tea-ring\n    at until (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:27:226)\n    at async sceneClick (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:326:3)\n    at async residentExperiences (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:442:7)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v015-qa.mjs:476:34",
+      "screenshots": 54,
+      "videos": 1,
+      "files": [
+        {
+          "file": "broken-rhythm-arrived.png",
+          "bytes": 392909,
+          "sha256": "2383b01fc5ed73e27d7c9153c9071d74da3892451331c8c970eab666cfc11084"
+        },
+        {
+          "file": "broken-rhythm-closing.png",
+          "bytes": 365578,
+          "sha256": "03fb5a87d67b04066f9e48de68edd839c3a0676e3ee8647265afbb05492ee4d9"
+        },
+        {
+          "file": "broken-rhythm-confirmed-cold.png",
+          "bytes": 384109,
+          "sha256": "93f56be48830257ac188ac11147667a3665e9005c143b223b47e2b03f1e83f8f"
+        },
+        {
+          "file": "broken-rhythm-confirmed.png",
+          "bytes": 384282,
+          "sha256": "3a2641326c02d1084af3eb9670277faf623b6c10226facb1f62a77f116b65040"
+        },
+        {
+          "file": "broken-rhythm-discovery.png",
+          "bytes": 386754,
+          "sha256": "d1e51401ab0d501987a57da59d4733e51a0f496e61ebf0eda82e1a249410796f"
+        },
+        {
+          "file": "broken-rhythm-partial-cold.png",
+          "bytes": 372264,
+          "sha256": "6e98c62c6b3e2c275499fe522f88021482de6337921694c0b297ec8e67f058a9"
+        },
+        {
+          "file": "broken-rhythm-recall.png",
+          "bytes": 367383,
+          "sha256": "f627d3b8bf9368d3082516d21460f0d6137afb570959f24350fe7835fed199ab"
+        },
+        {
+          "file": "broken-rhythm-retry-0.png",
+          "bytes": 383226,
+          "sha256": "16d359669dc3beb9487b7124e63aa543876646a81202c6fa6437b76b062baaad"
+        },
+        {
+          "file": "broken-rhythm-retry-1.png",
+          "bytes": 384302,
+          "sha256": "35d3f2391d6f68fad8c8d41ae15015400235247cc9c72fd38e1dc617a429f9e4"
+        },
+        {
+          "file": "broken-rhythm-retry-2.png",
+          "bytes": 373477,
+          "sha256": "b05c94988eb8b15d45caeb15949962b382c9ad723e66e19b200f42dbafca6b93"
+        },
+        {
+          "file": "broken-rhythm-step-0.png",
+          "bytes": 372153,
+          "sha256": "fdfcf6fa4a2e5ee0c020f5c5c0d16709be769de962d3b1632e77fa0c47e284a3"
+        },
+        {
+          "file": "broken-rhythm-step-1.png",
+          "bytes": 373513,
+          "sha256": "b7195cc8ca3aa0429a8489acb146c3afd5e1346862506918b7963965a3898f04"
+        },
+        {
+          "file": "broken-rhythm-step-2.png",
+          "bytes": 374423,
+          "sha256": "8a829711b4a5f95ff85661f575314e1220aee5bebdcb2669ceed9655d5da5fa0"
+        },
+        {
+          "file": "build.json",
+          "bytes": 40789,
+          "sha256": "d934e8e8acf3fed77c1bd17a2b6bd24181bbb9272dd794dcee8f388937bcbc28"
+        },
+        {
+          "file": "failure.png",
+          "bytes": 338655,
+          "sha256": "c2423b92dc9231cd3633b2e0e1b3b7683598d52345274af10524cffc1b70ddb5"
+        },
+        {
+          "file": "lost-diary-page-arrived.png",
+          "bytes": 353015,
+          "sha256": "d28bc609a8cf23ae5993b629f68add66981ef3a23599e1bc0f022ec591117ef9"
+        },
+        {
+          "file": "lost-diary-page-discovery.png",
+          "bytes": 355237,
+          "sha256": "7380a56f985b9b4ed5277ccded2858e123346f194242357d3559c0835f30cce5"
+        },
+        {
+          "file": "lost-diary-page-retry-0.png",
+          "bytes": 338734,
+          "sha256": "52b8a6d3fb9608bbf1c3c8d786adc6d5c7232694ecf0d126bfa3ab4f779681a0"
+        },
+        {
+          "file": "odd-answers-arrived.png",
+          "bytes": 353185,
+          "sha256": "668599ab26215dec854239c6b72eca9df642b806da35daff6f1a2867e76789ce"
+        },
+        {
+          "file": "odd-answers-closing.png",
+          "bytes": 338693,
+          "sha256": "107149c0ca9a4de751edab0fe143820a5a0ade5b5c3b56c5f1ad55acd38312cb"
+        },
+        {
+          "file": "odd-answers-confirmed-cold.png",
+          "bytes": 352805,
+          "sha256": "f2b618fe55883494f9321a0a07a5a679ea09aa7b1c8a6b1046999642ea8c59f8"
+        },
+        {
+          "file": "odd-answers-confirmed.png",
+          "bytes": 354021,
+          "sha256": "ea11027052d4e6c8294ae31e84ca8470977ab3dc86a3059193644a2c2ed71214"
+        },
+        {
+          "file": "odd-answers-discovery.png",
+          "bytes": 350539,
+          "sha256": "4e994a7ad8d90fe56973500d8b8ff8bec0b47396f63378bebb77e9fe14cc27e8"
+        },
+        {
+          "file": "odd-answers-partial-cold.png",
+          "bytes": 338150,
+          "sha256": "474fbf903e06861d565999503f9cdffb9be361592c3a4109a458ad1b2fb01dea"
+        },
+        {
+          "file": "odd-answers-recall.png",
+          "bytes": 336832,
+          "sha256": "933e240b64a209dc27f563f49ff306d6e19aa435e55b8d71c45303517f5fa3af"
+        },
+        {
+          "file": "odd-answers-retry-0.png",
+          "bytes": 349221,
+          "sha256": "4f559ebd81240d4533b02e72dc1f5471476a575dc8a5ec8b73e4ddf8eb3aaa22"
+        },
+        {
+          "file": "odd-answers-retry-1.png",
+          "bytes": 328230,
+          "sha256": "de23e1ccaf1c7863ea0aa5c29a3ae570765097458f46107f2b8a5745f7cb3f59"
+        },
+        {
+          "file": "odd-answers-step-0.png",
+          "bytes": 328562,
+          "sha256": "08ccd4300ed8916bb91920fc64bf44993f59abe6bd71b29d3afca469cff07984"
+        },
+        {
+          "file": "odd-answers-step-1.png",
+          "bytes": 338664,
+          "sha256": "3ba524f90eeb8c912c8c22b0503e008d6edea307fc8ba0767d66a565d6b4e671"
+        },
+        {
+          "file": "reading-corner-arrived.png",
+          "bytes": 352394,
+          "sha256": "593dbd618415b00f683542af068174f152f2e997c8fb6cfed443d0ea5325d0b7"
+        },
+        {
+          "file": "reading-corner-closing.png",
+          "bytes": 337614,
+          "sha256": "78667d4273ae7c7c6e6f670be259957383ef70e50962713b9ea4dc51c5d4ae4f"
+        },
+        {
+          "file": "reading-corner-confirmed-cold.png",
+          "bytes": 351949,
+          "sha256": "92f5a17da16de2f1f4d659196adc3a05784252cd42b544dc811e8f98a09c8210"
+        },
+        {
+          "file": "reading-corner-confirmed.png",
+          "bytes": 352884,
+          "sha256": "f54404aece1b68f607064ea86ab2a2064a39b11b16762e72a177f0122c65da1c"
+        },
+        {
+          "file": "reading-corner-discovery.png",
+          "bytes": 350644,
+          "sha256": "e875532caf3c55f55921a154fe552ecd142bf2a021ff92b69bb8f0deec0c31e2"
+        },
+        {
+          "file": "reading-corner-partial-cold.png",
+          "bytes": 336160,
+          "sha256": "38558d18eaa57e6a811a646c0eca3a9933ca1ed2e60e2130c1dfaca7753e478e"
+        },
+        {
+          "file": "reading-corner-recall.png",
+          "bytes": 335179,
+          "sha256": "99555a0efed7aa2ee2776a48912227bef849f28fe30737eceed8a05d45cbbed6"
+        },
+        {
+          "file": "reading-corner-retry-0.png",
+          "bytes": 335660,
+          "sha256": "1d222dcad11890a8280508d38febce2a18523ac1a8f87eabede0a8753f13d5ee"
+        },
+        {
+          "file": "reading-corner-retry-1.png",
+          "bytes": 336970,
+          "sha256": "0e6cb14702807ed222d22dc5da669da738f7ca65f01875e68135439d7d77bd09"
+        },
+        {
+          "file": "reading-corner-step-0.png",
+          "bytes": 336517,
+          "sha256": "6bf3bef80200d875af6449ab372b6c9fbf87668f8ae2813fa0a9a8b9473548b0"
+        },
+        {
+          "file": "reading-corner-step-1.png",
+          "bytes": 337532,
+          "sha256": "d6f0d2952f98e8449ff9cfe1fe694c6ae00943289f26b44142c06c681a7c2673"
+        },
+        {
+          "file": "result.json",
+          "bytes": 5295976,
+          "sha256": "9cdee8afda88ed94d7cb4e4a8cfe58d144d631826e4a0e5d58bba2a200977e3d"
+        },
+        {
+          "file": "rice-and-tea-final-package-cold.png",
+          "bytes": 388066,
+          "sha256": "cb8e005aa6ec0881b388e777507f4a98725a1770b25934e40bd5da132ea880e8"
+        },
+        {
+          "file": "rice-and-tea-final-package-revisit.png",
+          "bytes": 388335,
+          "sha256": "8a49680efe425975bca7888454e50e3bdf88839dd66c32a0cc694919bf495433"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 48360,
+          "sha256": "c00a910dfd7d1c9c00f015e65fadee760f9a2844e55f1dada98feebf91b4815f"
+        },
+        {
+          "file": "tomorrow-plan-arrived.png",
+          "bytes": 365292,
+          "sha256": "74bec0d253d7c5624ef7772c36bb16c075160d070a8534d34060874cac4bd569"
+        },
+        {
+          "file": "tomorrow-plan-closing.png",
+          "bytes": 349787,
+          "sha256": "fe286e434cbab23196cbef08e97879fa5674a4527d4941b740fbeff69a6d56c7"
+        },
+        {
+          "file": "tomorrow-plan-confirmed-cold.png",
+          "bytes": 370250,
+          "sha256": "9fb69f8e95daaaecb7dc0e1bc65793cfead4d66c172c4d1b54a8d59c9faf4093"
+        },
+        {
+          "file": "tomorrow-plan-confirmed.png",
+          "bytes": 363690,
+          "sha256": "51916f169e294902c65455ebc0f3e69a7f325ec24f650da34b1e015faf307a98"
+        },
+        {
+          "file": "tomorrow-plan-discovery.png",
+          "bytes": 369016,
+          "sha256": "658b08d1a20b6d29fe6f0e43e5ce35923602f418eda2e340f5e138d822e4b0fd"
+        },
+        {
+          "file": "tomorrow-plan-partial-cold.png",
+          "bytes": 361520,
+          "sha256": "e5dd6190d237e158355262eaeb9142a6fea08f91b00b321c30772986c11ce5e9"
+        },
+        {
+          "file": "tomorrow-plan-recall.png",
+          "bytes": 363454,
+          "sha256": "382e15a8c1dddc5599204cccb999c4da48baeb8f2f2098ae183587b06b6b9822"
+        },
+        {
+          "file": "tomorrow-plan-retry-0.png",
+          "bytes": 349344,
+          "sha256": "4b309e53f538710f41649229f11c5848652f0a22a849fc7ce8c15eee6beaad64"
+        },
+        {
+          "file": "tomorrow-plan-retry-1.png",
+          "bytes": 352840,
+          "sha256": "b04500788aeba26d1f40ba20bf14c55f649a810e78bb84de0f12ff93fa21b161"
+        },
+        {
+          "file": "tomorrow-plan-step-0.png",
+          "bytes": 361641,
+          "sha256": "83b4d65b76bcf4b3021165bd9ab424de14bfa7ad39b2c3500431ea2fa7110ecf"
+        },
+        {
+          "file": "tomorrow-plan-step-1.png",
+          "bytes": 353325,
+          "sha256": "aeb58283479986a97a2c6d10bc1bba9d1c5ea4b5eb47a70df666a5c618cc2c94"
+        },
+        {
+          "file": "video/page@bbbef6d2b97df015321f2d9333452d9a.webm",
+          "bytes": 32693658,
+          "sha256": "1f956fc199d916afe7ee0eab5d3a25d7e57a160ae923bf69371c5a662fb597af"
+        },
+        {
+          "file": "wind-scroll-final-package-cold.png",
+          "bytes": 371629,
+          "sha256": "d4d9c73413321432be2f6914dc27d7fc12876918965e7f73cf65913456ff7c96"
+        },
+        {
+          "file": "wind-scroll-final-package-revisit.png",
+          "bytes": 364730,
+          "sha256": "cf1f39fcfa5b17336042438e5dac082e14c6aed375a264cfed7bd67b743f3705"
+        }
+      ]
+    },
+    {
+      "label": "m3-pre2-dpr1-02",
+      "status": "PASS",
+      "version": "0.16.0-preview.2",
+      "mode": "residents",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.2.tgz",
+        "bytes": 53735544,
+        "sha256": "db489226be230fa1b9fa68bacc2a5a13da73fb1124dd762f643efd4c7e9c09df"
+      },
+      "checks": [
+        "lost-diary-page: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, confirmed chapter boundary",
+        "lost-diary-tea: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, confirmed chapter boundary",
+        "lost-diary-home: authored choices/wrong-answer retry, actual cast arrival, partial and confirmed cold recovery, one saved memory, placed keepsake recall",
+        "Prior QA profile remains byte-identical; continuation used an independent copy"
+      ],
+      "screenshots": 30,
+      "videos": 1,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 40800,
+          "sha256": "305235a9bb4790f57716c4a4ee3b74aeae5a8120d7d44d092cbaf037f5467bd3"
+        },
+        {
+          "file": "lost-diary-home-arrived.png",
+          "bytes": 365532,
+          "sha256": "e8059a90121faecd1d6f8aca84b3b4597f7c78e5f4d3ce9d339a6ec55e69fadf"
+        },
+        {
+          "file": "lost-diary-home-closing.png",
+          "bytes": 351645,
+          "sha256": "626751748feba6c1eb89a6637da74fbea7641811ca177bf49476cff5bc3c7c26"
+        },
+        {
+          "file": "lost-diary-home-confirmed-cold.png",
+          "bytes": 369711,
+          "sha256": "88ebf798356d6396a8d063489c037f37e19dbe24d130511b30c10f5a00a3fd76"
+        },
+        {
+          "file": "lost-diary-home-confirmed.png",
+          "bytes": 364318,
+          "sha256": "4f7e8bbdc2d40b1a438c5ad2a77e52a04e6c25fa1783281f97146fc07e261caa"
+        },
+        {
+          "file": "lost-diary-home-discovery.png",
+          "bytes": 371014,
+          "sha256": "f7e2081d6093b5d95d9dd1ae78c82db13e5b99378d23e2cbc23183e1d57e82fc"
+        },
+        {
+          "file": "lost-diary-home-partial-cold.png",
+          "bytes": 354662,
+          "sha256": "5c2343b0e2b3ac355ab925d9dc068002070e058d587c8be02d0b1d72b86bb62b"
+        },
+        {
+          "file": "lost-diary-home-recall.png",
+          "bytes": 347877,
+          "sha256": "802db6b288f64d9e7bb1f8203a003d8b3eed688799fd7c0b0e4fe9b9c490f492"
+        },
+        {
+          "file": "lost-diary-home-retry-0.png",
+          "bytes": 353684,
+          "sha256": "4c7a4adce4f54adaa2377683aa410cb1f2bfa9b4dab839ee13b3777128be1104"
+        },
+        {
+          "file": "lost-diary-home-retry-1.png",
+          "bytes": 353539,
+          "sha256": "009b93e3c5efd6981e569b8c60b1e83159715f09f1a177faa0b224b588d3bd9b"
+        },
+        {
+          "file": "lost-diary-home-step-0.png",
+          "bytes": 354624,
+          "sha256": "70027ef44807e41045a277d0251f22e008dc89a7753d93436136bebe8c2c9a55"
+        },
+        {
+          "file": "lost-diary-home-step-1.png",
+          "bytes": 356206,
+          "sha256": "7467e48ef740f4c737ad5c9e8eaf670d69b1313a149895e10e51ad66127e7013"
+        },
+        {
+          "file": "lost-diary-page-closing.png",
+          "bytes": 338873,
+          "sha256": "ccd0381998c4cd4f4e490181d709d2de00c52695fb4f922042e44f6b5bd497fa"
+        },
+        {
+          "file": "lost-diary-page-confirmed-cold.png",
+          "bytes": 352311,
+          "sha256": "8dbd1c92a2ba74764d1f48bea3186d21beb3845aadaa503f5ef7883e47e1727b"
+        },
+        {
+          "file": "lost-diary-page-confirmed.png",
+          "bytes": 333365,
+          "sha256": "4dbe6dc428846b0341d090504bebe3f346d5c06ef70e5eed530c7081880a889a"
+        },
+        {
+          "file": "lost-diary-page-partial-cold.png",
+          "bytes": 338259,
+          "sha256": "86cf06d349afda03205058b0f936730b54b8b6b9f6616509c0cf2831019d24e6"
+        },
+        {
+          "file": "lost-diary-page-resume-confirmed-stage.png",
+          "bytes": 338743,
+          "sha256": "0114748914141cd7c6695acde0e86859ef204c73ec1d819dc43cdf7c0d79938c"
+        },
+        {
+          "file": "lost-diary-page-retry-0.png",
+          "bytes": 338656,
+          "sha256": "06fa1d5e08268366599eb42cff91b288ff24978eb777488799a5c48b4398c349"
+        },
+        {
+          "file": "lost-diary-page-retry-1.png",
+          "bytes": 338594,
+          "sha256": "9ebf0689d704ba7f8f94f30fb98f6a5b875849ec33074acac41879e3fcb71bb5"
+        },
+        {
+          "file": "lost-diary-page-step-0.png",
+          "bytes": 338243,
+          "sha256": "5b188422cc3147b037d3317d8c7d4883564356c5414564f6c915892810a88f01"
+        },
+        {
+          "file": "lost-diary-page-step-1.png",
+          "bytes": 338840,
+          "sha256": "5ed9d546b95f2628cdd9d066eb0dc779fb5ebccf4fce0b7ec6333b03bf297edd"
+        },
+        {
+          "file": "lost-diary-tea-arrived.png",
+          "bytes": 390521,
+          "sha256": "838a59aae6b9cccd1a711d9620bd14877f67f5be4fb127079750cce6b84f188a"
+        },
+        {
+          "file": "lost-diary-tea-closing.png",
+          "bytes": 365604,
+          "sha256": "3ad4f64c9efc4049223898969d5878dba63fa03889b7e6dfb85191f22f5c7b19"
+        },
+        {
+          "file": "lost-diary-tea-confirmed-cold.png",
+          "bytes": 382436,
+          "sha256": "868b74a07c963e03bb7e201563d88f376428bc35eacca4e2fa48bcfbb30276cf"
+        },
+        {
+          "file": "lost-diary-tea-confirmed.png",
+          "bytes": 356295,
+          "sha256": "008d5ee83b80bf45a1e066123674aeae846630f4e3df44b82c06976a96c6e75e"
+        },
+        {
+          "file": "lost-diary-tea-discovery.png",
+          "bytes": 384255,
+          "sha256": "15b96d3acf02e8c76d2af6c183ec6923b1c47dd06ecd5f94d639f42336bdcb73"
+        },
+        {
+          "file": "lost-diary-tea-partial-cold.png",
+          "bytes": 371088,
+          "sha256": "f57048b08d0092df1dcf223e46b89449d717e47c01a47a086cd263ba492565d8"
+        },
+        {
+          "file": "lost-diary-tea-retry-0.png",
+          "bytes": 371358,
+          "sha256": "0a452062520d8617874448f29c2b5dfc2298c50ffec93646c986e1cfc8bc96ec"
+        },
+        {
+          "file": "lost-diary-tea-retry-1.png",
+          "bytes": 370353,
+          "sha256": "995d6e34c3da4209c35dbf1440d24c534801abbccf4d14fe29c334abcce2186b"
+        },
+        {
+          "file": "lost-diary-tea-step-0.png",
+          "bytes": 371031,
+          "sha256": "eb473db8bc4e185d691be803cbb517c68ef22aff41529ed8c65acaef02819a37"
+        },
+        {
+          "file": "lost-diary-tea-step-1.png",
+          "bytes": 372240,
+          "sha256": "067e1c26743450aab007091ba96358bc3ef3d0f9ab8b1e08f5de821f7ac80311"
+        },
+        {
+          "file": "result.json",
+          "bytes": 3986649,
+          "sha256": "ae60d6c7fa64f206ba0de2426b5a08de72bf49ec90fb34295de84fc58922564a"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 53772,
+          "sha256": "6abce1af9e38e5be5a506630eda87f89089c33f18e270d8e0a35377987c7ab81"
+        },
+        {
+          "file": "video/page@28e7e098638695a33f49634abf0d003d.webm",
+          "bytes": 15828040,
+          "sha256": "08cfa6e9a185417841de3f153fabf246c56f41683f1fa408224083adaa5387d2"
+        }
+      ]
+    },
+    {
+      "label": "m4-pre2-dpr2-01",
+      "status": "PASS",
+      "version": "0.16.0-preview.2",
+      "mode": "journal",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.2.tgz",
+        "bytes": 53735544,
+        "sha256": "db489226be230fa1b9fa68bacc2a5a13da73fb1124dd762f643efd4c7e9c09df"
+      },
+      "checks": [
+        "Unified journal: nine real story sources, twelve resident selectors/four pairs per page, seven provenance-backed keepsakes, stored remains unlocked, real renderer photo saved and cold-restored",
+        "Prior QA profile remains byte-identical; continuation used an independent copy"
+      ],
+      "screenshots": 9,
+      "videos": 0,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 40790,
+          "sha256": "f4cab58b6d30da717a9c21643d7f3df10b99e9aa40fb93f26e64b6533da368fc"
+        },
+        {
+          "file": "journal-album-empty.png",
+          "bytes": 811705,
+          "sha256": "06fb92bcd75bafd695834d49dee16709b8e71cafb536e148e9e7793457a4b0ff"
+        },
+        {
+          "file": "journal-all-facts-album-cold.png",
+          "bytes": 1281312,
+          "sha256": "19f6dcee29dc4176d83274a73f2b8ebad4d32e152f1bdcd60d4261fa5842e773"
+        },
+        {
+          "file": "journal-nine-sourced-stories.png",
+          "bytes": 805964,
+          "sha256": "fa032a3755fe4f7b97723018e8c4e8880f052c41df6ced1ae521a304be86a6a8"
+        },
+        {
+          "file": "journal-photo-cold.png",
+          "bytes": 800206,
+          "sha256": "5c63ce8fc6e6ec48fdcf58f422b05bde678d79d03cba1aa35ee65bf0d2dcda8d"
+        },
+        {
+          "file": "journal-real-photo-preview.png",
+          "bytes": 615307,
+          "sha256": "72b16dafe4512fea04bfedf37ef972be60e418d145dffc9440c4121649b3882d"
+        },
+        {
+          "file": "journal-saved-photo.png",
+          "bytes": 799981,
+          "sha256": "323dae8f68ea77a430b5f18b8100765eb83fc7bdc4823409c8a99df0e8c80388"
+        },
+        {
+          "file": "journal-seven-keepsakes.png",
+          "bytes": 798848,
+          "sha256": "dc632a5aa216da88d0480bb4ee5598db732b8139f1586df751f0683c617610f7"
+        },
+        {
+          "file": "journal-stored-still-queryable.png",
+          "bytes": 831913,
+          "sha256": "bd6933e4465ba07f36aa6b5767b8a77a0d8d5874d7d227dc25617d940c23205f"
+        },
+        {
+          "file": "journal-twelve-residents-paged-relationships.png",
+          "bytes": 795235,
+          "sha256": "77c12a6d64033f365582e4fd1e05db40fb00b529b4d9df7d4f37ef144756f10e"
+        },
+        {
+          "file": "result.json",
+          "bytes": 262393,
+          "sha256": "fb6462c372bcdfd8a926702cbfb7fe98680d0768657e169e4626a5c11341debb"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 57257,
+          "sha256": "d797084ddce89bd843a8f16eff667121f3c08df2f4b611d84a3b069babb02d7f"
+        }
+      ]
+    },
+    {
+      "label": "perf-pre2-dpr1-01",
+      "status": "PASS",
+      "version": "0.16.0-preview.2",
+      "mode": "performance",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.16.0-preview.2.tgz",
+        "bytes": 53735544,
+        "sha256": "db489226be230fa1b9fa68bacc2a5a13da73fb1124dd762f643efd4c7e9c09df"
+      },
+      "checks": [
+        "Three identical single-resident scene workloads: 15s visible RAF/paint/parent CPU samples after 3s warmup; travel and 5s hidden pause measured"
+      ],
+      "screenshots": 3,
+      "videos": 0,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 35063,
+          "sha256": "632679343bff410876d54130b5026610ddd2fbe934e0a62459d8d26470257331"
+        },
+        {
+          "file": "performance-bookhouse.png",
+          "bytes": 343806,
+          "sha256": "d241dd1e152240225b75db4cf716fb781a83fac0b357f5089ba63a20d8b735d4"
+        },
+        {
+          "file": "performance-courtyard.png",
+          "bytes": 356227,
+          "sha256": "6290a9441579b77a2dd0d01556640b474895351cf3fc5e6296c8ba4784c4e8fa"
+        },
+        {
+          "file": "performance-tea-square.png",
+          "bytes": 383036,
+          "sha256": "70d8f50c276ac10454fe042053982c39d9764dc3d4cb288648f71aff5f9e1f90"
+        },
+        {
+          "file": "result.json",
+          "bytes": 94015,
+          "sha256": "f562f0a879d8ad39f0468517484580e888570f168696297c621247e79117fcb4"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 57144,
+          "sha256": "a05b7da8e60a8300ccfa59562d0a1ae161f3cc628c0d71118068f13aa639ef80"
+        }
+      ]
+    },
+    {
+      "label": "perf-pre6-dpr1-01",
+      "status": "PASS",
+      "version": "0.14.0-preview.6",
+      "mode": "performance",
+      "artifact": {
+        "file": "dist\\nidofy-dsh-ai-village-0.14.0-preview.6.tgz",
+        "bytes": 53688401,
+        "sha256": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098"
+      },
+      "checks": [
+        "Three identical single-resident scene workloads: 15s visible RAF/paint/parent CPU samples after 3s warmup; travel and 5s hidden pause measured"
+      ],
+      "screenshots": 3,
+      "videos": 0,
+      "files": [
+        {
+          "file": "build.json",
+          "bytes": 32831,
+          "sha256": "f5976aaa7139c5b6a5e7311154c030e347493b22c0747a363e3b31e869519c5b"
+        },
+        {
+          "file": "performance-bookhouse.png",
+          "bytes": 343795,
+          "sha256": "500fbe92e612617156df5d090cd63911d6d5ee64ff04c2f40818d983784e9e4d"
+        },
+        {
+          "file": "performance-courtyard.png",
+          "bytes": 356227,
+          "sha256": "6290a9441579b77a2dd0d01556640b474895351cf3fc5e6296c8ba4784c4e8fa"
+        },
+        {
+          "file": "performance-tea-square.png",
+          "bytes": 383069,
+          "sha256": "344667497fa48369fae10c8f11c173cc3c889f7c67531aed1c67be6dc724a409"
+        },
+        {
+          "file": "result.json",
+          "bytes": 82002,
+          "sha256": "eb23d62ab06dbfdbe80bb7338211db4a704fde0390afe5be93880f375c646417"
+        },
+        {
+          "file": "runner.mjs",
+          "bytes": 53772,
+          "sha256": "6abce1af9e38e5be5a506630eda87f89089c33f18e270d8e0a35377987c7ab81"
+        }
+      ]
+    }
+  ]
+}

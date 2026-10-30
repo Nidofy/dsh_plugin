@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-29",
+  "status": "CANDIDATE_TECHNICAL_QA_ONLY",
+  "approvedForRelease": false,
+  "assets": [
+    {
+      "file": "diary-page-v01.png",
+      "sha256": "00481d4a2c8fb363a68ea553d8c69f9409f70a06f82fef4d88fbce666ab3d32a",
+      "bytes": 1703248,
+      "size": [
+        1312,
+        1199
+      ],
+      "alpha": {
+        "transparent": 721598,
+        "partial": 851465,
+        "opaque": 25,
+        "mean": 134.1717380082996
+      },
+      "alpha8Bounds": {
+        "left": 68,
+        "top": 41,
+        "right": 1223,
+        "bottom": 1164
+      },
+      "decodedRGBABytes": 6292352,
+      "status": "CANDIDATE_NOT_APPROVED",
+      "source": "Built-in image_gen; native PNG bytes copied unchanged",
+      "runtimeEnabled": false
+    },
+    {
+      "file": "bookmark-v01.png",
+      "sha256": "2fc41552990c076818542241d4eaca8e02f5511fb8529d1cdc5342b360af040a",
+      "bytes": 1700240,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha": {
+        "transparent": 1197405,
+        "partial": 375459,
+        "opaque": 0,
+        "mean": 57.46520233154297
+      },
+      "alpha8Bounds": {
+        "left": 318,
+        "top": 51,
+        "right": 729,
+        "bottom": 1460
+      },
+      "decodedRGBABytes": 6291456,
+      "status": "CANDIDATE_NOT_APPROVED",
+      "source": "Built-in image_gen; native PNG bytes copied unchanged",
+      "runtimeEnabled": false
+    },
+    {
+      "file": "bookmark-v02.png",
+      "sha256": "a34af0d342f9a18b44d78525dec5c12895e5c4aec366fc8161e6eabb877b99a2",
+      "bytes": 1850026,
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": {
+        "transparent": 661125,
+        "partial": 910803,
+        "opaque": 588,
+        "mean": 143.843913193888
+      },
+      "alpha8Bounds": {
+        "left": 115,
+        "top": 70,
+        "right": 1184,
+        "bottom": 1177
+      },
+      "decodedRGBABytes": 6290064,
+      "status": "CANDIDATE_NOT_APPROVED",
+      "source": "Built-in image_gen; native PNG bytes copied unchanged",
+      "runtimeEnabled": false
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "props-dpr1.png",
+      "sha256": "2b4327bae673cf0d365ded615111b4ca32fe87300d2a23896f6bbef3c58ac9de"
+    },
+    {
+      "file": "props-dpr2.png",
+      "sha256": "32f3008bf8b4aed2ed0d60cc05341bcb563392f38f38bdc27e3e18a1bc65cf72"
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "gait": {
+    "source": "../bluewhale-walk-cycle/renderer.ts",
+    "speed": 17,
+    "frameHoldSeconds": 0.18,
+    "holdTranslation": 3.06,
+    "cycleTranslation": 12.24,
+    "reason": "Candidate holds each whole-character pose for 0.18s while the world root moves at 17 units/s. Any planted sole moves 3.06 world units during that held pose; sub-frame foot locking is absent. This is a kinematic calculation, not motion capture or a new runtime test.",
+    "rightDirection": "front fallback",
+    "turn": "0.18s whole-character crossfade; visible double contour in historical v03 screenshot",
+    "qualification": "NOT_QUALIFIED"
+  },
+  "notCovered": [
+    "production world/hand contacts",
+    "final package registration",
+    "human art sign-off",
+    "hardware GPU/system DPI"
+  ]
+}

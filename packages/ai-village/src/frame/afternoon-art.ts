@@ -2,19 +2,20 @@ import type { Graphics } from 'pixi.js'
 import type { LivingWorld } from '../core/living-state.ts'
 import { actors } from '../core/world.ts'
 import { communityCollection } from '../core/community-life.ts'
+import { storyKeepsakes } from '../core/story-keepsakes.ts'
 /** Small paper props use the existing vector vocabulary and approved scene art. */
 export function paintAfternoon(g:Graphics,prop:Graphics,w:LivingWorld){
- g.zIndex=w.region.active==='tea-square'?2401:1991
- if(w.region.active==='tea-square'){
-  for(const [i,id] of (['tea-bookmark','reflection-shapes'] as const).entries())if(w.afternoon.keepsakes[id]){
-   const x=263+i*20,y=132+i*4
+ g.zIndex=2401
+  for(const [i,keepsake] of storyKeepsakes(w).entries()){
+   const x=keepsake.point.x-5,y=keepsake.point.y-10
    g.moveTo(x+5,y).lineTo(x+5,y-12).stroke({color:0x987550,width:1})
    g.roundRect(x,y,11,20,2).fill(i?0xd5e4e6:0xf0ddb0).stroke({color:0x997e5b,width:1})
-   if(i)g.moveTo(x+2,y+12).lineTo(x+5,y+5).lineTo(x+8,y+12).stroke({color:0x6e9aa2,width:1})
+   if(keepsake.story.id==='reflection-shapes')g.moveTo(x+2,y+12).lineTo(x+5,y+5).lineTo(x+8,y+12).stroke({color:0x6e9aa2,width:1})
    else g.ellipse(x+5,y+8,2,4).fill(0x83a279)
   }
+ if(w.region.active==='tea-square'){
   const e=w.afternoon.active
-  if(e&&e.phase!=='approaching'){
+  if(e&&['tea-bookmark','reflection-shapes'].includes(e.storyId)&&e.phase!=='approaching'){
    const a=actors(w).filter(a=>e.participants.includes(a.id)).sort((a,b)=>b.position.y-a.position.y||a.id.localeCompare(b.id))[0]!
    // Put the shared prop on the open hand side; a foreground bystander can cover the other side.
    const candidates=[a.position.x+16,a.position.x-36]

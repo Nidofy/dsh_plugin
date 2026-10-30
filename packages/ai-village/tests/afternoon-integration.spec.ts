@@ -39,11 +39,11 @@ it.each(['tea-square', 'bookhouse', 'play'] as const)('migrates a frozen world14
   expect(decodeFrameWorld(old, scene)).toEqual(upgraded)
 })
 
-it('decodes current world15 with active and completed stories and refuses future16 or forged content', () => {
+it('decodes current world16 with active and completed stories and refuses future17 or forged content', () => {
   const active = finalReady(), complete = actAfternoon(active, scene, afternoonToken(active.afternoon.active!), 'remember')
   for (const w of [active, complete]) expect(decodeFrameWorld(JSON.parse(JSON.stringify(w)), scene)).toEqual(w)
-  expect(() => decodeFrameWorld({ ...active, schemaVersion: 16 }, scene)).toThrow()
-  expect(() => decodeFrameWorld({ ...active, contentRevision: 12 }, scene)).toThrow()
+  expect(() => decodeFrameWorld({ ...active, schemaVersion: 17 }, scene)).toThrow()
+  expect(() => decodeFrameWorld({ ...active, contentRevision: 13 }, scene)).toThrow()
   const bad = structuredClone(active); bad.afternoon.active!.selection = 'right'; expect(() => decodeFrameWorld(bad, scene)).toThrow()
 })
 

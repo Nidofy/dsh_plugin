@@ -1,3 +1,4 @@
+import { CommunityJournal } from './CommunityJournal.tsx'
 import { AfternoonPanel, AfternoonMemoryArticles } from './AfternoonPanel.tsx'
 import { CommunityPanel } from './CommunityPanel.tsx'
 import { noticeTitle } from '../core/notifications.ts'
@@ -32,6 +33,7 @@ export const actionErrorText = (code: string, cn: boolean) => {
     FURNITURE_OCCUPIED: ['这个位置正在使用，请稍候或选择其他位置。', 'This spot is in use. Wait a moment or choose another place.'], LAYOUT_CONFLICT: ['布局已变化，请取消并重新开始。', 'The layout changed; cancel and start again.'],
     ENCOUNTER_EXPIRED: ['这次偶遇已经结束，等下一次再来帮忙。', 'This encounter has ended. You can lend a hand next time.'],
     REGION_BUSY: ['现在还不能出发，请先结束活动、拍照或布置，并等待场景准备完成。', 'Finish the activity, photo, or arrangement and wait for the scene to be ready before traveling.'],
+    STORY_REGION_REQUIRED: ['请先前往故事或纪念物所在的区域。', 'Visit the story or keepsake’s region first.'], STORY_LOCKED: ['先完成并保存上一章，再寻找这里的线索。', 'Complete and save the previous chapter before following this clue.'],
     COURTYARD_REQUIRED: ['这项操作需要回到小院后进行。', 'Return to the courtyard for this action.'], BOOKHOUSE_REQUIRED: ['请先前往 AI 书屋。', 'Visit AI Bookhouse first.'], TEA_SQUARE_REQUIRED: ['请先前往茶会广场。', 'Visit AI Tea Square first.'],
     PLAY_NOT_READY: ['朋友们还在途中，请稍候。', 'Friends are still on their way. Wait a moment.'], STALE_PLAY_ACTION: ['活动已推进，请按当前提示继续。', 'The activity has moved on. Follow the current prompt.'],
     REGION_FULL: ['目的地暂时找不到足够的安全落脚位置，请稍后再试。', 'There are not enough safe arrival spots at the destination. Try again later.'],
@@ -80,7 +82,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
         {p.tab === 'wishes' && <><p>{w.play.active ? playDefinition(w.play.active.definitionId)?.name[locale] : encounter ? playDefinition(encounter.definitionId)?.name[locale] : w.activeEvent || w.neighborhood.event ? t('朋友们正在一起活动','An activity is in progress') : t('同桌的午后','An afternoon together')}</p><div className="choices">{w.play.active ? <button onClick={()=>sub('wishes','wishes')}>{t('继续活动','Continue activity')}</button> : encounter && <button onClick={()=>sub('wishes','wishes')}>{t('此刻的小偶遇','A chance encounter now')}</button>}<button onClick={()=>sub('wishes','wishes')}>{t('全部心愿','All wishes')}</button><button onClick={()=>sub('wishes','activities')}>{t('一起活动','Together')}</button></div></>}
         {p.tab === 'decor' && <><small>{layoutNames[w.neighborhood.layout][locale]}</small><div className="choices">{(['furniture','hanging','atmosphere'] as const).map((v,i)=><button key={v} onClick={()=>sub('decor',v)}>{[t('家具','Furniture'),t('挂饰','Hangings'),t('氛围','Atmosphere')][i]}</button>)}</div></>}
         </>}
-        {p.tab === 'journal' && <><p>{r.notices.length ? noticeTitle(r.notices[0]!.story,locale) : t('回忆将留在这里。','Memories will stay here.')}</p><div className="choices"><button onClick={()=>sub('journal','memories')}>{t('回忆','Memories')}</button><button onClick={()=>sub('journal','album')}>{t('相册','Album')}</button></div></>}
+        {p.tab === 'journal' && <><p>{r.notices.length ? noticeTitle(r.notices[0]!.story,locale) : t('回忆将留在这里。','Memories will stay here.')}</p><div className="choices">{(['memories','relationships','collection','album'] as const).map((id,i)=><button key={id} onClick={()=>sub('journal',id)}>{[t('故事','Stories'),t('居民关系','Relationships'),t('纪念收藏','Keepsakes'),t('相册','Album')][i]}</button>)}</div></>}
       </>}
       {p.page !== 'quick' && <>
       {inCourtyard && <>
@@ -112,8 +114,7 @@ export function ManagementPanel({ runtime: r, cn, short }: { runtime: VillageRun
         {!!(w.activeEvent || w.neighborhood.event) && <p>{t('请先结束或取消当前活动。', 'Finish or cancel the active event first.')}</p>}
       </>}
       </>}
-      {p.tab === 'journal' && <><div className="choices"><button aria-pressed={p.subpages.journal === 'memories'} onClick={() => sub('journal', 'memories')}>{t('回忆', 'Memories')}</button><button aria-pressed={p.subpages.journal === 'album'} onClick={() => sub('journal', 'album')}>{t('相册', 'Album')}</button></div>{p.subpages.journal === 'album' ? <><button disabled={busy || !r.frameReady} onClick={() => { r.present({ type: 'close' }); void r.enterPhoto() }}>{t('拍一张', 'Take a photo')}</button><PhotoPanel runtime={r} locale={locale} albumOnly /></> : <><AfternoonMemoryArticles memories={w.afternoon.memories} locale={locale}/>{r.notices.filter(n=>!n.id.startsWith('afternoon:')).map(n => n.story === 'tea-square-three-cups' && w.teaSquare.memory ? <TeaSquareMemoryArticle key={n.id} memory={w.teaSquare.memory} locale={locale} noticeId={n.id}/> : n.story === 'bookhouse-light' && w.bookhouse.memory ? <BookhouseMemoryArticle key={n.id} memory={w.bookhouse.memory} locale={locale} noticeId={n.id}/> : <article tabIndex={-1} data-notice-id={n.id} className="village-journal" key={n.id}><small>{t('第', 'Day ')}{villageTime(n.tick).day}{cn ? '天' : ''} · ×{n.count}</small><h3>{noticeTitle(n.story,locale)}</h3><p>{n.participants.map(id => characterNames[id as CharacterId]).join(' & ')}</p></article>)}{!r.notices.length && <p>{t('回忆会在第一次完成活动并保存后留下。', 'First completed activities become memories after saving.')}</p>}</>}</>}
-      {p.tab === 'journal' && p.subpages.journal === 'memories' && <><RelationshipPanel world={w} locale={locale}/><CollectionPanel runtime={r} tab="journal" locale={locale}/></>}
+      {p.tab === 'journal' && <CommunityJournal runtime={r} locale={locale} busy={busy}/>}
     </>}
       {r.actionError && <p role="alert">{actionErrorText(r.actionError, cn)}<details><summary>{t('详情', 'Details')}</summary>{r.actionError}</details></p>}
     </PanelShell>}

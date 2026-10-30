@@ -1,11 +1,13 @@
 import { actors, abandon, type Point, type Scene } from './world.ts'
 import { residentRoute, clearSegment } from './navigation.ts'
-import { validateLivingWorld, type LivingWorld } from './living-state.ts'
-import { teaSquareScene, teaSquareClosing } from './tea-square-scene.ts'
+import { validateLivingWorld, regionScene, type LivingWorld } from './living-state.ts'
+import { teaSquareScene } from './tea-square-scene.ts'
+import { afternoonTargets } from './afternoon-geometry.ts'
+import { residentStory } from './resident-stories-catalog.ts'
 import { cancelCommunitySocial } from './community-life.ts'
 import { cancelManualMove } from './manual-move.ts'
 import { cancelTeaSquareActivity } from './tea-square-engine.ts'
-import { afternoonStory, isAfternoonStoryId, type AfternoonStoryId, type AfternoonAction } from './afternoon-catalog.ts'
+import { afternoonStory, isAfternoonStoryId, type AfternoonStoryId, type AfternoonAction, type AfternoonPlacement } from './afternoon-catalog.ts'
 import { afternoonToken, afternoonUsedIds, type AfternoonEvent } from './afternoon-state.ts'
 import type { CharacterId } from './roster.ts'
 import { uuid } from './content-state.ts'
@@ -14,20 +16,27 @@ const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y)
 function assign(w: LivingWorld, id: CharacterId, route: Point[]) {
   const a = actors(w).find(a => a.id === id)!; abandon(a); a.destination = route[0] ?? null; a.behavior = a.destination ? 'walk' : 'idle'
 }
-function prepare(w: LivingWorld) {
+function prepare(w: LivingWorld, base: Scene) {
+  const currentScene = regionScene(w, base)
   const e = w.afternoon.active!, targets: Point[] = [], routes: Point[][] = []
   const outsiders = actors(w).filter(a => !e.participants.includes(a.id)).map(a => a.position)
   const left = e.storyId === 'tea-bookmark' ? e.stage === 0 : e.stage === 2
-  const preferred = left ? { x: 98, y: 380 } : { x: 262, y: 380 }
+  const authored = residentStory(e.storyId)
+  const furniture = w.region.active === 'tea-square' ? (e.stage === 0 ? 'tea-table' : 'message-tree')
+    : w.region.active === 'bookhouse' ? (e.stage === 0 ? 'reading-desk' : 'window-seat') : 'bench'
+  const anchor = currentScene.hotspots.filter(h => h.id === furniture)
+  const preferred = authored && anchor.length
+    ? anchor[Math.min(anchor.length - 1, e.stage === 0 && w.region.active === 'tea-square' ? 1 : e.stage === 2 ? 1 : 0)]!.anchor
+    : left ? { x: 98, y: 380 } : { x: 262, y: 380 }
   let totalDistance = 0
   for (let i = 0; i < 2; i++) {
     const a = actors(w).find(a => a.id === e.participants[i])!
     const occupied = [...outsiders, ...targets, ...e.participants.slice(i + 1).map(id => actors(w).find(a => a.id === id)!.position)]
-    const candidates = [...teaSquareClosing].sort((a, b) => distance(a, preferred) - distance(b, preferred))
+    const candidates = [...afternoonTargets(w.region.active, currentScene, !!authored)].sort((a, b) => distance(a, preferred) - distance(b, preferred))
     let found = false
     for (const target of candidates) {
       if (occupied.some(p => distance(p, target) < 24) || e.stage === 2 && distance(a.position, target) < 32) continue
-      const route = residentRoute(teaSquareScene, a.position, target, occupied)?.filter((p, j) => j !== 0 || distance(p, a.position) > .001)
+      const route = residentRoute(currentScene, a.position, target, occupied)?.filter((p, j) => j !== 0 || distance(p, a.position) > .001)
       if (!route || route.length > 9) continue
       let last = a.position, length = 0
       for (const p of route) { length += distance(last, p); last = p }
@@ -42,18 +51,21 @@ function prepare(w: LivingWorld) {
 }
 export function startAfternoon(source: LivingWorld, base: Scene, storyId: AfternoonStoryId, participants: CharacterId[], eventId: string) {
   const w = validateLivingWorld(source, base)
-  if (w.region.active !== 'tea-square') throw Error('TEA_SQUARE_REQUIRED')
+  if (!isAfternoonStoryId(storyId)) throw Error('INVALID_INVITATION')
+  if (w.region.active !== afternoonStory(storyId).region) throw Error('STORY_REGION_REQUIRED')
+  const prerequisite = afternoonStory(storyId).prerequisite
+  if (prerequisite && !w.afternoon.memories.some(m => m.storyId === prerequisite)) throw Error('STORY_LOCKED')
   if (w.afternoon.active || w.teaSquare.active || w.bookhouse.active || w.play.active || w.activeEvent || w.neighborhood.event) throw Error('EVENT_ACTIVE')
   if (!isAfternoonStoryId(storyId) || participants.length !== 2 || new Set(participants).size !== 2 || !afternoonStory(storyId).participants.every(id => participants.includes(id)) || participants.some(id => !actors(w).some(a => a.id === id)) || !uuid(eventId) || afternoonUsedIds(w).has(eventId) || w.afternoon.memories.some(m => m.eventId === eventId) || Object.values(w.afternoon.lastEventIds).includes(eventId)) throw Error('INVALID_INVITATION')
   cancelTeaSquareActivity(w); cancelManualMove(w); cancelCommunitySocial(w); for (const a of actors(w)) abandon(a)
-  w.afternoon.active = { version: 1, id: eventId, storyId, participants: [...afternoonStory(storyId).participants], stage: 0, phase: 'approaching', remainingTicks: 60, approachRemainingTicks: 1200, targets: [], routes: [], serial: 0, selection: null, attempts: 0 }
-  prepare(w); return validateLivingWorld(w, base)
+  w.afternoon.active = { version: 2, step: 0, id: eventId, storyId, participants: [...afternoonStory(storyId).participants], stage: 0, phase: 'approaching', remainingTicks: 60, approachRemainingTicks: 1200, targets: [], routes: [], serial: 0, selection: null, attempts: 0 }
+  prepare(w, base); return validateLivingWorld(w, base)
 }
 export function cancelAfternoon(w: LivingWorld) {
   for (const id of w.afternoon.active?.participants ?? []) { const a = actors(w).find(a => a.id === id); if (a) abandon(a) }
   w.afternoon.active = null
 }
-export function stepAfternoon(w: LivingWorld) {
+export function stepAfternoon(w: LivingWorld, base: Scene = teaSquareScene) {
   const e = w.afternoon.active
   if (!e || w.userPaused) return
   w.ticks++; for (const a of actors(w)) a.phase += 1 / 30
@@ -64,14 +76,14 @@ export function stepAfternoon(w: LivingWorld) {
   if (i < 0) { e.phase = 'observing'; return }
   const route = e.routes[i]!, a = actors(w).find(a => a.id === e.participants[i])!, target = route[0]!
   const occupied = actors(w).filter(b => b.id !== a.id).map(b => b.position)
-  if (!clearSegment(teaSquareScene, a.position, target, occupied)) return
+  if (!clearSegment(regionScene(w, base), a.position, target, occupied)) return
   const dx = target.x - a.position.x, dy = target.y - a.position.y, d = Math.hypot(dx, dy)
   if (Math.abs(dx) > .01) a.facing = dx < 0 ? 'left' : 'right'
   if (d <= 17 / 30) { a.position = { ...target }; route.shift(); a.destination = route[0] ?? null; if (!a.destination) { a.behavior = 'idle'; a.phase = 0 } }
   else a.position = { x: a.position.x + dx / d * 17 / 30, y: a.position.y + dy / d * 17 / 30 }
   a.safe = { ...a.position }
 }
-function closeStage(w: LivingWorld, e: AfternoonEvent) { e.stage = 2; prepare(w) }
+function closeStage(w: LivingWorld, e: AfternoonEvent, base: Scene) { e.stage = 2; prepare(w, base) }
 export function actAfternoon(source: LivingWorld, base: Scene, token: string, action: AfternoonAction, choice?: string) {
   const w = validateLivingWorld(source, base), e = w.afternoon.active
   if (!e || token !== afternoonToken(e) || e.serial >= 1000000) throw Error('STALE_PLAY_ACTION')
@@ -80,24 +92,41 @@ export function actAfternoon(source: LivingWorld, base: Scene, token: string, ac
     if (action !== 'remember' || choice !== undefined) throw Error('INVALID_PLAY_ACTION')
     const first = w.afternoon.memories.find(m => m.storyId === e.storyId)
     if (first) first.count = Math.min(1000000, first.count + 1)
-    else { w.afternoon.memories.push({ storyId: e.storyId, eventId: e.id, participants: [...e.participants], completedTick: w.ticks, day: villageTime(w.ticks).day, count: 1, selection: e.selection! }); w.afternoon.keepsakes[e.storyId] = 'message-tree' }
+    else { w.afternoon.memories.push({ storyId: e.storyId, eventId: e.id, participants: [...e.participants], completedTick: w.ticks, day: villageTime(w.ticks).day, count: 1, selection: e.selection! }); w.afternoon.keepsakes[e.storyId] = afternoonStory(e.storyId).placement }
     w.afternoon.lastEventIds[e.storyId] = e.id; cancelAfternoon(w)
+  } else if (residentStory(e.storyId)) {
+    const story = residentStory(e.storyId)!
+    if (action !== 'interact') throw Error('INVALID_PLAY_ACTION')
+    if (e.stage === 0 && choice === 'inspect') { e.stage = 1; e.serial++ }
+    else if (e.stage === 1) {
+      const step = story.steps[e.step]!
+      if (!step.choices.some(c => c.id === choice)) throw Error('INVALID_PLAY_ACTION')
+      e.serial++
+      if (!step.accept.includes(choice!)) e.attempts = Math.min(1000000, e.attempts + 1)
+      else {
+        e.attempts = 0
+        if (e.step === 0) e.selection = choice!
+        e.step++
+        if (e.step === story.steps.length) closeStage(w, e, base)
+      }
+    } else throw Error('INVALID_PLAY_ACTION')
   } else if (e.storyId === 'tea-bookmark') {
     if (e.stage === 0 && action === 'listen' && choice === undefined) { e.stage = 1; e.serial++ }
     else if (e.stage === 1 && action === 'fold' && (choice === 'leaf' || choice === 'wave')) { e.selection = choice; e.serial++ }
-    else if (e.stage === 1 && action === 'press' && choice === undefined && e.selection !== null) { e.serial++; closeStage(w, e) }
+    else if (e.stage === 1 && action === 'press' && choice === undefined && e.selection !== null) { e.serial++; closeStage(w, e, base) }
     else throw Error('INVALID_PLAY_ACTION')
   } else {
     if (e.stage === 0 && action === 'observe' && (choice === 'left' || choice === 'right')) { e.selection = choice; e.stage = 1; e.serial++ }
     else if (e.stage === 1 && action === 'match' && (choice === 'same' || choice === 'mirror')) {
-      e.serial++; if (choice === 'mirror') closeStage(w, e); else e.attempts = Math.min(1000000, e.attempts + 1)
+      e.serial++; if (choice === 'mirror') closeStage(w, e, base); else e.attempts = Math.min(1000000, e.attempts + 1)
     } else throw Error('INVALID_PLAY_ACTION')
   }
   return validateLivingWorld(w, base)
 }
-export function placeAfternoonKeepsake(source: LivingWorld, base: Scene, storyId: AfternoonStoryId, place: 'message-tree' | null) {
+export function placeAfternoonKeepsake(source: LivingWorld, base: Scene, storyId: AfternoonStoryId, place: AfternoonPlacement | null) {
   const w = validateLivingWorld(source, base)
-  if (!isAfternoonStoryId(storyId) || place !== null && place !== 'message-tree') throw Error('INVALID_SLOT')
+  if (!isAfternoonStoryId(storyId) || place !== null && place !== afternoonStory(storyId).placement) throw Error('INVALID_SLOT')
+  if (place !== null && w.region.active !== afternoonStory(storyId).region) throw Error('STORY_REGION_REQUIRED')
   if (!w.afternoon.memories.some(m => m.storyId === storyId)) throw Error('DECORATION_LOCKED')
   if (w.afternoon.active || w.teaSquare.active || w.bookhouse.active || w.play.active || w.activeEvent || w.neighborhood.event) throw Error('EVENT_ACTIVE')
   cancelCommunitySocial(w); w.afternoon.keepsakes[storyId] = place; return validateLivingWorld(w, base)

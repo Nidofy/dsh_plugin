@@ -1,3 +1,4 @@
+import * as v15 from './living-state-v15.ts'
 import * as v14 from './living-state-v14.ts'
 import type { HomeWorld } from './home-state.ts'
 import type { Scene } from './world.ts'
@@ -7,7 +8,7 @@ import { initialCommunityState, validateCommunityState, type CommunityState } fr
 import type { WorldCodec } from './migrations.ts'
 export { blankPlay, isPlayId, idlePose, isRegionId } from './living-state-v14.ts'
 export type { ParkedPose, PlayEvent, PlayMemory, PlayState, ManualMoveIntent, RegionId, RegionState } from './living-state-v14.ts'
-export interface LivingWorld extends Omit<v14.LivingWorld,'schemaVersion'|'contentRevision'> {schemaVersion:15;contentRevision:11;afternoon:AfternoonState;community:CommunityState}
+export interface LivingWorld extends Omit<v14.LivingWorld,'schemaVersion'|'contentRevision'> {schemaVersion:16;contentRevision:12;afternoon:AfternoonState;community:CommunityState}
 export function requireCourtyard(w:LivingWorld){if(w.region.active!=='courtyard')throw Error('COURTYARD_REQUIRED')}
 function previous(w:LivingWorld):v14.LivingWorld {
  const {afternoon:_afternoon,community:_community,...rest}=w
@@ -17,23 +18,24 @@ export function regionScene(w:LivingWorld,base:Scene){return v14.regionScene(pre
 export function homeProjection(w:LivingWorld):HomeWorld{return v14.homeProjection(previous(w))}
 export function withLiving(base:HomeWorld,source?:LivingWorld):LivingWorld {
  const old=v14.withLiving(base,source?previous(source):undefined)
- return {...old,schemaVersion:15,contentRevision:11,afternoon:structuredClone(source?.afternoon??blankAfternoon()),community:structuredClone(source?.community??initialCommunityState(old.ticks))}
+ return {...old,schemaVersion:16,contentRevision:12,afternoon:structuredClone(source?.afternoon??blankAfternoon()),community:structuredClone(source?.community??initialCommunityState(old.ticks))}
 }
 export function validateLivingWorld(value:unknown,base:Scene):LivingWorld {
  const w=value as LivingWorld
- if(!w||w.schemaVersion!==15||w.contentRevision!==11)throw Error('UNSUPPORTED_WORLD_VERSION')
+ if(!w||w.schemaVersion!==16||w.contentRevision!==12)throw Error('UNSUPPORTED_WORLD_VERSION')
  if(new TextEncoder().encode(JSON.stringify(w)).length>48*1024)throw Error('SAVE_TOO_LARGE')
  const old=v14.validateLivingWorld(previous(w),base)
- const result:LivingWorld={...old,schemaVersion:15,contentRevision:11,life:validateLifeState(w.life,old,v14.regionScene(old,base)),afternoon:w.afternoon,community:w.community}
+ const result:LivingWorld={...old,schemaVersion:16,contentRevision:12,life:validateLifeState(w.life,old,v14.regionScene(old,base)),afternoon:w.afternoon,community:w.community}
  if(result.region.active==='tea-square'&&result.life.social&&(result.teaSquare.active||result.teaSquare.activity||result.manualMove))throw Error('INVALID_LIFE_STATE')
- result.afternoon=validateAfternoon(w.afternoon,result)
+ result.afternoon=validateAfternoon(w.afternoon,result,base)
  result.community=validateCommunityState(w.community,result)
  return result
 }
 export function createLivingWorld(base:Scene):LivingWorld{return migrateLivingWorld(v14.createLivingWorld(base),base)}
 export function migrateLivingWorld(value:unknown,base:Scene):LivingWorld {
- if((value as LivingWorld)?.schemaVersion===15)return validateLivingWorld(value,base)
- const old=v14.migrateLivingWorld(value,base)
- return validateLivingWorld({...old,schemaVersion:15,contentRevision:11,afternoon:blankAfternoon(),community:initialCommunityState(old.ticks)},base)
+ if((value as LivingWorld)?.schemaVersion===16)return validateLivingWorld(value,base)
+ const old=v15.migrateLivingWorld(value,base)
+ const afternoon:AfternoonState={...blankAfternoon(),memories:structuredClone(old.afternoon.memories),active:old.afternoon.active?{...structuredClone(old.afternoon.active),version:2,step:0}:null,lastEventIds:{...blankAfternoon().lastEventIds,...old.afternoon.lastEventIds},keepsakes:{...blankAfternoon().keepsakes,...old.afternoon.keepsakes}}
+ return validateLivingWorld({...old,schemaVersion:16,contentRevision:12,afternoon},base)
 }
-export function livingWorldCodec(base:Scene):WorldCodec<LivingWorld>{return {decode:v=>migrateLivingWorld(v,base),validate:v=>validateLivingWorld(v,base),needsUpgrade:v=>(v as LivingWorld)?.schemaVersion!==15}}
+export function livingWorldCodec(base:Scene):WorldCodec<LivingWorld>{return {decode:v=>migrateLivingWorld(v,base),validate:v=>validateLivingWorld(v,base),needsUpgrade:v=>(v as LivingWorld)?.schemaVersion!==16}}

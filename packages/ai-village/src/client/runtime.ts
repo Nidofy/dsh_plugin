@@ -1,5 +1,7 @@
 import { startAfternoon, actAfternoon, cancelAfternoon, placeAfternoonKeepsake } from '../core/afternoon-engine.ts'
-import type { AfternoonStoryId, AfternoonAction } from '../core/afternoon-catalog.ts'
+import type { AfternoonStoryId, AfternoonAction, AfternoonPlacement } from '../core/afternoon-catalog.ts'
+import { afternoonStory } from '../core/afternoon-catalog.ts'
+import { sceneInteractionAt } from '../core/scene-interactions.ts'
 import { startTeaSquareStory, actTeaSquareStory, cancelTeaSquareStory, startTeaSquareActivity, cancelTeaSquareActivity, placeTeaSquareKeepsake, type TeaSquareAction } from '../core/tea-square-engine.ts'
 import { startBookhouseStory, startBookhousePuzzle, bookhouseStoryAction, cancelBookhouseStory, placeBookhouseKeepsake } from '../core/bookhouse-engine.ts'
 import type { BookTheme } from '../core/bookhouse-state.ts'
@@ -158,10 +160,23 @@ export class VillageRuntime {
   setSoftwareRendering(value: boolean) { this.softwareRendering = value; this.emit() }
   presentation = initialPresentation()
   notices: Notice[] = []
+  sceneRecall: { story: AfternoonStoryId; eventId: string } | null = null
+  clearSceneRecall() { this.sceneRecall = null; this.emit() }
   present(action: UIAction) { this.presentation = presentationReducer(this.presentation, action); this.emit() }
   input(input: UIInput) {
     if (this.entrance.blocking) return
     if (!this.ready || !this.frameReady || this.error || this.criticalCandidate || this.transaction.pending || this.photoMode) return
+    if (input.kind === 'story-object') {
+      const w = this.controller?.world
+      if (!w || this.controller?.pauseReasons.size || this.arranging || this.controller?.drag || this.presentation.drawer !== 'closed' || this.presentation.overlay) return
+      const hit = sceneInteractionAt(w, input.point)
+      if (!hit || hit.id !== input.id || hit.token !== input.token) return
+      const command = hit.command
+      if (command.kind === 'start') { this.sceneRecall = null; void this.startAfternoon(command.story, [...afternoonStory(command.story).participants]) }
+      else if (command.kind === 'act') { this.sceneRecall = null; void this.actAfternoon(hit.token, command.action, command.choice) }
+      else { const memory = w.afternoon.memories.find(m => m.storyId === command.story); if (memory) { this.sceneRecall = { story: command.story, eventId: memory.eventId }; this.emit() } }
+      return
+    }
     if (input.kind === 'ground-move') { void this.moveResident(input.point); return }
     if (input.kind === 'cancel-move') { void this.cancelResidentMove(); return }
     if (input.kind === 'table-move') { const w=this.controller?.world; if(w && tableCellAt(w.home,input.point)===input.cell) void this.playAction('move',String(input.cell),input.token); return }
@@ -526,16 +541,20 @@ export class VillageRuntime {
   private teaSquareInputReady() { return this.foreground() && this.frameReady && !this.entrance.blocking && !this.arranging && !this.photoMode && !this.controller?.drag && !this.controller?.pauseReasons.size }
   async startAfternoon(storyId: AfternoonStoryId, participants: CharacterId[]) {
     if (!this.teaSquareInputReady()) return
+    this.sceneRecall = null
+    this.sceneRecall = null
     await this.neighborhoodCommand(() => startAfternoon(this.controller!.world, scene, storyId, participants, crypto.randomUUID()))
   }
   async actAfternoon(token: string, action: AfternoonAction, choice?: string) {
     if (!this.teaSquareInputReady()) return
+    const story = this.controller?.world.afternoon.active?.storyId
     await this.neighborhoodCommand(() => actAfternoon(this.controller!.world, scene, token, action, choice))
+    if (action === 'remember' && story && !this.actionError) { const memory = this.controller?.world.afternoon.memories.find(m => m.storyId === story); if (memory) { this.sceneRecall = { story, eventId: memory.eventId }; this.emit() } }
   }
   async cancelAfternoon() {
     await this.neighborhoodCommand(() => { const w=this.controller!.snapshot(); cancelAfternoon(w); return w })
   }
-  async placeAfternoonKeepsake(storyId: AfternoonStoryId, place: 'message-tree' | null) {
+  async placeAfternoonKeepsake(storyId: AfternoonStoryId, place: AfternoonPlacement | null) {
     if (!this.teaSquareInputReady()) return
     await this.neighborhoodCommand(() => placeAfternoonKeepsake(this.controller!.world, scene, storyId, place))
   }

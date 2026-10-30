@@ -92,8 +92,10 @@ it('keeps shared journal, loaded collection facts, album and photo actions acces
   const { runtime, r } = fixture()
   runtime.presentation.tab = 'journal'; runtime.presentation.page = 'memories'
   const ui = render(<ManagementPanel runtime={r} cn={false} short />)
-  expect(screen.getByRole('region', { name: 'Collection categories' })).toBeTruthy()
   expect(screen.getByText('First completed activities become memories after saving.')).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: 'Keepsakes' }))
+  ui.rerender(<ManagementPanel runtime={r} cn={false} short />)
+  expect(screen.getByRole('region', { name: 'Collection categories' })).toBeTruthy()
   fireEvent.click(screen.getByRole('button', { name: 'Album' }))
   ui.rerender(<ManagementPanel runtime={r} cn={false} short />)
   await vi.waitFor(() => expect(screen.getByText('No photos yet. Capture a courtyard moment.')).toBeTruthy())

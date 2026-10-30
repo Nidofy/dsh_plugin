@@ -40,6 +40,9 @@ export class LivingController extends WorldController<LivingWorld> {
   }
   override setCharacterPresent(id:unknown,present:boolean){
     if(!isCharacterId(id))return
+    // A cast and its bystanders are part of the current route plan. Do not mutate
+    // membership before the explicit story cancellation/completion is committed.
+    if(this.world.afternoon.active && actors(this.world).some(a=>a.id===id)!==present)throw Error('EVENT_ACTIVE')
     if(this.world.region.active!=='courtyard')return
     this.syncScene()
     if(!present&&this.world.manualMove?.actorId===id)cancelManualMove(this.world)

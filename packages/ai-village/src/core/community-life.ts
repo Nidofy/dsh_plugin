@@ -1,6 +1,7 @@
 import type { LivingWorld } from './living-state.ts'
 import type { AfternoonState } from './afternoon-state.ts'
 import { afternoonStories } from './afternoon-catalog.ts'
+import { residentStory } from './resident-stories-catalog.ts'
 import { words, type Words } from './neighborhood-catalog.ts'
 import type { RelationshipSource } from './relationship-catalog.ts'
 import { isCharacterId, type CharacterId } from './roster.ts'
@@ -44,14 +45,14 @@ export function communityMemorySources(world: CommunityFactsWorld): CommunitySou
   if (tea) add('tea-square-three-cups', tea, words('三杯不同的下午', 'Three cups, one afternoon'), 'tea-square', words('三叶茶签', 'Three-leaf tea tag'), world.teaSquare.keepsake ? 'tea-square' : null)
   for (const memory of world.afternoon.memories) {
     const story = afternoonStories.find(story => story.id === memory.storyId)!
-    add(`afternoon-${memory.storyId}`, memory, story.title, 'tea-square', story.keepsakeTitle, world.afternoon.keepsakes[memory.storyId] ? 'tea-square' : null)
+    add(`afternoon-${memory.storyId}`, memory, story.title, story.region, story.placement ? story.keepsakeTitle : null, world.afternoon.keepsakes[memory.storyId] ? story.region : null)
   }
   return result
 }
 
 export function communityCollection(world: CommunityFactsWorld) {
   const sources = communityMemorySources(world)
-  const visitedRegions = regions.filter(region => region === 'courtyard' ? world.journal.length > 0 || world.neighborhood.memories.length > 0 : sources.some(source => source.region === region))
+  const visitedRegions = regions.filter(region => sources.some(source => source.region === region) || region === 'courtyard' && (world.journal.length > 0 || world.neighborhood.memories.length > 0))
   const unlocked = visitedRegions.length === 3
   return { sources, visitedRegions, keepsakes: sources.filter(source => source.keepsake), threeRegions: {
     id: 'three-region-memory-card', title: words('三处风景，一起记得', 'Three places to remember'), unlocked,
@@ -142,7 +143,9 @@ export function communityDialogue(world: CommunityWorld, locale: 'zh' | 'en'): {
   const source = communityMemorySources(world).find(source => source.id === active.sourceId)
   if (active.kind === 'keepsake' && source?.placedRegion !== world.region.active) return []
   let text: string
-  if (source && active.kind === 'recall') text = locale === 'zh' ? `在${regionNames[world.region.active].zh}，又想起我们「${source.title.zh}」的那一天。` : `Here in the ${regionNames[world.region.active].en}, I remember our “${source.title.en}”.`
+  const authored = source?.id.startsWith('afternoon-') ? residentStory(source.id.slice('afternoon-'.length)) : null
+  if (authored && (active.kind === 'recall' || active.kind === 'keepsake')) text = authored.revisit[locale]
+  else if (source && active.kind === 'recall') text = locale === 'zh' ? `在${regionNames[world.region.active].zh}，又想起我们「${source.title.zh}」的那一天。` : `Here in the ${regionNames[world.region.active].en}, I remember our “${source.title.en}”.`
   else if (source?.keepsake && active.kind === 'keepsake') text = locale === 'zh' ? `看，${source.keepsake.name.zh}还记着我们一起的那个下午。` : `Look, the ${source.keepsake.name.en} recalls our afternoon together.`
   else if (active.kind === 'invite') text = locale === 'zh' ? '一起停一小会儿，再去忙各自的事吧。' : 'Let’s pause together a moment, then get back to our day.'
   else text = lifeDialogue(world, locale)[0]?.text ?? (locale === 'zh' ? '又见面啦。' : 'Good to see you again.')

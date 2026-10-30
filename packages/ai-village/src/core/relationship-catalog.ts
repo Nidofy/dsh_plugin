@@ -20,7 +20,7 @@ export const relationshipMilestones = [
   { target: 15, title: words('小院的回忆守护者', 'Keeper of courtyard memories') },
 ] as const
 const pairKey = (pair: readonly CharacterId[]) => [...pair].sort().join('/')
-const location = (slot: string | null | undefined): Words => slot === 'message-tree' ? words('茶会广场 · 留言树', 'Tea Square · message tree') : slot === 'bookhouse' ? words('书屋', 'Bookhouse')
+const location = (slot: string | null | undefined): Words => slot === 'bookcase' ? words('书屋 · 书架', 'Bookhouse · bookcase') : slot === 'courtyard-card' ? words('庭院 · 纪念牌', 'Courtyard · keepsake plaque') : slot === 'message-tree' ? words('茶会广场 · 留言树', 'Tea Square · message tree') : slot === 'bookhouse' ? words('书屋', 'Bookhouse')
   : slot === 'courtyard' ? words('庭院', 'Courtyard')
   : slot === 'window' ? words('庭院 · 窗边', 'Courtyard · window')
   : slot === 'door' ? words('庭院 · 门口', 'Courtyard · doorway')
@@ -62,7 +62,7 @@ export function relationshipFacts(world: LivingWorld) {
   })
   const tea=world.teaSquare.memory
   if(tea)sources.push({id:'tea-square-three-cups',eventId:tea.eventId,title:words('三杯不同的下午','Three cups, one afternoon'),source:words('来源：首次保存的三人茶会','Source: the first saved three-person tea story'),participants:[...tea.participants],completedTick:tea.completedTick,detail:words(`第 ${tea.day} 天的三位朋友；重玩不替换首次参与者。`,`Three friends on day ${tea.day}; replays preserve this first cast.`),keepsake:{id:'three-leaf-tea-tag',name:words('三叶茶签','Three-leaf tea tag'),location:location(world.teaSquare.keepsake)}})
-  for(const m of world.afternoon.memories){const d=afternoonStory(m.storyId);sources.push({id:m.storyId,eventId:m.eventId,title:d.title,source:words('来源：亲手完成并保存的下午茶小插曲','Source: a completed, saved afternoon story'),participants:[...m.participants],completedTick:m.completedTick,detail:words('保留首次选择和参与者，重玩不会改写这段回忆。','The first choice and cast are preserved across replays.'),keepsake:{id:m.storyId,name:d.keepsakeTitle,location:location(world.afternoon.keepsakes[m.storyId])}})}
+  for(const m of world.afternoon.memories){const d=afternoonStory(m.storyId);sources.push({id:m.storyId,eventId:m.eventId,title:d.title,source:words('来源：亲手完成并保存的下午茶小插曲','Source: a completed, saved afternoon story'),participants:[...m.participants],completedTick:m.completedTick,detail:words('保留首次选择和参与者，重玩不会改写这段回忆。','The first choice and cast are preserved across replays.'),keepsake:d.placement?{id:m.storyId,name:d.keepsakeTitle,location:location(world.afternoon.keepsakes[m.storyId])}:null})}
   const pairs: Relationship[] = []
   for (let i = 0; i < characterIds.length; i++) for (let j = i + 1; j < characterIds.length; j++) {
     const pair = [characterIds[i]!, characterIds[j]!] as const, id = pairKey(pair)

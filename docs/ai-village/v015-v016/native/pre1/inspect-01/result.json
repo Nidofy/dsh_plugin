@@ -1,0 +1,15 @@
+{
+  "status": "FAIL",
+  "mode": "inspect",
+  "checks": [],
+  "observations": [],
+  "errors": [],
+  "requests": [],
+  "notCovered": [
+    "Physical sleep/minimize, IME candidate selection and long-duration hardware performance",
+    "Unknown-ACK fault injection belongs to the separate authenticated browser and runtime suites",
+    "Git/Live2D coordination belongs to A6; these packages are not installed here"
+  ],
+  "failure": "Error: ENOENT: no such file or directory, open 'D:\\Documents\\FeiyangChen\\devApps\\dsh_plugin\\.build\\ai-village-v016-desktop\\launch.json'\n    at async open (node:internal/fs/promises:640:25)\n    at async readFile (node:internal/fs/promises:1287:14)\n    at async json (file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v016-native.mjs:12:107)\n    at async file:///D:/Documents/FeiyangChen/devApps/dsh_plugin/scripts/ai-village-v016-native.mjs:113:14",
+  "runnerSha256": "401c993d7170286032a8a895163906d33d527d2e6a4e5a1dec7e49d21372759c"
+}

@@ -11,6 +11,7 @@ import type { VillageRuntime } from './runtime.ts'
 import { Hud } from './Hud.tsx'
 import { CommunityMap, communityMapCSS } from './CommunityMap.tsx'
 import { MovementFeedback } from './MovementFeedback.tsx'
+import { SceneStoryFeedback } from './SceneStoryFeedback.tsx'
 import { SettingsPanel } from './SettingsPanel.tsx'
 import { ManagementPanel } from './ManagementPanel.tsx'
 import { Notifications } from './Notifications.tsx'
@@ -65,7 +66,8 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
         if(e.key==='Tab' && confirmClose){const buttons=[...card.current!.querySelectorAll<HTMLButtonElement>('.village-confirm button')];if(e.shiftKey&&document.activeElement===buttons[0]){buttons.at(-1)?.focus();e.preventDefault()}else if(!e.shiftKey&&document.activeElement===buttons.at(-1)){buttons[0]?.focus();e.preventDefault()}return}
         if (e.key !== 'Escape' || e.nativeEvent.isComposing) return
         if (blocked && !r.entrance.reentry && !r.error && !failed) { r.skipEntrance(); e.preventDefault(); e.stopPropagation(); return }
-        const details=card.current?.querySelector<HTMLDetailsElement>('details[open]')
+        const focused = document.activeElement?.closest<HTMLDetailsElement>('details[open]')
+        const details = focused && card.current?.contains(focused) ? focused : [...card.current?.querySelectorAll<HTMLDetailsElement>('details[open]') ?? []].reverse().find(d => !d.querySelector('details[open]'))
         if (confirmClose) setConfirmClose(false)
         else if(details) details.open=false
         else if (r.controller?.drag) r.cancelDrag()
@@ -73,6 +75,7 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
         else if (r.arranging) { if (r.saveReceipt.status !== 'pending' && r.saveReceipt.status !== 'unknown' && !r.homeSaving) { if(r.arrangementDirty) setConfirmClose(true, 'arrangement'); else r.cancelArrangements() } }
         else if (r.photoMode) r.exitPhoto()
         else if (r.controller?.world.manualMove) void r.cancelResidentMove()
+        else if (r.sceneRecall) r.clearSceneRecall()
         else if (expanded) r.present({ type: 'patch', patch: { expanded: false } })
         else return
         e.preventDefault(); e.stopPropagation()
@@ -85,6 +88,7 @@ export function Floating({ runtime: r, locale, active, onClose }: { runtime: Vil
         <Notifications runtime={r} cn={cn} />
         {p.overlay === 'map' && !mode && <CommunityMap runtime={r} cn={cn} />}
         {!mode && !p.overlay && p.drawer === 'closed' && <MovementFeedback runtime={r} cn={cn} />}
+        {!mode && !p.overlay && p.drawer === 'closed' && <SceneStoryFeedback runtime={r} cn={cn} />}
         {r.arranging && <ArrangementControls runtime={r} cn={cn} />}
         {r.photoMode && <PhotoPanel runtime={r} locale={language} />}
         {p.overlay === 'resident' && !mode && r.controller && <PanelShell runtime={r} cn={cn} title={characterNames[r.controller.world.actor.id]} className="village-popover village-resident-card"><p>{labels[r.controller.world.actor.behavior]}</p><button onClick={() => r.present({ type: 'push', patch: { tab: 'residents', page:'activities', drawer: 'full', overlay: null } })}>{t('互动', 'Activities')}</button></PanelShell>}

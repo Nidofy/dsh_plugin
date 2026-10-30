@@ -1,0 +1,6 @@
+{
+  "checkedAtUtc": "2026-10-28T17:08:44.8442147Z",
+  "runnerProcessInspection": "CIM command-line lookup denied by sandbox; runner tool sessions all returned exit codes",
+  "headlessBrowserProcesses": [],
+  "lifecycle": "Every runner finally awaited fixture dispose, context.close, browser.close and authenticated Host.close; Get-Process found no chrome-headless-shell process."
+}

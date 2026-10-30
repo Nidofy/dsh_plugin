@@ -12,6 +12,9 @@ packages/windows-sandbox-enhanced/native/runtime/
 *.log
 # Raw browser QA recordings stay local; hashes and native MP4 evidence are committed.
 docs/ai-village/v011/browser/*/*.webm
+# Keep raw browser recordings and generated export kits local.
+docs/ai-village/**/*.webm
+/output/
 .env
 .env.*
 !.env.example

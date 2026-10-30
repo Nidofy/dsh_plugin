@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-28T16:59:39.1223052Z",
+  "verifiedStoppedParentPids": [
+    30936,
+    10140
+  ],
+  "historicalFailedParentPid": 36692,
+  "historicalChildPid": 31824,
+  "checkedPids": [
+    36692,
+    31824,
+    30936,
+    14548,
+    43752,
+    15704,
+    34828,
+    32340,
+    10140,
+    29724,
+    44464,
+    35948,
+    39752
+  ],
+  "remainingKnownPids": [],
+  "remainingExactCarrierProcesses": [],
+  "listeners18786": [],
+  "action": "Read-only post-stop verification; no unverified process terminated."
+}

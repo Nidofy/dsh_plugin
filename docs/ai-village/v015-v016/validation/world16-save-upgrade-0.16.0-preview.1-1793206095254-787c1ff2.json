@@ -1,0 +1,147 @@
+{
+  "status": "PASS",
+  "candidate": {
+    "file": "dist/nidofy-dsh-ai-village-0.16.0-preview.1.tgz",
+    "sha256": "ea77c980967b2b080af4f6f8875aea7fac1df19ce9bb9ff1084a6380b20d7cf0",
+    "version": "0.16.0-preview.1",
+    "bytes": 53734594
+  },
+  "dsh": "0.2.1-rc.3",
+  "stage": ".build/ai-village-v016-save-upgrade-pLxHf8",
+  "oldPackages": {
+    "world14": "c674e44495e99c066cae83aabbfedf03d0fc6d17de01b434434f205b1518f760",
+    "world15": "34d723b00831408c5b1d178806aeadef3184e54cd20c5abad96f18bf40cc7098"
+  },
+  "source": {
+    "file": "docs/ai-village/afternoon/browser/pre6-all-dpr1-01/result.json",
+    "sha256": "9042d54046e129ab968ca8a8dd6e72e47991d8f4a95bfdcaa32d3b794f3d62af"
+  },
+  "bundles": {
+    "service.mjs": "63ef260312e303d71f323fb347ee7b54f26b8674756bee1f62160a422a306247",
+    "client.js": "6107774a77a31898f444782c9b6b49180072cab6c9ec9b187905145643289313",
+    "frame.js": "a26c29071b152cfc9d5df508cb961ad7920fec81aebd7abea14083a5eb7e2001",
+    "build-identity.json": "c5010cd798c29df723ec22cafdf04af7cd3a499684e4514e728e665d695c8be9"
+  },
+  "cases": [
+    {
+      "name": "world14-ordinary-tea",
+      "status": "PASS",
+      "provenance": {
+        "file": "packages/ai-village/tests/fixtures/tea-ordinary-world14.json"
+      },
+      "fromSchema": 14,
+      "inputWorldSha256": "45789283e99b0112e47c5758c1c80775a561f5978e5611fe957e91efadf5f2d2",
+      "originalPointerSha256": "35ba6a572b4db0b482703648b9214525062bc4abec375e2a03109128b505c36f",
+      "originalSnapshotSha256": "31f80d7e0bac521863e584c4dca2d6c82d01e63748f96352b4a4c495f2e420bd",
+      "upgradedWorldSha256": "8c6ca33b0a89b053caf68cbc0744412eb804192d8ea29ab347b57ca9c7a276c2",
+      "revision": 2,
+      "memories": [],
+      "active": null
+    },
+    {
+      "name": "bookmark-partial-cold",
+      "status": "PASS",
+      "provenance": {
+        "file": "docs/ai-village/afternoon/browser/pre6-all-dpr1-01/result.json",
+        "sha256": "9042d54046e129ab968ca8a8dd6e72e47991d8f4a95bfdcaa32d3b794f3d62af",
+        "observation": "bookmark-partial-cold",
+        "revision": 162,
+        "receiptStatus": "idle"
+      },
+      "fromSchema": 15,
+      "inputWorldSha256": "114586ade5cbe6c32e26478d382faf3c6a9d089b05b9c1b55fdf2f475d645dcb",
+      "originalPointerSha256": "4b54b1ee196f1f929dd638983acaf3786c7406427bc93ef6c1dacb28bb4e3f76",
+      "originalSnapshotSha256": "62fd938452cdd85272b54b11912e75b8972eca55910c9953a27f4bd4d200baba",
+      "upgradedWorldSha256": "4b3f6ea4b655c8be26526eaacbcdd4f96c922ec7727da2fef908efca192a1059",
+      "revision": 2,
+      "memories": [],
+      "active": {
+        "storyId": "tea-bookmark",
+        "stage": 1,
+        "phase": "ready",
+        "step": 0,
+        "selection": "leaf"
+      }
+    },
+    {
+      "name": "reflection-shapes-stage1-prop-canvas",
+      "status": "PASS",
+      "provenance": {
+        "file": "docs/ai-village/afternoon/browser/pre6-all-dpr1-01/result.json",
+        "sha256": "9042d54046e129ab968ca8a8dd6e72e47991d8f4a95bfdcaa32d3b794f3d62af",
+        "observation": "reflection-shapes-stage1-prop-canvas",
+        "revision": 196,
+        "receiptStatus": "committed"
+      },
+      "fromSchema": 15,
+      "inputWorldSha256": "07bca4cb6d8dda3f88fd8a62e8085924abae5567596f0c30ac160859f1e9f349",
+      "originalPointerSha256": "4900acb3e89648d228343d44b37e9c22d0c9cdfb0e1fd467639d47a00c915559",
+      "originalSnapshotSha256": "db97cb3737ae71e510b46ee9aefea7f81bfbf660c5efb2abbd3eb73c07749db6",
+      "upgradedWorldSha256": "d82ac0c220dadd81bd72d73a03323c8fed4724f12a9f5b1663a1837baa6b67ae",
+      "revision": 2,
+      "memories": [
+        {
+          "storyId": "tea-bookmark",
+          "eventId": "1973f3ec-c325-41b1-a6e0-7e9831488fcd",
+          "count": 2,
+          "selection": "leaf"
+        }
+      ],
+      "active": {
+        "storyId": "reflection-shapes",
+        "stage": 1,
+        "phase": "ready",
+        "step": 0,
+        "selection": "left"
+      }
+    },
+    {
+      "name": "reflection-shapes-hidden-keepsake-cold",
+      "status": "PASS",
+      "provenance": {
+        "file": "docs/ai-village/afternoon/browser/pre6-all-dpr1-01/result.json",
+        "sha256": "9042d54046e129ab968ca8a8dd6e72e47991d8f4a95bfdcaa32d3b794f3d62af",
+        "observation": "reflection-shapes-hidden-keepsake-cold",
+        "revision": 219,
+        "receiptStatus": "idle"
+      },
+      "fromSchema": 15,
+      "inputWorldSha256": "a7425b19294fdb121fb528252c810074cfa93bf2b7bdb31a6f70570d043542ef",
+      "originalPointerSha256": "32c85e12dd7da3b635939ef8ba8302c72151fc65f7bc3c248f375ef8d608446e",
+      "originalSnapshotSha256": "4a2026478233f4dee4957df0a458cf0c277b9b82a7bd5b445f0777f2693541b5",
+      "upgradedWorldSha256": "d81f13637be1336173b0fecb96e1fc5394a5d8a627ab656a9bfcbe280ae790c7",
+      "revision": 2,
+      "memories": [
+        {
+          "storyId": "tea-bookmark",
+          "eventId": "1973f3ec-c325-41b1-a6e0-7e9831488fcd",
+          "count": 2,
+          "selection": "leaf"
+        },
+        {
+          "storyId": "reflection-shapes",
+          "eventId": "7cbdc26a-09d7-4c4d-a298-e551045172d5",
+          "count": 2,
+          "selection": "left"
+        }
+      ],
+      "active": null
+    }
+  ],
+  "checks": [
+    "Frozen world14/world15 packaged Hosts write genuine old-format saves into fresh isolated profiles",
+    "Current packaged Host decodes world16 without rewriting original pointer or snapshot",
+    "Completed memory IDs, participants, replay counts, stored placement and active choices/routes survive",
+    "New story keys are empty and migration reads are idempotent",
+    "Old Host epoch rejected",
+    "One explicit CAS publishes revision2; duplicate operation returns identical ACK",
+    "Stale revision rejected without overwriting published pointer",
+    "Exact original pointer protected and original snapshot bytes retained",
+    "Cold packaged Host reopen preserves upgraded world and revision",
+    "Historical source evidence and candidate package remain byte-identical"
+  ],
+  "limitations": [
+    "Packaged Host storage verification; not a native Desktop or visual test",
+    "Legacy input worlds come from named repository QA observations and a frozen world14 fixture; no real user profiles are read"
+  ]
+}

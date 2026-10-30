@@ -4,10 +4,13 @@ import { characterIds, characterNames, type CharacterId } from '../core/roster.t
 import type { Locale } from '../core/neighborhood-catalog.ts'
 import { relationshipFacts } from '../core/relationship-catalog.ts'
 
-export function RelationshipPanel({ world, locale }: { world: LivingWorld; locale: Locale }) {
+export function RelationshipPanel({ world, locale, pageSize }: { world: LivingWorld; locale: Locale; pageSize?: number }) {
   const [resident, setResident] = useState<CharacterId>(world.actor.id)
+  const [page, setPage] = useState(0)
   const selectorId = useId(), titleId = useId(), t = (zh: string, en: string) => locale === 'zh' ? zh : en
   const facts = relationshipFacts(world), pairs = facts.pairs.filter(pair => pair.pair.includes(resident))
+  const size = pageSize && Number.isSafeInteger(pageSize) && pageSize > 0 ? pageSize : pairs.length || 1
+  const totalPages = Math.ceil(pairs.length / size), currentPage = Math.min(page, Math.max(0, totalPages - 1)), visiblePairs = pairs.slice(currentPage * size, (currentPage + 1) * size)
   return <section className="village-neighborhood village-relationships" aria-labelledby={titleId}>
     <h3 id={titleId}>{t('共同回忆册', 'Shared memory book')}</h3>
     <p>{t('只记下已经保存的共同经历。不必收集所有组合，也没有截止时间。', 'Only saved shared experiences belong here. There is no need to collect every pair, and no deadline.')}</p>
@@ -16,9 +19,10 @@ export function RelationshipPanel({ world, locale }: { world: LivingWorld; local
       <ul>{facts.milestones.map(milestone => <li key={milestone.target}>{milestone.unlocked ? t('已点亮', 'Unlocked') : t('未点亮', 'Not yet unlocked')} · {milestone.title[locale]} · {Math.min(facts.discoveredCount, milestone.target)}/{milestone.target}</li>)}</ul>
     </details>
     <label htmlFor={selectorId}>{t('查看居民的共同回忆', 'View a resident’s shared memories')}</label>
-    <select id={selectorId} value={resident} onChange={event => setResident(event.target.value as CharacterId)}>{characterIds.map(id => <option key={id} value={id}>{characterNames[id]}</option>)}</select>
+    <select id={selectorId} value={resident} onChange={event => { setResident(event.target.value as CharacterId); setPage(0) }}>{characterIds.map(id => <option key={id} value={id}>{characterNames[id]}</option>)}</select>
     <p role="status">{characterNames[resident]} · {pairs.filter(pair => pair.discovered).length} {t('对已有记录', 'pairs with saved records')}</p>
-    {pairs.map(pair => {
+    {totalPages > 1 && <nav className="choices" aria-label={t('居民对分页', 'Resident pair pages')}><button disabled={currentPage === 0} onClick={() => setPage(currentPage - 1)}>{t('上一页', 'Previous')}</button><span role="status">{currentPage + 1}/{totalPages}</span><button disabled={currentPage + 1 >= totalPages} onClick={() => setPage(currentPage + 1)}>{t('下一页', 'Next')}</button></nav>}
+    {visiblePairs.map(pair => {
       const other = pair.pair.find(id => id !== resident)!
       return <details className="village-journal" key={`${resident}/${other}`} data-relationship={pair.id}>
         <summary style={{ minHeight: 40 }}>{characterNames[other]} · {pair.discovered ? t('已发现', 'Discovered') : t('尚未留下记录', 'No saved record yet')}</summary>

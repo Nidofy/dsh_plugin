@@ -2,13 +2,13 @@ import { defaultCamera, type Camera } from '../core/camera.ts'
 import type { VillageTab } from './ui-contract.ts'
 import type { CharacterId } from '../core/roster.ts'
 export type Overlay = null | 'more' | 'view' | 'notifications' | 'settings' | 'resident' | 'map'
-export type Page = 'quick' | 'residents' | 'admissions' | 'activities' | 'bonds' | 'wishes' | 'furniture' | 'hanging' | 'atmosphere' | 'memories' | 'album' | 'appearance' | 'controls' | 'status'
+export type Page = 'quick' | 'residents' | 'admissions' | 'activities' | 'bonds' | 'wishes' | 'furniture' | 'hanging' | 'atmosphere' | 'memories' | 'relationships' | 'collection' | 'album' | 'appearance' | 'controls' | 'status'
 export interface NavEntry { tab: VillageTab; drawer: PresentationState['drawer']; overlay: Overlay; page: Page; scrollTop: number; focusKey: string; accessoryTarget: CharacterId | null; residentTarget: CharacterId | null; subpages: PresentationState['subpages']; noticeTarget: string | null }
 export interface PresentationState {
   page: Page; history: NavEntry[]; scrollTop: number; focusKey: string; residentTarget: CharacterId | null
   tab: VillageTab; drawer: 'closed' | 'half' | 'full'; overlay: Overlay; camera: Camera; expanded: boolean;
   selectedFurniture: 'work' | 'eat' | 'bench' | 'corner'; accessoryTarget: CharacterId | null;
-  subpages: { wishes: 'wishes' | 'activities'; decor: 'furniture' | 'hanging' | 'atmosphere'; journal: 'memories' | 'album' };
+  subpages: { wishes: 'wishes' | 'activities'; decor: 'furniture' | 'hanging' | 'atmosphere'; journal: 'memories' | 'relationships' | 'collection' | 'album' };
   confirmClose: boolean; confirmTarget: 'plugin' | 'arrangement'; zoomHint: number; toastIds: string[]; noticeTarget: string | null
 }
 export const initialPresentation = (): PresentationState => ({ page: 'quick', history: [], scrollTop: 0, focusKey: '', residentTarget: null, tab: 'residents', drawer: 'closed', overlay: null, camera: { ...defaultCamera }, expanded: false, selectedFurniture: 'work', accessoryTarget: null, subpages: { wishes: 'wishes', decor: 'furniture', journal: 'memories' }, confirmClose: false, confirmTarget: 'plugin', zoomHint: 0, toastIds: [], noticeTarget: null })

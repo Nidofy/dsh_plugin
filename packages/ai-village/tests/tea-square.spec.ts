@@ -66,7 +66,7 @@ it('retains legacy world14 idle waiting checkpoints and rejects forged seated ac
  expect(()=>validateLivingWorld(bad,scene)).toThrow()
  const legacy=frozenV14(seated,scene);legacy.actor.behavior='idle';legacy.actor.intent=null
  const raw=JSON.stringify(legacy),migrated=migrateLivingWorld(legacy,scene)
- expect(migrated.schemaVersion).toBe(15);expect(frozenV14(migrated,scene)).toEqual(legacy);expect(JSON.stringify(legacy)).toBe(raw)
+ expect(migrated.schemaVersion).toBe(16);expect(frozenV14(migrated,scene)).toEqual(legacy);expect(JSON.stringify(legacy)).toBe(raw)
  cancelTeaSquareActivity(seated);expect(seated.actor.behavior).toBe('idle');expect(seated.actor.intent).toBeNull()
 })
 it('advances the ordinary tea resident animation with its real route and freezes both under pause',()=>{
@@ -100,7 +100,7 @@ it('migrates frozen world13 including manual intent without mutation and protect
  const {teaSquare:_teaSquare,region,...rest}=frozenV14(current,scene)
  const old=codec13(scene).validate({...rest,schemaVersion:13,contentRevision:9,region:{version:1,active:region.active,returns:{courtyard:region.returns.courtyard,bookhouse:region.returns.bookhouse}}}),original=JSON.stringify(old),root=await mkdtemp(join(tmpdir(),'tea-square-v13-')),store=await SaveStore.open(root,scene,codec13(scene))
  await store.save(0,old,crypto.randomUUID());const pointer=await readFile(join(store.directory,'current.json'),'utf8'),name=JSON.parse(pointer).snapshot,bytes=await readFile(join(store.directory,'snapshots',name))
- const upgraded=await SaveStore.open(root,scene,livingWorldCodec(scene));let saved=(await upgraded.read())!;expect(saved.world.schemaVersion).toBe(15);expect(saved.world.region.version).toBe(2);expect(saved.world.actor).toEqual(old.actor);expect(saved.world.manualMove).toEqual(old.manualMove);expect(saved.world.region.returns.courtyard).toEqual(old.region.returns.courtyard);expect(saved.world.worldId).toBe(old.worldId);expect(JSON.stringify(old)).toBe(original)
+ const upgraded=await SaveStore.open(root,scene,livingWorldCodec(scene));let saved=(await upgraded.read())!;expect(saved.world.schemaVersion).toBe(16);expect(saved.world.region.version).toBe(2);expect(saved.world.actor).toEqual(old.actor);expect(saved.world.manualMove).toEqual(old.manualMove);expect(saved.world.region.returns.courtyard).toEqual(old.region.returns.courtyard);expect(saved.world.worldId).toBe(old.worldId);expect(JSON.stringify(old)).toBe(original)
  for(let i=0;i<42;i++)saved=await upgraded.save(saved.revision,saved.world,crypto.randomUUID())
  expect(await readFile(join(store.directory,'snapshots',name))).toEqual(bytes);const refs=(await readdir(store.directory)).filter(n=>n.startsWith('upgrade-v1-'));expect(await Promise.all(refs.map(n=>readFile(join(store.directory,n),'utf8')))).toContain(pointer)
  expect(()=>codec13(scene).decode(saved.world)).toThrow();expect(()=>livingWorldCodec(scene).decode({...old,teaSquare:{}})).toThrow()

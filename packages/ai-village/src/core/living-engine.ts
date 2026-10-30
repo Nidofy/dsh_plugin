@@ -98,7 +98,7 @@ export function startPlay(source:LivingWorld,base:Scene,definitionId:string,part
 export function stepLiving(w:LivingWorld,base:Scene) {
   const e=w.play.active,g=geometry(w,base)
   if(w.manualMove)return stepManualMove(w,g)
-  if(w.afternoon.active)return stepAfternoon(w)
+  if(w.afternoon.active)return stepAfternoon(w,base)
   if(w.region.active==='tea-square'){
     if(w.teaSquare.active||w.teaSquare.activity)return stepTeaSquare(w)
     const held=stepCommunitySocial(w,g,[]);step(w,g,undefined,new Set(held));settleCommunitySocial(w,g);return

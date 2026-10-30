@@ -45,3 +45,15 @@ it('table hits precede actor dragging and retain the same cell and move revision
   f.pointer('pointerdown');f.state.paused=true;f.pointer('pointerup');expect(f.send).not.toHaveBeenCalled()
  }finally{f.dispose()}
 })
+
+it('story objects own one gesture; changed targets, dragging, pause, resize and IME do not issue story actions', () => {
+ const f=setup(), state=f.state as typeof f.state & {storyAt?:()=>{id:string;token:string}|null}; let hit={id:'afternoon:leaf',token:crypto.randomUUID()+':1:1'}; state.storyAt=()=>hit
+ try {
+  f.pointer('pointerdown'); f.pointer('pointerup'); expect(f.actor).not.toHaveBeenCalled(); expect(f.send).toHaveBeenCalledExactlyOnceWith({kind:'story-object',...hit,point:{x:110,y:150}})
+  f.send.mockClear(); f.pointer('pointerdown'); hit={...hit,token:crypto.randomUUID()+':1:1'}; f.pointer('pointerup'); expect(f.send).not.toHaveBeenCalled()
+  f.pointer('pointerdown'); f.pointer('pointermove',120,150); f.pointer('pointerup',120,150); expect(f.send).not.toHaveBeenCalled()
+  f.pointer('pointerdown'); window.dispatchEvent(new Event('resize')); f.pointer('pointerup'); expect(f.send).not.toHaveBeenCalled()
+  f.canvas.dispatchEvent(new KeyboardEvent('keydown',{code:'Space',isComposing:true})); f.pointer('pointerdown'); f.pointer('pointerup'); expect(f.send.mock.calls.at(-1)?.[0].kind).toBe('story-object')
+  f.send.mockClear(); f.pointer('pointerdown'); f.state.paused=true; f.pointer('pointerup'); expect(f.send).not.toHaveBeenCalled()
+ } finally {f.dispose()}
+})
