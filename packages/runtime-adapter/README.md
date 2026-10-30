@@ -1,6 +1,6 @@
 # DSH Runtime Adapter
 
-原版 DSH 0.2.1-rc.2 的 notebook 完整模式配套包。JSONL 服务沿用原有格式、锁与迁移实现，增加原子持久化观察及物理代际保护。压缩子类只扩展摘要钩子；事务仍由原版引擎管理。
+原版 DSH 0.2.1-rc.3 的 notebook 完整模式配套包。JSONL 服务沿用原有格式、锁与迁移实现，增加原子持久化观察及物理代际保护。压缩子类只扩展摘要钩子；事务仍由原版引擎管理。
 
 先停止目标 profile，将此 tgz 添加到原版 Web profile，再添加 working-notebook。本 bundle 禁用 `session-persistence-jsonl` 并插入 `nidofy-runtime-jsonl`，默认 root 为 `dshHomePath('sessions')`。若已有自定义 root/compression，必须把相同完整配置写到新行；两个 provider 不能同时挂载。
 
@@ -10,6 +10,12 @@
 
 新 notebook 审计事件写入 ignorable 标记；旧 desktop 的同名 required 审计事件仅在读取时兼容，不改旧日志。其他未知 required 事件仍拒绝。类型增补不代表任意 provider 支持增强 API，working-notebook 激活时会检查方法。
 
-本次发行以官方 DSH 0.2.1-rc.2 为统一基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。全仓库发行及验证记录见 `docs/releases/0.2.1-rc.2.md`。
+本包当前发行以官方 DSH 0.2.1-rc.3 为基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。三个插件发行及验证记录见 `docs/releases/notebook-source-control-rc3-2026-10-29.md`。
 
 权限提示排查：已通过官方安装服务的非管理员、空缓存离线本地包导入验证。若仍提示没有写入权限，请保留 .plugin-manager/logs 中 EPERM / EACCES 行与路径，见 docs/releases/ui-fixes-2026-10-21.md；不要为此关闭持久化文件锁。
+
+## 2026-10-29 rc.3 适配
+
+版本 **0.1.2**。Notebook 预设同步官方 Standard 的时间上下文、计划任务和工具组合，仍只替换压缩 provider。迁移 worker 使用固定 rc.3 源码构建。
+
+类型、行为、打包、空缓存离线安装和 rc.2 数据冷恢复结果见 [适配记录](../../docs/releases/notebook-source-control-rc3-2026-10-29.md)。本轮未覆盖原生 Desktop GUI；Hg 两项测试因本机未安装 Mercurial 跳过。

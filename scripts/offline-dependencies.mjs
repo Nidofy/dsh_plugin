@@ -20,6 +20,12 @@ export async function bundleRuntimeDependencies(root, directory, copyLocal) {
     const source = name === '@nidofy/dsh-plugin-shared' ? join(root, 'packages/plugin-shared') : await locate(name, owner)
     if (!source) { if (optional) return; throw Error('Missing runtime dependency: ' + name) }
     const pkg = JSON.parse(await readFile(join(source, 'package.json'), 'utf8'))
+    // The embedded shared implementation is checked in its consuming host lane.
+    // Its private copy must not ask an rc.3 host to install a second rc.2 kernel.
+    if (name === '@nidofy/dsh-plugin-shared') {
+      pkg.engines.dsh = manifest.engines.dsh
+      for (const id of Object.keys(pkg.peerDependencies ?? {})) if (id.startsWith('@deepseek-ai/dsh-')) pkg.peerDependencies[id] = manifest.engines.dsh
+    }
     if (pkg.os && !pkg.os.includes('win32') || pkg.cpu && !pkg.cpu.includes('x64')) {
       if (optional) return
       throw Error('Wrong native runtime: ' + name)

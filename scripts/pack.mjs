@@ -27,7 +27,8 @@ for (const name of ['plugin-shared', 'runtime-adapter', 'desktop-pets', 'working
   let pkg = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8'))
   if (pkg.dependencies?.['@nidofy/dsh-plugin-shared']) {
     const shared = JSON.parse(await readFile(join(root, 'packages/plugin-shared/package.json'), 'utf8'))
-    Object.assign(pkg.peerDependencies, shared.peerDependencies)
+    Object.assign(pkg.peerDependencies, Object.fromEntries(Object.entries(shared.peerDependencies).map(([id, version]) =>
+      [id, id.startsWith('@deepseek-ai/dsh-') ? pkg.engines.dsh : version])))
   }
   pkg.files = [...new Set([...(pkg.files ?? []), 'OFFLINE-DEPENDENCIES.json'])]
   await writeFile(join(dir, 'package.json'), JSON.stringify(pkg, null, 2) + '\n')

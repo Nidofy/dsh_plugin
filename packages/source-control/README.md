@@ -1,4 +1,4 @@
-启动入口统一位于右上角 sidebar 展开按钮左侧，顺序为 Git → Live2D → AI 小院；新会话与已有会话保持一致。此修改仅更新源码与本地构建，未重新制作离线包。
+启动入口统一位于右上角 sidebar 展开按钮左侧，顺序为 Git → Live2D → AI 小院；新会话与已有会话保持一致。当前 0.1.4 已重新制作 rc.3 离线包。
 
 ## 0.1.3 共存布局
 
@@ -6,14 +6,14 @@ Git 可与 Live2D 或 AI 小院同时打开。展开内容后按实测高度重�
 
 # DSH Git / Hg 面板
 
-独立包 `@nidofy/dsh-source-control`，面向原版 DSH 0.2.1-rc.2 / Node 24+，也可在 desktop 使用。无需桌宠、notebook 或 runtime-adapter。宿主需自行安装 Git / Mercurial；没有 Hg 时仍可使用 Git。
+独立包 `@nidofy/dsh-source-control`，面向原版 DSH 0.2.1-rc.3 / Node 24+，也可在 desktop 使用。无需桌宠、notebook 或 runtime-adapter。宿主需自行安装 Git / Mercurial；没有 Hg 时仍可使用 Git。
 
 ## 安装
 
 在停止的目标 profile 中安装构建产物，再启动 DSH：
 
 ```powershell
-dsh plugin --profile web add .\dist\nidofy-dsh-source-control-0.1.3.tgz
+dsh plugin --profile web add .\dist\nidofy-dsh-source-control-0.1.4.tgz
 dsh --profile web
 ```
 
@@ -24,9 +24,7 @@ dsh --profile web
   config:
     includeWorkspaces: true
     roots:
-      - 'D:/Documents/FeiyangChen/devApps/dshWinUi'
-      - 'D:/Documents/FeiyangChen/devApps/dshWinUi/electron'
-      - 'D:/Documents/FeiyangChen/devApps/dsh_plugin'
+      - 'C:/Projects/example'
     gitExecutable: git
     hgExecutable: hg
 ```
@@ -59,14 +57,20 @@ dsh --profile web
 
 ## Desktop 集成
 
-0.1.3 支持与 AI 小院或 Live2D 同时打开：Git 位于右列上方，伙伴位于下方，两者共用一列留白；关闭伙伴后 Git 恢复完整可用高度。Git 按内容高度展开，伙伴填充下方剩余区域。小院与 Live2D 仍互斥。该组合以官方 0.2.1-rc.2 为基线；替换更新包后完整退出并重启 DSH。
+0.1.3 支持与 AI 小院或 Live2D 同时打开：Git 位于右列上方，伙伴位于下方，两者共用一列留白；关闭伙伴后 Git 恢复完整可用高度。Git 按内容高度展开，伙伴填充下方剩余区域。小院与 Live2D 仍互斥。该组合以官方 0.2.1-rc.3 为基线；替换更新包后完整退出并重启 DSH。
 
 会话工具栏切换独立的 340px 浮动卡片，通过官方 `shell.overlay` 插槽呈现；不注册 sidebar 标签、不使用 Modal 或遮罩。卡片按内容自适应高度，详情过长时内部滚动。展开时只为主对话内容（消息与输入框）预留 364px，顶部工具栏不移动。打开官方 sidebar 后卡片自动隐藏并撤销留白，收起 sidebar 后恢复。主对话可用宽度不足 764px 时暂时隐藏，避免挤压输入区。Settings → 版本控制仍内嵌同一面板。
 
 浮窗随当前会话/项目切换，通过公开 `uiSession.adapter.current` 和会话/工作区快照选择最近一层已登记仓库。显式关闭后保持关闭；sidebar 或空间不足导致的隐藏保留展开意图。隐藏、关闭或连接代际重建时销毁旧内容，取消请求并丢弃确认卡。客户端导出 `RepositoryPanel`，载体嵌入时必须传入 `projectRoot: string | null`；它仅调用本插件 API，不读取 `desktop-extras` 私有状态。
 
-原版没有浮层宽度预留接口，`floating-layout.ts` 将适配范围限制在 DSH 0.2.1-rc.2 的 `data-shell-overlay`、`data-rightbar-col` 和 `data-conversation-content` DOM 标记，不访问私有服务或混淆类名。仅添加自有留白标记，关闭/卸载时移除并断开观察器；找不到兼容布局时不修改宿主。DSH 升级后需复验这层布局契约。
+原版没有浮层宽度预留接口，`floating-layout.ts` 将适配范围限制在 DSH 0.2.1-rc.3 的 `data-shell-overlay`、`data-rightbar-col` 和 `data-conversation-content` DOM 标记，不访问私有服务或混淆类名。仅添加自有留白标记，关闭/卸载时移除并断开观察器；找不到兼容布局时不修改宿主。DSH 升级后需复验这层布局契约。
 
 界面采用圆角仓库卡片、分支高亮行、绿色/红色增删统计、可搜索分支列表，提供中英文。字体系列、字号、背景和文字颜色跟随 DSH 全局主题；字号变化通过 `--dsh-content-font-size` 即时生效。实现参考见仓库 `docs/source-control.md`；未复制 VS Code / vscode-hg 源码。
 
-本次发行以官方 DSH 0.2.1-rc.2 为统一基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。全仓库发行及验证记录见 `docs/releases/0.2.1-rc.2.md`。
+本包当前发行以官方 DSH 0.2.1-rc.3 为基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。三个插件发行及验证记录见 `docs/releases/notebook-source-control-rc3-2026-10-29.md`。
+
+## 2026-10-29 rc.3 适配
+
+版本 **0.1.4**。Host、客户端、项目选择及浮层契约通过 rc.3 自动化回归；Git 真实临时仓库操作与取消已验证。
+
+类型、行为、打包、空缓存离线安装和 rc.2 数据冷恢复结果见 [适配记录](../../docs/releases/notebook-source-control-rc3-2026-10-29.md)。本轮未覆盖原生 Desktop GUI；Hg 两项测试因本机未安装 Mercurial 跳过。

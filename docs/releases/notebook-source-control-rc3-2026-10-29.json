@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "dsh": "0.2.1-rc.3",
+  "revision": "1f81c047fc48fa190a683e469daa699857e9afe8",
+  "artifacts": [
+    {
+      "name": "@nidofy/dsh-runtime-adapter",
+      "version": "0.1.2",
+      "file": "nidofy-dsh-runtime-adapter-0.1.2.tgz",
+      "bytes": 1034011,
+      "sha256": "7b51bc9e67bc25a7217c1bb8ef4e14611d790e5928e80b9302e3342f2ef6e01e",
+      "files": 145,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.3",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-working-notebook",
+      "version": "0.2.1",
+      "file": "nidofy-dsh-working-notebook-0.2.1.tgz",
+      "bytes": 932126,
+      "sha256": "7a2cc0bd5885c3482c3cc2e3150ba6450d8446bb96efd3170c8cdd0824f8710e",
+      "files": 151,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.3",
+      "offline": true
+    },
+    {
+      "name": "@nidofy/dsh-source-control",
+      "version": "0.1.4",
+      "file": "nidofy-dsh-source-control-0.1.4.tgz",
+      "bytes": 32334,
+      "sha256": "6d3e27efaccf1fdf5c5f398c8a2962809ab6d9b0f53b939a4dd87f0ae60504be",
+      "files": 23,
+      "platform": "win32-x64",
+      "dsh": "0.2.1-rc.3",
+      "offline": true
+    }
+  ],
+  "checks": [
+    "Tarball hashes, rc.3 provenance, exports and browser factories; embedded shared peers aligned",
+    "Official rc.3 package manager: all three packages installed with empty cache, offline and scripts disabled",
+    "PASS published Host imports, compaction inheritance, native locks, durable observation, cold reopen and real rc.3 worker",
+    "Frozen rc.2 packages wrote JSONL and pinned v2 note; rc.3 restored generation, events, notes and cursors without changing any saved bytes",
+    "Installed public TypeScript declarations",
+    "Official rc.3 CLI composition: single JSONL writer and Notebook compaction preset"
+  ],
+  "limitations": [
+    "Native Desktop GUI not exercised by this script"
+  ],
+  "date": "2026-10-29",
+  "node": "v24.16.0",
+  "types": "PASS: shared + three plugins, separate Host/Client programs",
+  "tests": {
+    "files": 21,
+    "total": 114,
+    "passed": 112,
+    "skipped": 2,
+    "failed": 0,
+    "skippedReason": "Mercurial executable is not installed"
+  },
+  "legacyPackedSmoke": "PASS: node scripts/smoke-packed.mjs --exclude-sandbox",
+  "testDependencyLockSha256": "292fcf7629c7f327c83b15f75bb10a5f0d9e061760847296f152bdfa19181651"
+}

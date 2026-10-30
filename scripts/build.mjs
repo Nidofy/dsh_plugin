@@ -1,16 +1,16 @@
 /** Emit separate ESM Host entries and DSH module-loader browser factories. */
 import { build } from 'tsdown'
 import ts from 'typescript'
-import { readFile, readdir, rm } from 'node:fs/promises'
+import { readFile, readdir, rm, writeFile } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
+import { villageCompatibility } from './ai-village-compatibility.mjs'
 import { existsSync, statSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { resolve, join } from 'node:path'
 const root = resolve(import.meta.dirname, '..')
-// Re-materialize the pinned official revision before embedding any upstream worker code.
-const prepared = spawnSync(process.execPath, [join(root, 'scripts/prepare-original.mjs')], { cwd: root, stdio: 'inherit' })
-if (prepared.status !== 0) throw Error('OFFICIAL_WORKER_BASELINE_UNAVAILABLE')
-const original = JSON.parse(await readFile(join(root, '.local/original.json'), 'utf8'))
-if (original.revision !== JSON.parse(await readFile(join(root, 'compatibility.json'), 'utf8')).originalRevision) throw Error('OFFICIAL_WORKER_BASELINE_MISMATCH')
+// The promoted runtime worker must never fall back to the legacy rc.2 source.
+const rc3 = villageCompatibility('rc3')
+const original = rc3.baseline
 const upstream = ts.parseConfigFileTextToJson('tsconfig.base.json', await readFile(join(original.source, 'tsconfig.base.json'), 'utf8')).config.compilerOptions.paths
 const officialWorker = { name: 'official-worker-source', resolveId(id) {
   for (const [key, paths] of Object.entries(upstream)) {
@@ -23,7 +23,10 @@ const officialWorker = { name: 'official-worker-source', resolveId(id) {
   }
 } }
 const definitions = JSON.parse(await readFile(join(root, 'build.config.json'), 'utf8'))
+const only = process.argv.find(arg => arg.startsWith('--only='))?.slice(7).split(',')
+if (only?.some(name => !definitions[name])) throw Error('Unknown build selection')
 for (const [name, definition] of Object.entries(definitions)) {
+  if (only && !only.includes(name)) continue
   if (name === 'ai-village') {
     const run = spawnSync(process.execPath, ['scripts/ai-village-release.mjs'], { cwd: root, stdio: 'inherit', windowsHide: true })
     if (run.status !== 0) throw Error('AI_VILLAGE_BUILD_FAILED')
@@ -48,6 +51,14 @@ for (const [name, definition] of Object.entries(definitions)) {
       return { code: ts.transpileModule(code, { fileName: id, compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText, map: null }
     } }],
     deps: { neverBundle: ['koffi', '@deepseek-ai/node-addon-system'], alwaysBundle: [/^@deepseek-ai\/(?!node-addon-system)/] }, outputOptions: { entryFileNames: 'worker.cjs' } })
+  if (['runtime-adapter', 'working-notebook', 'source-control'].includes(name)) {
+    if (pkg.engines.dsh !== rc3.config.dshVersion) throw Error('PLUGIN_BASELINE_MISMATCH')
+    await writeFile(join(dir, 'lib/build-identity.json'), JSON.stringify({ dsh: rc3.config.dshVersion, revision: original.revision,
+      archiveSha256: original.archiveHash, version: pkg.version,
+      runtimeLockSha256: createHash('sha256').update(await readFile(join(rc3.runtime, 'package-lock.json'))).digest('hex'),
+      source: Object.fromEntries(await Promise.all((await readdir(join(dir, 'src'), { recursive: true })).filter(file => /\.(?:ts|tsx|mts)$/.test(file)).map(async file =>
+        [file.replaceAll('\\', '/'), createHash('sha256').update(await readFile(join(dir, 'src', file))).digest('hex')]))) }, null, 2) + '\n')
+  }
   if (definition.client === false) continue
   if (name === 'live2d') await build({ config: false, entry: { frame: join(dir, 'src/frame/index.ts') },
     outDir: join(dir, 'lib'), format: 'iife', platform: 'browser', target: 'es2022', dts: false, clean: false,
@@ -73,7 +84,7 @@ for (const [name, definition] of Object.entries(definitions)) {
   })
 }
 
-if (!process.argv.includes('--exclude-sandbox')) {
+if (!only && !process.argv.includes('--exclude-sandbox')) {
 const sandbox = spawnSync(process.execPath, ['scripts/sandbox-enhanced.mjs', 'build'], { cwd: root, stdio: 'inherit', windowsHide: true })
 if (sandbox.status !== 0) throw Error('SANDBOX_BUILD_FAILED')
 

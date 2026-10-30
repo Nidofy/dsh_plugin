@@ -1,6 +1,6 @@
 # @nidofy/dsh-working-notebook
 
-当前版本 **0.2.0**：新增整理覆盖状态、索引容量降级保留、返回卡和 Markdown/JSON 交接导出。返回卡支持当前会话或显式关联项目中选定的会话，区分原文来源；未绑定执行时代码的历史验证明确要求复验。不会调用模型、自动合并跨会话结论或转移授权。使用现有 v2 数据格式。详见 [本轮发行](../../docs/releases/notebook-village-2026-10-21.md)。
+当前版本 **0.2.1** 适配 DSH **0.2.1-rc.3**，配套 runtime-adapter **0.1.2**。保留 0.2.0 功能：新增整理覆盖状态、索引容量降级保留、返回卡和 Markdown/JSON 交接导出。返回卡支持当前会话或显式关联项目中选定的会话，区分原文来源；未绑定执行时代码的历史验证明确要求复验。不会调用模型、自动合并跨会话结论或转移授权。使用现有 v2 数据格式。详见 [本轮发行](../../docs/releases/notebook-village-2026-10-21.md)。
 
 面向标准 DSH Web profile 的独立 Cordis bundle。包含 `notebook_read` / `notebook_update` 工具、下一回合已提交笔记注入、用户修订、固定条目、原始历史检索、项目关联以及可选的 basic-compaction 整理。存储、证据验证和整理引擎均在本包中，不依赖 desktop-extras 或桌宠插件。
 
@@ -12,6 +12,12 @@
 
 公开库入口 `/context`、`/notebook`、`/compaction` 和类型入口 `/notebook-types` 可供其他插件使用；导入库不会自动挂载本插件。模型笔记包含原文引用，不能改变用户固定条目。全量历史恢复和冷检索仍可能随历史长度增长。
 
-`/standard` 是无增强 provider 的显式基础入口，支持 v1 编辑、固定条目、当前会话历史与回合注入；不能覆盖 v2。它不作为完整功能的默认入口。兼容基线：固定原版 DSH 0.2.1-rc.2 与 Cordis 4.0.5。测试覆盖实际 Loader/AgentLoop、持久化、压缩、冷恢复、冲突、取消、界面编辑和历史引用。
+`/standard` 是无增强 provider 的显式基础入口，支持 v1 编辑、固定条目、当前会话历史与回合注入；不能覆盖 v2。它不作为完整功能的默认入口。兼容基线：固定原版 DSH 0.2.1-rc.3 与 Cordis 4.0.5。测试覆盖实际 Loader/AgentLoop、持久化、压缩、冷恢复、冲突、取消、界面编辑和历史引用。
 
-本次发行以官方 DSH 0.2.1-rc.2 为统一基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。全仓库发行及验证记录见 `docs/releases/0.2.1-rc.2.md`。
+本包当前发行以官方 DSH 0.2.1-rc.3 为基线。Windows x64 离线包包含所需第三方运行依赖及许可证，宿主 DSH/Cordis/React 由已有安装提供；不需要联网下载插件依赖。更新后完整重启 DSH。三个插件发行及验证记录见 `docs/releases/notebook-source-control-rc3-2026-10-29.md`。
+
+## 2026-10-29 rc.3 适配
+
+版本 **0.2.1**。保留 v2 笔记格式、修订与历史；与 runtime-adapter 0.1.2 配套安装。
+
+类型、行为、打包、空缓存离线安装和 rc.2 数据冷恢复结果见 [适配记录](../../docs/releases/notebook-source-control-rc3-2026-10-29.md)。本轮未覆盖原生 Desktop GUI；Hg 两项测试因本机未安装 Mercurial 跳过。
