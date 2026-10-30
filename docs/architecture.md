@@ -1,5 +1,9 @@
 # 架构与兼容边界
 
+2026-10-29：Runtime Adapter / Working Notebook / Source Control 使用独立 rc.3 门禁（`tools/compatibility/notebook-rc3.json`），复用固定 rc.3 源码与 runtime 锁文件。runtime-adapter 的 worker 改用 rc.3 官方源，Notebook 预设与官方 Standard 结构比对，只定制预设身份和 compaction provider；JSONL、摘要扩展和笔记格式保持不变。嵌入的 shared 私有副本按消费者绑定 rc.3 peers，独立 shared 和其他插件的 rc.2 声明保留。验证边界见 [本轮记录](releases/notebook-source-control-rc3-2026-10-29.md)。
+
+2026-10-29：AI Village 0.16 候选采用 world16/content12/afternoon2/frame13。旧 world15/afternoon1/community 校验独立冻结。场景命中与绘制共用只读投影，父层校验 ID/token/位置后复用原 CAS；六组故事与三章日记仍只有一个 afternoon.active。章节已保存 memory 是后章准入来源，前两章不授纪念；旅行继续遵守原地图邻接与 REGION_BUSY。手账四子页只组织已有事实和相册，不新增存储 owner。实际门禁与剩余美术工作见 [本轮记录](ai-village/v015-v016/IMPLEMENTATION.md)。
+
 2026-10-28：B 阶段采用 world15/content11/region2/frame12，冻结 world14 与旧茶区解码器。afternoon 保存最多两段首次故事及最近完成 ID，community 只保存调度与最多 12 条近期社交；所有事实仍来自既有手账、书屋、茶会及新下午茶回忆，不增加关系数据库、世界 owner 或时钟。真实移动复用 life.social，跨区/取消同步清理瞬时状态；已保存事实派生纸纪念和三地卡。实现与门禁见 [B 阶段记录](ai-village/afternoon/IMPLEMENTATION.md)。
 
 2026-10-26：AI Village rc.3 适配使用独立 `tools/compatibility/ai-village-rc3.json` 与 runtime/source-ui 锁文件，默认构建由该包精确 `engines.dsh` 选择并检查源码/依赖身份。其他插件继续 rc.2 通道。A6兼容检查点 world14/content10/region2/frame11 不变；Git/Live2D仅通过独立本地QA候选的组合专项，正式包仍为rc.2；当前门禁结果见 [rc.3 记录](ai-village/compatibility/DSH_0.2.1_RC3_RESULTS.md)，不以源码相同替代 Desktop 验收。
