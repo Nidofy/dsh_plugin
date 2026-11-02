@@ -1,3 +1,12 @@
+# Neural Lab 0.2.2 · 2026-11-02
+
+开发工作树统一为 `.worktrees/neural-lab`（分支 `codex/neural-lab-v0.1`）。本地合并 `c422f51` 包含 PR 分支和两份评审文档；实现提交 `d430f46` 完成 0.2.x 加固。DSH 兼容目标仍为 0.2.1-rc.5。
+
+- 学习档案有独立修订、待确认快照、刷新恢复及字段合并；代码／笔记沿用既有 CAS。导师请求按发送时的尝试归档，延迟回答不污染独立重试。
+- 默认存储按 profile 隔离。旧共享库可停用并备份后显式导入指定 profile，详见 [插件升级说明](../../packages/neural-lab/README.md)。损坏行报告 run ID，初始化失败释放数据库；待回收容器在后台处理，停用等待当前回收并保留未确认状态。
+- L09-transfer 升至 testVersion 4，增加不同设备有效长度、填充和未来扰动。训练结果在学习率变化时显示旧快照提示，畸形 Origin 作为客户端错误处理。
+- [验收记录](VALIDATION.md) 包含官方 Web 和原生 Electron 的真实 CPU 运行、升级链及两次独立重打包结果。包身份见 [artifact.json](artifact.json)。后续功能按 [路线图](ROADMAP_NEXT.md) 的 M1 起步。
+
 # Neural Lab 0.2.1 发行记录 · 2026-11-02
 
 新增 L12-transformer，课包版本 0.2.1，共 38 个活动。L12 的练习选择器提供「组装微型 Transformer」。从一个函数开始，分别完成 shifted、embed、attention、block、logits，使用 PyTorch ParameterDict 保持参数注册与 autograd。局部提交也能看到各函数的实际结果。

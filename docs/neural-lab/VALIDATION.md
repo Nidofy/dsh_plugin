@@ -1,3 +1,19 @@
+# 0.2.2 验收 · 2026-11-02
+
+实现提交 d430f46ccb61c7b3e177ad6177aeeb80424dbd39，固定官方 DSH rc.5 源码 b830ec950faba0a46dda564be3e2d854afed94f1。Windows、Node 24.16.0、npm 11.13.0、Docker 29.9.2。CPU 镜像 ID 与下方 0.2.1 记录相同。命令从 packages/neural-lab 运行；TS 入口使用 node --experimental-transform-types。开发合并与本地生成包均在 neural-lab 工作树。
+
+| 门禁 | 本次结果 |
+|---|---|
+| npm test | 严格 TS、Host/Client 构建及 13 项行为测试通过。真实 SQLite/HTTP 覆盖档案 CAS、导师迟到交付、迁移题证据、畸形 Origin。两个同 home 的 profile 独立持有默认数据库；显式旧库导入拒绝活动 owner 和重复覆盖。损坏行报出 ID，文件随后可移动。注入 Docker 清理超时，激活可用，停用保留 pending。 |
+| runner-real.ts、runner-parameters.ts、runner-adversarial.ts、runner-lifecycle.ts | 26 个参考解通过，20 个代码 starter 均失败。33 个参数用例覆盖 22 接受与 11 拒绝。18 个错误实现／攻击（含原样复制 L09-code 到迁移题）被拒，另测 timed_out 与 cancelled。创建／快照阶段取消、卸载、镜像重打标签均无本次残留容器。 |
+| training-real.ts | 28 次真实 Docker 运行，覆盖重复种子、改变学习率、导数与参数更新、留出集、因果性与坏组件。两类训练各 10 个定向坏实现被拒，部分组件得分与整题状态独立。数值门禁在忽略目录内的源码副本执行，保留已有版本证据。 |
+| NEURAL_UI_CPU=1 node tests/ui-check.mjs | 独立 Chromium + HTTP/SQLite/Docker 共 26 项、0 pageerror。档案延迟确认 A 时继续写 B/C；刷新恢复本地稿、远端不同字段更新后显式合并，两字段均保留。还验证改学习率出现旧快照提示、改回后解除、四尺寸滚动和训练对照。 |
+| npm pack --ignore-scripts；node tests/install-check.mjs；node tests/upgrade-020.mjs | 94370 字节，SHA-256 为 5353874ee5586ef8107951eca9673be700c0fb65dee4e061dfc21cc3a095d144。两个独立干净 sparse checkout 分别构建，两个包与交付哈希完全相同。空缓存离线安装及已安装内容身份一致。从 0.1.2 写入草稿后，经 0.1.3、0.2.0、0.2.1 至 0.2.2，草稿及后续版本的档案、帮助、解释、复习记录保留。升级中的历史训练 run 使用夹具。 |
+| NEURAL_UI_CPU=1、NEURAL_WITH_LEARN=1、npm_config_offline=true，node tests/ui-official-session.mjs | 官方 Web 安装同一哈希候选包、认证 RPC、CPU Attention、MLP 与字符模型训练、双运行对照、复习、四尺寸、Learn 0.5.2 共存与卸载通过。官方 MLP run 为 1159eb97-c8df-4692-b664-3dc51cc7743c 和 9f7aaaed-d2ca-4d70-adbe-3ec3d18b9f2e；字符模型 run 为 225807ed-18c0-4840-974d-4a2a79c39dcf 和 9e77f292-8497-4280-946f-8732a5da2795。0 pageerror，临时 profile 与服务清理完成。 |
+| 设置 NEURAL_DESKTOP_EXE 为官方可执行文件后运行 node tests/native-022.mjs | 核对官方 CLI 为 0.2.1-rc.5，使用独立临时 DSH_HOME、Electron userData、desktop profile，安装同一 SHA 的包。可见编辑器提交 L01，Docker CPU 通过（run 8a4a36cf-4715-463b-a025-bbf20b547195），切课、退出整个 Electron 再启动，原代码和同一 run 恢复。 |
+
+本次导师验收覆盖未配置模型时的实际官方界面，以及显式测试替身的两轮上下文、成功／失败／取消、跨尝试迟到答复。按本次指定范围，真实供应商成功调用不列入验收。所有用户数据测试使用临时目录。归档与安装身份见 [artifact.json](artifact.json)，历史发行包的既有哈希保留在下文。
+
 # Neural Lab 0.2.1 验证记录 · 2026-11-02
 
 本轮验证最终 0.2.1 工作树和本地归档。主机为 Windows、Node 24，官方 DSH 0.2.1-rc.5 固定提交 b830ec950faba0a46dda564be3e2d854afed94f1。真实 Docker CPU 镜像 sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7。运行以下命令时工作目录为 packages/neural-lab，TypeScript 测试脚本使用 node --experimental-transform-types。
