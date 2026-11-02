@@ -1,53 +1,515 @@
 import { useEffect, useRef, useState } from 'react'
-import { MarkdownText } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { LabApi,Overview,Workspace,RunRecord,RunEvent,HelpLevel,EnvironmentStatus } from './types.ts'
+import type {
+  LabApi,
+  Overview,
+  Workspace,
+  RunRecord,
+  EnvironmentStatus,
+  HelpLevel,
+} from './types.ts'
 import { css } from './client-style.ts'
-const labels={code:{copyLabel:'复制 Copy',copiedLabel:'已复制 Copied'},footnotes:'参考 References'}
-const active=(r:RunRecord)=>r.run_status==='queued'||r.run_status==='running'
-const errorText=(e:unknown)=>e instanceof Error?e.message:String(e)
-function Md({text}:{text:string}) {return <MarkdownText text={text} labels={labels}/>}
-export function RunResults({run}:{run:RunRecord}) {
- const metrics=new Map<string,RunEvent[]>()
- for(const e of run.events)if(e.type==='metric'&&typeof e.value==='number'&&Number.isFinite(e.value))metrics.set(e.name,[...(metrics.get(e.name)??[]),e])
- return <section className="nl-results" aria-label="运行结果 Results" data-run-id={run.id}>
- <h3>本次运行 / Run <code>{run.id}</code></h3><p><strong>{run.run_status}</strong> · 检查 Checks: <strong>{run.check_status}</strong> · seed {run.seed}</p><small>{run.environment} · {run.contentVersion} / {run.testVersion}</small>{run.reason&&<p role="alert">{run.reason}</p>}
- {run.events.filter(e=>e.type==='check').map(e=><p key={e.seq}>{e.passed?'✓':'✗'} {e.name} {e.detail}</p>)}
- {[...metrics].map(([name,points])=>{const vals=points.map(p=>p.value!),lo=Math.min(...vals),hi=Math.max(...vals),steps=points.map((p,i)=>p.step??i),slo=Math.min(...steps),shi=Math.max(...steps);return <figure key={name}><figcaption>{name} · {points.length} 个真实采样 / samples</figcaption><svg role="img" aria-label={`${name} 曲线`} viewBox="0 0 500 180"><path d="M45 10V150H490" fill="none" stroke="currentColor"/><text x="0" y="20" fontSize="11">{hi.toPrecision(3)}</text><text x="0" y="150" fontSize="11">{lo.toPrecision(3)}</text><text x="45" y="173" fontSize="11">{slo}</text><text x="460" y="173" fontSize="11">{shi}</text><polyline fill="none" stroke="#38b8af" strokeWidth="2" points={vals.map((v,i)=>`${45+440*(steps[i]!-slo)/(shi-slo||1)},${145-130*(v-lo)/(hi-lo||1)}`).join(' ')}/>{vals.map((v,i)=><circle key={i} cx={45+440*(steps[i]!-slo)/(shi-slo||1)} cy={145-130*(v-lo)/(hi-lo||1)} r={2.5} fill="#38b8af"><title>{`${name} ${steps[i]}: ${v}`}</title></circle>)}</svg><details><summary>采样值 / Values</summary><pre>{points.map(p=>`${p.step??p.seq}: ${p.value}`).join('\n')}</pre></details></figure>})}
- {run.events.filter(e=>e.type==='tensor'&&e.data).map(e=>{const values=e.data!.flat(),scale=Math.max(...values.map(Math.abs),1e-12);return <figure key={e.seq}><figcaption>{e.name} · {e.data!.length} × {e.data![0]?.length??0}</figcaption><div className="nl-table"><table aria-label={`${e.name} 热图 Heatmap`}><tbody>{e.data!.map((row,i)=><tr key={i}>{row.map((v,j)=><td key={j} title={`[${i},${j}]=${v}`} style={{background:`rgba(32,155,145,${Math.min(.85,Math.abs(v)/scale*.8+.05)})`}}>{v.toPrecision(3)}</td>)}</tr>)}</tbody></table></div></figure>})}
- {run.events.filter(e=>e.type==='artifact').map(e=><p key={e.seq}>产物 Artifact: <code>{e.path}</code> {e.detail}</p>)}
- <details open={run.run_status==='failed'}><summary>日志 / Logs</summary><pre>{run.log||'尚无日志 / No logs yet'}</pre></details>
- </section>
-}
-export function Workbench({api}:{api:LabApi}) {
- const [overview,setOverview]=useState<Overview>(),[ws,setWs]=useState<Workspace>(),[lessonId,setLesson]=useState(''),[exerciseId,setExercise]=useState(''),[tab,setTab]=useState('lecture'),[code,setCode]=useState(''),[note,setNote]=useState(''),[answer,setAnswer]=useState(''),[run,setRun]=useState<RunRecord>(),[error,setError]=useState(''),[status,setStatus]=useState(''),[busy,setBusy]=useState(false),[environment,setEnvironment]=useState<EnvironmentStatus>(),[hint,setHint]=useState(''),[question,setQuestion]=useState(''),[selection,setSelection]=useState(''),[reply,setReply]=useState(''),[profile,setProfile]=useState<Record<string,string>>({}),[seed,setSeed]=useState(42),[rate,setRate]=useState(.03),[steps,setSteps]=useState(60),[sidebarWidth,setSidebarWidth]=useState(220)
- const generation=useRef(0),current=useRef<{ws:Workspace;code:string;note:string}>(),queue=useRef<Promise<void>>(Promise.resolve()),mounted=useRef(true)
- useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;void save()}},[])
- const report=(e:unknown)=>{if(mounted.current)setError(errorText(e))}
- async function refresh(){const o=await api.overview();if(!mounted.current)return;setOverview(o);setProfile(o.profile);return o}
- useEffect(()=>{void refresh().then(o=>{if(o){const l=o.catalog.lessons.find(l=>l.id===o.currentLesson)??o.catalog.lessons[0];if(l){setLesson(l.id);setExercise(l.exercises[0]?.id??'')}}}).catch(report);void api.environment().then(setEnvironment).catch(report)},[api])
- function save():Promise<void>{const pending=current.current;if(!pending)return queue.current;const operation=queue.current.then(async()=>{if(pending.code!==pending.ws.draft){const revision=await api.saveDraft(pending.ws.exercise.id,pending.code,pending.ws.revision);pending.ws.revision=revision;pending.ws.draft=pending.code}if(pending.note!==pending.ws.note){const revision=await api.saveNote(pending.ws.exercise.id,pending.note,pending.ws.noteRevision);pending.ws.noteRevision=revision;pending.ws.note=pending.note}});queue.current=operation.catch(report);return operation}
- useEffect(()=>{if(!exerciseId)return;const g=++generation.current;setWs(undefined);setRun(undefined);setHint('');setReply('');setAnswer('');void save().then(()=>api.workspace(exerciseId)).then(w=>{if(g!==generation.current||!mounted.current)return;current.current={ws:w,code:w.draft,note:w.note};setWs(w);setCode(w.draft);setAnswer(w.draft);setNote(w.note);setRun(w.runs[0])}).catch(report)},[api,exerciseId])
- useEffect(()=>{if(!ws)return;current.current={ws,code,note};const timer=setTimeout(()=>{void save().then(()=>{if(mounted.current)setStatus('草稿已保存 / Saved')}).catch(report)},600);return()=>clearTimeout(timer)},[code,note,ws])
- useEffect(()=>{if(!run||!active(run))return;let disposed=false;const tick=async()=>{try{const latest=await api.run(run.id);if(disposed)return;setRun(latest);if(!active(latest)){const w=await api.workspace(latest.exerciseId);if(!disposed)setWs(old=>old?{...old,runs:w.runs,messages:w.messages}:w);void refresh()}}catch(e){if(!disposed)report(e)}};const timer=setInterval(()=>void tick(),700);return()=>{disposed=true;clearInterval(timer)}},[api,run?.id,run?.run_status])
- const lesson=overview?.catalog.lessons.find(l=>l.id===lessonId)
- async function syncActivity(){const w=await api.workspace(exerciseId);setWs(old=>old?{...old,runs:w.runs,messages:w.messages,hints:w.hints,answers:w.answers,snapshots:w.snapshots}:w)}
- function editCode(value:string){if(current.current)current.current.code=value;setCode(value)}
- function editNote(value:string){if(current.current)current.current.note=value;setNote(value)}
- function switchTab(value:string){setTab(value);if(value==='experiment'){const experiment=lesson?.exercises.find(e=>e.kind==='experiment');if(experiment&&experiment.id!==exerciseId)choose(experiment.id,experiment.lessonId)}}
- async function action(fn:()=>Promise<void>){setBusy(true);setError('');try{await fn()}catch(e){report(e)}finally{if(mounted.current)setBusy(false)}}
- async function start(){await save();setRun(undefined);const r=await api.start(exerciseId,code,{seed,learningRate:rate,steps});setRun(r);setTab('exercise')}
- function choose(id:string,lid:string){void action(async()=>{await save();await api.selectLesson(lid);setLesson(lid);setExercise(id)})}
- async function download(){const raw=await api.exportData(),url=URL.createObjectURL(new Blob([raw],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='neural-lab-learning.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
- if(!overview)return <main className="neural-lab"><style>{css}</style><h1>Neural Lab</h1><p role={error?'alert':'status'}>{error||'加载课程 / Loading…'}</p><button onClick={()=>void action(async()=>{await refresh()})}>重试 Retry</button></main>
- return <main className="neural-lab"><style>{css}</style>
- <header className="nl-top"><div><h1>Neural Lab</h1><small>从张量到 Transformer · Learn by building</small></div><div className="nl-actions"><button onClick={()=>setTab('profile')}>学习档案 Profile</button><button onClick={()=>void action(download)}>导出 Export</button><button onClick={()=>void action(async()=>setEnvironment(await api.environment()))}>环境自检 Check CPU</button></div></header>
- {error&&<p className="nl-error" role="alert">{error} <button onClick={()=>setError('')}>关闭 Dismiss</button></p>}<p className="nl-status" role="status">{busy?'正在处理 / Working…':status} {environment&&!environment.available&&` · CPU 不可用: ${environment.detail}`}</p>
- <div className="nl-layout" style={{gridTemplateColumns:`${sidebarWidth}px minmax(280px,1fr) 270px`}}><aside className="nl-sidebar"><label>路线宽度 / Width<input aria-label="路线宽度 Width" type="range" min="180" max="340" value={sidebarWidth} onChange={e=>setSidebarWidth(Number(e.target.value))}/></label><details open><summary>学习路线 / Curriculum</summary><nav>{overview.catalog.lessons.map(l=><button key={l.id} aria-current={l.id===lessonId?'page':undefined} onClick={()=>choose(l.exercises[0]?.id??'',l.id)}><strong>{l.id} {l.title}</strong><small>{overview.readLessons.includes(l.id)?'已读 Read':'未读 Unread'} · {l.kind}<br/>先修 Prerequisites: {l.prerequisites.join(', ')||'无 None'}</small></button>)}</nav></details><details open><summary>待复习 / Review ({overview.reviews.length})</summary>{overview.reviews.map((r,i)=><div key={i}><button onClick={()=>{const l=overview.catalog.lessons.find(l=>l.exercises.some(e=>e.id===r.exerciseId));if(l)choose(r.exerciseId,l.id)}}>{r.exerciseId} · {r.reason}</button><small>{r.due}</small><button onClick={()=>void action(async()=>{await api.snooze(r.exerciseId);await refresh()})}>稍后 Later</button></div>)}</details></aside>
- <section className="nl-center"><div className="nl-tabs" role="tablist" aria-label="工作台 Tabs">{[['lecture','讲义 Lecture'],['exercise','练习 Exercise'],['experiment','实验 Experiment'],['records','记录 Records']].map(([id,title])=><button key={id} role="tab" aria-selected={tab===id} onClick={()=>switchTab(id!)}>{title}</button>)}</div>
- {lesson&&<h2>{lesson.id} · {lesson.title}</h2>}
- {tab==='lecture'&&lesson&&<article onKeyUp={()=>{const text=window.getSelection()?.toString();if(text)setSelection(text.slice(0,4000))}} onMouseUp={()=>{const text=window.getSelection()?.toString();if(text)setSelection(text.slice(0,4000))}}><p>学习目标 / Goals: {lesson.objectives.join('；')}</p><nav className="nl-anchors">{lesson.body.split('\n').filter(line=>/^#{1,4} /.test(line)).map((line,i)=><a href={`#nl-${lesson.id}-${i}`} key={i}>{line.replace(/^#+ /,'')}</a>)}</nav>{lesson.body.split(/(?=^#{1,4} )/m).map((part,i)=><section id={`nl-${lesson.id}-${lesson.body.startsWith("#")?i:i-1}`} key={i}><Md text={part}/></section>)}<h3>小结 Summary</h3><Md text={lesson.summary}/><p>{lesson.sources.map(s=><a key={s} href={s} target="_blank" rel="noreferrer" style={{display:"block"}}>{s}</a>)}</p><button onClick={()=>void action(async()=>{await api.readLesson(lesson.id);await refresh();setStatus('已记录阅读；阅读不等于掌握 / Reading recorded')})}>标记已读 Mark read</button><button onClick={()=>setTab('exercise')}>开始练习 Practice</button></article>}
- {(tab==='exercise'||tab==='experiment')&&lesson&&<><label>当前活动 Activity<select value={exerciseId} onChange={e=>choose(e.target.value,lesson.id)}>{lesson.exercises.filter(e=>tab!=='experiment'||e.kind==='experiment').map(e=><option key={e.id} value={e.id}>{e.title} · {e.kind}</option>)}</select></label>{tab==='experiment'&&!lesson.exercises.some(e=>e.kind==='experiment')?<p>本单元无独立实验，请完成练习。/ No experiment in this unit.</p>:ws?<><Md text={ws.exercise.prompt}/><details><summary>输入域与常见错误 / Domain & pitfalls</summary><p>{ws.exercise.inputDomain}</p><ul>{ws.exercise.commonErrors.map(e=><li key={e}>{e}</li>)}</ul></details>{['numeric','explanation'].includes(ws.exercise.kind)?<><label>我的作答 Answer<textarea value={answer} onChange={e=>{setAnswer(e.target.value);editCode(e.target.value)}}/></label><button disabled={busy} onClick={()=>void action(async()=>{await save();setStatus(`作答结果 / Answer: ${await api.answer(exerciseId,answer)}`);await syncActivity();await refresh()})}>提交作答 Submit</button></>:<><div className="nl-actions"><button disabled={busy||!!run&&active(run)} onClick={()=>void action(start)}>运行 / 提交 Run & check</button>{run&&active(run)&&<button onClick={()=>void action(async()=>{await api.cancel(run.id);setRun(await api.run(run.id))})}>取消 Cancel</button>}<button onClick={()=>{editCode(ws.exercise.starter);setStatus('已恢复起始代码，可从历史恢复 / Starter restored')}}>重置 Reset</button><button onClick={()=>void action(save)}>保存 Save</button></div><label>Python 编辑器 Editor<textarea className="nl-editor" spellCheck={false} value={code} onChange={e=>{editCode(e.target.value);setStatus('未保存 / Unsaved')}} onSelect={e=>{const t=e.currentTarget;setSelection(t.value.slice(t.selectionStart,t.selectionEnd))}} onKeyDown={e=>{if(e.key==='Tab'){e.preventDefault();const t=e.currentTarget;editCode(code.slice(0,t.selectionStart)+'    '+code.slice(t.selectionEnd))}}}/></label><details><summary>代码高亮预览 / Highlighted code</summary><Md text={'```python\n'+code+'\n```'}/></details>{ws.exercise.kind==='experiment'&&<div><p>下方参数覆盖 configure() 返回的同名参数；学习率对应 lr。/ These controls override configure values (learning rate: lr).</p><div className="nl-actions"><label>Seed<input type="number" value={seed} onChange={e=>setSeed(Number(e.target.value))}/></label><label>学习率 Learning rate<input type="number" step="0.01" value={rate} onChange={e=>setRate(Number(e.target.value))}/></label><label>步数 Steps<input type="number" min="1" max="200" value={steps} onChange={e=>setSteps(Number(e.target.value))}/></label></div></div>}{run?<>{run.code!==code&&<p role="status">代码已修改；以下为先前快照结果，请重新运行。/ Code changed; previous snapshot result.</p>}<RunResults run={run}/></>:<p>尚无本次结果 / No current result</p>}</>}</>:<p>加载活动 / Loading activity…</p>}</>}
- {tab==='records'&&<><label>学习笔记 Notes<textarea value={note} onChange={e=>editNote(e.target.value)}/></label><button onClick={()=>void action(save)}>保存笔记 Save note</button><h3>作答与运行历史 / History</h3>{ws?.runs.map(r=><details key={r.id}><summary>{r.createdAt} · {r.run_status} / {r.check_status} · {r.help}</summary><button onClick={()=>{editCode(r.code);setTab('exercise')}}>恢复此代码 Restore code</button><pre>{r.code}</pre><RunResults run={r}/></details>)}<h3>帮助前快照 / Before assistance</h3>{ws?.snapshots?.map((snapshot,i)=><details key={i}><summary>{snapshot.at} · {snapshot.reason} · rev {snapshot.revision}</summary><button onClick={()=>{editCode(snapshot.code);setAnswer(snapshot.code);setTab("exercise")}}>恢复此代码 Restore code</button><pre>{snapshot.code}</pre></details>)}<h3>文字作答历史 / Written answers</h3>{ws?.answers?.map((a,i)=><details key={i}><summary>{a.status} · {a.contentVersion}/{a.testVersion}</summary><pre>{a.text}</pre></details>)}<h3>知识点证据 / Evidence</h3>{overview.evidence.filter(e=>e.exerciseId===exerciseId).map((e,i)=><p key={i}>{e.concept} · {e.kind} · {e.source} · {e.help} · {e.result}</p>)}</>}
- {tab==='profile'&&<><h3>学习档案 / Learning profile</h3>{[['background','已有基础 Background'],['goal','学习目标 Goal'],['difficulties','常见卡点 Difficulties'],['explanations','有效讲法 Preferred explanation']].map(([k,title])=><label key={k}>{title}<textarea value={profile[k!]??''} onChange={e=>setProfile({...profile,[k!]:e.target.value})}/></label>)}<button onClick={()=>void action(async()=>{await api.saveProfile(profile);await refresh();setStatus('档案已保存 / Profile saved')})}>保存档案 Save profile</button></>}
- </section><aside className="nl-mentor"><details open><summary>导师与提示 / Mentor</summary><button disabled={!ws||busy} onClick={()=>void action(async()=>{await api.independent(exerciseId);setHint('');setStatus('已开始自述独立尝试；外部帮助不可验证 / Independent attempt, self-reported')})}>独立重试（自述） Independent retry</button><p>帮助按观察记录，不等于验证独立完成。/ Help is recorded, not proof of independence.</p><div className="nl-actions">{(['concept','steps','code','answer'] as HelpLevel[]).map((level,i)=><button disabled={!ws||busy} key={level} onClick={()=>void action(async()=>{await save();const value=await api.hint(exerciseId,level);setHint(level==="answer"&&ws&&["code","experiment"].includes(ws.exercise.kind)?"```python\n"+value+"\n```":value);await syncActivity();await refresh()})}>{['概念 Concept','步骤 Steps','局部代码 Code','查看答案 Answer'][i]}</button>)}</div>{hint&&<Md text={hint}/>}<label>所选上下文 Selected context<textarea value={selection} onChange={e=>setSelection(e.target.value)} placeholder="选择讲义段落、公式或代码 / Select text or code"/></label><label>提问 Question<textarea value={question} onChange={e=>setQuestion(e.target.value)} placeholder="解释报错或分析本次实验 / Ask about this result"/></label><button disabled={busy||!ws||!question.trim()} onClick={()=>void action(async()=>{await save();const result=await api.tutor(exerciseId,question,selection);setReply(`${result.status}\n\n${result.text}`);setQuestion('');await syncActivity()})}>询问导师 Ask mentor</button>{reply&&<Md text={reply}/>}<details><summary>导师记录 / Conversation</summary>{ws?.messages.map((m,i)=><div key={i}><strong>{m.role} · {m.status}</strong><Md text={m.text}/></div>)}</details></details></aside></div></main>
+import { ActivityTab } from './components/ActivityTab.tsx'
+import { LectureTab } from './components/LectureTab.tsx'
+import { RecordsTab } from './components/RecordsTab.tsx'
+import { MentorSidebar } from './components/MentorSidebar.tsx'
+export { RunResults } from './components/RunResults.tsx'
+const active = (run: RunRecord) => run.run_status === 'queued' || run.run_status === 'running'
+const errorText = (error: unknown) => (error instanceof Error ? error.message : String(error))
+export function Workbench({ api }: { api: LabApi }) {
+  const [overview, setOverview] = useState<Overview>(),
+    [ws, setWs] = useState<Workspace>(),
+    [lessonId, setLesson] = useState(''),
+    [exerciseId, setExercise] = useState(''),
+    [tab, setTab] = useState('lecture'),
+    [code, setCode] = useState(''),
+    [note, setNote] = useState(''),
+    [run, setRun] = useState<RunRecord>(),
+    [error, setError] = useState(''),
+    [status, setStatus] = useState(''),
+    [busy, setBusy] = useState(false),
+    [environment, setEnvironment] = useState<EnvironmentStatus>(),
+    [hint, setHint] = useState(''),
+    [question, setQuestion] = useState(''),
+    [selection, setSelection] = useState(''),
+    [reply, setReply] = useState(''),
+    [profile, setProfile] = useState<Record<string, string>>({}),
+    [seed, setSeed] = useState(42),
+    [sidebarWidth, setSidebarWidth] = useState(220)
+  const generation = useRef(0),
+    current = useRef<{ ws: Workspace; code: string; note: string }>(),
+    queue = useRef<Promise<void>>(Promise.resolve()),
+    mounted = useRef(true),
+    actionPending = useRef(false)
+  useEffect(() => {
+    mounted.current = true
+    return () => {
+      mounted.current = false
+      void save()
+    }
+  }, [])
+  const report = (e: unknown) => {
+    if (mounted.current) setError(errorText(e))
+  }
+  async function refresh() {
+    const o = await api.overview()
+    if (!mounted.current) return
+    setOverview(o)
+    setProfile(o.profile)
+    return o
+  }
+  useEffect(() => {
+    void refresh()
+      .then((o) => {
+        if (o) {
+          const l = o.catalog.lessons.find((l) => l.id === o.currentLesson) ?? o.catalog.lessons[0]
+          if (l) {
+            setLesson(l.id)
+            setExercise(l.exercises[0]?.id ?? '')
+          }
+        }
+      })
+      .catch(report)
+    void api.environment().then(setEnvironment).catch(report)
+  }, [api])
+  function save(): Promise<void> {
+    const pending = current.current
+    if (!pending) return queue.current
+    const operation = queue.current.then(async () => {
+      if (pending.code !== pending.ws.draft) {
+        const revision = await api.saveDraft(
+          pending.ws.exercise.id,
+          pending.code,
+          pending.ws.revision,
+        )
+        pending.ws.revision = revision
+        pending.ws.draft = pending.code
+      }
+      if (pending.note !== pending.ws.note) {
+        const revision = await api.saveNote(
+          pending.ws.exercise.id,
+          pending.note,
+          pending.ws.noteRevision,
+        )
+        pending.ws.noteRevision = revision
+        pending.ws.note = pending.note
+      }
+    })
+    queue.current = operation.catch(report)
+    return operation
+  }
+  useEffect(() => {
+    if (!exerciseId) return
+    const g = ++generation.current
+    setWs(undefined)
+    setRun(undefined)
+    setHint('')
+    setReply('')
+    void save()
+      .then(() => api.workspace(exerciseId))
+      .then((w) => {
+        if (g !== generation.current || !mounted.current) return
+        current.current = { ws: w, code: w.draft, note: w.note }
+        setWs(w)
+        setCode(w.draft)
+        setNote(w.note)
+        setRun(w.runs[0])
+      })
+      .catch(report)
+  }, [api, exerciseId])
+  useEffect(() => {
+    if (!ws) return
+    current.current = { ws, code, note }
+    const timer = setTimeout(() => {
+      void save()
+        .then(() => {
+          if (mounted.current) setStatus('草稿已保存 / Saved')
+        })
+        .catch(report)
+    }, 600)
+    return () => clearTimeout(timer)
+  }, [code, note, ws])
+  useEffect(() => {
+    if (!run || !active(run)) return
+    let disposed = false
+    const tick = async () => {
+      try {
+        const latest = await api.run(run.id)
+        if (disposed) return
+        setRun(latest)
+        if (!active(latest)) {
+          const w = await api.workspace(latest.exerciseId)
+          if (!disposed) setWs((old) => (old ? { ...old, runs: w.runs, messages: w.messages } : w))
+          void refresh()
+        }
+      } catch (e) {
+        if (!disposed) report(e)
+      }
+    }
+    const timer = setInterval(() => void tick(), 700)
+    return () => {
+      disposed = true
+      clearInterval(timer)
+    }
+  }, [api, run?.id, run?.run_status])
+  const lesson = overview?.catalog.lessons.find((l) => l.id === lessonId)
+  async function syncActivity() {
+    const w = await api.workspace(exerciseId)
+    setWs((old) =>
+      old
+        ? {
+            ...old,
+            runs: w.runs,
+            messages: w.messages,
+            hints: w.hints,
+            answers: w.answers,
+            snapshots: w.snapshots,
+          }
+        : w,
+    )
+  }
+  function editCode(value: string) {
+    if (actionPending.current) return
+    if (current.current) current.current.code = value
+    setCode(value)
+  }
+  function editNote(value: string) {
+    if (actionPending.current) return
+    if (current.current) current.current.note = value
+    setNote(value)
+  }
+  function switchTab(value: string) {
+    if (actionPending.current) return
+    setTab(value)
+    if (value === 'experiment') {
+      const experiment = lesson?.exercises.find((e) => e.kind === 'experiment')
+      if (experiment && experiment.id !== exerciseId) choose(experiment.id, experiment.lessonId)
+    }
+  }
+  async function action(fn: () => Promise<void>) {
+    if (actionPending.current) return
+    actionPending.current = true
+    setBusy(true)
+    setError('')
+    try {
+      await fn()
+    } catch (e) {
+      report(e)
+    } finally {
+      actionPending.current = false
+      if (mounted.current) setBusy(false)
+    }
+  }
+  async function start() {
+    if (busy || (run && active(run))) return
+    setRun(undefined)
+    await save()
+    const r = await api.start(exerciseId, code, { seed })
+    setRun(r)
+    setTab('exercise')
+  }
+  function choose(id: string, lid: string) {
+    void action(async () => {
+      await save()
+      await api.selectLesson(lid)
+      setLesson(lid)
+      setExercise(id)
+    })
+  }
+  async function download() {
+    const raw = await api.exportData(),
+      url = URL.createObjectURL(new Blob([raw], { type: 'application/json' }))
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'neural-lab-learning.json'
+    a.click()
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
+  }
+
+  function restore(text: string) {
+    if (actionPending.current) return
+    editCode(text)
+    setTab('exercise')
+  }
+  async function requestHint(level: HelpLevel) {
+    await save()
+    const value = await api.hint(exerciseId, level)
+    setHint(
+      level === 'answer' && ws && ['code', 'experiment'].includes(ws.exercise.kind)
+        ? '```python\n' + value + '\n```'
+        : value,
+    )
+    await syncActivity()
+    await refresh()
+  }
+  async function askMentor() {
+    await save()
+    const result = await api.tutor(exerciseId, question, selection)
+    setReply(`${result.status}\n\n${result.text}`)
+    setQuestion('')
+    await syncActivity()
+  }
+  if (!overview)
+    return (
+      <main className="neural-lab">
+        <style>{css}</style>
+        <h1>Neural Lab</h1>
+        <p role={error ? 'alert' : 'status'}>{error || '加载课程 / Loading…'}</p>
+        <button
+          onClick={() =>
+            void action(async () => {
+              await refresh()
+            })
+          }
+        >
+          重试 Retry
+        </button>
+      </main>
+    )
+  return (
+    <main className="neural-lab">
+      <style>{css}</style>
+      <header className="nl-top">
+        <div className="nl-brand">
+          <span className="nl-brand-mark" aria-hidden="true">
+            N
+          </span>
+          <div>
+            <h1>Neural Lab</h1>
+            <small>从张量到 Transformer · Learn by building</small>
+          </div>
+        </div>
+        <div className="nl-actions">
+          <button onClick={() => setTab('profile')}>学习档案 Profile</button>
+          <button onClick={() => void action(download)}>导出 Export</button>
+          <button onClick={() => void action(async () => setEnvironment(await api.environment()))}>
+            环境自检 Check CPU
+          </button>
+        </div>
+      </header>
+      {error && (
+        <p className="nl-error" role="alert">
+          {error} <button onClick={() => setError('')}>关闭 Dismiss</button>
+        </p>
+      )}
+      <div className="nl-status" role="status">
+        <span>{busy ? '正在处理 / Working…' : status}</span>
+        {environment && (
+          <details>
+            <summary>
+              {environment.available ? '● CPU 就绪 Ready' : '○ CPU 不可用 Unavailable'}
+            </summary>
+            <pre>{environment.detail}</pre>
+          </details>
+        )}
+      </div>
+      <div
+        className="nl-layout"
+        style={{ gridTemplateColumns: `${sidebarWidth}px minmax(0, 1fr)` }}
+      >
+        <aside className="nl-sidebar">
+          <details>
+            <summary>路线宽度 / Width</summary>
+            <input
+              aria-label="路线宽度 Width"
+              type="range"
+              min="170"
+              max="300"
+              value={sidebarWidth}
+              onChange={(e) => setSidebarWidth(Number(e.target.value))}
+            />
+          </details>
+          <details open>
+            <summary>学习路线 / Curriculum</summary>
+            <nav>
+              {overview.catalog.lessons.map((item) => (
+                <button
+                  key={item.id}
+                  disabled={busy}
+                  aria-label={`${item.id} ${item.title}`}
+                  aria-current={item.id === lessonId ? 'page' : undefined}
+                  onClick={() => choose(item.exercises[0]?.id ?? '', item.id)}
+                >
+                  <strong>
+                    <span className="nl-lesson-id">{item.id}</span>
+                    {item.title}
+                  </strong>
+                  <small>
+                    {overview.readLessons.includes(item.id) ? '已读 Read' : '未读 Unread'} ·{' '}
+                    {item.kind}
+                  </small>
+                  <small>先修: {item.prerequisites.join(', ') || '无 None'}</small>
+                </button>
+              ))}
+            </nav>
+          </details>
+          <details open>
+            <summary>待复习 / Review ({overview.reviews.length})</summary>
+            {overview.reviews.map((review, i) => (
+              <div key={i}>
+                <button
+                  onClick={() => {
+                    const target = overview.catalog.lessons.find((item) =>
+                      item.exercises.some((e) => e.id === review.exerciseId),
+                    )
+                    if (target) choose(review.exerciseId, target.id)
+                  }}
+                >
+                  {review.exerciseId} · {review.reason}
+                </button>
+                <small>{review.due}</small>
+                <button
+                  onClick={() =>
+                    void action(async () => {
+                      await api.snooze(review.exerciseId)
+                      await refresh()
+                    })
+                  }
+                >
+                  稍后 Later
+                </button>
+              </div>
+            ))}
+          </details>
+        </aside>
+        <section className="nl-center">
+          <div className="nl-tabs" role="tablist" aria-label="工作台 Tabs">
+            {[
+              ['lecture', '讲义 Lecture'],
+              ['exercise', '练习 Exercise'],
+              ['experiment', '实验 Experiment'],
+              ['records', '记录 Records'],
+              ['profile', '档案 Profile'],
+            ].map(([id, title]) => (
+              <button key={id} role="tab" aria-selected={tab === id} onClick={() => switchTab(id!)}>
+                {title}
+              </button>
+            ))}
+          </div>
+          {tab === 'profile' ? (
+            <h2>学习档案 / Learning profile</h2>
+          ) : (
+            lesson && (
+              <h2>
+                {lesson.id} · {lesson.title}
+              </h2>
+            )
+          )}
+          {tab === 'lecture' && lesson && (
+            <LectureTab
+              lesson={lesson}
+              onSelection={setSelection}
+              onPractice={() => setTab('exercise')}
+              onRead={() =>
+                void action(async () => {
+                  await api.readLesson(lesson.id)
+                  await refresh()
+                  setStatus('已记录阅读；阅读不等于掌握 / Reading recorded')
+                })
+              }
+            />
+          )}
+          {(tab === 'exercise' || tab === 'experiment') && lesson && (
+            <ActivityTab
+              lesson={lesson}
+              workspace={ws}
+              experimentOnly={tab === 'experiment'}
+              exerciseId={exerciseId}
+              draft={code}
+              seed={seed}
+              run={run}
+              busy={busy}
+              onChoose={(id) => choose(id, lesson.id)}
+              onEdit={editCode}
+              onSeed={setSeed}
+              onSelection={setSelection}
+              onRun={() => void action(start)}
+              onCancel={() =>
+                void action(async () => {
+                  if (run) {
+                    await api.cancel(run.id)
+                    setRun(await api.run(run.id))
+                  }
+                })
+              }
+              onSave={() => void action(save)}
+              onAnswer={() =>
+                void action(async () => {
+                  await save()
+                  setStatus(`作答结果 / Answer: ${await api.answer(exerciseId, code)}`)
+                  await syncActivity()
+                  await refresh()
+                })
+              }
+            />
+          )}
+          {tab === 'records' && (
+            <RecordsTab
+              busy={busy}
+              workspace={ws}
+              overview={overview}
+              exerciseId={exerciseId}
+              note={note}
+              onNote={editNote}
+              onSave={() => void action(save)}
+              onRestore={restore}
+            />
+          )}
+          {tab === 'profile' && (
+            <section className="nl-profile">
+              <p>档案属于学习者，贯穿整条课程路线。/ Your profile applies across all lessons.</p>
+              {[
+                ['background', '已有基础 Background'],
+                ['goal', '学习目标 Goal'],
+                ['difficulties', '常见卡点 Difficulties'],
+                ['explanations', '有效讲法 Preferred explanation'],
+              ].map(([key, title]) => (
+                <label key={key}>
+                  {title}
+                  <textarea
+                    value={profile[key!] ?? ''}
+                    onChange={(e) => setProfile({ ...profile, [key!]: e.target.value })}
+                  />
+                </label>
+              ))}
+              <button
+                className="nl-primary"
+                onClick={() =>
+                  void action(async () => {
+                    await api.saveProfile(profile)
+                    await refresh()
+                    setStatus('档案已保存 / Profile saved')
+                  })
+                }
+              >
+                保存档案 Save profile
+              </button>
+            </section>
+          )}
+          {tab !== 'profile' && (
+            <MentorSidebar
+              workspace={ws}
+              busy={busy}
+              hint={hint}
+              question={question}
+              selection={selection}
+              reply={reply}
+              onQuestion={setQuestion}
+              onSelection={setSelection}
+              onHint={(level) => void action(() => requestHint(level))}
+              onAsk={() => void action(askMentor)}
+              onIndependent={() =>
+                void action(async () => {
+                  await api.independent(exerciseId)
+                  setHint('')
+                  setStatus(
+                    '已开始自述独立尝试；外部帮助不可验证 / Independent attempt, self-reported',
+                  )
+                })
+              }
+            />
+          )}
+        </section>
+      </div>
+    </main>
+  )
 }

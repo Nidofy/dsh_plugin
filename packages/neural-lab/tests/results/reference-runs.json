@@ -9,10 +9,10 @@
       "id": "L01-code",
       "status": "completed",
       "check": "passed",
-      "ms": 3216,
+      "ms": 3076,
       "events": [
         {
-          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "runId": "b312e749-78e1-4b2d-8f70-e6d5f2709316",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -20,7 +20,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "runId": "b312e749-78e1-4b2d-8f70-e6d5f2709316",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -28,7 +28,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "runId": "b312e749-78e1-4b2d-8f70-e6d5f2709316",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -36,17 +36,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "runId": "b312e749-78e1-4b2d-8f70-e6d5f2709316",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "runId": "b312e749-78e1-4b2d-8f70-e6d5f2709316",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -56,10 +56,10 @@
       "id": "L01-debug",
       "status": "completed",
       "check": "passed",
-      "ms": 2734,
+      "ms": 2473,
       "events": [
         {
-          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "runId": "dd5b43eb-9221-458a-a55e-1a0cc8ff1705",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -67,7 +67,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "runId": "dd5b43eb-9221-458a-a55e-1a0cc8ff1705",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -75,7 +75,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "runId": "dd5b43eb-9221-458a-a55e-1a0cc8ff1705",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -83,17 +83,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "runId": "dd5b43eb-9221-458a-a55e-1a0cc8ff1705",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "runId": "dd5b43eb-9221-458a-a55e-1a0cc8ff1705",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -103,10 +103,10 @@
       "id": "L02-code",
       "status": "completed",
       "check": "passed",
-      "ms": 2733,
+      "ms": 2525,
       "events": [
         {
-          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "runId": "491b3cec-626a-4c41-b4c0-dc79bba5ed94",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -114,7 +114,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "runId": "491b3cec-626a-4c41-b4c0-dc79bba5ed94",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -122,7 +122,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "runId": "491b3cec-626a-4c41-b4c0-dc79bba5ed94",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -130,17 +130,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "runId": "491b3cec-626a-4c41-b4c0-dc79bba5ed94",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "runId": "491b3cec-626a-4c41-b4c0-dc79bba5ed94",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -150,10 +150,10 @@
       "id": "L03-code",
       "status": "completed",
       "check": "passed",
-      "ms": 2784,
+      "ms": 2453,
       "events": [
         {
-          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "runId": "dd02dd25-bc3a-4b89-a120-4b10d9beadef",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -161,7 +161,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "runId": "dd02dd25-bc3a-4b89-a120-4b10d9beadef",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -169,7 +169,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "runId": "dd02dd25-bc3a-4b89-a120-4b10d9beadef",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -177,17 +177,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "runId": "dd02dd25-bc3a-4b89-a120-4b10d9beadef",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "runId": "dd02dd25-bc3a-4b89-a120-4b10d9beadef",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -197,58 +197,113 @@
       "id": "L03-experiment",
       "status": "completed",
       "check": "passed",
-      "ms": 2776,
+      "ms": 2602,
       "events": [
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
           "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "eps": [
+              0.1,
+              0.01,
+              0.001,
+              0.0001,
+              0.00001
+            ]
+          }
+        },
+        {
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 2,
           "type": "metric",
           "name": "gradient_error",
           "step": 0,
           "value": 0.010000000000005116
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 2,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 3,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 0,
+          "value": 0.1
+        },
+        {
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 4,
           "type": "metric",
           "name": "gradient_error",
           "step": 1,
           "value": 0.00010000000001131326
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 3,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 5,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 1,
+          "value": 0.01
+        },
+        {
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 6,
           "type": "metric",
           "name": "gradient_error",
           "step": 2,
           "value": 9.999999997650777e-7
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 4,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 7,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 2,
+          "value": 0.001
+        },
+        {
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 8,
           "type": "metric",
           "name": "gradient_error",
           "step": 3,
           "value": 9.99999417994335e-9
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 5,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 9,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 3,
+          "value": 0.0001
+        },
+        {
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 10,
           "type": "metric",
           "name": "gradient_error",
           "step": 4,
           "value": 1.468789534442294e-10
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 6,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 11,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 4,
+          "value": 0.00001
+        },
+        {
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 12,
           "type": "check",
           "name": "framework-gradcheck",
           "passed": true
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 7,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 13,
           "type": "tensor",
           "name": "autograd",
           "data": [
@@ -260,24 +315,25 @@
           ]
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 8,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 14,
           "type": "check",
           "name": "finite-difference",
-          "passed": true
+          "passed": true,
+          "detail": "For x cubed the central-difference error is eps squared; a coarse step is an observation, not a failed lesson."
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 9,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 15,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
-          "seq": 10,
+          "runId": "8b821a8f-a115-4189-ae6b-d4fc070f8019",
+          "seq": 16,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -287,10 +343,10 @@
       "id": "L03-advanced",
       "status": "completed",
       "check": "passed",
-      "ms": 7945,
+      "ms": 5951,
       "events": [
         {
-          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "runId": "5cae4bc0-2af9-409c-985e-edff45a72194",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -298,7 +354,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "runId": "5cae4bc0-2af9-409c-985e-edff45a72194",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -306,7 +362,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "runId": "5cae4bc0-2af9-409c-985e-edff45a72194",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -314,17 +370,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "runId": "5cae4bc0-2af9-409c-985e-edff45a72194",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "runId": "5cae4bc0-2af9-409c-985e-edff45a72194",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -334,10 +390,10 @@
       "id": "L04-code",
       "status": "completed",
       "check": "passed",
-      "ms": 3710,
+      "ms": 2497,
       "events": [
         {
-          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "runId": "a1f38c33-9ce3-4d4b-89c0-5b2a3d866811",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -345,7 +401,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "runId": "a1f38c33-9ce3-4d4b-89c0-5b2a3d866811",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -353,7 +409,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "runId": "a1f38c33-9ce3-4d4b-89c0-5b2a3d866811",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -361,17 +417,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "runId": "a1f38c33-9ce3-4d4b-89c0-5b2a3d866811",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "runId": "a1f38c33-9ce3-4d4b-89c0-5b2a3d866811",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -381,1042 +437,1052 @@
       "id": "L04-experiment",
       "status": "completed",
       "check": "passed",
-      "ms": 3642,
+      "ms": 3355,
       "events": [
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
           "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 60,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 2,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 0,
           "value": 3.152101993560791
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 2,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 3,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 0,
           "value": 2.969209671020508
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 3,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 4,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 2,
           "value": 2.3393747806549072
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 4,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 5,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 2,
           "value": 2.3539676666259766
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 5,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 6,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 4,
           "value": 1.9714984893798828
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 6,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 7,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 4,
           "value": 2.040956974029541
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 7,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 8,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 6,
           "value": 1.7883583307266235
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 8,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 9,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 6,
           "value": 1.8655202388763428
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 9,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 10,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 8,
           "value": 1.6873401403427124
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 10,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 11,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 8,
           "value": 1.7571617364883423
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 11,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 12,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 10,
           "value": 1.624288558959961
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 12,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 13,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 10,
           "value": 1.6833209991455078
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 13,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 14,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 12,
           "value": 1.5792969465255737
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 14,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 15,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 12,
           "value": 1.6281521320343018
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 15,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 16,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 14,
           "value": 1.5431395769119263
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 16,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 17,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 14,
           "value": 1.583597183227539
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 17,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 18,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 16,
           "value": 1.5114548206329346
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 18,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 19,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 16,
           "value": 1.5453760623931885
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 19,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 20,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 18,
           "value": 1.4821438789367676
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 20,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 21,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 18,
           "value": 1.5111103057861328
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 21,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 22,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 20,
           "value": 1.4541714191436768
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 22,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 23,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 20,
           "value": 1.4794154167175293
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 23,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 24,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 22,
           "value": 1.4270085096359253
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 24,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 25,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 22,
           "value": 1.4494448900222778
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 25,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 26,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 24,
           "value": 1.4003700017929077
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 26,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 27,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 24,
           "value": 1.4206585884094238
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 27,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 28,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 26,
           "value": 1.3740899562835693
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 28,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 29,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 26,
           "value": 1.3926975727081299
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 29,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 30,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 28,
           "value": 1.3480627536773682
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 30,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 31,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 28,
           "value": 1.3653154373168945
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 31,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 32,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 30,
           "value": 1.3222153186798096
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 32,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 33,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 30,
           "value": 1.3383378982543945
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 33,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 34,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 32,
           "value": 1.2964935302734375
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 34,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 35,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 32,
           "value": 1.3116406202316284
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 35,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 36,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 34,
           "value": 1.270855188369751
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 36,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 37,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 34,
           "value": 1.2851319313049316
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 37,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 38,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 36,
           "value": 1.245267629623413
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 38,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 39,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 36,
           "value": 1.2587463855743408
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 39,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 40,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 38,
           "value": 1.2197057008743286
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 40,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 41,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 38,
           "value": 1.2324362993240356
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 41,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 42,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 40,
           "value": 1.194150447845459
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 42,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 43,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 40,
           "value": 1.2061681747436523
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 43,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 44,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 42,
           "value": 1.1685891151428223
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 44,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 45,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 42,
           "value": 1.1799204349517822
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 45,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 46,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 44,
           "value": 1.1430144309997559
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 46,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 47,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 44,
           "value": 1.1536800861358643
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 47,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 48,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 46,
           "value": 1.1174238920211792
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 48,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 49,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 46,
           "value": 1.1274423599243164
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 49,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 50,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 48,
           "value": 1.091820240020752
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 50,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 51,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 48,
           "value": 1.1012084484100342
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 51,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 52,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 50,
           "value": 1.0662102699279785
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 52,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 53,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 50,
           "value": 1.0749857425689697
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 53,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 54,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 52,
           "value": 1.0406049489974976
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 54,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 55,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 52,
           "value": 1.048785924911499
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 55,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 56,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 54,
           "value": 1.0150187015533447
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 56,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 57,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 54,
           "value": 1.0226256847381592
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 57,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 58,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 56,
           "value": 0.9894696474075317
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 58,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 59,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 56,
           "value": 0.9965241551399231
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 59,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 60,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 58,
           "value": 0.9639785885810852
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 60,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 61,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 58,
           "value": 0.9705045819282532
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 61,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 62,
           "type": "metric",
           "name": "train_lr=0.03",
           "step": 59,
           "value": 0.9512620568275452
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 62,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 63,
           "type": "metric",
           "name": "valid_lr=0.03",
           "step": 59,
           "value": 0.9575332403182983
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 63,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 64,
           "type": "metric",
           "name": "parameter_delta_lr=0.03",
           "step": 60,
           "value": 1.3588345050811768
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 64,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 65,
           "type": "check",
           "name": "updates_lr=0.03",
           "passed": true
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 65,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 66,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 0,
           "value": 3.152101993560791
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 66,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 67,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 0,
           "value": 3.446409225463867
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 67,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 68,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 2,
           "value": 3.0465810298919678
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 68,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 69,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 2,
           "value": 3.335820436477661
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 69,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 70,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 4,
           "value": 2.948991537094116
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 70,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 71,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 4,
           "value": 3.233041763305664
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 71,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 72,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 6,
           "value": 2.8586604595184326
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 72,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 73,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 6,
           "value": 3.137430429458618
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 73,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 74,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 8,
           "value": 2.774977684020996
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 74,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 75,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 8,
           "value": 3.0484044551849365
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 75,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 76,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 10,
           "value": 2.697392225265503
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 76,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 77,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 10,
           "value": 2.9654362201690674
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 77,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 78,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 12,
           "value": 2.6254055500030518
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 78,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 79,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 12,
           "value": 2.888047218322754
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 79,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 80,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 14,
           "value": 2.558562755584717
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 80,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 81,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 14,
           "value": 2.8158013820648193
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 81,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 82,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 16,
           "value": 2.4964513778686523
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 82,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 83,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 16,
           "value": 2.7483010292053223
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 83,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 84,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 18,
           "value": 2.4386961460113525
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 84,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 85,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 18,
           "value": 2.685184955596924
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 85,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 86,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 20,
           "value": 2.384953022003174
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 86,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 87,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 20,
           "value": 2.626119613647461
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 87,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 88,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 22,
           "value": 2.334909200668335
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 88,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 89,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 22,
           "value": 2.570803642272949
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 89,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 90,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 24,
           "value": 2.2882795333862305
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 90,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 91,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 24,
           "value": 2.518958568572998
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 91,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 92,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 26,
           "value": 2.244799852371216
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 92,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 93,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 26,
           "value": 2.470329761505127
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 93,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 94,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 28,
           "value": 2.2042312622070312
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 94,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 95,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 28,
           "value": 2.4246835708618164
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 95,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 96,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 30,
           "value": 2.166353464126587
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 96,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 97,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 30,
           "value": 2.3818039894104004
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 97,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 98,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 32,
           "value": 2.1309633255004883
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 98,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 99,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 32,
           "value": 2.34149432182312
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 99,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 100,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 34,
           "value": 2.0978753566741943
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 100,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 101,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 34,
           "value": 2.3035714626312256
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 101,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 102,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 36,
           "value": 2.0669190883636475
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 102,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 103,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 36,
           "value": 2.2678675651550293
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 103,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 104,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 38,
           "value": 2.037936210632324
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 104,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 105,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 38,
           "value": 2.2342276573181152
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 105,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 106,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 40,
           "value": 2.010782480239868
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 106,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 107,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 40,
           "value": 2.2025084495544434
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 107,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 108,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 42,
           "value": 1.9853241443634033
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 108,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 109,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 42,
           "value": 2.1725776195526123
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 109,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 110,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 44,
           "value": 1.9614375829696655
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 110,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 111,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 44,
           "value": 2.144313335418701
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 111,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 112,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 46,
           "value": 1.9390093088150024
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 112,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 113,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 46,
           "value": 2.1176018714904785
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 113,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 114,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 48,
           "value": 1.917934536933899
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 114,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 115,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 48,
           "value": 2.092339038848877
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 115,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 116,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 50,
           "value": 1.898115873336792
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 116,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 117,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 50,
           "value": 2.068427085876465
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 117,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 118,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 52,
           "value": 1.8794634342193604
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 118,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 119,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 52,
           "value": 2.045776844024658
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 119,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 120,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 54,
           "value": 1.8618948459625244
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 120,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 121,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 54,
           "value": 2.024304151535034
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 121,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 122,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 56,
           "value": 1.8453330993652344
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 122,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 123,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 56,
           "value": 2.003931999206543
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 123,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 124,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 58,
           "value": 1.8297067880630493
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 124,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 125,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 58,
           "value": 1.984588384628296
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 125,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 126,
           "type": "metric",
           "name": "train_lr=0.003",
           "step": 59,
           "value": 1.8222236633300781
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 126,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 127,
           "type": "metric",
           "name": "valid_lr=0.003",
           "step": 59,
           "value": 1.9752814769744873
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 127,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 128,
           "type": "metric",
           "name": "parameter_delta_lr=0.003",
           "step": 60,
           "value": 0.4691202938556671
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 128,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 129,
           "type": "check",
           "name": "updates_lr=0.003",
           "passed": true
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 129,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 130,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
-          "seq": 130,
+          "runId": "6560aa07-a5b3-45be-a008-f92ab80023ed",
+          "seq": 131,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1426,10 +1492,10 @@
       "id": "L05-code",
       "status": "completed",
       "check": "passed",
-      "ms": 3304,
+      "ms": 2555,
       "events": [
         {
-          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "runId": "71feb6a4-aab7-41d4-ad43-c308bcb0b6c5",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -1437,7 +1503,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "runId": "71feb6a4-aab7-41d4-ad43-c308bcb0b6c5",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -1445,7 +1511,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "runId": "71feb6a4-aab7-41d4-ad43-c308bcb0b6c5",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -1453,17 +1519,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "runId": "71feb6a4-aab7-41d4-ad43-c308bcb0b6c5",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "runId": "71feb6a4-aab7-41d4-ad43-c308bcb0b6c5",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1473,19 +1539,29 @@
       "id": "L05-experiment",
       "status": "completed",
       "check": "passed",
-      "ms": 2693,
+      "ms": 2281,
       "events": [
         {
-          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
+          "runId": "3ca4daa9-9406-49f6-8913-44d29b0a18f4",
           "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "offset": 1000,
+            "temperature": 1
+          }
+        },
+        {
+          "runId": "3ca4daa9-9406-49f6-8913-44d29b0a18f4",
+          "seq": 2,
           "type": "metric",
           "name": "naive_nonfinite",
           "step": 0,
           "value": 6
         },
         {
-          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
-          "seq": 2,
+          "runId": "3ca4daa9-9406-49f6-8913-44d29b0a18f4",
+          "seq": 3,
           "type": "tensor",
           "name": "stable_probabilities",
           "data": [
@@ -1502,24 +1578,24 @@
           ]
         },
         {
-          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
-          "seq": 3,
+          "runId": "3ca4daa9-9406-49f6-8913-44d29b0a18f4",
+          "seq": 4,
           "type": "check",
           "name": "normalization",
           "passed": true
         },
         {
-          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
-          "seq": 4,
+          "runId": "3ca4daa9-9406-49f6-8913-44d29b0a18f4",
+          "seq": 5,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
-          "seq": 5,
+          "runId": "3ca4daa9-9406-49f6-8913-44d29b0a18f4",
+          "seq": 6,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1529,10 +1605,10 @@
       "id": "L05-advanced",
       "status": "completed",
       "check": "passed",
-      "ms": 7926,
+      "ms": 6059,
       "events": [
         {
-          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "runId": "df6caa75-decd-4145-a4ed-d4a682482cff",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -1540,7 +1616,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "runId": "df6caa75-decd-4145-a4ed-d4a682482cff",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -1548,7 +1624,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "runId": "df6caa75-decd-4145-a4ed-d4a682482cff",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -1556,17 +1632,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "runId": "df6caa75-decd-4145-a4ed-d4a682482cff",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "runId": "df6caa75-decd-4145-a4ed-d4a682482cff",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1576,10 +1652,10 @@
       "id": "L06-code",
       "status": "completed",
       "check": "passed",
-      "ms": 3142,
+      "ms": 2848,
       "events": [
         {
-          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "runId": "69e1491b-b9a5-4440-a8cc-26d7e84ef328",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -1587,7 +1663,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "runId": "69e1491b-b9a5-4440-a8cc-26d7e84ef328",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -1595,7 +1671,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "runId": "69e1491b-b9a5-4440-a8cc-26d7e84ef328",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -1603,17 +1679,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "runId": "69e1491b-b9a5-4440-a8cc-26d7e84ef328",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "runId": "69e1491b-b9a5-4440-a8cc-26d7e84ef328",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1623,10 +1699,10 @@
       "id": "L07-code",
       "status": "completed",
       "check": "passed",
-      "ms": 3398,
+      "ms": 2718,
       "events": [
         {
-          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "runId": "67105535-0486-4d7f-9274-935724afd388",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -1634,7 +1710,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "runId": "67105535-0486-4d7f-9274-935724afd388",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -1642,7 +1718,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "runId": "67105535-0486-4d7f-9274-935724afd388",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -1650,17 +1726,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "runId": "67105535-0486-4d7f-9274-935724afd388",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "runId": "67105535-0486-4d7f-9274-935724afd388",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1670,10 +1746,10 @@
       "id": "L08-code",
       "status": "completed",
       "check": "passed",
-      "ms": 3453,
+      "ms": 2705,
       "events": [
         {
-          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "runId": "d09f5250-0b0f-4c08-9b33-a0397e2c214a",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -1681,7 +1757,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "runId": "d09f5250-0b0f-4c08-9b33-a0397e2c214a",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -1689,7 +1765,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "runId": "d09f5250-0b0f-4c08-9b33-a0397e2c214a",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -1697,24 +1773,24 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "runId": "d09f5250-0b0f-4c08-9b33-a0397e2c214a",
           "seq": 4,
           "type": "check",
           "name": "hand-calculated",
           "passed": true
         },
         {
-          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "runId": "d09f5250-0b0f-4c08-9b33-a0397e2c214a",
           "seq": 5,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "runId": "d09f5250-0b0f-4c08-9b33-a0397e2c214a",
           "seq": 6,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1724,11 +1800,21 @@
       "id": "L08-experiment",
       "status": "completed",
       "check": "passed",
-      "ms": 2666,
+      "ms": 2194,
       "events": [
         {
-          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
           "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "dim": 8,
+            "scale": true
+          }
+        },
+        {
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
+          "seq": 2,
           "type": "tensor",
           "name": "unscaled_weights",
           "data": [
@@ -1759,8 +1845,8 @@
           ]
         },
         {
-          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
-          "seq": 2,
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
+          "seq": 3,
           "type": "tensor",
           "name": "scaled_weights",
           "data": [
@@ -1791,80 +1877,112 @@
           ]
         },
         {
-          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
-          "seq": 3,
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
+          "seq": 4,
           "type": "tensor",
-          "name": "output_change",
+          "name": "selected_weights",
           "data": [
             [
-              0.00905850350164622,
-              0.09799174459711066,
-              0.2006315470160251,
-              0.04690937882414048,
-              0.008903902479280745,
-              0.05817827655753119,
-              0.20432241522922856,
-              0.20480503371625752
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
             ],
             [
-              19.247003108332105,
-              19.264138574983527,
-              18.76169872315815,
-              19.498016629989692,
-              19.632421373523538,
-              19.72047707601924,
-              20.566336717618604,
-              20.34388740586694
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
             ],
             [
-              8.599950811574823,
-              8.629988165429756,
-              8.442849137320339,
-              8.702726201935072,
-              8.758661736297821,
-              8.767243888649633,
-              9.071086657135147,
-              8.981918824791727
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
             ],
             [
-              19.41852858461774,
-              19.885519327866927,
-              19.385342227275054,
-              20.21999516342494,
-              20.10146006381614,
-              20.177915062444264,
-              21.30660069714853,
-              20.814266931895574
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
             ]
           ]
         },
         {
-          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
-          "seq": 4,
-          "type": "metric",
-          "name": "protected_change",
-          "step": 0,
-          "value": 20.566336717618604
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
+          "seq": 5,
+          "type": "tensor",
+          "name": "selected_output",
+          "data": [
+            [
+              0.4483233572600845,
+              0.06585446284163944,
+              -0.11721849805337244,
+              -0.27912891508069587,
+              -0.38538268209010573,
+              0.1511507924207265,
+              -0.8841800372005336,
+              -0.642068191382605
+            ],
+            [
+              0.2072248286026796,
+              0.1906366310199404,
+              -0.10737021321821033,
+              -0.11378925464976342,
+              -0.30033968132728367,
+              0.13382347898023614,
+              -0.6036554128968086,
+              -0.5922674575372033
+            ],
+            [
+              0.1869991334826711,
+              0.24024842336111243,
+              -0.0858215622982566,
+              -0.0929647652657437,
+              -0.25490076864470923,
+              0.11366941680007298,
+              -0.6091971433150501,
+              -0.6286200303438868
+            ],
+            [
+              -0.09474005879276419,
+              0.33821399378474315,
+              0.05669932819353556,
+              0.12780122631370372,
+              -0.3155920832106304,
+              0.10447228813702754,
+              -0.3740261713180808,
+              -0.6263264700767468
+            ]
+          ]
         },
         {
-          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
-          "seq": 5,
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
+          "seq": 6,
+          "type": "metric",
+          "name": "weight_entropy",
+          "step": 0,
+          "value": 1.300180092406832
+        },
+        {
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
+          "seq": 7,
           "type": "check",
-          "name": "finite-output",
+          "name": "normalized-finite-output",
           "passed": true
         },
         {
-          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
-          "seq": 6,
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
+          "seq": 8,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
-          "seq": 7,
+          "runId": "93f44be7-e299-4340-86c2-fb614560f6ad",
+          "seq": 9,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1874,10 +1992,10 @@
       "id": "L09-code",
       "status": "completed",
       "check": "passed",
-      "ms": 3301,
+      "ms": 2975,
       "events": [
         {
-          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "runId": "1153e262-c544-4740-82fe-a9f576946518",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -1885,7 +2003,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "runId": "1153e262-c544-4740-82fe-a9f576946518",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -1893,7 +2011,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "runId": "1153e262-c544-4740-82fe-a9f576946518",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -1901,31 +2019,31 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "runId": "1153e262-c544-4740-82fe-a9f576946518",
           "seq": 4,
           "type": "check",
           "name": "hand-calculated",
           "passed": true
         },
         {
-          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "runId": "1153e262-c544-4740-82fe-a9f576946518",
           "seq": 5,
           "type": "check",
           "name": "future-invariance",
           "passed": true
         },
         {
-          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "runId": "1153e262-c544-4740-82fe-a9f576946518",
           "seq": 6,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "runId": "1153e262-c544-4740-82fe-a9f576946518",
           "seq": 7,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -1935,11 +2053,20 @@
       "id": "L09-experiment",
       "status": "completed",
       "check": "passed",
-      "ms": 2456,
+      "ms": 2218,
       "events": [
         {
-          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
           "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "perturbation": 10
+          }
+        },
+        {
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
+          "seq": 2,
           "type": "tensor",
           "name": "unscaled_weights",
           "data": [
@@ -1970,8 +2097,8 @@
           ]
         },
         {
-          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
-          "seq": 2,
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
+          "seq": 3,
           "type": "tensor",
           "name": "scaled_weights",
           "data": [
@@ -2002,8 +2129,8 @@
           ]
         },
         {
-          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
-          "seq": 3,
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
+          "seq": 4,
           "type": "tensor",
           "name": "output_change",
           "data": [
@@ -2050,32 +2177,40 @@
           ]
         },
         {
-          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
-          "seq": 4,
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
+          "seq": 5,
           "type": "metric",
           "name": "protected_change",
           "step": 0,
           "value": 0
         },
         {
-          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
-          "seq": 5,
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
+          "seq": 6,
+          "type": "metric",
+          "name": "last_position_change",
+          "step": 0,
+          "value": 21.30660069714853
+        },
+        {
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
+          "seq": 7,
           "type": "check",
           "name": "future-invariance",
           "passed": true
         },
         {
-          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
-          "seq": 6,
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
+          "seq": 8,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
-          "seq": 7,
+          "runId": "30a0d59e-c31e-40cc-b80d-ded481eb8e65",
+          "seq": 9,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -2085,10 +2220,10 @@
       "id": "L09-transfer",
       "status": "completed",
       "check": "passed",
-      "ms": 3836,
+      "ms": 3088,
       "events": [
         {
-          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "runId": "113a4027-e32a-4bd3-b43a-47f5c902a7cb",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -2096,7 +2231,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "runId": "113a4027-e32a-4bd3-b43a-47f5c902a7cb",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -2104,7 +2239,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "runId": "113a4027-e32a-4bd3-b43a-47f5c902a7cb",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -2112,31 +2247,31 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "runId": "113a4027-e32a-4bd3-b43a-47f5c902a7cb",
           "seq": 4,
           "type": "check",
           "name": "hand-calculated",
           "passed": true
         },
         {
-          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "runId": "113a4027-e32a-4bd3-b43a-47f5c902a7cb",
           "seq": 5,
           "type": "check",
           "name": "future-invariance",
           "passed": true
         },
         {
-          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "runId": "113a4027-e32a-4bd3-b43a-47f5c902a7cb",
           "seq": 6,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "runId": "113a4027-e32a-4bd3-b43a-47f5c902a7cb",
           "seq": 7,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -2146,10 +2281,10 @@
       "id": "L10-code",
       "status": "completed",
       "check": "passed",
-      "ms": 3310,
+      "ms": 2584,
       "events": [
         {
-          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "runId": "db39c639-c5e5-48c7-ab45-5545929efcf3",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -2157,7 +2292,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "runId": "db39c639-c5e5-48c7-ab45-5545929efcf3",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -2165,7 +2300,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "runId": "db39c639-c5e5-48c7-ab45-5545929efcf3",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -2173,17 +2308,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "runId": "db39c639-c5e5-48c7-ab45-5545929efcf3",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "runId": "db39c639-c5e5-48c7-ab45-5545929efcf3",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -2193,10 +2328,10 @@
       "id": "L10-advanced",
       "status": "completed",
       "check": "passed",
-      "ms": 6929,
+      "ms": 6199,
       "events": [
         {
-          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "runId": "e61baad5-c3b9-4118-a45e-46c61dd00f35",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -2204,7 +2339,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "runId": "e61baad5-c3b9-4118-a45e-46c61dd00f35",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -2212,7 +2347,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "runId": "e61baad5-c3b9-4118-a45e-46c61dd00f35",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -2220,17 +2355,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "runId": "e61baad5-c3b9-4118-a45e-46c61dd00f35",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "runId": "e61baad5-c3b9-4118-a45e-46c61dd00f35",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -2240,10 +2375,10 @@
       "id": "L11-code",
       "status": "completed",
       "check": "passed",
-      "ms": 2952,
+      "ms": 3076,
       "events": [
         {
-          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "runId": "4c1e0cb6-791f-4f6b-8fd1-cfa57b153080",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -2251,7 +2386,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "runId": "4c1e0cb6-791f-4f6b-8fd1-cfa57b153080",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -2259,7 +2394,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "runId": "4c1e0cb6-791f-4f6b-8fd1-cfa57b153080",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -2267,17 +2402,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "runId": "4c1e0cb6-791f-4f6b-8fd1-cfa57b153080",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "runId": "4c1e0cb6-791f-4f6b-8fd1-cfa57b153080",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -2287,10 +2422,10 @@
       "id": "L11-advanced",
       "status": "completed",
       "check": "passed",
-      "ms": 6320,
+      "ms": 6641,
       "events": [
         {
-          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "runId": "0dd522f0-23dd-43ed-90b5-ed2e84122c8e",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -2298,7 +2433,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "runId": "0dd522f0-23dd-43ed-90b5-ed2e84122c8e",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -2306,7 +2441,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "runId": "0dd522f0-23dd-43ed-90b5-ed2e84122c8e",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -2314,17 +2449,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "runId": "0dd522f0-23dd-43ed-90b5-ed2e84122c8e",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "runId": "0dd522f0-23dd-43ed-90b5-ed2e84122c8e",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -2334,10 +2469,10 @@
       "id": "L12-code",
       "status": "completed",
       "check": "passed",
-      "ms": 2709,
+      "ms": 2703,
       "events": [
         {
-          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "runId": "f32fadc0-db16-4435-ad8b-42c35730757a",
           "seq": 1,
           "type": "check",
           "name": "case-1",
@@ -2345,7 +2480,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "runId": "f32fadc0-db16-4435-ad8b-42c35730757a",
           "seq": 2,
           "type": "check",
           "name": "case-2",
@@ -2353,7 +2488,7 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "runId": "f32fadc0-db16-4435-ad8b-42c35730757a",
           "seq": 3,
           "type": "check",
           "name": "case-3",
@@ -2361,17 +2496,17 @@
           "detail": "independent reference, atol=1e-6 rtol=1e-5"
         },
         {
-          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "runId": "f32fadc0-db16-4435-ad8b-42c35730757a",
           "seq": 4,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "runId": "f32fadc0-db16-4435-ad8b-42c35730757a",
           "seq": 5,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
@@ -2381,547 +2516,557 @@
       "id": "L12-experiment",
       "status": "completed",
       "check": "passed",
-      "ms": 3502,
+      "ms": 3214,
       "events": [
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
           "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 60,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 2,
           "type": "metric",
           "name": "train_loss",
           "step": 0,
           "value": 3.304138422012329
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 2,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 3,
           "type": "metric",
           "name": "validation_loss",
           "step": 0,
           "value": 2.6930906772613525
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 3,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 4,
           "type": "metric",
           "name": "train_loss",
           "step": 2,
           "value": 2.3285157680511475
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 4,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 5,
           "type": "metric",
           "name": "validation_loss",
           "step": 2,
           "value": 2.0078303813934326
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 5,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 6,
           "type": "metric",
           "name": "train_loss",
           "step": 4,
           "value": 1.7248706817626953
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 6,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 7,
           "type": "metric",
           "name": "validation_loss",
           "step": 4,
           "value": 1.5088332891464233
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 7,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 8,
           "type": "metric",
           "name": "train_loss",
           "step": 6,
           "value": 1.3388843536376953
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 8,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 9,
           "type": "metric",
           "name": "validation_loss",
           "step": 6,
           "value": 1.14697265625
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 9,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 10,
           "type": "metric",
           "name": "train_loss",
           "step": 8,
           "value": 1.0206166505813599
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 10,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 11,
           "type": "metric",
           "name": "validation_loss",
           "step": 8,
           "value": 0.9619009494781494
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 11,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 12,
           "type": "metric",
           "name": "train_loss",
           "step": 10,
           "value": 0.909911572933197
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 12,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 13,
           "type": "metric",
           "name": "validation_loss",
           "step": 10,
           "value": 0.8627088665962219
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 13,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 14,
           "type": "metric",
           "name": "train_loss",
           "step": 12,
           "value": 0.6817183494567871
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 14,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 15,
           "type": "metric",
           "name": "validation_loss",
           "step": 12,
           "value": 0.8944954872131348
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 15,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 16,
           "type": "metric",
           "name": "train_loss",
           "step": 14,
           "value": 0.6715960502624512
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 16,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 17,
           "type": "metric",
           "name": "validation_loss",
           "step": 14,
           "value": 0.8556945323944092
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 17,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 18,
           "type": "metric",
           "name": "train_loss",
           "step": 16,
           "value": 0.5574632287025452
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 18,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 19,
           "type": "metric",
           "name": "validation_loss",
           "step": 16,
           "value": 0.831400454044342
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 19,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 20,
           "type": "metric",
           "name": "train_loss",
           "step": 18,
           "value": 0.4553600251674652
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 20,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 21,
           "type": "metric",
           "name": "validation_loss",
           "step": 18,
           "value": 0.9960300326347351
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 21,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 22,
           "type": "metric",
           "name": "train_loss",
           "step": 20,
           "value": 0.36779311299324036
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 22,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 23,
           "type": "metric",
           "name": "validation_loss",
           "step": 20,
           "value": 1.1038085222244263
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 23,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 24,
           "type": "metric",
           "name": "train_loss",
           "step": 22,
           "value": 0.3430817425251007
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 24,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 25,
           "type": "metric",
           "name": "validation_loss",
           "step": 22,
           "value": 1.1566087007522583
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 25,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 26,
           "type": "metric",
           "name": "train_loss",
           "step": 24,
           "value": 0.3946414887905121
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 26,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 27,
           "type": "metric",
           "name": "validation_loss",
           "step": 24,
           "value": 1.096076488494873
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 27,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 28,
           "type": "metric",
           "name": "train_loss",
           "step": 26,
           "value": 0.35614898800849915
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 28,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 29,
           "type": "metric",
           "name": "validation_loss",
           "step": 26,
           "value": 1.0392519235610962
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 29,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 30,
           "type": "metric",
           "name": "train_loss",
           "step": 28,
           "value": 0.31812646985054016
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 30,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 31,
           "type": "metric",
           "name": "validation_loss",
           "step": 28,
           "value": 1.0659719705581665
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 31,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 32,
           "type": "metric",
           "name": "train_loss",
           "step": 30,
           "value": 0.28138014674186707
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 32,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 33,
           "type": "metric",
           "name": "validation_loss",
           "step": 30,
           "value": 1.0924025774002075
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 33,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 34,
           "type": "metric",
           "name": "train_loss",
           "step": 32,
           "value": 0.29145950078964233
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 34,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 35,
           "type": "metric",
           "name": "validation_loss",
           "step": 32,
           "value": 1.1259533166885376
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 35,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 36,
           "type": "metric",
           "name": "train_loss",
           "step": 34,
           "value": 0.2249799370765686
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 36,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 37,
           "type": "metric",
           "name": "validation_loss",
           "step": 34,
           "value": 1.0912338495254517
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 37,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 38,
           "type": "metric",
           "name": "train_loss",
           "step": 36,
           "value": 0.2792080342769623
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 38,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 39,
           "type": "metric",
           "name": "validation_loss",
           "step": 36,
           "value": 1.118233323097229
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 39,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 40,
           "type": "metric",
           "name": "train_loss",
           "step": 38,
           "value": 0.21617962419986725
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 40,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 41,
           "type": "metric",
           "name": "validation_loss",
           "step": 38,
           "value": 1.0345650911331177
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 41,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 42,
           "type": "metric",
           "name": "train_loss",
           "step": 40,
           "value": 0.1903652548789978
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 42,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 43,
           "type": "metric",
           "name": "validation_loss",
           "step": 40,
           "value": 1.100262999534607
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 43,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 44,
           "type": "metric",
           "name": "train_loss",
           "step": 42,
           "value": 0.22627319395542145
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 44,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 45,
           "type": "metric",
           "name": "validation_loss",
           "step": 42,
           "value": 1.0540567636489868
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 45,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 46,
           "type": "metric",
           "name": "train_loss",
           "step": 44,
           "value": 0.19893516600131989
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 46,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 47,
           "type": "metric",
           "name": "validation_loss",
           "step": 44,
           "value": 1.0805810689926147
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 47,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 48,
           "type": "metric",
           "name": "train_loss",
           "step": 46,
           "value": 0.1948288530111313
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 48,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 49,
           "type": "metric",
           "name": "validation_loss",
           "step": 46,
           "value": 1.0619571208953857
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 49,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 50,
           "type": "metric",
           "name": "train_loss",
           "step": 48,
           "value": 0.14331677556037903
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 50,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 51,
           "type": "metric",
           "name": "validation_loss",
           "step": 48,
           "value": 1.0984183549880981
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 51,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 52,
           "type": "metric",
           "name": "train_loss",
           "step": 50,
           "value": 0.20784802734851837
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 52,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 53,
           "type": "metric",
           "name": "validation_loss",
           "step": 50,
           "value": 1.1475886106491089
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 53,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 54,
           "type": "metric",
           "name": "train_loss",
           "step": 52,
           "value": 0.18541449308395386
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 54,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 55,
           "type": "metric",
           "name": "validation_loss",
           "step": 52,
           "value": 1.1622575521469116
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 55,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 56,
           "type": "metric",
           "name": "train_loss",
           "step": 54,
           "value": 0.20111805200576782
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 56,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 57,
           "type": "metric",
           "name": "validation_loss",
           "step": 54,
           "value": 1.2169299125671387
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 57,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 58,
           "type": "metric",
           "name": "train_loss",
           "step": 56,
           "value": 0.14474916458129883
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 58,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 59,
           "type": "metric",
           "name": "validation_loss",
           "step": 56,
           "value": 1.2108750343322754
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 59,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 60,
           "type": "metric",
           "name": "train_loss",
           "step": 58,
           "value": 0.13627402484416962
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 60,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 61,
           "type": "metric",
           "name": "validation_loss",
           "step": 58,
           "value": 1.202370524406433
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 61,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 62,
           "type": "metric",
           "name": "train_loss",
           "step": 59,
           "value": 0.1766899675130844
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 62,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 63,
           "type": "metric",
           "name": "validation_loss",
           "step": 59,
           "value": 1.211256504058838
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 63,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 64,
           "type": "metric",
           "name": "gradient_norm_squared",
           "step": 60,
           "value": 0.3783066514879465
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 64,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 65,
           "type": "metric",
           "name": "parameter_delta",
           "step": 60,
           "value": 15.8893461227417
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 65,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 66,
           "type": "check",
           "name": "training-integrity",
           "passed": true,
           "detail": "sample: s sun warms ston lights lake. sun warms stone. mooon lights lake. sun warms stone"
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 66,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 67,
           "type": "check",
           "name": "target-shift",
           "passed": true
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 67,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 68,
           "type": "artifact",
-          "name": "Raw execution events / ԭʼ�����¼�",
+          "name": "Raw execution events / 原始运行事件",
           "path": "events.jsonl"
         },
         {
-          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
-          "seq": 68,
+          "runId": "7cddd8e8-7bba-4ebe-8e11-25d42d10e607",
+          "seq": 69,
           "type": "artifact",
-          "name": "Run snapshot / ���п���",
+          "name": "Run snapshot / 运行快照",
           "path": "result.json"
         }
       ],
