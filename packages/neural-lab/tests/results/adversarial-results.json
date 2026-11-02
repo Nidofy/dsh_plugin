@@ -1,0 +1,1195 @@
+{
+  "environment": {
+    "available": true,
+    "requestedImage": "dsh-neural-lab-cpu:0.1",
+    "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+    "detail": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+    "image": "dsh-neural-lab-cpu:0.1"
+  },
+  "results": [
+    {
+      "label": "wrong-transpose",
+      "id": "bb9de067-e6ee-4dab-939c-5ed9c1ce7360",
+      "exerciseId": "L10-code",
+      "code": "import numpy as np\ndef solve(x,heads):\n x=np.asarray(x);b,t,d=x.shape;return x.reshape(b,heads,-1)",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:50:40.217Z",
+      "events": [
+        {
+          "runId": "bb9de067-e6ee-4dab-939c-5ed9c1ce7360",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[ 0.61597942  1.12897229 -0.82448122  0.65059279 -0.66550971\n    0.23216132]\n  [-0.11394746 -0.84015648  0.74325417  0.54315427  0.11668581\n    0.21, failure=numerical mismatch: [[[ 0.61597942  1.12897229 -0.11394746 -0.84015648 -0.82448122\n    0.65059279]\n  [ 0.74325417  0.54315427 -0.66550971  0.23216132  0.11668581\n    0.2186886 ]]\n\n [[ 0.87142878  0.22359555  0.67891356  0.06757907  0.2891194\n    0.63128823]\n  [-1.45715582 -0.31967122 -0.47037265 -0.63887785 -0.27514225 != [[[ 0.61597942  1.12897229 -0.82448122  0.65059279 -0.66550971\n    0.23216132]\n  [-0.11394746 -0.84015648  0.74325417  0.54315427  0.11668581\n    0.2186886 ]]\n\n [[ 0.87142878  0.22359555  0.2891194   0.63128823 -0.47037265\n   -0.63887785]\n  [ 0.67891356  0.06757907 -1.45715582 -0.31967122 -0.2751422"
+        },
+        {
+          "runId": "bb9de067-e6ee-4dab-939c-5ed9c1ce7360",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[-0.42329831204415375, -0.07971821090639905, -1.6873344339580298, -1.4471124724230873, -1.3226996123544024, -0.9972468276014818], [0.39977422672343, expected=[[[-0.42329831 -0.07971821 -1.68733443 -1.44711247 -1.32269961\n   -0.99724683  0.39977423 -0.90547906 -0.37816255  1.2992283\n   -0.35626397  0.7375155, actual=[[[-0.42329831204415375, -0.07971821090639905, -1.6873344339580298, -1.4471124724230873, -1.3226996123544024, -0.9972468276014818, 0.3997742267234366,, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "bb9de067-e6ee-4dab-939c-5ed9c1ce7360",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[[0.13027452147288585, 0.9827395110230576, -0.49929559853915206, -1.1849437664170246, -0.9651167622323719, -0.7252260645357532], [2.1284697324351645, expected=[[[ 0.13027452  0.98273951  2.12846973 -0.82138668]\n  [-0.4992956  -1.18494377  0.8384892  -0.90292718]\n  [-0.96511676 -0.72522606  0.93157301  0.3849, failure=numerical mismatch: [[[ 0.13027452  0.98273951 -0.4992956  -1.18494377]\n  [-0.96511676 -0.72522606  2.12846973 -0.82138668]\n  [ 0.8384892  -0.90292718  0.93157301  0.38495097]]\n\n [[-0.1566379  -0.04076253 -0.6547877   0.4460722 ]\n  [-0.45498348 -1.22560576 -1.27793757  0.17258792]\n  [ 1.57909126  0.15999161 -0.11863833 != [[[ 0.13027452  0.98273951  2.12846973 -0.82138668]\n  [-0.4992956  -1.18494377  0.8384892  -0.90292718]\n  [-0.96511676 -0.72522606  0.93157301  0.38495097]]\n\n [[-0.1566379  -0.04076253 -1.27793757  0.17258792]\n  [-0.6547877   0.4460722   1.57909126  0.15999161]\n  [-0.45498348 -1.22560576 -0.11863833"
+        },
+        {
+          "runId": "bb9de067-e6ee-4dab-939c-5ed9c1ce7360",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "bb9de067-e6ee-4dab-939c-5ed9c1ce7360",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:43.846Z"
+    },
+    {
+      "label": "detach-residual",
+      "id": "c4d3560b-6b05-4c28-a9d1-d9e548e29970",
+      "exerciseId": "L11-advanced",
+      "code": "import numpy as np\ndef solve(x):\n x=np.asarray(x);return [x.tolist(),np.zeros_like(x).tolist()]",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:50:43.847Z",
+      "events": [
+        {
+          "runId": "c4d3560b-6b05-4c28-a9d1-d9e548e29970",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[[-0.01252051 -2.4409804   2.45356491  2.68062575]\n   [-2.6939108  -2.35514322  2.35552767  1.22453697]\n   [-0.42179242 -2.18499723  2.7786921   2.4, failure=numerical mismatch: [[[[ 0.30471708 -1.03998411  0.7504512   0.94056472]\n   [-1.95103519 -1.30217951  0.1278404  -0.31624259]\n   [-0.01680116 -0.85304393  0.87939797  0.77779194]]\n\n  [[ 0.0660307   1.12724121  0.46750934 -0.85929246]\n   [ 0.36875078 -0.9588826   0.8784503  -0.04992591]\n   [-0.18486236 -0.68092954  1.22 != [[[[-0.01252051 -2.4409804   2.45356491  2.68062575]\n   [-2.6939108  -2.35514322  2.35552767  1.22453697]\n   [-0.42179242 -2.18499723  2.7786921   2.46064502]]\n\n  [[-0.09791569  3.19472768  1.54832678 -2.13559525]\n   [ 0.73385729 -2.16521668  3.62537172 -0.31489838]\n   [-0.18662259 -1.75973703  4.22"
+        },
+        {
+          "runId": "c4d3560b-6b05-4c28-a9d1-d9e548e29970",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[[ 1.30511178  3.62861904 -0.4037692  -1.97947376]\n   [-2.45812578  1.95778605  1.88420276  1.45593519]\n   [-2.30126419  1.58592424  1.12501256  1.2, failure=numerical mismatch: [[[[ 0.61597942  1.12897229 -0.11394746 -0.84015648]\n   [-0.82448122  0.65059279  0.74325417  0.54315427]\n   [-0.66550971  0.23216132  0.11668581  0.2186886 ]]\n\n  [[ 0.87142878  0.22359555  0.67891356  0.06757907]\n   [ 0.2891194   0.63128823 -1.45715582 -0.31967122]\n   [-0.47037265 -0.63887785 -0.27 != [[[[ 1.30511178  3.62861904 -0.4037692  -1.97947376]\n   [-2.45812578  1.95778605  1.88420276  1.45593519]\n   [-2.30126419  1.58592424  1.12501256  1.21961736]]\n\n  [[ 3.33769623 -0.36326226  1.71272268 -0.94887493]\n   [ 1.55612144  2.43969048 -2.76449087 -0.39512517]\n   [-0.89270663 -1.27172811 -0.68"
+        },
+        {
+          "runId": "c4d3560b-6b05-4c28-a9d1-d9e548e29970",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[[0.8579758812571538, -0.1913043248816149, -1.2756863233379219, -1.1332872140034806], [-0.9194522860016113, 0.49716074405376404, 0.14242573607056525, expected=[[[[ 3.6866589   0.4164409  -2.1328     -1.90099324]\n   [-2.37415366  1.72723897  0.72125995  2.03420014]\n   [-1.51585761  1.01042418  3.12312916 -0.7, failure=numerical mismatch: [[[[ 0.85797588 -0.19130432 -1.27568632 -1.13328721]\n   [-0.91945229  0.49716074  0.14242574  0.69048535]\n   [-0.42725265  0.15853969  0.62559039 -0.30934654]]\n\n  [[ 0.45677524 -0.66192594 -0.36305385 -0.38173789]\n   [-1.19583965  0.48697248 -0.46940234  0.01249412]\n   [ 0.48074666  0.44653118  0.66 != [[[[ 3.6866589   0.4164409  -2.1328     -1.90099324]\n   [-2.37415366  1.72723897  0.72125995  2.03420014]\n   [-1.51585761  1.01042418  3.12312916 -0.73723892]]\n\n  [[ 3.53229574 -1.44331628 -0.4596573  -0.91419545]\n   [-2.4739844   2.9129766  -0.6720408   0.77441448]\n   [ 1.46914378  0.7502179   2.38"
+        },
+        {
+          "runId": "c4d3560b-6b05-4c28-a9d1-d9e548e29970",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "c4d3560b-6b05-4c28-a9d1-d9e548e29970",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:47.563Z"
+    },
+    {
+      "label": "wrong-axis",
+      "id": "9e0518df-1647-4e79-b027-6f791e7e3dcf",
+      "exerciseId": "L05-code",
+      "code": "import numpy as np\ndef solve(x):\n x=np.asarray(x);e=np.exp(x-x.max(0,keepdims=True));return e/e.sum(0,keepdims=True)",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:50:47.564Z",
+      "events": [
+        {
+          "runId": "9e0518df-1647-4e79-b027-6f791e7e3dcf",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=numerical mismatch: [[0.5 0.5 0.5 0.5]\n [0.5 0.5 0.5 0.5]] != [[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]]"
+        },
+        {
+          "runId": "9e0518df-1647-4e79-b027-6f791e7e3dcf",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=numerical mismatch: [[0.21179139 0.14751183 0.42737327 0.34781755 0.4972489 ]\n [0.50174215 0.76225351 0.51084715 0.5040094  0.3215967 ]\n [0.28646646 0.09023466 0.06177958 0.14817304 0.18115441]] != [[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571 0.13462476 0.18640917]]"
+        },
+        {
+          "runId": "9e0518df-1647-4e79-b027-6f791e7e3dcf",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=numerical mismatch: [[1. 1. 1.]\n [0. 0. 0.]] != [[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]]"
+        },
+        {
+          "runId": "9e0518df-1647-4e79-b027-6f791e7e3dcf",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "numerical mismatch: [[1. 1. 1. 1.]\n [0. 0. 0. 0.]\n [0. 0. 0. 0.]] != [[0.20188232 0.14988158 0.14723082 0.50100528]\n [0.29212536 0.16865196 0.45020741 0.08901528]\n [0.25998593 0.5701035  0.05906228 0.11084829]]"
+        },
+        {
+          "runId": "9e0518df-1647-4e79-b027-6f791e7e3dcf",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "9e0518df-1647-4e79-b027-6f791e7e3dcf",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:51.067Z"
+    },
+    {
+      "label": "missing-scale",
+      "id": "b2c1f9ca-6c7e-4e9c-8175-5cfe5a49f93c",
+      "exerciseId": "L08-code",
+      "code": "import numpy as np\ndef solve(q,k,v):\n q,k,v=map(np.asarray,(q,k,v));s=q@k.swapaxes(-1,-2);e=np.exp(s-s.max(-1,keepdims=True));return (e/e.sum(-1,keepdims=True))@v",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:50:51.068Z",
+      "events": [
+        {
+          "runId": "b2c1f9ca-6c7e-4e9c-8175-5cfe5a49f93c",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[-0.17845336 -0.20532533 -0.53639603  0.35588912]\n  [-0.08385287 -0.11515361 -0.1994225   0.28876849]\n  [-0.08035636 -0.16646668 -0.41360036  0.2990, failure=numerical mismatch: [[[-0.2669811  -0.25612162 -0.71244282  0.41084666]\n  [-0.13154489 -0.07966648 -0.03359604  0.30367731]\n  [-0.1045617  -0.17753095 -0.45002123  0.31343272]]\n\n [[-0.1812033   0.13535585 -0.77928715  0.22407558]\n  [-0.20519988 -0.81121198 -0.68108929  0.54165247]\n  [-1.49444495 -1.34875443 -1.24100774 != [[[-0.17845336 -0.20532533 -0.53639603  0.35588912]\n  [-0.08385287 -0.11515361 -0.1994225   0.28876849]\n  [-0.08035636 -0.16646668 -0.41360036  0.2990667 ]]\n\n [[-0.26595309 -0.13486799 -0.78885238  0.22162786]\n  [-0.39012779 -0.69827122 -0.78344423  0.27930401]\n  [-1.11697496 -1.08386652 -1.08954072"
+        },
+        {
+          "runId": "b2c1f9ca-6c7e-4e9c-8175-5cfe5a49f93c",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[[0.4144094332759964, -0.9895381200318641, -2.132046280731309, 0.2677114623438358, -0.812941095310326, -0.41535726017968533], [-0.6120967990598081, , expected=[[[-0.05105813  0.21732746  0.23382217  0.68288422 -0.66413388\n   -0.20845136]\n  [-0.02026807 -0.15809199  0.47154344  0.93438754 -0.20374415\n    0.02, failure=numerical mismatch: [[[ 0.06869637  0.66862145  0.11980829  0.6031534  -1.20003392\n   -0.22632601]\n  [ 0.02080763 -0.22511274  0.57112108  1.11248159 -0.05796957\n    0.34861139]\n  [-0.06182205 -0.44678839  0.26433792  0.73651053  0.04812625\n   -0.32933932]\n  [-0.37762435 -0.50201651  0.66606771  0.70920494  0.06068208\n != [[[-0.05105813  0.21732746  0.23382217  0.68288422 -0.66413388\n   -0.20845136]\n  [-0.02026807 -0.15809199  0.47154344  0.93438754 -0.20374415\n    0.02100035]\n  [-0.0530908  -0.29038249  0.37488737  0.81945372 -0.10011947\n   -0.19822226]\n  [-0.25655747 -0.32147045  0.54118537  0.75056009 -0.09490045\n"
+        },
+        {
+          "runId": "b2c1f9ca-6c7e-4e9c-8175-5cfe5a49f93c",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[[0.471538522545139, 1.0127158178198286, 0.15542932766846604, 0.35175640839920347, 0.053155347577867364, 8.439309141418043e-05], [-0.721558033542847, expected=[[[-0.11639689  0.38805858  1.49934987 -1.3857573  -1.02218271\n    0.5182547 ]\n  [ 0.05539272  0.41160901  1.60588944 -2.00340792 -0.62917332\n    0.58, failure=numerical mismatch: [[[ 0.02275822  0.40713519  1.58565035 -1.88607418 -0.70383245\n    0.57190762]\n  [ 0.07196217  0.4138805   1.6161654  -2.06298157 -0.59126677\n    0.59087879]]\n\n [[-0.02578225  0.74616155  0.28971331  0.50828208 -0.74260806\n    0.24940402]\n  [-0.90299221  1.15763595  0.33405458  0.69902606 -0.6458189 != [[[-0.11639689  0.38805858  1.49934987 -1.3857573  -1.02218271\n    0.5182547 ]\n  [ 0.05539272  0.41160901  1.60588944 -2.00340792 -0.62917332\n    0.58449024]]\n\n [[-0.16153923  0.80984131  0.29657556  0.53780161 -0.72762897\n    0.29864889]\n  [-0.54054592  0.98762264  0.31573362  0.62021432 -0.6858103"
+        },
+        {
+          "runId": "b2c1f9ca-6c7e-4e9c-8175-5cfe5a49f93c",
+          "seq": 4,
+          "type": "check",
+          "name": "hand-calculated",
+          "passed": true
+        },
+        {
+          "runId": "b2c1f9ca-6c7e-4e9c-8175-5cfe5a49f93c",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "b2c1f9ca-6c7e-4e9c-8175-5cfe5a49f93c",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:54.573Z"
+    },
+    {
+      "label": "mask-leak",
+      "id": "e903afa4-5b0f-4914-9d34-bf75ea347277",
+      "exerciseId": "L09-code",
+      "code": "import numpy as np\ndef solve(q,k,v):\n q,k,v=map(np.asarray,(q,k,v));s=q@k.swapaxes(-1,-2)/q.shape[-1]**.5;e=np.exp(s-s.max(-1,keepdims=True));return (e/e.sum(-1,keepdims=True))@v",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:50:54.574Z",
+      "events": [
+        {
+          "runId": "e903afa4-5b0f-4914-9d34-bf75ea347277",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[-0.36305385 -0.38173789 -1.19583965  0.48697248]\n  [-0.43287336 -0.12291818 -0.09513354  0.46042211]\n  [-0.08035636 -0.16646668 -0.41360036  0.2990, failure=numerical mismatch: [[[-0.17845336 -0.20532533 -0.53639603  0.35588912]\n  [-0.08385287 -0.11515361 -0.1994225   0.28876849]\n  [-0.08035636 -0.16646668 -0.41360036  0.2990667 ]]\n\n [[-0.26595309 -0.13486799 -0.78885238  0.22162786]\n  [-0.39012779 -0.69827122 -0.78344423  0.27930401]\n  [-1.11697496 -1.08386652 -1.08954072 != [[[-0.36305385 -0.38173789 -1.19583965  0.48697248]\n  [-0.43287336 -0.12291818 -0.09513354  0.46042211]\n  [-0.08035636 -0.16646668 -0.41360036  0.2990667 ]]\n\n [[-1.68733443 -1.44711247 -1.32269961 -0.99724683]\n  [-0.39990959 -1.11300801 -0.74006561  0.41932491]\n  [-1.11697496 -1.08386652 -1.08954072"
+        },
+        {
+          "runId": "e903afa4-5b0f-4914-9d34-bf75ea347277",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[[0.4144094332759964, -0.9895381200318641, -2.132046280731309, 0.2677114623438358, -0.812941095310326, -0.41535726017968533], [-0.6120967990598081, , expected=[[[ 0.33757455  1.40748186  0.09058491  0.64393879 -2.0501721\n   -0.0487184 ]\n  [-0.11222329  0.40706099 -0.27843115  0.27137063 -0.92032071\n   -0.535, failure=numerical mismatch: [[[-0.05105813  0.21732746  0.23382217  0.68288422 -0.66413388\n   -0.20845136]\n  [-0.02026807 -0.15809199  0.47154344  0.93438754 -0.20374415\n    0.02100035]\n  [-0.0530908  -0.29038249  0.37488737  0.81945372 -0.10011947\n   -0.19822226]\n  [-0.25655747 -0.32147045  0.54118537  0.75056009 -0.09490045\n != [[[ 0.33757455  1.40748186  0.09058491  0.64393879 -2.0501721\n   -0.0487184 ]\n  [-0.11222329  0.40706099 -0.27843115  0.27137063 -0.92032071\n   -0.53541624]\n  [-0.04535174 -0.22716423 -0.33136112  0.72379574  0.08862254\n    0.64972239]\n  [-0.45482395 -0.63551082 -0.58785919  0.10711897  0.33833734\n "
+        },
+        {
+          "runId": "e903afa4-5b0f-4914-9d34-bf75ea347277",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[[0.471538522545139, 1.0127158178198286, 0.15542932766846604, 0.35175640839920347, 0.053155347577867364, 8.439309141418043e-05], [-0.721558033542847, expected=[[[-0.67114028  0.31200947  1.15531204  0.60876147 -2.29128951\n    0.30436673]\n  [ 0.05539272  0.41160901  1.60588944 -2.00340792 -0.62917332\n    0.58, failure=numerical mismatch: [[[-0.11639689  0.38805858  1.49934987 -1.3857573  -1.02218271\n    0.5182547 ]\n  [ 0.05539272  0.41160901  1.60588944 -2.00340792 -0.62917332\n    0.58449024]]\n\n [[-0.16153923  0.80984131  0.29657556  0.53780161 -0.72762897\n    0.29864889]\n  [-0.54054592  0.98762264  0.31573362  0.62021432 -0.6858103 != [[[-0.67114028  0.31200947  1.15531204  0.60876147 -2.29128951\n    0.30436673]\n  [ 0.05539272  0.41160901  1.60588944 -2.00340792 -0.62917332\n    0.58449024]]\n\n [[-1.5815944   1.47594905  0.36835661  0.84658399 -0.57094366\n    0.81376369]\n  [-0.54054592  0.98762264  0.31573362  0.62021432 -0.6858103"
+        },
+        {
+          "runId": "e903afa4-5b0f-4914-9d34-bf75ea347277",
+          "seq": 4,
+          "type": "check",
+          "name": "hand-calculated",
+          "passed": false,
+          "detail": "numerical mismatch: [[[1. 2.]\n  [1. 2.]]] != [[[2 0]\n  [1 2]]]"
+        },
+        {
+          "runId": "e903afa4-5b0f-4914-9d34-bf75ea347277",
+          "seq": 5,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": false,
+          "detail": "numerical mismatch: [[[ 0.14699874 -0.16102371 -0.56267085]\n  [ 0.30760636  0.31307009 -0.85785648]\n  [ 0.28627968  0.20550607 -0.74773131]]\n\n [[-0.43742882 -0.87777815 -0.31989716]\n  [-0.16646826 -0.96278073  0.65124859]\n  [-0.35847664 -1.17556963 -0.00496706]]] != [[[-2.96071725e+01 -3.10405439e+01 -2.95253029e+01]\n  [-6.70838806e+00 -6.95476709e+00 -7.65552732e+00]\n  [-2.96070830e+01 -3.10404497e+01 -2.95252173e+01]]\n\n [[-4.51217231e-01 -9.00090767e-01 -3.49424585e-01]\n  [-2.86685951e-01 -1.27454536e+00  4.90789271e-01]\n  [-3.60517385e-01 -1.18013585e+00 -8."
+        },
+        {
+          "runId": "e903afa4-5b0f-4914-9d34-bf75ea347277",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e903afa4-5b0f-4914-9d34-bf75ea347277",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:58.356Z"
+    },
+    {
+      "label": "detach",
+      "id": "e6d97089-1166-4947-a56a-85062ef9c800",
+      "exerciseId": "L03-advanced",
+      "code": "import torch\ndef solve(x):\n x=torch.tensor(x,dtype=torch.float64,requires_grad=True);y=x.detach()**3;y.sum().backward();return x.grad",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:50:58.357Z",
+      "events": [
+        {
+          "runId": "e6d97089-1166-4947-a56a-85062ef9c800",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[5.57114992e-01 6.48940165e+00 3.37906198e+00 5.30797191e+00]\n  [2.28392298e+01 1.01740288e+01 9.80590121e-02 6.00056263e-01]\n  [1.69367336e-03 4.36, failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-rm_jtfy2/student.py\", line 137, in <module>\n    module.configure() if sys.argv[1] == \"configure\" else module.solve(*args)\n                                                          ^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/neural-lab-student-rm_jtfy2/submission.py\", line 3, in solve\n    x=torch.tensor(x,dtype=torch.float64,requires_grad=True);y=x.detach()**3;y.sum().backward();return x.grad\n                                                                             ^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\", line 648, in backward\n    torch.autograd.backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\", line 353, in backward\n    _engine_run_backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\", line 824, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: element 0 of tensors does not require grad and does not have a grad_fn\n"
+        },
+        {
+          "runId": "e6d97089-1166-4947-a56a-85062ef9c800",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[ 2.27658389  7.64747063  0.07790414  4.23517743]\n  [ 4.07861565  2.53962585  3.31456058  1.77009936]\n  [ 2.65741902  0.32339328  0.08169347  0.2869, failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-rm_jtfy2/student.py\", line 137, in <module>\n    module.configure() if sys.argv[1] == \"configure\" else module.solve(*args)\n                                                          ^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/neural-lab-student-rm_jtfy2/submission.py\", line 3, in solve\n    x=torch.tensor(x,dtype=torch.float64,requires_grad=True);y=x.detach()**3;y.sum().backward();return x.grad\n                                                                             ^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\", line 648, in backward\n    torch.autograd.backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\", line 353, in backward\n    _engine_run_backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\", line 824, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: element 0 of tensors does not require grad and does not have a grad_fn\n"
+        },
+        {
+          "runId": "e6d97089-1166-4947-a56a-85062ef9c800",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[[0.8579758812571538, -0.1913043248816149, -1.2756863233379219, -1.1332872140034806], [-0.9194522860016113, 0.49716074405376404, 0.14242573607056525, expected=[[[4.41673568e+00 2.19584068e-01 9.76425357e+00 7.70603946e+00]\n  [5.07235504e+00 1.48301283e+00 1.21710542e-01 2.86062015e+00]\n  [1.09526894e+00 1.50, failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-rm_jtfy2/student.py\", line 137, in <module>\n    module.configure() if sys.argv[1] == \"configure\" else module.solve(*args)\n                                                          ^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/neural-lab-student-rm_jtfy2/submission.py\", line 3, in solve\n    x=torch.tensor(x,dtype=torch.float64,requires_grad=True);y=x.detach()**3;y.sum().backward();return x.grad\n                                                                             ^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\", line 648, in backward\n    torch.autograd.backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\", line 353, in backward\n    _engine_run_backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\", line 824, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: element 0 of tensors does not require grad and does not have a grad_fn\n"
+        },
+        {
+          "runId": "e6d97089-1166-4947-a56a-85062ef9c800",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e6d97089-1166-4947-a56a-85062ef9c800",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-rm_jtfy2/student.py\", line 137, in <module>\n    module.configure() if sys.argv[1] == \"configure\" else module.solve(*args)\n                                                          ^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/neural-lab-student-rm_jtfy2/submission.py\", line 3, in solve\n    x=torch.tensor(x,dtype=torch.float64,requires_grad=True);y=x.detach()**3;y.sum().backward();return x.grad\n                                                                             ^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\", line 648, in backward\n    torch.autograd.backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\", line 353, in backward\n    _engine_run_backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\", line 824, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: element 0 of tensors does not require grad and does not have a grad_fn\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-rm_jtfy2/student.py\", line 137, in <module>\n    module.configure() if sys.argv[1] == \"configure\" else module.solve(*args)\n                                                          ^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/neural-lab-student-rm_jtfy2/submission.py\", line 3, in solve\n    x=torch.tensor(x,dtype=torch.float64,requires_grad=True);y=x.detach()**3;y.sum().backward();return x.grad\n                                                                             ^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\", line 648, in backward\n    torch.autograd.backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\", line 353, in backward\n    _engine_run_backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\", line 824, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: element 0 of tensors does not require grad and does not have a grad_fn\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-rm_jtfy2/student.py\", line 137, in <module>\n    module.configure() if sys.argv[1] == \"configure\" else module.solve(*args)\n                                                          ^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/neural-lab-student-rm_jtfy2/submission.py\", line 3, in solve\n    x=torch.tensor(x,dtype=torch.float64,requires_grad=True);y=x.detach()**3;y.sum().backward();return x.grad\n                                                                             ^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/torch/_tensor.py\", line 648, in backward\n    torch.autograd.backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/__init__.py\", line 353, in backward\n    _engine_run_backward(\n  File \"/usr/local/lib/python3.12/site-packages/torch/autograd/graph.py\", line 824, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: element 0 of tensors does not require grad and does not have a grad_fn\n\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:05.817Z"
+    },
+    {
+      "label": "parent-fd-spoof",
+      "id": "c273f27f-6f29-4dd5-8bbd-7c54018587b6",
+      "exerciseId": "L05-code",
+      "code": "import os\nopen(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\ndef solve(x):return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:05.818Z",
+      "events": [
+        {
+          "runId": "c273f27f-6f29-4dd5-8bbd-7c54018587b6",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bzwdd9b2/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-bzwdd9b2/submission.py\", line 2, in <module>\n    open(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/fd/1'\n"
+        },
+        {
+          "runId": "c273f27f-6f29-4dd5-8bbd-7c54018587b6",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bzwdd9b2/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-bzwdd9b2/submission.py\", line 2, in <module>\n    open(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/fd/1'\n"
+        },
+        {
+          "runId": "c273f27f-6f29-4dd5-8bbd-7c54018587b6",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bzwdd9b2/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-bzwdd9b2/submission.py\", line 2, in <module>\n    open(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/fd/1'\n"
+        },
+        {
+          "runId": "c273f27f-6f29-4dd5-8bbd-7c54018587b6",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bzwdd9b2/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-bzwdd9b2/submission.py\", line 2, in <module>\n    open(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/fd/1'\n"
+        },
+        {
+          "runId": "c273f27f-6f29-4dd5-8bbd-7c54018587b6",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "c273f27f-6f29-4dd5-8bbd-7c54018587b6",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bzwdd9b2/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-bzwdd9b2/submission.py\", line 2, in <module>\n    open(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/fd/1'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bzwdd9b2/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-bzwdd9b2/submission.py\", line 2, in <module>\n    open(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/fd/1'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bzwdd9b2/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-bzwdd9b2/submission.py\", line 2, in <module>\n    open(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/fd/1'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bzwdd9b2/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-bzwdd9b2/submission.py\", line 2, in <module>\n    open(\"/proc/1/fd/1\",\"w\").write(\"spoof\")\n    ^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/proc/1/fd/1'\n\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:08.844Z"
+    },
+    {
+      "label": "fake-pass",
+      "id": "e121d63a-e808-4299-bdd2-7216898e6bf4",
+      "exerciseId": "L05-code",
+      "code": "import os\nprint(\"{\\\"controller_complete\\\":true}\")\nos._exit(0)",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:08.845Z",
+      "events": [
+        {
+          "runId": "e121d63a-e808-4299-bdd2-7216898e6bf4",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=student protocol requires exactly one result"
+        },
+        {
+          "runId": "e121d63a-e808-4299-bdd2-7216898e6bf4",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=student protocol requires exactly one result"
+        },
+        {
+          "runId": "e121d63a-e808-4299-bdd2-7216898e6bf4",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=student protocol requires exactly one result"
+        },
+        {
+          "runId": "e121d63a-e808-4299-bdd2-7216898e6bf4",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "student protocol requires exactly one result"
+        },
+        {
+          "runId": "e121d63a-e808-4299-bdd2-7216898e6bf4",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e121d63a-e808-4299-bdd2-7216898e6bf4",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] {\"controller_complete\":true}\n\n[student stderr] {\"controller_complete\":true}\n\n[student stderr] {\"controller_complete\":true}\n\n[student stderr] {\"controller_complete\":true}\n\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:11.875Z"
+    },
+    {
+      "label": "output-flood",
+      "id": "d31f2df4-e9e6-480d-9111-8dbea30b0a43",
+      "exerciseId": "L05-code",
+      "code": "print(\"x\"*1000000)\ndef solve(x):return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:11.876Z",
+      "events": [
+        {
+          "runId": "d31f2df4-e9e6-480d-9111-8dbea30b0a43",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=student output limit exceeded"
+        },
+        {
+          "runId": "d31f2df4-e9e6-480d-9111-8dbea30b0a43",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=student output limit exceeded"
+        },
+        {
+          "runId": "d31f2df4-e9e6-480d-9111-8dbea30b0a43",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=student output limit exceeded"
+        },
+        {
+          "runId": "d31f2df4-e9e6-480d-9111-8dbea30b0a43",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "student output limit exceeded"
+        },
+        {
+          "runId": "d31f2df4-e9e6-480d-9111-8dbea30b0a43",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "d31f2df4-e9e6-480d-9111-8dbea30b0a43",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n[student stderr] xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n[student stderr] xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n[student stderr] xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:15.133Z"
+    },
+    {
+      "label": "incorrect-batch",
+      "id": "71c935b3-76b5-4891-a041-4163146ea830",
+      "exerciseId": "L05-code",
+      "code": "import numpy as np\ndef solve(x):\n x=np.asarray(x);e=np.exp(x-x.max());return e/e.sum()",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:15.135Z",
+      "events": [
+        {
+          "runId": "71c935b3-76b5-4891-a041-4163146ea830",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=numerical mismatch: [[0.125 0.125 0.125 0.125]\n [0.125 0.125 0.125 0.125]] != [[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]]"
+        },
+        {
+          "runId": "71c935b3-76b5-4891-a041-4163146ea830",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=numerical mismatch: [[0.05285534 0.02341688 0.12599838 0.04841909 0.0783974 ]\n [0.12521638 0.1210045  0.15060819 0.0701623  0.05070367]\n [0.07149149 0.01432437 0.01821388 0.02062692 0.02856122]] != [[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571 0.13462476 0.18640917]]"
+        },
+        {
+          "runId": "71c935b3-76b5-4891-a041-4163146ea830",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=numerical mismatch: [[0.66524096 0.09003057 0.24472847]\n [0.         0.         0.        ]] != [[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]]"
+        },
+        {
+          "runId": "71c935b3-76b5-4891-a041-4163146ea830",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "numerical mismatch: [[0.20188232 0.14988158 0.14723082 0.50100528]\n [0.         0.         0.         0.        ]\n [0.         0.         0.         0.        ]] != [[0.20188232 0.14988158 0.14723082 0.50100528]\n [0.29212536 0.16865196 0.45020741 0.08901528]\n [0.25998593 0.5701035  0.05906228 0.11084829]]"
+        },
+        {
+          "runId": "71c935b3-76b5-4891-a041-4163146ea830",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "71c935b3-76b5-4891-a041-4163146ea830",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:18.932Z"
+    },
+    {
+      "label": "detached-descendant-pipe",
+      "id": "3b86437a-8777-4483-99e5-c7e34b32d919",
+      "exerciseId": "L05-code",
+      "code": "import os,time\ndef solve(x):\n if os.fork()==0:\n  os.setsid();time.sleep(45);os._exit(0)\n return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:18.934Z",
+      "events": [
+        {
+          "runId": "3b86437a-8777-4483-99e5-c7e34b32d919",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=student descendant retained output pipe"
+        },
+        {
+          "runId": "3b86437a-8777-4483-99e5-c7e34b32d919",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=student descendant retained output pipe"
+        },
+        {
+          "runId": "3b86437a-8777-4483-99e5-c7e34b32d919",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=student descendant retained output pipe"
+        },
+        {
+          "runId": "3b86437a-8777-4483-99e5-c7e34b32d919",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "student descendant retained output pipe"
+        },
+        {
+          "runId": "3b86437a-8777-4483-99e5-c7e34b32d919",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "3b86437a-8777-4483-99e5-c7e34b32d919",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:29.952Z"
+    },
+    {
+      "label": "fixed-softmax",
+      "id": "15d30be4-e5ed-486b-930a-0f9ed3b6b87d",
+      "exerciseId": "L05-code",
+      "code": "def solve(x):return [[0.09003057,0.24472847,0.66524096],[0.21194156,0.21194156,0.57611688]]",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:29.953Z",
+      "events": [
+        {
+          "runId": "15d30be4-e5ed-486b-930a-0f9ed3b6b87d",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=shape (2, 3) != (2, 4)"
+        },
+        {
+          "runId": "15d30be4-e5ed-486b-930a-0f9ed3b6b87d",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=shape (2, 3) != (3, 5)"
+        },
+        {
+          "runId": "15d30be4-e5ed-486b-930a-0f9ed3b6b87d",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=numerical mismatch: [[0.09003057 0.24472847 0.66524096]\n [0.21194156 0.21194156 0.57611688]] != [[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]]"
+        },
+        {
+          "runId": "15d30be4-e5ed-486b-930a-0f9ed3b6b87d",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "shape (2, 3) != (3, 4)"
+        },
+        {
+          "runId": "15d30be4-e5ed-486b-930a-0f9ed3b6b87d",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "15d30be4-e5ed-486b-930a-0f9ed3b6b87d",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:32.980Z"
+    },
+    {
+      "label": "ignores-heads",
+      "id": "a4cc571c-afc9-4ee9-9b5d-f2852bee1e77",
+      "exerciseId": "L10-code",
+      "code": "import numpy as np\ndef solve(x,heads):\n a=np.asarray(x);b,t,d=a.shape;return a.reshape(b,t,2,-1).transpose(0,2,1,3).reshape(b,2,-1)",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:32.981Z",
+      "events": [
+        {
+          "runId": "a4cc571c-afc9-4ee9-9b5d-f2852bee1e77",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[ 0.61597942  1.12897229 -0.82448122  0.65059279 -0.66550971\n    0.23216132]\n  [-0.11394746 -0.84015648  0.74325417  0.54315427  0.11668581\n    0.21, actual=[[[0.6159794225754956, 1.1289722927208916, -0.8244812156912396, 0.6505927878247011, -0.6655097072886943, 0.23216132306671977], [-0.11394745765487507, , atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a4cc571c-afc9-4ee9-9b5d-f2852bee1e77",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[[-0.42329831204415375, -0.07971821090639905, -1.6873344339580298, -1.4471124724230873, -1.3226996123544024, -0.9972468276014818], [0.39977422672343, expected=[[[-0.42329831 -0.07971821 -1.68733443 -1.44711247 -1.32269961\n   -0.99724683  0.39977423 -0.90547906 -0.37816255  1.2992283\n   -0.35626397  0.7375155, failure=shape (1, 2, 15) != (1, 1, 30)"
+        },
+        {
+          "runId": "a4cc571c-afc9-4ee9-9b5d-f2852bee1e77",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[[0.13027452147288585, 0.9827395110230576, -0.49929559853915206, -1.1849437664170246, -0.9651167622323719, -0.7252260645357532], [2.1284697324351645, expected=[[[ 0.13027452  0.98273951  2.12846973 -0.82138668]\n  [-0.4992956  -1.18494377  0.8384892  -0.90292718]\n  [-0.96511676 -0.72522606  0.93157301  0.3849, failure=shape (3, 2, 6) != (3, 3, 4)"
+        },
+        {
+          "runId": "a4cc571c-afc9-4ee9-9b5d-f2852bee1e77",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "a4cc571c-afc9-4ee9-9b5d-f2852bee1e77",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:36.310Z"
+    },
+    {
+      "label": "staged-bootstrap-write",
+      "id": "8392d123-f66d-4e13-9de2-fe29eae67cad",
+      "exerciseId": "L05-code",
+      "code": "import os, pathlib, stat, sys\nassert os.getuid() == 65534\nroot=pathlib.Path(sys.argv[0]).parent\nassert root.stat().st_uid == 0\nassert stat.S_IMODE(root.stat().st_mode) == 0o555\nassert pathlib.Path(\"/tmp\").stat().st_mode & stat.S_ISVTX\nassert all(stat.S_IMODE(p.stat().st_mode) == 0o444 and p.stat().st_uid == 0 for p in [pathlib.Path(sys.argv[0]),pathlib.Path(sys.argv[2])])\npathlib.Path(sys.argv[0]).write_text(\"spoof\")\ndef solve(x):return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:36.311Z",
+      "events": [
+        {
+          "runId": "8392d123-f66d-4e13-9de2-fe29eae67cad",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-31tk1wfj/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-31tk1wfj/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[0]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-31tk1wfj/student.py'\n"
+        },
+        {
+          "runId": "8392d123-f66d-4e13-9de2-fe29eae67cad",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-31tk1wfj/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-31tk1wfj/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[0]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-31tk1wfj/student.py'\n"
+        },
+        {
+          "runId": "8392d123-f66d-4e13-9de2-fe29eae67cad",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-31tk1wfj/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-31tk1wfj/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[0]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-31tk1wfj/student.py'\n"
+        },
+        {
+          "runId": "8392d123-f66d-4e13-9de2-fe29eae67cad",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-31tk1wfj/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-31tk1wfj/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[0]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-31tk1wfj/student.py'\n"
+        },
+        {
+          "runId": "8392d123-f66d-4e13-9de2-fe29eae67cad",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "8392d123-f66d-4e13-9de2-fe29eae67cad",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-31tk1wfj/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-31tk1wfj/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[0]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-31tk1wfj/student.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-31tk1wfj/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-31tk1wfj/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[0]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-31tk1wfj/student.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-31tk1wfj/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-31tk1wfj/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[0]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-31tk1wfj/student.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-31tk1wfj/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-31tk1wfj/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[0]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-31tk1wfj/student.py'\n\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:39.527Z"
+    },
+    {
+      "label": "staged-submission-write",
+      "id": "977afa66-8507-4958-9d38-8a98f31fd2ba",
+      "exerciseId": "L05-code",
+      "code": "import os, pathlib, stat, sys\nassert os.getuid() == 65534\nroot=pathlib.Path(sys.argv[0]).parent\nassert root.stat().st_uid == 0\nassert stat.S_IMODE(root.stat().st_mode) == 0o555\nassert pathlib.Path(\"/tmp\").stat().st_mode & stat.S_ISVTX\nassert all(stat.S_IMODE(p.stat().st_mode) == 0o444 and p.stat().st_uid == 0 for p in [pathlib.Path(sys.argv[0]),pathlib.Path(sys.argv[2])])\npathlib.Path(sys.argv[2]).write_text(\"spoof\")\ndef solve(x):return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:39.529Z",
+      "events": [
+        {
+          "runId": "977afa66-8507-4958-9d38-8a98f31fd2ba",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-lmn3uv8i/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-lmn3uv8i/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[2]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-lmn3uv8i/submission.py'\n"
+        },
+        {
+          "runId": "977afa66-8507-4958-9d38-8a98f31fd2ba",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-lmn3uv8i/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-lmn3uv8i/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[2]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-lmn3uv8i/submission.py'\n"
+        },
+        {
+          "runId": "977afa66-8507-4958-9d38-8a98f31fd2ba",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-lmn3uv8i/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-lmn3uv8i/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[2]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-lmn3uv8i/submission.py'\n"
+        },
+        {
+          "runId": "977afa66-8507-4958-9d38-8a98f31fd2ba",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-lmn3uv8i/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-lmn3uv8i/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[2]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-lmn3uv8i/submission.py'\n"
+        },
+        {
+          "runId": "977afa66-8507-4958-9d38-8a98f31fd2ba",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "977afa66-8507-4958-9d38-8a98f31fd2ba",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-lmn3uv8i/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-lmn3uv8i/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[2]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-lmn3uv8i/submission.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-lmn3uv8i/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-lmn3uv8i/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[2]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-lmn3uv8i/submission.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-lmn3uv8i/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-lmn3uv8i/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[2]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-lmn3uv8i/submission.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-lmn3uv8i/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-lmn3uv8i/submission.py\", line 8, in <module>\n    pathlib.Path(sys.argv[2]).write_text(\"spoof\")\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-lmn3uv8i/submission.py'\n\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:42.854Z"
+    },
+    {
+      "label": "staged-submission-replace",
+      "id": "6cb5802f-43c6-4e28-bcc1-7827267d63c7",
+      "exerciseId": "L05-code",
+      "code": "import os, pathlib, stat, sys\nassert os.getuid() == 65534\nroot=pathlib.Path(sys.argv[0]).parent\nassert root.stat().st_uid == 0\nassert stat.S_IMODE(root.stat().st_mode) == 0o555\nassert pathlib.Path(\"/tmp\").stat().st_mode & stat.S_ISVTX\nassert all(stat.S_IMODE(p.stat().st_mode) == 0o444 and p.stat().st_uid == 0 for p in [pathlib.Path(sys.argv[0]),pathlib.Path(sys.argv[2])])\nos.rename(sys.argv[2],str(root / \"replacement.py\"))\ndef solve(x):return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:42.855Z",
+      "events": [
+        {
+          "runId": "6cb5802f-43c6-4e28-bcc1-7827267d63c7",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-6m0m1gbi/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-6m0m1gbi/submission.py\", line 8, in <module>\n    os.rename(sys.argv[2],str(root / \"replacement.py\"))\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-6m0m1gbi/submission.py' -> '/tmp/neural-lab-student-6m0m1gbi/replacement.py'\n"
+        },
+        {
+          "runId": "6cb5802f-43c6-4e28-bcc1-7827267d63c7",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-6m0m1gbi/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-6m0m1gbi/submission.py\", line 8, in <module>\n    os.rename(sys.argv[2],str(root / \"replacement.py\"))\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-6m0m1gbi/submission.py' -> '/tmp/neural-lab-student-6m0m1gbi/replacement.py'\n"
+        },
+        {
+          "runId": "6cb5802f-43c6-4e28-bcc1-7827267d63c7",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-6m0m1gbi/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-6m0m1gbi/submission.py\", line 8, in <module>\n    os.rename(sys.argv[2],str(root / \"replacement.py\"))\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-6m0m1gbi/submission.py' -> '/tmp/neural-lab-student-6m0m1gbi/replacement.py'\n"
+        },
+        {
+          "runId": "6cb5802f-43c6-4e28-bcc1-7827267d63c7",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-6m0m1gbi/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-6m0m1gbi/submission.py\", line 8, in <module>\n    os.rename(sys.argv[2],str(root / \"replacement.py\"))\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-6m0m1gbi/submission.py' -> '/tmp/neural-lab-student-6m0m1gbi/replacement.py'\n"
+        },
+        {
+          "runId": "6cb5802f-43c6-4e28-bcc1-7827267d63c7",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "6cb5802f-43c6-4e28-bcc1-7827267d63c7",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-6m0m1gbi/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-6m0m1gbi/submission.py\", line 8, in <module>\n    os.rename(sys.argv[2],str(root / \"replacement.py\"))\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-6m0m1gbi/submission.py' -> '/tmp/neural-lab-student-6m0m1gbi/replacement.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-6m0m1gbi/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-6m0m1gbi/submission.py\", line 8, in <module>\n    os.rename(sys.argv[2],str(root / \"replacement.py\"))\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-6m0m1gbi/submission.py' -> '/tmp/neural-lab-student-6m0m1gbi/replacement.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-6m0m1gbi/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-6m0m1gbi/submission.py\", line 8, in <module>\n    os.rename(sys.argv[2],str(root / \"replacement.py\"))\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-6m0m1gbi/submission.py' -> '/tmp/neural-lab-student-6m0m1gbi/replacement.py'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-6m0m1gbi/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-6m0m1gbi/submission.py\", line 8, in <module>\n    os.rename(sys.argv[2],str(root / \"replacement.py\"))\nPermissionError: [Errno 13] Permission denied: '/tmp/neural-lab-student-6m0m1gbi/submission.py' -> '/tmp/neural-lab-student-6m0m1gbi/replacement.py'\n\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:46.104Z"
+    },
+    {
+      "label": "staged-directory-rename",
+      "id": "dcd20965-eeca-47f6-ab01-7c8bb92d763e",
+      "exerciseId": "L05-code",
+      "code": "import os, pathlib, stat, sys\nassert os.getuid() == 65534\nroot=pathlib.Path(sys.argv[0]).parent\nassert root.stat().st_uid == 0\nassert stat.S_IMODE(root.stat().st_mode) == 0o555\nassert pathlib.Path(\"/tmp\").stat().st_mode & stat.S_ISVTX\nassert all(stat.S_IMODE(p.stat().st_mode) == 0o444 and p.stat().st_uid == 0 for p in [pathlib.Path(sys.argv[0]),pathlib.Path(sys.argv[2])])\nos.rename(root,str(root)+\"-replacement\")\ndef solve(x):return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "failed",
+      "createdAt": "2026-11-02T08:51:46.105Z",
+      "events": [
+        {
+          "runId": "dcd20965-eeca-47f6-ab01-7c8bb92d763e",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": false,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-k52m02eg/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-k52m02eg/submission.py\", line 8, in <module>\n    os.rename(root,str(root)+\"-replacement\")\nPermissionError: [Errno 1] Operation not permitted: '/tmp/neural-lab-student-k52m02eg' -> '/tmp/neural-lab-student-k52m02eg-replacement'\n"
+        },
+        {
+          "runId": "dcd20965-eeca-47f6-ab01-7c8bb92d763e",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": false,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-k52m02eg/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-k52m02eg/submission.py\", line 8, in <module>\n    os.rename(root,str(root)+\"-replacement\")\nPermissionError: [Errno 1] Operation not permitted: '/tmp/neural-lab-student-k52m02eg' -> '/tmp/neural-lab-student-k52m02eg-replacement'\n"
+        },
+        {
+          "runId": "dcd20965-eeca-47f6-ab01-7c8bb92d763e",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": false,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], failure=Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-k52m02eg/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-k52m02eg/submission.py\", line 8, in <module>\n    os.rename(root,str(root)+\"-replacement\")\nPermissionError: [Errno 1] Operation not permitted: '/tmp/neural-lab-student-k52m02eg' -> '/tmp/neural-lab-student-k52m02eg-replacement'\n"
+        },
+        {
+          "runId": "dcd20965-eeca-47f6-ab01-7c8bb92d763e",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": false,
+          "detail": "Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-k52m02eg/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-k52m02eg/submission.py\", line 8, in <module>\n    os.rename(root,str(root)+\"-replacement\")\nPermissionError: [Errno 1] Operation not permitted: '/tmp/neural-lab-student-k52m02eg' -> '/tmp/neural-lab-student-k52m02eg-replacement'\n"
+        },
+        {
+          "runId": "dcd20965-eeca-47f6-ab01-7c8bb92d763e",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "dcd20965-eeca-47f6-ab01-7c8bb92d763e",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-k52m02eg/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-k52m02eg/submission.py\", line 8, in <module>\n    os.rename(root,str(root)+\"-replacement\")\nPermissionError: [Errno 1] Operation not permitted: '/tmp/neural-lab-student-k52m02eg' -> '/tmp/neural-lab-student-k52m02eg-replacement'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-k52m02eg/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-k52m02eg/submission.py\", line 8, in <module>\n    os.rename(root,str(root)+\"-replacement\")\nPermissionError: [Errno 1] Operation not permitted: '/tmp/neural-lab-student-k52m02eg' -> '/tmp/neural-lab-student-k52m02eg-replacement'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-k52m02eg/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-k52m02eg/submission.py\", line 8, in <module>\n    os.rename(root,str(root)+\"-replacement\")\nPermissionError: [Errno 1] Operation not permitted: '/tmp/neural-lab-student-k52m02eg' -> '/tmp/neural-lab-student-k52m02eg-replacement'\n\n[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-k52m02eg/student.py\", line 130, in <module>\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/tmp/neural-lab-student-k52m02eg/submission.py\", line 8, in <module>\n    os.rename(root,str(root)+\"-replacement\")\nPermissionError: [Errno 1] Operation not permitted: '/tmp/neural-lab-student-k52m02eg' -> '/tmp/neural-lab-student-k52m02eg-replacement'\n\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:49.223Z"
+    },
+    {
+      "label": "timeout",
+      "id": "2b93bf40-2789-43cd-b39f-84172a6ef109",
+      "exerciseId": "L05-code",
+      "code": "import time\ntime.sleep(60)\ndef solve(x):return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "timed_out",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:51:49.225Z",
+      "events": [
+        {
+          "runId": "2b93bf40-2789-43cd-b39f-84172a6ef109",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "2b93bf40-2789-43cd-b39f-84172a6ef109",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:51.611Z"
+    },
+    {
+      "label": "cancel",
+      "id": "6efa9e07-6eca-4a5b-a853-9576028b7249",
+      "exerciseId": "L05-code",
+      "code": "import time\ntime.sleep(60)\ndef solve(x):return x",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {},
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "cancelled",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:51:51.613Z",
+      "events": [
+        {
+          "runId": "6efa9e07-6eca-4a5b-a853-9576028b7249",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "6efa9e07-6eca-4a5b-a853-9576028b7249",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:53.395Z"
+    }
+  ]
+}

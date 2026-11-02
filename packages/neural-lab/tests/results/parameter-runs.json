@@ -1,0 +1,5325 @@
+{
+  "version": "0.2.1",
+  "results": [
+    {
+      "id": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+      "exerciseId": "L03-experiment",
+      "code": "def configure():\n    return {\"eps\":[0.1]}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:50:40.135Z",
+      "events": [
+        {
+          "runId": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "eps": [
+              0.1
+            ]
+          }
+        },
+        {
+          "runId": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+          "seq": 2,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 0,
+          "value": 0.010000000000005116
+        },
+        {
+          "runId": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+          "seq": 3,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 0,
+          "value": 0.1
+        },
+        {
+          "runId": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+          "seq": 4,
+          "type": "check",
+          "name": "framework-gradcheck",
+          "passed": true
+        },
+        {
+          "runId": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+          "seq": 5,
+          "type": "tensor",
+          "name": "autograd",
+          "data": [
+            [
+              1.4699999999999998,
+              0.12000000000000002,
+              5.879999999999999
+            ]
+          ]
+        },
+        {
+          "runId": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+          "seq": 6,
+          "type": "check",
+          "name": "finite-difference",
+          "passed": true,
+          "detail": "For x cubed the central-difference error is eps squared; a coarse step is an observation, not a failed lesson."
+        },
+        {
+          "runId": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "a0ad275e-3fe9-4e0d-bc2a-fff9bddd0e73",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "eps": [
+          0.1
+        ]
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:43.755Z"
+    },
+    {
+      "id": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+      "exerciseId": "L03-experiment",
+      "code": "def configure():\n    return {\"eps\":[0.01]}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:50:43.755Z",
+      "events": [
+        {
+          "runId": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "eps": [
+              0.01
+            ]
+          }
+        },
+        {
+          "runId": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+          "seq": 2,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 0,
+          "value": 0.00010000000001131326
+        },
+        {
+          "runId": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+          "seq": 3,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 0,
+          "value": 0.01
+        },
+        {
+          "runId": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+          "seq": 4,
+          "type": "check",
+          "name": "framework-gradcheck",
+          "passed": true
+        },
+        {
+          "runId": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+          "seq": 5,
+          "type": "tensor",
+          "name": "autograd",
+          "data": [
+            [
+              1.4699999999999998,
+              0.12000000000000002,
+              5.879999999999999
+            ]
+          ]
+        },
+        {
+          "runId": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+          "seq": 6,
+          "type": "check",
+          "name": "finite-difference",
+          "passed": true,
+          "detail": "For x cubed the central-difference error is eps squared; a coarse step is an observation, not a failed lesson."
+        },
+        {
+          "runId": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "7acfeda5-328f-4e9b-8b24-31a6372503b5",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "eps": [
+          0.01
+        ]
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:47.335Z"
+    },
+    {
+      "id": "c6940670-614d-498c-89e0-7f99b9a3b6cd",
+      "exerciseId": "L05-experiment",
+      "code": "def configure():\n    return {\"offset\":0,\"temperature\":1}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:50:47.336Z",
+      "events": [
+        {
+          "runId": "c6940670-614d-498c-89e0-7f99b9a3b6cd",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "offset": 0,
+            "temperature": 1
+          }
+        },
+        {
+          "runId": "c6940670-614d-498c-89e0-7f99b9a3b6cd",
+          "seq": 2,
+          "type": "metric",
+          "name": "naive_nonfinite",
+          "step": 0,
+          "value": 0
+        },
+        {
+          "runId": "c6940670-614d-498c-89e0-7f99b9a3b6cd",
+          "seq": 3,
+          "type": "tensor",
+          "name": "stable_probabilities",
+          "data": [
+            [
+              0.09003057317038046,
+              0.24472847105479764,
+              0.6652409557748218
+            ],
+            [
+              0.21194155761708544,
+              0.21194155761708544,
+              0.5761168847658291
+            ]
+          ]
+        },
+        {
+          "runId": "c6940670-614d-498c-89e0-7f99b9a3b6cd",
+          "seq": 4,
+          "type": "check",
+          "name": "normalization",
+          "passed": true
+        },
+        {
+          "runId": "c6940670-614d-498c-89e0-7f99b9a3b6cd",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "c6940670-614d-498c-89e0-7f99b9a3b6cd",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "offset": 0,
+        "temperature": 1
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:50.190Z"
+    },
+    {
+      "id": "63e837eb-22bb-44cf-93f6-1029558589f0",
+      "exerciseId": "L05-experiment",
+      "code": "def configure():\n    return {\"offset\":1000,\"temperature\":1}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:50:50.190Z",
+      "events": [
+        {
+          "runId": "63e837eb-22bb-44cf-93f6-1029558589f0",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "offset": 1000,
+            "temperature": 1
+          }
+        },
+        {
+          "runId": "63e837eb-22bb-44cf-93f6-1029558589f0",
+          "seq": 2,
+          "type": "metric",
+          "name": "naive_nonfinite",
+          "step": 0,
+          "value": 6
+        },
+        {
+          "runId": "63e837eb-22bb-44cf-93f6-1029558589f0",
+          "seq": 3,
+          "type": "tensor",
+          "name": "stable_probabilities",
+          "data": [
+            [
+              0.09003057317038046,
+              0.24472847105479764,
+              0.6652409557748218
+            ],
+            [
+              0.21194155761708544,
+              0.21194155761708544,
+              0.5761168847658291
+            ]
+          ]
+        },
+        {
+          "runId": "63e837eb-22bb-44cf-93f6-1029558589f0",
+          "seq": 4,
+          "type": "check",
+          "name": "normalization",
+          "passed": true
+        },
+        {
+          "runId": "63e837eb-22bb-44cf-93f6-1029558589f0",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "63e837eb-22bb-44cf-93f6-1029558589f0",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "offset": 1000,
+        "temperature": 1
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:52.963Z"
+    },
+    {
+      "id": "81fa2b8b-3641-4e93-b866-68b8356596d9",
+      "exerciseId": "L05-experiment",
+      "code": "def configure():\n    return {\"offset\":0,\"temperature\":2}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:50:52.964Z",
+      "events": [
+        {
+          "runId": "81fa2b8b-3641-4e93-b866-68b8356596d9",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "offset": 0,
+            "temperature": 2
+          }
+        },
+        {
+          "runId": "81fa2b8b-3641-4e93-b866-68b8356596d9",
+          "seq": 2,
+          "type": "metric",
+          "name": "naive_nonfinite",
+          "step": 0,
+          "value": 0
+        },
+        {
+          "runId": "81fa2b8b-3641-4e93-b866-68b8356596d9",
+          "seq": 3,
+          "type": "tensor",
+          "name": "stable_probabilities",
+          "data": [
+            [
+              0.1863237232258476,
+              0.3071958857184984,
+              0.506480391055654
+            ],
+            [
+              0.274068619061197,
+              0.274068619061197,
+              0.45186276187760605
+            ]
+          ]
+        },
+        {
+          "runId": "81fa2b8b-3641-4e93-b866-68b8356596d9",
+          "seq": 4,
+          "type": "check",
+          "name": "normalization",
+          "passed": true
+        },
+        {
+          "runId": "81fa2b8b-3641-4e93-b866-68b8356596d9",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "81fa2b8b-3641-4e93-b866-68b8356596d9",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "offset": 0,
+        "temperature": 2
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:55.863Z"
+    },
+    {
+      "id": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+      "exerciseId": "L08-experiment",
+      "code": "def configure():\n    return {\"dim\":8,\"scale\":True}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:50:55.863Z",
+      "events": [
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "dim": 8,
+            "scale": true
+          }
+        },
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 4,
+          "type": "tensor",
+          "name": "selected_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 5,
+          "type": "tensor",
+          "name": "selected_output",
+          "data": [
+            [
+              0.4483233572600845,
+              0.06585446284163944,
+              -0.11721849805337244,
+              -0.27912891508069587,
+              -0.38538268209010573,
+              0.1511507924207265,
+              -0.8841800372005336,
+              -0.642068191382605
+            ],
+            [
+              0.2072248286026796,
+              0.1906366310199404,
+              -0.10737021321821033,
+              -0.11378925464976342,
+              -0.30033968132728367,
+              0.13382347898023614,
+              -0.6036554128968086,
+              -0.5922674575372033
+            ],
+            [
+              0.1869991334826711,
+              0.24024842336111243,
+              -0.0858215622982566,
+              -0.0929647652657437,
+              -0.25490076864470923,
+              0.11366941680007298,
+              -0.6091971433150501,
+              -0.6286200303438868
+            ],
+            [
+              -0.09474005879276419,
+              0.33821399378474315,
+              0.05669932819353556,
+              0.12780122631370372,
+              -0.3155920832106304,
+              0.10447228813702754,
+              -0.3740261713180808,
+              -0.6263264700767468
+            ]
+          ]
+        },
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 6,
+          "type": "metric",
+          "name": "weight_entropy",
+          "step": 0,
+          "value": 1.300180092406832
+        },
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 7,
+          "type": "check",
+          "name": "normalized-finite-output",
+          "passed": true
+        },
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "9ec83d19-f115-479a-9f1e-05ebca21f484",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "dim": 8,
+        "scale": true
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:50:58.698Z"
+    },
+    {
+      "id": "69cc28fe-71e1-43ff-b896-970deecfed89",
+      "exerciseId": "L08-experiment",
+      "code": "def configure():\n    return {\"dim\":8,\"scale\":False}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:50:58.698Z",
+      "events": [
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "dim": 8,
+            "scale": false
+          }
+        },
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 4,
+          "type": "tensor",
+          "name": "selected_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 5,
+          "type": "tensor",
+          "name": "selected_output",
+          "data": [
+            [
+              0.5116005694650938,
+              -0.2443469503930696,
+              -0.2769726513570175,
+              -0.37418700334065574,
+              -0.6717541885495109,
+              0.28902463045540105,
+              -0.7432867766619679,
+              -0.3609201932408546
+            ],
+            [
+              0.29926853901887496,
+              0.060051452203005645,
+              -0.23856801052270435,
+              -0.21091010348070896,
+              -0.35347482035595273,
+              0.18637444148379517,
+              -0.5806592149076902,
+              -0.46905968254741814
+            ],
+            [
+              0.2443635811620188,
+              0.2172193029543781,
+              -0.20029815725909125,
+              -0.15779463914874986,
+              -0.18484198299885668,
+              0.12334622745744113,
+              -0.5860636062285228,
+              -0.5693582575340367
+            ],
+            [
+              -0.6081113459648381,
+              0.44515633224107637,
+              0.11187947565649835,
+              0.47892738207743774,
+              -0.3755184833645964,
+              0.1344890877022623,
+              0.2442610499528827,
+              -0.4356635584803899
+            ]
+          ]
+        },
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 6,
+          "type": "metric",
+          "name": "weight_entropy",
+          "step": 0,
+          "value": 0.972027518397439
+        },
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 7,
+          "type": "check",
+          "name": "normalized-finite-output",
+          "passed": true
+        },
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "69cc28fe-71e1-43ff-b896-970deecfed89",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "dim": 8,
+        "scale": false
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:01.643Z"
+    },
+    {
+      "id": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+      "exerciseId": "L08-experiment",
+      "code": "def configure():\n    return {\"dim\":16,\"scale\":True}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:01.643Z",
+      "events": [
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "dim": 16,
+            "scale": true
+          }
+        },
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.0033344490033503653,
+              0.15819153764616994,
+              0.00030879058041970826,
+              0.8381652227700599
+            ],
+            [
+              0.00018601746478795716,
+              0.000007794084924462851,
+              0.0001994597294590351,
+              0.9996067287208286
+            ],
+            [
+              0.09713870926975593,
+              0.04833596937386078,
+              0.4785115930540336,
+              0.37601372830234964
+            ],
+            [
+              0.7543731673350814,
+              0.22547492603909483,
+              0.011569125281245525,
+              0.008582781344578216
+            ]
+          ]
+        },
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.12258092079187273,
+              0.3217086003839986,
+              0.06762119951504428,
+              0.4880892793090844
+            ],
+            [
+              0.09064619980307607,
+              0.041011197899879975,
+              0.09224120714044302,
+              0.776101395156601
+            ],
+            [
+              0.21131214151720631,
+              0.1774777758131404,
+              0.3148107001440915,
+              0.2963993825255618
+            ],
+            [
+              0.4135819004303953,
+              0.30580144248764746,
+              0.14554258942143689,
+              0.1350740676605205
+            ]
+          ]
+        },
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 4,
+          "type": "tensor",
+          "name": "selected_weights",
+          "data": [
+            [
+              0.12258092079187273,
+              0.3217086003839986,
+              0.06762119951504428,
+              0.4880892793090844
+            ],
+            [
+              0.09064619980307607,
+              0.041011197899879975,
+              0.09224120714044302,
+              0.776101395156601
+            ],
+            [
+              0.21131214151720631,
+              0.1774777758131404,
+              0.3148107001440915,
+              0.2963993825255618
+            ],
+            [
+              0.4135819004303953,
+              0.30580144248764746,
+              0.14554258942143689,
+              0.1350740676605205
+            ]
+          ]
+        },
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 5,
+          "type": "tensor",
+          "name": "selected_output",
+          "data": [
+            [
+              0.3655236862410212,
+              -0.21815499995175006,
+              -0.15867646778026673,
+              -0.13008357265323514,
+              1.1149374906092033,
+              0.0693048401206629,
+              -0.36890207266219466,
+              0.10832916706804935,
+              -0.3016497116076405,
+              0.6931185140643655,
+              0.2726160371439321,
+              0.3584559323246266,
+              -0.6058412423555367,
+              0.9177805514766126,
+              0.33291120329920126,
+              -0.4243410844821835
+            ],
+            [
+              1.0451806585972638,
+              -0.04375089984853902,
+              0.043819646806611316,
+              0.015498996394183581,
+              1.1922241759747303,
+              0.07327307939217256,
+              -0.37282058384964106,
+              0.7595687678031048,
+              0.2780480865006875,
+              1.2441713018257101,
+              0.2606004754476377,
+              -0.5725304026565039,
+              -1.06089113431604,
+              1.118841570808929,
+              1.0061222624233501,
+              -0.14773433061706276
+            ],
+            [
+              -0.11525365417464434,
+              -0.45040093882806254,
+              0.4438955973318624,
+              -0.4897603757009374,
+              0.9744663902897137,
+              -0.23831202274437688,
+              -0.16748281095622697,
+              0.050680258623583274,
+              -0.15319786433529087,
+              0.5331621222067601,
+              0.2605646744662889,
+              0.706999223774053,
+              -0.43806463272654705,
+              0.06881321447856537,
+              -0.4305561048885018,
+              -0.15260736246468617
+            ],
+            [
+              -0.44035952778009796,
+              -0.5941724493617616,
+              -0.054640328214452215,
+              -0.693365574248556,
+              0.8871080854196146,
+              -0.14566307964449476,
+              -0.5767316884929602,
+              -0.531271861493018,
+              -0.3473404164083974,
+              0.3994284438309929,
+              0.7388156992700197,
+              1.6452847845076954,
+              -0.03979192456568086,
+              -0.06411218141831884,
+              -0.9876328703436414,
+              -0.25076639558707453
+            ]
+          ]
+        },
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 6,
+          "type": "metric",
+          "name": "weight_entropy",
+          "step": 0,
+          "value": 1.1393867567879035
+        },
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 7,
+          "type": "check",
+          "name": "normalized-finite-output",
+          "passed": true
+        },
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "d152b04c-5ed5-4fb0-94d0-c90615e4cacf",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "dim": 16,
+        "scale": true
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:04.453Z"
+    },
+    {
+      "id": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+      "exerciseId": "L09-experiment",
+      "code": "def configure():\n    return {\"perturbation\":0}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:04.453Z",
+      "events": [
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "perturbation": 0
+          }
+        },
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 4,
+          "type": "tensor",
+          "name": "output_change",
+          "data": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 5,
+          "type": "metric",
+          "name": "protected_change",
+          "step": 0,
+          "value": 0
+        },
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 6,
+          "type": "metric",
+          "name": "last_position_change",
+          "step": 0,
+          "value": 0
+        },
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 7,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "5ff26e16-dfd9-4fc4-b0ef-efa31e525ed5",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "perturbation": 0
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:07.274Z"
+    },
+    {
+      "id": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+      "exerciseId": "L09-experiment",
+      "code": "def configure():\n    return {\"perturbation\":10}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:07.274Z",
+      "events": [
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "perturbation": 10
+          }
+        },
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 4,
+          "type": "tensor",
+          "name": "output_change",
+          "data": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              19.41852858461774,
+              19.885519327866927,
+              19.385342227275054,
+              20.21999516342494,
+              20.10146006381614,
+              20.177915062444264,
+              21.30660069714853,
+              20.814266931895574
+            ]
+          ]
+        },
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 5,
+          "type": "metric",
+          "name": "protected_change",
+          "step": 0,
+          "value": 0
+        },
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 6,
+          "type": "metric",
+          "name": "last_position_change",
+          "step": 0,
+          "value": 21.30660069714853
+        },
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 7,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "efd62810-2c0a-4803-a1b7-8599f64fdb9d",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "perturbation": 10
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:10.096Z"
+    },
+    {
+      "id": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+      "exerciseId": "L04-experiment",
+      "code": "def configure():\n    return {\"steps\":4,\"lr\":0.03}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:10.096Z",
+      "events": [
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 4,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 3,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 0,
+          "value": 2.969209671020508
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 1,
+          "value": 2.661734104156494
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 5,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 1,
+          "value": 2.606661796569824
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 2,
+          "value": 2.3393747806549072
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 7,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 2,
+          "value": 2.3539676666259766
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 3,
+          "value": 2.1218020915985107
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 9,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 3,
+          "value": 2.173283100128174
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 10,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.03",
+          "step": 4,
+          "value": 0.38395777344703674
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 11,
+          "type": "check",
+          "name": "updates_lr=0.03",
+          "passed": true
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 12,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 13,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 0,
+          "value": 3.446409225463867
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 14,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 1,
+          "value": 3.0983049869537354
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 15,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 1,
+          "value": 3.3900954723358154
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 16,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 2,
+          "value": 3.0465810298919678
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 17,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 2,
+          "value": 3.335820436477661
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 18,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 3,
+          "value": 2.9968385696411133
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 19,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 3,
+          "value": 3.283496856689453
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 20,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.003",
+          "step": 4,
+          "value": 0.04959641769528389
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 21,
+          "type": "check",
+          "name": "updates_lr=0.003",
+          "passed": true
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 22,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "4f3df76b-b42c-4d77-ae71-0c41c5939c81",
+          "seq": 23,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "steps": 4,
+        "lr": 0.03
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:14.071Z"
+    },
+    {
+      "id": "562d5715-3971-49a7-aac4-e442290a7256",
+      "exerciseId": "L04-experiment",
+      "code": "def configure():\n    return {\"steps\":4,\"lr\":0.01}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:14.071Z",
+      "events": [
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 4,
+            "lr": 0.01
+          }
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_lr=0.01",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 3,
+          "type": "metric",
+          "name": "valid_lr=0.01",
+          "step": 0,
+          "value": 3.3142642974853516
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_lr=0.01",
+          "step": 1,
+          "value": 2.976897954940796
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 5,
+          "type": "metric",
+          "name": "valid_lr=0.01",
+          "step": 1,
+          "value": 3.1461246013641357
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_lr=0.01",
+          "step": 2,
+          "value": 2.8235318660736084
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 7,
+          "type": "metric",
+          "name": "valid_lr=0.01",
+          "step": 2,
+          "value": 2.9973621368408203
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_lr=0.01",
+          "step": 3,
+          "value": 2.6889383792877197
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 9,
+          "type": "metric",
+          "name": "valid_lr=0.01",
+          "step": 3,
+          "value": 2.865387439727783
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 10,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.01",
+          "step": 4,
+          "value": 0.15452542901039124
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 11,
+          "type": "check",
+          "name": "updates_lr=0.01",
+          "passed": true
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 12,
+          "type": "metric",
+          "name": "train_lr=0.001",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 13,
+          "type": "metric",
+          "name": "valid_lr=0.001",
+          "step": 0,
+          "value": 3.4852499961853027
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 14,
+          "type": "metric",
+          "name": "train_lr=0.001",
+          "step": 1,
+          "value": 3.134052038192749
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 15,
+          "type": "metric",
+          "name": "valid_lr=0.001",
+          "step": 1,
+          "value": 3.465888500213623
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 16,
+          "type": "metric",
+          "name": "train_lr=0.001",
+          "step": 2,
+          "value": 3.1162354946136475
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 17,
+          "type": "metric",
+          "name": "valid_lr=0.001",
+          "step": 2,
+          "value": 3.4467644691467285
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 18,
+          "type": "metric",
+          "name": "train_lr=0.001",
+          "step": 3,
+          "value": 3.098649740219116
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 19,
+          "type": "metric",
+          "name": "valid_lr=0.001",
+          "step": 3,
+          "value": 3.427872896194458
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 20,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.001",
+          "step": 4,
+          "value": 0.016856716945767403
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 21,
+          "type": "check",
+          "name": "updates_lr=0.001",
+          "passed": true
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 22,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "562d5715-3971-49a7-aac4-e442290a7256",
+          "seq": 23,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "steps": 4,
+        "lr": 0.01
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:18.470Z"
+    },
+    {
+      "id": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+      "exerciseId": "L04-experiment",
+      "code": "def configure():\n    return {\"steps\":6,\"lr\":0.03}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:18.470Z",
+      "events": [
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 6,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 3,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 0,
+          "value": 2.969209671020508
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 1,
+          "value": 2.661734104156494
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 5,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 1,
+          "value": 2.606661796569824
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 2,
+          "value": 2.3393747806549072
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 7,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 2,
+          "value": 2.3539676666259766
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 3,
+          "value": 2.1218020915985107
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 9,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 3,
+          "value": 2.173283100128174
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 10,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 4,
+          "value": 1.9714984893798828
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 11,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 4,
+          "value": 2.040956974029541
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 12,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 5,
+          "value": 1.8652716875076294
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 13,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 5,
+          "value": 1.9417299032211304
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 14,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.03",
+          "step": 6,
+          "value": 0.48974740505218506
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 15,
+          "type": "check",
+          "name": "updates_lr=0.03",
+          "passed": true
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 16,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 17,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 0,
+          "value": 3.446409225463867
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 18,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 1,
+          "value": 3.0983049869537354
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 19,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 1,
+          "value": 3.3900954723358154
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 20,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 2,
+          "value": 3.0465810298919678
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 21,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 2,
+          "value": 3.335820436477661
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 22,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 3,
+          "value": 2.9968385696411133
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 23,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 3,
+          "value": 3.283496856689453
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 24,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 4,
+          "value": 2.948991537094116
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 25,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 4,
+          "value": 3.233041763305664
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 26,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 5,
+          "value": 2.902958393096924
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 27,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 5,
+          "value": 3.184378147125244
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 28,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.003",
+          "step": 6,
+          "value": 0.07298378646373749
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 29,
+          "type": "check",
+          "name": "updates_lr=0.003",
+          "passed": true
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 30,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "c0aaa00e-58a8-4cc3-8b45-130f63e381b5",
+          "seq": 31,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "steps": 6,
+        "lr": 0.03
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:22.247Z"
+    },
+    {
+      "id": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+      "exerciseId": "L12-experiment",
+      "code": "def configure():\n    return {\"steps\":4,\"lr\":0.03}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:22.248Z",
+      "events": [
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 4,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 0,
+          "value": 3.304138422012329
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 3,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 0,
+          "value": 2.6930906772613525
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 1,
+          "value": 2.7633447647094727
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 5,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 1,
+          "value": 2.3152406215667725
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 2,
+          "value": 2.3285157680511475
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 7,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 2,
+          "value": 2.0078303813934326
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 3,
+          "value": 1.9994148015975952
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 9,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 3,
+          "value": 1.7320547103881836
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 10,
+          "type": "metric",
+          "name": "gradient_norm_squared",
+          "step": 4,
+          "value": 0.7156495189992711
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 11,
+          "type": "metric",
+          "name": "parameter_delta",
+          "step": 4,
+          "value": 4.463263034820557
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 12,
+          "type": "check",
+          "name": "training-integrity",
+          "passed": true,
+          "detail": "sample: srns st..uaelikigligun snuwon soons loos unnon s me.. harmstn srn.ittn s s laksom"
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 13,
+          "type": "check",
+          "name": "target-shift",
+          "passed": true
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 14,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "b8dbd5f9-9cd6-4403-948e-97794fedec6b",
+          "seq": 15,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "steps": 4,
+        "lr": 0.03
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:26.001Z"
+    },
+    {
+      "id": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+      "exerciseId": "L12-experiment",
+      "code": "def configure():\n    return {\"steps\":4,\"lr\":0.01}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:26.001Z",
+      "events": [
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 4,
+            "lr": 0.01
+          }
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 0,
+          "value": 3.304138422012329
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 3,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 0,
+          "value": 3.028702735900879
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 1,
+          "value": 3.085405111312866
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 5,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 1,
+          "value": 2.8433520793914795
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 2,
+          "value": 2.803236961364746
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 7,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 2,
+          "value": 2.6769819259643555
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 3,
+          "value": 2.6749370098114014
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 9,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 3,
+          "value": 2.5254709720611572
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 10,
+          "type": "metric",
+          "name": "gradient_norm_squared",
+          "step": 4,
+          "value": 0.9554266263439786
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 11,
+          "type": "metric",
+          "name": "parameter_delta",
+          "step": 4,
+          "value": 1.6887115240097046
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 12,
+          "type": "check",
+          "name": "training-integrity",
+          "passed": true,
+          "detail": "sample: sroho t..nrslikiwligun arlikwaro.nshemos urnouarorei ehwwikw wern.itwarigogehaklt"
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 13,
+          "type": "check",
+          "name": "target-shift",
+          "passed": true
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 14,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "ca18eaf6-3dc7-4975-91ef-49ed6c21d510",
+          "seq": 15,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "steps": 4,
+        "lr": 0.01
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:29.810Z"
+    },
+    {
+      "id": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+      "exerciseId": "L12-experiment",
+      "code": "def configure():\n    return {\"steps\":6,\"lr\":0.03}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:29.810Z",
+      "events": [
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 6,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 0,
+          "value": 3.304138422012329
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 3,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 0,
+          "value": 2.6930906772613525
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 1,
+          "value": 2.7633447647094727
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 5,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 1,
+          "value": 2.3152406215667725
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 2,
+          "value": 2.3285157680511475
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 7,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 2,
+          "value": 2.0078303813934326
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 3,
+          "value": 1.9994148015975952
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 9,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 3,
+          "value": 1.7320547103881836
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 10,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 4,
+          "value": 1.7248706817626953
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 11,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 4,
+          "value": 1.5088332891464233
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 12,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 5,
+          "value": 1.4615659713745117
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 13,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 5,
+          "value": 1.307666540145874
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 14,
+          "type": "metric",
+          "name": "gradient_norm_squared",
+          "step": 6,
+          "value": 0.5947793982923031
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 15,
+          "type": "metric",
+          "name": "parameter_delta",
+          "step": 6,
+          "value": 6.0002336502075195
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 16,
+          "type": "check",
+          "name": "training-integrity",
+          "passed": true,
+          "detail": "sample: s wt.un. stms li shtoneon lie sake. n s. s s warn sarme liuon soakone soon s larm"
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 17,
+          "type": "check",
+          "name": "target-shift",
+          "passed": true
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 18,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "5db01b7b-73a8-44a5-91dd-c8e1724b828a",
+          "seq": 19,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "steps": 6,
+        "lr": 0.03
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:33.606Z"
+    },
+    {
+      "id": "a60f838e-2602-4523-a28a-6417148d328a",
+      "exerciseId": "L03-experiment",
+      "code": "def configure():\n    return {}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:33.606Z",
+      "events": [
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "eps": [
+              0.1,
+              0.01,
+              0.001,
+              0.0001,
+              0.00001
+            ]
+          }
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 2,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 0,
+          "value": 0.010000000000005116
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 3,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 0,
+          "value": 0.1
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 4,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 1,
+          "value": 0.00010000000001131326
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 5,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 1,
+          "value": 0.01
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 6,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 2,
+          "value": 9.999999997650777e-7
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 7,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 2,
+          "value": 0.001
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 8,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 3,
+          "value": 9.99999417994335e-9
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 9,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 3,
+          "value": 0.0001
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 10,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 4,
+          "value": 1.468789534442294e-10
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 11,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 4,
+          "value": 0.00001
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 12,
+          "type": "check",
+          "name": "framework-gradcheck",
+          "passed": true
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 13,
+          "type": "tensor",
+          "name": "autograd",
+          "data": [
+            [
+              1.4699999999999998,
+              0.12000000000000002,
+              5.879999999999999
+            ]
+          ]
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 14,
+          "type": "check",
+          "name": "finite-difference",
+          "passed": true,
+          "detail": "For x cubed the central-difference error is eps squared; a coarse step is an observation, not a failed lesson."
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 15,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "a60f838e-2602-4523-a28a-6417148d328a",
+          "seq": 16,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "eps": [
+          0.1,
+          0.01,
+          0.001,
+          0.0001,
+          0.00001
+        ]
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:36.920Z"
+    },
+    {
+      "id": "4819b678-1180-450b-a378-1c16e6200125",
+      "exerciseId": "L05-experiment",
+      "code": "def configure():\n    return {}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:36.920Z",
+      "events": [
+        {
+          "runId": "4819b678-1180-450b-a378-1c16e6200125",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "offset": 1000,
+            "temperature": 1
+          }
+        },
+        {
+          "runId": "4819b678-1180-450b-a378-1c16e6200125",
+          "seq": 2,
+          "type": "metric",
+          "name": "naive_nonfinite",
+          "step": 0,
+          "value": 6
+        },
+        {
+          "runId": "4819b678-1180-450b-a378-1c16e6200125",
+          "seq": 3,
+          "type": "tensor",
+          "name": "stable_probabilities",
+          "data": [
+            [
+              0.09003057317038046,
+              0.24472847105479764,
+              0.6652409557748218
+            ],
+            [
+              0.21194155761708544,
+              0.21194155761708544,
+              0.5761168847658291
+            ]
+          ]
+        },
+        {
+          "runId": "4819b678-1180-450b-a378-1c16e6200125",
+          "seq": 4,
+          "type": "check",
+          "name": "normalization",
+          "passed": true
+        },
+        {
+          "runId": "4819b678-1180-450b-a378-1c16e6200125",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "4819b678-1180-450b-a378-1c16e6200125",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "offset": 1000,
+        "temperature": 1
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:39.733Z"
+    },
+    {
+      "id": "8f711394-32e1-4950-b7b8-d128967482fc",
+      "exerciseId": "L08-experiment",
+      "code": "def configure():\n    return {}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:39.733Z",
+      "events": [
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "dim": 8,
+            "scale": true
+          }
+        },
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 4,
+          "type": "tensor",
+          "name": "selected_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 5,
+          "type": "tensor",
+          "name": "selected_output",
+          "data": [
+            [
+              0.4483233572600845,
+              0.06585446284163944,
+              -0.11721849805337244,
+              -0.27912891508069587,
+              -0.38538268209010573,
+              0.1511507924207265,
+              -0.8841800372005336,
+              -0.642068191382605
+            ],
+            [
+              0.2072248286026796,
+              0.1906366310199404,
+              -0.10737021321821033,
+              -0.11378925464976342,
+              -0.30033968132728367,
+              0.13382347898023614,
+              -0.6036554128968086,
+              -0.5922674575372033
+            ],
+            [
+              0.1869991334826711,
+              0.24024842336111243,
+              -0.0858215622982566,
+              -0.0929647652657437,
+              -0.25490076864470923,
+              0.11366941680007298,
+              -0.6091971433150501,
+              -0.6286200303438868
+            ],
+            [
+              -0.09474005879276419,
+              0.33821399378474315,
+              0.05669932819353556,
+              0.12780122631370372,
+              -0.3155920832106304,
+              0.10447228813702754,
+              -0.3740261713180808,
+              -0.6263264700767468
+            ]
+          ]
+        },
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 6,
+          "type": "metric",
+          "name": "weight_entropy",
+          "step": 0,
+          "value": 1.300180092406832
+        },
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 7,
+          "type": "check",
+          "name": "normalized-finite-output",
+          "passed": true
+        },
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "8f711394-32e1-4950-b7b8-d128967482fc",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "dim": 8,
+        "scale": true
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:42.638Z"
+    },
+    {
+      "id": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+      "exerciseId": "L09-experiment",
+      "code": "def configure():\n    return {}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:42.638Z",
+      "events": [
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "perturbation": 10
+          }
+        },
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 4,
+          "type": "tensor",
+          "name": "output_change",
+          "data": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              19.41852858461774,
+              19.885519327866927,
+              19.385342227275054,
+              20.21999516342494,
+              20.10146006381614,
+              20.177915062444264,
+              21.30660069714853,
+              20.814266931895574
+            ]
+          ]
+        },
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 5,
+          "type": "metric",
+          "name": "protected_change",
+          "step": 0,
+          "value": 0
+        },
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 6,
+          "type": "metric",
+          "name": "last_position_change",
+          "step": 0,
+          "value": 21.30660069714853
+        },
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 7,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "418f8c57-a42e-46ed-afad-aa6ca819a2bf",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "perturbation": 10
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:45.359Z"
+    },
+    {
+      "id": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+      "exerciseId": "L04-experiment",
+      "code": "def configure():\n    return {}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:45.359Z",
+      "events": [
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 60,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 3,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 0,
+          "value": 2.969209671020508
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 2,
+          "value": 2.3393747806549072
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 5,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 2,
+          "value": 2.3539676666259766
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 4,
+          "value": 1.9714984893798828
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 7,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 4,
+          "value": 2.040956974029541
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 6,
+          "value": 1.7883583307266235
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 9,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 6,
+          "value": 1.8655202388763428
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 10,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 8,
+          "value": 1.6873401403427124
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 11,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 8,
+          "value": 1.7571617364883423
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 12,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 10,
+          "value": 1.624288558959961
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 13,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 10,
+          "value": 1.6833209991455078
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 14,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 12,
+          "value": 1.5792969465255737
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 15,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 12,
+          "value": 1.6281521320343018
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 16,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 14,
+          "value": 1.5431395769119263
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 17,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 14,
+          "value": 1.583597183227539
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 18,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 16,
+          "value": 1.5114548206329346
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 19,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 16,
+          "value": 1.5453760623931885
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 20,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 18,
+          "value": 1.4821438789367676
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 21,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 18,
+          "value": 1.5111103057861328
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 22,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 20,
+          "value": 1.4541714191436768
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 23,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 20,
+          "value": 1.4794154167175293
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 24,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 22,
+          "value": 1.4270085096359253
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 25,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 22,
+          "value": 1.4494448900222778
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 26,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 24,
+          "value": 1.4003700017929077
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 27,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 24,
+          "value": 1.4206585884094238
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 28,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 26,
+          "value": 1.3740899562835693
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 29,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 26,
+          "value": 1.3926975727081299
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 30,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 28,
+          "value": 1.3480627536773682
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 31,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 28,
+          "value": 1.3653154373168945
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 32,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 30,
+          "value": 1.3222153186798096
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 33,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 30,
+          "value": 1.3383378982543945
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 34,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 32,
+          "value": 1.2964935302734375
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 35,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 32,
+          "value": 1.3116406202316284
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 36,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 34,
+          "value": 1.270855188369751
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 37,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 34,
+          "value": 1.2851319313049316
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 38,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 36,
+          "value": 1.245267629623413
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 39,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 36,
+          "value": 1.2587463855743408
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 40,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 38,
+          "value": 1.2197057008743286
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 41,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 38,
+          "value": 1.2324362993240356
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 42,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 40,
+          "value": 1.194150447845459
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 43,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 40,
+          "value": 1.2061681747436523
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 44,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 42,
+          "value": 1.1685891151428223
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 45,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 42,
+          "value": 1.1799204349517822
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 46,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 44,
+          "value": 1.1430144309997559
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 47,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 44,
+          "value": 1.1536800861358643
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 48,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 46,
+          "value": 1.1174238920211792
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 49,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 46,
+          "value": 1.1274423599243164
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 50,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 48,
+          "value": 1.091820240020752
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 51,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 48,
+          "value": 1.1012084484100342
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 52,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 50,
+          "value": 1.0662102699279785
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 53,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 50,
+          "value": 1.0749857425689697
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 54,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 52,
+          "value": 1.0406049489974976
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 55,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 52,
+          "value": 1.048785924911499
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 56,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 54,
+          "value": 1.0150187015533447
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 57,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 54,
+          "value": 1.0226256847381592
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 58,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 56,
+          "value": 0.9894696474075317
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 59,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 56,
+          "value": 0.9965241551399231
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 60,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 58,
+          "value": 0.9639785885810852
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 61,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 58,
+          "value": 0.9705045819282532
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 62,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 59,
+          "value": 0.9512620568275452
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 63,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 59,
+          "value": 0.9575332403182983
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 64,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.03",
+          "step": 60,
+          "value": 1.3588345050811768
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 65,
+          "type": "check",
+          "name": "updates_lr=0.03",
+          "passed": true
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 66,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 67,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 0,
+          "value": 3.446409225463867
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 68,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 2,
+          "value": 3.0465810298919678
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 69,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 2,
+          "value": 3.335820436477661
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 70,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 4,
+          "value": 2.948991537094116
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 71,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 4,
+          "value": 3.233041763305664
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 72,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 6,
+          "value": 2.8586604595184326
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 73,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 6,
+          "value": 3.137430429458618
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 74,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 8,
+          "value": 2.774977684020996
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 75,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 8,
+          "value": 3.0484044551849365
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 76,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 10,
+          "value": 2.697392225265503
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 77,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 10,
+          "value": 2.9654362201690674
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 78,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 12,
+          "value": 2.6254055500030518
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 79,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 12,
+          "value": 2.888047218322754
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 80,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 14,
+          "value": 2.558562755584717
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 81,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 14,
+          "value": 2.8158013820648193
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 82,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 16,
+          "value": 2.4964513778686523
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 83,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 16,
+          "value": 2.7483010292053223
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 84,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 18,
+          "value": 2.4386961460113525
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 85,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 18,
+          "value": 2.685184955596924
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 86,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 20,
+          "value": 2.384953022003174
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 87,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 20,
+          "value": 2.626119613647461
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 88,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 22,
+          "value": 2.334909200668335
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 89,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 22,
+          "value": 2.570803642272949
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 90,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 24,
+          "value": 2.2882795333862305
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 91,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 24,
+          "value": 2.518958568572998
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 92,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 26,
+          "value": 2.244799852371216
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 93,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 26,
+          "value": 2.470329761505127
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 94,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 28,
+          "value": 2.2042312622070312
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 95,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 28,
+          "value": 2.4246835708618164
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 96,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 30,
+          "value": 2.166353464126587
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 97,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 30,
+          "value": 2.3818039894104004
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 98,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 32,
+          "value": 2.1309633255004883
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 99,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 32,
+          "value": 2.34149432182312
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 100,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 34,
+          "value": 2.0978753566741943
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 101,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 34,
+          "value": 2.3035714626312256
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 102,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 36,
+          "value": 2.0669190883636475
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 103,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 36,
+          "value": 2.2678675651550293
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 104,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 38,
+          "value": 2.037936210632324
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 105,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 38,
+          "value": 2.2342276573181152
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 106,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 40,
+          "value": 2.010782480239868
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 107,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 40,
+          "value": 2.2025084495544434
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 108,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 42,
+          "value": 1.9853241443634033
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 109,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 42,
+          "value": 2.1725776195526123
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 110,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 44,
+          "value": 1.9614375829696655
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 111,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 44,
+          "value": 2.144313335418701
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 112,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 46,
+          "value": 1.9390093088150024
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 113,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 46,
+          "value": 2.1176018714904785
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 114,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 48,
+          "value": 1.917934536933899
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 115,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 48,
+          "value": 2.092339038848877
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 116,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 50,
+          "value": 1.898115873336792
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 117,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 50,
+          "value": 2.068427085876465
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 118,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 52,
+          "value": 1.8794634342193604
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 119,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 52,
+          "value": 2.045776844024658
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 120,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 54,
+          "value": 1.8618948459625244
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 121,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 54,
+          "value": 2.024304151535034
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 122,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 56,
+          "value": 1.8453330993652344
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 123,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 56,
+          "value": 2.003931999206543
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 124,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 58,
+          "value": 1.8297067880630493
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 125,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 58,
+          "value": 1.984588384628296
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 126,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 59,
+          "value": 1.8222236633300781
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 127,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 59,
+          "value": 1.9752814769744873
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 128,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.003",
+          "step": 60,
+          "value": 0.4691202938556671
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 129,
+          "type": "check",
+          "name": "updates_lr=0.003",
+          "passed": true
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 130,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "0bfc2ec1-75bf-4c84-bf26-296821e0ebc2",
+          "seq": 131,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "steps": 60,
+        "lr": 0.03
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:49.160Z"
+    },
+    {
+      "id": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+      "exerciseId": "L12-experiment",
+      "code": "def configure():\n    return {}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "completed",
+      "check_status": "passed",
+      "createdAt": "2026-11-02T08:51:49.161Z",
+      "events": [
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 60,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 0,
+          "value": 3.304138422012329
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 3,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 0,
+          "value": 2.6930906772613525
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 2,
+          "value": 2.3285157680511475
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 5,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 2,
+          "value": 2.0078303813934326
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 4,
+          "value": 1.7248706817626953
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 7,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 4,
+          "value": 1.5088332891464233
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 6,
+          "value": 1.3388843536376953
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 9,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 6,
+          "value": 1.14697265625
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 10,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 8,
+          "value": 1.0206166505813599
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 11,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 8,
+          "value": 0.9619009494781494
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 12,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 10,
+          "value": 0.909911572933197
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 13,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 10,
+          "value": 0.8627088665962219
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 14,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 12,
+          "value": 0.6817183494567871
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 15,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 12,
+          "value": 0.8944954872131348
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 16,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 14,
+          "value": 0.6715960502624512
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 17,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 14,
+          "value": 0.8556945323944092
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 18,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 16,
+          "value": 0.5574632287025452
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 19,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 16,
+          "value": 0.831400454044342
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 20,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 18,
+          "value": 0.4553600251674652
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 21,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 18,
+          "value": 0.9960300326347351
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 22,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 20,
+          "value": 0.36779311299324036
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 23,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 20,
+          "value": 1.1038085222244263
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 24,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 22,
+          "value": 0.3430817425251007
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 25,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 22,
+          "value": 1.1566087007522583
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 26,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 24,
+          "value": 0.3946414887905121
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 27,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 24,
+          "value": 1.096076488494873
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 28,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 26,
+          "value": 0.35614898800849915
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 29,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 26,
+          "value": 1.0392519235610962
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 30,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 28,
+          "value": 0.31812646985054016
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 31,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 28,
+          "value": 1.0659719705581665
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 32,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 30,
+          "value": 0.28138014674186707
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 33,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 30,
+          "value": 1.0924025774002075
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 34,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 32,
+          "value": 0.29145950078964233
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 35,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 32,
+          "value": 1.1259533166885376
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 36,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 34,
+          "value": 0.2249799370765686
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 37,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 34,
+          "value": 1.0912338495254517
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 38,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 36,
+          "value": 0.2792080342769623
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 39,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 36,
+          "value": 1.118233323097229
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 40,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 38,
+          "value": 0.21617962419986725
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 41,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 38,
+          "value": 1.0345650911331177
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 42,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 40,
+          "value": 0.1903652548789978
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 43,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 40,
+          "value": 1.100262999534607
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 44,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 42,
+          "value": 0.22627319395542145
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 45,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 42,
+          "value": 1.0540567636489868
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 46,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 44,
+          "value": 0.19893516600131989
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 47,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 44,
+          "value": 1.0805810689926147
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 48,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 46,
+          "value": 0.1948288530111313
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 49,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 46,
+          "value": 1.0619571208953857
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 50,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 48,
+          "value": 0.14331677556037903
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 51,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 48,
+          "value": 1.0984183549880981
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 52,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 50,
+          "value": 0.20784802734851837
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 53,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 50,
+          "value": 1.1475886106491089
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 54,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 52,
+          "value": 0.18541449308395386
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 55,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 52,
+          "value": 1.1622575521469116
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 56,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 54,
+          "value": 0.20111805200576782
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 57,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 54,
+          "value": 1.2169299125671387
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 58,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 56,
+          "value": 0.14474916458129883
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 59,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 56,
+          "value": 1.2108750343322754
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 60,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 58,
+          "value": 0.13627402484416962
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 61,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 58,
+          "value": 1.202370524406433
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 62,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 59,
+          "value": 0.1766899675130844
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 63,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 59,
+          "value": 1.211256504058838
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 64,
+          "type": "metric",
+          "name": "gradient_norm_squared",
+          "step": 60,
+          "value": 0.3783066514879465
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 65,
+          "type": "metric",
+          "name": "parameter_delta",
+          "step": 60,
+          "value": 15.8893461227417
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 66,
+          "type": "check",
+          "name": "training-integrity",
+          "passed": true,
+          "detail": "sample: s sun warms ston lights lake. sun warms stone. mooon lights lake. sun warms stone"
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 67,
+          "type": "check",
+          "name": "target-shift",
+          "passed": true
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 68,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "794067cf-3160-4ee1-8f34-6942ef0018e5",
+          "seq": 69,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "",
+      "help": "none",
+      "effectiveConfig": {
+        "steps": 60,
+        "lr": 0.03
+      },
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:51:53.072Z"
+    },
+    {
+      "id": "59b0c630-84b9-488c-916c-b90256d7f257",
+      "exerciseId": "L03-experiment",
+      "code": "def configure():\n    return {\"eps\":[]}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:51:53.072Z",
+      "events": [
+        {
+          "runId": "59b0c630-84b9-488c-916c-b90256d7f257",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "59b0c630-84b9-488c-916c-b90256d7f257",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 377, in configuration\n    raise ValueError(\"eps must contain 1..12 finite numbers in [1e-7, 0.2]\")\nValueError: eps must contain 1..12 finite numbers in [1e-7, 0.2]\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:51:55.771Z"
+    },
+    {
+      "id": "4228c3b6-2bb3-40f3-b9dd-34b7c33433cb",
+      "exerciseId": "L03-experiment",
+      "code": "def configure():\n    return {\"eps\":[True]}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:51:55.771Z",
+      "events": [
+        {
+          "runId": "4228c3b6-2bb3-40f3-b9dd-34b7c33433cb",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "4228c3b6-2bb3-40f3-b9dd-34b7c33433cb",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 377, in configuration\n    raise ValueError(\"eps must contain 1..12 finite numbers in [1e-7, 0.2]\")\nValueError: eps must contain 1..12 finite numbers in [1e-7, 0.2]\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:51:58.468Z"
+    },
+    {
+      "id": "7f056107-2f5a-4b6b-8f52-884a2cce279d",
+      "exerciseId": "L05-experiment",
+      "code": "def configure():\n    return {\"temperature\":0}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:51:58.468Z",
+      "events": [
+        {
+          "runId": "7f056107-2f5a-4b6b-8f52-884a2cce279d",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "7f056107-2f5a-4b6b-8f52-884a2cce279d",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 380, in configuration\n    number(\"temperature\", 0.1, 10)\n  File \"/runtime/controller.py\", line 361, in number\n    raise ValueError(\nValueError: temperature must be a finite number in [0.1, 10]\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:52:01.055Z"
+    },
+    {
+      "id": "6b1949ab-53f7-4942-aa8c-5f2a37139055",
+      "exerciseId": "L05-experiment",
+      "code": "def configure():\n    return {\"lr\":0.03}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:52:01.055Z",
+      "events": [
+        {
+          "runId": "6b1949ab-53f7-4942-aa8c-5f2a37139055",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "6b1949ab-53f7-4942-aa8c-5f2a37139055",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 350, in configuration\n    raise ValueError(\"unknown configuration keys: \" + \", \".join(sorted(unknown)))\nValueError: unknown configuration keys: lr\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:52:03.854Z"
+    },
+    {
+      "id": "1e503a6c-56ce-474f-8602-c5deb99bb5c5",
+      "exerciseId": "L08-experiment",
+      "code": "def configure():\n    return {\"dim\":3.5}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:52:03.854Z",
+      "events": [
+        {
+          "runId": "1e503a6c-56ce-474f-8602-c5deb99bb5c5",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "1e503a6c-56ce-474f-8602-c5deb99bb5c5",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 382, in configuration\n    number(\"dim\", 2, 64, integer=True)\n  File \"/runtime/controller.py\", line 361, in number\n    raise ValueError(\nValueError: dim must be a finite integer in [2, 64]\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:52:06.493Z"
+    },
+    {
+      "id": "a134d87d-c165-4733-9974-eeb5b6f2d722",
+      "exerciseId": "L08-experiment",
+      "code": "def configure():\n    return {\"scale\":1}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:52:06.493Z",
+      "events": [
+        {
+          "runId": "a134d87d-c165-4733-9974-eeb5b6f2d722",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "a134d87d-c165-4733-9974-eeb5b6f2d722",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 384, in configuration\n    raise ValueError(\"scale must be boolean\")\nValueError: scale must be boolean\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:52:09.141Z"
+    },
+    {
+      "id": "7ca1a3a2-6159-407b-afde-fbf3c48f4cd6",
+      "exerciseId": "L09-experiment",
+      "code": "def configure():\n    return {\"perturbation\":-1}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:52:09.141Z",
+      "events": [
+        {
+          "runId": "7ca1a3a2-6159-407b-afde-fbf3c48f4cd6",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "7ca1a3a2-6159-407b-afde-fbf3c48f4cd6",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 386, in configuration\n    number(\"perturbation\", 0, 100)\n  File \"/runtime/controller.py\", line 361, in number\n    raise ValueError(\nValueError: perturbation must be a finite number in [0, 100]\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:52:11.674Z"
+    },
+    {
+      "id": "e03d1c55-e3ff-498b-a768-ce703eb2ed8f",
+      "exerciseId": "L04-experiment",
+      "code": "def configure():\n    return {\"steps\":True}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:52:11.674Z",
+      "events": [
+        {
+          "runId": "e03d1c55-e3ff-498b-a768-ce703eb2ed8f",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e03d1c55-e3ff-498b-a768-ce703eb2ed8f",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 388, in configuration\n    number(\"steps\", 1, 200, integer=True)\n  File \"/runtime/controller.py\", line 361, in number\n    raise ValueError(\nValueError: steps must be a finite integer in [1, 200]\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:52:14.248Z"
+    },
+    {
+      "id": "a13d2d87-002a-44a0-a8c9-66c1920a6f84",
+      "exerciseId": "L12-experiment",
+      "code": "def configure():\n    return {\"lr\":2}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:52:14.248Z",
+      "events": [
+        {
+          "runId": "a13d2d87-002a-44a0-a8c9-66c1920a6f84",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "a13d2d87-002a-44a0-a8c9-66c1920a6f84",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 389, in configuration\n    number(\"lr\", 0.0001, 1)\n  File \"/runtime/controller.py\", line 361, in number\n    raise ValueError(\nValueError: lr must be a finite number in [0.0001, 1]\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "reason": "Controller exit 1; completion=false",
+      "finishedAt": "2026-11-02T08:52:16.897Z"
+    },
+    {
+      "id": "1c77617f-522a-4eb6-9189-0b2c8fb5aaa9",
+      "exerciseId": "L03-experiment",
+      "code": "def configure():\n    return {\"eps\": [float(\"nan\")]}\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:50:40.135Z",
+      "events": [
+        {
+          "runId": "1c77617f-522a-4eb6-9189-0b2c8fb5aaa9",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "1c77617f-522a-4eb6-9189-0b2c8fb5aaa9",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "[student stderr] Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bsba0sxv/student.py\", line 149, in <module>\n    print(json.dumps(result, default=default, allow_nan=False))\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/__init__.py\", line 238, in dumps\n    **kw).encode(obj)\n          ^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 200, in encode\n    chunks = self.iterencode(o, _one_shot=True)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 258, in iterencode\n    return _iterencode(o, 0)\n           ^^^^^^^^^^^^^^^^^\nValueError: Out of range float values are not JSON compliant: nan\n\nTraceback (most recent call last):\n  File \"/runtime/controller.py\", line 632, in <module>\n    experiment()\n  File \"/runtime/controller.py\", line 395, in experiment\n    cfg = configuration()\n          ^^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 345, in configuration\n    supplied = call([], True)\n               ^^^^^^^^^^^^^^\n  File \"/runtime/controller.py\", line 118, in call\n    raise RuntimeError(\nRuntimeError: Traceback (most recent call last):\n  File \"/tmp/neural-lab-student-bsba0sxv/student.py\", line 149, in <module>\n    print(json.dumps(result, default=default, allow_nan=False))\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/__init__.py\", line 238, in dumps\n    **kw).encode(obj)\n          ^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 200, in encode\n    chunks = self.iterencode(o, _one_shot=True)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/json/encoder.py\", line 258, in iterencode\n    return _iterencode(o, 0)\n           ^^^^^^^^^^^^^^^^^\nValueError: Out of range float values are not JSON compliant: nan\n\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:52:19.576Z",
+      "reason": "Controller exit 1; completion=false"
+    },
+    {
+      "id": "346d8b2b-4dec-4899-9005-cc9b2a3b4b9f",
+      "exerciseId": "L03-experiment",
+      "code": "def solve(x):\n    return [x[:-1], x[1:]]\n",
+      "contentVersion": "0.2.1",
+      "testVersion": "3",
+      "seed": 42,
+      "config": {
+        "seed": 42
+      },
+      "environment": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+      "run_status": "failed",
+      "check_status": "not_run",
+      "createdAt": "2026-11-02T08:50:40.135Z",
+      "events": [
+        {
+          "runId": "346d8b2b-4dec-4899-9005-cc9b2a3b4b9f",
+          "seq": 1,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "346d8b2b-4dec-4899-9005-cc9b2a3b4b9f",
+          "seq": 2,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": "Traceback (most recent call last):\n  File \"/runtime/controller.py\", line 630, in <module>\n    code_cases()\n  File \"/runtime/controller.py\", line 268, in code_cases\n    raise ValueError(f\"unknown code key: {key}\")\nValueError: unknown code key: code99\n",
+      "help": "none",
+      "requestedImage": "dsh-neural-lab-cpu:0.1",
+      "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "finishedAt": "2026-11-02T08:52:22.016Z",
+      "reason": "Controller exit 1; completion=false"
+    }
+  ]
+}

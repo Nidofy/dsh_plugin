@@ -1,0 +1,1198 @@
+{
+  "id": "neural-lab",
+  "version": "0.2.1",
+  "lessons": [
+    {
+      "id": "L01",
+      "title": "张量与广播",
+      "kind": "practice",
+      "prerequisites": [],
+      "objectives": [
+        "批量线性映射",
+        "解释 XW+b",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n矩阵乘法只消去最后一个输入维度。广播从右向左比较，维度必须相同或为1。逐批相乘不会混合样本。\n\n## 数学与维度\n$$XW+b$$\n\n## 动手推导\nx:[B,T,D]，w:[D,O]，b:[O]；返回 x@w+b。\n\n## 具体例子\n令 X=[[1,2],[3,4]]，W=[[1],[2]]，b=[1]。输出为 [[6],[12]]。把两张这样的矩阵堆叠成 batch 后，各批结果应相同；改变第二批不应改变第一批。先预测输出再运行。\n\n## 手算检查\n[2,3,4] @ [4,5] + [5] 的结果有多少个标量？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n矩阵乘法只消去最后一个输入维度。广播从右向左比较，维度必须相同或为1。逐批相乘不会混合样本。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "矩阵乘法只消去最后一个输入维度。广播从右向左比较，维度必须相同或为1。逐批相乘不会混合样本。",
+      "exercises": [
+        {
+          "id": "L01-code",
+          "lessonId": "L01",
+          "title": "批量线性映射",
+          "kind": "code",
+          "prompt": "x:[B,T,D]，w:[D,O]，b:[O]；返回 x@w+b。",
+          "starter": "import numpy as np\ndef solve(x,w,b):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(x,w,b):\n    return np.asarray(x) @ np.asarray(w) + np.asarray(b)\n",
+          "hints": [
+            "先写 X:[B,T,D]、W:[D,O]、b:[O]，找出需要消去的轴。",
+            "使用矩阵乘法收缩 D；偏置沿最右侧 O 轴广播。不要展平 B 或 T。",
+            "先用 np.asarray 转换输入；算 x @ w，再加 b，并检查输出 shape。"
+          ],
+          "concepts": [
+            "L01"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code01",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "把 batch 和特征合并，造成跨样本混合",
+            "用 reshape 代替交换轴",
+            "偏置沿时间轴而非输出特征轴广播"
+          ]
+        },
+        {
+          "id": "L01-check",
+          "lessonId": "L01",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "[2,3,4] @ [4,5] + [5] 的结果有多少个标量？",
+          "starter": "",
+          "reference": "30",
+          "answer": "30",
+          "hints": [
+            "乘法先消去相邻的4维，剩余batch、时间、输出特征。",
+            "结果shape为[2,3,5]，不是[2,3,4,5]。",
+            "标量总数是2×3×5；不要把两个输入张量的元素数量相乘。"
+          ],
+          "concepts": [
+            "L01"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "保留了已收缩的维度4",
+            "只计算单个batch的元素数"
+          ]
+        },
+        {
+          "id": "L01-debug",
+          "lessonId": "L01",
+          "title": "排错：批量线性层串扰",
+          "kind": "code",
+          "prompt": "下面的实现将所有批次和时间位置压成一个平均向量，再广播回去，丢失每个样本的信息。请定位错误，修复为逐token线性变换 x@w+b。输入x:[B,T,D]。用两个不同批次构造反例，并在笔记记录为何第一批不应受到第二批影响。",
+          "starter": "import numpy as np\ndef solve(x,w,b):\n    x=np.asarray(x)\n    mixed=x.mean(axis=(0,1))@np.asarray(w)+np.asarray(b)\n    return np.broadcast_to(mixed,(*x.shape[:2],len(b)))\n",
+          "reference": "import numpy as np\ndef solve(x,w,b):\n    return np.asarray(x) @ np.asarray(w) + np.asarray(b)\n",
+          "hints": [
+            "先令两个批次的输入完全不同，看它们是否得到相同输出。",
+            "错误发生在mean(axis=(0,1))，它混合了batch和时间轴。",
+            "矩阵乘法本身支持前导批量轴，不需要先压平或求平均。"
+          ],
+          "concepts": [
+            "L01"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code01",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "把batch维当可聚合的特征维",
+            "只修复shape但继续广播相同数值"
+          ],
+          "evidenceKind": "debugging"
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L02",
+      "title": "链式法则",
+      "kind": "concept",
+      "prerequisites": [
+        "L01"
+      ],
+      "objectives": [
+        "标量计算图反向",
+        "解释 df/da=2(ab+c)b",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n将复合函数拆成节点 u=ab+c 和 f=u²。反向传播将上游梯度乘局部导数；同一变量的多条路径贡献相加。\n\n## 数学与维度\n$$df/da=2(ab+c)b$$\n\n## 动手推导\n返回 f=(a*b+c)^2 对 a,b,c 的三个导数。\n\n## 具体例子\na=2,b=3,c=1：u=7，f=49。反向种子 df/df=1，df/du=14，所以对 a,b,c 分别为42、28、14。若 a 同时出现在另一条支路，必须加上该支路的贡献。\n\n## 手算检查\na=2,b=3,c=1 时 df/da 是多少？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n将复合函数拆成节点 u=ab+c 和 f=u²。反向传播将上游梯度乘局部导数；同一变量的多条路径贡献相加。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "将复合函数拆成节点 u=ab+c 和 f=u²。反向传播将上游梯度乘局部导数；同一变量的多条路径贡献相加。",
+      "exercises": [
+        {
+          "id": "L02-code",
+          "lessonId": "L02",
+          "title": "标量计算图反向",
+          "kind": "code",
+          "prompt": "返回 f=(a*b+c)^2 对 a,b,c 的三个导数。",
+          "starter": "import numpy as np\ndef solve(a,b,c):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(a,b,c):\n    u=a*b+c\n    return [2*u*b,2*u*a,2*u]\n",
+          "hints": [
+            "给中间量 ab+c 命名为 u，先求 f 对 u 的导数。",
+            "把上游 2u 分别乘 u 对 a、b、c 的局部导数。",
+            "返回顺序是 a、b、c；三项分别含 b、a、1。"
+          ],
+          "concepts": [
+            "L02"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code02",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "遗漏外层平方产生的 2u",
+            "交换 a 与 b 的局部导数",
+            "共享节点的梯度被赋值覆盖而非累加"
+          ]
+        },
+        {
+          "id": "L02-check",
+          "lessonId": "L02",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "a=2,b=3,c=1 时 df/da 是多少？",
+          "starter": "",
+          "reference": "42",
+          "answer": "42",
+          "hints": [
+            "先计算中间节点u=ab+c，再求平方的局部导数。",
+            "df/da=(2u)×b，c是常数项。",
+            "代入u=7、b=3，乘14与3。"
+          ],
+          "concepts": [
+            "L02"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "遗漏乘法节点对a的局部导数b",
+            "把函数值49当作导数"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L03",
+      "title": "自动微分",
+      "kind": "experiment",
+      "prerequisites": [
+        "L02"
+      ],
+      "objectives": [
+        "有限差分梯度",
+        "解释 g_i ≈ (f(x+εe_i)-f(x-εe_i))/(2ε)",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n中心差分比较两侧函数值。步长太大截断误差增加，太小舍入误差增加。autograd 保存计算图并应用链式法则；连续 backward 默认累积到叶子 .grad，训练需清零。\n\n## 数学与维度\n$$g_i ≈ (f(x+εe_i)-f(x-εe_i))/(2ε)$$\n\n## 动手推导\n对 sum(x**3) 计算中心差分梯度，eps=1e-5。\n\n## 具体例子\nf(x)=x³，x=2：精确导数12。中心差分步长0.1得到12.01，步长0.01得到12.0001。float64适合校验；float32在很小步长时可能产生严重抵消。训练时错误地 detach 会断开图，数值差分仍非零而自动梯度消失。\n\n## 手算检查\nx=2 时 x³ 的导数是多少？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n中心差分比较两侧函数值。步长太大截断误差增加，太小舍入误差增加。autograd 保存计算图并应用链式法则；连续 backward 默认累积到叶子 .grad，训练需清零。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "中心差分比较两侧函数值。步长太大截断误差增加，太小舍入误差增加。autograd 保存计算图并应用链式法则；连续 backward 默认累积到叶子 .grad，训练需清零。",
+      "exercises": [
+        {
+          "id": "L03-code",
+          "lessonId": "L03",
+          "title": "有限差分梯度",
+          "kind": "code",
+          "prompt": "对 sum(x**3) 计算中心差分梯度，eps=1e-5。",
+          "starter": "import numpy as np\ndef solve(x):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(x):\n    x=np.asarray(x,dtype=float)\n    return ((x+1e-5)**3-(x-1e-5)**3)/(2e-5)\n",
+          "hints": [
+            "中心差分需要函数在 x+epsilon 与 x-epsilon 两侧的值。",
+            "本题函数逐元素可分离，可对每个三次方直接应用中心差分。",
+            "使用 float64，分母为 2*epsilon；不是仅除 epsilon。"
+          ],
+          "concepts": [
+            "L03"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code03",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "中心差分分母遗漏2",
+            "用过小步长和float32产生舍入误差",
+            "把detach后的数值当作仍可反传的张量"
+          ]
+        },
+        {
+          "id": "L03-check",
+          "lessonId": "L03",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "x=2 时 x³ 的导数是多少？",
+          "starter": "",
+          "reference": "12",
+          "answer": "12",
+          "hints": [
+            "幂函数x³的导数为3x²。",
+            "将x=2代入导数，而不是代入原函数。",
+            "先算2²，再乘3。"
+          ],
+          "concepts": [
+            "L03"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "返回x³的函数值8",
+            "误用2x作为三次幂导数"
+          ]
+        },
+        {
+          "id": "L03-experiment",
+          "lessonId": "L03",
+          "title": "梯度对照",
+          "kind": "experiment",
+          "prompt": "梯度对照：eps是1..12个有限步长组成的列表，每项1e-7..0.2。比较误差与eps²；较粗步长产生较大误差是教学观察，不作为失败阈值。 数据为本地合成/原创；默认资源为1 CPU、1GB、120秒。实际配置随运行记录保存。运行完成不代表解释已经掌握。",
+          "starter": "def configure():\n    return {'eps': [0.1, 0.01, 0.001, 0.0001, 1e-05]}\n",
+          "reference": "def configure():\n    return {'eps': [0.1, 0.01, 0.001, 0.0001, 1e-05]}\n",
+          "hints": [
+            "先只保留eps=[0.1,0.01]，预测误差比例。",
+            "中心差分对x³的误差恰为eps²，步长缩小10倍应使截断误差约缩小100倍。",
+            "再试1e-7与1e-5，观察舍入误差与截断误差的竞争。"
+          ],
+          "concepts": [
+            "L03"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "grad",
+          "inputDomain": "eps是1..12个有限步长组成的列表，每项1e-7..0.2。比较误差与eps²；较粗步长产生较大误差是教学观察，不作为失败阈值。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
+          "commonErrors": [
+            "修改无关lr而没有改变差分步长",
+            "步长接近机器精度导致抵消误差",
+            "认为所有步长都必须达到同一绝对误差阈值"
+          ]
+        },
+        {
+          "id": "L03-advanced",
+          "lessonId": "L03",
+          "title": "Autograd 与梯度累积",
+          "kind": "code",
+          "prompt": "输入x，创建float64 requires_grad张量，连续两次对sum(x³) backward（重新构图），返回累积梯度。",
+          "starter": "import numpy as np\nimport torch\ndef solve(x):\n    raise NotImplementedError(\"完成实现\")\n",
+          "reference": "import numpy as np\nimport torch\ndef solve(x):\n    x=torch.tensor(x,dtype=torch.float64,requires_grad=True)\n    (x**3).sum().backward()\n    (x**3).sum().backward()\n    return x.grad\n",
+          "hints": [
+            "叶子张量.grad是累加缓冲区，两次backward不是覆盖。",
+            "每次重新计算sum(x³)，避免第一次backward后图已释放。",
+            "两次贡献都是3x²，所以返回6x²；不要zero_grad或detach。"
+          ],
+          "concepts": [
+            "L03"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code13",
+          "inputDomain": "有限非空输入；float64；atol=1e-6 rtol=1e-5。NaN/Inf和空尺寸不属于题目输入域。",
+          "commonErrors": [
+            "第二次backward前清零导致只有3x²",
+            "复用已释放的图而不重新前向",
+            "detach导致梯度断路"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L04",
+      "title": "线性层与 MLP",
+      "kind": "experiment",
+      "prerequisites": [
+        "L03"
+      ],
+      "objectives": [
+        "带非线性的两层网络",
+        "解释 h=max(0,XW₁+b₁), y=hW₂+b₂",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n两层线性变换仍是线性变换；非线性让网络能表示折线边界。ReLU 的负半轴为零，在零点不做有限差分检查。隐藏维 H 控制特征数量。\n\n## 数学与维度\n$$h=max(0,XW₁+b₁), y=hW₂+b₂$$\n\n## 动手推导\n返回 relu(x@w1+b1)@w2+b2。\n\n## 具体例子\nx=[-1,2]，第一层取单位矩阵、零偏置，ReLU给出[0,2]，第二层全1列向量得到2。若不加激活则得到1。回归实验用 y=x²，验证点每隔4点留出，训练点从未用于验证指标。\n\n## 手算检查\n为什么删除 ReLU 后多层网络仍无法表达 XOR？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n两层线性变换仍是线性变换；非线性让网络能表示折线边界。ReLU 的负半轴为零，在零点不做有限差分检查。隐藏维 H 控制特征数量。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "两层线性变换仍是线性变换；非线性让网络能表示折线边界。ReLU 的负半轴为零，在零点不做有限差分检查。隐藏维 H 控制特征数量。",
+      "exercises": [
+        {
+          "id": "L04-code",
+          "lessonId": "L04",
+          "title": "带非线性的两层网络",
+          "kind": "code",
+          "prompt": "返回 relu(x@w1+b1)@w2+b2。",
+          "starter": "import numpy as np\ndef solve(x,w1,b1,w2,b2):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(x,w1,b1,w2,b2):\n    return np.maximum(0,np.asarray(x)@np.asarray(w1)+b1)@np.asarray(w2)+b2\n",
+          "hints": [
+            "先完成第一层线性变换，并确认输出最后一维为 H。",
+            "ReLU 在两个线性层之间，不能应用在最后输出代替隐藏激活。",
+            "使用 np.maximum(0, hidden)；负输入的手算例能发现遗漏激活。"
+          ],
+          "concepts": [
+            "L04"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code04",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "遗漏隐藏激活",
+            "把ReLU放在输出端",
+            "将验证集用于参数更新"
+          ]
+        },
+        {
+          "id": "L04-check",
+          "lessonId": "L04",
+          "title": "预测与解释",
+          "kind": "explanation",
+          "prompt": "为什么删除 ReLU 后多层网络仍无法表达 XOR？",
+          "starter": "",
+          "reference": "两层线性变换仍是线性变换；非线性让网络能表示折线边界。ReLU 的负半轴为零，在零点不做有限差分检查。隐藏维 H 控制特征数量。",
+          "answer": "",
+          "hints": [
+            "把两层无激活网络展开成一个仿射表达式。",
+            "W₂(W₁x+b₁)+b₂仍可写为Ax+b。",
+            "用XOR四点解释为何单个线性边界无法将两类分开。"
+          ],
+          "concepts": [
+            "L04"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "误以为增加线性层就引入非线性",
+            "只说网络太小，没有说明线性可分性"
+          ]
+        },
+        {
+          "id": "L04-experiment",
+          "lessonId": "L04",
+          "title": "MLP 学习率对照",
+          "kind": "experiment",
+          "prompt": "MLP 学习率对照：steps为1..200的整数，lr为0.0001..1。实验实际比较lr和lr/10两条学习率的训练/验证轨迹。 数据为本地合成/原创；默认资源为1 CPU、1GB、120秒。实际配置随运行记录保存。运行完成不代表解释已经掌握。",
+          "starter": "def configure():\n    return {'steps': 60, 'lr': 0.03}\n",
+          "reference": "def configure():\n    return {'steps': 60, 'lr': 0.03}\n",
+          "hints": [
+            "固定seed，只修改lr比较两组训练/验证曲线。",
+            "保持lr不变增加steps，观察验证是否仍同步改善。",
+            "利用parameter_delta和updates检查确认参数真的变化，不能只看loss字段。"
+          ],
+          "concepts": [
+            "L04"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "mlp",
+          "inputDomain": "steps为1..200的整数，lr为0.0001..1。实验实际比较lr和lr/10两条学习率的训练/验证轨迹。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
+          "commonErrors": [
+            "把代码中的lr误当成界面覆盖值",
+            "只比较训练loss而忽略验证",
+            "将一次loss阈值当成理解优化的证明"
+          ]
+        },
+        {
+          "id": "L04-train",
+          "lessonId": "L04",
+          "title": "亲手训练 MLP / Train an MLP",
+          "kind": "code",
+          "runtimeKey": "train-mlp-v1",
+          "prompt": "先预测学习率或梯度累积如何影响训练。实现 train_step 和 validate，返回本批次均方误差标量。提供 2→4→1 Tanh 模型、SGD 和 (x,y) 批次，连续训练八步后在独立验证集检查。用相同 seed 改变学习率，比对曲线并解释。 / Implement one SGD step and held-out evaluation.",
+          "starter": "import torch\n\n\ndef train_step(model, optimizer, batch):\n    x, y = batch\n    # Reset gradients, predict, compute MSE, backpropagate, update.\n    raise NotImplementedError('train_step')\n\n\ndef validate(model, batch):\n    # Evaluate without tracking gradients or changing weights.\n    raise NotImplementedError('validate')\n",
+          "reference": "import torch\n\n\ndef train_step(model, optimizer, batch):\n    model.train()\n    optimizer.zero_grad()\n    x, y = batch\n    loss = (model(x) - y).square().mean()\n    loss.backward()\n    optimizer.step()\n    return loss.item()\n\n\ndef validate(model, batch):\n    model.eval()\n    x, y = batch\n    with torch.no_grad():\n        return (model(x) - y).square().mean().item()\n",
+          "hints": [
+            "比较相邻两步开始时 .grad 的状态，验证集只用于评估。",
+            "每批依次清梯度、前向、均方误差、反向、更新；验证时切 eval 并关闭梯度。",
+            "loss = (model(x) - y).square().mean()；对同一个 loss 反传并返回其标量值。"
+          ],
+          "concepts": [
+            "L04"
+          ],
+          "testVersion": "1",
+          "inputDomain": "CPU float64。24 个训练样本、8 个验证样本，每步抽取 6 个训练样本。学习率 0.001–0.3，seed 为 0–10000 整数。",
+          "commonErrors": [
+            "漏清梯度会让第二步开始的梯度偏离本批参考。",
+            "eval() 与 no_grad() 分别控制模型模式和 autograd，验证期间不得更新权重。"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L05",
+      "title": "Softmax 与交叉熵",
+      "kind": "experiment",
+      "prerequisites": [
+        "L04"
+      ],
+      "objectives": [
+        "稳定 Softmax",
+        "解释 p_i=exp(z_i-m)/Σ_j exp(z_j-m)",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n指数函数易溢出。每行减去最大值不会改变概率，因为分子分母同乘 exp(-m)。交叉熵用 logsumexp(z)-z_target，避免先取趋近零概率的对数。\n\n## 数学与维度\n$$p_i=exp(z_i-m)/Σ_j exp(z_j-m)$$\n\n## 动手推导\n二维有限非空 float64；沿最后轴归一化。\n\n## 具体例子\nz=[1000,1001]：直接指数可能溢出，减最大值后为[-1,0]，概率约[0.268941,0.731059]。目标类别1的损失约0.313262。将两个logit都加500，概率不变；换归一化轴会破坏逐样本概率和。\n\n## 手算检查\nlogits=[0,0] 的第一个类别概率是多少？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n指数函数易溢出。每行减去最大值不会改变概率，因为分子分母同乘 exp(-m)。交叉熵用 logsumexp(z)-z_target，避免先取趋近零概率的对数。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "指数函数易溢出。每行减去最大值不会改变概率，因为分子分母同乘 exp(-m)。交叉熵用 logsumexp(z)-z_target，避免先取趋近零概率的对数。",
+      "exercises": [
+        {
+          "id": "L05-code",
+          "lessonId": "L05",
+          "title": "稳定 Softmax",
+          "kind": "code",
+          "prompt": "二维有限非空 float64；沿最后轴归一化。",
+          "starter": "import numpy as np\ndef solve(x):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(x):\n    x=np.asarray(x,dtype=float)\n    e=np.exp(x-x.max(axis=-1,keepdims=True))\n    return e/e.sum(axis=-1,keepdims=True)\n",
+          "hints": [
+            "每个样本单独成为分布，因此 max 和 sum 必须使用同一个最后轴。",
+            "先减每行最大值再取指数；keepdims 保持广播形状。",
+            "对 [1000,1001] 与 [0,1] 比较；结果应相同。"
+          ],
+          "concepts": [
+            "L05"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code05",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "沿batch轴归一化",
+            "直接指数导致溢出",
+            "只验证和为1而不验证参考概率"
+          ]
+        },
+        {
+          "id": "L05-check",
+          "lessonId": "L05",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "logits=[0,0] 的第一个类别概率是多少？",
+          "starter": "",
+          "reference": "0.5",
+          "answer": "0.5",
+          "hints": [
+            "两个相同logit产生两个相同指数。",
+            "每个概率的分母都是两个指数之和。",
+            "exp(0)=1，因此第一类是1/(1+1)。"
+          ],
+          "concepts": [
+            "L05"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "把logit零直接当作概率零",
+            "忘记在类别轴归一化"
+          ]
+        },
+        {
+          "id": "L05-experiment",
+          "lessonId": "L05",
+          "title": "稳定性实验",
+          "kind": "experiment",
+          "prompt": "稳定性实验：offset为-10000..10000，temperature为0.1..10。offset改变整体logit平移/直接指数的溢出风险，temperature改变概率尖锐程度。 数据为本地合成/原创；默认资源为1 CPU、1GB、120秒。实际配置随运行记录保存。运行完成不代表解释已经掌握。",
+          "starter": "def configure():\n    return {'offset': 1000.0, 'temperature': 1.0}\n",
+          "reference": "def configure():\n    return {'offset': 1000.0, 'temperature': 1.0}\n",
+          "hints": [
+            "将offset从1000改为0，观察naive_nonfinite。",
+            "保持温度不变时稳定概率不随共同平移改变。",
+            "把temperature改为2再改0.5，对比概率热图与尖锐程度。"
+          ],
+          "concepts": [
+            "L05"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "softmax",
+          "inputDomain": "offset为-10000..10000，temperature为0.1..10。offset改变整体logit平移/直接指数的溢出风险，temperature改变概率尖锐程度。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
+          "commonErrors": [
+            "把平移不变性误解为温度也不改变概率",
+            "使用非正温度",
+            "直接指数出现NaN后把它当成有效概率"
+          ]
+        },
+        {
+          "id": "L05-advanced",
+          "lessonId": "L05",
+          "title": "稳定交叉熵",
+          "kind": "code",
+          "prompt": "logits:[B,C]，labels:[B]，返回每样本logsumexp减目标logit。",
+          "starter": "import numpy as np\nimport torch\ndef solve(logits,labels):\n    raise NotImplementedError(\"完成实现\")\n",
+          "reference": "import numpy as np\nimport torch\ndef solve(logits,labels):\n    x=np.asarray(logits,dtype=float)\n    m=x.max(-1)\n    return m+np.log(np.exp(x-m[:,None]).sum(-1))-x[np.arange(len(x)),labels]\n",
+          "hints": [
+            "交叉熵等于logsumexp(logits)减目标类别logit。",
+            "逐行先减最大值计算exp，再加回该最大值。",
+            "用行索引与labels索引目标logit，保留每样本损失向量。"
+          ],
+          "concepts": [
+            "L05"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code14",
+          "inputDomain": "有限非空输入；float64；atol=1e-6 rtol=1e-5。NaN/Inf和空尺寸不属于题目输入域。",
+          "commonErrors": [
+            "先softmax再log造成目标概率下溢",
+            "沿batch轴而非类别轴做logsumexp",
+            "返回平均标量而非每样本损失"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L06",
+      "title": "优化与泛化",
+      "kind": "practice",
+      "prerequisites": [
+        "L05"
+      ],
+      "objectives": [
+        "不泄漏的时序切分",
+        "解释 θ←θ−η∇L",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n训练集用于更新参数，验证集只评估。先构建重叠窗口再随机切分会泄漏邻近文本。学习率改变更新步长；梯度清零、前向、损失、反向、更新形成一次迭代。\n\n## 数学与维度\n$$θ←θ−η∇L$$\n\n## 动手推导\n整数序列先在cut切分，再各自构建长度window的输入与下一步目标；返回train,valid两组[x,y]窗口。\n\n## 具体例子\n序列[0,1,2,3,4,5,6,7]在5处切分，窗口2。训练窗口从[0,1]预测[1,2]，到[2,3]预测[3,4]；验证只从[5,6]预测[6,7]，不会借用训练尾部4。\n\n## 手算检查\n序列长度20，切分为12/8，窗口4：验证窗口数量？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n训练集用于更新参数，验证集只评估。先构建重叠窗口再随机切分会泄漏邻近文本。学习率改变更新步长；梯度清零、前向、损失、反向、更新形成一次迭代。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "训练集用于更新参数，验证集只评估。先构建重叠窗口再随机切分会泄漏邻近文本。学习率改变更新步长；梯度清零、前向、损失、反向、更新形成一次迭代。",
+      "exercises": [
+        {
+          "id": "L06-code",
+          "lessonId": "L06",
+          "title": "不泄漏的时序切分",
+          "kind": "code",
+          "prompt": "整数序列先在cut切分，再各自构建长度window的输入与下一步目标；返回train,valid两组[x,y]窗口。",
+          "starter": "import numpy as np\ndef solve(tokens,cut,window):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(tokens,cut,window):\n    def windows(s):\n        return [[s[i:i+window],s[i+1:i+window+1]] for i in range(len(s)-window)]\n    return [windows(tokens[:cut]),windows(tokens[cut:])]\n",
+          "hints": [
+            "先得到两个不相交的片段，之后才定义滑动窗口。",
+            "每条输入需要长度window，目标整体向右移1，因此循环上界为len(segment)-window。",
+            "每个窗口保存 [segment[i:i+window], segment[i+1:i+window+1]]。"
+          ],
+          "concepts": [
+            "L06"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code06",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "先建重叠窗口再随机切分",
+            "目标没有右移",
+            "忘记清梯度或在验证阶段更新参数"
+          ]
+        },
+        {
+          "id": "L06-check",
+          "lessonId": "L06",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "序列长度20，切分为12/8，窗口4：验证窗口数量？",
+          "starter": "",
+          "reference": "4",
+          "answer": "4",
+          "hints": [
+            "先从长度20中取验证段8个token。",
+            "每个输入窗口还需要一个额外的下一token目标。",
+            "合法起点数是验证长度8减窗口长度4。"
+          ],
+          "concepts": [
+            "L06"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "使用N-window+1忘了目标需要额外token",
+            "将训练集最后token借给验证窗口"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L07",
+      "title": "词元与 Embedding",
+      "kind": "practice",
+      "prerequisites": [
+        "L06"
+      ],
+      "objectives": [
+        "位置编码加查表",
+        "解释 E[b,t,:]=W[token[b,t],:]+P[t,:]",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n词元ID只是索引，不带数值距离。Embedding 是可学习查表；位置向量给序列顺序。批量维不应参与位置编号。\n\n## 数学与维度\n$$E[b,t,:]=W[token[b,t],:]+P[t,:]$$\n\n## 动手推导\n返回 table[ids]+pos。ids:[B,T]，table:[V,D]，pos:[T,D]。\n\n## 具体例子\n词表 a→0,b→1；表 W=[[1,0],[0,1]]。句子 ab 查表为单位矩阵，位置向量若为 [[0,0],[0.1,0.2]]，第二个token变成[0.1,1.2]。同一个 b 在其他位置会取得相同词向量、不同位置向量。\n\n## 手算检查\nV=10,D=4 的 Embedding 有多少参数？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n词元ID只是索引，不带数值距离。Embedding 是可学习查表；位置向量给序列顺序。批量维不应参与位置编号。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "词元ID只是索引，不带数值距离。Embedding 是可学习查表；位置向量给序列顺序。批量维不应参与位置编号。",
+      "exercises": [
+        {
+          "id": "L07-code",
+          "lessonId": "L07",
+          "title": "位置编码加查表",
+          "kind": "code",
+          "prompt": "返回 table[ids]+pos。ids:[B,T]，table:[V,D]，pos:[T,D]。",
+          "starter": "import numpy as np\ndef solve(ids,table,pos):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(ids,table,pos):\n    return np.asarray(table)[np.asarray(ids,dtype=int)]+np.asarray(pos)\n",
+          "hints": [
+            "先用ID索引词表行，得到[B,T,D]。",
+            "位置表[T,D]沿batch轴广播；不要用ID去索引位置表。",
+            "检查table[ids]的shape，再加pos。"
+          ],
+          "concepts": [
+            "L07"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code07",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "把词元ID直接当作浮点特征",
+            "用batch编号选择位置",
+            "重复词元没有共享同一行参数"
+          ]
+        },
+        {
+          "id": "L07-check",
+          "lessonId": "L07",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "V=10,D=4 的 Embedding 有多少参数？",
+          "starter": "",
+          "reference": "40",
+          "answer": "40",
+          "hints": [
+            "Embedding是一张每个词元一行的可训练表。",
+            "每行有D=4个参数，共V=10行。",
+            "计算V×D，不把batch或序列长度计入模型参数。"
+          ],
+          "concepts": [
+            "L07"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "把输入batch长度计入参数量",
+            "混淆词表大小V与序列长度T"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L08",
+      "title": "单头 Attention",
+      "kind": "experiment",
+      "prerequisites": [
+        "L07"
+      ],
+      "objectives": [
+        "缩放点积注意力",
+        "解释 A=softmax(QKᵀ/√d), O=AV",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n每个查询与所有键做内积，沿键轴归一化，再按权重加权值。缩放使高维内积的方差保持可控。Q=K=0 时权重均匀；V=[[2,0],[0,4]] 时每个输出为[1,2]。\n\n## 数学与维度\n$$A=softmax(QKᵀ/√d), O=AV$$\n\n## 动手推导\nQ,K,V:[B,T,D]；返回 softmax(QKᵀ/sqrt(D))V。\n\n## 具体例子\nQ与K全零时两键权重各1/2，V=[[2,0],[0,4]]给出[1,2]，这是独立手算测试。非零分数下，必须先除sqrt(d)再softmax，不能在输出上除sqrt(d)。\n\n## 手算检查\nd=16，内积8，缩放后的分数是多少？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n每个查询与所有键做内积，沿键轴归一化，再按权重加权值。缩放使高维内积的方差保持可控。Q=K=0 时权重均匀；V=[[2,0],[0,4]] 时每个输出为[1,2]。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "每个查询与所有键做内积，沿键轴归一化，再按权重加权值。缩放使高维内积的方差保持可控。Q=K=0 时权重均匀；V=[[2,0],[0,4]] 时每个输出为[1,2]。",
+      "exercises": [
+        {
+          "id": "L08-code",
+          "lessonId": "L08",
+          "title": "缩放点积注意力",
+          "kind": "code",
+          "prompt": "Q,K,V:[B,T,D]；返回 softmax(QKᵀ/sqrt(D))V。",
+          "starter": "import numpy as np\ndef solve(q,k,v):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(q,k,v):\n    q,k,v=map(np.asarray,(q,k,v))\n    s=q@k.swapaxes(-1,-2)/np.sqrt(q.shape[-1])\n    e=np.exp(s-s.max(-1,keepdims=True))\n    return (e/e.sum(-1,keepdims=True))@v\n",
+          "hints": [
+            "先推导Q与转置后K的shape，确保batch轴保留。",
+            "内积除以sqrt(Q最后一维)，softmax沿键轴。",
+            "使用swapaxes(-1,-2)，稳定softmax后再乘V。"
+          ],
+          "concepts": [
+            "L08"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code08",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "遗漏sqrt(Dk)缩放",
+            "使用.T反转batch轴",
+            "softmax沿query轴或遗漏乘V"
+          ]
+        },
+        {
+          "id": "L08-check",
+          "lessonId": "L08",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "d=16，内积8，缩放后的分数是多少？",
+          "starter": "",
+          "reference": "2",
+          "answer": "2",
+          "hints": [
+            "缩放除以特征维的平方根。",
+            "sqrt(16)=4，因此是8/4。",
+            "不能除以16，也不能在softmax输出上缩放。"
+          ],
+          "concepts": [
+            "L08"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "除以维数而非平方根",
+            "将缩放错误放在加权求和之后"
+          ]
+        },
+        {
+          "id": "L08-experiment",
+          "lessonId": "L08",
+          "title": "分数与权重",
+          "kind": "experiment",
+          "prompt": "分数与权重：dim为2..64的整数；scale必须是布尔值。修改dim改变Q/K维度；scale决定selected_weights是否除sqrt(dim)。 数据为本地合成/原创；默认资源为1 CPU、1GB、120秒。实际配置随运行记录保存。运行完成不代表解释已经掌握。",
+          "starter": "def configure():\n    return {'dim': 8, 'scale': True}\n",
+          "reference": "def configure():\n    return {'dim': 8, 'scale': True}\n",
+          "hints": [
+            "先固定dim=8和seed，对比scale=True与False。",
+            "比较同一组随机Q/K的selected_weights与weight_entropy。",
+            "再将dim改为32；区别维度改变和仅缩放开关改变两种干预。"
+          ],
+          "concepts": [
+            "L08"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "attention",
+          "inputDomain": "dim为2..64的整数；scale必须是布尔值。修改dim改变Q/K维度；scale决定selected_weights是否除sqrt(dim)。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
+          "commonErrors": [
+            "把scale写成数字0/1而非布尔值",
+            "比较时同时改seed导致混杂",
+            "只观察未被选择的对照热图而不看selected_weights"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L09",
+      "title": "因果与 batch",
+      "kind": "experiment",
+      "prerequisites": [
+        "L08"
+      ],
+      "objectives": [
+        "因果注意力",
+        "解释 M[i,j]=(j≤i)",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n因果 mask 在 softmax 之前将未来分数设为负无穷。对角线保留，因此不会全屏蔽。课程 True=允许；PyTorch scaled_dot_product_attention 使用相同布尔语义，MultiheadAttention 的 bool attn_mask 相反，需显式取反。\n\n## 数学与维度\n$$M[i,j]=(j≤i)$$\n\n## 动手推导\n同形方阵自注意力；True 表示允许；禁止未来键。返回 attention 输出。\n\n## 具体例子\n两位置、零分数时，因果权重为 [[1,0],[0.5,0.5]]。使用V=[[2,0],[0,4]]得到[[2,0],[1,2]]。修改第二个V只能改变第二个输出。mask后再归一化不可直接把概率清零而不调整行和。\n\n## 手算检查\n长度4的因果矩阵一共有几个允许位置？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n因果 mask 在 softmax 之前将未来分数设为负无穷。对角线保留，因此不会全屏蔽。课程 True=允许；PyTorch scaled_dot_product_attention 使用相同布尔语义，MultiheadAttention 的 bool attn_mask 相反，需显式取反。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "因果 mask 在 softmax 之前将未来分数设为负无穷。对角线保留，因此不会全屏蔽。课程 True=允许；PyTorch scaled_dot_product_attention 使用相同布尔语义，MultiheadAttention 的 bool attn_mask 相反，需显式取反。",
+      "exercises": [
+        {
+          "id": "L09-code",
+          "lessonId": "L09",
+          "title": "因果注意力",
+          "kind": "code",
+          "prompt": "同形方阵自注意力；True 表示允许；禁止未来键。返回 attention 输出。",
+          "starter": "import numpy as np\ndef solve(q,k,v):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(q,k,v):\n    q,k,v=map(np.asarray,(q,k,v))\n    s=q@k.swapaxes(-1,-2)/np.sqrt(q.shape[-1])\n    s=np.where(np.tril(np.ones(s.shape[-2:],dtype=bool)),s,-np.inf)\n    e=np.exp(s-s.max(-1,keepdims=True))\n    return (e/e.sum(-1,keepdims=True))@v\n",
+          "hints": [
+            "写出长度3允许矩阵，确认对角线保留。",
+            "在softmax之前用负无穷屏蔽j>i的位置。",
+            "用下三角bool矩阵配合np.where；再按最后轴做稳定归一化。"
+          ],
+          "concepts": [
+            "L09"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code09",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。 因果自注意力为方阵，对角线可见；全屏蔽行不在输入域内。",
+          "commonErrors": [
+            "mask布尔含义颠倒",
+            "softmax后清零却未重新归一化",
+            "因果mask偏移或batch广播错误"
+          ]
+        },
+        {
+          "id": "L09-check",
+          "lessonId": "L09",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "长度4的因果矩阵一共有几个允许位置？",
+          "starter": "",
+          "reference": "10",
+          "answer": "10",
+          "hints": [
+            "第i个位置允许看到自身及之前所有位置。",
+            "四行允许位置数依次为1、2、3、4。",
+            "求1+2+3+4；对角线属于允许位置。"
+          ],
+          "concepts": [
+            "L09"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "漏掉对角线导致第一行全屏蔽",
+            "把完整4×4矩阵16个位置都计入"
+          ]
+        },
+        {
+          "id": "L09-experiment",
+          "lessonId": "L09",
+          "title": "未来扰动",
+          "kind": "experiment",
+          "prompt": "未来扰动：perturbation为0..100；最后一个K增加该值，V减少该值的两倍。比较最后位置变化与受保护前缀变化。 数据为本地合成/原创；默认资源为1 CPU、1GB、120秒。实际配置随运行记录保存。运行完成不代表解释已经掌握。",
+          "starter": "def configure():\n    return {'perturbation': 10.0}\n",
+          "reference": "def configure():\n    return {'perturbation': 10.0}\n",
+          "hints": [
+            "先用perturbation=0建立零变化基线。",
+            "改为1或10，观察last_position_change与output_change。",
+            "protected_change应始终为零；最后位置允许使用自身，所以可以改变。"
+          ],
+          "concepts": [
+            "L09"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "causal",
+          "inputDomain": "perturbation为0..100；最后一个K增加该值，V减少该值的两倍。比较最后位置变化与受保护前缀变化。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
+          "commonErrors": [
+            "将所有输出不变当成因果要求",
+            "误把最后位置也当作受保护前缀",
+            "修改未来Q而不是K/V误解信息泄漏路径"
+          ]
+        },
+        {
+          "id": "L09-transfer",
+          "lessonId": "L09",
+          "title": "迁移：实时传感器的因果汇总",
+          "kind": "code",
+          "prompt": "将语言模型的因果注意力迁移到实时传感器。每个batch是一台设备，每个时间步是已到达的观测，特征维为3或4。Q/K/V仍为[B,T,D]。输出当前时刻的加权汇总，不能读取未来观测，也不能混合设备。实现solve(q,k,v)，并解释未来扰动测试为什么适用于这个非文本场景。",
+          "starter": "import numpy as np\ndef solve(q,k,v):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(q,k,v):\n    q,k,v=map(np.asarray,(q,k,v))\n    s=q@k.swapaxes(-1,-2)/np.sqrt(q.shape[-1])\n    s=np.where(np.tril(np.ones(s.shape[-2:],dtype=bool)),s,-np.inf)\n    e=np.exp(s-s.max(-1,keepdims=True))\n    return (e/e.sum(-1,keepdims=True))@v\n",
+          "hints": [
+            "因果约束来自信息可用时间，并不依赖输入是不是词元。",
+            "沿最后两个轴计算时间间的分数；每台设备保留独立batch轴。",
+            "允许j≤i，softmax前遮蔽未来；特征维变化时重新计算sqrt(D)。"
+          ],
+          "concepts": [
+            "L09"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code09",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。 因果自注意力为方阵，对角线可见；全屏蔽行不在输入域内。",
+          "commonErrors": [
+            "误认为非文本数据不需要因果mask",
+            "把设备batch维混入时间归一化"
+          ],
+          "evidenceKind": "transfer"
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L10",
+      "title": "多头注意力",
+      "kind": "practice",
+      "prerequisites": [
+        "L09"
+      ],
+      "objectives": [
+        "拆头与合并",
+        "解释 [B,T,D]→[B,T,H,d]→[B,H,T,d]",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n多头将不同投影的特征分组，各头独立计算注意力，再拼接并投影。reshape 不改变元素顺序；transpose 改变轴顺序，二者不能互换。\n\n## 数学与维度\n$$[B,T,D]→[B,T,H,d]→[B,H,T,d]$$\n\n## 动手推导\nx:[B,T,D]，heads整除D；返回拆成[B,H,T,D/H]再展平成[B,H,T*D/H]。\n\n## 具体例子\nB=1,T=2,D=4,H=2，x=[[1,2,3,4],[5,6,7,8]]。第一个头是[[1,2],[5,6]]，第二个头是[[3,4],[7,8]]；直接reshape成[1,2,2,2]误把token维当头。合并必须执行逆transpose再reshape。\n\n## 手算检查\nD=24,H=3，每头维度是多少？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n多头将不同投影的特征分组，各头独立计算注意力，再拼接并投影。reshape 不改变元素顺序；transpose 改变轴顺序，二者不能互换。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "多头将不同投影的特征分组，各头独立计算注意力，再拼接并投影。reshape 不改变元素顺序；transpose 改变轴顺序，二者不能互换。",
+      "exercises": [
+        {
+          "id": "L10-code",
+          "lessonId": "L10",
+          "title": "拆头与合并",
+          "kind": "code",
+          "prompt": "x:[B,T,D]，heads整除D；返回拆成[B,H,T,D/H]再展平成[B,H,T*D/H]。",
+          "starter": "import numpy as np\ndef solve(x,heads):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(x,heads):\n    x=np.asarray(x)\n    b,t,d=x.shape\n    return x.reshape(b,t,heads,d//heads).transpose(0,2,1,3).reshape(b,heads,-1)\n",
+          "hints": [
+            "用0到7的序号例子写出每头应拿到哪些元素。",
+            "先reshape成[B,T,H,d]，再交换T和H。",
+            "本练习最终展平每头的T,d；完整合并应先把T换回头前。"
+          ],
+          "concepts": [
+            "L10"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code10",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。 heads 是正整数，必须整除 D。",
+          "commonErrors": [
+            "直接reshape造成时间与头混合",
+            "按总宽度D而非头宽d缩放",
+            "合并时遗漏逆transpose"
+          ]
+        },
+        {
+          "id": "L10-check",
+          "lessonId": "L10",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "D=24,H=3，每头维度是多少？",
+          "starter": "",
+          "reference": "8",
+          "answer": "8",
+          "hints": [
+            "总特征维D在H个头中均分。",
+            "每头d=D/H，先确认整除。",
+            "计算24/3，batch和时间不参与这次划分。"
+          ],
+          "concepts": [
+            "L10"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "把每头维数写成D×H",
+            "错误地拆分token轴而非特征轴"
+          ]
+        },
+        {
+          "id": "L10-advanced",
+          "lessonId": "L10",
+          "title": "完整多头投影",
+          "kind": "code",
+          "prompt": "输入x:[B,T,D],wq,wk,wv,wo:[D,D],heads；完成多头缩放attention、合并并输出投影。",
+          "starter": "import numpy as np\nimport torch\ndef solve(x,wq,wk,wv,wo,heads):\n    raise NotImplementedError(\"完成实现\")\n",
+          "reference": "import numpy as np\nimport torch\ndef solve(x,wq,wk,wv,wo,heads):\n    x=np.asarray(x);b,t,d=x.shape;h=heads;dh=d//h\n    def split(w):return (x@np.asarray(w)).reshape(b,t,h,dh).transpose(0,2,1,3)\n    q,k,v=map(split,(wq,wk,wv));s=q@k.swapaxes(-1,-2)/np.sqrt(dh)\n    e=np.exp(s-s.max(-1,keepdims=True));a=e/e.sum(-1,keepdims=True)\n    return (a@v).transpose(0,2,1,3).reshape(b,t,d)@np.asarray(wo)\n",
+          "hints": [
+            "先分别投影Q/K/V，再拆成[B,H,T,d]。",
+            "每头沿键轴softmax(QKᵀ/sqrt(d))；缩放使用每头d。",
+            "将[B,H,T,d]转回[B,T,H,d]后reshape并右乘wo。"
+          ],
+          "concepts": [
+            "L10"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code15",
+          "inputDomain": "有限非空输入；float64；atol=1e-6 rtol=1e-5。NaN/Inf和空尺寸不属于题目输入域。",
+          "commonErrors": [
+            "用总维数D缩放而非每头d",
+            "遗漏合并前transpose导致token和头混排",
+            "漏掉最后输出投影wo"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L11",
+      "title": "Pre-LN Transformer",
+      "kind": "practice",
+      "prerequisites": [
+        "L10"
+      ],
+      "objectives": [
+        "LayerNorm 与残差 FFN",
+        "解释 u=x+Attn(LN(x)); y=u+FFN(LN(u))",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n统一采用 Pre-LN：u=x+Attention(LN(x))；y=u+FFN(LN(u))。本题独立检验第二个子层。LayerNorm 归一化每个token的特征，不能跨 batch。残差直接保留信息和梯度通路。\n\n## 数学与维度\n$$u=x+Attn(LN(x)); y=u+FFN(LN(u))$$\n\n## 动手推导\n返回 x + relu(LN(x)@w1+b1)@w2+b2；LN 最后轴，总体方差，eps=1e-5，无仿射。\n\n## 具体例子\n一个token x=[1,3]：均值2、总体方差1，LN约[-1,1]。若FFN权重全零，则子层输出严格回到x，残差不能被漏掉。Pre-LN与Post-LN不同，整条路线不混用。实际语言模型关闭dropout以便未来扰动检查。\n\n## 手算检查\n解释为何残差分支的梯度包含一条恒等路径。\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n统一采用 Pre-LN：u=x+Attention(LN(x))；y=u+FFN(LN(u))。本题独立检验第二个子层。LayerNorm 归一化每个token的特征，不能跨 batch。残差直接保留信息和梯度通路。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "统一采用 Pre-LN：u=x+Attention(LN(x))；y=u+FFN(LN(u))。本题独立检验第二个子层。LayerNorm 归一化每个token的特征，不能跨 batch。残差直接保留信息和梯度通路。",
+      "exercises": [
+        {
+          "id": "L11-code",
+          "lessonId": "L11",
+          "title": "LayerNorm 与残差 FFN",
+          "kind": "code",
+          "prompt": "返回 x + relu(LN(x)@w1+b1)@w2+b2；LN 最后轴，总体方差，eps=1e-5，无仿射。",
+          "starter": "import numpy as np\ndef solve(x,w1,b1,w2,b2):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(x,w1,b1,w2,b2):\n    x=np.asarray(x,dtype=float)\n    z=(x-x.mean(-1,keepdims=True))/np.sqrt(x.var(-1,keepdims=True)+1e-5)\n    return x+np.maximum(0,z@w1+b1)@w2+b2\n",
+          "hints": [
+            "本题是Pre-LN block的FFN残差子层，先归一化原输入。",
+            "均值和总体方差只沿最后轴，epsilon放在平方根内。",
+            "对归一化结果执行两层FFN，再加未经归一化的原x。"
+          ],
+          "concepts": [
+            "L11"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code11",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "采用样本方差而非总体方差",
+            "把残差加到归一化输入",
+            "混用Pre-LN和Post-LN或detach图"
+          ]
+        },
+        {
+          "id": "L11-check",
+          "lessonId": "L11",
+          "title": "预测与解释",
+          "kind": "explanation",
+          "prompt": "解释为何残差分支的梯度包含一条恒等路径。",
+          "starter": "",
+          "reference": "统一采用 Pre-LN：u=x+Attention(LN(x))；y=u+FFN(LN(u))。本题独立检验第二个子层。LayerNorm 归一化每个token的特征，不能跨 batch。残差直接保留信息和梯度通路。",
+          "answer": "",
+          "hints": [
+            "对y=x+F(x)求导，需要分别对两项求导。",
+            "直接x分支给单位矩阵I，另一项给J_F。",
+            "写出dy/dx=I+J_F，并说明即便F梯度很小也保留直接路径。"
+          ],
+          "concepts": [
+            "L11"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "声称残差使梯度恒为1",
+            "遗漏F分支梯度或误把两条路径相乘"
+          ]
+        },
+        {
+          "id": "L11-advanced",
+          "lessonId": "L11",
+          "title": "完整 Pre-LN 前后向",
+          "kind": "code",
+          "prompt": "x:[B,T,D]；自注意力Q=K=V=LN(x)，无投影；u=x+Attention(LN(x))，y=u+relu(LN(u))。返回[y, sum(y²)对x的梯度]。LN eps=1e-5，总体方差。",
+          "starter": "import numpy as np\nimport torch\ndef solve(x):\n    raise NotImplementedError(\"完成实现\")\n",
+          "reference": "import numpy as np\nimport torch\ndef solve(x):\n    x=torch.tensor(x,dtype=torch.float64,requires_grad=True)\n    def ln(z):return (z-z.mean(-1,keepdim=True))/torch.sqrt(z.var(-1,keepdim=True,unbiased=False)+1e-5)\n    n=ln(x);a=torch.softmax(n@n.transpose(-1,-2)/x.shape[-1]**0.5,-1)\n    u=x+a@n;y=u+torch.relu(ln(u))\n    y.square().sum().backward()\n    return [y.detach().tolist(),x.grad.tolist()]\n",
+          "hints": [
+            "先n=LN(x)，注意力输出与原x相加得到u。",
+            "第二个LN作用在u；y=u+relu(LN(u))，保留两个残差。",
+            "对sum(y²)反向，返回输出及叶子x.grad；只在序列化时detach。"
+          ],
+          "concepts": [
+            "L11"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code16",
+          "inputDomain": "有限非空输入；float64；atol=1e-6 rtol=1e-5。NaN/Inf和空尺寸不属于题目输入域。",
+          "commonErrors": [
+            "使用无偏方差改变LayerNorm语义",
+            "写成Post-LN或漏掉任一残差",
+            "在反向前detach截断梯度"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    },
+    {
+      "id": "L12",
+      "title": "CPU 微型语言模型",
+      "kind": "experiment",
+      "prerequisites": [
+        "L11"
+      ],
+      "objectives": [
+        "下一词元目标",
+        "解释 L=−Σ_valid log p(y_t|x_≤t)/N_valid",
+        "识别并修复本课常见错误"
+      ],
+      "body": "## 核心概念\n字符语言模型在位置t预测t+1。训练和验证先按独立文本分段，再建窗口。损失只对有效token求和并除以有效token数量。小模型输出用于理解流程，不能代表语言能力。\n\n## 数学与维度\n$$L=−Σ_valid log p(y_t|x_≤t)/N_valid$$\n\n## 动手推导\ntokens非空序列，返回输入tokens[:-1]与目标tokens[1:]。\n\n## 具体例子\n原始文本 abcab 的输入为 abca，目标为 bcab。若错误用输入本身作目标，模型只学复制。实验使用原创句式 sun warms stone / moon lights lake，验证句式交换宾语；两个集合独立构建窗口。采样来自本次训练后的概率，不要求每次生成文本完全相同。\n\n## 手算检查\n有6个有效token，总负对数似然12，平均损失是多少？\n\n## 排错与迁移\n先比较 shape，再检查轴和数值。固定输入重跑，改变一个条件观察输出，不能凭一次通过断言掌握。\n\n## 课后小结\n字符语言模型在位置t预测t+1。训练和验证先按独立文本分段，再建窗口。损失只对有效token求和并除以有效token数量。小模型输出用于理解流程，不能代表语言能力。\n\n## 独立变式\n关闭答案面板，用不同尺寸或不同数值重新推导；记录你的解释，程序正确与解释清晰是两种不同证据。\n",
+      "summary": "字符语言模型在位置t预测t+1。训练和验证先按独立文本分段，再建窗口。损失只对有效token求和并除以有效token数量。小模型输出用于理解流程，不能代表语言能力。",
+      "exercises": [
+        {
+          "id": "L12-code",
+          "lessonId": "L12",
+          "title": "下一词元目标",
+          "kind": "code",
+          "prompt": "tokens非空序列，返回输入tokens[:-1]与目标tokens[1:]。",
+          "starter": "import numpy as np\ndef solve(tokens):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(tokens):\n    return [tokens[:-1],tokens[1:]]\n",
+          "hints": [
+            "每个输入位置的目标来自原序列的下一个位置。",
+            "输入去掉最后一个token，目标去掉第一个token，两者长度相同。",
+            "用[a,b,c,d]手算得到[[a,b,c],[b,c,d]]。"
+          ],
+          "concepts": [
+            "L12"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "code12",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
+          "commonErrors": [
+            "目标未右移导致复制任务",
+            "窗口跨训练验证边界",
+            "把一次低loss或固定采样当作掌握"
+          ]
+        },
+        {
+          "id": "L12-check",
+          "lessonId": "L12",
+          "title": "预测与解释",
+          "kind": "numeric",
+          "prompt": "有6个有效token，总负对数似然12，平均损失是多少？",
+          "starter": "",
+          "reference": "2",
+          "answer": "2",
+          "hints": [
+            "平均损失只除以有效预测目标数量。",
+            "当前总NLL为12，有效token数为6。",
+            "计算12/6；若有padding应先排除其损失与计数。"
+          ],
+          "concepts": [
+            "L12"
+          ],
+          "testVersion": "3",
+          "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
+          "commonErrors": [
+            "按句子数而非有效token数归一化",
+            "把padding也计入分母"
+          ]
+        },
+        {
+          "id": "L12-experiment",
+          "lessonId": "L12",
+          "title": "字符语言模型训练",
+          "kind": "experiment",
+          "prompt": "字符语言模型训练：steps为1..200的整数，lr为0.0001..1。模型为固定16维Pre-LN两头CPU字符模型；参数只控制真实优化迭代与学习率。 数据为本地合成/原创；默认资源为1 CPU、1GB、120秒。实际配置随运行记录保存。运行完成不代表解释已经掌握。",
+          "starter": "def configure():\n    return {'steps': 60, 'lr': 0.03}\n",
+          "reference": "def configure():\n    return {'steps': 60, 'lr': 0.03}\n",
+          "hints": [
+            "先降低steps至20，对比训练和验证损失及采样。",
+            "固定steps与seed改变lr，比较有效梯度与参数变化。",
+            "解释训练/验证差距，采样来自本次训练模型，但不要求生成文本逐字一致。"
+          ],
+          "concepts": [
+            "L12"
+          ],
+          "testVersion": "3",
+          "runtimeKey": "lm",
+          "inputDomain": "steps为1..200的整数，lr为0.0001..1。模型为固定16维Pre-LN两头CPU字符模型；参数只控制真实优化迭代与学习率。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
+          "commonErrors": [
+            "把生成质量当作程序正确性的唯一判据",
+            "将输入自身而非下一token作为目标",
+            "只检查训练loss而忽略验证与有效梯度"
+          ]
+        },
+        {
+          "id": "L12-transformer",
+          "lessonId": "L12",
+          "title": "组装微型 Transformer / Build a character LM",
+          "kind": "code",
+          "prompt": "把 L07–L11 的 NumPy 思路改写为可反传的 PyTorch 运算。在一个文件中实现 shifted(window)、embed(ids,p) 、attention(n,p)、block(x,p) 与 logits(x,p)。五个函数可分步提交，每次运行会显示各自的检查结果。先沿时间轴构造输入和下一字符目标，再查词表并加位置向量。第一条残差支路对 x 做 LayerNorm、两头因果注意力、拼头与输出投影；第二条对残差结果做 LayerNorm、ReLU FFN 和残差相加。最后映射为原始词表 logits。训练器提供可学习张量、交叉熵、SGD 和采样循环。先预测去掉 mask 或改变学习率会发生什么，运行后比较两次轨迹。 / Implement shifted targets, embeddings and one differentiable decoder block.",
+          "starter": "import torch\nimport torch.nn.functional as F\n\n\ndef shifted(window):\n    # window: [B,T+1]. Return two [B,T] long tensors.\n    raise NotImplementedError(\"shifted\")\n\n\ndef embed(ids, p):\n    # Look up token and position vectors. Return [B,T,4].\n    raise NotImplementedError(\"embed\")\n\n\ndef attention(n, p):\n    # n is normalized [B,T,4]. Return projected causal attention [B,T,4].\n    raise NotImplementedError(\"attention\")\n\n\ndef block(x, p):\n    # Pre-LN -> attention -> residual; Pre-LN -> FFN -> residual.\n    raise NotImplementedError(\"block\")\n\n\ndef logits(x, p):\n    # Use your block and project to the vocabulary.\n    raise NotImplementedError(\"logits\")\n",
+          "reference": "import torch\nimport torch.nn.functional as F\n\n\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n\ndef embed(ids, p):\n    return p[\"token\"][ids] + p[\"position\"][:ids.shape[1]]\n\n\ndef attention(n, p):\n    batch, time, width = n.shape\n    def heads(w):\n        return (n @ w).reshape(batch, time, 2, width // 2).transpose(1, 2)\n    q, k, v = [heads(p[name]) for name in (\"q\", \"k\", \"v\")]\n    scores = q @ k.transpose(-1, -2) / (width // 2) ** 0.5\n    allowed = torch.ones(time, time, dtype=torch.bool).tril()\n    mixed = scores.masked_fill(~allowed, -torch.inf).softmax(-1) @ v\n    return mixed.transpose(1, 2).reshape(batch, time, width) @ p[\"out\"]\n\n\ndef block(x, p):\n    width = x.size(-1)\n    n = F.layer_norm(x, (width,))\n    h = x + attention(n, p)\n    z = F.layer_norm(h, (width,))\n    return h + F.relu(z @ p[\"up\"]) @ p[\"down\"]\n\n\ndef logits(x, p):\n    return block(x, p) @ p[\"lm\"]\n",
+          "hints": [
+            "窗口前 T 个字符作输入，后 T 个作标签；不要沿 batch 维移位。词表查找和位置相加要保留梯度。",
+            "在 LayerNorm 后分别投影 Q/K/V，重排成 [B,2,T,2]。按 √2 缩放，只允许 j≤i；对最后一维归一化。",
+            "先算 h=x+merge(attn)@out，再算 h+relu(layer_norm(h)@up)@down，最后乘 lm。两处 LayerNorm 均无仿射参数。"
+          ],
+          "concepts": [
+            "L07",
+            "L08",
+            "L09",
+            "L10",
+            "L11",
+            "L12"
+          ],
+          "testVersion": "1",
+          "runtimeKey": "train-char-v1",
+          "inputDomain": "CPU float64；B≥1，1≤T≤4，词表 abcde（V=5）。p 的权重按右乘布局：token[5,4]、position[4,4]、q/k/v/out[4,4]、up[4,6]、down[6,4]、lm[4,5]。无偏置、无 dropout，LayerNorm eps=1e-5。学习率 0.001–0.3。",
+          "commonErrors": [
+            "把两个 batch 混在一起或合并头时交换顺序",
+            "让未来字符参与 softmax；用 detach 或 NumPy 切断梯度",
+            "让验证窗口跨越训练集边界，或直接预测同位置 token"
+          ]
+        }
+      ],
+      "sources": [
+        "https://docs.pytorch.org/docs/2.7/",
+        "https://github.com/karpathy/nn-zero-to-hero"
+      ]
+    }
+  ]
+}

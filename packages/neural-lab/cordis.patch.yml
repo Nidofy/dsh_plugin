@@ -1,0 +1,5 @@
+- insert:
+    - id: neural-lab
+      name: dsh-plugin-neural-lab
+      config:
+        dataRoot: !!js dshHomePath('neural-lab')
