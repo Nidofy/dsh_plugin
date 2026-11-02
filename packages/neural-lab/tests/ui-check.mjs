@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { readdir, writeFile, readFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
+import { checkIndependentScrolling } from './scroll-check.mjs'
 const s = await serve()
 let browser
 const errors = [],
@@ -297,6 +298,9 @@ try {
     await page.screenshot({ path: join(s.out, `workbench-${width}.png`), fullPage: true })
   }
   results.push('900px and 640px panes stack without horizontal overflow')
+  results.push(
+    ...(await checkIndependentScrolling(page, (width) => join(s.out, `scroll-${width}.png`))),
+  )
   await page.setViewportSize({ width: 1366, height: 1000 })
   await page.goto(s.url + '/?component=chart-fixture')
   await page.getByRole('heading', { name: 'Component fixture — not a learner run' }).waitFor()

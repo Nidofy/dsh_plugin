@@ -1,4 +1,17 @@
-# Neural Lab 0.1.1 验证记录
+# Neural Lab 0.1.2 验证记录
+
+用户报告 0.1.1 本地安装通过。本轮修复课程切换不回顶部、导航与内容共用滚动的问题，发布包版本 0.1.2；课程内容仍为 0.1.1/testVersion2，数据库和运行器未更改。
+
+- 工作台外层固定在宿主提供的高度内，列表和内容分别滚动，包含滚动边界隔离；窄屏上下排列也各自滚动。
+- 课程、活动或页签变化时在布局阶段将内容区归零，不改变导航列表位置；普通保存、运行轮询不触发归零。讲义锚点保持局部滚动及宿主 URL hash。
+- `node scripts/build.mjs` strict 与构建通过；`npm test` 11 项通过。
+- `node tests/ui-check.mjs` 17 项、0 pageerror。新增共享行为回归通过真实 mouse wheel 验证 1366/1920/900/640 四种宽度：两侧独立滚动、边界不串联、换课保留列表位置且内容归零、页签和异步活动切换归零、讲义锚点不改变列表或 hash、无横向溢出。证据 `.build/ui/validation-ui.json` 和 `scroll-*.png`。
+- `NEURAL_WITH_LEARN=1 node tests/ui-official-session.mjs`：最终安装包在官方 rc.5 模块加载器与真实认证 RPC 下通过相同四尺寸滚动测试、草稿刷新恢复、提示与无模型降级、Learn0.5.2 共存。发布文件哈希匹配，0 pageerror，测试服务已停止、临时 profile 已删除。证据 `.build/ui/official-validation.json` 与 `official-scroll-*.png`；已人工检查宽屏及窄屏截图。
+- `node tests/install-check.mjs`：官方空缓存离线安装、Cordis 生命周期与课程加载、源码构建身份和已安装字节校验通过，临时安装 profile 已删除。
+
+最终包 `packages/neural-lab/dsh-plugin-neural-lab-0.1.2.tgz`，71909 字节，SHA256 `11b440949aba37d849a0363b59d0ff5d3bd5a558af23638a8fae21e8e5233596`。本轮为 UI 修复，没有重复运行未修改的 CPU 数值/沙箱测试；下列 0.1.1 结果保留为历史证据，不冒充本轮重测。原生 Electron GUI 和真实模型成功回答本轮未亲测，未修改实际 DSH_HOME。
+
+# Neural Lab 0.1.1 验证记录（历史）
 
 目标：DSH 0.2.1-rc.5，官方源码 `b830ec950faba0a46dda564be3e2d854afed94f1`。环境：Windows、Node24.16、Docker29.9.2 Linux amd64。CPU镜像沿用已验证的Python3.12.10 / NumPy2.2.6 / PyTorch2.7.1+cpu，身份见包 `scripts/cpu-image/validated-environment.json`。
 

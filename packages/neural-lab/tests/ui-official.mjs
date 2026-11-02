@@ -1,6 +1,7 @@
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { readdir, writeFile, readFile } from 'node:fs/promises'
+import { checkIndependentScrolling } from './scroll-check.mjs'
 const base = resolve(import.meta.dirname, '..'),
   source = resolve(base, '../../../../.build/official-source-rc5'),
   pnpm = join(source, 'node_modules/.pnpm'),
@@ -118,6 +119,9 @@ try {
   }
   await page.locator('.nl-layout').waitFor()
   await page.getByRole('tab', { name: '练习 Exercise' }).waitFor()
+  const scrollChecks = await checkIndependentScrolling(page, (width) =>
+    evidencePath(`official-scroll-${width}.png`),
+  )
   if (errors.length) throw Error(errors.join('\n'))
   await writeFile(
     evidencePath('official-validation.json'),
@@ -131,6 +135,7 @@ try {
           'actual DSH module loader and sidebar main panel',
           'real authenticated RPC saves draft and reload restores it',
           'preset hint and real no-model downgrade',
+          ...scrollChecks,
           ...(process.env.NEURAL_UI_CPU === '1'
             ? ['actual official Host to Docker CPU Attention passed']
             : []),

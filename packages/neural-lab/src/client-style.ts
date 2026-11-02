@@ -7,7 +7,10 @@ export const css = `.neural-lab {
   --nl-border: var(--dsw-alias-border-l2, #e0e5e9);
   --nl-accent: #238b81;
   height: 100%;
-  overflow: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   color: var(--nl-fg);
   background: var(--nl-bg);
   font-family: var(--dsw-font-sans-font-family, system-ui, -apple-system, 'Segoe UI', sans-serif);
@@ -169,8 +172,23 @@ export const css = `.neural-lab {
 }
 .nl-layout {
   display: grid;
+  flex: 1;
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr);
   gap: 14px;
-  align-items: start;
+  overflow: hidden;
+}
+.nl-top,
+.nl-status,
+.neural-lab > .nl-error {
+  flex-shrink: 0;
+}
+.nl-sidebar,
+.nl-center {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 .nl-sidebar {
   min-width: 0;
@@ -480,12 +498,11 @@ export const css = `.neural-lab {
     padding: 9px;
   }
   .nl-layout {
-    display: block;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 25%) minmax(0, 1fr);
   }
   .nl-sidebar {
-    max-height: 230px;
-    overflow: auto;
-    margin-bottom: 10px;
+    border-bottom: 1px solid var(--nl-border);
   }
   .nl-sidebar nav {
     grid-template-columns: repeat(2, minmax(0, 1fr));

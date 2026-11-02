@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-neural-lab",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "CPU-first neural network and Transformer learning laboratory",
   "type": "module",
   "license": "MIT",

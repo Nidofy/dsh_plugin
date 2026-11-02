@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type {
   LabApi,
   Overview,
@@ -39,7 +39,12 @@ export function Workbench({ api }: { api: LabApi }) {
     current = useRef<{ ws: Workspace; code: string; note: string }>(),
     queue = useRef<Promise<void>>(Promise.resolve()),
     mounted = useRef(true),
-    actionPending = useRef(false)
+    actionPending = useRef(false),
+    contentPane = useRef<HTMLElement>(null)
+  // Navigation starts a new reading context; saves and run polling preserve the viewport.
+  useLayoutEffect(() => {
+    contentPane.current?.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [lessonId, exerciseId, tab])
   useEffect(() => {
     mounted.current = true
     return () => {
@@ -306,7 +311,7 @@ export function Workbench({ api }: { api: LabApi }) {
         className="nl-layout"
         style={{ gridTemplateColumns: `${sidebarWidth}px minmax(0, 1fr)` }}
       >
-        <aside className="nl-sidebar">
+        <aside className="nl-sidebar" aria-label="课程列表 Curriculum" tabIndex={0}>
           <details>
             <summary>路线宽度 / Width</summary>
             <input
@@ -371,7 +376,12 @@ export function Workbench({ api }: { api: LabApi }) {
             ))}
           </details>
         </aside>
-        <section className="nl-center">
+        <section
+          className="nl-center"
+          ref={contentPane}
+          aria-label="课程内容 Lesson content"
+          tabIndex={0}
+        >
           <div className="nl-tabs" role="tablist" aria-label="工作台 Tabs">
             {[
               ['lecture', '讲义 Lecture'],
