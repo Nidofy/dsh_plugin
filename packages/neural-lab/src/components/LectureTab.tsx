@@ -14,7 +14,7 @@ export function LectureTab({
   const sections = lesson.body.split(/(?=^#{1,4} )/m)
   const select = () => {
     const text = window.getSelection()?.toString()
-    if (text) onSelection(text.slice(0, 4000))
+    if (text) onSelection(text.slice(0, 3000))
   }
   return (
     <article className="nl-lecture" onMouseUp={select} onKeyUp={select}>

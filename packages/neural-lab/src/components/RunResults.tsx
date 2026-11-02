@@ -4,11 +4,13 @@ interface Series {
   points: RunEvent[]
 }
 const colors = ['#238b81', '#d88935', '#6664b5', '#bf5374', '#447eb6', '#679448']
-export function MetricChart({ series }: { series: Series[] }) {
+export function MetricChart({ series, caption }: { series: Series[]; caption?: string }) {
   const values = series.flatMap((s) => s.points.map((p) => p.value!))
   const steps = series.flatMap((s) => s.points.map((p, i) => p.step ?? i))
-  const rawMin = Math.min(...values),
-    rawMax = Math.max(...values)
+  const logScale = values.every((v) => v > 0) && Math.max(...values) / Math.min(...values) >= 1000
+  const axis = (v: number) => (logScale ? Math.log10(v) : v)
+  const rawMin = Math.min(...values.map(axis)),
+    rawMax = Math.max(...values.map(axis))
   const padding =
     rawMin === rawMax ? Math.max(Math.abs(rawMin) * 0.1, 0.01) : (rawMax - rawMin) * 0.06
   const low = rawMin - padding,
@@ -16,11 +18,13 @@ export function MetricChart({ series }: { series: Series[] }) {
   const first = Math.min(...steps),
     last = Math.max(...steps)
   const x = (step: number) => (first === last ? 265 : 55 + (425 * (step - first)) / (last - first))
-  const y = (value: number) => 150 - (130 * (value - low)) / (high - low)
+  const y = (value: number) => 150 - (130 * (axis(value) - low)) / (high - low)
   return (
     <figure className="nl-chart">
       <figcaption>
-        {series.length > 1 ? 'Loss 对照 · 同一运行，共享坐标轴 / Shared scale' : series[0]!.name}
+        {caption ??
+          (series.length > 1 ? 'Loss 对照 · 同一运行，共享坐标轴 / Shared scale' : series[0]!.name)}
+        {logScale && ' · 对数 / log₁₀'}
       </figcaption>
       <ul className="nl-legend">
         {series.map((s, i) => (
@@ -48,7 +52,9 @@ export function MetricChart({ series }: { series: Series[] }) {
               opacity=".12"
             />
             <text x="4" y={24 + 130 * t} fontSize="11">
-              {(high - (high - low) * t).toPrecision(3)}
+              {(logScale ? 10 ** (high - (high - low) * t) : high - (high - low) * t).toPrecision(
+                3,
+              )}
             </text>
           </g>
         ))}
@@ -105,7 +111,9 @@ export function RunResults({ run }: { run: RunRecord }) {
   const series = [...metrics].map(([name, points]) => ({ name, points }))
   const scalar = series.filter((s) => s.points.length === 1)
   const sequences = series.filter((s) => s.points.length > 1)
-  const losses = sequences.filter((s) => /loss|^(train|valid)(_|$)/i.test(s.name))
+  const losses = sequences.filter(
+    (s) => !s.name.startsWith('student_') && /loss|^(train|valid)(_|$)/i.test(s.name),
+  )
   const other = sequences.filter((s) => !losses.includes(s))
   return (
     <section className="nl-results" aria-label="运行结果 Results" data-run-id={run.id}>
@@ -121,6 +129,8 @@ export function RunResults({ run }: { run: RunRecord }) {
           Seed {run.seed} · Content {run.contentVersion} / Tests {run.testVersion}
         </p>
         <p>{run.environment}</p>
+        {run.trainingManifest && <pre>{JSON.stringify(run.trainingManifest, null, 2)}</pre>}
+        {run.prediction && <p>运行前预测 / Prediction: {run.prediction}</p>}
       </details>
       {run.effectiveConfig && (
         <details open>
@@ -128,9 +138,22 @@ export function RunResults({ run }: { run: RunRecord }) {
           <pre>{JSON.stringify(run.effectiveConfig, null, 2)}</pre>
         </details>
       )}
+      {run.events
+        .filter((e) => e.type === 'sample')
+        .map((e) => (
+          <p key={e.seq}>
+            模型采样 / Generated text <code>{e.detail}</code>
+          </p>
+        ))}
       {run.reason && (
         <p role="alert" className="nl-error">
           {run.reason}
+        </p>
+      )}
+      {run.trainingManifest && (
+        <p>
+          student_* 为学习者报告，train_loss 与 validation_loss 由控制器从参数重算。 / Student
+          reports and independently computed errors.
         </p>
       )}
       <ul className="nl-checks">
@@ -178,7 +201,7 @@ export function RunResults({ run }: { run: RunRecord }) {
                             key={j}
                             title={`[${i},${j}]=${value}`}
                             style={{
-                              background: `rgba(35,139,129,${Math.min(0.8, (Math.abs(value) / scale) * 0.7 + 0.04)})`,
+                              background: `rgba(${value < 0 ? '197,100,60' : '35,139,129'},${Math.min(0.8, (Math.abs(value) / scale) * 0.7 + 0.04)})`,
                             }}
                           >
                             {value.toPrecision(3)}
@@ -199,6 +222,7 @@ export function RunResults({ run }: { run: RunRecord }) {
             产物 Artifact: <code>{e.path}</code> {e.detail}
           </p>
         ))}
+      {run.cleanupPending && <p role="alert">回收待确认 / Cleanup pending: {run.cleanupPending}</p>}
       <details open={run.run_status === 'failed'}>
         <summary>日志 / Logs</summary>
         <pre>{run.log || '尚无日志 / No logs yet'}</pre>

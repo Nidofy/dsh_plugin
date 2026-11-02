@@ -67,6 +67,21 @@ try {
   cases.push(
     [
       'L05-code',
+      'detached-descendant-pipe',
+      'import os,time\ndef solve(x):\n if os.fork()==0:\n  os.setsid();time.sleep(45);os._exit(0)\n return x',
+    ],
+    [
+      'L05-code',
+      'fixed-softmax',
+      'def solve(x):return [[0.09003057,0.24472847,0.66524096],[0.21194156,0.21194156,0.57611688]]',
+    ],
+    [
+      'L10-code',
+      'ignores-heads',
+      'import numpy as np\ndef solve(x,heads):\n a=np.asarray(x);b,t,d=a.shape;return a.reshape(b,t,2,-1).transpose(0,2,1,3).reshape(b,2,-1)',
+    ],
+    [
+      'L05-code',
       'staged-bootstrap-write',
       stagedPrelude + 'pathlib.Path(sys.argv[0]).write_text("spoof")\ndef solve(x):return x',
     ],
@@ -126,7 +141,7 @@ try {
     contentVersion: catalog.version,
     testVersion: e.testVersion,
     seed: 42,
-    config: { timeoutMs: 1500 },
+    config: {},
     environment: '',
     run_status: 'queued',
     check_status: 'not_run',
@@ -135,7 +150,12 @@ try {
     log: '',
     help: 'none',
   })
-  const timeout = await runner.execute(make(), e, new AbortController().signal)
+  const { Runner } = await import('../src/runner.ts')
+  const timeout = await new Runner(temporary.root, undefined, { timeoutMs: 1500 }).execute(
+    make(),
+    e,
+    new AbortController().signal,
+  )
   assert.equal(timeout.run_status, 'timed_out')
   results.push({ label: 'timeout', ...timeout })
   await save()

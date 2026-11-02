@@ -4,6 +4,9 @@ interface Props {
   workspace?: Workspace
   busy: boolean
   hint: string
+  mentorBusy: boolean
+  mode: HelpLevel
+  onMode: (value: HelpLevel) => void
   question: string
   selection: string
   reply: string
@@ -26,6 +29,7 @@ export function MentorSidebar(props: Props) {
           {(['concept', 'steps', 'code', 'answer'] as HelpLevel[]).map((level, i) => (
             <button
               disabled={!props.workspace || props.busy}
+              hidden={level === 'answer' && props.workspace?.exercise.kind === 'experiment'}
               key={level}
               onClick={() => props.onHint(level)}
             >
@@ -43,6 +47,28 @@ export function MentorSidebar(props: Props) {
           />
         </label>
         <label>
+          <select
+            aria-label="帮助模式 Help mode"
+            value={props.mode}
+            onChange={(e) => props.onMode(e.target.value as HelpLevel)}
+          >
+            {['unknown', 'concept', 'steps', 'code', 'answer'].map((m, i) => (
+              <option value={m} key={m}>
+                {
+                  [
+                    '自由问答 Free form',
+                    '概念 Concept',
+                    '步骤 Steps',
+                    '局部代码 Code',
+                    '完整答案 Answer',
+                  ][i]
+                }
+              </option>
+            ))}
+          </select>
+        </label>
+        <button onClick={() => props.onSelection('')}>清空选区 Clear selection</button>
+        <label>
           提问 Question
           <textarea
             value={props.question}
@@ -52,12 +78,17 @@ export function MentorSidebar(props: Props) {
         </label>
         <button
           className="nl-primary"
-          disabled={props.busy || !props.workspace || !props.question.trim()}
+          disabled={props.busy || props.mentorBusy || !props.workspace || !props.question.trim()}
           onClick={props.onAsk}
         >
           询问导师 Ask mentor
         </button>
-        {props.reply && <Markdown text={props.reply} />}
+        {props.reply && (
+          <>
+            <small>{props.workspace?.messages.at(-1)?.status}</small>
+            <Markdown text={props.reply} />
+          </>
+        )}
         <details>
           <summary>导师记录 / Conversation</summary>
           {props.workspace?.messages.map((message, i) => (

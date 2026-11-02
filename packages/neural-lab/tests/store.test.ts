@@ -81,6 +81,28 @@ test('crashed ownership is recovered transactionally and foreign schemas are pre
     const release = await acquireOwner(path)
     await assert.rejects(acquireOwner(path), /active owner/)
     await release()
+    const legacyStore = new Store(join(dir, 'legacy'))
+    const old = {
+      exerciseId: 'L01-code',
+      kind: 'implementation',
+      help: 'concept',
+      result: 'passed',
+      source: 'program',
+      concept: 'L01',
+      at: '2026-10-31',
+    }
+    legacyStore.record('L01-code', 'evidence', old)
+    legacyStore.record('L01-code', 'hint', 'concept')
+    legacyStore.close()
+    const opened = new Store(join(dir, 'legacy'))
+    try {
+      assert.deepEqual(opened.history('L01-code', 'evidence'), [old])
+      assert.deepEqual(opened.evidence(), [{ ...old, provenance: 'legacy' }])
+      assert.deepEqual(JSON.parse(opened.export()).evidence, opened.evidence())
+      assert.equal(opened.help('L01-code'), 'concept')
+    } finally {
+      opened.close()
+    }
     const foreign = join(dir, 'foreign')
     let db = new DatabaseSync(foreign)
     db.exec("CREATE TABLE notes(body TEXT); INSERT INTO notes VALUES ('preserve me')")

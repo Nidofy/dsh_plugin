@@ -81,6 +81,93 @@ test('actual HTTP RPC preserves drafts and notes, hides answers, validates input
     assert.equal(ws.draft, 'code snapshot')
     assert.equal(ws.note, 'note snapshot')
     assert.equal(ws.noteRevision, 1)
+    assert.equal(engine.store.help(id), 'none')
+    engine.store.putRun({
+      id: 'old-run',
+      exerciseId: id,
+      code: 'older A',
+      seed: 42,
+      config: {},
+      environment: 'stub',
+      contentVersion: '0.1.1',
+      testVersion: '2',
+      run_status: 'completed',
+      check_status: 'passed',
+      createdAt: new Date().toISOString(),
+      events: [],
+      log: '',
+      help: 'none',
+    })
+    for (const status of ['failed', 'cancelled', 'busy']) {
+      await dispatch(engine, 'tutor', [id, 'Q', '', 'answer'], async () => ({
+        status,
+        text: status,
+      }))
+      assert.equal(engine.store.help(id), 'none')
+    }
+    await dispatch(engine, 'tutor', [id, 'Explain', '', 'unknown'], async (payload) => {
+      const ctx = JSON.parse(payload)
+      assert.equal(ctx.currentDraft.code, 'code snapshot')
+      assert.equal(ctx.lastExecutedSnapshot.code, 'older A')
+      assert.equal(ctx.lastExecutedSnapshot.matchesCurrentDraft, false)
+      return { status: 'completed', text: 'Point two concerns the batch axis.' }
+    })
+    assert.equal(engine.store.help(id), 'unknown')
+    await dispatch(engine, 'tutor', [id, 'What was point two?', '', 'answer'], async (payload) => {
+      assert.ok(
+        JSON.parse(payload).recentMessages.some(
+          (m) => m.role === 'assistant' && m.text.includes('batch axis'),
+        ),
+      )
+      return { status: 'completed', text: 'Complete answer from stub' }
+    })
+    assert.equal(engine.store.help(id), 'answer')
+    const transfer = 'L09-transfer'
+    engine.answer(transfer, 'Only earlier sensor readings are visible.')
+    const evidence = engine.overview().evidence.find((e) => e.exerciseId === transfer)
+    assert.equal(evidence.kind, 'explanation')
+    assert.equal(evidence.source, 'learner')
+    assert.equal(evidence.answerId, engine.workspace(transfer).answers[0].id)
+    assert.equal(evidence.testVersion, '3')
+    engine.snooze(transfer)
+    assert.ok(
+      Date.parse(engine.overview().reviews.find((r) => r.exerciseId === transfer).due) > Date.now(),
+    )
+    assert.equal((await call('start', ['L04-train', 'code', { seed: 42 }])).status, 400)
+    assert.equal(
+      (await call('start', ['L04-train', 'code', { learningRate: 2 }, 'prediction'])).status,
+      400,
+    )
+    assert.equal((await call('answer', ['L04-train', 'explanation', 'old-run'])).status, 400)
+    const trainingId = 'training-synthetic-1'
+    engine.store.putRun({
+      ...engine.run('old-run'),
+      id: trainingId,
+      exerciseId: 'L04-train',
+      contentVersion: '0.2.0',
+      testVersion: '1',
+      prediction: 'synthetic prediction',
+    })
+    assert.equal((await call('finishReview', [trainingId])).status, 400)
+    assert.equal(
+      (await call('answer', ['L04-train', 'Independent reflection', trainingId])).body,
+      'inconclusive',
+    )
+    assert.equal(engine.run(trainingId).check_status, 'passed')
+    const reflection = engine.workspace('L04-train').answers.at(-1)
+    assert.ok(
+      engine
+        .overview()
+        .evidence.some(
+          (e) => e.answerId === reflection.id && e.runId === trainingId && e.source === 'learner',
+        ),
+    )
+    assert.equal((await call('finishReview', [trainingId])).status, 200)
+    await engine.close()
+    engine = await Engine.open(dir)
+    assert.ok(!engine.overview().reviews.some((r) => r.runId === trainingId))
+    assert.equal(engine.workspace('L04-train').answers.at(-1).runId, trainingId)
+    assert.equal(engine.store.history('L04-train', 'review-completed')[0].runId, trainingId)
     const exported = JSON.parse((await call('exportData')).body)
     assert.equal(exported.schemaVersion, 1)
     assert.equal(exported.drafts.length, 2)

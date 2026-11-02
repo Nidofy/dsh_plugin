@@ -1,6 +1,6 @@
 {
   "id": "neural-lab",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "lessons": [
     {
       "id": "L01",
@@ -31,9 +31,9 @@
           "concepts": [
             "L01"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code01",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "把 batch 和特征合并，造成跨样本混合",
             "用 reshape 代替交换轴",
@@ -57,7 +57,7 @@
           "concepts": [
             "L01"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "保留了已收缩的维度4",
@@ -80,9 +80,9 @@
           "concepts": [
             "L01"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code01",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "把batch维当可聚合的特征维",
             "只修复shape但继续广播相同数值"
@@ -126,9 +126,9 @@
           "concepts": [
             "L02"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code02",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "遗漏外层平方产生的 2u",
             "交换 a 与 b 的局部导数",
@@ -152,7 +152,7 @@
           "concepts": [
             "L02"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "遗漏乘法节点对a的局部导数b",
@@ -196,9 +196,9 @@
           "concepts": [
             "L03"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code03",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "中心差分分母遗漏2",
             "用过小步长和float32产生舍入误差",
@@ -222,7 +222,7 @@
           "concepts": [
             "L03"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "返回x³的函数值8",
@@ -245,7 +245,7 @@
           "concepts": [
             "L03"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "grad",
           "inputDomain": "eps是1..12个有限步长组成的列表，每项1e-7..0.2。比较误差与eps²；较粗步长产生较大误差是教学观察，不作为失败阈值。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
           "commonErrors": [
@@ -270,7 +270,7 @@
           "concepts": [
             "L03"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code13",
           "inputDomain": "有限非空输入；float64；atol=1e-6 rtol=1e-5。NaN/Inf和空尺寸不属于题目输入域。",
           "commonErrors": [
@@ -316,9 +316,9 @@
           "concepts": [
             "L04"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code04",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "遗漏隐藏激活",
             "把ReLU放在输出端",
@@ -342,7 +342,7 @@
           "concepts": [
             "L04"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "误以为增加线性层就引入非线性",
@@ -365,13 +365,37 @@
           "concepts": [
             "L04"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "mlp",
           "inputDomain": "steps为1..200的整数，lr为0.0001..1。实验实际比较lr和lr/10两条学习率的训练/验证轨迹。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
           "commonErrors": [
             "把代码中的lr误当成界面覆盖值",
             "只比较训练loss而忽略验证",
             "将一次loss阈值当成理解优化的证明"
+          ]
+        },
+        {
+          "id": "L04-train",
+          "lessonId": "L04",
+          "title": "亲手训练 MLP / Train an MLP",
+          "kind": "code",
+          "runtimeKey": "train-mlp-v1",
+          "prompt": "先预测学习率或梯度累积如何影响训练。实现 train_step 和 validate，返回本批次均方误差标量。提供 2→4→1 Tanh 模型、SGD 和 (x,y) 批次，连续训练八步后在独立验证集检查。用相同 seed 改变学习率，比对曲线并解释。 / Implement one SGD step and held-out evaluation.",
+          "starter": "import torch\n\n\ndef train_step(model, optimizer, batch):\n    x, y = batch\n    # Reset gradients, predict, compute MSE, backpropagate, update.\n    raise NotImplementedError('train_step')\n\n\ndef validate(model, batch):\n    # Evaluate without tracking gradients or changing weights.\n    raise NotImplementedError('validate')\n",
+          "reference": "import torch\n\n\ndef train_step(model, optimizer, batch):\n    model.train()\n    optimizer.zero_grad()\n    x, y = batch\n    loss = (model(x) - y).square().mean()\n    loss.backward()\n    optimizer.step()\n    return loss.item()\n\n\ndef validate(model, batch):\n    model.eval()\n    x, y = batch\n    with torch.no_grad():\n        return (model(x) - y).square().mean().item()\n",
+          "hints": [
+            "比较相邻两步开始时 .grad 的状态，验证集只用于评估。",
+            "每批依次清梯度、前向、均方误差、反向、更新；验证时切 eval 并关闭梯度。",
+            "loss = (model(x) - y).square().mean()；对同一个 loss 反传并返回其标量值。"
+          ],
+          "concepts": [
+            "L04"
+          ],
+          "testVersion": "1",
+          "inputDomain": "CPU float64。24 个训练样本、8 个验证样本，每步抽取 6 个训练样本。学习率 0.001–0.3，seed 为 0–10000 整数。",
+          "commonErrors": [
+            "漏清梯度会让第二步开始的梯度偏离本批参考。",
+            "eval() 与 no_grad() 分别控制模型模式和 autograd，验证期间不得更新权重。"
           ]
         }
       ],
@@ -411,9 +435,9 @@
           "concepts": [
             "L05"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code05",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "沿batch轴归一化",
             "直接指数导致溢出",
@@ -437,7 +461,7 @@
           "concepts": [
             "L05"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "把logit零直接当作概率零",
@@ -460,7 +484,7 @@
           "concepts": [
             "L05"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "softmax",
           "inputDomain": "offset为-10000..10000，temperature为0.1..10。offset改变整体logit平移/直接指数的溢出风险，temperature改变概率尖锐程度。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
           "commonErrors": [
@@ -485,7 +509,7 @@
           "concepts": [
             "L05"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code14",
           "inputDomain": "有限非空输入；float64；atol=1e-6 rtol=1e-5。NaN/Inf和空尺寸不属于题目输入域。",
           "commonErrors": [
@@ -531,9 +555,9 @@
           "concepts": [
             "L06"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code06",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "先建重叠窗口再随机切分",
             "目标没有右移",
@@ -557,7 +581,7 @@
           "concepts": [
             "L06"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "使用N-window+1忘了目标需要额外token",
@@ -601,9 +625,9 @@
           "concepts": [
             "L07"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code07",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "把词元ID直接当作浮点特征",
             "用batch编号选择位置",
@@ -627,7 +651,7 @@
           "concepts": [
             "L07"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "把输入batch长度计入参数量",
@@ -671,9 +695,9 @@
           "concepts": [
             "L08"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code08",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "遗漏sqrt(Dk)缩放",
             "使用.T反转batch轴",
@@ -697,7 +721,7 @@
           "concepts": [
             "L08"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "除以维数而非平方根",
@@ -720,7 +744,7 @@
           "concepts": [
             "L08"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "attention",
           "inputDomain": "dim为2..64的整数；scale必须是布尔值。修改dim改变Q/K维度；scale决定selected_weights是否除sqrt(dim)。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
           "commonErrors": [
@@ -766,9 +790,9 @@
           "concepts": [
             "L09"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code09",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。 因果自注意力为方阵，对角线可见；全屏蔽行不在输入域内。",
           "commonErrors": [
             "mask布尔含义颠倒",
             "softmax后清零却未重新归一化",
@@ -792,7 +816,7 @@
           "concepts": [
             "L09"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "漏掉对角线导致第一行全屏蔽",
@@ -815,7 +839,7 @@
           "concepts": [
             "L09"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "causal",
           "inputDomain": "perturbation为0..100；最后一个K增加该值，V减少该值的两倍。比较最后位置变化与受保护前缀变化。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
           "commonErrors": [
@@ -840,9 +864,9 @@
           "concepts": [
             "L09"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code09",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。 因果自注意力为方阵，对角线可见；全屏蔽行不在输入域内。",
           "commonErrors": [
             "误认为非文本数据不需要因果mask",
             "把设备batch维混入时间归一化"
@@ -886,9 +910,9 @@
           "concepts": [
             "L10"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code10",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。 heads 是正整数，必须整除 D。",
           "commonErrors": [
             "直接reshape造成时间与头混合",
             "按总宽度D而非头宽d缩放",
@@ -912,7 +936,7 @@
           "concepts": [
             "L10"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "把每头维数写成D×H",
@@ -935,7 +959,7 @@
           "concepts": [
             "L10"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code15",
           "inputDomain": "有限非空输入；float64；atol=1e-6 rtol=1e-5。NaN/Inf和空尺寸不属于题目输入域。",
           "commonErrors": [
@@ -981,9 +1005,9 @@
           "concepts": [
             "L11"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code11",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "采用样本方差而非总体方差",
             "把残差加到归一化输入",
@@ -1007,7 +1031,7 @@
           "concepts": [
             "L11"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "声称残差使梯度恒为1",
@@ -1030,7 +1054,7 @@
           "concepts": [
             "L11"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code16",
           "inputDomain": "有限非空输入；float64；atol=1e-6 rtol=1e-5。NaN/Inf和空尺寸不属于题目输入域。",
           "commonErrors": [
@@ -1076,9 +1100,9 @@
           "concepts": [
             "L12"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "code12",
-          "inputDomain": "有限非空输入；float64；atol=1e-6, rtol=1e-5。不支持NaN/Inf、空尺寸、全屏蔽行、非方阵因果注意力，不属于本题输入域。",
+          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。",
           "commonErrors": [
             "目标未右移导致复制任务",
             "窗口跨训练验证边界",
@@ -1102,7 +1126,7 @@
           "concepts": [
             "L12"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "inputDomain": "数值题接受有限数值；开放题保留原文，导师反馈不等于程序通过。",
           "commonErrors": [
             "按句子数而非有效token数归一化",
@@ -1125,13 +1149,43 @@
           "concepts": [
             "L12"
           ],
-          "testVersion": "2",
+          "testVersion": "3",
           "runtimeKey": "lm",
           "inputDomain": "steps为1..200的整数，lr为0.0001..1。模型为固定16维Pre-LN两头CPU字符模型；参数只控制真实优化迭代与学习率。 configure()是唯一实验参数来源；可省略键使用默认值，拒绝未知键、NaN/Inf和错误类型。seed独立于此配置。",
           "commonErrors": [
             "把生成质量当作程序正确性的唯一判据",
             "将输入自身而非下一token作为目标",
             "只检查训练loss而忽略验证与有效梯度"
+          ]
+        },
+        {
+          "id": "L12-transformer",
+          "lessonId": "L12",
+          "title": "组装微型 Transformer / Build a character LM",
+          "kind": "code",
+          "prompt": "把 L07–L11 的 NumPy 思路改写为可反传的 PyTorch 运算。在一个文件中实现 shifted(window)、embed(ids,p) 、attention(n,p)、block(x,p) 与 logits(x,p)。五个函数可分步提交，每次运行会显示各自的检查结果。先沿时间轴构造输入和下一字符目标，再查词表并加位置向量。第一条残差支路对 x 做 LayerNorm、两头因果注意力、拼头与输出投影；第二条对残差结果做 LayerNorm、ReLU FFN 和残差相加。最后映射为原始词表 logits。训练器提供可学习张量、交叉熵、SGD 和采样循环。先预测去掉 mask 或改变学习率会发生什么，运行后比较两次轨迹。 / Implement shifted targets, embeddings and one differentiable decoder block.",
+          "starter": "import torch\nimport torch.nn.functional as F\n\n\ndef shifted(window):\n    # window: [B,T+1]. Return two [B,T] long tensors.\n    raise NotImplementedError(\"shifted\")\n\n\ndef embed(ids, p):\n    # Look up token and position vectors. Return [B,T,4].\n    raise NotImplementedError(\"embed\")\n\n\ndef attention(n, p):\n    # n is normalized [B,T,4]. Return projected causal attention [B,T,4].\n    raise NotImplementedError(\"attention\")\n\n\ndef block(x, p):\n    # Pre-LN -> attention -> residual; Pre-LN -> FFN -> residual.\n    raise NotImplementedError(\"block\")\n\n\ndef logits(x, p):\n    # Use your block and project to the vocabulary.\n    raise NotImplementedError(\"logits\")\n",
+          "reference": "import torch\nimport torch.nn.functional as F\n\n\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n\ndef embed(ids, p):\n    return p[\"token\"][ids] + p[\"position\"][:ids.shape[1]]\n\n\ndef attention(n, p):\n    batch, time, width = n.shape\n    def heads(w):\n        return (n @ w).reshape(batch, time, 2, width // 2).transpose(1, 2)\n    q, k, v = [heads(p[name]) for name in (\"q\", \"k\", \"v\")]\n    scores = q @ k.transpose(-1, -2) / (width // 2) ** 0.5\n    allowed = torch.ones(time, time, dtype=torch.bool).tril()\n    mixed = scores.masked_fill(~allowed, -torch.inf).softmax(-1) @ v\n    return mixed.transpose(1, 2).reshape(batch, time, width) @ p[\"out\"]\n\n\ndef block(x, p):\n    width = x.size(-1)\n    n = F.layer_norm(x, (width,))\n    h = x + attention(n, p)\n    z = F.layer_norm(h, (width,))\n    return h + F.relu(z @ p[\"up\"]) @ p[\"down\"]\n\n\ndef logits(x, p):\n    return block(x, p) @ p[\"lm\"]\n",
+          "hints": [
+            "窗口前 T 个字符作输入，后 T 个作标签；不要沿 batch 维移位。词表查找和位置相加要保留梯度。",
+            "在 LayerNorm 后分别投影 Q/K/V，重排成 [B,2,T,2]。按 √2 缩放，只允许 j≤i；对最后一维归一化。",
+            "先算 h=x+merge(attn)@out，再算 h+relu(layer_norm(h)@up)@down，最后乘 lm。两处 LayerNorm 均无仿射参数。"
+          ],
+          "concepts": [
+            "L07",
+            "L08",
+            "L09",
+            "L10",
+            "L11",
+            "L12"
+          ],
+          "testVersion": "1",
+          "runtimeKey": "train-char-v1",
+          "inputDomain": "CPU float64；B≥1，1≤T≤4，词表 abcde（V=5）。p 的权重按右乘布局：token[5,4]、position[4,4]、q/k/v/out[4,4]、up[4,6]、down[6,4]、lm[4,5]。无偏置、无 dropout，LayerNorm eps=1e-5。学习率 0.001–0.3。",
+          "commonErrors": [
+            "把两个 batch 混在一起或合并头时交换顺序",
+            "让未来字符参与 softmax；用 detach 或 NumPy 切断梯度",
+            "让验证窗口跨越训练集边界，或直接预测同位置 token"
           ]
         }
       ],

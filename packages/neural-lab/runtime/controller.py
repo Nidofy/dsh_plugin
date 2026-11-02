@@ -51,12 +51,12 @@ def emit(kind, name, **fields):
     )
 
 
-def call(args, configure=False):
+def call(args, configure=False, mode=None):
     p = subprocess.Popen(
         [
             sys.executable,
             os.path.join(student_directory, "student.py"),
-            "configure" if configure else "solve",
+            mode or ("configure" if configure else "solve"),
             os.path.join(student_directory, "submission.py"),
         ],
         stdin=subprocess.PIPE,
@@ -86,8 +86,8 @@ def call(args, configure=False):
             target.extend(chunk)
 
     threads = [
-        threading.Thread(target=drain, args=(p.stdout, out)),
-        threading.Thread(target=drain, args=(p.stderr, err)),
+        threading.Thread(daemon=True, target=drain, args=(p.stdout, out)),
+        threading.Thread(daemon=True, target=drain, args=(p.stderr, err)),
     ]
     for t in threads:
         t.start()
@@ -102,10 +102,16 @@ def call(args, configure=False):
             pass
         p.wait()
     finally:
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
         for t in threads:
             t.join(timeout=1)
+    if any(t.is_alive() for t in threads):
+        raise RuntimeError("student descendant retained output pipe")
     if err:
-        print(err.decode(errors="replace")[-4000:], file=sys.stderr)
+        print("[student stderr]", err.decode(errors="replace")[-4000:], file=sys.stderr)
     if overflow.is_set():
         raise RuntimeError("student output limit exceeded")
     if p.returncode:
@@ -147,6 +153,13 @@ def code_cases():
         x = rng.normal(size=(2, 3, 4))
         w = rng.normal(size=(4, 2))
         b = rng.normal(size=2)
+        if n in (8, 9, 10, 15):
+            batch, length, width, heads_count = [
+                (2, 3, 4, 2),
+                (1, 5, 6, 1),
+                (3, 2, 6, 3),
+            ][trial]
+            x = rng.normal(size=(batch, length, width))
         if n == 1:
             args = [x, w, b]
             expected = x @ w + b
@@ -164,10 +177,11 @@ def code_cases():
             args = [x, w, b, w2, b2]
             expected = np.maximum(0, x @ w + b) @ w2 + b2
         elif n == 5:
-            x = (
-                np.array([[1000, 1001, 1002], [-1000, -1000, -999]], float)
-                + trial * 200
-            )
+            x = [
+                np.zeros((2, 4)),
+                rng.normal(size=(3, 5)),
+                np.array([[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]),
+            ][trial]
             args = [x]
             expected = soft(x)
         elif n == 6:
@@ -192,8 +206,10 @@ def code_cases():
             args = [q, k, v]
             expected = attention(q, k, v, n == 9)
         elif n == 10:
-            args = [x, 2]
-            expected = x.reshape(2, 3, 2, 2).transpose(0, 2, 1, 3).reshape(2, 2, 6)
+            args = [x, heads_count]
+            expected = np.stack(np.split(x, heads_count, axis=-1), axis=1).reshape(
+                batch, heads_count, -1
+            )
         elif n == 11:
             w2 = rng.normal(size=(2, 4))
             b2 = rng.normal(size=4)
@@ -206,22 +222,31 @@ def code_cases():
             args = [x]
             expected = 6 * x * x
         elif n == 14:
-            x = (
-                np.array([[1000.0, 1001.0, -1000.0], [-1000.0, -1001.0, 1000.0]])
-                + trial
-            )
-            labels = [2, 0]
+            x = [
+                np.array([[1000.0, 1001.0, -1000.0], [-1000.0, -1001.0, 1000.0]]),
+                rng.normal(size=(4, 5)),
+                np.zeros((3, 2)),
+            ][trial]
+            labels = [[2, 0], [1, 4, 0, 3], [1, 0, 1]][trial]
             args = [x, labels]
             m = x.max(-1)
             expected = (
-                m + np.log(np.exp(x - m[:, None]).sum(-1)) - x[np.arange(2), labels]
+                m
+                + np.log(np.exp(x - m[:, None]).sum(-1))
+                - x[np.arange(len(labels)), labels]
             )
         elif n == 15:
-            weights = [rng.normal(size=(4, 4)) for _ in range(4)]
-            args = [x, *weights, 2]
+            weights = [rng.normal(size=(width, width)) for _ in range(4)]
+            args = [x, *weights, heads_count]
             heads = []
-            for h in range(2):
-                q, k, v = [(x @ w)[..., h * 2 : (h + 1) * 2] for w in weights[:3]]
+            for h in range(heads_count):
+                q, k, v = [
+                    (x @ w)[
+                        ...,
+                        h * (width // heads_count) : (h + 1) * (width // heads_count),
+                    ]
+                    for w in weights[:3]
+                ]
                 heads.append(attention(q, k, v))
             expected = np.concatenate(heads, axis=-1) @ weights[-1]
         elif n == 16:
@@ -253,10 +278,33 @@ def code_cases():
                 "check",
                 f"case-{trial+1}",
                 passed=True,
-                detail="independent reference, atol=1e-6 rtol=1e-5",
+                detail=f"inputs={str(args)[:150]}, expected={str(expected)[:150]}, actual={str(result)[:150]}, atol=1e-6 rtol=1e-5",
             )
         except Exception as e:
-            emit("check", f"case-{trial+1}", passed=False, detail=str(e)[:2000])
+            emit(
+                "check",
+                f"case-{trial+1}",
+                passed=False,
+                detail=f"inputs={str(args)[:150]}, expected={str(expected)[:150]}, failure={str(e)[:1600]}",
+            )
+    if n == 5:
+        logits = rng.normal(size=(3, 4))
+        permutation = [2, 0, 3, 1]
+        shifted = (logits + np.array([[1000.0], [-1000.0], [7.0]]))[:, permutation]
+        try:
+            expected = soft(logits)[:, permutation]
+            actual = call([shifted.tolist()])
+            close(actual, expected)
+            emit(
+                "check",
+                "row-shift-and-permutation",
+                passed=True,
+                detail=f"shape=(3,4), expected={expected[0]}, actual={actual[0]}",
+            )
+        except Exception as e:
+            emit(
+                "check", "row-shift-and-permutation", passed=False, detail=str(e)[:2000]
+            )
     if n in (8, 9):
         q = np.zeros((1, 2, 2))
         v = np.array([[[2.0, 0.0], [0.0, 4.0]]])
@@ -350,6 +398,7 @@ def experiment():
     if key == "grad":
         x = torch.tensor([-0.7, 0.2, 1.4], dtype=torch.float64, requires_grad=True)
         (x**3).sum().backward()
+        differences_ok = []
         for j, eps in enumerate(cfg["eps"]):
             fd = ((x.detach().numpy() + eps) ** 3 - (x.detach().numpy() - eps) ** 3) / (
                 2 * eps
@@ -359,6 +408,9 @@ def experiment():
                 "gradient_error",
                 step=j,
                 value=float(np.max(np.abs(fd - x.grad.numpy()))),
+            )
+            differences_ok.append(
+                bool(np.allclose(fd, x.grad.numpy() + eps**2, atol=1e-7, rtol=1e-5))
             )
             emit("metric", "epsilon", step=j, value=eps)
         emit(
@@ -372,7 +424,7 @@ def experiment():
         emit(
             "check",
             "finite-difference",
-            passed=bool(np.allclose(fd, x.grad.numpy() + eps**2, atol=1e-7, rtol=1e-5)),
+            passed=all(differences_ok),
             detail="For x cubed the central-difference error is eps squared; a coarse step is an observation, not a failed lesson.",
         )
     elif key == "softmax":
@@ -459,13 +511,13 @@ def experiment():
                 if step % max(1, steps // 30) == 0 or step == steps - 1:
                     emit(
                         "metric",
-                        f"train_lr={rate}",
+                        f"train_lr={rate:g}",
                         step=step,
                         value=float(loss.detach()),
                     )
                     emit(
                         "metric",
-                        f"valid_lr={rate}",
+                        f"valid_lr={rate:g}",
                         step=step,
                         value=float(
                             (m(x[~train]) - y[~train]).square().mean().detach()
@@ -476,10 +528,10 @@ def experiment():
                     torch.cat([p.detach().flatten() for p in m.parameters()]) - initial
                 ).norm()
             )
-            emit("metric", f"parameter_delta_lr={rate}", step=steps, value=delta)
+            emit("metric", f"parameter_delta_lr={rate:g}", step=steps, value=delta)
             emit(
                 "check",
-                f"updates_lr={rate}",
+                f"updates_lr={rate:g}",
                 passed=math.isfinite(grad) and grad > 0 and delta > 0,
             )
     elif key == "lm":
@@ -566,7 +618,15 @@ def experiment():
 
 try:
     student_directory = stage_student()
-    if key.startswith("code"):
+    if key == "train-char-v1":
+        from char_transformer import train_character
+
+        train_character(seed, float(sys.argv[4]), call, emit)
+    elif key == "train-mlp-v1":
+        from training import editable_mlp
+
+        editable_mlp(seed, float(sys.argv[4]), call, emit)
+    elif key.startswith("code"):
         code_cases()
     else:
         experiment()

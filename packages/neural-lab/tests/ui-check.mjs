@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { readdir, writeFile, readFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
+import { checkEditableTraining } from './training-ui.mjs'
 import { checkIndependentScrolling } from './scroll-check.mjs'
 const s = await serve()
 let browser
@@ -63,6 +64,97 @@ try {
   results.push(
     'pending real save locks reset, activity selection, repeated save and editor keyboard edits',
   )
+  for (const [tabName, label, method, key] of [
+    ['练习 Exercise', 'Python 编辑器 Editor', 'saveDraft', 'L01-code'],
+    ['记录 Records', '学习笔记 Notes', 'saveNote', 'note:L01-code'],
+  ]) {
+    await page.getByRole('tab', { name: tabName }).click()
+    const field = page.getByRole('textbox', { name: label })
+    const initial = s.engine.store.draft(key)?.revision ?? 0
+    const gate = Promise.withResolvers(),
+      entered = Promise.withResolvers()
+    const pause = async (route) => {
+      if (route.request().postDataJSON()?.method === method) {
+        entered.resolve()
+        await gate.promise
+      }
+      await route.continue()
+    }
+    await page.route('**/api/neural-lab/rpc', pause)
+    try {
+      await field.fill('A')
+      await entered.promise
+      await field.fill('B')
+      await field.fill('C')
+    } finally {
+      gate.resolve()
+    }
+    await page.getByRole('status').filter({ hasText: '草稿已保存' }).waitFor()
+    await page.unroute('**/api/neural-lab/rpc', pause)
+    assert.deepEqual(s.engine.store.draft(key), { code: 'C', revision: initial + 2 })
+    await page.reload()
+    await page.getByRole('tab', { name: tabName }).click()
+    await field.waitFor()
+    await page.waitForFunction(
+      (label) => [...document.querySelectorAll('textarea')].some((a) => a.value === 'C'),
+      label,
+    )
+    assert.equal(await field.inputValue(), 'C')
+  }
+  results.push(
+    'delayed autosaves persist C at revision +2 after A/B/C, SQLite and reopened code/notes',
+  )
+  await page.getByRole('tab', { name: '练习 Exercise' }).click()
+  const remoteRevision = s.engine.store.draft('L01-code').revision
+  const second = await browser.newPage()
+  await second.goto(s.url)
+  const writeStatus = await second.evaluate(
+    async (rev) =>
+      (
+        await fetch('/api/neural-lab/rpc', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ method: 'saveDraft', args: ['L01-code', 'remote edit', rev] }),
+        })
+      ).status,
+    remoteRevision,
+  )
+  await second.close()
+  assert.equal(writeStatus, 200)
+  await editor.fill('my local edit')
+  await page.getByRole('button', { name: /Retry merged edits/ }).waitFor()
+  assert.equal(await editor.inputValue(), 'my local edit')
+  await page.reload()
+  await page.getByRole('tab', { name: '练习 Exercise' }).click()
+  await page.getByRole('button', { name: /Retry merged edits/ }).click()
+  await page.waitForFunction(() => !document.querySelector('.nl-editorInput')?.readOnly)
+  assert.equal(s.engine.store.draft('L01-code').code, 'my local edit')
+  results.push('stale revision retains local text across reload and explicit merge retry')
+  async function holdDraftAcknowledgement() {
+    await page.evaluate(() => {
+      const original = window.fetch
+      window.fetch = async (...args) => {
+        const response = await original(...args)
+        if (typeof args[1]?.body === 'string' && JSON.parse(args[1].body).method === 'saveDraft') {
+          window.fetch = original
+          await new Promise((resolve) => {
+            window.releaseDraft = resolve
+          })
+        }
+        return response
+      }
+    })
+  }
+  await holdDraftAcknowledgement()
+  await editor.fill('committed A awaiting acknowledgement')
+  await page.waitForFunction(() => !!window.releaseDraft)
+  await editor.fill('unconfirmed B at reload')
+  await page.reload()
+  await page.getByRole('tab', { name: '练习 Exercise' }).click()
+  await page.getByRole('status').filter({ hasText: '草稿已保存' }).waitFor()
+  assert.equal(s.engine.store.draft('L01-code').code, 'unconfirmed B at reload')
+  assert.equal(await editor.inputValue(), 'unconfirmed B at reload')
+  results.push('reload while prior acknowledgement is held reconciles A then persists B')
   const areaBox = await page.locator('.nl-editorArea').boundingBox()
   const editorBox = await editor.boundingBox()
   assert(editorBox.width > areaBox.width - 2 && editorBox.height >= 300)
@@ -114,8 +206,15 @@ try {
   )
   await page.screenshot({ path: join(s.out, 'workbench-editor.png'), fullPage: true })
   results.push('Learn editor line numbers, autoindent, native undo and keyboard pane resizing')
+  await holdDraftAcknowledgement()
+  await editor.fill('# earlier draft during switch')
+  await page.waitForFunction(() => !!window.releaseDraft)
   await editor.fill('# persisted UI draft\n')
   await page.getByRole('button', { name: /L02 / }).click()
+  await page.evaluate(() => {
+    window.releaseDraft()
+    delete window.releaseDraft
+  })
   await page.getByRole('button', { name: /L01 / }).click()
   await editor.waitFor()
   await page.waitForFunction(
@@ -128,11 +227,20 @@ try {
   )
   results.push('draft survives immediate lesson switch and reload')
   await page.getByRole('button', { name: '查看答案 Answer', exact: true }).click()
+  await holdDraftAcknowledgement()
+  await editor.fill('before restore in flight')
+  await page.waitForFunction(() => !!window.releaseDraft)
   await page.getByRole('tab', { name: '记录 Records' }).click()
   await page.getByText('帮助前快照 / Before assistance', { exact: true }).waitFor()
   const snapshot = page.locator('details').filter({ hasText: 'answer-reveal' }).first()
   await snapshot.locator('summary').click()
   await snapshot.getByRole('button', { name: '恢复此代码 Restore code' }).click()
+  await page.evaluate(() => {
+    window.releaseDraft()
+    delete window.releaseDraft
+  })
+  await page.getByRole('status').filter({ hasText: '草稿已保存' }).waitFor()
+  assert.equal(s.engine.store.draft('L01-code').code, '# persisted UI draft\n')
   await page.waitForFunction(
     () => document.querySelector('.nl-editorInput')?.value === '# persisted UI draft\n',
   )
@@ -158,12 +266,34 @@ try {
   results.push('experiment tab selects real experiment')
   await page.getByRole('button', { name: '概念 Concept', exact: true }).click()
   await page.getByRole('textbox', { name: '提问 Question' }).fill('解释本课')
+  const mentorGate = Promise.withResolvers(),
+    mentorEntered = Promise.withResolvers()
+  const pauseMentor = async (route) => {
+    if (route.request().postDataJSON()?.method === 'tutor') {
+      mentorEntered.resolve()
+      await mentorGate.promise
+    }
+    await route.continue()
+  }
+  await page.route('**/api/neural-lab/rpc', pauseMentor)
   await page.getByRole('button', { name: '询问导师 Ask mentor' }).click()
+  try {
+    await mentorEntered.promise
+    await page.getByRole('textbox', { name: '提问 Question' }).fill('我的下一问')
+    await page.getByRole('tab', { name: '讲义 Lecture' }).click()
+  } finally {
+    mentorGate.resolve()
+  }
   await page
     .getByText('验证 profile 未配置模型 / No model configured', { exact: false })
     .first()
     .waitFor()
-  results.push('hint and unavailable mentor remain usable')
+  assert.equal(
+    await page.getByRole('textbox', { name: '提问 Question' }).inputValue(),
+    '我的下一问',
+  )
+  await page.unroute('**/api/neural-lab/rpc', pauseMentor)
+  results.push('delayed mentor preserves next question and permits tab navigation')
   await page.getByRole('tab', { name: '记录 Records' }).click()
   await page.getByRole('textbox', { name: '学习笔记 Notes' }).fill('gradient notes')
   await page.getByRole('button', { name: '保存笔记 Save note' }).click()
@@ -195,6 +325,9 @@ try {
       { timeout: 120000 },
     )
     const rid = await page.locator('.nl-results').getAttribute('data-run-id')
+    const ev = s.engine.overview().evidence.find((e) => e.runId === rid)
+    assert.equal(ev.kind, 'observation')
+    assert.equal(ev.testVersion, '3')
     assert.equal(s.engine.run(rid).check_status, 'passed', JSON.stringify(s.engine.run(rid)))
     assert.deepEqual(s.engine.run(rid).effectiveConfig, { dim: 4, scale: false })
     assert.deepEqual(s.engine.run(rid).config, { seed: 42 })
@@ -265,6 +398,29 @@ try {
       .getByRole('textbox', { name: 'Python 编辑器 Editor' })
       .fill("def configure():\n    return {'steps': 12, 'lr': 0.02}\n")
     await page.getByRole('button', { name: '运行 / 提交 Run & check' }).click()
+    await page.getByRole('tab', { name: '档案 Profile' }).click()
+    const profileGoal = page.getByRole('textbox', { name: '学习目标 Goal' })
+    await profileGoal.fill('unsaved goal during evaluation')
+    await page.waitForResponse(
+      async (r) => {
+        if (
+          !r.url().endsWith('/api/neural-lab/rpc') ||
+          r.request().postDataJSON()?.method !== 'run'
+        )
+          return false
+        return (await r.json()).run_status === 'completed'
+      },
+      { timeout: 120000 },
+    )
+    await page.getByRole('tab', { name: '记录 Records' }).click()
+    await page.locator('details[id^="nl-record-"]').first().waitFor()
+    assert.match(
+      await page.locator('details[id^="nl-record-"] summary').first().textContent(),
+      /completed/,
+    )
+    await page.getByRole('tab', { name: '档案 Profile' }).click()
+    assert.equal(await profileGoal.inputValue(), 'unsaved goal during evaluation')
+    await page.getByRole('tab', { name: '实验 Experiment' }).click()
     await page.waitForFunction(
       () =>
         ['completed', 'failed'].some((status) =>
@@ -278,6 +434,10 @@ try {
     assert.equal(s.engine.run(changedId).check_status, 'passed')
     assert.deepEqual(s.engine.run(changedId).effectiveConfig, { steps: 12, lr: 0.02 })
     assert.deepEqual(s.engine.run(trainingId).effectiveConfig, { steps: 8, lr: 0.01 })
+    await checkEditableTraining(page, s.engine.exercise('L04-train'))
+    await checkEditableTraining(page, s.engine.exercise('L12-transformer'))
+    results.push('editable Transformer prediction, assembly, two real samples and review')
+    results.push('editable training from prediction through two-run comparison and review')
     results.push(
       'configure-only parameters preserved in immutable runs; changed steps/lr actually applied; loss shares one chart',
     )

@@ -30,7 +30,7 @@ export function RecordsTab({
       </button>
       <h3>作答与运行历史 / History</h3>
       {workspace?.runs.map((run) => (
-        <details key={run.id}>
+        <details key={run.id} id={'nl-record-' + run.id}>
           <summary>
             {run.createdAt} · {run.run_status} / {run.check_status} · {run.help}
           </summary>
@@ -55,13 +55,17 @@ export function RecordsTab({
       ))}
       <h3>文字作答历史 / Written answers</h3>
       {workspace?.answers?.map((answer, i) => (
-        <details key={i}>
+        <details key={i} id={'nl-record-' + answer.id}>
           <summary>
             {answer.status} · {answer.contentVersion}/{answer.testVersion}
           </summary>
-          <button disabled={busy} onClick={() => onRestore(answer.text)}>
-            恢复此作答 Restore answer
-          </button>
+          {answer.runId ? (
+            <small>Run {answer.runId}</small>
+          ) : (
+            <button disabled={busy} onClick={() => onRestore(answer.text)}>
+              恢复此作答 Restore answer
+            </button>
+          )}
           <pre>{answer.text}</pre>
         </details>
       ))}
@@ -70,7 +74,23 @@ export function RecordsTab({
         .filter((e) => e.exerciseId === exerciseId)
         .map((e, i) => (
           <p key={i}>
-            {e.concept} · {e.kind} · {e.source} · {e.help} · {e.result}
+            {e.concept} · {e.kind} · {e.source} · {e.help} · {e.result} ·{' '}
+            {e.contentVersion ?? '历史来源未知 / legacy'}/{e.testVersion ?? '?'}
+            {(e.runId || e.answerId) && (
+              <button
+                onClick={() => {
+                  const item = document.getElementById(
+                    'nl-record-' + (e.answerId ?? e.runId),
+                  ) as HTMLDetailsElement | null
+                  if (item) {
+                    item.open = true
+                    item.scrollIntoView({ block: 'nearest' })
+                  }
+                }}
+              >
+                查看来源 / Show source
+              </button>
+            )}
           </p>
         ))}
     </section>

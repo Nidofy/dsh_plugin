@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 import { DatabaseSync } from 'node:sqlite'
 import type { Evidence, HelpLevel, RunRecord } from './types.ts'
 export class Store {
@@ -33,6 +34,9 @@ export class Store {
       CREATE TABLE runs(id TEXT PRIMARY KEY,exercise TEXT NOT NULL,body TEXT NOT NULL);
       CREATE TABLE history(seq INTEGER PRIMARY KEY,exercise TEXT NOT NULL,kind TEXT NOT NULL,body TEXT NOT NULL,at TEXT NOT NULL);
       PRAGMA application_id=1313620290; PRAGMA user_version=1; COMMIT;`)
+    this.db.exec(
+      'CREATE INDEX IF NOT EXISTS history_activity ON history(exercise,kind); CREATE INDEX IF NOT EXISTS run_activity ON runs(exercise)',
+    )
     for (const run of this.runs())
       if (['queued', 'running'].includes(run.run_status))
         this.putRun({
@@ -42,6 +46,17 @@ export class Store {
           reason: 'Host restarted before execution was confirmed',
           finishedAt: new Date().toISOString(),
         })
+  }
+  transaction<T>(operation: () => T): T {
+    this.db.exec('BEGIN IMMEDIATE')
+    try {
+      const value = operation()
+      this.db.exec('COMMIT')
+      return value
+    } catch (error) {
+      this.db.exec('ROLLBACK')
+      throw error
+    }
   }
   get<T>(key: string, fallback: T): T {
     const row = this.db.prepare('SELECT value FROM kv WHERE key=?').get(key)
@@ -103,13 +118,14 @@ export class Store {
       .map((r) => JSON.parse(String(r.body)) as T)
   }
   help(id: string): HelpLevel {
-    const levels: HelpLevel[] = ['none', 'concept', 'steps', 'code', 'answer']
+    const levels: HelpLevel[] = ['none', 'concept', 'steps', 'code', 'unknown', 'answer']
     const since = this.get<number>('helpCycle:' + id, 0)
     return this.history<HelpLevel>(id, 'hint')
       .slice(since)
       .reduce((a, b) => (levels.indexOf(a) > levels.indexOf(b) ? a : b), 'none')
   }
   beginIndependent(id: string): void {
+    this.set('attempt:' + id, randomUUID())
     this.set('helpCycle:' + id, this.history(id, 'hint').length)
     this.record(id, 'independent-retry', {
       note: 'Self-reported fresh attempt; external help cannot be verified',
@@ -119,7 +135,13 @@ export class Store {
     return this.db
       .prepare("SELECT body FROM history WHERE kind='evidence' ORDER BY seq")
       .all()
-      .map((r) => JSON.parse(String(r.body)) as Evidence)
+      .map((r) => {
+        const e = JSON.parse(String(r.body)) as Evidence
+        return {
+          ...e,
+          provenance: e.id && e.contentVersion ? ('recorded' as const) : ('legacy' as const),
+        }
+      })
   }
   export(): string {
     return JSON.stringify(
@@ -129,6 +151,7 @@ export class Store {
         settings: this.db.prepare('SELECT * FROM kv').all(),
         drafts: this.db.prepare('SELECT * FROM drafts').all(),
         runs: this.runs(),
+        evidence: this.evidence(),
         history: this.db.prepare('SELECT * FROM history').all(),
       },
       null,

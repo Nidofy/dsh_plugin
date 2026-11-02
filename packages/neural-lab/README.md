@@ -1,10 +1,30 @@
-# Neural Lab 0.1.2
+# Neural Lab 0.2.1
 
 面向有 Python 和基础数学经验的神经网络与 Transformer 学习工作台。目标宿主为 **DSH 0.2.1-rc.5**，Node 24+；CPU 优先。左侧课程路线、讲义/练习/实验/记录页签与可折叠导师使用同一内容和 SQLite 数据库。
 
+## L12 组装微型 Transformer
+
+进入 **L12 → 练习 → 组装微型 Transformer**。先固定种子，预测移除因果 mask 会怎样影响前缀 logits。按顺序完成 `shifted`、`embed`、`attention`、`block`、`logits`，每完成一个函数即可运行，检查表会分别显示五个接口的结果。L07 的查表和 L10 的拆头从 NumPy 改用 PyTorch 张量，保持计算图，所有参数均通过传入的 ParameterDict 参与更新。
+
+五字符词表、四维隐藏层、两头、四字符上下文、一层 Pre-LN 和四步 CPU SGD。训练器先划分字符位置，再取窗口；独立控制器验证目标移位、模块输出、未来扰动与 batch 隔离、嵌入输出及参数梯度、每步更新，重算训练和留出集交叉熵。通过后使用本次训练权重逐字符生成 16 个新字符。可改变学习率再次运行，对照四条曲线、两份代码和实际 runId，记录解释并复习。课程共 38 项活动；本版继续使用原 SQLite v1 数据根。
+
+## L04 可编辑 MLP 训练
+
+在 L04 的「练习」页签选择「亲手训练 MLP」。先写预测，设置 seed 与学习率，然后在一个 Python 文件中实现 train_step(model, optimizer, batch) 和 validate(model, batch)。每批清梯度、前向、计算 MSE、反传、更新；验证使用 eval 与 no_grad。程序会连续运行八批，并逐步比较梯度和参数更新。学习者报告的指标带 student 前缀，控制器从返回的参数独立计算训练集与验证集误差。
+
+保持 seed，再改变学习率或代码运行第二次。在「同种子运行对照」里选择 A、B，查看运行 ID、代码差异、实际配置与共享坐标的四条曲线。按自评标准提交该次运行的解释，从复习入口回到预测与结果，完成复习。历史运行、版本、帮助等级、解释及复习事件可导出。原 L04 configure 引导实验仍在「实验」页签。
+
+课包 0.2.0 包含 37 项活动。新协议 train-mlp-v1 的检查版本为 1，原题沿用版本 3。升级使用原数据根和 SQLite v1。回退前停用并冷备份；0.1.3 没有新活动的界面，需重新启用 0.2.0 才能查看其完整学习路径。
+
+## 0.1.3 保存与学习记录
+
+编辑中的代码和笔记有各自的确认修订。当前浏览器标签页在 sessionStorage 暂存未确认文本，按学习数据库和活动分隔；冲突面板可查看远端、下载本地副本并在编辑后重试。导师按模式记录实际交付的帮助，自由问答标为 unknown。运行与当前草稿有独立快照，导师可引用本活动最近八条消息。参数实验计为观察；L09 迁移题另收集解释并提供自评标准。记录页可从新证据跳回运行或文字作答。
+
+SQLite 结构版本仍为 1，课程 0.1.3、检查版本 3。旧记录按原版本展示，历史证据缺失的关联显示为 legacy。回退时先停用插件并备份整个数据根，再安装旧 tgz；需要精确恢复升级前的学习状态时使用升级前冷备份。旧界面对 unknown 帮助及新增证据类型没有专门显示。
+
 ## 安装与环境
 
-将构建生成的 `dsh-plugin-neural-lab-0.1.2.tgz` 通过 DSH 插件管理器安装到选定 profile，启用插件，在侧栏打开 Neural Lab。与 `dsh-plugin-learn` 使用不同包名、注册标识和数据根；不包含 LeetCode 搜题、邮件或 Hot100 worker。开发与验收只使用临时 profile，不修改用户实际 DSH_HOME。
+将构建生成的 `dsh-plugin-neural-lab-0.2.1.tgz` 通过 DSH 插件管理器安装到选定 profile，启用插件，在侧栏打开 Neural Lab。与 `dsh-plugin-learn` 使用不同包名、注册标识和数据根；不包含 LeetCode 搜题、邮件或 Hot100 worker。开发与验收只使用临时 profile，不修改用户实际 DSH_HOME。
 
 CPU 环境单独准备，课程运行不会安装依赖或下载数据：
 
@@ -58,6 +78,7 @@ L01 张量与广播 → L02 链式法则 → L03 自动微分/梯度累积 → L
 # DSH_SOURCE 指向固定 rc.5 Git checkout，开发依赖由仓库提供
 node scripts/build.mjs
 npm test
+node --experimental-transform-types tests/runner-lifecycle.ts
 node --experimental-transform-types tests/runner-real.ts
 node --experimental-transform-types tests/runner-adversarial.ts
 node --experimental-transform-types tests/runner-parameters.ts

@@ -1,3 +1,5 @@
+import { randomUUID, createHash } from 'node:crypto'
+import type { HelpLevel } from './types.ts'
 import type { Engine } from './engine.ts'
 
 /** Build only the current activity context; preserve the learner attempt before seeking help. */
@@ -7,8 +9,11 @@ export async function askActivityTutor(
   text: string,
   selection: string,
   tutor: (prompt: string) => Promise<{ status: string; text: string }>,
+  mode: HelpLevel = 'unknown',
 ): Promise<{ status: string; text: string }> {
   const e = engine.exercise(exerciseId)
+  if (!['unknown', 'concept', 'steps', 'code', 'answer'].includes(mode))
+    throw Error('Invalid help mode')
   engine.text(text, 6000)
   engine.text(selection, 3000)
   const workspace = engine.workspace(e.id)
@@ -26,8 +31,22 @@ export async function askActivityTutor(
       Math.max(0, selectionIndex - 300) + 1800,
     ) ?? ''
   engine.snapshotAttempt(e.id, 'mentor-request')
-  engine.store.record(e.id, 'message', { role: 'user', text, status: 'completed' })
-  engine.store.record(e.id, 'hint', 'concept')
+  const requestId = randomUUID()
+  const identity = {
+    requestId,
+    exerciseId,
+    mode,
+    contentVersion: engine.catalog.version,
+    testVersion: e.testVersion,
+    cycle: engine.store.get('attempt:' + e.id, 'initial'),
+  }
+  engine.store.record(e.id, 'message', { ...identity, role: 'user', text, status: 'requested' })
+  const last = workspace.runs[0]
+  const snapshot = (code: string) => ({
+    code: code.slice(0, 12000),
+    sha256: createHash('sha256').update(code).digest('hex'),
+    truncated: code.length > 12000,
+  })
   const result = await tutor(
     JSON.stringify({
       exercise: { title: e.title, prompt: e.prompt, inputDomain: e.inputDomain },
@@ -40,10 +59,34 @@ export async function askActivityTutor(
       observedHelp: engine.store.help(e.id),
       selection,
       question: text,
-      code: workspace.draft.slice(0, 12000),
-      latestRun: workspace.runs[0]
+      mode,
+      recentMessages: workspace.messages
+        .slice(-8)
+        .map((m) => ({ ...m, text: m.text.slice(0, 1200) })),
+      currentDraft: {
+        ...snapshot(workspace.draft),
+        revision: workspace.revision,
+        contentVersion: engine.catalog.version,
+        testVersion: e.testVersion,
+      },
+      lastExecutedSnapshot: last
         ? {
-            id: workspace.runs[0].id,
+            runId: last.id,
+            ...snapshot(last.code),
+            contentVersion: last.contentVersion,
+            testVersion: last.testVersion,
+            seed: last.seed,
+            prediction: last.prediction,
+            manifest: last.trainingManifest,
+            reflection: workspace.answers
+              ?.filter((a) => a.runId === last.id)
+              .at(-1)
+              ?.text.slice(0, 2000),
+            matchesCurrentDraft:
+              last.code === workspace.draft &&
+              last.contentVersion === engine.catalog.version &&
+              last.testVersion === e.testVersion,
+            source: 'program',
             status: workspace.runs[0].run_status,
             checks: workspace.runs[0].check_status,
             events: workspace.runs[0].events.slice(-12),
@@ -52,7 +95,9 @@ export async function askActivityTutor(
           }
         : null,
     }),
-  )
-  engine.store.record(e.id, 'message', { role: 'assistant', ...result })
+  ).catch((error: unknown) => ({ status: 'failed', text: String(error) }))
+  engine.store.record(e.id, 'message', { ...identity, role: 'assistant', ...result })
+  if (result.status === 'completed' && result.text.trim())
+    engine.recordHelp(e.id, mode, 'mentor', requestId)
   return result
 }

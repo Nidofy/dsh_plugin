@@ -186,7 +186,26 @@ try {
     },
     240000,
   )
+  await new Promise((resolve) => {
+    server.once('close', resolve)
+    server.kill('SIGINT')
+  })
+  await command([
+    cli,
+    'plugin',
+    '--profile',
+    profile,
+    'remove',
+    'dsh-plugin-neural-lab',
+    '--store-dir',
+    join(repo, '.pnpm-store'),
+  ])
+  const manifest = JSON.parse(
+    await readFile(join(home, 'profiles', profile, 'package.json'), 'utf8'),
+  )
+  assert.ok(!manifest.dependencies?.['dsh-plugin-neural-lab'])
   const evidence = JSON.parse(await readFile(evidencePath, 'utf8'))
+  evidence.checks.push('official CLI removes package from temporary profile')
   evidence.installedHashes = hashes
   evidence.tarSha256 = hash
   evidence.profileCleanup =
@@ -200,7 +219,7 @@ try {
   diagnostic.error = String(error)
   throw error
 } finally {
-  if (server && server.exitCode === null) {
+  if (server && server.exitCode === null && server.signalCode === null) {
     await new Promise((resolve) => {
       server.once('close', resolve)
       server.kill('SIGINT')

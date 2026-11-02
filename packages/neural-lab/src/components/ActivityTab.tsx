@@ -1,3 +1,4 @@
+import { trainingDataset } from '../training-protocol.ts'
 import { useRef, useState, type PointerEvent } from 'react'
 import type { Lesson, Workspace, RunRecord } from '../types.ts'
 import { Markdown } from './Markdown.tsx'
@@ -6,9 +7,14 @@ import { RunResults } from './RunResults.tsx'
 interface Props {
   lesson: Lesson
   workspace?: Workspace
+  contentVersion: string
   experimentOnly: boolean
   exerciseId: string
   draft: string
+  prediction: string
+  learningRate: number
+  onPrediction: (v: string) => void
+  onLearningRate: (v: number) => void
   seed: number
   run?: RunRecord
   busy: boolean
@@ -76,6 +82,32 @@ export function ActivityTab(props: Props) {
                 ))}
               </ul>
             </details>
+            {!!trainingDataset(exercise.runtimeKey) && (
+              <>
+                <label>
+                  运行前预测 Prediction
+                  <textarea
+                    maxLength={2000}
+                    value={props.prediction}
+                    disabled={props.busy}
+                    onChange={(e) => props.onPrediction(e.target.value)}
+                    placeholder="改变学习率后，你预计验证误差如何变化？"
+                  />
+                </label>
+                <label>
+                  学习率 Learning rate
+                  <input
+                    type="number"
+                    min="0.001"
+                    max="0.3"
+                    step="0.001"
+                    value={props.learningRate}
+                    disabled={props.busy}
+                    onChange={(e) => props.onLearningRate(Number(e.target.value))}
+                  />
+                </label>
+              </>
+            )}
             {exercise.kind === 'experiment' && (
               <p className="nl-callout">
                 实验参数只来自代码中的 <code>configure()</code>
@@ -175,13 +207,28 @@ export function ActivityTab(props: Props) {
                     取消 Cancel
                   </button>
                 ) : (
-                  <button className="nl-primary" disabled={props.busy} onClick={props.onRun}>
+                  <button
+                    className="nl-primary"
+                    disabled={
+                      props.busy ||
+                      (!!trainingDataset(exercise.runtimeKey) && !props.prediction.trim())
+                    }
+                    onClick={props.onRun}
+                  >
                     运行 / 提交 Run & check
                   </button>
                 )}
               </div>
               {props.run ? (
                 <>
+                  {props.run.code === props.draft &&
+                    (props.run.testVersion !== exercise?.testVersion ||
+                      props.run.contentVersion !== props.contentVersion ||
+                      props.run.seed !== props.seed) && (
+                      <p className="nl-callout">
+                        历史版本或种子不同 / Prior version or seed. 请重新运行。
+                      </p>
+                    )}
                   {props.run.code !== props.draft && (
                     <p className="nl-callout" role="status">
                       代码已修改；以下为先前快照结果，请重新运行。/ Code changed; previous snapshot

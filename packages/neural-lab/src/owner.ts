@@ -1,13 +1,20 @@
 import { DatabaseSync } from 'node:sqlite'
-import { randomUUID } from 'node:crypto'
-/** A short SQLite transaction serializes stale-owner recovery with competing startups. */
+/** The OS releases this SQLite writer lock even if the host dies or its PID is reused. */
 export async function acquireOwner(path: string): Promise<() => Promise<void>> {
-  const token = randomUUID(),
-    db = new DatabaseSync(path)
-  db.exec(
-    'PRAGMA busy_timeout=3000; CREATE TABLE IF NOT EXISTS owner(slot INTEGER PRIMARY KEY CHECK(slot=1),pid INTEGER NOT NULL,token TEXT NOT NULL); BEGIN IMMEDIATE;',
-  )
+  const db = new DatabaseSync(path)
   try {
+    db.exec('BEGIN IMMEDIATE')
+  } catch (error) {
+    db.close()
+    if ((error as { errcode?: number }).errcode === 5)
+      throw Error('Neural Lab data root already has an active owner')
+    throw error
+  }
+  try {
+    db.exec(
+      'CREATE TABLE IF NOT EXISTS owner(slot INTEGER PRIMARY KEY CHECK(slot=1),pid INTEGER NOT NULL,token TEXT NOT NULL)',
+    )
+    // Older versions commit a PID row and release the database lock.
     const prior = db.prepare('SELECT pid FROM owner WHERE slot=1').get()
     if (prior) {
       const pid = Number(prior.pid)
@@ -19,10 +26,7 @@ export async function acquireOwner(path: string): Promise<() => Promise<void>> {
         if (!(probe instanceof Error && 'code' in probe && probe.code === 'ESRCH')) throw probe
       }
     }
-    db.prepare(
-      'INSERT INTO owner VALUES(1,?,?) ON CONFLICT(slot) DO UPDATE SET pid=excluded.pid,token=excluded.token',
-    ).run(process.pid, token)
-    db.exec('COMMIT')
+    db.exec('DELETE FROM owner')
   } catch (error) {
     db.exec('ROLLBACK')
     db.close()
@@ -33,7 +37,7 @@ export async function acquireOwner(path: string): Promise<() => Promise<void>> {
     if (released) return
     released = true
     try {
-      db.prepare('DELETE FROM owner WHERE slot=1 AND token=?').run(token)
+      db.exec('COMMIT')
     } finally {
       db.close()
     }

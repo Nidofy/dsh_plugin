@@ -20,10 +20,10 @@ export interface Config {
 export const Config: Schema<Config> = Schema.object({
   dataRoot: Schema.string().required(),
   image: Schema.string().default('dsh-neural-lab-cpu:0.1'),
-  timeoutMs: Schema.number().min(1000).max(600000).default(120000),
-  memoryMb: Schema.number().min(256).max(8192).default(1024),
+  timeoutMs: Schema.natural().min(1000).max(600000).default(120000),
+  memoryMb: Schema.natural().min(256).max(8192).default(1024),
   cpus: Schema.number().min(0.25).max(8).default(1),
-  outputBytes: Schema.number().min(4096).max(4194304).default(262144),
+  outputBytes: Schema.natural().min(4096).max(4194304).default(262144),
 })
 function string(v: unknown): string {
   if (typeof v !== 'string') throw Error('Expected string')
@@ -69,13 +69,22 @@ export async function dispatch(
         Object.fromEntries(Object.entries(object(args[0])).map(([k, v]) => [k, string(v)])),
       )
     case 'start':
-      return engine.start(id(), string(args[1]), numeric(args[2]))
+      return engine.start(
+        id(),
+        string(args[1]),
+        numeric(args[2]),
+        args[3] === undefined ? undefined : string(args[3]),
+      )
     case 'run':
       return engine.run(id())
     case 'cancel':
       return engine.cancel(id())
     case 'answer':
-      return engine.answer(id(), string(args[1]))
+      return engine.answer(
+        id(),
+        string(args[1]),
+        args[2] === undefined ? undefined : string(args[2]),
+      )
     case 'hint':
       return engine.hint(id(), string(args[1]) as HelpLevel)
     case 'environment':
@@ -87,12 +96,21 @@ export async function dispatch(
         2,
       )
     case 'snooze':
-      return engine.snooze(id())
+      return engine.snooze(id(), args[1] == null ? undefined : string(args[1]))
+    case 'finishReview':
+      return engine.finishTrainingReview(id())
     case 'independent':
       engine.exercise(id())
       return engine.store.beginIndependent(id())
     case 'tutor':
-      return askActivityTutor(engine, id(), string(args[1]), string(args[2]), tutor)
+      return askActivityTutor(
+        engine,
+        id(),
+        string(args[1]),
+        string(args[2]),
+        tutor,
+        args[3] === undefined ? 'unknown' : (string(args[3]) as HelpLevel),
+      )
     default:
       throw Error('Unknown Neural Lab method')
   }
@@ -139,8 +157,17 @@ export async function handleRequest(
     const value = await dispatch(engine, string(input.method), input.args, tutor)
     res.end(JSON.stringify(value ?? null))
   } catch (error) {
-    res.statusCode = 400
-    res.end(JSON.stringify({ error: error instanceof Error ? error.message : String(error) }))
+    const internal = error instanceof Error && ('code' in error || error instanceof TypeError)
+    res.statusCode = internal ? 500 : 400
+    res.end(
+      JSON.stringify({
+        error: internal
+          ? 'Neural Lab internal error'
+          : error instanceof Error
+            ? error.message
+            : 'Invalid request',
+      }),
+    )
   } finally {
     clearTimeout(timeout)
     signal.removeEventListener('abort', abort)

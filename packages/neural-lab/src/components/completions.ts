@@ -5,14 +5,14 @@ import type { CodeLanguage } from './editor-types.ts'
 const words: Record<CodeLanguage, string> = {
   cpp: 'alignas auto bool break case catch char class const constexpr continue default delete do double else enum explicit false float for if int long namespace new nullptr private protected public return short signed sizeof static struct switch template this throw true try typedef typename unsigned using virtual void volatile while std string vector array pair tuple map unordered_map set unordered_set queue priority_queue stack deque list bitset optional ListNode TreeNode Node Solution INT_MAX INT_MIN LLONG_MAX LLONG_MIN',
   python:
-    'and as assert async await break class continue def del elif else except False finally for from global if import in is lambda None nonlocal not or pass raise return True try while with yield self int float str bool list dict set tuple List Optional ListNode TreeNode Node Solution',
+    'and as assert async await break class continue def del elif else except False finally for from global if import in is lambda None nonlocal not or pass raise return True try while with yield self int float str bool list dict set tuple List Optional np numpy torch',
   typescript:
     'async await break case catch class const continue default delete do else enum export extends false finally for function if implements import in instanceof interface let new null of private protected public readonly return static super switch this throw true try type typeof undefined var void while number string boolean Array Map Set Promise ListNode TreeNode Node Solution',
 }
 const calls: Record<CodeLanguage, string> = {
   cpp: 'sort stable_sort lower_bound upper_bound binary_search reverse max min swap abs accumulate iota max_element min_element next_permutation make_pair make_tuple move to_string stoi stoll push_back pop_back emplace_back push pop top front back begin end rbegin rend size empty clear insert erase find count reserve resize substr length',
   python:
-    'len range enumerate zip sorted reversed min max sum abs all any print isinstance int str list dict set tuple append extend insert pop remove sort reverse clear copy get items keys values add discard update split join strip startswith endswith bisect_left bisect_right heappush heappop deque Counter defaultdict',
+    'len range enumerate zip sorted reversed min max sum abs all any print isinstance int str list dict set tuple append extend insert pop remove sort reverse clear copy get items keys values add discard update split join strip startswith endswith reshape transpose swapaxes matmul softmax exp log sum mean backward zero_grad detach tensor asarray array concatenate split einsum',
   typescript:
     'push pop shift unshift slice splice sort reverse map filter reduce forEach find findIndex includes indexOf join split substring charAt charCodeAt set get has add delete clear entries keys values max min floor ceil abs trunc parseInt Number String Array',
 }

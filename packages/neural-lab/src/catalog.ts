@@ -1,3 +1,4 @@
+import { trainingDataset } from './training-protocol.ts'
 import { readFile } from 'node:fs/promises'
 import type { Catalog } from './types.ts'
 export async function loadCatalog(): Promise<Catalog> {
@@ -23,7 +24,13 @@ export async function loadCatalog(): Promise<Catalog> {
   return c
 }
 export function validateCatalog(c: Catalog): void {
-  if (c.version !== '0.1.1' || c.lessons.length !== 12)
+  const supported: Record<string, string> = {
+    '0.1.1': '2',
+    '0.1.3': '3',
+    '0.2.0': '3',
+    '0.2.1': '3',
+  }
+  if (!Object.hasOwn(supported, c.version) || c.lessons.length !== 12)
     throw new Error('Invalid course version/count')
   const ids = new Set(c.lessons.map((l) => l.id))
   if (ids.size !== c.lessons.length) throw new Error('Duplicate lesson identity')
@@ -44,6 +51,14 @@ export function validateCatalog(c: Catalog): void {
     if (!l.body || !l.summary || !ids.has(l.id)) throw new Error('Incomplete lesson')
     visit(l.id)
     for (const e of l.exercises) {
+      if (
+        e.testVersion !==
+        ((c.version === '0.2.1' && trainingDataset(e.runtimeKey)) ||
+        (c.version === '0.2.0' && e.runtimeKey === 'train-mlp-v1')
+          ? '1'
+          : supported[c.version])
+      )
+        throw Error('Unsupported exercise test version')
       if (exercises.has(e.id) || e.lessonId !== l.id || e.hints.length < 3 || !e.prompt)
         throw new Error('Invalid exercise')
       exercises.add(e.id)

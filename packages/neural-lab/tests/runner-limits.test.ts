@@ -2,6 +2,7 @@ import { test } from 'node:test'
 import { strict as assert } from 'node:assert'
 import { Runner } from '../src/runner.ts'
 test('resource settings reject unsafe or nonfinite limits', () => {
+  assert.throws(() => new Runner('/tmp/neural-test', '--privileged'), /image reference/)
   for (const limits of [
     { cpus: NaN },
     { memoryMb: 0 },

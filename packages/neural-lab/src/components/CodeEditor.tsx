@@ -53,6 +53,8 @@ export function CodeEditor({
   const [suggestions, setSuggestions] = useState<{
     code: string
     language: CodeLanguage
+    top: number
+    left: number
     list: CompletionList
   }>()
   const [selected, setSelected] = useState(0)
@@ -82,7 +84,25 @@ export function CodeEditor({
   const suggest = (code: string, position: number, explicit = false): void => {
     const list = complete(code, position, language, explicit)
     setSelected(0)
-    setSuggestions(list === undefined ? undefined : { code, language, list })
+    const input = area.current
+    if (!input || !list) {
+      setSuggestions(undefined)
+      return
+    }
+    const lines = code.slice(0, position).split('\n')
+    const style = getComputedStyle(input)
+    const ctx = document.createElement('canvas').getContext('2d')
+    if (ctx) ctx.font = style.font
+    const left =
+      12 + (ctx?.measureText(lines.at(-1)!.replaceAll('\t', '    ')).width ?? 0) - input.scrollLeft
+    const top = 8 + lines.length * parseFloat(style.lineHeight) - input.scrollTop
+    setSuggestions({
+      code,
+      language,
+      list,
+      left: Math.max(4, Math.min(input.clientWidth - 344, left)),
+      top: Math.max(4, Math.min(input.clientHeight - 150, top)),
+    })
   }
   const accept = (index: number): void => {
     const item = visible?.items[index]
@@ -231,7 +251,8 @@ export function CodeEditor({
           }}
           onSelect={(event) => {
             const area = event.currentTarget
-            onSelection?.(area.value.slice(area.selectionStart, area.selectionEnd))
+            if (area.selectionStart !== area.selectionEnd)
+              onSelection?.(area.value.slice(area.selectionStart, area.selectionEnd).slice(0, 3000))
           }}
           onCompositionStart={() => {
             composing.current = true
@@ -253,7 +274,16 @@ export function CodeEditor({
           }}
         />
         {visible !== undefined && (
-          <div className={'nl-completions'}>
+          <div
+            className={'nl-completions'}
+            style={{
+              top: suggestions?.top,
+              left: suggestions?.left,
+              bottom: 'auto',
+              right: 'auto',
+              maxHeight: 145,
+            }}
+          >
             <div id={listId} role="listbox" aria-label={completionLabel}>
               {visible.items.map((item, index) => (
                 <div

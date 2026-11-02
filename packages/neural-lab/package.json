@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-neural-lab",
-  "version": "0.1.2",
+  "version": "0.2.1",
   "description": "CPU-first neural network and Transformer learning laboratory",
   "type": "module",
   "license": "MIT",
@@ -28,6 +28,7 @@
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
+    "pretest": "node scripts/build.mjs",
     "test": "node --experimental-transform-types --test tests/store.test.ts tests/content.test.ts tests/runner-limits.test.ts tests/host.test.mjs"
   },
   "peerDependencies": {

@@ -1,6 +1,7 @@
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { readdir, writeFile, readFile } from 'node:fs/promises'
+import { checkEditableTraining } from './training-ui.mjs'
 import { checkIndependentScrolling } from './scroll-check.mjs'
 const base = resolve(import.meta.dirname, '..'),
   source = resolve(base, '../../../../.build/official-source-rc5'),
@@ -100,6 +101,18 @@ try {
       fullPage: true,
     })
     await writeFile(evidencePath('official-cpu-run.json'), JSON.stringify(record, null, 2))
+    const training = await checkEditableTraining(
+      page,
+      catalog.lessons.flatMap((l) => l.exercises).find((e) => e.id === 'L04-train'),
+    )
+    const transformer = await checkEditableTraining(
+      page,
+      catalog.lessons.flatMap((l) => l.exercises).find((e) => e.id === 'L12-transformer'),
+    )
+    await writeFile(
+      evidencePath('official-training.json'),
+      JSON.stringify({ mlp: training, transformer }, null, 2),
+    )
   }
   if (process.env.NEURAL_WITH_LEARN === '1') {
     await page
@@ -137,7 +150,10 @@ try {
           'preset hint and real no-model downgrade',
           ...scrollChecks,
           ...(process.env.NEURAL_UI_CPU === '1'
-            ? ['actual official Host to Docker CPU Attention passed']
+            ? [
+                'actual official Host to Docker CPU Attention passed',
+                'editable MLP and character Transformer comparison, reflection and review passed',
+              ]
             : []),
           ...(process.env.NEURAL_WITH_LEARN === '1'
             ? ['Learn 0.5.2 and Neural Lab panels coexist']

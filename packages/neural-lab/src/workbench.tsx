@@ -1,3 +1,4 @@
+import { trainingDataset } from './training-protocol.ts'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type {
   LabApi,
@@ -8,13 +9,88 @@ import type {
   HelpLevel,
 } from './types.ts'
 import { css } from './client-style.ts'
+import { TrainingComparison } from './components/TrainingComparison.tsx'
 import { ActivityTab } from './components/ActivityTab.tsx'
 import { LectureTab } from './components/LectureTab.tsx'
 import { RecordsTab } from './components/RecordsTab.tsx'
 import { MentorSidebar } from './components/MentorSidebar.tsx'
-export { RunResults } from './components/RunResults.tsx'
+import { RunResults } from './components/RunResults.tsx'
+export { RunResults }
 const active = (run: RunRecord) => run.run_status === 'queued' || run.run_status === 'running'
 const errorText = (error: unknown) => (error instanceof Error ? error.message : String(error))
+type BufferState = {
+  key: string
+  id: string
+  code: string
+  note: string
+  draft: string
+  savedNote: string
+  revision: number
+  noteRevision: number
+  conflict?: Workspace
+  uncertain?: boolean
+  inflight?: { field: 'code' | 'note'; submitted: string; expected: number }
+}
+function cacheBuffer(b: BufferState) {
+  const { key, id, code, note, draft, savedNote, revision, noteRevision } = b
+  if (code === draft && note === savedNote && !b.inflight && !b.conflict)
+    sessionStorage.removeItem(key)
+  else
+    sessionStorage.setItem(
+      key,
+      JSON.stringify({
+        id,
+        code,
+        note,
+        draft,
+        savedNote,
+        revision,
+        noteRevision,
+        requiresMerge: !!b.conflict || !!b.uncertain,
+        inflight: b.inflight,
+      }),
+    )
+}
+function openBuffer(w: Workspace): BufferState {
+  const key = 'neural-lab-buffer/' + w.profileId + '/' + w.exercise.id
+  const b: BufferState = {
+    key,
+    id: w.exercise.id,
+    code: w.draft,
+    draft: w.draft,
+    note: w.note,
+    savedNote: w.note,
+    revision: w.revision,
+    noteRevision: w.noteRevision,
+  }
+  const raw = sessionStorage.getItem(key)
+  if (!raw) return b
+  let previous: Partial<BufferState> & { requiresMerge?: boolean }
+  try {
+    previous = JSON.parse(raw) ?? {}
+  } catch {
+    return b
+  }
+  for (const [field, baseline, rev] of [
+    ['code', 'draft', 'revision'],
+    ['note', 'savedNote', 'noteRevision'],
+  ] as const) {
+    const inflight = previous.inflight
+    if (
+      typeof previous[field] !== 'string' ||
+      previous[field] === b[field] ||
+      (previous[field] === previous[baseline] && inflight?.field !== field)
+    )
+      continue
+    const recovered =
+      inflight?.field === field &&
+      inflight.expected + 1 === b[rev] &&
+      inflight.submitted === b[field]
+    if (previous.requiresMerge || (previous[rev] !== b[rev] && !recovered)) b.conflict = w
+    b[field] = previous[field]!
+  }
+  return b
+}
 export function Workbench({ api }: { api: LabApi }) {
   const [overview, setOverview] = useState<Overview>(),
     [ws, setWs] = useState<Workspace>(),
@@ -27,6 +103,14 @@ export function Workbench({ api }: { api: LabApi }) {
     [error, setError] = useState(''),
     [status, setStatus] = useState(''),
     [busy, setBusy] = useState(false),
+    [conflict, setConflict] = useState<Workspace>(),
+    [mentorBusy, setMentorBusy] = useState(false),
+    [prediction, setPrediction] = useState(''),
+    [learningRate, setLearningRate] = useState(0.05),
+    [reviewRun, setReviewRun] = useState(''),
+    [explanation, setExplanation] = useState(''),
+    [mode, setMode] = useState<HelpLevel>('unknown'),
+    [checking, setChecking] = useState(false),
     [environment, setEnvironment] = useState<EnvironmentStatus>(),
     [hint, setHint] = useState(''),
     [question, setQuestion] = useState(''),
@@ -36,7 +120,8 @@ export function Workbench({ api }: { api: LabApi }) {
     [seed, setSeed] = useState(42),
     [sidebarWidth, setSidebarWidth] = useState(220)
   const generation = useRef(0),
-    current = useRef<{ ws: Workspace; code: string; note: string }>(),
+    current = useRef<BufferState>(),
+    initializedProfile = useRef(false),
     queue = useRef<Promise<void>>(Promise.resolve()),
     mounted = useRef(true),
     actionPending = useRef(false),
@@ -49,7 +134,7 @@ export function Workbench({ api }: { api: LabApi }) {
     mounted.current = true
     return () => {
       mounted.current = false
-      void save()
+      void save().catch(report)
     }
   }, [])
   const report = (e: unknown) => {
@@ -59,7 +144,10 @@ export function Workbench({ api }: { api: LabApi }) {
     const o = await api.overview()
     if (!mounted.current) return
     setOverview(o)
-    setProfile(o.profile)
+    if (!initializedProfile.current) {
+      initializedProfile.current = true
+      setProfile(o.profile)
+    }
     return o
   }
   useEffect(() => {
@@ -80,23 +168,43 @@ export function Workbench({ api }: { api: LabApi }) {
     const pending = current.current
     if (!pending) return queue.current
     const operation = queue.current.then(async () => {
-      if (pending.code !== pending.ws.draft) {
-        const revision = await api.saveDraft(
-          pending.ws.exercise.id,
-          pending.code,
-          pending.ws.revision,
-        )
-        pending.ws.revision = revision
-        pending.ws.draft = pending.code
-      }
-      if (pending.note !== pending.ws.note) {
-        const revision = await api.saveNote(
-          pending.ws.exercise.id,
-          pending.note,
-          pending.ws.noteRevision,
-        )
-        pending.ws.noteRevision = revision
-        pending.ws.note = pending.note
+      if (pending.conflict) throw Error('请先处理保存冲突 / Resolve save conflict')
+      for (const field of ['code', 'note'] as const) {
+        const baseline = field === 'code' ? 'draft' : 'savedNote'
+        const version = field === 'code' ? 'revision' : 'noteRevision'
+        const write = field === 'code' ? api.saveDraft : api.saveNote
+        while (pending[field] !== pending[baseline]) {
+          const submitted = pending[field]
+          const expected = pending[version]
+          if (pending.uncertain) {
+            const remote = await api.workspace(pending.id)
+            pending.conflict = remote
+            cacheBuffer(pending)
+            pending.uncertain = false
+            if (mounted.current && current.current === pending) setConflict(remote)
+            throw Error('上次写入未确认，请核对 / Verify the previous write')
+          }
+          pending.inflight = { field, submitted, expected }
+          cacheBuffer(pending)
+          try {
+            pending[version] = await write(pending.id, submitted, expected)
+          } catch (failure) {
+            pending.uncertain = true
+            const remote = await api.workspace(pending.id)
+            pending.uncertain = false
+            const confirmed = field === 'code' ? remote.draft : remote.note
+            if (confirmed !== submitted) {
+              pending.conflict = remote
+              cacheBuffer(pending)
+              if (mounted.current && current.current === pending) setConflict(remote)
+              throw failure
+            }
+            pending[version] = remote[version]
+          }
+          pending.inflight = undefined
+          pending[baseline] = submitted
+          cacheBuffer(pending)
+        }
       }
     })
     queue.current = operation.catch(report)
@@ -109,25 +217,39 @@ export function Workbench({ api }: { api: LabApi }) {
     setRun(undefined)
     setHint('')
     setReply('')
+    setQuestion('')
+    setPrediction('')
+    setExplanation('')
+    setSelection('')
+    setConflict(undefined)
     void save()
       .then(() => api.workspace(exerciseId))
       .then((w) => {
         if (g !== generation.current || !mounted.current) return
-        current.current = { ws: w, code: w.draft, note: w.note }
+        const b = openBuffer(w)
+        current.current = b
+        setConflict(b.conflict)
         setWs(w)
-        setCode(w.draft)
-        setNote(w.note)
+        setCode(b.code)
+        setNote(b.note)
         setRun(w.runs[0])
       })
       .catch(report)
   }, [api, exerciseId])
   useEffect(() => {
     if (!ws) return
-    current.current = { ws, code, note }
+    const buffer = current.current
     const timer = setTimeout(() => {
       void save()
         .then(() => {
-          if (mounted.current) setStatus('草稿已保存 / Saved')
+          if (
+            mounted.current &&
+            buffer &&
+            buffer === current.current &&
+            buffer.code === buffer.draft &&
+            buffer.note === buffer.savedNote
+          )
+            setStatus('草稿已保存 / Saved')
         })
         .catch(report)
     }, 600)
@@ -136,29 +258,45 @@ export function Workbench({ api }: { api: LabApi }) {
   useEffect(() => {
     if (!run || !active(run)) return
     let disposed = false
+    const abort = new AbortController()
+    let polling = false
     const tick = async () => {
+      if (polling) return
+      polling = true
       try {
-        const latest = await api.run(run.id)
+        const latest = await api.run(run.id, abort.signal)
         if (disposed) return
-        setRun(latest)
         if (!active(latest)) {
-          const w = await api.workspace(latest.exerciseId)
+          const w = await api.workspace(latest.exerciseId, abort.signal)
           if (!disposed) setWs((old) => (old ? { ...old, runs: w.runs, messages: w.messages } : w))
-          void refresh()
+          if (disposed) return
+          void refresh().catch(report)
         }
+        setRun(latest)
       } catch (e) {
         if (!disposed) report(e)
+      } finally {
+        polling = false
       }
     }
     const timer = setInterval(() => void tick(), 700)
     return () => {
+      abort.abort()
       disposed = true
       clearInterval(timer)
     }
   }, [api, run?.id, run?.run_status])
+  const finishedTraining =
+    ws && trainingDataset(ws.exercise.runtimeKey)
+      ? ws.runs.filter((r) => r.run_status === 'completed')
+      : []
+  const reflectionRun = finishedTraining.find((r) => r.id === reviewRun) ?? finishedTraining[0]
+  const reflections = ws?.answers?.filter((a) => a.runId === reflectionRun?.id) ?? []
   const lesson = overview?.catalog.lessons.find((l) => l.id === lessonId)
   async function syncActivity() {
+    const g = generation.current
     const w = await api.workspace(exerciseId)
+    if (g !== generation.current || !mounted.current) return
     setWs((old) =>
       old
         ? {
@@ -174,12 +312,20 @@ export function Workbench({ api }: { api: LabApi }) {
   }
   function editCode(value: string) {
     if (actionPending.current) return
-    if (current.current) current.current.code = value
+    if (current.current) {
+      current.current.code = value
+      cacheBuffer(current.current)
+    }
+    setStatus('未保存 / Unsaved')
     setCode(value)
   }
   function editNote(value: string) {
     if (actionPending.current) return
-    if (current.current) current.current.note = value
+    if (current.current) {
+      current.current.note = value
+      cacheBuffer(current.current)
+    }
+    setStatus('未保存 / Unsaved')
     setNote(value)
   }
   function switchTab(value: string) {
@@ -206,18 +352,27 @@ export function Workbench({ api }: { api: LabApi }) {
   }
   async function start() {
     if (busy || (run && active(run))) return
+    if (trainingDataset(ws?.exercise.runtimeKey) && !prediction.trim())
+      throw Error('请先写下预测 / Prediction required')
     setRun(undefined)
     await save()
-    const r = await api.start(exerciseId, code, { seed })
+    const r = trainingDataset(ws?.exercise.runtimeKey)
+      ? await api.start(exerciseId, code, { seed, learningRate }, prediction)
+      : await api.start(exerciseId, code, { seed })
+    setReviewRun('')
+    setExplanation('')
     setRun(r)
     setTab('exercise')
   }
-  function choose(id: string, lid: string) {
+  function choose(id: string, lid: string, reviewId?: string) {
     void action(async () => {
       await save()
       await api.selectLesson(lid)
       setLesson(lid)
       setExercise(id)
+      setReviewRun(reviewId ?? '')
+      setExplanation('')
+      if (reviewId) setTab('exercise')
     })
   }
   async function download() {
@@ -247,11 +402,21 @@ export function Workbench({ api }: { api: LabApi }) {
     await refresh()
   }
   async function askMentor() {
-    await save()
-    const result = await api.tutor(exerciseId, question, selection)
-    setReply(`${result.status}\n\n${result.text}`)
-    setQuestion('')
-    await syncActivity()
+    if (mentorBusy) return
+    setMentorBusy(true)
+    const g = generation.current
+    try {
+      await save()
+      const result = await api.tutor(exerciseId, question, selection, mode)
+      if (g !== generation.current || !mounted.current) return
+      setReply(result.text)
+      setQuestion((value) => (value === question ? '' : value))
+      await syncActivity()
+    } catch (e) {
+      report(e)
+    } finally {
+      if (mounted.current) setMentorBusy(false)
+    }
   }
   if (!overview)
     return (
@@ -284,13 +449,81 @@ export function Workbench({ api }: { api: LabApi }) {
           </div>
         </div>
         <div className="nl-actions">
+          {tab !== 'profile' && (
+            <button
+              onClick={() =>
+                document.querySelector('.neural-lab .nl-mentor')?.scrollIntoView({ block: 'start' })
+              }
+            >
+              导师 Mentor
+            </button>
+          )}
           <button onClick={() => setTab('profile')}>学习档案 Profile</button>
           <button onClick={() => void action(download)}>导出 Export</button>
-          <button onClick={() => void action(async () => setEnvironment(await api.environment()))}>
+          <button
+            disabled={checking}
+            onClick={() => {
+              setChecking(true)
+              void api
+                .environment()
+                .then(setEnvironment)
+                .catch(report)
+                .finally(() => setChecking(false))
+            }}
+          >
             环境自检 Check CPU
           </button>
         </div>
       </header>
+      {conflict && (
+        <section role="alert">
+          <p>保存冲突。请对照远端内容编辑本地草稿，再重试。 / Compare and merge before retrying.</p>
+          <details>
+            <summary>
+              远端版本 Remote revisions {conflict.revision}/{conflict.noteRevision}
+            </summary>
+            <pre>{conflict.draft}</pre>
+            <pre>{conflict.note}</pre>
+          </details>
+          <button
+            onClick={() => {
+              const b = current.current
+              if (!b || b.conflict !== conflict) return
+              const url = URL.createObjectURL(
+                new Blob([JSON.stringify({ exerciseId: b.id, code: b.code, note: b.note })]),
+              )
+              const a = document.createElement('a')
+              a.href = url
+              a.download = b.id + '-local.json'
+              a.click()
+              setTimeout(() => URL.revokeObjectURL(url), 1000)
+            }}
+          >
+            下载本地副本 / Save local copy
+          </button>
+          <button
+            onClick={() => {
+              const b = current.current
+              if (!b || b.conflict !== conflict) return
+              const cleanCode = b.code === b.draft,
+                cleanNote = b.note === b.savedNote
+              Object.assign(b, {
+                draft: conflict.draft,
+                savedNote: conflict.note,
+                revision: conflict.revision,
+                noteRevision: conflict.noteRevision,
+                conflict: undefined,
+              })
+              if (cleanCode) editCode(conflict.draft)
+              if (cleanNote) editNote(conflict.note)
+              setConflict(undefined)
+              void action(save)
+            }}
+          >
+            保存合并结果 / Retry merged edits
+          </button>
+        </section>
+      )}
       {error && (
         <p className="nl-error" role="alert">
           {error} <button onClick={() => setError('')}>关闭 Dismiss</button>
@@ -347,34 +580,44 @@ export function Workbench({ api }: { api: LabApi }) {
               ))}
             </nav>
           </details>
-          <details open>
-            <summary>待复习 / Review ({overview.reviews.length})</summary>
-            {overview.reviews.map((review, i) => (
-              <div key={i}>
-                <button
-                  onClick={() => {
-                    const target = overview.catalog.lessons.find((item) =>
-                      item.exercises.some((e) => e.id === review.exerciseId),
-                    )
-                    if (target) choose(review.exerciseId, target.id)
-                  }}
-                >
-                  {review.exerciseId} · {review.reason}
-                </button>
-                <small>{review.due}</small>
-                <button
-                  onClick={() =>
-                    void action(async () => {
-                      await api.snooze(review.exerciseId)
-                      await refresh()
-                    })
-                  }
-                >
-                  稍后 Later
-                </button>
-              </div>
-            ))}
-          </details>
+          {['due', 'future'].map((group) => {
+            const reviews = overview.reviews.filter(
+              (r) => Date.parse(r.due) <= Date.now() === (group === 'due'),
+            )
+            return (
+              <details open key={group}>
+                <summary>
+                  {group === 'due' ? '待复习 / Review' : '稍后复习 / Scheduled'} ({reviews.length})
+                </summary>
+                {reviews.map((review, i) => (
+                  <div key={i}>
+                    <button
+                      onClick={() => {
+                        const target = overview.catalog.lessons.find((item) =>
+                          item.exercises.some((e) => e.id === review.exerciseId),
+                        )
+                        if (target) choose(review.exerciseId, target.id, review.runId)
+                      }}
+                    >
+                      {review.exerciseId} · {review.reason}{' '}
+                      {review.runId && <small>{review.runId}</small>}
+                    </button>
+                    <small>{review.due}</small>
+                    <button
+                      onClick={() =>
+                        void action(async () => {
+                          await api.snooze(review.exerciseId, review.runId)
+                          await refresh()
+                        })
+                      }
+                    >
+                      稍后 Later
+                    </button>
+                  </div>
+                ))}
+              </details>
+            )
+          })}
         </aside>
         <section
           className="nl-center"
@@ -422,9 +665,14 @@ export function Workbench({ api }: { api: LabApi }) {
             <ActivityTab
               lesson={lesson}
               workspace={ws}
+              contentVersion={overview.catalog.version}
               experimentOnly={tab === 'experiment'}
               exerciseId={exerciseId}
               draft={code}
+              prediction={prediction}
+              onPrediction={setPrediction}
+              learningRate={learningRate}
+              onLearningRate={setLearningRate}
               seed={seed}
               run={run}
               busy={busy}
@@ -451,6 +699,115 @@ export function Workbench({ api }: { api: LabApi }) {
                 })
               }
             />
+          )}
+          {tab === 'exercise' && ws && trainingDataset(ws.exercise.runtimeKey) && (
+            <>
+              <TrainingComparison runs={ws.runs} />
+              {reflectionRun && (
+                <section>
+                  <h3>解释与复习 / Reflection</h3>
+                  <label>
+                    解释对应运行 Run
+                    <select
+                      value={reflectionRun.id}
+                      onChange={(e) => {
+                        setReviewRun(e.target.value)
+                        setExplanation('')
+                      }}
+                    >
+                      {finishedTraining.map((r) => (
+                        <option key={r.id}>{r.id}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <p>预测 / Prediction: {reflectionRun.prediction}</p>
+                  {reflectionRun.id !== run?.id && (
+                    <details>
+                      <summary>这次运行的结果 / Review this result</summary>
+                      <RunResults run={reflectionRun} />
+                    </details>
+                  )}
+                  <p>
+                    自评标准 /
+                    Rubric：引用某一步的训练与验证误差，比较预测，解释梯度或参数更新怎样影响结果，并提出下一次对照实验。
+                  </p>
+                  {reflectionRun.trainingManifest?.protocol === 'train-char-v1' && (
+                    <p>
+                      指出哪个未来字符被扰动、哪些前缀输出应保持不变。对比训练与留出集损失，说明四步后的一次采样能说明什么。
+                      / Discuss causal invariance and held-out loss.
+                    </p>
+                  )}
+                  <label>
+                    我的解释 Reflection
+                    <textarea
+                      value={explanation}
+                      maxLength={12000}
+                      onChange={(e) => {
+                        setReviewRun(reflectionRun.id)
+                        setExplanation(e.target.value)
+                      }}
+                    />
+                  </label>
+                  <button
+                    disabled={busy || !explanation.trim()}
+                    onClick={() =>
+                      void action(async () => {
+                        await api.answer(exerciseId, explanation, reflectionRun.id)
+                        await syncActivity()
+                        await refresh()
+                        setStatus('解释已记录 / Reflection saved')
+                      })
+                    }
+                  >
+                    提交训练解释 / Save reflection
+                  </button>
+                  {reflections.map((a) => (
+                    <p key={a.id}>先前解释 / Reflection: {a.text}</p>
+                  ))}
+                  {overview.reviews.some(
+                    (r) => r.exerciseId === exerciseId && r.runId === reflectionRun.id,
+                  ) &&
+                    reflections.length > 0 && (
+                      <button
+                        disabled={busy}
+                        onClick={() =>
+                          void action(async () => {
+                            await api.finishReview(reflectionRun.id)
+                            await refresh()
+                          })
+                        }
+                      >
+                        标记已复习 / Finish review
+                      </button>
+                    )}
+                </section>
+              )}
+            </>
+          )}
+          {tab === 'exercise' && exerciseId === 'L09-transfer' && (
+            <section>
+              <label>
+                解释未来扰动为何适用于传感器数据 / Explain future invariance
+                <textarea value={explanation} onChange={(e) => setExplanation(e.target.value)} />
+              </label>
+              <p>
+                自评标准：指出预测时刻可见的数据，说明改变未来读数后哪些输出必须不变。 / Identify
+                the visible prefix and unaffected predictions.
+              </p>
+              <button
+                disabled={busy || !explanation.trim()}
+                onClick={() =>
+                  void action(async () => {
+                    await api.answer(exerciseId, explanation)
+                    await syncActivity()
+                    await refresh()
+                    setStatus('已记录自述解释 / Explanation recorded for review')
+                  })
+                }
+              >
+                记录解释 / Submit explanation
+              </button>
+            </section>
           )}
           {tab === 'records' && (
             <RecordsTab
@@ -506,7 +863,10 @@ export function Workbench({ api }: { api: LabApi }) {
               onQuestion={setQuestion}
               onSelection={setSelection}
               onHint={(level) => void action(() => requestHint(level))}
-              onAsk={() => void action(askMentor)}
+              onAsk={() => void askMentor()}
+              mentorBusy={mentorBusy}
+              mode={mode}
+              onMode={setMode}
               onIndependent={() =>
                 void action(async () => {
                   await api.independent(exerciseId)

@@ -3,8 +3,8 @@ import { tmpdir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
 
 /** Own exactly one newly-created temporary directory, never a wildcard or shared parent. */
-export async function temporaryDirectory(prefix) {
-  const parent = await realpath(tmpdir())
+export async function temporaryDirectory(prefix, base = tmpdir()) {
+  const parent = await realpath(base)
   const directory = await mkdtemp(join(parent, prefix))
   const expected = await realpath(directory)
   const same = (left, right) =>

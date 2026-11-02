@@ -1,4 +1,53 @@
-# Neural Lab 0.1.2 验证记录
+# Neural Lab 0.2.1 验证记录 · 2026-11-02
+
+本轮验证最终 0.2.1 工作树和本地归档。主机为 Windows、Node 24，官方 DSH 0.2.1-rc.5 固定提交 b830ec950faba0a46dda564be3e2d854afed94f1。真实 Docker CPU 镜像 sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7。运行以下命令时工作目录为 packages/neural-lab，TypeScript 测试脚本使用 node --experimental-transform-types。
+
+| 门禁 | 本轮实测 |
+| --- | --- |
+| npm test | 构建检查固定宿主与 strict TS，11 项行为测试通过。目录校验 12 节课、38 项活动。 |
+| tests/training-real.ts | 两条可编辑任务共 28 次真实 Docker 执行。Transformer 参考解通过，重跑的四个验证损失和逐字符样本完全一致；改变学习率后曲线改变，数据与初始参数摘要一致。只完成 shifted 时单项通过、整题失败。另有十个定向错误解全部失败，包括未移位、遗漏位置、看见未来、批次串扰、缩放错误、拼头错误、输入或 Q 梯度断开、错误 Pre-LN、缺 FFN。检查记录在 tests/results/training-021.json。 |
+| tests/runner-real.ts | 26 份参考实现通过，20 个代码 starter 按预期失败。Transformer 参考运行 e79422b3-581c-4e77-b554-6077c581c7c5 在 seed 42 下第 1、4 步留出损失分别为 1.652730 和 1.653315。起始 a，含起始字符的采样为 adcbedeaaebbcdebe。完整事件见 tests/results/reference-runs.json。 |
+| 既有门禁 | runner-parameters.ts 验证 33 个参数用例；runner-adversarial.ts 验证 17 个反例/攻击以及超时与取消；runner-lifecycle.ts 验证卸载、分阶段取消及镜像标签变化后的容器身份和回收。 |
+| 独立浏览器 | NEURAL_UI_CPU=1 node tests/ui-check.mjs 通过 25 项检查，0 pageerror。MLP 与 Transformer 均经可见编辑器完成两次训练，对照代码、参数和四条实际曲线，查看旧运行并提交解释、完成复习。四尺寸、草稿和原实验同时回归。 |
+| 安装和升级 | npm pack --ignore-scripts --cache .build/npm-cache 后运行 node tests/install-check.mjs，官方空缓存离线安装及发布文件身份通过。node tests/upgrade-020.mjs 用真实 tgz 逐次从 0.1.3 打开至 0.2.0、0.2.1，核对旧 SQLite 数据。升级前 MLP 运行、预测和解释使用合成夹具。 |
+| 官方 Web | NEURAL_WITH_LEARN=1、NEURAL_UI_CPU=1、npm_config_offline=true 运行 node tests/ui-official-session.mjs。在临时 profile 经认证 RPC 提交 MLP 和 Transformer，验证采样、对照、解释和复习，Learn 0.5.2 共存和官方卸载。证据位于 .build/ui/official-training.json 和 official-validation.json，含实际 runId 与安装哈希，服务和临时 profile 已清理。 |
+
+归档共 90069 字节，SHA256 为 `74698870d9820217d71bcaebb4e913aa51153cc507e9b06f443585bcc7dd9b9b`。原生 Electron GUI 和真实模型导师成功回答本轮未验证。
+
+# Neural Lab 0.2.0 验证记录 · 2026-11-02
+
+0.2.0 插件与课包，37 项活动。可编辑训练检查版本 1，既有活动检查版本 3。Windows、Node 24.16.0、DSH rc.5 固定提交 b830ec950faba0a46dda564be3e2d854afed94f1。以下为本轮实测。命令从 packages/neural-lab 执行，runner 与 training-real 的 .ts 脚本使用 node --experimental-transform-types。
+
+| 验收 | 实际结果 |
+| --- | --- |
+| 严格构建与行为 | npm test 校验固定宿主及 strict TypeScript，11 项扩充测试通过。真实 HTTP 测试覆盖缺预测、非法学习率、跨活动 runId 被拒绝，以及解释的 answerId/runId、程序通过状态、复习完成冷开和导出。该组运行记录为合成数据。 |
+| 新协议的真实 CPU | tests/training-real.ts 在实际 Docker 镜像中执行 14 次。参考解、固定种子复现、只改学习率、换种子四次正确通过。固定种子重跑曲线完全相同，学习率从 0.05 改成 0.2 时曲线改变且数据与初始参数摘要相同。 |
+| 十份错误训练代码 | 漏 zero_grad、漏 backward、漏 step、错误损失函数、硬编码返回值、错误验证输入、验证时改权重、验证时启用梯度、验证时用 train 模式、实际缓存最后一个训练批次替代留出集，均返回 completed/failed。逐项检查名称和 runId 在 tests/results/training-020.json。 |
+| 全课程和沙盒 | tests/runner-real.ts 的 25 份参考解通过、19 个代码 starter 检查失败。tests/runner-parameters.ts 验证既有 33 次参数门禁。tests/runner-adversarial.ts 验证 17 个反例/攻击以及 timeout/cancel。tests/runner-lifecycle.ts 验证卸载运行中容器、三个取消时点和标签变化，按 runId 查无残留。 |
+| 浏览器 | NEURAL_UI_CPU=1 node tests/ui-check.mjs 的 24 项检查通过，0 pageerror。2 次真实训练经可见编辑器提交，对照面板核对实际 ID、代码差异和四条程序曲线。查看旧运行、提交解释、在记录页定位运行、从复习项返回并完成。草稿冲突、四尺寸滚动及旧引导实验同时回归。 |
+| 安装及宿主 | npm pack --ignore-scripts --cache .build/npm-cache；node tests/install-check.mjs 验证临时空缓存离线安装和发布输入。设置 NEURAL_UI_CPU=1、NEURAL_WITH_LEARN=1、npm_config_offline=true 运行 node tests/ui-official-session.mjs，通过官方认证 RPC 完成两次可编辑训练、对照、解释和复习，Learn 0.5.2 共存并通过官方 CLI 卸载。官方运行 ID 见 .build/ui/official-training.json，安装身份与临时环境清理见 .build/ui/official-validation.json。 |
+| 跨版本数据 | node tests/upgrade-020.mjs 取本地两个实际 tgz 的 Host 与课程文件。用 0.1.3 写入隔离数据根，冷开 0.2.0 后比对原工作区、草稿、笔记、作答、帮助、学习档案、证据与复习，新训练草稿修订从 0 开始。 |
+
+安装包 84403 字节，SHA256 `e8ca32a13b07a039eda8d3ec65092c40434e462044c1e7988b52971ad8b8d7fd`。可在 DSH 插件管理器安装；升级/回退见插件 README。真实模型成功调用及原生 Electron GUI 本轮未验证。自评解释和复习完成记录不授予额外程序通过。0.2.x 的微型 Transformer 组装仍按 NEXT_PHASE 推进。
+
+# Neural Lab 0.1.3 验证记录 · 2026-11-02
+
+环境为 Windows、Node 24.16.0、官方 DSH 0.2.1-rc.5，固定源码 b830ec950faba0a46dda564be3e2d854afed94f1。Docker 29.9.2，CPU 镜像身份 sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7。以下命令从插件包目录运行。
+
+| 门禁 | 本轮结果 |
+| --- | --- |
+| 基线与严格构建 | 修改前 npm test 的 11 项通过。修改后 npm test 先运行 build.mjs 校验宿主 revision 和 strict TS，再运行 11 项扩充后的测试。 |
+| 保存与异步界面 | NEURAL_UI_CPU=1 node tests/ui-check.mjs 使用独立 Chromium、真实 RPC/SQLite 与 Docker。分别扣住代码、笔记的 A 请求，随后输入 B、C。SQLite 修订增加 2，刷新后读到 C。单独的 node tests/ui-check.mjs 还在扣住真实保存回执时验证刷新、切课、恢复历史。两个浏览器页面形成修订冲突，本地文本可在重开后明确提交。延迟导师响应期间可换页签并保留下一问题。运行完成时档案未保存输入保留，记录页显示终态。1366/1920/900/640 四尺寸滚动和锚点通过。 |
+| 数值与参数 | runner-real.ts 验证 24 份参考、18 个未完成/错误 starter，MLP 与 LM 做同种子重跑。runner-parameters.ts 验证 33 次参数运行。runner-adversarial.ts 验证 17 个反例/攻击及超时与取消，含固定 Softmax、忽略 heads、子进程脱离进程组并占用输出管道。三个脚本均使用 node --experimental-transform-types 与真实 Docker，详情在 tests/results。 |
+| 容器身份与清理 | node --experimental-transform-types tests/runner-lifecycle.ts 对真实 Docker 命令注入取消时点。在环境检查、写快照阶段及创建操作中取消，并卸载已启动长任务，按 runId 查询均无残留。改变临时镜像标签后检查实际 create 参数仍为原镜像 ID，参考解通过。 |
+| 导师与证据 | host.test.mjs 以 stub 捕获实际序列化的导师 payload，核对旧运行 A、当前 B、SHA256、matchesCurrentDraft、前轮消息、失败/取消/busy、unknown 和 answer。真实浏览器验证无模型降级。实验运行生成可回查的 observation，迁移题解释关联 answerId。store.test.ts 校验同一旧格式冷开、原记录与导出无虚构来源。 |
+| 官方交付 | npm pack --ignore-scripts --cache .build/npm-cache 后，node tests/install-check.mjs 在临时空 store 离线安装并验证发布文件身份。NEURAL_UI_CPU=1 NEURAL_WITH_LEARN=1 node tests/ui-official-session.mjs 验证官方认证 RPC、四尺寸、Learn 0.5.2 共存、安装包真实 Attention 运行与官方 CLI remove。两个临时 profile 均清理。 |
+
+最终 tgz 77777 字节，SHA256 `263eebc654f4baecc3cec8d56e661fd5af736b80370d5916577655618798fbef`。官方验收证据位于插件 .build/install-result.json 和 .build/ui/official-validation.json。实际用户 DSH_HOME 未参与验收。安装与停用回退见插件 README。
+
+**覆盖边界。** 真实模型成功回答与原生 Electron GUI 为 UNVERIFIED。模型成功、失败与追问取自受控 stub；官方 Web 无模型路径单独实测。旧记录兼容使用构造的 v1 数据与冷开检查。受控取消覆盖正常工作的 Docker daemon；daemon 或整机永久失联时只能记录待确认。0.1.3 采用可跳转的导师区，继续使用各活动现有双语文案；L01 排错题保留与线性层相同的数学契约。0.2.0 可编辑训练协议交付设计，运行实现留待下一阶段。
+
+# Neural Lab 0.1.2 验证记录（历史）
 
 用户报告 0.1.1 本地安装通过。本轮修复课程切换不回顶部、导航与内容共用滚动的问题，发布包版本 0.1.2；课程内容仍为 0.1.1/testVersion2，数据库和运行器未更改。
 
