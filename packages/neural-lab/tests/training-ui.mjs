@@ -31,6 +31,11 @@ export async function checkEditableTraining(page, exercise) {
           .innerText(),
         /[abcde]{17}/,
       )
+    const rateInput = page.getByLabel('学习率 Learning rate')
+    await rateInput.fill('0.1')
+    await page.getByText(/Previous learning rate/).waitFor()
+    await rateInput.fill(rate)
+    await page.getByText(/Previous learning rate/).waitFor({ state: 'hidden' })
     runs.push(current.id)
   }
   const comparison = page.getByRole('region', { name: '同种子运行对照 Run comparison' })

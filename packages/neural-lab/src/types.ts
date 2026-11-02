@@ -1,11 +1,5 @@
 export type RunStatus =
-  | 'queued'
-  | 'running'
-  | 'completed'
-  | 'failed'
-  | 'cancelled'
-  | 'timed_out'
-  | 'interrupted'
+  'queued' | 'running' | 'completed' | 'failed' | 'cancelled' | 'timed_out' | 'interrupted'
 export type CheckStatus = 'not_run' | 'passed' | 'failed' | 'inconclusive' | 'not_applicable'
 export type HelpLevel = 'unknown' | 'none' | 'concept' | 'steps' | 'code' | 'answer'
 export interface Exercise {
@@ -106,6 +100,7 @@ export interface Evidence {
   at: string
 }
 export interface Workspace {
+  attemptId: string
   profileId: string
   exercise: Exercise
   draft: string
@@ -123,9 +118,11 @@ export interface Workspace {
     contentVersion: string
     testVersion: string
   }[]
-  messages: { role: string; text: string; status: string }[]
+  messages: { cycle?: string; role: string; text: string; status: string }[]
 }
 export interface Overview {
+  profileId: string
+  profileRevision: number
   catalog: Catalog
   currentLesson: string
   readLessons: string[]
@@ -147,7 +144,7 @@ export interface LabApi {
   saveNote(id: string, note: string, revision: number): Promise<number>
   readLesson(id: string): Promise<void>
   selectLesson(id: string): Promise<void>
-  saveProfile(profile: Record<string, string>): Promise<void>
+  saveProfile(profile: Record<string, string>, revision: number): Promise<number>
   start(
     id: string,
     code: string,
@@ -163,7 +160,7 @@ export interface LabApi {
     text: string,
     selection: string,
     mode?: HelpLevel,
-  ): Promise<{ status: string; text: string }>
+  ): Promise<{ status: string; text: string; attemptId: string }>
   environment(): Promise<EnvironmentStatus>
   exportData(): Promise<string>
   snooze(id: string, runId?: string): Promise<void>

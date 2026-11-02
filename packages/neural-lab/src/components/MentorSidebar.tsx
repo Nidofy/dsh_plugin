@@ -94,7 +94,7 @@ export function MentorSidebar(props: Props) {
           {props.workspace?.messages.map((message, i) => (
             <div key={i}>
               <strong>
-                {message.role} · {message.status}
+                {message.role} · {message.status} · {message.cycle ?? 'legacy'}
               </strong>
               <Markdown text={message.text} />
             </div>

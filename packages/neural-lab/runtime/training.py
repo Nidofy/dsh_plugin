@@ -67,6 +67,9 @@ def editable_mlp(seed, lr, call, emit):
         "effective_config",
         config={"learningRate": lr, "steps": len(batches), "batchSize": 6},
     )
+    def check(name, ok, phase):
+        emit("check", name, passed=bool(ok), detail=f"{phase}, atol=1e-8, rtol=1e-6")
+
     try:
         trace = call(
             {
@@ -89,21 +92,15 @@ def editable_mlp(seed, lr, call, emit):
             after = unpack(row["state"], shapes)
             report = scalar(row["loss"])
 
-            def check(name, ok):
-                emit(
-                    "check",
-                    name,
-                    passed=bool(ok),
-                    detail=f"step {step}, atol=1e-8, rtol=1e-6",
-                )
-
-            check("forward + MSE", np.isclose(report, loss, rtol=1e-6, atol=1e-8))
+            phase = f"step {step}"
+            check("forward + MSE", np.isclose(report, loss, rtol=1e-6, atol=1e-8), phase)
             check(
                 "fresh minibatch gradients",
                 all(
                     np.allclose(a, b, rtol=1e-6, atol=1e-8)
                     for a, b in zip(actual_grad, grad)
                 ),
+                phase,
             )
             check(
                 "SGD parameter update",
@@ -111,6 +108,7 @@ def editable_mlp(seed, lr, call, emit):
                     np.allclose(a, b - lr * g, rtol=1e-6, atol=1e-8)
                     for a, b, g in zip(after, state, grad)
                 ),
+                phase,
             )
             emit(
                 "metric",
@@ -149,14 +147,16 @@ def editable_mlp(seed, lr, call, emit):
                 rtol=1e-6,
                 atol=1e-8,
             ),
+            "validation",
         )
-        check("validation uses eval and no_grad", validation["eval_only"] is True)
+        check("validation uses eval and no_grad", validation["eval_only"] is True, "validation")
         check(
             "validation preserves parameters",
             all(
                 np.array_equal(a, b)
                 for a, b in zip(unpack(validation["state"], shapes), state)
             ),
+            "validation",
         )
     except Exception as error:
         emit("check", "training contract", passed=False, detail=str(error)[-1500:])

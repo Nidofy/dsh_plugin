@@ -10,7 +10,7 @@ export async function askActivityTutor(
   selection: string,
   tutor: (prompt: string) => Promise<{ status: string; text: string }>,
   mode: HelpLevel = 'unknown',
-): Promise<{ status: string; text: string }> {
+): Promise<{ status: string; text: string; attemptId: string }> {
   const e = engine.exercise(exerciseId)
   if (!['unknown', 'concept', 'steps', 'code', 'answer'].includes(mode))
     throw Error('Invalid help mode')
@@ -61,6 +61,7 @@ export async function askActivityTutor(
       question: text,
       mode,
       recentMessages: workspace.messages
+        .filter((m) => m.cycle === identity.cycle)
         .slice(-8)
         .map((m) => ({ ...m, text: m.text.slice(0, 1200) })),
       currentDraft: {
@@ -98,6 +99,6 @@ export async function askActivityTutor(
   ).catch((error: unknown) => ({ status: 'failed', text: String(error) }))
   engine.store.record(e.id, 'message', { ...identity, role: 'assistant', ...result })
   if (result.status === 'completed' && result.text.trim())
-    engine.recordHelp(e.id, mode, 'mentor', requestId)
-  return result
+    engine.recordHelp(e.id, mode, 'mentor', requestId, identity.cycle)
+  return { ...result, attemptId: identity.cycle }
 }

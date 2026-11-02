@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-neural-lab",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "CPU-first neural network and Transformer learning laboratory",
   "type": "module",
   "license": "MIT",
@@ -24,6 +24,7 @@
     "THIRD_PARTY_NOTICES.md",
     "cordis.patch.yml",
     "scripts/prepare-image.ps1",
+    "scripts/import-legacy.mjs",
     "scripts/cpu-image"
   ],
   "scripts": {

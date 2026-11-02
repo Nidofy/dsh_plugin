@@ -17,6 +17,7 @@ import type {
 } from './types.ts'
 export class Engine {
   private active = new Map<string, { abort: AbortController; done: Promise<void> }>()
+  private recovery?: Promise<void>
   private closing = false
   constructor(
     readonly catalog: Catalog,
@@ -31,19 +32,26 @@ export class Engine {
       const catalog = await loadCatalog()
       const runner = new Runner(join(root, 'runs'), image, limits)
       const store = new Store(join(root, 'neural-lab.sqlite'))
-      for (const run of store.runs().filter((r) => r.cleanupPending)) {
-        try {
-          await runner.recover(run)
-          delete run.cleanupPending
-        } catch (error) {
-          run.cleanupPending = String(error).slice(0, 1000)
-        }
-        store.putRun(run)
-      }
-      return new Engine(catalog, store, runner, release)
+      const engine = new Engine(catalog, store, runner, release)
+      engine.recovery = engine.recoverInterrupted(store.runs().filter((r) => r.cleanupPending))
+      // The lifecycle observes errors at shutdown; attach a handler during background work.
+      void engine.recovery.catch(() => {})
+      return engine
     } catch (error) {
       await release()
       throw error
+    }
+  }
+  private async recoverInterrupted(runs: RunRecord[]): Promise<void> {
+    for (const run of runs) {
+      if (this.closing) break
+      try {
+        await this.runner.recover(run)
+        delete run.cleanupPending
+      } catch (error) {
+        run.cleanupPending = String(error).slice(0, 1000)
+      }
+      this.store.putRun(run)
     }
   }
   exercise(id: string): Exercise {
@@ -53,6 +61,14 @@ export class Engine {
   }
   text(value: string, max = 100000): void {
     if (typeof value !== 'string' || value.length > max) throw Error('Invalid or oversized text')
+  }
+  private bufferScope(): string {
+    let id = this.store.get('bufferScope', '')
+    if (!id) {
+      id = randomUUID()
+      this.store.set('bufferScope', id)
+    }
+    return id
   }
   overview(): Overview {
     return {
@@ -70,6 +86,8 @@ export class Engine {
       },
       currentLesson: this.store.get('currentLesson', this.catalog.lessons[0]?.id ?? ''),
       readLessons: this.store.get('readLessons', []),
+      profileId: this.bufferScope(),
+      profileRevision: this.store.get('profileRevision', 0),
       profile: this.store.get('profile', {}),
       reviews: this.store.get('reviews', []),
       evidence: this.store.evidence(),
@@ -78,13 +96,9 @@ export class Engine {
   workspace(id: string): Workspace {
     const exercise = this.exercise(id),
       draft = this.store.draft(id)
-    let profileId = this.store.get('bufferScope', '')
-    if (!profileId) {
-      profileId = randomUUID()
-      this.store.set('bufferScope', profileId)
-    }
     return {
-      profileId,
+      profileId: this.bufferScope(),
+      attemptId: this.store.get('attempt:' + id, 'initial'),
       exercise: { ...exercise, reference: '', answer: undefined, hints: [] },
       draft: draft?.code ?? exercise.starter,
       revision: draft?.revision ?? 0,
@@ -130,7 +144,7 @@ export class Engine {
       ...new Set([...this.store.get<string[]>('readLessons', []), id]),
     ])
   }
-  saveProfile(profile: Record<string, string>): void {
+  saveProfile(profile: Record<string, string>, revision: number): number {
     const valid: Record<string, string> = {}
     for (const [key, value] of Object.entries(profile)) {
       if (!['background', 'goal', 'difficulties', 'explanations'].includes(key))
@@ -138,7 +152,13 @@ export class Engine {
       this.text(value, 3000)
       valid[key] = value
     }
-    this.store.set('profile', valid)
+    return this.store.transaction(() => {
+      if (!Number.isSafeInteger(revision) || revision !== this.store.get('profileRevision', 0))
+        throw Error('学习档案版本冲突 / Profile revision conflict')
+      this.store.set('profile', valid)
+      this.store.set('profileRevision', revision + 1)
+      return revision + 1
+    })
   }
   start(id: string, code: string, config: Record<string, number>, prediction?: string): RunRecord {
     if (this.closing) throw Error('Plugin is stopping')
@@ -236,6 +256,7 @@ export class Engine {
     this.store.transaction(() => {
       this.store.record(id, 'answer', {
         id: answerId,
+        attemptId: run?.attemptId ?? this.store.get('attempt:' + id, 'initial'),
         ...(run ? { runId: run.id } : {}),
         text,
         status,
@@ -318,7 +339,15 @@ export class Engine {
     const reviews = this.store
       .get<Overview['reviews']>('reviews', [])
       .filter((r) => (isTraining ? r.runId !== origin.runId : r.exerciseId !== e.id))
-    if (isTraining || result !== 'passed' || help !== 'none')
+    if (
+      isTraining ||
+      result !== 'passed' ||
+      help !== 'none' ||
+      (e.id === 'L09-transfer' &&
+        !this.store
+          .history<{ attemptId?: string }>(e.id, 'answer')
+          .some((a) => a.attemptId === origin.attemptId))
+    )
       reviews.push({
         exerciseId: e.id,
         runId: origin.runId,
@@ -347,18 +376,25 @@ export class Engine {
       ? e.reference
       : (e.hints[ix] ?? e.hints[0] ?? '请重读输入域 / Review the input domain')
   }
-  recordHelp(id: string, level: HelpLevel, source: string, requestId?: string): void {
+  recordHelp(
+    id: string,
+    level: HelpLevel,
+    source: string,
+    requestId?: string,
+    attemptId = this.store.get<string>('attempt:' + id, 'initial'),
+  ): void {
     this.store.record(id, 'help-delivered', {
       id: randomUUID(),
       requestId,
       level,
       source,
       exerciseId: id,
-      attemptId: this.store.get('attempt:' + id, 'initial'),
+      attemptId,
       contentVersion: this.catalog.version,
       testVersion: this.exercise(id).testVersion,
     })
-    this.store.record(id, 'hint', level)
+    if (attemptId === this.store.get('attempt:' + id, 'initial'))
+      this.store.record(id, 'hint', level)
   }
   snapshotAttempt(id: string, reason: string): void {
     const e = this.exercise(id),
@@ -391,7 +427,14 @@ export class Engine {
     this.closing = true
     for (const task of this.active.values()) task.abort.abort()
     await Promise.allSettled([...this.active.values()].map((t) => t.done))
-    this.store.close()
-    await this.releaseOwner()
+    try {
+      await this.recovery
+    } finally {
+      try {
+        this.store.close()
+      } finally {
+        await this.releaseOwner()
+      }
+    }
   }
 }

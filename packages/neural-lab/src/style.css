@@ -386,6 +386,11 @@
   font-size: 11px;
   background: var(--nl-bg);
 }
+.nl-verdict-inconclusive,
+.nl-verdict-not_run {
+  color: var(--nl-muted);
+  border: 1px dashed currentColor;
+}
 .nl-verdict-passed {
   color: #238b65;
   background: #238b6512;

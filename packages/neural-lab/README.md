@@ -1,6 +1,14 @@
-# Neural Lab 0.2.1
+# Neural Lab 0.2.2
 
 面向有 Python 和基础数学经验的神经网络与 Transformer 学习工作台。目标宿主为 **DSH 0.2.1-rc.5**，Node 24+；CPU 优先。左侧课程路线、讲义/练习/实验/记录页签与可折叠导师使用同一内容和 SQLite 数据库。
+
+## 0.2.2 升级与旧库归属
+
+新安装的数据根为当前 profile 目录下的 `neural-lab`。显式配置的绝对 `dataRoot` 仍优先，包括旧安装中保留的覆盖项。升级前停用插件、结束运行、备份原学习目录（含 SQLite、WAL 与 runs）。在目标 profile 的 Cordis 配置中移除原共享 dataRoot 覆盖，再启动即可使用独立空库。
+
+若要将旧库指定给某个 profile，请在目标插件首次启动前运行 `node scripts/import-legacy.mjs "旧学习根目录" "目标profile目录"`（从插件包运行）。工具锁定旧 owner，备份 SQLite 与运行归档，在目标 profile 内暂存，全部成功才命名为 neural-lab。旧库保留。若目标已存在，先停用、备份并将目标目录改名保存，再执行导入。中断后可重试；已成功的目标会拒绝重复覆盖。损坏库应先停用并复制全目录，在副本上诊断报错的 run ID。
+
+档案保存校验独立版本；发生冲突时可下载本地副本、核对远端内容、合并再保存。导师交付按请求所属尝试归档。L09 迁移题现在接收每台设备的有效长度并检查填充输出，旧解和旧判定保存在历史中。
 
 ## L12 组装微型 Transformer
 
@@ -24,7 +32,7 @@ SQLite 结构版本仍为 1，课程 0.1.3、检查版本 3。旧记录按原版
 
 ## 安装与环境
 
-将构建生成的 `dsh-plugin-neural-lab-0.2.1.tgz` 通过 DSH 插件管理器安装到选定 profile，启用插件，在侧栏打开 Neural Lab。与 `dsh-plugin-learn` 使用不同包名、注册标识和数据根；不包含 LeetCode 搜题、邮件或 Hot100 worker。开发与验收只使用临时 profile，不修改用户实际 DSH_HOME。
+将构建生成的 `dsh-plugin-neural-lab-0.2.2.tgz` 通过 DSH 插件管理器安装到选定 profile，启用插件，在侧栏打开 Neural Lab。与 `dsh-plugin-learn` 使用不同包名、注册标识和数据根；不包含 LeetCode 搜题、邮件或 Hot100 worker。开发与验收只使用临时 profile，不修改用户实际 DSH_HOME。
 
 CPU 环境单独准备，课程运行不会安装依赖或下载数据：
 
@@ -68,7 +76,7 @@ L01 张量与广播 → L02 链式法则 → L03 自动微分/梯度累积 → L
 
 容器禁用网络、只读根文件系统，学生进程降权运行；可信控制器保留降权所需能力，并限制CPU/内存/PID/时间/输出。独立运行目录只读挂载学生快照；控制器只复制启动脚本与提交字节到容器内受保护的临时目录，再由普通用户加载，避免 Windows 挂载路径在降权后不可读。受控结果由 Host 写回，首版不开放任意学生文件产物。Host配置可设置 timeoutMs（默认120000）、memoryMb（默认1024）、cpus（默认1）、outputBytes（默认262144），种子由运行控件独立指定；实验参数只从编辑器的 `configure()` 返回值读取，UI 不会再覆盖其中的参数。模型仅复用 DSH 默认配置；没有模型时明确显示 unavailable，预置提示继续可用。
 
-数据位于配置 `dataRoot`（安装补丁默认 `dshHomePath('neural-lab')`）：`neural-lab.sqlite` 保存草稿修订、笔记、学习位置、作答、帮助、导师记录、知识点证据和复习；`runs/<runId>` 保存快照与结果；`owner.sqlite` 防止同时启动两个数据 owner。禁止手动复制正在运行的 SQLite 文件作为可靠备份，应先退出插件或使用工作台导出。
+数据位于配置 `dataRoot`（默认使用当前宿主 profile 目录下的 `neural-lab`）：`neural-lab.sqlite` 保存草稿修订、笔记、学习位置、作答、帮助、导师记录、知识点证据和复习；`runs/<runId>` 保存快照与结果；`owner.sqlite` 防止同时启动两个数据 owner。禁止手动复制正在运行的 SQLite 文件作为可靠备份，应先退出插件或使用工作台导出。
 
 导出按钮下载含 schema 版本、所有存储记录与运行索引的 JSON。阅读、程序正确性、实验完成与掌握证据各自独立；查看答案后的独立重试需主动开始新的帮助周期，该声明无法证明没有外部帮助。复习可以稍后处理。
 

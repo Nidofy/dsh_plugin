@@ -260,6 +260,14 @@ def code_cases():
             y = u + torch.relu(torch.nn.functional.layer_norm(u, (4,), eps=1e-5))
             g = torch.autograd.grad(y.square().sum(), z)[0]
             expected = np.stack([y.detach().numpy(), g.numpy()])
+        elif n == 17:
+            batch, length, width = [(2, 4, 3), (3, 5, 2), (2, 3, 4)][trial]
+            q, k, v = [rng.normal(size=(batch, length, width)) for _ in range(3)]
+            lengths = [length - b for b in range(batch)]
+            args = [q, k, v, lengths]
+            expected = np.zeros_like(q)
+            for b, size in enumerate(lengths):
+                expected[b, :size] = attention(q[b, :size], k[b, :size], v[b, :size], True)
         elif n == 12:
             t = list(range(6 + trial))
             args = [t]
@@ -316,15 +324,15 @@ def code_cases():
             emit("check", "hand-calculated", passed=True)
         except Exception as e:
             emit("check", "hand-calculated", passed=False, detail=str(e))
-    if n == 9:
+    if n in (9, 17):
         q = rng.normal(size=(2, 4, 3))
         k = rng.normal(size=q.shape)
         v = rng.normal(size=q.shape)
         try:
-            a = call([q.tolist(), k.tolist(), v.tolist()])
+            a = call([q.tolist(), k.tolist(), v.tolist()] + ([[4, 3]] if n == 17 else []))
             k[:, -1] += 20
             v[:, -1] -= 30
-            b = call([q.tolist(), k.tolist(), v.tolist()])
+            b = call([q.tolist(), k.tolist(), v.tolist()] + ([[4, 3]] if n == 17 else []))
             close(np.asarray(a)[:, :-1], np.asarray(b)[:, :-1])
             emit("check", "future-invariance", passed=True)
         except Exception as e:

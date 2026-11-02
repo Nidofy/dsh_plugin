@@ -1,5 +1,7 @@
 import type { Context } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-client-connection'
+import type {} from '@deepseek-ai/dsh-app-boot'
+import { isAbsolute, join } from 'node:path'
 import Schema from '@deepseek-ai/schemastery'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { Engine } from './engine.ts'
@@ -10,7 +12,7 @@ import type { HelpLevel } from './types.ts'
 export const name = 'neural-lab'
 export const inject = ['connection']
 export interface Config {
-  dataRoot: string
+  dataRoot?: string
   image: string
   timeoutMs?: number
   memoryMb?: number
@@ -18,7 +20,7 @@ export interface Config {
   outputBytes?: number
 }
 export const Config: Schema<Config> = Schema.object({
-  dataRoot: Schema.string().required(),
+  dataRoot: Schema.string(),
   image: Schema.string().default('dsh-neural-lab-cpu:0.1'),
   timeoutMs: Schema.natural().min(1000).max(600000).default(120000),
   memoryMb: Schema.natural().min(256).max(8192).default(1024),
@@ -65,8 +67,10 @@ export async function dispatch(
       if (!engine.catalog.lessons.some((l) => l.id === id())) throw Error('Unknown lesson')
       return engine.store.set('currentLesson', id())
     case 'saveProfile':
+      if (typeof args[1] !== 'number') throw Error('Expected profile revision')
       return engine.saveProfile(
         Object.fromEntries(Object.entries(object(args[0])).map(([k, v]) => [k, string(v)])),
+        args[1],
       )
     case 'start':
       return engine.start(
@@ -140,7 +144,9 @@ export async function handleRequest(
       throw Error('JSON POST required')
     if (
       req.headers['sec-fetch-site'] === 'cross-site' ||
-      (req.headers.origin && new URL(req.headers.origin).host !== req.headers.host)
+      (req.headers.origin &&
+        (!URL.canParse(req.headers.origin) ||
+          new URL(req.headers.origin).host !== req.headers.host))
     )
       throw Error('Origin refused')
     const chunks: Buffer[] = []
@@ -174,7 +180,11 @@ export async function handleRequest(
   }
 }
 export async function apply(ctx: Context, config: Config): Promise<void> {
-  const engine = await Engine.open(config.dataRoot, config.image, {
+  const profileDir = ctx.get('profileContext')?.dir
+  const root = config.dataRoot ?? (profileDir && join(profileDir, 'neural-lab'))
+  if (!root || !isAbsolute(root))
+    throw Error('Neural Lab requires an absolute profile directory or dataRoot')
+  const engine = await Engine.open(root, config.image, {
       timeoutMs: config.timeoutMs,
       memoryMb: config.memoryMb,
       cpus: config.cpus,

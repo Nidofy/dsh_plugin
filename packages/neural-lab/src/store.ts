@@ -5,47 +5,49 @@ export class Store {
   readonly db: DatabaseSync
   constructor(path: string) {
     this.db = new DatabaseSync(path)
-    this.db.exec('PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=3000;')
-    const app = Number(this.db.prepare('PRAGMA application_id').get()?.application_id)
-    if (app !== 0 && app !== 1313620290) {
+    try {
+      this.db.exec('PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=3000;')
+      const app = Number(this.db.prepare('PRAGMA application_id').get()?.application_id)
+      if (app !== 0 && app !== 1313620290) {
+        throw Error('This database belongs to another application')
+      }
+      const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version)
+      if (version > 1) {
+        throw Error('Unsupported Neural Lab schema version')
+      }
+      if (
+        app === 0 &&
+        this.db
+          .prepare(
+            "SELECT count(*) AS n FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
+          )
+          .get()?.n !== 0
+      ) {
+        throw Error('Refusing to adopt an unrecognized database')
+      }
+      if (version === 0)
+        this.db.exec(`BEGIN IMMEDIATE;
+        CREATE TABLE kv(key TEXT PRIMARY KEY,value TEXT NOT NULL);
+        CREATE TABLE drafts(id TEXT PRIMARY KEY,code TEXT NOT NULL,revision INTEGER NOT NULL);
+        CREATE TABLE runs(id TEXT PRIMARY KEY,exercise TEXT NOT NULL,body TEXT NOT NULL);
+        CREATE TABLE history(seq INTEGER PRIMARY KEY,exercise TEXT NOT NULL,kind TEXT NOT NULL,body TEXT NOT NULL,at TEXT NOT NULL);
+        PRAGMA application_id=1313620290; PRAGMA user_version=1; COMMIT;`)
+      this.db.exec(
+        'CREATE INDEX IF NOT EXISTS history_activity ON history(exercise,kind); CREATE INDEX IF NOT EXISTS run_activity ON runs(exercise)',
+      )
+      for (const run of this.runs())
+        if (['queued', 'running'].includes(run.run_status))
+          this.putRun({
+            ...run,
+            run_status: 'interrupted',
+            check_status: 'not_run',
+            reason: 'Host restarted before execution was confirmed',
+            finishedAt: new Date().toISOString(),
+          })
+    } catch (error) {
       this.db.close()
-      throw Error('This database belongs to another application')
+      throw error
     }
-    const version = Number(this.db.prepare('PRAGMA user_version').get()?.user_version)
-    if (version > 1) {
-      this.db.close()
-      throw Error('Unsupported Neural Lab schema version')
-    }
-    if (
-      app === 0 &&
-      this.db
-        .prepare(
-          "SELECT count(*) AS n FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
-        )
-        .get()?.n !== 0
-    ) {
-      this.db.close()
-      throw Error('Refusing to adopt an unrecognized database')
-    }
-    if (version === 0)
-      this.db.exec(`BEGIN IMMEDIATE;
-      CREATE TABLE kv(key TEXT PRIMARY KEY,value TEXT NOT NULL);
-      CREATE TABLE drafts(id TEXT PRIMARY KEY,code TEXT NOT NULL,revision INTEGER NOT NULL);
-      CREATE TABLE runs(id TEXT PRIMARY KEY,exercise TEXT NOT NULL,body TEXT NOT NULL);
-      CREATE TABLE history(seq INTEGER PRIMARY KEY,exercise TEXT NOT NULL,kind TEXT NOT NULL,body TEXT NOT NULL,at TEXT NOT NULL);
-      PRAGMA application_id=1313620290; PRAGMA user_version=1; COMMIT;`)
-    this.db.exec(
-      'CREATE INDEX IF NOT EXISTS history_activity ON history(exercise,kind); CREATE INDEX IF NOT EXISTS run_activity ON runs(exercise)',
-    )
-    for (const run of this.runs())
-      if (['queued', 'running'].includes(run.run_status))
-        this.putRun({
-          ...run,
-          run_status: 'interrupted',
-          check_status: 'not_run',
-          reason: 'Host restarted before execution was confirmed',
-          finishedAt: new Date().toISOString(),
-        })
   }
   transaction<T>(operation: () => T): T {
     this.db.exec('BEGIN IMMEDIATE')
@@ -97,9 +99,19 @@ export class Store {
   runs(id?: string): RunRecord[] {
     return (
       id
-        ? this.db.prepare('SELECT body FROM runs WHERE exercise=? ORDER BY rowid DESC').all(id)
-        : this.db.prepare('SELECT body FROM runs ORDER BY rowid DESC').all()
-    ).map((r) => JSON.parse(String(r.body)) as RunRecord)
+        ? this.db.prepare('SELECT id,body FROM runs WHERE exercise=? ORDER BY rowid DESC').all(id)
+        : this.db.prepare('SELECT id,body FROM runs ORDER BY rowid DESC').all()
+    ).map((r) => {
+      try {
+        const record = JSON.parse(String(r.body)) as RunRecord
+        if (record?.id !== r.id) throw Error('Unexpected identity')
+        return record
+      } catch {
+        throw Error(
+          '损坏的运行记录 / Corrupt run ' + r.id + '. Back up the closed database before recovery.',
+        )
+      }
+    })
   }
   run(id: string): RunRecord {
     const row = this.db.prepare('SELECT body FROM runs WHERE id=?').get(id)

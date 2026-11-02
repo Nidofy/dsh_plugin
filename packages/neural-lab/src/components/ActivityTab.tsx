@@ -82,32 +82,6 @@ export function ActivityTab(props: Props) {
                 ))}
               </ul>
             </details>
-            {!!trainingDataset(exercise.runtimeKey) && (
-              <>
-                <label>
-                  运行前预测 Prediction
-                  <textarea
-                    maxLength={2000}
-                    value={props.prediction}
-                    disabled={props.busy}
-                    onChange={(e) => props.onPrediction(e.target.value)}
-                    placeholder="改变学习率后，你预计验证误差如何变化？"
-                  />
-                </label>
-                <label>
-                  学习率 Learning rate
-                  <input
-                    type="number"
-                    min="0.001"
-                    max="0.3"
-                    step="0.001"
-                    value={props.learningRate}
-                    disabled={props.busy}
-                    onChange={(e) => props.onLearningRate(Number(e.target.value))}
-                  />
-                </label>
-              </>
-            )}
             {exercise.kind === 'experiment' && (
               <p className="nl-callout">
                 实验参数只来自代码中的 <code>configure()</code>
@@ -184,6 +158,32 @@ export function ActivityTab(props: Props) {
                 onRun={props.onRun}
                 onSubmit={props.onRun}
               />
+              {!!trainingDataset(exercise.runtimeKey) && (
+                <>
+                  <label>
+                    运行前预测 Prediction
+                    <textarea
+                      maxLength={2000}
+                      value={props.prediction}
+                      disabled={props.busy}
+                      onChange={(e) => props.onPrediction(e.target.value)}
+                      placeholder="改变学习率后，你预计验证误差如何变化？"
+                    />
+                  </label>
+                  <label>
+                    学习率 Learning rate
+                    <input
+                      type="number"
+                      min="0.001"
+                      max="0.3"
+                      step="0.001"
+                      value={props.learningRate}
+                      disabled={props.busy}
+                      onChange={(e) => props.onLearningRate(Number(e.target.value))}
+                    />
+                  </label>
+                </>
+              )}
               <div className="nl-editor-actions">
                 <label className="nl-seed">
                   Seed
@@ -202,6 +202,9 @@ export function ActivityTab(props: Props) {
                 <button disabled={props.busy} onClick={props.onSave}>
                   保存 Save
                 </button>
+                {!!trainingDataset(exercise.runtimeKey) && !props.prediction.trim() && (
+                  <small>请先填写运行前预测 / Enter a prediction to run</small>
+                )}
                 {running ? (
                   <button disabled={props.busy} onClick={props.onCancel}>
                     取消 Cancel
@@ -221,6 +224,20 @@ export function ActivityTab(props: Props) {
               </div>
               {props.run ? (
                 <>
+                  {!!trainingDataset(exercise.runtimeKey) &&
+                    (props.run.effectiveConfig?.learningRate ??
+                      props.run.config.learningRate ??
+                      0.05) !== props.learningRate && (
+                      <p role="status">
+                        历史学习率 / Previous learning rate{' '}
+                        {String(
+                          props.run.effectiveConfig?.learningRate ??
+                            props.run.config.learningRate ??
+                            0.05,
+                        )}{' '}
+                        → {props.learningRate} · Seed {props.run.seed} · {props.run.id}
+                      </p>
+                    )}
                   {props.run.code === props.draft &&
                     (props.run.testVersion !== exercise?.testVersion ||
                       props.run.contentVersion !== props.contentVersion ||

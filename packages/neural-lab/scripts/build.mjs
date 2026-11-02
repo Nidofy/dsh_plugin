@@ -123,6 +123,7 @@ const inputs = [
     'LICENSE',
     'THIRD_PARTY_NOTICES.md',
     'scripts/prepare-image.ps1',
+    'scripts/import-legacy.mjs',
     'src/style.css',
   ].map((f) => join(base, f)),
 ]
@@ -135,7 +136,7 @@ await writeFile(
       version: JSON.parse(await readFile(join(base, 'package.json'), 'utf8')).version,
       source: Object.fromEntries(
         await Promise.all(
-          inputs.map(async (f) => [
+          inputs.sort().map(async (f) => [
             f.slice(base.length + 1).replaceAll('\\', '/'),
             createHash('sha256')
               .update(await readFile(f))

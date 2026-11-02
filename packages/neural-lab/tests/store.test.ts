@@ -115,3 +115,52 @@ test('crashed ownership is recovered transactionally and foreign schemas are pre
     await temporary.cleanup()
   }
 })
+
+test('activation stays available during recovery and shutdown retains unresolved cleanup', async (t) => {
+  const { Engine } = await import('../src/engine.ts')
+  const { Runner } = await import('../src/runner.ts')
+  const tmp = await temporaryDirectory('neural-recovery-')
+  const gate = Promise.withResolvers<void>()
+  let engine: InstanceType<typeof Engine> | undefined
+  try {
+    const db = new Store(join(tmp.directory, 'neural-lab.sqlite'))
+    db.putRun({
+      id: 'pending',
+      exerciseId: 'L01-code',
+      code: '',
+      testVersion: '3',
+      contentVersion: '0.2.1',
+      seed: 42,
+      config: {},
+      environment: 'test',
+      run_status: 'running',
+      check_status: 'not_run',
+      createdAt: new Date().toISOString(),
+      events: [],
+      log: '',
+      help: 'none',
+      cleanupPending: 'container',
+    })
+    db.close()
+    t.mock.method(Runner.prototype, 'recover', async () => {
+      await gate.promise
+      throw Error('injected Docker timeout')
+    })
+    engine = await Engine.open(tmp.directory)
+    assert.equal(engine.run('pending').run_status, 'interrupted')
+    const closing = engine.close()
+    gate.resolve()
+    await closing
+    engine = undefined
+    const after = new Store(join(tmp.directory, 'neural-lab.sqlite'))
+    try {
+      assert.match(after.run('pending').cleanupPending!, /injected Docker timeout/)
+    } finally {
+      after.close()
+    }
+  } finally {
+    gate.resolve()
+    await engine?.close()
+    await tmp.cleanup()
+  }
+})

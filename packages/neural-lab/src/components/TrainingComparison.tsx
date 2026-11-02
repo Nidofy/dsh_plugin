@@ -52,7 +52,9 @@ export function TrainingComparison({ runs }: { runs: RunRecord[] }) {
           目标运行 A
           <select value={a.id} onChange={(e) => setLeft(e.target.value)}>
             {candidates.map((r) => (
-              <option key={r.id}>{r.id}</option>
+              <option key={r.id} value={r.id} title={r.id}>
+                {r.createdAt} · Seed {r.seed} · {r.check_status} · {r.id.slice(0, 8)}
+              </option>
             ))}
           </select>
         </label>
@@ -63,7 +65,9 @@ export function TrainingComparison({ runs }: { runs: RunRecord[] }) {
             比较运行 B
             <select value={b.id} onChange={(e) => setRight(e.target.value)}>
               {matches.map((r) => (
-                <option key={r.id}>{r.id}</option>
+                <option key={r.id} value={r.id} title={r.id}>
+                  {r.createdAt} · Seed {r.seed} · {r.check_status} · {r.id.slice(0, 8)}
+                </option>
               ))}
             </select>
           </label>

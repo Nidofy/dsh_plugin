@@ -1,6 +1,6 @@
 {
   "id": "neural-lab",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "lessons": [
     {
       "id": "L01",
@@ -853,20 +853,20 @@
           "lessonId": "L09",
           "title": "迁移：实时传感器的因果汇总",
           "kind": "code",
-          "prompt": "将语言模型的因果注意力迁移到实时传感器。每个batch是一台设备，每个时间步是已到达的观测，特征维为3或4。Q/K/V仍为[B,T,D]。输出当前时刻的加权汇总，不能读取未来观测，也不能混合设备。实现solve(q,k,v)，并解释未来扰动测试为什么适用于这个非文本场景。",
-          "starter": "import numpy as np\ndef solve(q,k,v):\n    raise NotImplementedError(\"请完成实现\")\n",
-          "reference": "import numpy as np\ndef solve(q,k,v):\n    q,k,v=map(np.asarray,(q,k,v))\n    s=q@k.swapaxes(-1,-2)/np.sqrt(q.shape[-1])\n    s=np.where(np.tril(np.ones(s.shape[-2:],dtype=bool)),s,-np.inf)\n    e=np.exp(s-s.max(-1,keepdims=True))\n    return (e/e.sum(-1,keepdims=True))@v\n",
+          "prompt": "每台设备上传不同长度的传感器序列。实现 solve(q,k,v,lengths)，逐设备计算有效前缀上的因果注意力，填充时刻输出零。解释为什么改变未来观测不应影响已到达时刻。 / Compute causal attention for each sensor stream and zero its padded outputs.",
+          "starter": "import numpy as np\ndef solve(q,k,v,lengths):\n    raise NotImplementedError(\"请完成实现\")\n",
+          "reference": "import numpy as np\ndef solve(q,k,v,lengths):\n    q,k,v=map(np.asarray,(q,k,v))\n    s=q@k.swapaxes(-1,-2)/np.sqrt(q.shape[-1])\n    s=np.where(np.tril(np.ones(s.shape[-2:],dtype=bool)),s,-np.inf)\n    e=np.exp(s-s.max(-1,keepdims=True))\n    out=(e/e.sum(-1,keepdims=True))@v\n    for batch,length in enumerate(lengths): out[batch,length:]=0\n    return out\n",
           "hints": [
             "因果约束来自信息可用时间，并不依赖输入是不是词元。",
             "沿最后两个轴计算时间间的分数；每台设备保留独立batch轴。",
-            "允许j≤i，softmax前遮蔽未来；特征维变化时重新计算sqrt(D)。"
+            "逐设备只保留前 lengths[b] 行，填充行显式置零。"
           ],
           "concepts": [
             "L09"
           ],
-          "testVersion": "3",
-          "runtimeKey": "code09",
-          "inputDomain": "输入须有限、非空，形状遵循本题函数签名。数值比较使用 atol=1e-6、rtol=1e-5。 因果自注意力为方阵，对角线可见；全屏蔽行不在输入域内。",
+          "testVersion": "4",
+          "runtimeKey": "code17",
+          "inputDomain": "Q/K/V: [B,T,D]，每台设备 1 ≤ lengths[b] ≤ T；padding 中允许非零值。输出 [B,T,D]。",
           "commonErrors": [
             "误认为非文本数据不需要因果mask",
             "把设备batch维混入时间归一化"

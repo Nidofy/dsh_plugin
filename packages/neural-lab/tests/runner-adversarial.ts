@@ -62,6 +62,11 @@ try {
       'import numpy as np\ndef solve(x):\n x=np.asarray(x);e=np.exp(x-x.max());return e/e.sum()',
     ],
   ]
+  cases.push([
+    'L09-transfer',
+    'copied-text-attention',
+    catalog.lessons.flatMap((l) => l.exercises).find((e) => e.id === 'L09-code')!.reference,
+  ])
   const stagedPrelude =
     'import os, pathlib, stat, sys\nassert os.getuid() == 65534\nroot=pathlib.Path(sys.argv[0]).parent\nassert root.stat().st_uid == 0\nassert stat.S_IMODE(root.stat().st_mode) == 0o555\nassert pathlib.Path("/tmp").stat().st_mode & stat.S_ISVTX\nassert all(stat.S_IMODE(p.stat().st_mode) == 0o444 and p.stat().st_uid == 0 for p in [pathlib.Path(sys.argv[0]),pathlib.Path(sys.argv[2])])\n'
   cases.push(

@@ -258,6 +258,46 @@ try {
   await page.getByRole('status').filter({ hasText: '档案已保存' }).waitFor()
   assert.equal(s.engine.overview().profile.difficulties, 'shape tracking')
   results.push('profile persisted through real HTTP/SQLite')
+  const goal = page.getByRole('textbox', { name: '学习目标 Goal' })
+  const saveProfile = page.getByRole('button', { name: '保存档案 Save profile' })
+  const profileGate = Promise.withResolvers(),
+    enteredProfile = Promise.withResolvers()
+  const holdProfile = async (route) => {
+    if (route.request().postDataJSON()?.method === 'saveProfile') {
+      enteredProfile.resolve()
+      await profileGate.promise
+    }
+    await route.continue()
+  }
+  await page.route('**/api/neural-lab/rpc', holdProfile)
+  try {
+    await goal.fill('A')
+    await saveProfile.click()
+    await enteredProfile.promise
+    await goal.fill('B')
+    await goal.fill('C')
+  } finally {
+    profileGate.resolve()
+  }
+  await page.getByRole('status').filter({ hasText: '档案已保存' }).waitFor()
+  assert.equal(s.engine.overview().profile.goal, 'C')
+  await page.unroute('**/api/neural-lab/rpc', holdProfile)
+  await goal.fill('local goal')
+  const prior = s.engine.overview()
+  s.engine.saveProfile({ ...prior.profile, background: 'remote background' }, prior.profileRevision)
+  await page.reload()
+  await page.getByRole('button', { name: '学习档案 Profile' }).click()
+  assert.equal(await goal.inputValue(), 'local goal')
+  await saveProfile.click()
+  await page.getByRole('button', { name: /Merge local changes/ }).click()
+  await saveProfile.click()
+  await page.getByRole('status').filter({ hasText: '档案已保存' }).waitFor()
+  assert.equal(s.engine.overview().profile.goal, 'local goal')
+  assert.equal(s.engine.overview().profile.background, 'remote background')
+  results.push(
+    'profile delayed A/B/C, reload of local draft, CAS conflict and explicit field merge',
+  )
+
   await page.getByRole('button', { name: /L03 / }).click()
   await page.getByRole('tab', { name: '实验 Experiment' }).click()
   await page.waitForFunction(() =>

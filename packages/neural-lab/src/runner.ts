@@ -112,20 +112,24 @@ export class Runner {
     const owner = this.ownerLabel()
     const name = 'neural-lab-' + owner + '-' + run.id
     const exe = await dockerPath()
-    const found = await this.dockerCommand(exe, [
-      'ps',
-      '-aq',
-      '--no-trunc',
-      '--filter',
-      'name=^/' + name + '$',
-      '--filter',
-      'label=neural-lab.owner=' + owner,
-    ])
+    const found = await this.dockerCommand(
+      exe,
+      [
+        'ps',
+        '-aq',
+        '--no-trunc',
+        '--filter',
+        'name=^/' + name + '$',
+        '--filter',
+        'label=neural-lab.owner=' + owner,
+      ],
+      3000,
+    )
     if (found.code !== 0) throw Error(found.out)
     const id = found.out.trim()
     if (id) {
       if (!/^[a-f0-9]{64}$/.test(id)) throw Error('Ambiguous recovery identity')
-      const removed = await this.dockerCommand(exe, ['rm', '-f', id])
+      const removed = await this.dockerCommand(exe, ['rm', '-f', id], 3000)
       if (removed.code && !removed.out.includes('No such container')) throw Error(removed.out)
     }
   }

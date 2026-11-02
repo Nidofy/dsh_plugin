@@ -9,6 +9,7 @@ import type {
   HelpLevel,
 } from './types.ts'
 import { css } from './client-style.ts'
+import { ProfileTab } from './components/ProfileTab.tsx'
 import { TrainingComparison } from './components/TrainingComparison.tsx'
 import { ActivityTab } from './components/ActivityTab.tsx'
 import { LectureTab } from './components/LectureTab.tsx'
@@ -116,12 +117,10 @@ export function Workbench({ api }: { api: LabApi }) {
     [question, setQuestion] = useState(''),
     [selection, setSelection] = useState(''),
     [reply, setReply] = useState(''),
-    [profile, setProfile] = useState<Record<string, string>>({}),
     [seed, setSeed] = useState(42),
     [sidebarWidth, setSidebarWidth] = useState(220)
   const generation = useRef(0),
     current = useRef<BufferState>(),
-    initializedProfile = useRef(false),
     queue = useRef<Promise<void>>(Promise.resolve()),
     mounted = useRef(true),
     actionPending = useRef(false),
@@ -144,10 +143,6 @@ export function Workbench({ api }: { api: LabApi }) {
     const o = await api.overview()
     if (!mounted.current) return
     setOverview(o)
-    if (!initializedProfile.current) {
-      initializedProfile.current = true
-      setProfile(o.profile)
-    }
     return o
   }
   useEffect(() => {
@@ -301,6 +296,7 @@ export function Workbench({ api }: { api: LabApi }) {
       old
         ? {
             ...old,
+            attemptId: w.attemptId,
             runs: w.runs,
             messages: w.messages,
             hints: w.hints,
@@ -409,7 +405,9 @@ export function Workbench({ api }: { api: LabApi }) {
       await save()
       const result = await api.tutor(exerciseId, question, selection, mode)
       if (g !== generation.current || !mounted.current) return
-      setReply(result.text)
+      const currentWorkspace = await api.workspace(exerciseId)
+      if (g !== generation.current || !mounted.current) return
+      setReply(result.attemptId === currentWorkspace.attemptId ? result.text : '')
       setQuestion((value) => (value === question ? '' : value))
       await syncActivity()
     } catch (e) {
@@ -476,7 +474,7 @@ export function Workbench({ api }: { api: LabApi }) {
         </div>
       </header>
       {conflict && (
-        <section role="alert">
+        <section className="nl-error" role="alert">
           <p>保存冲突。请对照远端内容编辑本地草稿，再重试。 / Compare and merge before retrying.</p>
           <details>
             <summary>
@@ -716,7 +714,9 @@ export function Workbench({ api }: { api: LabApi }) {
                       }}
                     >
                       {finishedTraining.map((r) => (
-                        <option key={r.id}>{r.id}</option>
+                        <option key={r.id} value={r.id} title={r.id}>
+                          {r.createdAt} · Seed {r.seed} · {r.check_status} · {r.id.slice(0, 8)}
+                        </option>
                       ))}
                     </select>
                   </label>
@@ -821,37 +821,9 @@ export function Workbench({ api }: { api: LabApi }) {
               onRestore={restore}
             />
           )}
-          {tab === 'profile' && (
-            <section className="nl-profile">
-              <p>档案属于学习者，贯穿整条课程路线。/ Your profile applies across all lessons.</p>
-              {[
-                ['background', '已有基础 Background'],
-                ['goal', '学习目标 Goal'],
-                ['difficulties', '常见卡点 Difficulties'],
-                ['explanations', '有效讲法 Preferred explanation'],
-              ].map(([key, title]) => (
-                <label key={key}>
-                  {title}
-                  <textarea
-                    value={profile[key!] ?? ''}
-                    onChange={(e) => setProfile({ ...profile, [key!]: e.target.value })}
-                  />
-                </label>
-              ))}
-              <button
-                className="nl-primary"
-                onClick={() =>
-                  void action(async () => {
-                    await api.saveProfile(profile)
-                    await refresh()
-                    setStatus('档案已保存 / Profile saved')
-                  })
-                }
-              >
-                保存档案 Save profile
-              </button>
-            </section>
-          )}
+          <div hidden={tab !== 'profile'}>
+            <ProfileTab key={overview.profileId} initial={overview} api={api} />
+          </div>
           {tab !== 'profile' && (
             <MentorSidebar
               workspace={ws}
@@ -871,6 +843,8 @@ export function Workbench({ api }: { api: LabApi }) {
                 void action(async () => {
                   await api.independent(exerciseId)
                   setHint('')
+                  setReply('')
+                  await syncActivity()
                   setStatus(
                     '已开始自述独立尝试；外部帮助不可验证 / Independent attempt, self-reported',
                   )

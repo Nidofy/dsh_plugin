@@ -28,6 +28,9 @@ async function open(version) {
 }
 let engine
 try {
+  engine = await open('0.1.2')
+  engine.saveDraft('L05-code', 'survived 0.1.2', 0)
+  await engine.close()
   engine = await open('0.1.3')
   const activity = engine.catalog.lessons
     .flatMap((l) => l.exercises)
@@ -77,6 +80,16 @@ try {
   for (const key of ['evidence', 'reviews', 'profile'])
     assert.deepEqual(engine.overview()[key], oldOverview[key])
   assert.equal(engine.workspace('L12-transformer').revision, 0)
+  await engine.close()
+  engine = await open('0.2.2')
+  const current = engine.workspace('L04-train')
+  for (const key of ['draft', 'note', 'runs', 'answers', 'snapshots', 'messages'])
+    assert.deepEqual(current[key], oldMLP[key])
+  for (const key of ['evidence', 'reviews', 'profile'])
+    assert.deepEqual(engine.overview()[key], oldOverview[key])
+  assert.equal(engine.overview().profileRevision, 0)
+  assert.equal(engine.workspace('L05-code').draft, 'survived 0.1.2')
+  console.log('PASS packaged 0.2.1 to 0.2.2 preserves existing records')
   console.log('PASS packaged 0.2.0 to 0.2.1 preserves MLP run, prediction, reflection and review')
   console.log(
     'PASS 0.1.3 packaged host to 0.2.0 packaged host; SQLite draft, note, answer, help, reviews, profile and evidence preserved',
