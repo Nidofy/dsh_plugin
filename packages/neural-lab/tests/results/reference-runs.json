@@ -1,0 +1,4035 @@
+{
+  "environment": {
+    "available": true,
+    "requestedImage": "dsh-neural-lab-cpu:0.1",
+    "resolvedImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+    "detail": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+    "image": "dsh-neural-lab-cpu:0.1"
+  },
+  "results": [
+    {
+      "id": "L01-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3070,
+      "events": [
+        {
+          "runId": "3a9f9868-eaae-464e-80b3-0a9cb925bd46",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[ 1.12773923 -1.36007934]\n  [-0.99423847 -0.41901948]\n  [ 1.06958301 -1.05683952]]\n\n [[-1.58782995  0.12556146]\n  [-0.92496959 -0.89529473]\n  [-0.62, actual=[[[1.1277392254432201, -1.3600793418319044], [-0.9942384742129646, -0.4190194825928141], [1.06958301108933, -1.0568395215848394]], [[-1.58782995495726, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3a9f9868-eaae-464e-80b3-0a9cb925bd46",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[-3.39805948 -0.97732253]\n  [-0.22245387 -0.61193076]\n  [ 0.01132478 -0.94259797]]\n\n [[-1.32095812  0.75816299]\n  [-2.12594476 -1.50164027]\n  [ 2.15, actual=[[[-3.398059482947964, -0.9773225334243354], [-0.22245387059777924, -0.6119307627625135], [0.011324783173888575, -0.9425979679837224]], [[-1.320958119, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3a9f9868-eaae-464e-80b3-0a9cb925bd46",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.8579758812571538, -0.1913043248816149, -1.2756863233379219, -1.1332872140034806], [-0.9194522860016113, 0.49716074405376404, 0.14242573607056525, expected=[[[ 0.81574286  3.80601285]\n  [-0.74018461 -0.11417576]\n  [-1.41595366  0.76010213]]\n\n [[ 0.8729779   2.92840624]\n  [-0.06777797  1.14665138]\n  [-2.25, actual=[[[0.8157428641187873, 3.8060128450469146], [-0.7401846134274066, -0.11417576408584851], [-1.4159536552310086, 0.7601021268287192]], [[0.8729779027420, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3a9f9868-eaae-464e-80b3-0a9cb925bd46",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "3a9f9868-eaae-464e-80b3-0a9cb925bd46",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L01-debug",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3397,
+      "events": [
+        {
+          "runId": "d924f4e8-38ea-4915-ad09-6207dcf002a5",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[ 1.12773923 -1.36007934]\n  [-0.99423847 -0.41901948]\n  [ 1.06958301 -1.05683952]]\n\n [[-1.58782995  0.12556146]\n  [-0.92496959 -0.89529473]\n  [-0.62, actual=[[[1.1277392254432201, -1.3600793418319044], [-0.9942384742129646, -0.4190194825928141], [1.06958301108933, -1.0568395215848394]], [[-1.58782995495726, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "d924f4e8-38ea-4915-ad09-6207dcf002a5",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[-3.39805948 -0.97732253]\n  [-0.22245387 -0.61193076]\n  [ 0.01132478 -0.94259797]]\n\n [[-1.32095812  0.75816299]\n  [-2.12594476 -1.50164027]\n  [ 2.15, actual=[[[-3.398059482947964, -0.9773225334243354], [-0.22245387059777924, -0.6119307627625135], [0.011324783173888575, -0.9425979679837224]], [[-1.320958119, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "d924f4e8-38ea-4915-ad09-6207dcf002a5",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.8579758812571538, -0.1913043248816149, -1.2756863233379219, -1.1332872140034806], [-0.9194522860016113, 0.49716074405376404, 0.14242573607056525, expected=[[[ 0.81574286  3.80601285]\n  [-0.74018461 -0.11417576]\n  [-1.41595366  0.76010213]]\n\n [[ 0.8729779   2.92840624]\n  [-0.06777797  1.14665138]\n  [-2.25, actual=[[[0.8157428641187873, 3.8060128450469146], [-0.7401846134274066, -0.11417576408584851], [-1.4159536552310086, 0.7601021268287192]], [[0.8729779027420, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "d924f4e8-38ea-4915-ad09-6207dcf002a5",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "d924f4e8-38ea-4915-ad09-6207dcf002a5",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L02-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3224,
+      "events": [
+        {
+          "runId": "7261f461-8cdf-4049-98a1-f46569c13161",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[2, 3, 1], expected=[42, 28, 14], actual=[42, 28, 14], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "7261f461-8cdf-4049-98a1-f46569c13161",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[3, 2, 1], expected=[28, 42, 14], actual=[28, 42, 14], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "7261f461-8cdf-4049-98a1-f46569c13161",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[4, 1, 1], expected=[10, 40, 10], actual=[10, 40, 10], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "7261f461-8cdf-4049-98a1-f46569c13161",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "7261f461-8cdf-4049-98a1-f46569c13161",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L03-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3083,
+      "events": [
+        {
+          "runId": "1fe04de7-5426-4144-80fc-5c2b0ffa3f06",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[2.78557496e-01 3.24470082e+00 1.68953099e+00 2.65398596e+00]\n  [1.14196149e+01 5.08701440e+00 4.90295060e-02 3.00028132e-01]\n  [8.46836680e-04 2.18, actual=[[[0.2785574961824619, 3.2447008238234427, 1.6895309919551236, 2.6539859572516367], [11.419614922258956, 5.0870144044035115, 0.0490295061459766, 0.300, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "1fe04de7-5426-4144-80fc-5c2b0ffa3f06",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[1.13829195 3.82373531 0.03895207 2.11758872]\n  [2.03930783 1.26981293 1.65728029 0.88504968]\n  [1.32870951 0.16169664 0.04084673 0.14347411]]\n\n [[2, actual=[[[1.1382919472044395, 3.8237353133241387, 0.038952069418020895, 2.117588717437391], [2.0393078251745855, 1.2698129268018388, 1.6572802891273717, 0.88, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "1fe04de7-5426-4144-80fc-5c2b0ffa3f06",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.8579758812571538, -0.1913043248816149, -1.2756863233379219, -1.1332872140034806], [-0.9194522860016113, 0.49716074405376404, 0.14242573607056525, expected=[[[2.20836784e+00 1.09792034e-01 4.88212679e+00 3.85301973e+00]\n  [2.53617752e+00 7.41506416e-01 6.08552709e-02 1.43031007e+00]\n  [5.47634471e-01 7.54, actual=[[[2.208367838546499, 0.10979203425532864, 4.88212678677602, 3.8530197283948016], [2.536177518785987, 0.7415064163851514, 0.060855270985794845, 1.4303, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "1fe04de7-5426-4144-80fc-5c2b0ffa3f06",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "1fe04de7-5426-4144-80fc-5c2b0ffa3f06",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L03-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2822,
+      "events": [
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "eps": [
+              0.1,
+              0.01,
+              0.001,
+              0.0001,
+              0.00001
+            ]
+          }
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 2,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 0,
+          "value": 0.010000000000005116
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 3,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 0,
+          "value": 0.1
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 4,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 1,
+          "value": 0.00010000000001131326
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 5,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 1,
+          "value": 0.01
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 6,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 2,
+          "value": 9.999999997650777e-7
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 7,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 2,
+          "value": 0.001
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 8,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 3,
+          "value": 9.99999417994335e-9
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 9,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 3,
+          "value": 0.0001
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 10,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 4,
+          "value": 1.468789534442294e-10
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 11,
+          "type": "metric",
+          "name": "epsilon",
+          "step": 4,
+          "value": 0.00001
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 12,
+          "type": "check",
+          "name": "framework-gradcheck",
+          "passed": true
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 13,
+          "type": "tensor",
+          "name": "autograd",
+          "data": [
+            [
+              1.4699999999999998,
+              0.12000000000000002,
+              5.879999999999999
+            ]
+          ]
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 14,
+          "type": "check",
+          "name": "finite-difference",
+          "passed": true,
+          "detail": "For x cubed the central-difference error is eps squared; a coarse step is an observation, not a failed lesson."
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 15,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "b2013da7-f7a5-42ef-a45a-c68f87f35e28",
+          "seq": 16,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L03-advanced",
+      "status": "completed",
+      "check": "passed",
+      "ms": 6917,
+      "events": [
+        {
+          "runId": "d6e56ac7-a728-441d-94a5-b3d7c4938295",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[5.57114992e-01 6.48940165e+00 3.37906198e+00 5.30797191e+00]\n  [2.28392298e+01 1.01740288e+01 9.80590121e-02 6.00056263e-01]\n  [1.69367336e-03 4.36, actual=[[[0.5571149921644108, 6.489401647397054, 3.37906198372405, 5.3079719143205075], [22.839229844193067, 10.174028808553139, 0.09805901209184442, 0.60005, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "d6e56ac7-a728-441d-94a5-b3d7c4938295",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[ 2.27658389  7.64747063  0.07790414  4.23517743]\n  [ 4.07861565  2.53962585  3.31456058  1.77009936]\n  [ 2.65741902  0.32339328  0.08169347  0.2869, actual=[[[2.2765838942186463, 7.6474706263888, 0.07790413863605729, 4.235177434692521], [4.078615650166226, 2.5396258534170992, 3.314560578067895, 1.77009935, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "d6e56ac7-a728-441d-94a5-b3d7c4938295",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.8579758812571538, -0.1913043248816149, -1.2756863233379219, -1.1332872140034806], [-0.9194522860016113, 0.49716074405376404, 0.14242573607056525, expected=[[[4.41673568e+00 2.19584068e-01 9.76425357e+00 7.70603946e+00]\n  [5.07235504e+00 1.48301283e+00 1.21710542e-01 2.86062015e+00]\n  [1.09526894e+00 1.50, actual=[[[4.416735676913938, 0.21958406831046276, 9.76425357330855, 7.706039456542625], [5.072355037401533, 1.4830128325685537, 0.12171054177145385, 2.860620, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "d6e56ac7-a728-441d-94a5-b3d7c4938295",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "d6e56ac7-a728-441d-94a5-b3d7c4938295",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L04-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3015,
+      "events": [
+        {
+          "runId": "08641b92-aad5-49d8-8387-6bc49777002b",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[ 1.43791833  1.81634061 -0.79401272]\n  [ 0.74325417  0.54315427 -0.66550971]\n  [ 1.4020953   1.75068385 -0.78738597]]\n\n [[ 0.6377629   0.4396312  -, actual=[[[1.4379183281076937, 1.8163406072451096, -0.7940127249256272], [0.7432541712034423, 0.543154268305195, -0.6655097072886943], [1.4020952967708078, 1., atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "08641b92-aad5-49d8-8387-6bc49777002b",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.23216132306671977, 0.11668580914072822, 0.21868859672901295, 0.8714287779481898], [0.22359554877468227, 0.6789135630718949, 0.06757906948889146,, expected=[[[-0.26343148 -0.72900793  0.2561301 ]\n  [-0.29860305 -0.86779332  0.32475772]\n  [ 0.75100082 -2.14809741 -0.56108194]]\n\n [[-0.38173789 -1.19583965  , actual=[[[-0.2634314799570466, -0.7290079287722322, 0.25613009953815224], [-0.29860304573024343, -0.8677933240197575, 0.32475772265630576], [0.75100082341351, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "08641b92-aad5-49d8-8387-6bc49777002b",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[-0.46940234020272387, 0.01249411872768743, 0.48074665890590895, 0.4465311760299441], [0.6653851089727862, -0.09848548450942361, -0.423298312044153, expected=[[[-0.10163423 -0.91464895 -0.30337457]\n  [-0.09610486 -0.61122196 -0.12047605]\n  [ 2.92525386  0.84177961  0.42886895]]\n\n [[ 0.70829676  0.43916762  , actual=[[[-0.10163423052451015, -0.9146489522465593, -0.30337457052966504], [-0.096104859542673, -0.6112219559224257, -0.12047604724756533], [2.9252538562330, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "08641b92-aad5-49d8-8387-6bc49777002b",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "08641b92-aad5-49d8-8387-6bc49777002b",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L04-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3437,
+      "events": [
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 60,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 3,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 0,
+          "value": 2.969209671020508
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 2,
+          "value": 2.3393747806549072
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 5,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 2,
+          "value": 2.3539676666259766
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 4,
+          "value": 1.9714984893798828
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 7,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 4,
+          "value": 2.040956974029541
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 6,
+          "value": 1.7883583307266235
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 9,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 6,
+          "value": 1.8655202388763428
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 10,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 8,
+          "value": 1.6873401403427124
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 11,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 8,
+          "value": 1.7571617364883423
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 12,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 10,
+          "value": 1.624288558959961
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 13,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 10,
+          "value": 1.6833209991455078
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 14,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 12,
+          "value": 1.5792969465255737
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 15,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 12,
+          "value": 1.6281521320343018
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 16,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 14,
+          "value": 1.5431395769119263
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 17,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 14,
+          "value": 1.583597183227539
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 18,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 16,
+          "value": 1.5114548206329346
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 19,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 16,
+          "value": 1.5453760623931885
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 20,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 18,
+          "value": 1.4821438789367676
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 21,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 18,
+          "value": 1.5111103057861328
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 22,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 20,
+          "value": 1.4541714191436768
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 23,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 20,
+          "value": 1.4794154167175293
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 24,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 22,
+          "value": 1.4270085096359253
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 25,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 22,
+          "value": 1.4494448900222778
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 26,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 24,
+          "value": 1.4003700017929077
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 27,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 24,
+          "value": 1.4206585884094238
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 28,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 26,
+          "value": 1.3740899562835693
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 29,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 26,
+          "value": 1.3926975727081299
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 30,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 28,
+          "value": 1.3480627536773682
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 31,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 28,
+          "value": 1.3653154373168945
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 32,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 30,
+          "value": 1.3222153186798096
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 33,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 30,
+          "value": 1.3383378982543945
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 34,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 32,
+          "value": 1.2964935302734375
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 35,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 32,
+          "value": 1.3116406202316284
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 36,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 34,
+          "value": 1.270855188369751
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 37,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 34,
+          "value": 1.2851319313049316
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 38,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 36,
+          "value": 1.245267629623413
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 39,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 36,
+          "value": 1.2587463855743408
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 40,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 38,
+          "value": 1.2197057008743286
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 41,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 38,
+          "value": 1.2324362993240356
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 42,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 40,
+          "value": 1.194150447845459
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 43,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 40,
+          "value": 1.2061681747436523
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 44,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 42,
+          "value": 1.1685891151428223
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 45,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 42,
+          "value": 1.1799204349517822
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 46,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 44,
+          "value": 1.1430144309997559
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 47,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 44,
+          "value": 1.1536800861358643
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 48,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 46,
+          "value": 1.1174238920211792
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 49,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 46,
+          "value": 1.1274423599243164
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 50,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 48,
+          "value": 1.091820240020752
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 51,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 48,
+          "value": 1.1012084484100342
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 52,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 50,
+          "value": 1.0662102699279785
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 53,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 50,
+          "value": 1.0749857425689697
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 54,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 52,
+          "value": 1.0406049489974976
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 55,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 52,
+          "value": 1.048785924911499
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 56,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 54,
+          "value": 1.0150187015533447
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 57,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 54,
+          "value": 1.0226256847381592
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 58,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 56,
+          "value": 0.9894696474075317
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 59,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 56,
+          "value": 0.9965241551399231
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 60,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 58,
+          "value": 0.9639785885810852
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 61,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 58,
+          "value": 0.9705045819282532
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 62,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 59,
+          "value": 0.9512620568275452
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 63,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 59,
+          "value": 0.9575332403182983
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 64,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.03",
+          "step": 60,
+          "value": 1.3588345050811768
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 65,
+          "type": "check",
+          "name": "updates_lr=0.03",
+          "passed": true
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 66,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 67,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 0,
+          "value": 3.446409225463867
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 68,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 2,
+          "value": 3.0465810298919678
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 69,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 2,
+          "value": 3.335820436477661
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 70,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 4,
+          "value": 2.948991537094116
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 71,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 4,
+          "value": 3.233041763305664
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 72,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 6,
+          "value": 2.8586604595184326
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 73,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 6,
+          "value": 3.137430429458618
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 74,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 8,
+          "value": 2.774977684020996
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 75,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 8,
+          "value": 3.0484044551849365
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 76,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 10,
+          "value": 2.697392225265503
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 77,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 10,
+          "value": 2.9654362201690674
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 78,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 12,
+          "value": 2.6254055500030518
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 79,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 12,
+          "value": 2.888047218322754
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 80,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 14,
+          "value": 2.558562755584717
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 81,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 14,
+          "value": 2.8158013820648193
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 82,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 16,
+          "value": 2.4964513778686523
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 83,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 16,
+          "value": 2.7483010292053223
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 84,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 18,
+          "value": 2.4386961460113525
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 85,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 18,
+          "value": 2.685184955596924
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 86,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 20,
+          "value": 2.384953022003174
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 87,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 20,
+          "value": 2.626119613647461
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 88,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 22,
+          "value": 2.334909200668335
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 89,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 22,
+          "value": 2.570803642272949
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 90,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 24,
+          "value": 2.2882795333862305
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 91,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 24,
+          "value": 2.518958568572998
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 92,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 26,
+          "value": 2.244799852371216
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 93,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 26,
+          "value": 2.470329761505127
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 94,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 28,
+          "value": 2.2042312622070312
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 95,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 28,
+          "value": 2.4246835708618164
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 96,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 30,
+          "value": 2.166353464126587
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 97,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 30,
+          "value": 2.3818039894104004
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 98,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 32,
+          "value": 2.1309633255004883
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 99,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 32,
+          "value": 2.34149432182312
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 100,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 34,
+          "value": 2.0978753566741943
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 101,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 34,
+          "value": 2.3035714626312256
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 102,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 36,
+          "value": 2.0669190883636475
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 103,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 36,
+          "value": 2.2678675651550293
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 104,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 38,
+          "value": 2.037936210632324
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 105,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 38,
+          "value": 2.2342276573181152
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 106,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 40,
+          "value": 2.010782480239868
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 107,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 40,
+          "value": 2.2025084495544434
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 108,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 42,
+          "value": 1.9853241443634033
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 109,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 42,
+          "value": 2.1725776195526123
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 110,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 44,
+          "value": 1.9614375829696655
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 111,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 44,
+          "value": 2.144313335418701
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 112,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 46,
+          "value": 1.9390093088150024
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 113,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 46,
+          "value": 2.1176018714904785
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 114,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 48,
+          "value": 1.917934536933899
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 115,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 48,
+          "value": 2.092339038848877
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 116,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 50,
+          "value": 1.898115873336792
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 117,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 50,
+          "value": 2.068427085876465
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 118,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 52,
+          "value": 1.8794634342193604
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 119,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 52,
+          "value": 2.045776844024658
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 120,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 54,
+          "value": 1.8618948459625244
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 121,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 54,
+          "value": 2.024304151535034
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 122,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 56,
+          "value": 1.8453330993652344
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 123,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 56,
+          "value": 2.003931999206543
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 124,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 58,
+          "value": 1.8297067880630493
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 125,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 58,
+          "value": 1.984588384628296
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 126,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 59,
+          "value": 1.8222236633300781
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 127,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 59,
+          "value": 1.9752814769744873
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 128,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.003",
+          "step": 60,
+          "value": 0.4691202938556671
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 129,
+          "type": "check",
+          "name": "updates_lr=0.003",
+          "passed": true
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 130,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "97907e3c-e2df-4acf-989d-391b5b4895b9",
+          "seq": 131,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L04-train",
+      "status": "completed",
+      "check": "passed",
+      "ms": 6595,
+      "events": [
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 1,
+          "type": "manifest",
+          "name": "training snapshot",
+          "manifest": {
+            "protocol": "train-mlp-v1",
+            "dataset": "quadratic-2d-v1",
+            "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+            "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+            "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+          }
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 2,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "learningRate": 0.05,
+            "steps": 8,
+            "batchSize": 6
+          }
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 3,
+          "type": "check",
+          "name": "forward + MSE",
+          "passed": true,
+          "detail": "step 1, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 4,
+          "type": "check",
+          "name": "fresh minibatch gradients",
+          "passed": true,
+          "detail": "step 1, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 5,
+          "type": "check",
+          "name": "SGD parameter update",
+          "passed": true,
+          "detail": "step 1, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 6,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "step": 1,
+          "value": 0.11338974373451127,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 7,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 1,
+          "value": 0.30092206537041327,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 8,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 1,
+          "value": 0.17672660544203003,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 9,
+          "type": "check",
+          "name": "forward + MSE",
+          "passed": true,
+          "detail": "step 2, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 10,
+          "type": "check",
+          "name": "fresh minibatch gradients",
+          "passed": true,
+          "detail": "step 2, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 11,
+          "type": "check",
+          "name": "SGD parameter update",
+          "passed": true,
+          "detail": "step 2, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 12,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "step": 2,
+          "value": 0.12695447260142348,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 13,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 2,
+          "value": 0.28156354385547727,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 14,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 2,
+          "value": 0.16350554739529413,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 15,
+          "type": "check",
+          "name": "forward + MSE",
+          "passed": true,
+          "detail": "step 3, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 16,
+          "type": "check",
+          "name": "fresh minibatch gradients",
+          "passed": true,
+          "detail": "step 3, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 17,
+          "type": "check",
+          "name": "SGD parameter update",
+          "passed": true,
+          "detail": "step 3, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 18,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "step": 3,
+          "value": 0.3347741404823413,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 19,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 3,
+          "value": 0.24881309319418024,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 20,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 3,
+          "value": 0.14123013797883108,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 21,
+          "type": "check",
+          "name": "forward + MSE",
+          "passed": true,
+          "detail": "step 4, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 22,
+          "type": "check",
+          "name": "fresh minibatch gradients",
+          "passed": true,
+          "detail": "step 4, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 23,
+          "type": "check",
+          "name": "SGD parameter update",
+          "passed": true,
+          "detail": "step 4, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 24,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "step": 4,
+          "value": 0.3642320388027369,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 25,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 4,
+          "value": 0.2135052966723726,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 26,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 4,
+          "value": 0.11979153385082855,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 27,
+          "type": "check",
+          "name": "forward + MSE",
+          "passed": true,
+          "detail": "step 5, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 28,
+          "type": "check",
+          "name": "fresh minibatch gradients",
+          "passed": true,
+          "detail": "step 5, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 29,
+          "type": "check",
+          "name": "SGD parameter update",
+          "passed": true,
+          "detail": "step 5, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 30,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "step": 5,
+          "value": 0.20842893657239295,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 31,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 5,
+          "value": 0.1980017570561313,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 32,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 5,
+          "value": 0.1105677816874687,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 33,
+          "type": "check",
+          "name": "forward + MSE",
+          "passed": true,
+          "detail": "step 6, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 34,
+          "type": "check",
+          "name": "fresh minibatch gradients",
+          "passed": true,
+          "detail": "step 6, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 35,
+          "type": "check",
+          "name": "SGD parameter update",
+          "passed": true,
+          "detail": "step 6, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 36,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "step": 6,
+          "value": 0.05474582359679898,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 37,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 6,
+          "value": 0.19857309219834327,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 38,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 6,
+          "value": 0.11077403698572189,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 39,
+          "type": "check",
+          "name": "forward + MSE",
+          "passed": true,
+          "detail": "step 7, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 40,
+          "type": "check",
+          "name": "fresh minibatch gradients",
+          "passed": true,
+          "detail": "step 7, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 41,
+          "type": "check",
+          "name": "SGD parameter update",
+          "passed": true,
+          "detail": "step 7, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 42,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "step": 7,
+          "value": 0.06542467473402934,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 43,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 7,
+          "value": 0.19890882950197764,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 44,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 7,
+          "value": 0.11077534590738139,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 45,
+          "type": "check",
+          "name": "forward + MSE",
+          "passed": true,
+          "detail": "step 8, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 46,
+          "type": "check",
+          "name": "fresh minibatch gradients",
+          "passed": true,
+          "detail": "step 8, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 47,
+          "type": "check",
+          "name": "SGD parameter update",
+          "passed": true,
+          "detail": "step 8, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 48,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "step": 8,
+          "value": 0.12222411632528334,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 49,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 8,
+          "value": 0.18735963114832263,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 50,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 8,
+          "value": 0.10429595856539849,
+          "source": "program"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 51,
+          "type": "metric",
+          "name": "student_validation_loss",
+          "step": 8,
+          "value": 0.10429595856539849,
+          "source": "student"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 52,
+          "type": "check",
+          "name": "held-out validation MSE",
+          "passed": true,
+          "detail": "step 8, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 53,
+          "type": "check",
+          "name": "validation uses eval and no_grad",
+          "passed": true,
+          "detail": "step 8, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 54,
+          "type": "check",
+          "name": "validation preserves parameters",
+          "passed": true,
+          "detail": "step 8, atol=1e-8, rtol=1e-6"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 55,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "4ae5a70d-fe86-469b-9b64-88d87685b9ea",
+          "seq": 56,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L05-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3795,
+      "events": [
+        {
+          "runId": "e5322900-017a-4638-8829-23342fc22680",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]], expected=[[0.25 0.25 0.25 0.25]\n [0.25 0.25 0.25 0.25]], actual=[[0.25, 0.25, 0.25, 0.25], [0.25, 0.25, 0.25, 0.25]], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "e5322900-017a-4638-8829-23342fc22680",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[-0.3817378939983291, -1.1958396455890397, 0.4869724807855818, -0.46940234020272387, 0.01249411872768743], [0.48074665890590895, 0.4465311760299441,, expected=[[0.16061201 0.07115708 0.38287246 0.14713155 0.2382269 ]\n [0.24187285 0.23373704 0.29092068 0.13552824 0.09794119]\n [0.46660017 0.09349019 0.11887571, actual=[[0.1606120068123766, 0.07115707869637736, 0.38287246176467865, 0.14713155444002884, 0.23822689828653856], [0.24187285353485335, 0.23373703621643657, , atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "e5322900-017a-4638-8829-23342fc22680",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[1001.0, 999.0, 1000.0], [-999.0, -1000.0, -1001.0]]], expected=[[0.66524096 0.09003057 0.24472847]\n [0.66524096 0.24472847 0.09003057]], actual=[[0.6652409557748218, 0.09003057317038046, 0.24472847105479764], [0.6652409557748218, 0.24472847105479764, 0.09003057317038046]], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "e5322900-017a-4638-8829-23342fc22680",
+          "seq": 4,
+          "type": "check",
+          "name": "row-shift-and-permutation",
+          "passed": true,
+          "detail": "shape=(3,4), expected=[0.20188232 0.14988158 0.14723082 0.50100528], actual=[0.2018823231485686, 0.14988157992191953, 0.14723082075302407, 0.5010052761764878]"
+        },
+        {
+          "runId": "e5322900-017a-4638-8829-23342fc22680",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e5322900-017a-4638-8829-23342fc22680",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L05-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2814,
+      "events": [
+        {
+          "runId": "f72166f3-2e7f-4695-b765-0834e1ed6147",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "offset": 1000,
+            "temperature": 1
+          }
+        },
+        {
+          "runId": "f72166f3-2e7f-4695-b765-0834e1ed6147",
+          "seq": 2,
+          "type": "metric",
+          "name": "naive_nonfinite",
+          "step": 0,
+          "value": 6
+        },
+        {
+          "runId": "f72166f3-2e7f-4695-b765-0834e1ed6147",
+          "seq": 3,
+          "type": "tensor",
+          "name": "stable_probabilities",
+          "data": [
+            [
+              0.09003057317038046,
+              0.24472847105479764,
+              0.6652409557748218
+            ],
+            [
+              0.21194155761708544,
+              0.21194155761708544,
+              0.5761168847658291
+            ]
+          ]
+        },
+        {
+          "runId": "f72166f3-2e7f-4695-b765-0834e1ed6147",
+          "seq": 4,
+          "type": "check",
+          "name": "normalization",
+          "passed": true
+        },
+        {
+          "runId": "f72166f3-2e7f-4695-b765-0834e1ed6147",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "f72166f3-2e7f-4695-b765-0834e1ed6147",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L05-advanced",
+      "status": "completed",
+      "check": "passed",
+      "ms": 7323,
+      "events": [
+        {
+          "runId": "3b338caf-6e57-4860-a124-78404c45e09e",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[1000.0, 1001.0, -1000.0], [-1000.0, -1001.0, 1000.0]], [2, 0]], expected=[2001.31326169 2000.        ], actual=[2001.3132616875182, 2000.0], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3b338caf-6e57-4860-a124-78404c45e09e",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[0.48074665890590895, 0.4465311760299441, 0.6653851089727862, -0.09848548450942361, -0.42329831204415375], [-0.07971821090639905, -1.687334433958029, expected=[1.45355857 1.67981117 1.53863775 2.43102323], actual=[1.4535585723879403, 1.679811165066867, 1.5386377487998983, 2.4310232333798156], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3b338caf-6e57-4860-a124-78404c45e09e",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]], [1, 0, 1]], expected=[0.69314718 0.69314718 0.69314718], actual=[0.6931471805599453, 0.6931471805599453, 0.6931471805599453], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3b338caf-6e57-4860-a124-78404c45e09e",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "3b338caf-6e57-4860-a124-78404c45e09e",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L06-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3175,
+      "events": [
+        {
+          "runId": "5abb55f8-c5e3-40cb-9f5b-8dda8bd42869",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 7, 3], expected=[[[[0, 1, 2], [1, 2, 3]], [[1, 2, 3], [2, 3, 4]], [[2, 3, 4], [3, 4, 5]], [[3, 4, 5], [4, 5, 6]]], [[[7, 8, 9], [8, 9, 10]], [[8, 9, 10], [9, 10, 11]], actual=[[[[0, 1, 2], [1, 2, 3]], [[1, 2, 3], [2, 3, 4]], [[2, 3, 4], [3, 4, 5]], [[3, 4, 5], [4, 5, 6]]], [[[7, 8, 9], [8, 9, 10]], [[8, 9, 10], [9, 10, 11]], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "5abb55f8-c5e3-40cb-9f5b-8dda8bd42869",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 7, 3], expected=[[[[0, 1, 2], [1, 2, 3]], [[1, 2, 3], [2, 3, 4]], [[2, 3, 4], [3, 4, 5]], [[3, 4, 5], [4, 5, 6]]], [[[7, 8, 9], [8, 9, 10]], [[8, 9, 10], [9, 10, 11]], actual=[[[[0, 1, 2], [1, 2, 3]], [[1, 2, 3], [2, 3, 4]], [[2, 3, 4], [3, 4, 5]], [[3, 4, 5], [4, 5, 6]]], [[[7, 8, 9], [8, 9, 10]], [[8, 9, 10], [9, 10, 11]], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "5abb55f8-c5e3-40cb-9f5b-8dda8bd42869",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], 7, 3], expected=[[[[0, 1, 2], [1, 2, 3]], [[1, 2, 3], [2, 3, 4]], [[2, 3, 4], [3, 4, 5]], [[3, 4, 5], [4, 5, 6]]], [[[7, 8, 9], [8, 9, 10]], [[8, 9, 10], [9, 10, 11]], actual=[[[[0, 1, 2], [1, 2, 3]], [[1, 2, 3], [2, 3, 4]], [[2, 3, 4], [3, 4, 5]], [[3, 4, 5], [4, 5, 6]]], [[[7, 8, 9], [8, 9, 10]], [[8, 9, 10], [9, 10, 11]], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "5abb55f8-c5e3-40cb-9f5b-8dda8bd42869",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "5abb55f8-c5e3-40cb-9f5b-8dda8bd42869",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L07-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3509,
+      "events": [
+        {
+          "runId": "a7dfc554-3c36-45f8-a7dc-b1f68398d3a7",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[0, 2, 1], [2, 1, 0]], [[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, expected=[[[ 1.4874082   1.35256784  0.56496611 -0.77257741]\n  [-0.37639031  0.86344955 -1.34047001 -0.10098262]\n  [-1.29485387  0.01171494  0.46811192  2.0380, actual=[[[1.4874082005236855, 1.352567841495574, 0.5649661054170199, -0.7725774074736366], [-0.37639030859871014, 0.8634495489052602, -1.3404700107149383, -0, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a7dfc554-3c36-45f8-a7dc-b1f68398d3a7",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[0, 2, 1], [2, 1, 0]], [[-0.42329831204415375, -0.07971821090639905, -1.6873344339580298, -1.4471124724230873], [-1.3226996123544024, -0.99724682760, expected=[[[-1.35691599 -0.28515577 -2.63735649 -1.78614555]\n  [ 0.46214558 -0.42809213  0.07815967  0.97525117]\n  [-1.91684957 -2.44330468  0.47190373 -1.4349, actual=[[[-1.3569159920540308, -0.28515576877402904, -2.637356488868611, -1.7861455483236497], [0.4621455834180058, -0.4280921254062833, 0.0781596724844314, , atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a7dfc554-3c36-45f8-a7dc-b1f68398d3a7",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[0, 2, 1], [2, 1, 0]], [[-0.1586348370386883, -1.0356537528258116, -1.674682944704357, -0.4863079090733309], [-0.05378255081832049, 1.76792991357988, expected=[[[ 1.9698349  -1.85704043 -0.83619374 -1.38923509]\n  [ 0.43227741 -0.7999928  -1.12175466 -0.76598859]\n  [-0.70857025  2.21400212 -0.32470896 -0.2428, actual=[[[1.9698348953964762, -1.8570404320501979, -0.836193740968012, -1.3892350871603574], [0.43227741433509204, -0.7999928003111614, -1.1217546598904622, , atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a7dfc554-3c36-45f8-a7dc-b1f68398d3a7",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "a7dfc554-3c36-45f8-a7dc-b1f68398d3a7",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L08-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3412,
+      "events": [
+        {
+          "runId": "df9c38f0-6084-4521-a1e9-dca7c9113d56",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[-0.17845336 -0.20532533 -0.53639603  0.35588912]\n  [-0.08385287 -0.11515361 -0.1994225   0.28876849]\n  [-0.08035636 -0.16646668 -0.41360036  0.2990, actual=[[[-0.1784533604688736, -0.2053253329367488, -0.5363960349485091, 0.35588912348292706], [-0.08385286872965386, -0.11515360552106993, -0.19942249515497, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "df9c38f0-6084-4521-a1e9-dca7c9113d56",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.4144094332759964, -0.9895381200318641, -2.132046280731309, 0.2677114623438358, -0.812941095310326, -0.41535726017968533], [-0.6120967990598081, , expected=[[[-0.05105813  0.21732746  0.23382217  0.68288422 -0.66413388\n   -0.20845136]\n  [-0.02026807 -0.15809199  0.47154344  0.93438754 -0.20374415\n    0.02, actual=[[[-0.05105812823486948, 0.21732746478338508, 0.23382216783301532, 0.6828842153558051, -0.6641338815921533, -0.20845136100735048], [-0.020268072681041, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "df9c38f0-6084-4521-a1e9-dca7c9113d56",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.471538522545139, 1.0127158178198286, 0.15542932766846604, 0.35175640839920347, 0.053155347577867364, 8.439309141418043e-05], [-0.721558033542847, expected=[[[-0.11639689  0.38805858  1.49934987 -1.3857573  -1.02218271\n    0.5182547 ]\n  [ 0.05539272  0.41160901  1.60588944 -2.00340792 -0.62917332\n    0.58, actual=[[[-0.11639688842591892, 0.3880585788799703, 1.4993498701094758, -1.3857572999986925, -1.022182705403285, 0.5182546977523113], [0.055392718859609856, , atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "df9c38f0-6084-4521-a1e9-dca7c9113d56",
+          "seq": 4,
+          "type": "check",
+          "name": "hand-calculated",
+          "passed": true
+        },
+        {
+          "runId": "df9c38f0-6084-4521-a1e9-dca7c9113d56",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "df9c38f0-6084-4521-a1e9-dca7c9113d56",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L08-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2667,
+      "events": [
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "dim": 8,
+            "scale": true
+          }
+        },
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 4,
+          "type": "tensor",
+          "name": "selected_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 5,
+          "type": "tensor",
+          "name": "selected_output",
+          "data": [
+            [
+              0.4483233572600845,
+              0.06585446284163944,
+              -0.11721849805337244,
+              -0.27912891508069587,
+              -0.38538268209010573,
+              0.1511507924207265,
+              -0.8841800372005336,
+              -0.642068191382605
+            ],
+            [
+              0.2072248286026796,
+              0.1906366310199404,
+              -0.10737021321821033,
+              -0.11378925464976342,
+              -0.30033968132728367,
+              0.13382347898023614,
+              -0.6036554128968086,
+              -0.5922674575372033
+            ],
+            [
+              0.1869991334826711,
+              0.24024842336111243,
+              -0.0858215622982566,
+              -0.0929647652657437,
+              -0.25490076864470923,
+              0.11366941680007298,
+              -0.6091971433150501,
+              -0.6286200303438868
+            ],
+            [
+              -0.09474005879276419,
+              0.33821399378474315,
+              0.05669932819353556,
+              0.12780122631370372,
+              -0.3155920832106304,
+              0.10447228813702754,
+              -0.3740261713180808,
+              -0.6263264700767468
+            ]
+          ]
+        },
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 6,
+          "type": "metric",
+          "name": "weight_entropy",
+          "step": 0,
+          "value": 1.300180092406832
+        },
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 7,
+          "type": "check",
+          "name": "normalized-finite-output",
+          "passed": true
+        },
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "64446f41-e77f-4f2e-a203-0c28b97bc9df",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L09-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3740,
+      "events": [
+        {
+          "runId": "72c197b6-8f56-48c4-aae4-f442072c1bd6",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[-0.36305385 -0.38173789 -1.19583965  0.48697248]\n  [-0.43287336 -0.12291818 -0.09513354  0.46042211]\n  [-0.08035636 -0.16646668 -0.41360036  0.2990, actual=[[[-0.3630538465650718, -0.3817378939983291, -1.1958396455890397, 0.4869724807855818], [-0.4328733578734555, -0.1229181822266348, -0.09513353831680255, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "72c197b6-8f56-48c4-aae4-f442072c1bd6",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.4144094332759964, -0.9895381200318641, -2.132046280731309, 0.2677114623438358, -0.812941095310326, -0.41535726017968533], [-0.6120967990598081, , expected=[[[ 0.33757455  1.40748186  0.09058491  0.64393879 -2.0501721\n   -0.0487184 ]\n  [-0.11222329  0.40706099 -0.27843115  0.27137063 -0.92032071\n   -0.535, actual=[[[0.33757454879893356, 1.4074818613137168, 0.09058490690174555, 0.6439387932768579, -2.0501721010310225, -0.04871840193011795], [-0.11222329092935479, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "72c197b6-8f56-48c4-aae4-f442072c1bd6",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.471538522545139, 1.0127158178198286, 0.15542932766846604, 0.35175640839920347, 0.053155347577867364, 8.439309141418043e-05], [-0.721558033542847, expected=[[[-0.67114028  0.31200947  1.15531204  0.60876147 -2.29128951\n    0.30436673]\n  [ 0.05539272  0.41160901  1.60588944 -2.00340792 -0.62917332\n    0.58, actual=[[[-0.6711402773965811, 0.31200947155124387, 1.1553120361066962, 0.6087614722244398, -2.2912895085981, 0.3043667290302598], [0.055392718859609856, 0.4, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "72c197b6-8f56-48c4-aae4-f442072c1bd6",
+          "seq": 4,
+          "type": "check",
+          "name": "hand-calculated",
+          "passed": true
+        },
+        {
+          "runId": "72c197b6-8f56-48c4-aae4-f442072c1bd6",
+          "seq": 5,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "72c197b6-8f56-48c4-aae4-f442072c1bd6",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "72c197b6-8f56-48c4-aae4-f442072c1bd6",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L09-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2909,
+      "events": [
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "perturbation": 10
+          }
+        },
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 2,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 3,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 4,
+          "type": "tensor",
+          "name": "output_change",
+          "data": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              19.41852858461774,
+              19.885519327866927,
+              19.385342227275054,
+              20.21999516342494,
+              20.10146006381614,
+              20.177915062444264,
+              21.30660069714853,
+              20.814266931895574
+            ]
+          ]
+        },
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 5,
+          "type": "metric",
+          "name": "protected_change",
+          "step": 0,
+          "value": 0
+        },
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 6,
+          "type": "metric",
+          "name": "last_position_change",
+          "step": 0,
+          "value": 21.30660069714853
+        },
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 7,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 8,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e6d35ceb-d781-49e2-8d2c-ee363b051058",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L09-transfer",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3790,
+      "events": [
+        {
+          "runId": "a48ddb82-40ea-4ed5-ad84-830a3de15cbd",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[-0.36305385 -0.38173789 -1.19583965  0.48697248]\n  [-0.43287336 -0.12291818 -0.09513354  0.46042211]\n  [-0.08035636 -0.16646668 -0.41360036  0.2990, actual=[[[-0.3630538465650718, -0.3817378939983291, -1.1958396455890397, 0.4869724807855818], [-0.4328733578734555, -0.1229181822266348, -0.09513353831680255, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a48ddb82-40ea-4ed5-ad84-830a3de15cbd",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.4144094332759964, -0.9895381200318641, -2.132046280731309, 0.2677114623438358, -0.812941095310326, -0.41535726017968533], [-0.6120967990598081, , expected=[[[ 0.33757455  1.40748186  0.09058491  0.64393879 -2.0501721\n   -0.0487184 ]\n  [-0.11222329  0.40706099 -0.27843115  0.27137063 -0.92032071\n   -0.535, actual=[[[0.33757454879893356, 1.4074818613137168, 0.09058490690174555, 0.6439387932768579, -2.0501721010310225, -0.04871840193011795], [-0.11222329092935479, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a48ddb82-40ea-4ed5-ad84-830a3de15cbd",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.471538522545139, 1.0127158178198286, 0.15542932766846604, 0.35175640839920347, 0.053155347577867364, 8.439309141418043e-05], [-0.721558033542847, expected=[[[-0.67114028  0.31200947  1.15531204  0.60876147 -2.29128951\n    0.30436673]\n  [ 0.05539272  0.41160901  1.60588944 -2.00340792 -0.62917332\n    0.58, actual=[[[-0.6711402773965811, 0.31200947155124387, 1.1553120361066962, 0.6087614722244398, -2.2912895085981, 0.3043667290302598], [0.055392718859609856, 0.4, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a48ddb82-40ea-4ed5-ad84-830a3de15cbd",
+          "seq": 4,
+          "type": "check",
+          "name": "hand-calculated",
+          "passed": true
+        },
+        {
+          "runId": "a48ddb82-40ea-4ed5-ad84-830a3de15cbd",
+          "seq": 5,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "a48ddb82-40ea-4ed5-ad84-830a3de15cbd",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "a48ddb82-40ea-4ed5-ad84-830a3de15cbd",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L10-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3220,
+      "events": [
+        {
+          "runId": "8e057715-2900-4ac6-9ad8-02938f274efb",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[ 0.61597942  1.12897229 -0.82448122  0.65059279 -0.66550971\n    0.23216132]\n  [-0.11394746 -0.84015648  0.74325417  0.54315427  0.11668581\n    0.21, actual=[[[0.6159794225754956, 1.1289722927208916, -0.8244812156912396, 0.6505927878247011, -0.6655097072886943, 0.23216132306671977], [-0.11394745765487507, , atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "8e057715-2900-4ac6-9ad8-02938f274efb",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[-0.42329831204415375, -0.07971821090639905, -1.6873344339580298, -1.4471124724230873, -1.3226996123544024, -0.9972468276014818], [0.39977422672343, expected=[[[-0.42329831 -0.07971821 -1.68733443 -1.44711247 -1.32269961\n   -0.99724683  0.39977423 -0.90547906 -0.37816255  1.2992283\n   -0.35626397  0.7375155, actual=[[[-0.42329831204415375, -0.07971821090639905, -1.6873344339580298, -1.4471124724230873, -1.3226996123544024, -0.9972468276014818, 0.3997742267234366,, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "8e057715-2900-4ac6-9ad8-02938f274efb",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.13027452147288585, 0.9827395110230576, -0.49929559853915206, -1.1849437664170246, -0.9651167622323719, -0.7252260645357532], [2.1284697324351645, expected=[[[ 0.13027452  0.98273951  2.12846973 -0.82138668]\n  [-0.4992956  -1.18494377  0.8384892  -0.90292718]\n  [-0.96511676 -0.72522606  0.93157301  0.3849, actual=[[[0.13027452147288585, 0.9827395110230576, 2.1284697324351645, -0.8213866792243861], [-0.49929559853915206, -1.1849437664170246, 0.838489203736345, -, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "8e057715-2900-4ac6-9ad8-02938f274efb",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "8e057715-2900-4ac6-9ad8-02938f274efb",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L10-advanced",
+      "status": "completed",
+      "check": "passed",
+      "ms": 6885,
+      "events": [
+        {
+          "runId": "39d6bd23-5e16-4525-8a4a-b29c5d151d38",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[-0.1242678   0.45091243  0.16737189  4.7488071 ]\n  [ 0.53140151  0.61224713 -0.52619295  3.60369461]\n  [ 0.31295825  0.60564638 -0.34277795  3.7542, actual=[[[-0.12426780270497065, 0.45091243451142504, 0.1673718900518783, 4.748807104448774], [0.5314015139999654, 0.6122471277335184, -0.5261929542309882, 3., atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "39d6bd23-5e16-4525-8a4a-b29c5d151d38",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.13027452147288585, 0.9827395110230576, -0.49929559853915206, -1.1849437664170246, -0.9651167622323719, -0.7252260645357532], [2.1284697324351645, expected=[[[-1.56062449e+01 -3.43749519e+00  8.92959878e+00  1.78131169e+00\n    1.19910349e+01  8.62766093e+00]\n  [-1.57478455e+01 -3.68207203e+00  9.15232282e, actual=[[[-15.606244917033667, -3.4374951851558664, 8.929598779790668, 1.7813116903795585, 11.991034939170202, 8.627660928435965], [-15.747845466158507, -3.6, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "39d6bd23-5e16-4525-8a4a-b29c5d151d38",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[-0.12500903031957764, 1.4814555476589732, -0.7435882288125641, -0.8222500172903203, 0.20230619183119358, 0.8443851904853201], [0.01142605556065933, expected=[[[  5.4642469    5.00969113  -7.39427448   3.07393906  -6.84737704\n     7.84844859]\n  [  8.00002392   8.06190882 -14.02701799   4.89492509 -14.134141, actual=[[[5.464246898727071, 5.009691126599119, -7.394274480227711, 3.0739390634254624, -6.847377036019941, 7.848448587706271], [8.000023921282194, 8.0619088, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "39d6bd23-5e16-4525-8a4a-b29c5d151d38",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "39d6bd23-5e16-4525-8a4a-b29c5d151d38",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L11-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3020,
+      "events": [
+        {
+          "runId": "89efb677-cf54-4e9a-aed7-676b7f518a6c",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[ 0.12373147  0.08021707  0.77750692  0.49839348]\n  [-1.56778128  0.85216465  0.05051982 -1.5280004 ]\n  [-0.06426944  0.51186894  0.88175489  0.1535, actual=[[[0.12373146661684531, 0.08021707238689713, 0.7775069188150737, 0.4983934839989653], [-1.5677812753744602, 0.8521646454366251, 0.050519815560227735, , atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "89efb677-cf54-4e9a-aed7-676b7f518a6c",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.8714287779481898, 0.22359554877468227, 0.6789135630718949, 0.06757906948889146], [0.28911939868998415, 0.6312882258385404, -1.4571558198556664, , expected=[[[ 1.487369    0.47421391  1.2368442  -0.14389088]\n  [ 0.76986606  1.0778194  -0.79177071 -0.4181567 ]\n  [ 0.60429576 -1.05301552 -0.08181771  0.9001, actual=[[[1.4873689958462784, 0.474213907287235, 1.2368442008141483, -0.1438908770675293], [0.7698660575958931, 1.0778194018684846, -0.7917707108828802, -0.4, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "89efb677-cf54-4e9a-aed7-676b7f518a6c",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[-0.42329831204415375, -0.07971821090639905, -1.6873344339580298, -1.4471124724230873], [-1.3226996123544024, -0.9972468276014818, 0.39977422672343, expected=[[[ 3.92806295 -5.82512987 -3.91925437 -4.29563234]\n  [-2.92306224 -2.4703783   0.92438545 -0.14120994]\n  [ 3.5663398  -5.16456806 -2.12244277 -2.1439, actual=[[[3.9280629463952548, -5.825129867819771, -3.9192543707712013, -4.295632335529675], [-2.9230622389529293, -2.470378300464284, 0.9243854512285915, -0., atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "89efb677-cf54-4e9a-aed7-676b7f518a6c",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "89efb677-cf54-4e9a-aed7-676b7f518a6c",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L11-advanced",
+      "status": "completed",
+      "check": "passed",
+      "ms": 6642,
+      "events": [
+        {
+          "runId": "c2acc1d7-9e76-48d1-bc5d-753e69f850e4",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[[[0.30471707975443135, -1.0399841062404955, 0.7504511958064572, 0.9405647163912139], [-1.9510351886538364, -1.302179506862318, 0.12784040316728537, , expected=[[[[-0.01252051 -2.4409804   2.45356491  2.68062575]\n   [-2.6939108  -2.35514322  2.35552767  1.22453697]\n   [-0.42179242 -2.18499723  2.7786921   2.4, actual=[[[[-0.012520511393075584, -2.440980400028779, 2.453564910703662, 2.680625752665346], [-2.693910798423572, -2.355143216072012, 2.355527665942625, 1.22, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "c2acc1d7-9e76-48d1-bc5d-753e69f850e4",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[[[0.6159794225754956, 1.1289722927208916, -0.11394745765487507, -0.840156476962528], [-0.8244812156912396, 0.6505927878247011, 0.7432541712034423, 0, expected=[[[[ 1.30511178  3.62861904 -0.4037692  -1.97947376]\n   [-2.45812578  1.95778605  1.88420276  1.45593519]\n   [-2.30126419  1.58592424  1.12501256  1.2, actual=[[[[1.3051117767995215, 3.628619037952138, -0.4037692045954418, -1.9794737586158206], [-2.458125775909366, 1.9577860471024566, 1.8842027621332238, 1.4, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "c2acc1d7-9e76-48d1-bc5d-753e69f850e4",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[[[0.8579758812571538, -0.1913043248816149, -1.2756863233379219, -1.1332872140034806], [-0.9194522860016113, 0.49716074405376404, 0.14242573607056525, expected=[[[[ 3.6866589   0.4164409  -2.1328     -1.90099324]\n   [-2.37415366  1.72723897  0.72125995  2.03420014]\n   [-1.51585761  1.01042418  3.12312916 -0.7, actual=[[[[3.6866589002107197, 0.4164408954628853, -2.132800004885313, -1.9009932353059287], [-2.3741536629789737, 1.7272389685377507, 0.7212599513396108, 2., atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "c2acc1d7-9e76-48d1-bc5d-753e69f850e4",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "c2acc1d7-9e76-48d1-bc5d-753e69f850e4",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L12-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2925,
+      "events": [
+        {
+          "runId": "47afcc7c-754d-4181-bca5-d88fb1ded578",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "inputs=[[0, 1, 2, 3, 4, 5]], expected=[[0, 1, 2, 3, 4], [1, 2, 3, 4, 5]], actual=[[0, 1, 2, 3, 4], [1, 2, 3, 4, 5]], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "47afcc7c-754d-4181-bca5-d88fb1ded578",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "inputs=[[0, 1, 2, 3, 4, 5, 6]], expected=[[0, 1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6]], actual=[[0, 1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6]], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "47afcc7c-754d-4181-bca5-d88fb1ded578",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "inputs=[[0, 1, 2, 3, 4, 5, 6, 7]], expected=[[0, 1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6, 7]], actual=[[0, 1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6, 7]], atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "47afcc7c-754d-4181-bca5-d88fb1ded578",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "47afcc7c-754d-4181-bca5-d88fb1ded578",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L12-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3506,
+      "events": [
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 1,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "steps": 60,
+            "lr": 0.03
+          }
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 2,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 0,
+          "value": 3.304138422012329
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 3,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 0,
+          "value": 2.6930906772613525
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 4,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 2,
+          "value": 2.3285157680511475
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 5,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 2,
+          "value": 2.0078303813934326
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 6,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 4,
+          "value": 1.7248706817626953
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 7,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 4,
+          "value": 1.5088332891464233
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 8,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 6,
+          "value": 1.3388843536376953
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 9,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 6,
+          "value": 1.14697265625
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 10,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 8,
+          "value": 1.0206166505813599
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 11,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 8,
+          "value": 0.9619009494781494
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 12,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 10,
+          "value": 0.909911572933197
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 13,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 10,
+          "value": 0.8627088665962219
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 14,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 12,
+          "value": 0.6817183494567871
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 15,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 12,
+          "value": 0.8944954872131348
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 16,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 14,
+          "value": 0.6715960502624512
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 17,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 14,
+          "value": 0.8556945323944092
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 18,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 16,
+          "value": 0.5574632287025452
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 19,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 16,
+          "value": 0.831400454044342
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 20,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 18,
+          "value": 0.4553600251674652
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 21,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 18,
+          "value": 0.9960300326347351
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 22,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 20,
+          "value": 0.36779311299324036
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 23,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 20,
+          "value": 1.1038085222244263
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 24,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 22,
+          "value": 0.3430817425251007
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 25,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 22,
+          "value": 1.1566087007522583
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 26,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 24,
+          "value": 0.3946414887905121
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 27,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 24,
+          "value": 1.096076488494873
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 28,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 26,
+          "value": 0.35614898800849915
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 29,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 26,
+          "value": 1.0392519235610962
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 30,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 28,
+          "value": 0.31812646985054016
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 31,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 28,
+          "value": 1.0659719705581665
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 32,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 30,
+          "value": 0.28138014674186707
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 33,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 30,
+          "value": 1.0924025774002075
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 34,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 32,
+          "value": 0.29145950078964233
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 35,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 32,
+          "value": 1.1259533166885376
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 36,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 34,
+          "value": 0.2249799370765686
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 37,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 34,
+          "value": 1.0912338495254517
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 38,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 36,
+          "value": 0.2792080342769623
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 39,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 36,
+          "value": 1.118233323097229
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 40,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 38,
+          "value": 0.21617962419986725
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 41,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 38,
+          "value": 1.0345650911331177
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 42,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 40,
+          "value": 0.1903652548789978
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 43,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 40,
+          "value": 1.100262999534607
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 44,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 42,
+          "value": 0.22627319395542145
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 45,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 42,
+          "value": 1.0540567636489868
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 46,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 44,
+          "value": 0.19893516600131989
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 47,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 44,
+          "value": 1.0805810689926147
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 48,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 46,
+          "value": 0.1948288530111313
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 49,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 46,
+          "value": 1.0619571208953857
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 50,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 48,
+          "value": 0.14331677556037903
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 51,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 48,
+          "value": 1.0984183549880981
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 52,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 50,
+          "value": 0.20784802734851837
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 53,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 50,
+          "value": 1.1475886106491089
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 54,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 52,
+          "value": 0.18541449308395386
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 55,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 52,
+          "value": 1.1622575521469116
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 56,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 54,
+          "value": 0.20111805200576782
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 57,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 54,
+          "value": 1.2169299125671387
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 58,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 56,
+          "value": 0.14474916458129883
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 59,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 56,
+          "value": 1.2108750343322754
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 60,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 58,
+          "value": 0.13627402484416962
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 61,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 58,
+          "value": 1.202370524406433
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 62,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 59,
+          "value": 0.1766899675130844
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 63,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 59,
+          "value": 1.211256504058838
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 64,
+          "type": "metric",
+          "name": "gradient_norm_squared",
+          "step": 60,
+          "value": 0.3783066514879465
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 65,
+          "type": "metric",
+          "name": "parameter_delta",
+          "step": 60,
+          "value": 15.8893461227417
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 66,
+          "type": "check",
+          "name": "training-integrity",
+          "passed": true,
+          "detail": "sample: s sun warms ston lights lake. sun warms stone. mooon lights lake. sun warms stone"
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 67,
+          "type": "check",
+          "name": "target-shift",
+          "passed": true
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 68,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "9a2e3f4c-bf2b-45cd-9d92-fb21ad281a14",
+          "seq": 69,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L12-transformer",
+      "status": "completed",
+      "check": "passed",
+      "ms": 6743,
+      "events": [
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 1,
+          "type": "manifest",
+          "name": "training snapshot",
+          "manifest": {
+            "protocol": "train-char-v1",
+            "dataset": "tiny-char-v1",
+            "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+            "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+            "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+          }
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 2,
+          "type": "config",
+          "name": "effective_config",
+          "config": {
+            "learningRate": 0.05,
+            "steps": 4,
+            "heads": 2,
+            "width": 4,
+            "context": 4,
+            "batchSize": 2
+          }
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 3,
+          "type": "check",
+          "name": "chronological holdout",
+          "passed": true,
+          "detail": "train positions 0..71, validation 72..99; windows never cross the split"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 4,
+          "type": "check",
+          "name": "module shifted",
+          "passed": true,
+          "detail": "expected shape [2, 2, 4], atol=1e-8"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 5,
+          "type": "check",
+          "name": "module embed",
+          "passed": true,
+          "detail": "expected shape [2, 4, 4], atol=1e-8"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 6,
+          "type": "check",
+          "name": "module attention",
+          "passed": true,
+          "detail": "expected shape [2, 4, 4], atol=1e-8"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 7,
+          "type": "check",
+          "name": "module block",
+          "passed": true,
+          "detail": "expected shape [2, 4, 4], atol=1e-8"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 8,
+          "type": "check",
+          "name": "module logits",
+          "passed": true,
+          "detail": "expected shape [2, 4, 5], atol=1e-8"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 9,
+          "type": "check",
+          "name": "next-token windows",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 10,
+          "type": "check",
+          "name": "token and position embedding",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 11,
+          "type": "check",
+          "name": "decoder logits",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 12,
+          "type": "check",
+          "name": "embedding input gradient",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 13,
+          "type": "check",
+          "name": "all parameter gradients",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 14,
+          "type": "check",
+          "name": "SGD parameter updates",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 15,
+          "type": "check",
+          "name": "cross entropy",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 16,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "value": 1.6645978667869565,
+          "step": 1,
+          "source": "student"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 17,
+          "type": "check",
+          "name": "causal prefix unchanged",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 18,
+          "type": "check",
+          "name": "batch isolation",
+          "passed": true,
+          "detail": "step 1, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 19,
+          "type": "metric",
+          "name": "train_loss",
+          "value": 1.636227542890789,
+          "step": 1,
+          "source": "program"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 20,
+          "type": "metric",
+          "name": "validation_loss",
+          "value": 1.6527301802590753,
+          "step": 1,
+          "source": "program"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 21,
+          "type": "check",
+          "name": "next-token windows",
+          "passed": true,
+          "detail": "step 2, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 22,
+          "type": "check",
+          "name": "token and position embedding",
+          "passed": true,
+          "detail": "step 2, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 23,
+          "type": "check",
+          "name": "decoder logits",
+          "passed": true,
+          "detail": "step 2, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 24,
+          "type": "check",
+          "name": "embedding input gradient",
+          "passed": true,
+          "detail": "step 2, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 25,
+          "type": "check",
+          "name": "all parameter gradients",
+          "passed": true,
+          "detail": "step 2, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 26,
+          "type": "check",
+          "name": "SGD parameter updates",
+          "passed": true,
+          "detail": "step 2, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 27,
+          "type": "check",
+          "name": "cross entropy",
+          "passed": true,
+          "detail": "step 2, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 28,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "value": 1.6049066483104573,
+          "step": 2,
+          "source": "student"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 29,
+          "type": "metric",
+          "name": "train_loss",
+          "value": 1.6337206015877932,
+          "step": 2,
+          "source": "program"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 30,
+          "type": "metric",
+          "name": "validation_loss",
+          "value": 1.652120544719135,
+          "step": 2,
+          "source": "program"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 31,
+          "type": "check",
+          "name": "next-token windows",
+          "passed": true,
+          "detail": "step 3, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 32,
+          "type": "check",
+          "name": "token and position embedding",
+          "passed": true,
+          "detail": "step 3, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 33,
+          "type": "check",
+          "name": "decoder logits",
+          "passed": true,
+          "detail": "step 3, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 34,
+          "type": "check",
+          "name": "embedding input gradient",
+          "passed": true,
+          "detail": "step 3, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 35,
+          "type": "check",
+          "name": "all parameter gradients",
+          "passed": true,
+          "detail": "step 3, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 36,
+          "type": "check",
+          "name": "SGD parameter updates",
+          "passed": true,
+          "detail": "step 3, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 37,
+          "type": "check",
+          "name": "cross entropy",
+          "passed": true,
+          "detail": "step 3, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 38,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "value": 1.5764526448722997,
+          "step": 3,
+          "source": "student"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 39,
+          "type": "metric",
+          "name": "train_loss",
+          "value": 1.6325251767292583,
+          "step": 3,
+          "source": "program"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 40,
+          "type": "metric",
+          "name": "validation_loss",
+          "value": 1.6521206878145211,
+          "step": 3,
+          "source": "program"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 41,
+          "type": "check",
+          "name": "next-token windows",
+          "passed": true,
+          "detail": "step 4, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 42,
+          "type": "check",
+          "name": "token and position embedding",
+          "passed": true,
+          "detail": "step 4, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 43,
+          "type": "check",
+          "name": "decoder logits",
+          "passed": true,
+          "detail": "step 4, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 44,
+          "type": "check",
+          "name": "embedding input gradient",
+          "passed": true,
+          "detail": "step 4, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 45,
+          "type": "check",
+          "name": "all parameter gradients",
+          "passed": true,
+          "detail": "step 4, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 46,
+          "type": "check",
+          "name": "SGD parameter updates",
+          "passed": true,
+          "detail": "step 4, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 47,
+          "type": "check",
+          "name": "cross entropy",
+          "passed": true,
+          "detail": "step 4, B=2, T=4, float64"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 48,
+          "type": "metric",
+          "name": "student_reported_loss",
+          "value": 1.5326299531985268,
+          "step": 4,
+          "source": "student"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 49,
+          "type": "metric",
+          "name": "train_loss",
+          "value": 1.6336434258788521,
+          "step": 4,
+          "source": "program"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 50,
+          "type": "metric",
+          "name": "validation_loss",
+          "value": 1.6533151270999535,
+          "step": 4,
+          "source": "program"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 51,
+          "type": "check",
+          "name": "autoregressive sampling",
+          "passed": true,
+          "detail": "16 draws, sliding context, fixed seed"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 52,
+          "type": "sample",
+          "name": "字符采样 / Generated text",
+          "detail": "adcbedeaaebbcdebe"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 53,
+          "type": "artifact",
+          "name": "Raw execution events / 原始运行事件",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e79422b3-581c-4e77-b554-6077c581c7c5",
+          "seq": 54,
+          "type": "artifact",
+          "name": "Run snapshot / 运行快照",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    }
+  ]
+}

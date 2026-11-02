@@ -1,0 +1,1733 @@
+{
+  "contentVersion": "0.2.1",
+  "testVersion": "1",
+  "evidence": [
+    {
+      "label": "reference",
+      "exerciseId": "L04-train",
+      "id": "c81fe586-0e83-4754-972f-14b764f5c42d",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "passed",
+      "failures": []
+    },
+    {
+      "label": "repeat",
+      "exerciseId": "L04-train",
+      "id": "c4c0cd97-75d5-42c5-832a-449b45679039",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "passed",
+      "failures": []
+    },
+    {
+      "label": "different learning rate",
+      "exerciseId": "L04-train",
+      "id": "a3841ecb-fa4b-449a-bb3f-9b1d4baa4d5e",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.2,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "passed",
+      "failures": []
+    },
+    {
+      "label": "different seed",
+      "exerciseId": "L04-train",
+      "id": "f65a7b4e-a663-439b-8d91-ffbdbc25ef67",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "8785bfbfb84870a0c01b4a0ead18081210c7fdbb83394ba7766a460d6042639f",
+        "initialHash": "851afed62913f2f61155552097418b28864b8c33fb06b2893a608a2f0eb4f4fb",
+        "batchHash": "19476a2e3474c4bc86212159a9bb67596d4a91e44896fd887b6f068df86ccac8"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "passed",
+      "failures": []
+    },
+    {
+      "label": "skip zero_grad",
+      "exerciseId": "L04-train",
+      "id": "e4f0c30a-af61-4dbf-819c-ef44226ad807",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "fresh minibatch gradients",
+          "step 2, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 2, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 3, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 3, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 4, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 4, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 5, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 5, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 6, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 6, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 7, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 7, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "skip backward",
+      "exerciseId": "L04-train",
+      "id": "2e81817d-8ddc-4dc5-a532-a7386bfc0f5c",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "training contract",
+          "invalid tensor, expected finite shape (4, 2)"
+        ]
+      ]
+    },
+    {
+      "label": "skip step",
+      "exerciseId": "L04-train",
+      "id": "c477f11b-8774-4c7e-b340-4125ffc65167",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "SGD parameter update",
+          "step 1, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 2, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 3, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 4, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 5, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 6, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 7, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "wrong loss",
+      "exerciseId": "L04-train",
+      "id": "98e09e93-3ee2-4348-9e0a-7e5c39a78f0d",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "forward + MSE",
+          "step 1, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 1, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 1, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 2, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 2, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 2, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 3, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 3, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 3, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 4, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 4, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 4, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 5, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 5, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 5, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 6, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 6, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 6, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 7, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 7, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 7, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "fresh minibatch gradients",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "SGD parameter update",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "constant metric",
+      "exerciseId": "L04-train",
+      "id": "05f4085a-cfe2-49e8-a749-05fcfe172ba5",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "forward + MSE",
+          "step 1, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 2, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 3, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 4, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 5, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 6, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 7, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "forward + MSE",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "wrong validation set",
+      "exerciseId": "L04-train",
+      "id": "ead124c8-afa9-4d66-8583-f20aa3ca71dd",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "held-out validation MSE",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "validation changes weights",
+      "exerciseId": "L04-train",
+      "id": "ebd9aa35-a20f-4b9c-81f8-4ac550f8bee6",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "held-out validation MSE",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ],
+        [
+          "validation preserves parameters",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "validation tracks grad",
+      "exerciseId": "L04-train",
+      "id": "85b14217-7b21-4a00-bbc6-be0c11b0771f",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "validation uses eval and no_grad",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "validation training mode",
+      "exerciseId": "L04-train",
+      "id": "bcfdc039-b2b2-449c-9ab4-f72d525e03f3",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "validation uses eval and no_grad",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "validation reuses actual last training batch",
+      "exerciseId": "L04-train",
+      "id": "b07823e7-3649-49d3-9367-e57522dfb03e",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-mlp-v1",
+        "dataset": "quadratic-2d-v1",
+        "splitHash": "247be4c62aae313d065309f84e2f869f49a5bfa3e2d79af05b8b122296c36ec5",
+        "initialHash": "0a530e13f06bf4a75c90466ffd72ccab8615ff3022a1dc1535c44b15733db5d8",
+        "batchHash": "4f25b6ec669cad7e54ffbc80aca741e285bfc2c8df50ea84a100cf15b49e168d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 8,
+        "batchSize": 6
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "held-out validation MSE",
+          "step 8, atol=1e-8, rtol=1e-6"
+        ]
+      ]
+    },
+    {
+      "label": "first function only",
+      "exerciseId": "L12-transformer",
+      "id": "83adf54c-dd77-494d-a5aa-fd3cd3868a54",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module embed",
+          "embed"
+        ],
+        [
+          "module attention",
+          "attention"
+        ],
+        [
+          "module block",
+          "block"
+        ],
+        [
+          "module logits",
+          "logits"
+        ]
+      ]
+    },
+    {
+      "label": "decoder reference",
+      "exerciseId": "L12-transformer",
+      "id": "ad8f7686-824c-4f27-9d84-456dd24beb14",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "passed",
+      "failures": []
+    },
+    {
+      "label": "decoder repeat",
+      "exerciseId": "L12-transformer",
+      "id": "7e585ee3-1ecc-4da1-9fe0-baee0a20939e",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "passed",
+      "failures": []
+    },
+    {
+      "label": "decoder changed rate",
+      "exerciseId": "L12-transformer",
+      "id": "60043b61-f428-4dae-a286-a3e21c7f46b4",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.2,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "passed",
+      "failures": []
+    },
+    {
+      "label": "unshifted targets",
+      "exerciseId": "L12-transformer",
+      "id": "90604289-c412-4338-87a9-b0e048b42898",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module shifted",
+          "expected shape [2, 2, 4], atol=1e-8"
+        ],
+        [
+          "next-token windows",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "next-token windows",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "next-token windows",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "next-token windows",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "missing positions",
+      "exerciseId": "L12-transformer",
+      "id": "47fefdee-0a85-46aa-b8e7-5907c00e7128",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module embed",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "token and position embedding",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "token and position embedding",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "token and position embedding",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "token and position embedding",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "future leak",
+      "exerciseId": "L12-transformer",
+      "id": "8b1451e1-d351-4cc5-8b30-3419412b25d4",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module attention",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module block",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module logits",
+          "expected shape [2, 4, 5], atol=1e-8"
+        ],
+        [
+          "decoder logits",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "causal prefix unchanged",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "mixed batches",
+      "exerciseId": "L12-transformer",
+      "id": "a6c21a20-b01b-47b5-8791-4d2a1f983ac0",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module block",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module logits",
+          "expected shape [2, 4, 5], atol=1e-8"
+        ],
+        [
+          "decoder logits",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "batch isolation",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "unscaled attention",
+      "exerciseId": "L12-transformer",
+      "id": "7b48167d-ca73-4b3b-b3c9-45ed2db73300",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module attention",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module block",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module logits",
+          "expected shape [2, 4, 5], atol=1e-8"
+        ],
+        [
+          "decoder logits",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "wrong head merge",
+      "exerciseId": "L12-transformer",
+      "id": "037ce719-4252-4dae-a92e-f4699188fb09",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module attention",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module block",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module logits",
+          "expected shape [2, 4, 5], atol=1e-8"
+        ],
+        [
+          "decoder logits",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "causal prefix unchanged",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "detached embedding",
+      "exerciseId": "L12-transformer",
+      "id": "5a169f4d-0a9f-4056-a34f-a1f91fd3a527",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "detached query",
+      "exerciseId": "L12-transformer",
+      "id": "f1e60eff-db17-46cd-82b0-1397d0e272d3",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "missing pre-LN",
+      "exerciseId": "L12-transformer",
+      "id": "9f4cd4d5-0f1e-4bb9-b53e-63589497849e",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module block",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module logits",
+          "expected shape [2, 4, 5], atol=1e-8"
+        ],
+        [
+          "decoder logits",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    },
+    {
+      "label": "missing FFN",
+      "exerciseId": "L12-transformer",
+      "id": "19e79f4b-d6e5-4bc2-ad3d-611d0fae3eeb",
+      "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+      "manifest": {
+        "protocol": "train-char-v1",
+        "dataset": "tiny-char-v1",
+        "initialHash": "cf475bd68dfe0fb8e5bebe084d29475fbc8f45452c9392e5af2ddc60b956ab93",
+        "splitHash": "46eb8116ce211f8f9ad3131f62bf6a204039b957776720b0164b237cd6283ba6",
+        "batchHash": "94809b5837f24df7f19a0d9ee32d54ed65555bca217bcd6092eda71122d9161d"
+      },
+      "config": {
+        "learningRate": 0.05,
+        "steps": 4,
+        "heads": 2,
+        "width": 4,
+        "context": 4,
+        "batchSize": 2
+      },
+      "status": "completed",
+      "check": "failed",
+      "failures": [
+        [
+          "module block",
+          "expected shape [2, 4, 4], atol=1e-8"
+        ],
+        [
+          "module logits",
+          "expected shape [2, 4, 5], atol=1e-8"
+        ],
+        [
+          "decoder logits",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 1, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 2, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 3, B=2, T=4, float64"
+        ],
+        [
+          "decoder logits",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "embedding input gradient",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "all parameter gradients",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "SGD parameter updates",
+          "step 4, B=2, T=4, float64"
+        ],
+        [
+          "cross entropy",
+          "step 4, B=2, T=4, float64"
+        ]
+      ]
+    }
+  ]
+}

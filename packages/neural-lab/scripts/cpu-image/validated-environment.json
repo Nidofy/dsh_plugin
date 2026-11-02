@@ -1,0 +1,16 @@
+{
+  "validatedOn": "2026-11-02",
+  "platform": "Windows Docker Desktop Linux amd64",
+  "dockerServer": "29.9.2",
+  "image": "dsh-neural-lab-cpu:0.1",
+  "imageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
+  "base": "public.ecr.aws/docker/library/python:3.12.10-slim-bookworm@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db",
+  "python": "3.12.10",
+  "numpy": "2.2.6",
+  "torch": "2.7.1+cpu",
+  "cuda": null,
+  "pipCheck": "No broken requirements found",
+  "dependencyLock": "All eleven installed application dependencies matched requirements.lock; base image includes pip 25.0.1.",
+  "preparation": "Initial image resolved the pinned numpy/torch versions; all resolved dependencies were then frozen in requirements.lock. The shipped preparation script installs the same full version set without dependency resolution. Rebuild layer hashes may differ.",
+  "networkObservation": "Docker Hub authentication endpoint timed out; official public ECR Python mirror succeeded. CPU torch wheel download took approximately 935 seconds. No host Python packages or user DSH profile were changed."
+}

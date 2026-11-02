@@ -1,0 +1,623 @@
+.neural-lab {
+  --nl-bg: var(--dsw-alias-bg-base, #f5f6f8);
+  --nl-card: var(--dsw-alias-bg-layer-1, #ffffff);
+  --nl-fg: var(--dsw-alias-label-primary, #263341);
+  --nl-muted: var(--dsw-alias-label-tertiary, #77828c);
+  --nl-border: var(--dsw-alias-border-l2, #e0e5e9);
+  --nl-accent: #238b81;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--nl-fg);
+  background: var(--nl-bg);
+  font-family: var(--dsw-font-sans-font-family, system-ui, -apple-system, 'Segoe UI', sans-serif);
+  font-size: 13px;
+  line-height: 1.65;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.neural-lab * {
+  box-sizing: border-box;
+}
+.neural-lab h1 {
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+.neural-lab h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 16px 0;
+}
+.neural-lab h3 {
+  font-size: 15px;
+  margin: 16px 0 8px;
+}
+.neural-lab h4 {
+  font-size: 13px;
+  margin: 14px 0 5px;
+}
+.neural-lab small {
+  display: block;
+  font-size: 11px;
+  color: var(--nl-muted);
+}
+.neural-lab button,
+.neural-lab select,
+.neural-lab input,
+.neural-lab textarea {
+  font: inherit;
+  color: inherit;
+  background: var(--nl-card);
+  border: 1px solid var(--nl-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  max-width: 100%;
+}
+.neural-lab button {
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.neural-lab button:hover {
+  background: color-mix(in srgb, var(--nl-fg) 5%, var(--nl-card));
+}
+.neural-lab button:focus-visible,
+.neural-lab textarea:focus-visible,
+.nl-separator:focus-visible {
+  outline: 2px solid var(--nl-accent);
+  outline-offset: 2px;
+}
+.neural-lab button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.neural-lab .nl-primary {
+  background: var(--nl-accent);
+  color: white;
+  border-color: var(--nl-accent);
+}
+.neural-lab .nl-primary:hover {
+  background: #17766d;
+}
+.neural-lab label {
+  display: block;
+  margin: 10px 0;
+}
+.neural-lab label > textarea {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+  margin-top: 5px;
+}
+.neural-lab select {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+}
+.neural-lab pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 420px;
+  overflow: auto;
+  font:
+    12px/1.65 Consolas,
+    monospace;
+}
+.neural-lab code {
+  overflow-wrap: anywhere;
+}
+.neural-lab details {
+  border-bottom: 1px solid var(--nl-border);
+  padding-bottom: 8px;
+}
+.neural-lab summary {
+  cursor: pointer;
+  font-weight: 550;
+  padding: 8px 0;
+}
+.neural-lab a {
+  color: var(--nl-accent);
+  overflow-wrap: anywhere;
+}
+.nl-top,
+.nl-brand,
+.nl-actions,
+.nl-pane-heading,
+.nl-result-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.nl-brand {
+  justify-content: flex-start;
+}
+.nl-brand-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--nl-accent);
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+}
+.nl-actions {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.nl-status {
+  display: flex;
+  justify-content: space-between;
+  min-height: 26px;
+  font-size: 11px;
+  color: var(--nl-muted);
+  margin: 8px 0;
+}
+.nl-status details {
+  max-width: 65%;
+  text-align: right;
+  border: 0;
+  padding: 0;
+}
+.nl-status summary {
+  padding: 0;
+}
+.nl-layout {
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 14px;
+  overflow: hidden;
+}
+.nl-top,
+.nl-status,
+.neural-lab > .nl-error {
+  flex-shrink: 0;
+}
+.nl-sidebar,
+.nl-center {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+.nl-sidebar {
+  min-width: 0;
+  padding-right: 5px;
+}
+.nl-sidebar nav {
+  display: grid;
+  gap: 4px;
+}
+.nl-sidebar nav button {
+  text-align: left;
+  padding: 10px;
+  background: transparent;
+  border-color: transparent;
+}
+.nl-sidebar nav strong {
+  display: block;
+  font-weight: 550;
+}
+.nl-lesson-id {
+  display: inline-block;
+  margin-right: 6px;
+  color: var(--nl-muted);
+  font:
+    11px Consolas,
+    monospace;
+}
+.nl-sidebar nav small {
+  font-size: 10px;
+  margin-top: 2px;
+}
+.nl-sidebar nav button[aria-current='page'] {
+  background: color-mix(in srgb, var(--nl-accent) 9%, var(--nl-card));
+  border-color: color-mix(in srgb, var(--nl-accent) 25%, var(--nl-border));
+}
+.nl-center {
+  min-width: 0;
+}
+.nl-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid var(--nl-border);
+  border-radius: 8px;
+  background: var(--nl-card);
+}
+.neural-lab .nl-tabs button {
+  border-color: transparent;
+  background: transparent;
+  padding: 7px 12px;
+}
+.neural-lab .nl-tabs button[aria-selected='true'] {
+  color: var(--nl-accent);
+  background: color-mix(in srgb, var(--nl-accent) 8%, var(--nl-card));
+}
+.nl-activity {
+  display: grid;
+  align-items: stretch;
+  background: var(--nl-card);
+  border: 1px solid var(--nl-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.nl-description {
+  min-width: 0;
+  padding: 0 16px 16px;
+  line-height: 1.85;
+}
+.nl-code-pane {
+  min-width: 0;
+}
+.nl-pane-heading {
+  min-height: 42px;
+  border-bottom: 1px solid var(--nl-border);
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 550;
+}
+.nl-description .nl-pane-heading {
+  margin: 0 -16px 12px;
+}
+.nl-separator {
+  background: var(--nl-bg);
+  border-left: 1px solid var(--nl-border);
+  border-right: 1px solid var(--nl-border);
+  cursor: col-resize;
+  touch-action: none;
+}
+.nl-separator:hover {
+  background: color-mix(in srgb, var(--nl-accent) 18%, var(--nl-bg));
+}
+.nl-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  border-top: 1px solid var(--nl-border);
+  border-bottom: 1px solid var(--nl-border);
+  padding: 8px;
+}
+.neural-lab .nl-seed {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 auto 0 0;
+  font-size: 11px;
+}
+.nl-seed input {
+  width: 72px;
+  padding: 4px 6px;
+}
+.nl-callout {
+  background: color-mix(in srgb, var(--nl-accent) 6%, var(--nl-card));
+  border-left: 3px solid var(--nl-accent);
+  padding: 10px;
+  font-size: 12px;
+}
+.nl-empty {
+  color: var(--nl-muted);
+  padding: 24px 16px;
+  text-align: center;
+}
+.nl-error {
+  border: 1px solid #ba6654;
+  background: #ba665410;
+  border-radius: 6px;
+  padding: 10px;
+  overflow-wrap: anywhere;
+}
+.nl-lecture,
+.nl-profile {
+  background: var(--nl-card);
+  border: 1px solid var(--nl-border);
+  border-radius: 8px;
+  padding: 24px;
+}
+.nl-lecture {
+  line-height: 1.9;
+}
+.nl-objectives {
+  border-bottom: 1px solid var(--nl-border);
+  margin-bottom: 14px;
+}
+.nl-anchors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.neural-lab .nl-anchors button {
+  padding: 3px 8px;
+  font-size: 11px;
+  border-color: transparent;
+  color: var(--nl-accent);
+}
+.nl-lecture section[id] {
+  scroll-margin-top: 16px;
+}
+.nl-lecture details a {
+  display: block;
+}
+.nl-mentor {
+  margin-top: 16px;
+  border: 1px solid var(--nl-border);
+  border-radius: 8px;
+  background: var(--nl-card);
+  padding: 10px 16px;
+}
+.nl-mentor > details {
+  border: 0;
+}
+.nl-mentor > details > p {
+  font-size: 11px;
+  color: var(--nl-muted);
+}
+.nl-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+.nl-results {
+  padding: 12px;
+}
+.nl-results h3 {
+  margin: 0;
+}
+.nl-result-heading {
+  flex-wrap: wrap;
+}
+.nl-verdict {
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 11px;
+  background: var(--nl-bg);
+}
+.nl-verdict-passed {
+  color: #238b65;
+  background: #238b6512;
+}
+.nl-verdict-failed {
+  color: #bd574f;
+  background: #bd574f12;
+}
+.nl-run-meta {
+  font-size: 10px;
+  color: var(--nl-muted);
+  overflow-wrap: anywhere;
+}
+.nl-checks {
+  list-style: none;
+  padding: 0;
+  font-size: 12px;
+}
+.nl-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+.nl-stat {
+  border: 1px solid var(--nl-border);
+  border-radius: 6px;
+  padding: 12px;
+}
+.nl-stat > span {
+  font-size: 11px;
+  color: var(--nl-muted);
+  overflow-wrap: anywhere;
+}
+.nl-stat > strong {
+  display: block;
+  font:
+    22px/1.8 Consolas,
+    monospace;
+}
+.nl-results figure {
+  margin: 12px 0;
+  border: 1px solid var(--nl-border);
+  border-radius: 6px;
+  padding: 12px;
+}
+.nl-results figcaption {
+  font-size: 12px;
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+.nl-results svg {
+  display: block;
+  width: 100%;
+  max-height: 250px;
+  fill: currentColor;
+}
+.nl-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 0;
+  list-style: none;
+  font-size: 10px;
+}
+.nl-legend li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nl-legend span {
+  width: 16px;
+  height: 3px;
+  border-radius: 1px;
+}
+.nl-table {
+  overflow: auto;
+  max-height: 350px;
+}
+.nl-table table {
+  border-collapse: collapse;
+  font:
+    10px/1.5 Consolas,
+    monospace;
+}
+.nl-table td {
+  padding: 6px;
+  min-width: 43px;
+  text-align: center;
+}
+@media (max-width: 1050px) {
+  .nl-layout {
+    grid-template-columns: 170px minmax(0, 1fr) !important;
+  }
+  .nl-activity {
+    grid-template-columns: 1fr !important;
+  }
+  .nl-separator {
+    display: none;
+  }
+  .nl-description {
+    border-bottom: 1px solid var(--nl-border);
+  }
+  .nl-top {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 720px) {
+  .neural-lab {
+    padding: 9px;
+  }
+  .nl-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 25%) minmax(0, 1fr);
+  }
+  .nl-sidebar {
+    border-bottom: 1px solid var(--nl-border);
+  }
+  .nl-sidebar nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .nl-top {
+    display: block;
+  }
+  .nl-top .nl-actions {
+    margin-top: 10px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .neural-lab {
+    --nl-bg: var(--dsw-alias-bg-base, #1d242b);
+    --nl-card: var(--dsw-alias-bg-layer-1, #252e36);
+    --nl-fg: var(--dsw-alias-label-primary, #dce4e9);
+    --nl-border: var(--dsw-alias-border-l2, #3c4852);
+  }
+}
+
+/* MIT, Copyright 2026 kapelame; adapted from Learn.module.css. */
+.nl-editor {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-height: 260px;
+  height: 340px;
+  max-height: 60vh;
+  font-family: var(--dsw-font-markdown-code-font-family, Consolas, monospace);
+  font-size: 13px;
+  line-height: 20px;
+  border-bottom: 0.5px solid var(--nl-border);
+}
+
+.nl-gutter {
+  overflow: hidden;
+  padding: 8px 8px 8px 12px;
+  text-align: right;
+  color: var(--nl-muted);
+  user-select: none;
+  background: var(--nl-card);
+}
+
+.nl-editorArea {
+  position: relative;
+  min-width: 0;
+}
+
+.neural-lab .nl-editorLayer,
+.neural-lab .nl-editorInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 8px 12px;
+  font: inherit;
+  border-radius: 0;
+  max-height: none;
+  overflow-wrap: normal;
+  line-height: inherit;
+  tab-size: 4;
+  white-space: pre;
+  overflow: auto;
+  box-sizing: border-box;
+  border: 0;
+}
+
+.neural-lab .nl-editorLayer {
+  pointer-events: none;
+  color: var(--nl-fg);
+  overflow: hidden;
+}
+
+.neural-lab .nl-editorInput {
+  background: transparent;
+  color: transparent;
+  caret-color: var(--nl-fg);
+  resize: none;
+  outline: none;
+}
+
+.nl-editorInput::selection {
+  background: rgba(35, 139, 129, 0.25);
+}
+
+.nl-completions {
+  position: absolute;
+  z-index: 3;
+  right: 8px;
+  bottom: 8px;
+  width: min(340px, calc(100% - 16px));
+  max-height: 85%;
+  overflow: auto;
+  border: 1px solid var(--nl-border);
+  border-radius: 6px;
+  background: var(--nl-card);
+  color: var(--nl-fg);
+  box-shadow: 0 4px 16px #0003;
+}
+
+.nl-completionOption {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 10px;
+  cursor: pointer;
+}
+
+.nl-completionOption[aria-selected='true'],
+.nl-completionOption:hover {
+  background: var(--dsw-alias-interactive-bg-active);
+}
+
+.nl-completionHint {
+  padding: 4px 10px;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--nl-muted);
+  border-top: 1px solid var(--nl-border);
+}
