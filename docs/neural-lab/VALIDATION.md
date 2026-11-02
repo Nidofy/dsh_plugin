@@ -1,3 +1,22 @@
+# 0.5.0 验收 · 2026-11-02
+
+工作树 .worktrees/neural-lab，源码提交 6755316f446fa4fdc9a734751d61041d83089d87。官方 DSH 0.2.1-rc.5，源码 revision b830ec950faba0a46dda564be3e2d854afed94f1；Node 24.16.0，CPU 镜像 sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7。
+
+| 门禁 | 本次证据 |
+|---|---|
+| 构建与单元行为 | npm test 完成 strict TypeScript、Host/Client 构建及 14 项测试。覆盖 SQLite、生命周期、输入身份、矩阵轴、非有限数、长度上限与配置。 |
+| 全课程及工作台 | 最终源码副本执行 tests/runner-real.ts，29 个可运行活动的参考解通过，23 个未完成代码模板均被拒绝，两个既有实验的固定种子重跑一致。NEURAL_UI_CPU=1 执行 tests/ui-check.mjs 共 26 项通过，0 pageerror。 |
+| 新项目真实数值 | tests/projects-real.ts 通过 3 份参考实现，拒绝 9 个定向错误，包括固定两头、错误移位、未来泄漏、错残差、断开梯度、跳过更新、跨切分取窗、错误标准差和非因果预测。两个字符项目各自还需通过 B=1/T=2/H=1 的额外探针。信号的训练进程只接收训练批次，冻结权重后再在独立学生进程评估留出输入。 |
+| 项目学习与复现 | tests/project-ui.mjs 在两个独立 HTTP/SQLite/Docker profile 中实际操作浏览器。验证组件复用、来源 runId、三头变式、延后到期时间、解释草稿恢复、仅完成选中运行的复习。热图单元格数值与相同身份的 SQLite 产物一致，错误 hash 查询被拒；P95 仅改变色阶，Alt+E 返回编辑器。640px 空 profile 预览／载入后运行数为 0，显式重跑后与原运行结果匹配。篡改代码被拒，0 pageerror。 |
+| 既有运行协议 | 0.5 开发周期内重新执行 training-real.ts 的 28 次可编辑 MLP／字符训练，runner-parameters.ts 的 33 个参数用例，runner-adversarial.ts 的 18 个错解／攻击及取消和超时。runner-lifecycle.ts 验证运行中卸载、分阶段取消与镜像 retag，无本次残留容器。 |
+| 离线安装／升级 | npm pack --ignore-scripts、tests/install-check.mjs、tests/upgrade-020.mjs 通过。用空缓存、临时 profile 核对安装内容；从 0.1.2 经 0.1.3、0.2.0、0.2.1、0.2.2 升至 0.5.0，旧草稿、运行及解释保留。升级测试的训练历史为合成夹具。 |
+| 官方 Web | NEURAL_UI_CPU=1、NEURAL_WITH_LEARN=1、npm_config_offline=true 执行 tests/ui-official-session.mjs。最终包实际侧栏挂载、认证 RPC、四尺寸、Learn 共存、MLP／单文件 Transformer 和三模型振动项目均通过，振动 run 为 f38405ae-9591-4635-a2f4-30e01e3423f7。0 pageerror；服务停止，临时 profile 清理。 |
+| 官方 Electron | 指定官方可执行文件执行 tests/native-022.mjs。独立 desktop profile 安装同一包，运行 CPU 练习、切课、重启后恢复原代码和同一 run。随后在可见编辑器运行三头项目并读取 head2 的实际矩阵；项目 run 为 ea1588e2-a2de-4320-b818-c76549ebf05d。 |
+
+跨 profile 来源运行 e50a38d4-5c63-46f7-a3d8-7f80b13d9320，复现运行 394031a1-e644-4f41-9684-7bbe8f63ea77。14 个组件的完整提交 SHA-256 为 d75090acf9bf2650291cf93abf86e4c3335fc543bab02d9760a1d0bb5607e17c，两次独立输出摘要为 9e6edcb4e0939ce709d7433f120874b768aeead7d25ca736c1331e3875a78ac1。界面明确比较 seed、学习率、镜像、协议、数据／初值／批次摘要、源码和实际结果。
+
+最终包 108100 字节，SHA-256 为 e37c101e06c85ac0f77d718bbe75b7b5086a3481e3f5fa4e5936a7ca73347f83。两个独立干净 sparse checkout 重建哈希均与最终离线安装、官方 Web、Electron 的实际归档相同。数值门禁使用本地真实 Docker CPU；按既定约定，导师只验收官方无模型路径和测试替身。所有安装、导入和数据回归均在隔离环境完成。
+
 # 0.2.2 验收 · 2026-11-02
 
 实现提交 d430f46ccb61c7b3e177ad6177aeeb80424dbd39，固定官方 DSH rc.5 源码 b830ec950faba0a46dda564be3e2d854afed94f1。Windows、Node 24.16.0、npm 11.13.0、Docker 29.9.2。CPU 镜像 ID 与下方 0.2.1 记录相同。命令从 packages/neural-lab 运行；TS 入口使用 node --experimental-transform-types。开发合并与本地生成包均在 neural-lab 工作树。
