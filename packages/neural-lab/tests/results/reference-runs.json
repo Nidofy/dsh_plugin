@@ -1,0 +1,2931 @@
+{
+  "environment": {
+    "available": true,
+    "detail": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7 29.9.2",
+    "image": "dsh-neural-lab-cpu:0.1"
+  },
+  "results": [
+    {
+      "id": "L01-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3216,
+      "events": [
+        {
+          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "87f93590-5faf-49a4-82e7-0b952e1934fc",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L01-debug",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2734,
+      "events": [
+        {
+          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "c0ea3fca-42bb-4306-bfeb-de030dcc01bb",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L02-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2733,
+      "events": [
+        {
+          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "ebbb03a1-8d9b-40e3-84f3-3c13bb2d3386",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L03-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2784,
+      "events": [
+        {
+          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "7271afc4-65a1-44b8-a97c-36bab7847540",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L03-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2776,
+      "events": [
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 1,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 0,
+          "value": 0.010000000000005116
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 2,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 1,
+          "value": 0.00010000000001131326
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 3,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 2,
+          "value": 9.999999997650777e-7
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 4,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 3,
+          "value": 9.99999417994335e-9
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 5,
+          "type": "metric",
+          "name": "gradient_error",
+          "step": 4,
+          "value": 1.468789534442294e-10
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 6,
+          "type": "check",
+          "name": "framework-gradcheck",
+          "passed": true
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 7,
+          "type": "tensor",
+          "name": "autograd",
+          "data": [
+            [
+              1.4699999999999998,
+              0.12000000000000002,
+              5.879999999999999
+            ]
+          ]
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 8,
+          "type": "check",
+          "name": "finite-difference",
+          "passed": true
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 9,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "27834fe3-c6ed-47e4-ac0b-a720954fe74c",
+          "seq": 10,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L03-advanced",
+      "status": "completed",
+      "check": "passed",
+      "ms": 7945,
+      "events": [
+        {
+          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "2381e7b1-37d9-4e76-94b4-80c7aecc7c97",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L04-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3710,
+      "events": [
+        {
+          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "5c37920e-f4f6-408d-9bde-3f2747d34367",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L04-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3642,
+      "events": [
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 1,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 2,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 0,
+          "value": 2.969209671020508
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 3,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 2,
+          "value": 2.3393747806549072
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 4,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 2,
+          "value": 2.3539676666259766
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 5,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 4,
+          "value": 1.9714984893798828
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 6,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 4,
+          "value": 2.040956974029541
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 7,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 6,
+          "value": 1.7883583307266235
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 8,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 6,
+          "value": 1.8655202388763428
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 9,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 8,
+          "value": 1.6873401403427124
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 10,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 8,
+          "value": 1.7571617364883423
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 11,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 10,
+          "value": 1.624288558959961
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 12,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 10,
+          "value": 1.6833209991455078
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 13,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 12,
+          "value": 1.5792969465255737
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 14,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 12,
+          "value": 1.6281521320343018
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 15,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 14,
+          "value": 1.5431395769119263
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 16,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 14,
+          "value": 1.583597183227539
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 17,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 16,
+          "value": 1.5114548206329346
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 18,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 16,
+          "value": 1.5453760623931885
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 19,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 18,
+          "value": 1.4821438789367676
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 20,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 18,
+          "value": 1.5111103057861328
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 21,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 20,
+          "value": 1.4541714191436768
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 22,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 20,
+          "value": 1.4794154167175293
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 23,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 22,
+          "value": 1.4270085096359253
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 24,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 22,
+          "value": 1.4494448900222778
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 25,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 24,
+          "value": 1.4003700017929077
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 26,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 24,
+          "value": 1.4206585884094238
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 27,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 26,
+          "value": 1.3740899562835693
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 28,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 26,
+          "value": 1.3926975727081299
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 29,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 28,
+          "value": 1.3480627536773682
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 30,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 28,
+          "value": 1.3653154373168945
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 31,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 30,
+          "value": 1.3222153186798096
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 32,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 30,
+          "value": 1.3383378982543945
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 33,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 32,
+          "value": 1.2964935302734375
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 34,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 32,
+          "value": 1.3116406202316284
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 35,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 34,
+          "value": 1.270855188369751
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 36,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 34,
+          "value": 1.2851319313049316
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 37,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 36,
+          "value": 1.245267629623413
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 38,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 36,
+          "value": 1.2587463855743408
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 39,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 38,
+          "value": 1.2197057008743286
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 40,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 38,
+          "value": 1.2324362993240356
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 41,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 40,
+          "value": 1.194150447845459
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 42,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 40,
+          "value": 1.2061681747436523
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 43,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 42,
+          "value": 1.1685891151428223
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 44,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 42,
+          "value": 1.1799204349517822
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 45,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 44,
+          "value": 1.1430144309997559
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 46,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 44,
+          "value": 1.1536800861358643
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 47,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 46,
+          "value": 1.1174238920211792
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 48,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 46,
+          "value": 1.1274423599243164
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 49,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 48,
+          "value": 1.091820240020752
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 50,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 48,
+          "value": 1.1012084484100342
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 51,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 50,
+          "value": 1.0662102699279785
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 52,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 50,
+          "value": 1.0749857425689697
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 53,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 52,
+          "value": 1.0406049489974976
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 54,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 52,
+          "value": 1.048785924911499
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 55,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 54,
+          "value": 1.0150187015533447
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 56,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 54,
+          "value": 1.0226256847381592
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 57,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 56,
+          "value": 0.9894696474075317
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 58,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 56,
+          "value": 0.9965241551399231
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 59,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 58,
+          "value": 0.9639785885810852
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 60,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 58,
+          "value": 0.9705045819282532
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 61,
+          "type": "metric",
+          "name": "train_lr=0.03",
+          "step": 59,
+          "value": 0.9512620568275452
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 62,
+          "type": "metric",
+          "name": "valid_lr=0.03",
+          "step": 59,
+          "value": 0.9575332403182983
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 63,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.03",
+          "step": 60,
+          "value": 1.3588345050811768
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 64,
+          "type": "check",
+          "name": "updates_lr=0.03",
+          "passed": true
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 65,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 0,
+          "value": 3.152101993560791
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 66,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 0,
+          "value": 3.446409225463867
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 67,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 2,
+          "value": 3.0465810298919678
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 68,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 2,
+          "value": 3.335820436477661
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 69,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 4,
+          "value": 2.948991537094116
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 70,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 4,
+          "value": 3.233041763305664
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 71,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 6,
+          "value": 2.8586604595184326
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 72,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 6,
+          "value": 3.137430429458618
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 73,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 8,
+          "value": 2.774977684020996
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 74,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 8,
+          "value": 3.0484044551849365
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 75,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 10,
+          "value": 2.697392225265503
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 76,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 10,
+          "value": 2.9654362201690674
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 77,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 12,
+          "value": 2.6254055500030518
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 78,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 12,
+          "value": 2.888047218322754
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 79,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 14,
+          "value": 2.558562755584717
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 80,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 14,
+          "value": 2.8158013820648193
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 81,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 16,
+          "value": 2.4964513778686523
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 82,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 16,
+          "value": 2.7483010292053223
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 83,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 18,
+          "value": 2.4386961460113525
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 84,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 18,
+          "value": 2.685184955596924
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 85,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 20,
+          "value": 2.384953022003174
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 86,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 20,
+          "value": 2.626119613647461
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 87,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 22,
+          "value": 2.334909200668335
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 88,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 22,
+          "value": 2.570803642272949
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 89,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 24,
+          "value": 2.2882795333862305
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 90,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 24,
+          "value": 2.518958568572998
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 91,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 26,
+          "value": 2.244799852371216
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 92,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 26,
+          "value": 2.470329761505127
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 93,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 28,
+          "value": 2.2042312622070312
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 94,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 28,
+          "value": 2.4246835708618164
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 95,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 30,
+          "value": 2.166353464126587
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 96,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 30,
+          "value": 2.3818039894104004
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 97,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 32,
+          "value": 2.1309633255004883
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 98,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 32,
+          "value": 2.34149432182312
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 99,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 34,
+          "value": 2.0978753566741943
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 100,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 34,
+          "value": 2.3035714626312256
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 101,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 36,
+          "value": 2.0669190883636475
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 102,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 36,
+          "value": 2.2678675651550293
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 103,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 38,
+          "value": 2.037936210632324
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 104,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 38,
+          "value": 2.2342276573181152
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 105,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 40,
+          "value": 2.010782480239868
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 106,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 40,
+          "value": 2.2025084495544434
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 107,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 42,
+          "value": 1.9853241443634033
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 108,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 42,
+          "value": 2.1725776195526123
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 109,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 44,
+          "value": 1.9614375829696655
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 110,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 44,
+          "value": 2.144313335418701
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 111,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 46,
+          "value": 1.9390093088150024
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 112,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 46,
+          "value": 2.1176018714904785
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 113,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 48,
+          "value": 1.917934536933899
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 114,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 48,
+          "value": 2.092339038848877
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 115,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 50,
+          "value": 1.898115873336792
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 116,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 50,
+          "value": 2.068427085876465
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 117,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 52,
+          "value": 1.8794634342193604
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 118,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 52,
+          "value": 2.045776844024658
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 119,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 54,
+          "value": 1.8618948459625244
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 120,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 54,
+          "value": 2.024304151535034
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 121,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 56,
+          "value": 1.8453330993652344
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 122,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 56,
+          "value": 2.003931999206543
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 123,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 58,
+          "value": 1.8297067880630493
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 124,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 58,
+          "value": 1.984588384628296
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 125,
+          "type": "metric",
+          "name": "train_lr=0.003",
+          "step": 59,
+          "value": 1.8222236633300781
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 126,
+          "type": "metric",
+          "name": "valid_lr=0.003",
+          "step": 59,
+          "value": 1.9752814769744873
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 127,
+          "type": "metric",
+          "name": "parameter_delta_lr=0.003",
+          "step": 60,
+          "value": 0.4691202938556671
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 128,
+          "type": "check",
+          "name": "updates_lr=0.003",
+          "passed": true
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 129,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "1534d3dd-0aa4-4b5d-b4c7-a3508cf25cfb",
+          "seq": 130,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L05-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3304,
+      "events": [
+        {
+          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "8dc9e8fd-436a-4eda-ac52-bddcb92b4e79",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L05-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2693,
+      "events": [
+        {
+          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
+          "seq": 1,
+          "type": "metric",
+          "name": "naive_nonfinite",
+          "step": 0,
+          "value": 6
+        },
+        {
+          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
+          "seq": 2,
+          "type": "tensor",
+          "name": "stable_probabilities",
+          "data": [
+            [
+              0.09003057317038046,
+              0.24472847105479764,
+              0.6652409557748218
+            ],
+            [
+              0.21194155761708544,
+              0.21194155761708544,
+              0.5761168847658291
+            ]
+          ]
+        },
+        {
+          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
+          "seq": 3,
+          "type": "check",
+          "name": "normalization",
+          "passed": true
+        },
+        {
+          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e47e9c44-e175-4bf6-b573-3b3227d849ef",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L05-advanced",
+      "status": "completed",
+      "check": "passed",
+      "ms": 7926,
+      "events": [
+        {
+          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "a21c975f-bf6d-4ad6-9d8a-38171ded05f9",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L06-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3142,
+      "events": [
+        {
+          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "15356cda-14f4-428c-bcb3-720fd718b889",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L07-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3398,
+      "events": [
+        {
+          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "350d2b59-458c-4d9c-8ca8-e472b559a9e5",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L08-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3453,
+      "events": [
+        {
+          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "seq": 4,
+          "type": "check",
+          "name": "hand-calculated",
+          "passed": true
+        },
+        {
+          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "0bbac6ca-3e48-4538-b93c-d19033d7e1bb",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L08-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2666,
+      "events": [
+        {
+          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
+          "seq": 1,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
+          "seq": 2,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
+          "seq": 3,
+          "type": "tensor",
+          "name": "output_change",
+          "data": [
+            [
+              0.00905850350164622,
+              0.09799174459711066,
+              0.2006315470160251,
+              0.04690937882414048,
+              0.008903902479280745,
+              0.05817827655753119,
+              0.20432241522922856,
+              0.20480503371625752
+            ],
+            [
+              19.247003108332105,
+              19.264138574983527,
+              18.76169872315815,
+              19.498016629989692,
+              19.632421373523538,
+              19.72047707601924,
+              20.566336717618604,
+              20.34388740586694
+            ],
+            [
+              8.599950811574823,
+              8.629988165429756,
+              8.442849137320339,
+              8.702726201935072,
+              8.758661736297821,
+              8.767243888649633,
+              9.071086657135147,
+              8.981918824791727
+            ],
+            [
+              19.41852858461774,
+              19.885519327866927,
+              19.385342227275054,
+              20.21999516342494,
+              20.10146006381614,
+              20.177915062444264,
+              21.30660069714853,
+              20.814266931895574
+            ]
+          ]
+        },
+        {
+          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
+          "seq": 4,
+          "type": "metric",
+          "name": "protected_change",
+          "step": 0,
+          "value": 20.566336717618604
+        },
+        {
+          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
+          "seq": 5,
+          "type": "check",
+          "name": "finite-output",
+          "passed": true
+        },
+        {
+          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "ec6c8900-70d8-4d41-afdf-55b6c132b14b",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L09-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3301,
+      "events": [
+        {
+          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "seq": 4,
+          "type": "check",
+          "name": "hand-calculated",
+          "passed": true
+        },
+        {
+          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "seq": 5,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "fd429782-4a30-4a28-bfbd-7adeadd313de",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L09-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2456,
+      "events": [
+        {
+          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
+          "seq": 1,
+          "type": "tensor",
+          "name": "unscaled_weights",
+          "data": [
+            [
+              0.2242978791160761,
+              0.0030108444152346495,
+              0.6935953216703179,
+              0.07909595479837135
+            ],
+            [
+              0.3329370936673429,
+              0.1765213959005507,
+              0.4608972676937932,
+              0.029644242738313186
+            ],
+            [
+              0.3917062392999997,
+              0.22748014779924933,
+              0.33982289720471953,
+              0.04099071569603127
+            ],
+            [
+              0.07667422987332177,
+              0.7892170968090935,
+              0.06127834597679332,
+              0.07283032734079145
+            ]
+          ]
+        },
+        {
+          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
+          "seq": 2,
+          "type": "tensor",
+          "name": "scaled_weights",
+          "data": [
+            [
+              0.2941079441040374,
+              0.06406287475463883,
+              0.43837649604436457,
+              0.20345268509695916
+            ],
+            [
+              0.2988527896858066,
+              0.23879786183226684,
+              0.33526937457336414,
+              0.12707997390856246
+            ],
+            [
+              0.3099416604922622,
+              0.2557616053562603,
+              0.2947561908262369,
+              0.13954054332524066
+            ],
+            [
+              0.1928238655785699,
+              0.43969368882888804,
+              0.17813327543467103,
+              0.189349170157871
+            ]
+          ]
+        },
+        {
+          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
+          "seq": 3,
+          "type": "tensor",
+          "name": "output_change",
+          "data": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              19.41852858461774,
+              19.885519327866927,
+              19.385342227275054,
+              20.21999516342494,
+              20.10146006381614,
+              20.177915062444264,
+              21.30660069714853,
+              20.814266931895574
+            ]
+          ]
+        },
+        {
+          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
+          "seq": 4,
+          "type": "metric",
+          "name": "protected_change",
+          "step": 0,
+          "value": 0
+        },
+        {
+          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
+          "seq": 5,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "68210b6d-8f66-4188-be66-49b22635fa1d",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L09-transfer",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3836,
+      "events": [
+        {
+          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "seq": 4,
+          "type": "check",
+          "name": "hand-calculated",
+          "passed": true
+        },
+        {
+          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "seq": 5,
+          "type": "check",
+          "name": "future-invariance",
+          "passed": true
+        },
+        {
+          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "seq": 6,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "ef914f72-71d5-4bfd-89bf-40afcb0fcb7f",
+          "seq": 7,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L10-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3310,
+      "events": [
+        {
+          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "70339002-a6b6-496f-aa06-5d779d5b39dc",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L10-advanced",
+      "status": "completed",
+      "check": "passed",
+      "ms": 6929,
+      "events": [
+        {
+          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "0712f280-a5eb-4e11-a718-9bfcecc13ffb",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L11-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2952,
+      "events": [
+        {
+          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "809967cb-7aff-4999-a927-142c8a02d8ed",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L11-advanced",
+      "status": "completed",
+      "check": "passed",
+      "ms": 6320,
+      "events": [
+        {
+          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "786b5d81-1fde-4465-a35e-4390b438b5d9",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L12-code",
+      "status": "completed",
+      "check": "passed",
+      "ms": 2709,
+      "events": [
+        {
+          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "seq": 1,
+          "type": "check",
+          "name": "case-1",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "seq": 2,
+          "type": "check",
+          "name": "case-2",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "seq": 3,
+          "type": "check",
+          "name": "case-3",
+          "passed": true,
+          "detail": "independent reference, atol=1e-6 rtol=1e-5"
+        },
+        {
+          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "seq": 4,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "3d693955-df6b-4082-a42e-7f98589cade0",
+          "seq": 5,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    },
+    {
+      "id": "L12-experiment",
+      "status": "completed",
+      "check": "passed",
+      "ms": 3502,
+      "events": [
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 1,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 0,
+          "value": 3.304138422012329
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 2,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 0,
+          "value": 2.6930906772613525
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 3,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 2,
+          "value": 2.3285157680511475
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 4,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 2,
+          "value": 2.0078303813934326
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 5,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 4,
+          "value": 1.7248706817626953
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 6,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 4,
+          "value": 1.5088332891464233
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 7,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 6,
+          "value": 1.3388843536376953
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 8,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 6,
+          "value": 1.14697265625
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 9,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 8,
+          "value": 1.0206166505813599
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 10,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 8,
+          "value": 0.9619009494781494
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 11,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 10,
+          "value": 0.909911572933197
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 12,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 10,
+          "value": 0.8627088665962219
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 13,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 12,
+          "value": 0.6817183494567871
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 14,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 12,
+          "value": 0.8944954872131348
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 15,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 14,
+          "value": 0.6715960502624512
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 16,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 14,
+          "value": 0.8556945323944092
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 17,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 16,
+          "value": 0.5574632287025452
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 18,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 16,
+          "value": 0.831400454044342
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 19,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 18,
+          "value": 0.4553600251674652
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 20,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 18,
+          "value": 0.9960300326347351
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 21,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 20,
+          "value": 0.36779311299324036
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 22,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 20,
+          "value": 1.1038085222244263
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 23,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 22,
+          "value": 0.3430817425251007
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 24,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 22,
+          "value": 1.1566087007522583
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 25,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 24,
+          "value": 0.3946414887905121
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 26,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 24,
+          "value": 1.096076488494873
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 27,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 26,
+          "value": 0.35614898800849915
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 28,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 26,
+          "value": 1.0392519235610962
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 29,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 28,
+          "value": 0.31812646985054016
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 30,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 28,
+          "value": 1.0659719705581665
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 31,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 30,
+          "value": 0.28138014674186707
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 32,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 30,
+          "value": 1.0924025774002075
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 33,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 32,
+          "value": 0.29145950078964233
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 34,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 32,
+          "value": 1.1259533166885376
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 35,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 34,
+          "value": 0.2249799370765686
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 36,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 34,
+          "value": 1.0912338495254517
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 37,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 36,
+          "value": 0.2792080342769623
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 38,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 36,
+          "value": 1.118233323097229
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 39,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 38,
+          "value": 0.21617962419986725
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 40,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 38,
+          "value": 1.0345650911331177
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 41,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 40,
+          "value": 0.1903652548789978
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 42,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 40,
+          "value": 1.100262999534607
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 43,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 42,
+          "value": 0.22627319395542145
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 44,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 42,
+          "value": 1.0540567636489868
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 45,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 44,
+          "value": 0.19893516600131989
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 46,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 44,
+          "value": 1.0805810689926147
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 47,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 46,
+          "value": 0.1948288530111313
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 48,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 46,
+          "value": 1.0619571208953857
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 49,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 48,
+          "value": 0.14331677556037903
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 50,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 48,
+          "value": 1.0984183549880981
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 51,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 50,
+          "value": 0.20784802734851837
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 52,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 50,
+          "value": 1.1475886106491089
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 53,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 52,
+          "value": 0.18541449308395386
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 54,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 52,
+          "value": 1.1622575521469116
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 55,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 54,
+          "value": 0.20111805200576782
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 56,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 54,
+          "value": 1.2169299125671387
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 57,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 56,
+          "value": 0.14474916458129883
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 58,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 56,
+          "value": 1.2108750343322754
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 59,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 58,
+          "value": 0.13627402484416962
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 60,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 58,
+          "value": 1.202370524406433
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 61,
+          "type": "metric",
+          "name": "train_loss",
+          "step": 59,
+          "value": 0.1766899675130844
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 62,
+          "type": "metric",
+          "name": "validation_loss",
+          "step": 59,
+          "value": 1.211256504058838
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 63,
+          "type": "metric",
+          "name": "gradient_norm_squared",
+          "step": 60,
+          "value": 0.3783066514879465
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 64,
+          "type": "metric",
+          "name": "parameter_delta",
+          "step": 60,
+          "value": 15.8893461227417
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 65,
+          "type": "check",
+          "name": "training-integrity",
+          "passed": true,
+          "detail": "sample: s sun warms ston lights lake. sun warms stone. mooon lights lake. sun warms stone"
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 66,
+          "type": "check",
+          "name": "target-shift",
+          "passed": true
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 67,
+          "type": "artifact",
+          "name": "Raw execution events / ԭʼ�����¼�",
+          "path": "events.jsonl"
+        },
+        {
+          "runId": "e5acee5b-6e71-4c0d-9aa8-3f458d47097f",
+          "seq": 68,
+          "type": "artifact",
+          "name": "Run snapshot / ���п���",
+          "path": "result.json"
+        }
+      ],
+      "log": ""
+    }
+  ]
+}

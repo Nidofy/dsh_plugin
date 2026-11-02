@@ -1,0 +1,6 @@
+node_modules/
+lib/
+.build/
+.test-runs/
+*.tgz
+__pycache__/
