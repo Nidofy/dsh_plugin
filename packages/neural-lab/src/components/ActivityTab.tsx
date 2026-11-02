@@ -2,9 +2,12 @@ import { trainingDataset } from '../training-protocol.ts'
 import { useRef, useState, type PointerEvent } from 'react'
 import type { Lesson, Workspace, RunRecord } from '../types.ts'
 import { Markdown } from './Markdown.tsx'
+import { ProjectEditor } from './ProjectEditor.tsx'
+import type { LabApi } from '../types.ts'
 import { CodeEditor } from './CodeEditor.tsx'
 import { RunResults } from './RunResults.tsx'
 interface Props {
+  api: LabApi
   lesson: Lesson
   workspace?: Workspace
   contentVersion: string
@@ -35,6 +38,18 @@ export function ActivityTab(props: Props) {
     props.workspace?.exercise.id === props.exerciseId ? props.workspace.exercise : undefined
   const running = props.run?.run_status === 'queued' || props.run?.run_status === 'running'
   const written = exercise?.kind === 'numeric' || exercise?.kind === 'explanation'
+  const editorProps = {
+    value: props.draft,
+    readOnly: props.busy,
+    language: 'python' as const,
+    label: 'Python 编辑器 Editor',
+    completionLabel: '代码补全 Completions',
+    completionHint: '↑↓ 选择 · Tab/Enter 插入 · Esc 关闭 · Ctrl/⌘+J 补全',
+    onChange: props.onEdit,
+    onSelection: props.onSelection,
+    onRun: props.onRun,
+    onSubmit: props.onRun,
+  }
   const resize = (event: PointerEvent) => {
     if (!drag.current || !pane.current) return
     const rect = pane.current.getBoundingClientRect()
@@ -146,18 +161,16 @@ export function ActivityTab(props: Props) {
             </>
           ) : (
             <>
-              <CodeEditor
-                value={props.draft}
-                readOnly={props.busy}
-                language="python"
-                label="Python 编辑器 Editor"
-                completionLabel="代码补全 Completions"
-                completionHint="↑↓ 选择 · Tab/Enter 插入 · Esc 关闭 · Ctrl/⌘+J 补全"
-                onChange={props.onEdit}
-                onSelection={props.onSelection}
-                onRun={props.onRun}
-                onSubmit={props.onRun}
-              />
+              {exercise.components ? (
+                <ProjectEditor
+                  exercise={exercise}
+                  api={props.api}
+                  siblings={props.lesson.exercises}
+                  {...editorProps}
+                />
+              ) : (
+                <CodeEditor {...editorProps} />
+              )}
               {!!trainingDataset(exercise.runtimeKey) && (
                 <>
                   <label>

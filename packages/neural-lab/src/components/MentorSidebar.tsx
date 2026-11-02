@@ -20,7 +20,7 @@ export function MentorSidebar(props: Props) {
   return (
     <aside className="nl-mentor">
       <details open>
-        <summary>导师与提示 / Mentor</summary>
+        <summary>导师与提示 / Mentor · Alt+E 编辑 / Edit</summary>
         <p>帮助按观察记录，不等于验证独立完成。/ Help is recorded, not proof of independence.</p>
         <button disabled={!props.workspace || props.busy} onClick={props.onIndependent}>
           独立重试（自述） Independent retry

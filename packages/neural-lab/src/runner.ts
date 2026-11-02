@@ -61,6 +61,44 @@ async function command(
   })
 }
 
+export function validateDiagnosticEvent(e: RunEvent): void {
+  if (e.type === 'shape' || (e.type === 'tensor' && e.shape)) {
+    if (
+      !Array.isArray(e.shape) ||
+      e.shape.length < 1 ||
+      e.shape.length > 5 ||
+      e.shape.some((v) => !Number.isSafeInteger(v) || v <= 0 || v > 65536)
+    )
+      throw Error('Invalid original shape')
+    if (
+      e.type === 'tensor' &&
+      (e.shape.length !== 2 ||
+        !Number.isInteger(e.stride) ||
+        e.stride! < 1 ||
+        e.stride! > 65536 ||
+        !Array.isArray(e.data) ||
+        e.data.length !== Math.ceil(e.shape[0]! / e.stride!) ||
+        e.data.some(
+          (row) => !Array.isArray(row) || row.length !== Math.ceil(e.shape![1]! / e.stride!),
+        ))
+    )
+      throw Error('Invalid sample axes')
+  }
+  if (
+    e.type === 'tensor' &&
+    (!Array.isArray(e.data) ||
+      e.data.length > 128 ||
+      e.data.some(
+        (row) =>
+          !Array.isArray(row) ||
+          row.length > 128 ||
+          row.length !== e.data![0]!.length ||
+          row.some((v) => !Number.isFinite(v)),
+      ))
+  )
+    throw new Error('Invalid tensor')
+}
+
 export interface RunnerLimits {
   timeoutMs?: number
   memoryMb?: number
@@ -189,7 +227,7 @@ export class Runner {
     if (
       !/^[a-zA-Z0-9_-]{1,100}$/.test(r.id) ||
       !exercise.runtimeKey ||
-      !/^(code\d{2}|grad|mlp|train-mlp-v1|train-char-v1|softmax|attention|causal|lm)$/.test(
+      !/^(code\d{2}|grad|mlp|train-mlp-v1|train-char-v1|project-char-v1|project-char-wide-v1|project-signal-v1|softmax|attention|causal|lm)$/.test(
         exercise.runtimeKey,
       )
     )
@@ -355,9 +393,12 @@ export class Runner {
                 }
                 const e = event as RunEvent
                 if (
+                  r.events.length >= 1024 ||
                   e.runId !== r.id ||
                   e.seq !== r.events.length + 1 ||
-                  !['metric', 'tensor', 'check', 'config', 'manifest', 'sample'].includes(e.type) ||
+                  !['metric', 'tensor', 'check', 'config', 'manifest', 'sample', 'shape'].includes(
+                    e.type,
+                  ) ||
                   typeof e.name !== 'string' ||
                   e.name.length > 200 ||
                   (e.detail !== undefined &&
@@ -366,7 +407,9 @@ export class Runner {
                   throw new Error('Invalid event identity')
                 if (
                   e.type === 'sample' &&
-                  (exercise.runtimeKey !== 'train-char-v1' ||
+                  (!['train-char-v1', 'project-char-v1', 'project-char-wide-v1'].includes(
+                    exercise.runtimeKey!,
+                  ) ||
                     typeof e.detail !== 'string' ||
                     !/^[abcde]{17}$/.test(e.detail))
                 )
@@ -406,20 +449,9 @@ export class Runner {
                     throw new Error('Invalid effective configuration')
                   r.effectiveConfig = e.config
                 }
+                if (e.type === 'shape' || e.type === 'tensor') validateDiagnosticEvent(e)
                 if (e.type === 'metric' && !Number.isFinite(e.value))
                   throw new Error('Invalid metric')
-                if (
-                  e.type === 'tensor' &&
-                  (!Array.isArray(e.data) ||
-                    e.data.length > 128 ||
-                    e.data.some(
-                      (row) =>
-                        !Array.isArray(row) ||
-                        row.length > 128 ||
-                        row.some((v) => !Number.isFinite(v)),
-                    ))
-                )
-                  throw new Error('Invalid tensor')
                 if (e.type === 'check' && typeof e.passed !== 'boolean')
                   throw new Error('Invalid check')
                 r.events.push(e)

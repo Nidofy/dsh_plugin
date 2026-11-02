@@ -108,7 +108,22 @@ try {
     code,
   )
   assert.equal(await page.locator('.nl-results').getAttribute('data-run-id'), id)
+  const catalog = JSON.parse(await readFile(join(base, 'content/catalog.json'), 'utf8'))
+  const project = catalog.lessons.flatMap((l) => l.exercises).find((e) => e.id === 'L12-variant')
+  await page.getByRole('button', { name: /L12 / }).click()
+  await page.getByRole('tab', { name: '练习 Exercise' }).click()
+  await page.getByLabel('当前活动 Activity').selectOption(project.id)
+  await page.getByRole('textbox', { name: 'Python 编辑器 Editor' }).fill(project.reference)
+  await page
+    .getByLabel('运行前预测 Prediction')
+    .fill('Three causal heads should preserve earlier outputs')
+  await page.getByRole('button', { name: '运行 / 提交 Run & check' }).click()
+  const output = page.locator('.nl-results').first()
+  await output.locator('.nl-verdict-passed').waitFor({ timeout: 120000 })
+  await output.getByRole('button', { name: /Inspect attention.layer0.head2/ }).click()
+  await output.getByText('Q / K').waitFor()
   const log = {
+    projectRun: await output.getAttribute('data-run-id'),
     version,
     host: 'official rc.5 Electron',
     sha256: createHash('sha256')
@@ -116,6 +131,7 @@ try {
       .digest('hex'),
     runId: id,
     checks: [
+      'three-head transfer, CPU training and indexed heatmap',
       'isolated install',
       'visible editor',
       'Docker CPU passed',
@@ -124,7 +140,7 @@ try {
     ],
   }
   await mkdir(join(base, '.build/ui'), { recursive: true })
-  await writeFile(join(base, '.build/ui/native-022.json'), JSON.stringify(log, null, 2))
+  await writeFile(join(base, '.build/ui/native-050.json'), JSON.stringify(log, null, 2))
   console.log(JSON.stringify(log))
 } finally {
   try {

@@ -109,9 +109,19 @@ try {
       page,
       catalog.lessons.flatMap((l) => l.exercises).find((e) => e.id === 'L12-transformer'),
     )
+    const vibration = catalog.lessons.flatMap((l) => l.exercises).find((e) => e.id === 'L12-signal')
+    await page.getByRole('button', { name: /L12 / }).click()
+    await page.getByRole('tab', { name: '练习 Exercise' }).click()
+    await page.getByLabel('当前活动 Activity').selectOption(vibration.id)
+    await page.getByRole('textbox', { name: 'Python 编辑器 Editor' }).fill(vibration.reference)
+    await page.getByLabel('运行前预测 Prediction').fill('Compare validation error at equal budgets')
+    await page.getByRole('button', { name: '运行 / 提交 Run & check' }).click()
+    const signalOutput = page.locator('.nl-results').first()
+    await signalOutput.locator('.nl-verdict-passed').waitFor({ timeout: 120000 })
+    const signalRun = await signalOutput.getAttribute('data-run-id')
     await writeFile(
       evidencePath('official-training.json'),
-      JSON.stringify({ mlp: training, transformer }, null, 2),
+      JSON.stringify({ mlp: training, transformer, signalRun }, null, 2),
     )
   }
   if (process.env.NEURAL_WITH_LEARN === '1') {

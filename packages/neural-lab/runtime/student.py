@@ -60,6 +60,8 @@ def character(module, mode, data):
         }
     )
 
+    p.heads = data.get("heads", 2)
+
     def predict(ids):
         return module.logits(module.embed(ids, p), p)
 
@@ -69,10 +71,37 @@ def character(module, mode, data):
         probes = {
             "shifted": lambda: torch.stack(module.shifted(w)),
             "embed": lambda: module.embed(w[:, :-1], p),
-            "attention": lambda: module.attention(F.layer_norm(x, (4,)), p),
+            "attention": lambda: module.attention(F.layer_norm(x, (x.size(-1),)), p),
             "block": lambda: module.block(x, p),
             "logits": lambda: module.logits(x, p),
         }
+        if data.get("project"):
+
+            def update_probe():
+                weight = torch.nn.Parameter(torch.tensor([1.0], dtype=torch.float64))
+                weight.grad = torch.tensor([2.0], dtype=torch.float64)
+                module.update(torch.optim.SGD([weight], lr=0.25))
+                return weight
+
+            probes.update(
+                {
+                    "update": update_probe,
+                    "loss_fn": lambda: module.loss_fn(x @ p["lm"], w[:, 1:]),
+                    "head_weights": lambda: module.head_weights(
+                        F.layer_norm(x, (x.size(-1),)), p
+                    ),
+                    "position": lambda: module.position(w[:, :-1], p),
+                    "causal_mask": lambda: module.causal_mask(
+                        x @ x.transpose(-2, -1)
+                    ).softmax(-1),
+                    "merge_heads": lambda: module.merge_heads(
+                        x.reshape(x.size(0), x.size(1), p.heads, -1).transpose(1, 2)
+                    ),
+                    "pre_norm": lambda: module.pre_norm(x),
+                    "ffn": lambda: module.ffn(x, p),
+                    "lm_head": lambda: module.lm_head(x, p),
+                }
+            )
         results = {}
         for name, fn in probes.items():
             try:
@@ -84,7 +113,9 @@ def character(module, mode, data):
         tokens = [0]
         with torch.no_grad():
             for u in data["uniforms"]:
-                scores = predict(torch.tensor([tokens[-4:]]))[0, -1]
+                scores = predict(torch.tensor([tokens[-data.get("context", 4) :]]))[
+                    0, -1
+                ]
                 tokens.append(min(4, int((scores.softmax(-1).cumsum(0) < u).sum())))
         return tokens
     trace = []
@@ -96,7 +127,11 @@ def character(module, mode, data):
         if x.requires_grad:
             x.retain_grad()
         scores = module.logits(x, p)
-        loss = F.cross_entropy(scores.flatten(0, 1), targets.reshape(-1))
+        loss = (
+            module.loss_fn(scores, targets)
+            if data.get("project")
+            else F.cross_entropy(scores.flatten(0, 1), targets.reshape(-1))
+        )
         loss.backward()
         row = {
             "inputs": inputs.tolist(),
@@ -117,9 +152,58 @@ def character(module, mode, data):
                 changed = inputs.clone()
                 changed[1] = (changed[1] + 2) % 5
                 row["firstBatch"] = predict(changed)[:1].tolist()
-        optimizer.step()
+        if data.get("project"):
+            if not trace:
+                row["weights"] = (
+                    module.head_weights(F.layer_norm(x, (x.size(-1),)), p)
+                    .detach()
+                    .tolist()
+                )
+            module.update(optimizer)
+        else:
+            optimizer.step()
         row["state"] = {k: v.detach().tolist() for k, v in p.items()}
         trace.append(row)
+    return trace
+
+
+def signal_model(module, data):
+    import torch
+
+    torch.set_num_threads(1)
+    tensor = lambda values: torch.tensor(values, dtype=torch.float64)
+    fn = getattr(module, data["name"])
+    w = torch.nn.Parameter(tensor(data["initial"]))
+    if "valid" in data:
+        with torch.no_grad():
+            x = tensor(data["valid"])
+            result = fn(x, w)
+            changed = x.clone()
+            changed[:, -1] += 7
+            return {
+                "predictions": result.tolist(),
+                "prefix": fn(changed, w)[:, :-1].tolist(),
+                "state": w.tolist(),
+            }
+    trace = []
+    for x, target in data["batches"]:
+        x = tensor(x)
+        scores = fn(x, w)
+        loss = (scores - tensor(target)).square().mean()
+        (grad,) = torch.autograd.grad(loss, w)
+        with torch.no_grad():
+            perturbed = x.clone()
+            perturbed[:, -1] += 7
+            prefix = fn(perturbed, w)[:, :-1]
+            w.sub_(data["lr"] * grad)
+        trace.append(
+            {
+                "output": scores.detach().tolist(),
+                "prefix": prefix.tolist(),
+                "grad": grad.tolist(),
+                "state": w.tolist(),
+            }
+        )
     return trace
 
 
@@ -128,7 +212,18 @@ with contextlib.redirect_stdout(sys.stderr):
     spec = importlib.util.spec_from_file_location("submission", sys.argv[2])
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    if sys.argv[1] in ("char_train", "char_sample", "char_probe"):
+    if sys.argv[1] == "signal_setup":
+        import torch
+
+        result = {
+            "windows": module.split_windows(args["total"], args["cut"], args["length"]),
+            "normalization": module.normalization(
+                torch.tensor(args["train"], dtype=torch.float64)
+            ),
+        }
+    elif sys.argv[1] == "signal_model":
+        result = signal_model(module, args)
+    elif sys.argv[1] in ("char_train", "char_sample", "char_probe"):
         result = character(module, sys.argv[1], args)
     elif sys.argv[1] in ("train", "validate"):
         result = training(module, sys.argv[1], args)

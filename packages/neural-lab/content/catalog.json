@@ -1,6 +1,6 @@
 {
   "id": "neural-lab",
-  "version": "0.2.2",
+  "version": "0.5.0",
   "lessons": [
     {
       "id": "L01",
@@ -1186,6 +1186,311 @@
             "把两个 batch 混在一起或合并头时交换顺序",
             "让未来字符参与 softmax；用 detach 或 NumPy 切断梯度",
             "让验证窗口跨越训练集边界，或直接预测同位置 token"
+          ]
+        },
+        {
+          "id": "L12-assembly",
+          "lessonId": "L12",
+          "title": "项目 · 组装字符解码器 / Decoder assembly",
+          "kind": "code",
+          "prompt": "实现下列 PyTorch 组件，按依赖组装单层因果模型。p.heads 指定头数。预测改变学习率会怎样影响留出损失并验证。",
+          "starter": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    raise NotImplementedError(\"shifted\")\n\n# %% position\ndef position(ids, p):\n    raise NotImplementedError(\"position\")\n\n# %% embed\ndef embed(ids, p):\n    raise NotImplementedError(\"embed\")\n\n# %% causal_mask\ndef causal_mask(scores):\n    raise NotImplementedError(\"causal_mask\")\n\n# %% head_weights\ndef head_weights(x, p):\n    raise NotImplementedError(\"head_weights\")\n\n# %% merge_heads\ndef merge_heads(heads):\n    raise NotImplementedError(\"merge_heads\")\n\n# %% attention\ndef attention(x, p):\n    raise NotImplementedError(\"attention\")\n\n# %% pre_norm\ndef pre_norm(x):\n    raise NotImplementedError(\"pre_norm\")\n\n# %% ffn\ndef ffn(x, p):\n    raise NotImplementedError(\"ffn\")\n\n# %% block\ndef block(x, p):\n    raise NotImplementedError(\"block\")\n\n# %% lm_head\ndef lm_head(x, p):\n    raise NotImplementedError(\"lm_head\")\n\n# %% logits\ndef logits(x, p):\n    raise NotImplementedError(\"logits\")\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    raise NotImplementedError(\"loss_fn\")\n\n# %% update\ndef update(optimizer):\n    raise NotImplementedError(\"update\")\n",
+          "reference": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores.masked_fill(~torch.ones(scores.size(-2), scores.size(-1), dtype=torch.bool).tril(), -torch.inf)\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    return lm_head(block(x, p), p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+          "hints": [
+            "项目 · 组装字符解码器 / Decoder assembly：从输入与输出形状开始。",
+            "先在小批量样本上检查因果方向。",
+            "检查各参数梯度与一次 SGD 更新。"
+          ],
+          "concepts": [
+            "L07",
+            "L08",
+            "L09",
+            "L10",
+            "L11",
+            "L12"
+          ],
+          "testVersion": "1",
+          "runtimeKey": "project-char-v1",
+          "inputDomain": "PyTorch float64 on CPU. ids=[B,T], x=[B,T,D], p.heads=2 或 3。输出实数 logits；目标右移一位。 position 返回 [T,D]；embed 将 token 查表与位置相加。head_weights 对投影 Q/K 分头缩放并遮蔽未来，返回 [B,H,T,T]；merge_heads 将 [B,H,T,D/H] 还原 [B,T,D]。attention 混合 V 后右乘 out。两条残差分别连接 Pre-LN Attention 和 Pre-LN ReLU FFN；lm_head 线性映射到词表。loss_fn 用 shifted 的 targets 计算平均交叉熵，update 执行一步 SGD。",
+          "commonErrors": [
+            "读入未来的目标值",
+            "忽略批次或特征维变化"
+          ],
+          "components": [
+            {
+              "name": "shifted",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "position",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "embed",
+              "version": "1",
+              "dependsOn": [
+                "position"
+              ]
+            },
+            {
+              "name": "causal_mask",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "head_weights",
+              "version": "1",
+              "dependsOn": [
+                "causal_mask"
+              ]
+            },
+            {
+              "name": "merge_heads",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "attention",
+              "version": "1",
+              "dependsOn": [
+                "head_weights",
+                "merge_heads"
+              ]
+            },
+            {
+              "name": "pre_norm",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "ffn",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "block",
+              "version": "1",
+              "dependsOn": [
+                "attention",
+                "pre_norm",
+                "ffn"
+              ]
+            },
+            {
+              "name": "lm_head",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "logits",
+              "version": "1",
+              "dependsOn": [
+                "block",
+                "lm_head"
+              ]
+            },
+            {
+              "name": "loss_fn",
+              "version": "1",
+              "dependsOn": [
+                "shifted",
+                "logits"
+              ]
+            },
+            {
+              "name": "update",
+              "version": "1",
+              "dependsOn": [
+                "loss_fn"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "L12-variant",
+          "lessonId": "L12",
+          "title": "变式 · 改变头数与上下文 / Decoder transfer",
+          "kind": "code",
+          "prompt": "从字符项目复用选定组件，在三头、宽度六、三步上下文上检验形状、因果性和训练。",
+          "starter": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    raise NotImplementedError(\"shifted\")\n\n# %% position\ndef position(ids, p):\n    raise NotImplementedError(\"position\")\n\n# %% embed\ndef embed(ids, p):\n    raise NotImplementedError(\"embed\")\n\n# %% causal_mask\ndef causal_mask(scores):\n    raise NotImplementedError(\"causal_mask\")\n\n# %% head_weights\ndef head_weights(x, p):\n    raise NotImplementedError(\"head_weights\")\n\n# %% merge_heads\ndef merge_heads(heads):\n    raise NotImplementedError(\"merge_heads\")\n\n# %% attention\ndef attention(x, p):\n    raise NotImplementedError(\"attention\")\n\n# %% pre_norm\ndef pre_norm(x):\n    raise NotImplementedError(\"pre_norm\")\n\n# %% ffn\ndef ffn(x, p):\n    raise NotImplementedError(\"ffn\")\n\n# %% block\ndef block(x, p):\n    raise NotImplementedError(\"block\")\n\n# %% lm_head\ndef lm_head(x, p):\n    raise NotImplementedError(\"lm_head\")\n\n# %% logits\ndef logits(x, p):\n    raise NotImplementedError(\"logits\")\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    raise NotImplementedError(\"loss_fn\")\n\n# %% update\ndef update(optimizer):\n    raise NotImplementedError(\"update\")\n",
+          "reference": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores.masked_fill(~torch.ones(scores.size(-2), scores.size(-1), dtype=torch.bool).tril(), -torch.inf)\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    return lm_head(block(x, p), p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+          "hints": [
+            "变式 · 改变头数与上下文 / Decoder transfer：从输入与输出形状开始。",
+            "先在小批量样本上检查因果方向。",
+            "检查各参数梯度与一次 SGD 更新。"
+          ],
+          "concepts": [
+            "L07",
+            "L08",
+            "L09",
+            "L10",
+            "L11",
+            "L12"
+          ],
+          "testVersion": "1",
+          "runtimeKey": "project-char-wide-v1",
+          "inputDomain": "PyTorch float64 on CPU. ids=[B,T], x=[B,T,D], p.heads=2 或 3。输出实数 logits；目标右移一位。 position 返回 [T,D]；embed 将 token 查表与位置相加。head_weights 对投影 Q/K 分头缩放并遮蔽未来，返回 [B,H,T,T]；merge_heads 将 [B,H,T,D/H] 还原 [B,T,D]。attention 混合 V 后右乘 out。两条残差分别连接 Pre-LN Attention 和 Pre-LN ReLU FFN；lm_head 线性映射到词表。loss_fn 用 shifted 的 targets 计算平均交叉熵，update 执行一步 SGD。",
+          "commonErrors": [
+            "读入未来的目标值",
+            "忽略批次或特征维变化"
+          ],
+          "components": [
+            {
+              "name": "shifted",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "position",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "embed",
+              "version": "1",
+              "dependsOn": [
+                "position"
+              ]
+            },
+            {
+              "name": "causal_mask",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "head_weights",
+              "version": "1",
+              "dependsOn": [
+                "causal_mask"
+              ]
+            },
+            {
+              "name": "merge_heads",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "attention",
+              "version": "1",
+              "dependsOn": [
+                "head_weights",
+                "merge_heads"
+              ]
+            },
+            {
+              "name": "pre_norm",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "ffn",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "block",
+              "version": "1",
+              "dependsOn": [
+                "attention",
+                "pre_norm",
+                "ffn"
+              ]
+            },
+            {
+              "name": "lm_head",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "logits",
+              "version": "1",
+              "dependsOn": [
+                "block",
+                "lm_head"
+              ]
+            },
+            {
+              "name": "loss_fn",
+              "version": "1",
+              "dependsOn": [
+                "shifted",
+                "logits"
+              ]
+            },
+            {
+              "name": "update",
+              "version": "1",
+              "dependsOn": [
+                "loss_fn"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "L12-signal",
+          "lessonId": "L12",
+          "title": "项目 · 结构振动预测 / Vibration forecasting",
+          "kind": "code",
+          "prompt": "在相同连续时间切分、训练段标准化、批次和 SGD 预算下比较三种因果预测器。预测下一采样值并解释验证误差。",
+          "starter": "import torch\nimport torch.nn.functional as F\n\n# %% split_windows\ndef split_windows(total, cut, length):\n    raise NotImplementedError(\"split_windows\")\n\n# %% normalization\ndef normalization(train):\n    raise NotImplementedError(\"normalization\")\n\n# %% linear_mlp\ndef linear_mlp(x, w):\n    raise NotImplementedError(\"linear_mlp\")\n\n# %% causal_cnn\ndef causal_cnn(x, w):\n    raise NotImplementedError(\"causal_cnn\")\n\n# %% local_attention\ndef local_attention(x, w):\n    raise NotImplementedError(\"local_attention\")\n",
+          "reference": "import torch\nimport torch.nn.functional as F\n\n# %% split_windows\ndef split_windows(total, cut, length):\n    return list(range(cut-length)), list(range(cut,total-length))\n\n# %% normalization\ndef normalization(train):\n    return train.mean().item(), train.std(unbiased=False).item()\n\n# %% linear_mlp\ndef linear_mlp(x, w):\n    return (F.pad(x, (3, 0)).unfold(-1, 4, 1) @ w[:4]).tanh() * w[4] + w[5]\n\n# %% causal_cnn\ndef causal_cnn(x, w):\n    return F.conv1d(F.pad(x[:, None], (3, 0)), w[:4].view(1, 1, 4)).squeeze(1).relu() * w[4] + w[5]\n\n# %% local_attention\ndef local_attention(x, w):\n    v = F.pad(x, (3, 0)).unfold(-1, 4, 1)\n    a = (v * w[0] + w[1:5]).softmax(-1)\n    return (a * v).sum(-1) + w[5]\n",
+          "hints": [
+            "项目 · 结构振动预测 / Vibration forecasting：从输入与输出形状开始。",
+            "先在小批量样本上检查因果方向。",
+            "检查各参数梯度与一次 SGD 更新。"
+          ],
+          "concepts": [
+            "L07",
+            "L08",
+            "L09",
+            "L10",
+            "L11",
+            "L12"
+          ],
+          "testVersion": "1",
+          "runtimeKey": "project-signal-v1",
+          "inputDomain": "PyTorch float64 on CPU. x=[batch,time], w=[6]. 左侧补三个零，四点滑窗；MLP 用 tanh，CNN 用 ReLU，Attention 用四点加权。 每个模型使用同一初值 w[6]。按最早到最新排列四点窗 u：MLP 计算 tanh(u·w[:4])*w[4]+w[5]，CNN 对左填充窗口做单核互相关、ReLU 后同样缩放；Attention 用 softmax(u*w[0]+w[1:5]) 加权 u，再加 w[5]。每个时刻输出一个下一点预测。 split_windows 返回两个升序起点列表，窗口输入与下一点目标都必须落在同一分段。normalization 只接收训练段，返回均值和总体标准差。",
+          "commonErrors": [
+            "读入未来的目标值",
+            "忽略批次或特征维变化"
+          ],
+          "components": [
+            {
+              "name": "split_windows",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "normalization",
+              "version": "1",
+              "dependsOn": []
+            },
+            {
+              "name": "linear_mlp",
+              "version": "1",
+              "dependsOn": [
+                "split_windows",
+                "normalization"
+              ]
+            },
+            {
+              "name": "causal_cnn",
+              "version": "1",
+              "dependsOn": [
+                "split_windows",
+                "normalization"
+              ]
+            },
+            {
+              "name": "local_attention",
+              "version": "1",
+              "dependsOn": [
+                "split_windows",
+                "normalization"
+              ]
+            }
           ]
         }
       ],

@@ -65,3 +65,32 @@ test('already cancelled run never invokes execution', async () => {
   assert.equal(r.check_status, 'not_run')
   assert.deepEqual(r.events, [])
 })
+
+test('diagnostics require bounded, finite matrices and traceable sample axes', async () => {
+  const { validateDiagnosticEvent } = await import('../src/runner.ts')
+  const event = {
+    runId: 'r',
+    seq: 1,
+    type: 'tensor' as const,
+    name: 'attention.layer0.head0',
+    shape: [33, 33],
+    stride: 3,
+    data: Array.from({ length: 11 }, () => Array(11).fill(0)),
+  }
+  assert.doesNotThrow(() => validateDiagnosticEvent(event))
+  assert.throws(() => validateDiagnosticEvent({ ...event, stride: 1 }), /axes/)
+  assert.throws(
+    () =>
+      validateDiagnosticEvent({
+        ...event,
+        shape: undefined,
+        data: Array.from({ length: 129 }, () => [0]),
+      }),
+    /tensor/i,
+  )
+  assert.throws(
+    () => validateDiagnosticEvent({ ...event, shape: undefined, data: [[Infinity]] }),
+    /tensor/i,
+  )
+  assert.throws(() => validateDiagnosticEvent({ ...event, type: 'shape', shape: [-1] }), /shape/)
+})

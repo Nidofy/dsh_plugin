@@ -89,6 +89,13 @@ try {
     assert.deepEqual(engine.overview()[key], oldOverview[key])
   assert.equal(engine.overview().profileRevision, 0)
   assert.equal(engine.workspace('L05-code').draft, 'survived 0.1.2')
+  await engine.close()
+  engine = await open('0.5.0')
+  assert.equal(engine.workspace('L05-code').draft, 'survived 0.1.2')
+  assert.deepEqual(engine.workspace('L04-train').runs, oldMLP.runs)
+  assert.deepEqual(engine.workspace('L04-train').answers, oldMLP.answers)
+  assert.ok(engine.exercise('L12-variant').components.length > 10)
+  console.log('PASS packaged 0.2.2 to 0.5.0 retains old runs and enables project contracts')
   console.log('PASS packaged 0.2.1 to 0.2.2 preserves existing records')
   console.log('PASS packaged 0.2.0 to 0.2.1 preserves MLP run, prediction, reflection and review')
   console.log(

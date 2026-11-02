@@ -1,12 +1,14 @@
 import { trainingDataset } from './training-protocol.ts'
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
-import { randomUUID } from 'node:crypto'
+import { splitProject } from './project.ts'
+import { createHash, randomUUID } from 'node:crypto'
 import { acquireOwner } from './owner.ts'
 import { Store } from './store.ts'
 import { Runner, type RunnerLimits } from './runner.ts'
 import { loadCatalog } from './catalog.ts'
 import type {
+  ProjectFile,
   Catalog,
   Exercise,
   HelpLevel,
@@ -160,7 +162,120 @@ export class Engine {
       return revision + 1
     })
   }
-  start(id: string, code: string, config: Record<string, number>, prediction?: string): RunRecord {
+  projectFile(runId: string): ProjectFile {
+    const r = this.run(runId)
+    if (
+      !r.components ||
+      !r.codeHash ||
+      !r.trainingManifest ||
+      !r.resolvedImageId ||
+      r.run_status !== 'completed'
+    )
+      throw Error('Select a completed project run')
+    const results = r.events
+      .filter((e) => ['metric', 'sample', 'check', 'tensor', 'shape'].includes(e.type))
+      .map((e) =>
+        e.artifactId ? { ...e, data: this.store.diagnostic(r.id, e.artifactId!, r.codeHash!) } : e,
+      )
+    const signature = createHash('sha256')
+      .update(JSON.stringify(results.map(({ runId, seq, ...event }) => event)))
+      .digest('hex')
+    const bundle: ProjectFile = {
+      format: 'neural-lab-project/1',
+      variantOf: r.variantOf,
+      exerciseId: r.exerciseId,
+      contentVersion: r.contentVersion,
+      testVersion: r.testVersion,
+      runId: r.id,
+      code: r.code,
+      codeHash: r.codeHash,
+      components: r.components,
+      seed: r.seed,
+      learningRate: r.config.learningRate ?? 0.05,
+      prediction: r.prediction ?? '',
+      manifest: r.trainingManifest,
+      image: r.resolvedImageId,
+      help: r.help,
+      explanations: this.store
+        .history<{ runId?: string; text: string }>(r.exerciseId, 'answer')
+        .filter((a) => a.runId === r.id)
+        .map((a) => a.text),
+      results,
+      signature,
+    }
+    if (Buffer.byteLength(JSON.stringify(bundle)) > 200000)
+      throw Error('Project export exceeds 200 KB')
+    return bundle
+  }
+  inspectProject(id: string, text: string): ProjectFile {
+    if (Buffer.byteLength(text) > 200000) throw Error('Project file exceeds 200 KB')
+    let b: ProjectFile
+    try {
+      b = JSON.parse(text) as ProjectFile
+    } catch {
+      throw Error('Invalid project JSON')
+    }
+    const e = this.exercise(id)
+    if (
+      !b ||
+      typeof b !== 'object' ||
+      !e.components ||
+      b.format !== 'neural-lab-project/1' ||
+      b.exerciseId !== id ||
+      b.testVersion !== e.testVersion ||
+      b.contentVersion !== this.catalog.version ||
+      b.manifest?.protocol !== e.runtimeKey ||
+      b.manifest.dataset !== trainingDataset(e.runtimeKey) ||
+      !Number.isSafeInteger(b.seed) ||
+      b.seed < 0 ||
+      b.seed > 10000 ||
+      !Number.isFinite(b.learningRate) ||
+      b.learningRate < 0.001 ||
+      b.learningRate > 0.3 ||
+      typeof b.runId !== 'string' ||
+      !/^[\w-]{1,100}$/.test(b.runId) ||
+      !['unknown', 'none', 'concept', 'steps', 'code', 'answer'].includes(b.help) ||
+      ![b.manifest.initialHash, b.manifest.splitHash, b.manifest.batchHash].every(
+        (v) => typeof v === 'string' && /^[a-f0-9]{64}$/.test(v),
+      ) ||
+      typeof b.image !== 'string' ||
+      !/^sha256:[a-f0-9]{64}$/.test(b.image) ||
+      !Array.isArray(b.explanations) ||
+      !Array.isArray(b.results) ||
+      b.results.some((ev) => !ev || typeof ev !== 'object') ||
+      b.explanations.some((s) => typeof s !== 'string') ||
+      b.results.length > 1024 ||
+      !Array.isArray(b.components) ||
+      b.components.length !== e.components.length
+    )
+      throw Error('Incompatible project manifest')
+    this.text(b.code)
+    this.text(b.prediction, 2000)
+    const hash = (v: string) => createHash('sha256').update(v).digest('hex')
+    if (
+      hash(b.code) !== b.codeHash ||
+      hash(JSON.stringify(b.results.map(({ runId, seq, ...event }) => event))) !== b.signature
+    )
+      throw Error('Project digest mismatch')
+    const parts = splitProject(b.code, e.components).parts
+    for (const [i, part] of parts.entries()) {
+      const c = b.components[i]
+      if (
+        c?.name !== part.name ||
+        c.version !== e.components[i]!.version ||
+        c.sha256 !== hash(part.code)
+      )
+        throw Error('Invalid component digest: ' + part.name)
+    }
+    return b
+  }
+  start(
+    id: string,
+    code: string,
+    config: Record<string, number>,
+    prediction?: string,
+    variantOf?: string,
+  ): RunRecord {
     if (this.closing) throw Error('Plugin is stopping')
     if (this.active.size >= 2) throw Error('Two runs are already active')
     const exercise = this.exercise(id)
@@ -180,10 +295,33 @@ export class Engine {
     }
     if (config.seed !== undefined && !Number.isSafeInteger(config.seed))
       throw Error('Seed must be an integer')
+    if (variantOf) {
+      const parent = this.run(variantOf)
+      if (
+        id !== 'L12-variant' ||
+        parent.exerciseId !== 'L12-assembly' ||
+        parent.run_status !== 'completed' ||
+        !this.store
+          .history<{ runId?: string }>(parent.exerciseId, 'answer')
+          .some((answer) => answer.runId === variantOf)
+      )
+        throw Error('A transfer must refer to an explained decoder run')
+    }
     const run: RunRecord = {
+      ...(variantOf ? { variantOf } : {}),
       id: randomUUID(),
       exerciseId: id,
       code,
+      codeHash: createHash('sha256').update(code).digest('hex'),
+      ...(exercise.components
+        ? {
+            components: splitProject(code, exercise.components).parts.map((p, i) => ({
+              name: p.name,
+              version: exercise.components![i]!.version,
+              sha256: createHash('sha256').update(p.code).digest('hex'),
+            })),
+          }
+        : {}),
       ...(training ? { prediction: prediction!.trim() } : {}),
       contentVersion: this.catalog.version,
       testVersion: exercise.testVersion,

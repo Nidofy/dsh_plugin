@@ -627,4 +627,13 @@ export const css = `.neural-lab {
   color: var(--nl-muted);
   border-top: 1px solid var(--nl-border);
 }
+
+.neural-lab .nl-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.neural-lab [aria-label="项目复现 Project replay"] pre {
+  max-height: 18rem;
+  overflow: auto;
+}
 `

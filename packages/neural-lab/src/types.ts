@@ -2,7 +2,18 @@ export type RunStatus =
   'queued' | 'running' | 'completed' | 'failed' | 'cancelled' | 'timed_out' | 'interrupted'
 export type CheckStatus = 'not_run' | 'passed' | 'failed' | 'inconclusive' | 'not_applicable'
 export type HelpLevel = 'unknown' | 'none' | 'concept' | 'steps' | 'code' | 'answer'
+export interface ComponentContract {
+  name: string
+  version: string
+  dependsOn: string[]
+}
+export interface ComponentSnapshot {
+  name: string
+  version: string
+  sha256: string
+}
 export interface Exercise {
+  components?: ComponentContract[]
   evidenceKind?: 'explanation' | 'implementation' | 'debugging' | 'transfer'
   id: string
   lessonId: string
@@ -48,17 +59,23 @@ export interface RunEvent {
   manifest?: TrainingManifest
   runId: string
   seq: number
-  type: 'metric' | 'tensor' | 'artifact' | 'check' | 'config' | 'manifest' | 'sample'
+  type: 'metric' | 'tensor' | 'artifact' | 'check' | 'config' | 'manifest' | 'sample' | 'shape'
   name: string
   config?: ExperimentConfig
   value?: number
   step?: number
+  artifactId?: string
+  stride?: number
+  shape?: number[]
   data?: number[][]
   path?: string
   passed?: boolean
   detail?: string
 }
 export interface RunRecord {
+  variantOf?: string
+  codeHash?: string
+  components?: ComponentSnapshot[]
   prediction?: string
   trainingManifest?: TrainingManifest
   id: string
@@ -130,6 +147,26 @@ export interface Overview {
   reviews: { exerciseId: string; reason: string; due: string; runId?: string }[]
   evidence: Evidence[]
 }
+export interface ProjectFile {
+  variantOf?: string
+  format: 'neural-lab-project/1'
+  exerciseId: string
+  contentVersion: string
+  testVersion: string
+  runId: string
+  code: string
+  codeHash: string
+  components: ComponentSnapshot[]
+  seed: number
+  learningRate: number
+  prediction: string
+  manifest: TrainingManifest
+  image: string
+  help: HelpLevel
+  explanations: string[]
+  signature: string
+  results: RunEvent[]
+}
 export interface EnvironmentStatus {
   requestedImage?: string
   resolvedImageId?: string
@@ -150,6 +187,7 @@ export interface LabApi {
     code: string,
     config: Record<string, number>,
     prediction?: string,
+    variantOf?: string,
   ): Promise<RunRecord>
   run(id: string, signal?: AbortSignal): Promise<RunRecord>
   cancel(id: string): Promise<void>
@@ -162,6 +200,9 @@ export interface LabApi {
     mode?: HelpLevel,
   ): Promise<{ status: string; text: string; attemptId: string }>
   environment(): Promise<EnvironmentStatus>
+  projectFile(runId: string): Promise<ProjectFile>
+  inspectProject(id: string, text: string): Promise<ProjectFile>
+  diagnostic(runId: string, artifactId: string, codeHash: string): Promise<number[][]>
   exportData(): Promise<string>
   snooze(id: string, runId?: string): Promise<void>
   finishReview(runId: string): Promise<void>

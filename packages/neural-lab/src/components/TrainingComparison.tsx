@@ -13,10 +13,30 @@ function changedLines(left: string, right: string) {
     endA--
     endB--
   }
-  return [
-    ...a.slice(first, endA).map((line) => '- ' + line),
-    ...b.slice(first, endB).map((line) => '+ ' + line),
-  ].join('\n')
+  // Bound the edit-distance table; the raw snapshots remain available for unusually long edits.
+  const rows = a.slice(first, endA),
+    cols = b.slice(first, endB)
+  if (rows.length * cols.length > 200000)
+    return [...rows.map((v) => '- ' + v), ...cols.map((v) => '+ ' + v)].join('\n')
+  const lengths = Array.from({ length: rows.length + 1 }, () => new Uint32Array(cols.length + 1))
+  for (let i = rows.length - 1; i >= 0; i--)
+    for (let j = cols.length - 1; j >= 0; j--)
+      lengths[i]![j] =
+        rows[i] === cols[j]
+          ? 1 + lengths[i + 1]![j + 1]!
+          : Math.max(lengths[i + 1]![j]!, lengths[i]![j + 1]!)
+  const out: string[] = []
+  let i = 0,
+    j = 0
+  while (i < rows.length || j < cols.length) {
+    if (i < rows.length && j < cols.length && rows[i] === cols[j]) {
+      out.push('  ' + rows[i++])
+      j++
+    } else if (j === cols.length || (i < rows.length && lengths[i + 1]![j]! >= lengths[i]![j + 1]!))
+      out.push('- ' + rows[i++])
+    else out.push('+ ' + cols[j++])
+  }
+  return out.join('\n')
 }
 
 export function TrainingComparison({ runs }: { runs: RunRecord[] }) {
@@ -74,6 +94,16 @@ export function TrainingComparison({ runs }: { runs: RunRecord[] }) {
           <p>
             Seed {a.seed} · A: {JSON.stringify(a.effectiveConfig)} · B:{' '}
             {JSON.stringify(b.effectiveConfig)}
+          </p>
+          <p>
+            改变的变量 / Changed variables:{' '}
+            {[
+              ...(a.code !== b.code ? ['code'] : []),
+              ...Object.keys({ ...a.effectiveConfig, ...b.effectiveConfig }).filter(
+                (k) =>
+                  JSON.stringify(a.effectiveConfig?.[k]) !== JSON.stringify(b.effectiveConfig?.[k]),
+              ),
+            ].join(', ') || '—'}
           </p>
           <pre aria-label="代码差异 Code diff">
             {changedLines(a.code, b.code) || '代码相同 / Identical code'}

@@ -267,7 +267,9 @@ def code_cases():
             args = [q, k, v, lengths]
             expected = np.zeros_like(q)
             for b, size in enumerate(lengths):
-                expected[b, :size] = attention(q[b, :size], k[b, :size], v[b, :size], True)
+                expected[b, :size] = attention(
+                    q[b, :size], k[b, :size], v[b, :size], True
+                )
         elif n == 12:
             t = list(range(6 + trial))
             args = [t]
@@ -329,10 +331,14 @@ def code_cases():
         k = rng.normal(size=q.shape)
         v = rng.normal(size=q.shape)
         try:
-            a = call([q.tolist(), k.tolist(), v.tolist()] + ([[4, 3]] if n == 17 else []))
+            a = call(
+                [q.tolist(), k.tolist(), v.tolist()] + ([[4, 3]] if n == 17 else [])
+            )
             k[:, -1] += 20
             v[:, -1] -= 30
-            b = call([q.tolist(), k.tolist(), v.tolist()] + ([[4, 3]] if n == 17 else []))
+            b = call(
+                [q.tolist(), k.tolist(), v.tolist()] + ([[4, 3]] if n == 17 else [])
+            )
             close(np.asarray(a)[:, :-1], np.asarray(b)[:, :-1])
             emit("check", "future-invariance", passed=True)
         except Exception as e:
@@ -626,10 +632,14 @@ def experiment():
 
 try:
     student_directory = stage_student()
-    if key == "train-char-v1":
+    if key in ("train-char-v1", "project-char-v1", "project-char-wide-v1"):
         from char_transformer import train_character
 
-        train_character(seed, float(sys.argv[4]), call, emit)
+        train_character(seed, float(sys.argv[4]), call, emit, key)
+    elif key == "project-signal-v1":
+        from vibration import train_signal
+
+        train_signal(seed, float(sys.argv[4]), call, emit)
     elif key == "train-mlp-v1":
         from training import editable_mlp
 

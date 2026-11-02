@@ -77,7 +77,8 @@ export async function dispatch(
         id(),
         string(args[1]),
         numeric(args[2]),
-        args[3] === undefined ? undefined : string(args[3]),
+        args[3] == null ? undefined : string(args[3]),
+        args[4] == null ? undefined : string(args[4]),
       )
     case 'run':
       return engine.run(id())
@@ -93,6 +94,12 @@ export async function dispatch(
       return engine.hint(id(), string(args[1]) as HelpLevel)
     case 'environment':
       return engine.runner.environment()
+    case 'projectFile':
+      return engine.projectFile(id())
+    case 'inspectProject':
+      return engine.inspectProject(id(), string(args[1]))
+    case 'diagnostic':
+      return engine.store.diagnostic(id(), string(args[1]), string(args[2]))
     case 'exportData':
       return JSON.stringify(
         { ...JSON.parse(engine.store.export()), contentVersion: engine.catalog.version },
@@ -154,7 +161,7 @@ export async function handleRequest(
     for await (const chunk of req) {
       signal.throwIfAborted()
       size += chunk.length
-      if (size > 160000) throw Error('Request too large')
+      if (size > 512000) throw Error('Request too large')
       chunks.push(Buffer.from(chunk))
     }
     const input = object(JSON.parse(Buffer.concat(chunks).toString('utf8')))

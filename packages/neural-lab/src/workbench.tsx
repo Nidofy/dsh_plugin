@@ -9,6 +9,7 @@ import type {
   HelpLevel,
 } from './types.ts'
 import { css } from './client-style.ts'
+import { ProjectExchange } from './components/ProjectExchange.tsx'
 import { ProfileTab } from './components/ProfileTab.tsx'
 import { TrainingComparison } from './components/TrainingComparison.tsx'
 import { ActivityTab } from './components/ActivityTab.tsx'
@@ -108,6 +109,7 @@ export function Workbench({ api }: { api: LabApi }) {
     [mentorBusy, setMentorBusy] = useState(false),
     [prediction, setPrediction] = useState(''),
     [learningRate, setLearningRate] = useState(0.05),
+    [variantParent, setVariantParent] = useState<RunRecord>(),
     [reviewRun, setReviewRun] = useState(''),
     [explanation, setExplanation] = useState(''),
     [mode, setMode] = useState<HelpLevel>('unknown'),
@@ -286,6 +288,42 @@ export function Workbench({ api }: { api: LabApi }) {
       ? ws.runs.filter((r) => r.run_status === 'completed')
       : []
   const reflectionRun = finishedTraining.find((r) => r.id === reviewRun) ?? finishedTraining[0]
+  // Unsubmitted learning notes are local to this device. Committed predictions and
+  // reflections are stored by the Host with their immutable run and attempt.
+  const memoScope = ws ? JSON.stringify([ws.profileId, ws.exercise.id, ws.attemptId]) : ''
+  const predictionKey = memoScope && 'neural-lab-prediction/' + memoScope
+  const explanationKey =
+    memoScope && 'neural-lab-reflection/' + memoScope + '/' + (reflectionRun?.id ?? 'text')
+  function restoreMemo(key: string) {
+    try {
+      return key ? (localStorage.getItem(key) ?? '') : ''
+    } catch {
+      return ''
+    }
+  }
+  useLayoutEffect(() => {
+    setPrediction(restoreMemo(predictionKey))
+  }, [predictionKey])
+  useLayoutEffect(() => {
+    setExplanation(restoreMemo(explanationKey))
+  }, [explanationKey])
+  function persistMemo(key: string, value: string) {
+    if (!key) return
+    try {
+      if (value) localStorage.setItem(key, value)
+      else localStorage.removeItem(key)
+    } catch {
+      report('本机草稿空间不可用 / Local draft storage unavailable')
+    }
+  }
+  function updatePrediction(value: string) {
+    setPrediction(value)
+    persistMemo(predictionKey, value)
+  }
+  function updateExplanation(value: string) {
+    setExplanation(value)
+    persistMemo(explanationKey, value)
+  }
   const reflections = ws?.answers?.filter((a) => a.runId === reflectionRun?.id) ?? []
   const lesson = overview?.catalog.lessons.find((l) => l.id === lessonId)
   async function syncActivity() {
@@ -353,19 +391,26 @@ export function Workbench({ api }: { api: LabApi }) {
     setRun(undefined)
     await save()
     const r = trainingDataset(ws?.exercise.runtimeKey)
-      ? await api.start(exerciseId, code, { seed, learningRate }, prediction)
+      ? await api.start(
+          exerciseId,
+          code,
+          { seed, learningRate },
+          prediction,
+          exerciseId === 'L12-variant' ? variantParent?.id : undefined,
+        )
       : await api.start(exerciseId, code, { seed })
     setReviewRun('')
     setExplanation('')
     setRun(r)
     setTab('exercise')
   }
-  function choose(id: string, lid: string, reviewId?: string) {
+  function choose(id: string, lid: string, reviewId?: string, parent?: RunRecord) {
     void action(async () => {
       await save()
       await api.selectLesson(lid)
       setLesson(lid)
       setExercise(id)
+      setVariantParent(parent)
       setReviewRun(reviewId ?? '')
       setExplanation('')
       if (reviewId) setTab('exercise')
@@ -434,7 +479,18 @@ export function Workbench({ api }: { api: LabApi }) {
       </main>
     )
   return (
-    <main className="neural-lab">
+    <main
+      onKeyDown={(e) => {
+        if (e.altKey && e.key.toLowerCase() === 'e' && !busy) {
+          e.preventDefault()
+          setTab('exercise')
+          requestAnimationFrame(() =>
+            contentPane.current?.querySelector<HTMLTextAreaElement>('.nl-editorInput')?.focus(),
+          )
+        }
+      }}
+      className="neural-lab"
+    >
       <style>{css}</style>
       <header className="nl-top">
         <div className="nl-brand">
@@ -661,6 +717,8 @@ export function Workbench({ api }: { api: LabApi }) {
           )}
           {(tab === 'exercise' || tab === 'experiment') && lesson && (
             <ActivityTab
+              key={exerciseId}
+              api={api}
               lesson={lesson}
               workspace={ws}
               contentVersion={overview.catalog.version}
@@ -668,7 +726,7 @@ export function Workbench({ api }: { api: LabApi }) {
               exerciseId={exerciseId}
               draft={code}
               prediction={prediction}
-              onPrediction={setPrediction}
+              onPrediction={updatePrediction}
               learningRate={learningRate}
               onLearningRate={setLearningRate}
               seed={seed}
@@ -700,6 +758,38 @@ export function Workbench({ api }: { api: LabApi }) {
           )}
           {tab === 'exercise' && ws && trainingDataset(ws.exercise.runtimeKey) && (
             <>
+              {ws.exercise.components && (
+                <ProjectExchange
+                  key={exerciseId}
+                  api={api}
+                  exercise={ws.exercise}
+                  run={reflectionRun}
+                  busy={busy}
+                  onApply={(file) => {
+                    editCode(file.code)
+                    updatePrediction(file.prediction)
+                    setSeed(file.seed)
+                    setLearningRate(file.learningRate)
+                    setStatus('已载入草稿，检查后运行 / Draft loaded for review')
+                  }}
+                />
+              )}
+              {exerciseId === 'L12-assembly' && reflectionRun && reflections.length > 0 && (
+                <button
+                  disabled={busy}
+                  onClick={() => choose('L12-variant', lessonId, undefined, reflectionRun)}
+                >
+                  以此运行为起点挑战三头变式 / Start transfer
+                </button>
+              )}
+              {exerciseId === 'L12-variant' && variantParent && (
+                <p>
+                  来源运行 {variantParent.id} ·{' '}
+                  <button disabled={busy} onClick={() => editCode(variantParent.code)}>
+                    沿用来源组件 / Reuse source snapshot
+                  </button>
+                </p>
+              )}
               <TrainingComparison runs={ws.runs} />
               {reflectionRun && (
                 <section>
@@ -744,7 +834,7 @@ export function Workbench({ api }: { api: LabApi }) {
                       maxLength={12000}
                       onChange={(e) => {
                         setReviewRun(reflectionRun.id)
-                        setExplanation(e.target.value)
+                        updateExplanation(e.target.value)
                       }}
                     />
                   </label>
@@ -788,7 +878,7 @@ export function Workbench({ api }: { api: LabApi }) {
             <section>
               <label>
                 解释未来扰动为何适用于传感器数据 / Explain future invariance
-                <textarea value={explanation} onChange={(e) => setExplanation(e.target.value)} />
+                <textarea value={explanation} onChange={(e) => updateExplanation(e.target.value)} />
               </label>
               <p>
                 自评标准：指出预测时刻可见的数据，说明改变未来读数后哪些输出必须不变。 / Identify

@@ -1,3 +1,4 @@
+import { Diagnostic } from './Diagnostic.tsx'
 import type { RunRecord, RunEvent } from '../types.ts'
 interface Series {
   name: string
@@ -215,6 +216,28 @@ export function RunResults({ run }: { run: RunRecord }) {
             </figure>
           )
         })}
+      {run.events.some((e) => e.type === 'shape') && (
+        <details>
+          <summary>实际张量形状 / Tensor shape trace</summary>
+          <ol>
+            {run.events
+              .filter((e) => e.type === 'shape')
+              .map((e) => (
+                <li key={e.seq}>
+                  {e.name} · [{e.shape?.join(', ')}] · {e.detail} · step {e.step}
+                </li>
+              ))}
+          </ol>
+        </details>
+      )}
+      {run.events
+        .filter((e) => e.artifactId)
+        .map((e) => (
+          <Diagnostic key={run.id + ':' + e.seq} run={run} event={e} />
+        ))}
+      {!run.events.some((e) => e.artifactId) && (
+        <small>此运行未记录逐头诊断 / No per-head diagnostic recorded</small>
+      )}
       {run.events
         .filter((e) => e.type === 'artifact')
         .map((e) => (

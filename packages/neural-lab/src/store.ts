@@ -35,6 +35,9 @@ export class Store {
       this.db.exec(
         'CREATE INDEX IF NOT EXISTS history_activity ON history(exercise,kind); CREATE INDEX IF NOT EXISTS run_activity ON runs(exercise)',
       )
+      this.db.exec(
+        'CREATE TABLE IF NOT EXISTS diagnostics(run TEXT NOT NULL, artifact TEXT NOT NULL, hash TEXT NOT NULL, matrix TEXT NOT NULL, PRIMARY KEY(run,artifact))',
+      )
       for (const run of this.runs())
         if (['queued', 'running'].includes(run.run_status))
           this.putRun({
@@ -92,9 +95,37 @@ export class Store {
     }
   }
   putRun(run: RunRecord): void {
-    this.db
-      .prepare('INSERT INTO runs VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body')
-      .run(run.id, run.exerciseId, JSON.stringify(run))
+    const upsert = this.db.prepare(
+      'INSERT INTO runs VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body',
+    )
+    if (!run.components || !run.events.some((e) => e.type === 'tensor' && e.data)) {
+      upsert.run(run.id, run.exerciseId, JSON.stringify(run))
+      return
+    }
+    this.db.exec('SAVEPOINT run_diagnostics')
+    try {
+      const events = run.events.map((event) => {
+        if (event.type !== 'tensor' || !event.data) return event
+        const { data, ...header } = event
+        const artifactId = 'tensor-' + event.seq
+        this.db
+          .prepare('INSERT OR IGNORE INTO diagnostics VALUES(?,?,?,?)')
+          .run(run.id, artifactId, run.codeHash!, JSON.stringify(data))
+        return { ...header, artifactId, shape: header.shape ?? [data.length, data[0]?.length ?? 0] }
+      })
+      upsert.run(run.id, run.exerciseId, JSON.stringify({ ...run, events }))
+      this.db.exec('RELEASE run_diagnostics')
+    } catch (error) {
+      this.db.exec('ROLLBACK TO run_diagnostics; RELEASE run_diagnostics')
+      throw error
+    }
+  }
+  diagnostic(runId: string, artifactId: string, hash: string): number[][] {
+    const row = this.db
+      .prepare('SELECT matrix FROM diagnostics WHERE run=? AND artifact=? AND hash=?')
+      .get(runId, artifactId, hash)
+    if (!row) throw Error('Unknown diagnostic identity')
+    return JSON.parse(String(row.matrix))
   }
   runs(id?: string): RunRecord[] {
     return (
@@ -156,6 +187,20 @@ export class Store {
       })
   }
   export(): string {
+    const total = this.db
+      .prepare(
+        `SELECT
+      (SELECT coalesce(sum(length(cast(body as blob))),0) FROM runs) +
+      (SELECT coalesce(sum(length(cast(body as blob))),0) FROM history) +
+      (SELECT coalesce(sum(length(cast(code as blob))),0) FROM drafts) +
+      (SELECT coalesce(sum(length(cast(value as blob))),0) FROM kv) +
+      (SELECT coalesce(sum(length(matrix)),0) FROM diagnostics) AS bytes`,
+      )
+      .get()
+    if (Number(total?.bytes) > 8_000_000)
+      throw Error(
+        'Archive exceeds export budget. Export an individual project or back up the closed database.',
+      )
     return JSON.stringify(
       {
         schemaVersion: 1,
@@ -163,6 +208,7 @@ export class Store {
         settings: this.db.prepare('SELECT * FROM kv').all(),
         drafts: this.db.prepare('SELECT * FROM drafts').all(),
         runs: this.runs(),
+        diagnostics: this.db.prepare('SELECT * FROM diagnostics').all(),
         evidence: this.evidence(),
         history: this.db.prepare('SELECT * FROM history').all(),
       },

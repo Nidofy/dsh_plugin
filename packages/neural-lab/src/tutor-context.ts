@@ -79,6 +79,22 @@ export async function askActivityTutor(
             seed: last.seed,
             prediction: last.prediction,
             manifest: last.trainingManifest,
+            components: last.components,
+            diagnostics: last.events
+              .filter(
+                (e) =>
+                  e.artifactId ||
+                  e.name.includes('gradient_norm') ||
+                  e.name.includes('parameter_delta'),
+              )
+              .slice(-10)
+              .map(({ name, step, value, artifactId, shape }) => ({
+                name,
+                step,
+                value,
+                artifactId,
+                shape,
+              })),
             reflection: workspace.answers
               ?.filter((a) => a.runId === last.id)
               .at(-1)

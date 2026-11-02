@@ -34,6 +34,9 @@ export function createApi(): LabApi {
     hint: (...a) => call('hint', a),
     tutor: (...a) => call('tutor', a),
     environment: () => call('environment'),
+    projectFile: (id) => call('projectFile', [id]),
+    inspectProject: (id, text) => call('inspectProject', [id, text]),
+    diagnostic: (...args) => call('diagnostic', args),
     exportData: () => call('exportData'),
     snooze: (...a) => call('snooze', a),
   }
