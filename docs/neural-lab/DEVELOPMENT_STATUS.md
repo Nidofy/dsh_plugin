@@ -1,3 +1,11 @@
+# Neural Lab 0.5.1 · 2026-11-06
+
+1106三份规划按真实0.5.0盘点执行。现有模型组装/训练、诊断与教学路径保留，本轮补齐MLP实验复现、历史解释来源、导师交付归属、跨run归因与异步回流保护；两份诊断讲义直接进入L04/L12。包/课包0.5.1，仍41活动、SQLite v1、固定官方DSH rc.5；未为路线标题虚升0.6。
+
+B/C/D/E各自独立工作树交付，由A依次集成；根代理只读审查。最终strict与30行为测试、真实CPU参考/强错解/攻击/取消、MLP两profile复现、浏览器项目复现、完整旧包升级链、空缓存安装、官方Web CPU及Electron三头冷重启均通过。真实模型成功回答未测，不等同受控provider测试。
+
+包123308字节，SHA256 `6d43261f2fe552d096ac9aa809370f9bc1242b7a13650a388c982818b8d12016`。完整命令、失败历史、边界与回退见[本轮验收](VALIDATION.md)；[能力矩阵](CAPABILITY_MATRIX.md)、[变更记录](CHANGELOG.md)、[产物身份](artifact.json)。未push、未发布、未改实际profile。
+
 # Neural Lab 0.5.0 · 2026-11-02
 
 开发位于 .worktrees/neural-lab，分支 codex/neural-lab-v0.1。实现提交 6755316 将 M1、M2、M3 一并交付为 0.5.0。官方宿主固定为 DSH 0.2.1-rc.5。

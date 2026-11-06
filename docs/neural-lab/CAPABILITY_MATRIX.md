@@ -27,3 +27,7 @@
 
 当前失败环境探测：沙箱账户Git ownership导致首次npm test失败，用户权限重跑成功；Docker用户权限也报Linux engine pipe缺失（尚未启动）。最终结果见VALIDATION最新段落，不把这些失败抹去。
 
+
+## 结束复核（0.5.1）
+
+上述表为不可覆盖的P0现场状态。完成后：MLP/Transformer实训、真CPU强错解、取消/隔离、MLP复现、跨run归因、历史解释/导师、两项目教学、旧包升级、官方空缓存安装、Web及Electron冷重启均 **Done / VERIFIED**，证据逐项见VALIDATION最新段落。真实模型成功回答 **Unverified**；全主题/辅助技术专门认证未覆盖。已完成旧能力没有被重复建设，剩余项目未伪标完成。固定Activity/Event/ProjectFile1/SQLite1沿用；仅新增可选answer来源字段与明确的0.5.0导入兼容。

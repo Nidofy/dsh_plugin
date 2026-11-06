@@ -1,3 +1,51 @@
+# Neural Lab 0.5.1 · 2026-11-06 本轮实测
+
+基线为 `22eec9f8b2e74452cdb1b311989f465bf7a2028e`/0.5.0。独立分支 `codex/neural-lab-v0.1`，实现冻结 `7f733e4a3f927dcc5c0ae107ecb73045cd219c9c`。按三份1106规划先盘点再实施；未重复建立已有41活动、14组件与训练器。B/C/D/E分别独立worktree；主控唯一核心写者，根代理只读复审。原规划目录保持未跟踪原样。
+
+## 实际命令与结果
+
+命令工作目录为 `packages/neural-lab`，Windows Node 24.16.0、Docker 29.9.2，固定官方rc.5源码 `b830ec950faba0a46dda564be3e2d854afed94f1`。镜像身份与产物见 artifact.json。CPU测试只在Docker降权学生进程执行，没有宿主Python后备。
+
+| 命令 | 结果/证据范围 |
+|---|---|
+| `npm test` | 最终strict TypeScript + Host/Client构建通过；30/30行为回归。含SQLite/CAS/旧记录、真实Cordis/HTTP、5项受控runner故障、导师6项、UI hook harness3项、历史解释/MLP复现2项；受控注入不冒充真实模型或Docker。 |
+| `node --experimental-transform-types tests/runner-real.ts` | 29参考活动passed；对应未完成starter均failed；MLP/LM固定种子重复一致。tests/results/reference-runs.json。 |
+| `node --experimental-transform-types tests/training-real.ts` | 28轮真实MLP/单文件decoder参考、重现、学习率/seed及梯度、validation、shift、mask、batch、detach、Pre-LN/FFN反例，全部满足断言。tests/results/training-021.json。 |
+| `node --experimental-transform-types tests/numeric-1106-real.ts` | 两项目参考passed；9新增反例completed/failed且命中指定check、无成功sample：detach loss、相同forward错误梯度、loss内部错label、batch串扰、反向mask、validation跨边界、遗漏末窗口、detach卷积、attention跨batch。详见NUMERIC_1106。 |
+| `node --experimental-transform-types tests/runner-adversarial.ts` | 18攻击/错解正确failed + timeout/cancel正确；固定softmax、忽略heads、假PASS、父FD、无限日志、入口/提交/目录篡改均拒绝。tests/results/adversarial-results.json共20结果。 |
+| `node --experimental-transform-types tests/runner-lifecycle.ts` | 真实inspect/snapshot/create时取消均无残留；卸载清理、tag变化仍固定镜像ID通过。 |
+| `node --experimental-transform-types tests/mlp-replay-real.ts` | 两独立临时库真CPU：导入不生成可信run、显式重跑后image/manifest/signature完全相同。`.build/mlp-replay-1106.json`。 |
+| `node tests/ui-check.mjs` | 21真实浏览器回归，0pageerror：延迟A/B/C保存最终C、刷新待确认、冲突合并、切课、延迟导师、1366/1920/900/640布局滚动。无CPU模式，此行不声称模型成功。 |
+| `node tests/project-ui.mjs` | 真实浏览器/HTTP/SQLite/Docker：14组件复用、三头变式、实际索引attention、文件预览、640窄屏第二profile显式重放、解释/复习来源隔离通过。`.build/ui/projects-050.json`为沿用文件名，内容是本轮run。 |
+| `npm pack --ignore-scripts --cache .build/npm-cache` | 正式本地0.5.1 tgz；23文件，123308字节。 |
+| `node tests/upgrade-020.mjs` | 0.1.2→0.1.3→0.2.0→0.2.1→0.2.2→0.5.0→0.5.1包升级链通过；最后阶段drafts/runs/history逐项相同。 |
+| `node tests/install-check.mjs` | 官方rc.5插件管理器空缓存离线安装、真实Cordis启停、课程读取、build identity及安装字节核验通过。临时profile删除。`.build/install-result.json`。 |
+| `NEURAL_UI_CPU=1 NEURAL_WITH_LEARN=1 node tests/ui-official-session.mjs` | 最终包真实官方模块加载/认证RPC，Attention、MLP、Transformer、signal CPU，对照/解释/复习，四尺寸滚动与Learn0.5.2共存通过；无模型降级与CLI卸载通过，0pageerror，server停止/profile清理。`.build/ui/official-validation.json`、official-training.json；人工查看1920与640截图。 |
+| `NEURAL_DESKTOP_EXE=... node tests/native-022.mjs` | `D:/Software/DSH_Official/DeepSeek Harness.exe` CLI先断言rc.5；独立DSH_HOME/user-data安装、可见编辑、三头真CPU与attention、切课、完整冷重启代码/run恢复通过。`.build/ui/native-050.json`沿用历史文件名但version=0.5.1。只关闭自己启动的实例，临时目录已清理。 |
+
+## 实际变更与契约
+
+- 0.5.1包与课包；41活动、SQLite v1、测试协议/检查版本不变。两份诊断讲义并入L04/L12，覆盖六阶段学习闭环、解析梯度、三头、split及因果归因限制。公式/手算经C与根审查分别核对。
+- 单文件MLP与decoder也可用既有ProjectFile/1，components为空；导入仅载入草稿，不能导入可信成绩。0.5.0文件仅在当前0.5.1、同activity/testVersion/runtime/data契约下兼容，保留原内容版本，复现比较显示版本差异。校验导入event身份、类型、序列、数值与矩阵限额。
+- 历史run解释保留该run的content/test/attempt/help；解释时的answerAttemptId/answerHelp/answerContentVersion/answerTestVersion另记并可见。旧行不重写。导师规范化外部返回，不允许额外字段覆盖request身份；空白/失败/取消/无模型不记实际帮助。
+- 运行对照显示代码、配置、seed、环境、版本、数据来源与Unknown；不从两个run推断因果。ProjectExchange按请求代际隔离旧文件/run/失败返回，未completed禁导出。
+
+## 失败与边界（不伪PASS）
+
+最初沙箱账户不能读取固定宿主Git身份、Docker配置；按要求在用户权限重跑。Docker Desktop最初未启动，随后启动并实测。B/D的升级审批长期挂起，由A中断、取回提交后统一验证；D新增9反例后来实际全过。课包版本更新后直接跑Host测试曾因旧lib失败，规范npm test先build后全部通过。project-ui首轮因新增来源说明令旧精确文本断言失配超时；更新为完整新文案后真实重放全过。最终diff检查已去掉多余EOF空行。
+
+真实配置模型的成功回答未验证（隔离profile无凭据）；导师返回/取消等由受控provider验证，官方现场只验证无模型降级。GPU、长任务断点恢复、任意学生文件产物、超大数据不属于本轮；没有单独的全主题/屏幕阅读器资格认证。此前历史报告保留，不算本轮实测。
+
+## 包与回退
+
+`packages/neural-lab/dsh-plugin-neural-lab-0.5.1.tgz`，123308 B；SHA256 `6d43261f2fe552d096ac9aa809370f9bc1242b7a13650a388c982818b8d12016`。源码与manifest见artifact.json；未push/未npm发布，未改真实DSH_HOME。
+
+回退前停用并备份完整学习根（含SQLite/WAL/runs），保留旧0.5.0 tgz。0.5.0不会展示新增解释时帮助字段，且不提供MLP复现入口；不要将未展示视为资料丢失。需要精确回到升级前状态时恢复升级前冷备份，禁止在运行时覆盖SQLite。
+
+后续高价值：有明确授权的真实模型成功交付验证；专门暗/亮主题与辅助技术矩阵；更长训练与GPU在独立资源/恢复契约下评估。当前没有已确认未修的P0/P1缺陷。
+
+---
+
 # 0.5.0 验收 · 2026-11-02
 
 工作树 .worktrees/neural-lab，源码提交 6755316f446fa4fdc9a734751d61041d83089d87。官方 DSH 0.2.1-rc.5，源码 revision b830ec950faba0a46dda564be3e2d854afed94f1；Node 24.16.0，CPU 镜像 sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7。
