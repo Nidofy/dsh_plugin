@@ -1,6 +1,37 @@
 import { randomUUID, createHash } from 'node:crypto'
-import type { HelpLevel } from './types.ts'
+import type { HelpLevel, RunEvent } from './types.ts'
 import type { Engine } from './engine.ts'
+
+export interface TutorContext { runId: string; component: string; check?: string }
+
+// Frozen legacy controller names; no substring inference of check ownership.
+const mlpChecks: Record<string, string> = {
+  'forward + MSE': 'train_step', 'fresh minibatch gradients': 'train_step',
+  'SGD parameter update': 'train_step', 'held-out validation MSE': 'validate',
+  'validation uses eval and no_grad': 'validate', 'validation preserves parameters': 'validate',
+}
+
+export function validateTutorContext(engine: Engine, exerciseId: string, context: TutorContext) {
+  if (!context || typeof context !== 'object') throw Error('Invalid tutor context')
+  for (const value of [context.runId, context.component, ...(context.check === undefined ? [] : [context.check])]) {
+    engine.text(value, 200)
+    if (!value.trim()) throw Error('Empty tutor context')
+  }
+  const exercise = engine.exercise(exerciseId), run = engine.run(context.runId)
+  if (run.exerciseId !== exerciseId) throw Error('Tutor run belongs to another activity')
+  const mlp = ['train-mlp-v1', 'train-mlp-multi-v1'].includes(exercise.runtimeKey ?? '')
+  if (!exercise.components?.some(c => c.name === context.component) &&
+      !(mlp && ['train_step', 'validate'].includes(context.component)))
+    throw Error('Unknown tutor component')
+  const checks = run.events.filter(event => event.type === 'check' && event.runId === run.id && event.name === context.check)
+  const owned = (event: RunEvent) => {
+    const component = (event as RunEvent & { component?: string }).component
+    return component !== undefined ? component === context.component : mlp && mlpChecks[event.name] === context.component
+  }
+  if (context.check !== undefined && (!checks.length || !checks.every(owned)))
+    throw Error('Tutor check has no verified component mapping in this run')
+  return { run, checks, context: { runId: run.id, component: context.component, ...(context.check === undefined ? {} : { check: context.check }) } }
+}
 
 /** Build only the current activity context; preserve the learner attempt before seeking help. */
 export async function askActivityTutor(
@@ -10,12 +41,14 @@ export async function askActivityTutor(
   selection: string,
   tutor: (prompt: string) => Promise<{ status: string; text: string }>,
   mode: HelpLevel = 'unknown',
+  context?: TutorContext,
 ): Promise<{ status: string; text: string; attemptId: string }> {
   const e = engine.exercise(exerciseId)
   if (!['unknown', 'concept', 'steps', 'code', 'answer'].includes(mode))
     throw Error('Invalid help mode')
   engine.text(text, 6000)
   engine.text(selection, 3000)
+  const focused = context === undefined ? undefined : validateTutorContext(engine, e.id, context)
   const workspace = engine.workspace(e.id)
   const lesson = engine.catalog.lessons.find((l) => l.id === e.lessonId)
   const profile = Object.fromEntries(
@@ -36,12 +69,15 @@ export async function askActivityTutor(
     requestId,
     exerciseId,
     mode,
+    requestedMode: mode,
+    observedHelp: engine.store.help(e.id),
+    ...(focused ? { context: focused.context } : {}),
     contentVersion: engine.catalog.version,
     testVersion: e.testVersion,
     cycle: engine.store.get('attempt:' + e.id, 'initial'),
   }
   engine.store.record(e.id, 'message', { ...identity, role: 'user', text, status: 'requested' })
-  const last = workspace.runs[0]
+  const last = focused?.run ?? workspace.runs[0]
   const snapshot = (code: string) => ({
     code: code.slice(0, 12000),
     sha256: createHash('sha256').update(code).digest('hex'),
@@ -60,6 +96,8 @@ export async function askActivityTutor(
       selection,
       question: text,
       mode,
+      requestedMode: mode,
+      focus: focused ? { ...focused.context, checks: focused.checks, source: 'program', mapping: 'validated' } : null,
       recentMessages: workspace.messages
         .filter((m) => m.cycle === identity.cycle)
         .slice(-8)
@@ -104,11 +142,13 @@ export async function askActivityTutor(
               last.contentVersion === engine.catalog.version &&
               last.testVersion === e.testVersion,
             source: 'program',
-            status: workspace.runs[0].run_status,
-            checks: workspace.runs[0].check_status,
-            events: workspace.runs[0].events.slice(-12),
-            effectiveConfig: workspace.runs[0].effectiveConfig,
-            log: workspace.runs[0].log.slice(-3000),
+            status: last.run_status,
+            checks: last.check_status,
+            events: last.events.slice(-12),
+            effectiveConfig: last.effectiveConfig,
+            environment: last.environment,
+            resolvedImageId: last.resolvedImageId,
+            log: last.log.slice(-3000),
           }
         : null,
     }),
@@ -122,8 +162,12 @@ export async function askActivityTutor(
       text: reply.text,
     }
   }).catch((error: unknown) => ({ status: 'failed', text: String(error) }))
-  engine.store.record(e.id, 'message', { ...identity, role: 'assistant', ...result })
+  const delivered = result.status === 'completed' && !!result.text.trim()
+  engine.store.record(e.id, 'message', { ...identity, role: 'assistant', ...result,
+    deliveredHelp: delivered ? 'unknown' : 'none', helpSource: 'mentor',
+    helpAssessment: 'unclassified',
+  })
   if (result.status === 'completed' && result.text.trim())
-    engine.recordHelp(e.id, mode, 'mentor', requestId, identity.cycle)
+    engine.recordHelp(e.id, 'unknown', 'mentor', requestId, identity.cycle)
   return { ...result, attemptId: identity.cycle }
 }
