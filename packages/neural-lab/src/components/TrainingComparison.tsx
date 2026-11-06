@@ -2,6 +2,35 @@ import { useState } from 'react'
 import type { RunRecord } from '../types.ts'
 import { MetricChart } from './RunResults.tsx'
 
+function stable(value: unknown): string {
+  if (Array.isArray(value)) return '[' + value.map(stable).join(',') + ']'
+  if (value && typeof value === 'object')
+    return '{' + Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => JSON.stringify(k) + ':' + stable(v)).join(',') + '}'
+  return JSON.stringify(value) ?? 'unknown'
+}
+
+export function comparisonFactors(a: RunRecord, b: RunRecord) {
+  const factor = (name: string, left: unknown, right: unknown) => ({
+    name, left, right,
+    status: left === undefined || right === undefined || left === '' || right === ''
+      ? '未知 / Unknown' : stable(left) === stable(right) ? '相同 / Same' : '变化 / Changed',
+  })
+  return [
+    factor('活动 / Activity', a.exerciseId, b.exerciseId),
+    factor('代码 / Code', a.code, b.code),
+    factor('代码哈希 / Code hash', a.codeHash, b.codeHash),
+    factor('实际配置 / Effective config', a.effectiveConfig, b.effectiveConfig),
+    factor('种子 / Seed', a.seed, b.seed),
+    factor('环境 / Environment', a.environment, b.environment),
+    factor('镜像身份 / Image digest', a.resolvedImageId, b.resolvedImageId),
+    factor('内容版本 / Content version', a.contentVersion, b.contentVersion),
+    factor('检查版本 / Test version', a.testVersion, b.testVersion),
+    factor('组件版本 / Components', a.components, b.components),
+    ...(['protocol', 'dataset', 'splitHash', 'initialHash', 'batchHash'] as const).map((key) =>
+      factor(key, a.trainingManifest?.[key], b.trainingManifest?.[key])),
+  ]
+}
+
 function changedLines(left: string, right: string) {
   const a = left.split('\n'),
     b = right.split('\n')
@@ -45,28 +74,19 @@ export function TrainingComparison({ runs }: { runs: RunRecord[] }) {
   const candidates = runs.filter(
     (r) =>
       r.run_status === 'completed' &&
-      r.trainingManifest &&
       r.events.some((e) => e.name === 'validation_loss'),
   )
   const a = candidates.find((r) => r.id === left) ?? candidates[0]
   const matches = a
     ? candidates.filter(
         (r) =>
-          r.id !== a.id &&
-          r.seed === a.seed &&
-          r.testVersion === a.testVersion &&
-          r.resolvedImageId === a.resolvedImageId &&
-          r.trainingManifest!.protocol === a.trainingManifest!.protocol &&
-          r.trainingManifest!.dataset === a.trainingManifest!.dataset &&
-          r.trainingManifest!.initialHash === a.trainingManifest!.initialHash &&
-          r.trainingManifest!.splitHash === a.trainingManifest!.splitHash &&
-          r.trainingManifest!.batchHash === a.trainingManifest!.batchHash,
+          r.id !== a.id && r.exerciseId === a.exerciseId,
       )
     : []
   const b = matches.find((r) => r.id === right) ?? matches[0]
   return (
     <section aria-label="同种子运行对照 Run comparison">
-      <h3>同种子运行对照 / Compare runs</h3>
+      <h3>运行对照与归因 / Compare runs and attribution</h3>
       {a && (
         <label>
           目标运行 A
@@ -95,6 +115,19 @@ export function TrainingComparison({ runs }: { runs: RunRecord[] }) {
             Seed {a.seed} · A: {JSON.stringify(a.effectiveConfig)} · B:{' '}
             {JSON.stringify(b.effectiveConfig)}
           </p>
+          <p>Run A: {a.id} · Run B: {b.id}</p>
+          <p role="note">
+            变量变化或未知时，不可直接因果归因；即使记录一致，两次运行也不能证明因果。每次只改变一个因素，并重复验证。
+            {' / Changes or unknown factors prevent direct causal attribution. Matching records alone do not prove causality; vary one factor and repeat.'}
+          </p>
+          <div className="nl-table-wrap"><table aria-label="归因因素 Attribution factors">
+            <thead><tr><th>因素 / Factor</th><th>状态 / Status</th><th>A</th><th>B</th></tr></thead>
+            <tbody>{comparisonFactors(a, b).map((f) => <tr key={f.name}>
+              <th>{f.name}</th><td>{f.status}</td>
+              <td>{f.name === '代码 / Code' ? '见下方差异 / See diff' : stable(f.left)}</td>
+              <td>{f.name === '代码 / Code' ? '见下方差异 / See diff' : stable(f.right)}</td>
+            </tr>)}</tbody>
+          </table></div>
           <p>
             改变的变量 / Changed variables:{' '}
             {[
@@ -119,7 +152,7 @@ export function TrainingComparison({ runs }: { runs: RunRecord[] }) {
           />
         </>
       ) : (
-        <p>用相同种子再运行一次，可单独改变学习率或训练代码。 / Run again with the same seed.</p>
+        <p>需要同一活动的两次已完成训练；建议固定种子，仅改变一个因素。 / Complete two runs of the same activity; keep the seed and vary one factor.</p>
       )}
     </section>
   )

@@ -1,4 +1,4 @@
-import type { Overview, Workspace } from '../types.ts'
+import type { Evidence, HelpLevel, Overview, Workspace } from '../types.ts'
 import { RunResults } from './RunResults.tsx'
 export function RecordsTab({
   workspace,
@@ -72,9 +72,11 @@ export function RecordsTab({
       <h3>知识点证据 / Evidence</h3>
       {overview.evidence
         .filter((e) => e.exerciseId === exerciseId)
-        .map((e, i) => (
+        .map((e: Evidence & { answerHelp?: HelpLevel }, i) => (
           <p key={i}>
-            {e.concept} · {e.kind} · {e.source} · {e.help} · {e.result} ·{' '}
+            {e.concept} · {e.kind} · {e.source} · 来源帮助 / Source help: {e.help}
+            {e.answerHelp !== undefined && <> · 解释时帮助 / Reflection help: {e.answerHelp}</>}
+            {' · '}{e.result} ·{' '}
             {e.contentVersion ?? '历史来源未知 / legacy'}/{e.testVersion ?? '?'}
             {(e.runId || e.answerId) && (
               <button
