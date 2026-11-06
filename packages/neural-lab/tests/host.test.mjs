@@ -68,8 +68,11 @@ test('actual HTTP RPC preserves drafts and notes, hides answers, validates input
     await call('independent', [id])
     assert.equal(engine.store.help(id), 'none')
     await call('saveProfile', [{ background: 'Python learner', goal: 'Understand attention' }, 0])
-    const tutor = (await call('tutor', [id, 'explain', 'selected line'])).body
+    // JSON.stringify turns an optional trailing undefined in the new client into null.
+    const tutor = (await call('tutor', [id, 'explain', 'selected line', 'unknown', undefined])).body
     assert.equal(tutor.status, 'unavailable')
+    for (const invalidContext of [[], 'not-context'])
+      assert.equal((await call('tutor', [id, 'explain', '', 'unknown', invalidContext])).status,400)
     assert.equal(grounded.profile.background, 'Python learner')
     assert.ok(grounded.lesson.objectives.length)
     assert.ok(grounded.lesson.excerpt.length <= 1800)
@@ -305,4 +308,16 @@ test('default profiles have independent owners and data; offline import preserve
     for (const ctx of contexts) await ctx.fiber.dispose()
     await tmp.cleanup()
   }
+})
+
+test('mentor budget is independently bounded and invalid configuration never opens the learning store',async()=>{
+ const temp=await temporaryDirectory('neural-tutor-budget-')
+ const ctx=new Context();new Service(ctx,'connection')
+ try {
+  for(const value of [-1,0,999,600001,1.5,NaN,Infinity,'300000',null,true,[]])
+    await assert.rejects(apply(ctx,{dataRoot:temp.directory,image:'fixture',tutorTimeoutMs:value}),/Invalid tutorTimeoutMs/)
+  await apply(ctx,{dataRoot:temp.directory,image:'fixture',timeoutMs:1000,tutorTimeoutMs:600000})
+  await ctx.fiber.dispose()
+  const reopened=await Engine.open(temp.directory);await reopened.close()
+ }finally{await ctx.fiber.dispose();await temp.cleanup()}
 })

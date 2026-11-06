@@ -1,4 +1,4 @@
-/** Test-only minimal account borrowing. Call before starting the isolated official Web server.
+/** Test-only minimal default-provider credential borrowing. Call before starting the isolated official Web server.
  * Caller owns the fresh home/profile and its cleanup; never call logout on the borrowed account.
  * Usage: await prepareLiveModelProfile({ home: absoluteIsolatedHome, profile: 'qualification' }).
  * No provider call is made here and returned readiness is configuration readiness only.
@@ -11,8 +11,6 @@ import { parseDocument, isSeq, isMap } from 'yaml'
 
 const exec = promisify(execFile)
 const sourceHome = 'C:/Users/enxi1/.dsh'
-const recordKeys = ['deepseek-account-platform/default', 'deepseek-account-platform/device']
-const expectedSelection = { provider: 'deepseek-account', model: 'deepseek-flash', reasoningEffort: 'high' }
 const same = (a, b) => process.platform === 'win32' ? a.toLowerCase() === b.toLowerCase() : a === b
 const within = (parent, child) => {
   const tail = relative(parent, child)
@@ -88,21 +86,37 @@ export async function prepareLiveModelProfile({ home, profile }) {
     stage = 'read-minimal-source-configuration'
     const credentialDoc = parse(await readFile(join(sourceHome, '.credentials.yaml'), 'utf8')).toJS({ maxAliasCount: 0 })
     requireValue(credentialDoc?.version === 1)
-    const grant = credentialDoc.records?.[recordKeys[0]], device = credentialDoc.records?.[recordKeys[1]]
-    requireValue(grant?.kind === 'grant' && grant.payload?.version === 1 &&
-      typeof grant.payload.token === 'string' && grant.payload.token.length > 0 &&
-      typeof grant.payload.issuer === 'string' && new URL(grant.payload.issuer).protocol === 'https:')
-    requireValue(device?.kind === 'grant' && typeof device.payload?.id === 'string' &&
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(device.payload.id))
-    const sourcePatch = parse(await readFile(join(sourceHome, 'profiles', 'desktop', 'cordis.patch.yml'), 'utf8')).toJS({ maxAliasCount: 0 })
-    requireValue(Array.isArray(sourcePatch))
-    const selection = sourcePatch.filter(row => row?.id === 'agent-default-model').at(-1)?.config
-    requireValue(selection && Object.entries(expectedSelection).every(([key, value]) => selection[key] === value))
-    // Project only the two supported payloads: never copy refs, browser sessions or other records.
-    const credentials = { version: 1, records: {
-      [recordKeys[0]]: { kind: 'grant', payload: { version: 1, token: grant.payload.token, issuer: grant.payload.issuer } },
-      [recordKeys[1]]: { kind: 'grant', payload: { id: device.payload.id } },
-    } }
+    const profileRows=parse(await readFile(join(sourceHome,'profiles','desktop','cordis.patch.yml'),'utf8')).toJS({maxAliasCount:0})
+    const homeRows=parse(await readFile(join(sourceHome,'cordis.patch.yml'),'utf8').catch(error=>{if(error.code==='ENOENT')return '[]';throw error})).toJS({maxAliasCount:0})
+    requireValue(Array.isArray(profileRows)&&Array.isArray(homeRows))
+    const sourceRows=[...profileRows,...homeRows]
+    const selection=Object.assign({},...sourceRows.filter(row=>row?.id==='agent-default-model').map(row=>row.config??{}))
+    requireValue(typeof selection.provider==='string'&&typeof selection.model==='string')
+    const expectedSelection={provider:selection.provider,model:selection.model,...(selection.reasoningEffort?{reasoningEffort:selection.reasoningEffort}:{})}
+    let credentials, providerRows, recordKeys=[], refKeys=[]
+    if(selection.provider==='deepseek-account') {
+      recordKeys=['deepseek-account-platform/default','deepseek-account-platform/device']
+      const grant=credentialDoc.records?.[recordKeys[0]],device=credentialDoc.records?.[recordKeys[1]]
+      requireValue(grant?.kind==='grant'&&grant.payload?.version===1&&typeof grant.payload.token==='string'&&grant.payload.token.length>0&&new URL(grant.payload.issuer).protocol==='https:')
+      requireValue(device?.kind==='grant'&&typeof device.payload?.id==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(device.payload.id))
+      credentials={version:1,records:{
+        [recordKeys[0]]:{kind:'grant',payload:{version:1,token:grant.payload.token,issuer:grant.payload.issuer}},
+        [recordKeys[1]]:{kind:'grant',payload:{id:device.payload.id}},
+      }}
+      providerRows=[{id:'deepseek-account',disabled:false,config:{desktopPlatform:null}},{id:'llm-deepseek-account',disabled:false}]
+    } else {
+      // Only the observed official catalog route is supported; never copy sibling routes.
+      requireValue(selection.provider==='zai-coding-cn')
+      const route=Object.assign({},...sourceRows.filter(row=>row?.id==='llm-pi-ai').map(row=>row.config?.providers?.[selection.provider]??{}))
+      requireValue(Object.keys(route).every(key=>key==='apiKeyEnv'))
+      const ref=route.apiKeyEnv
+      requireValue(typeof ref==='string'&&/^[A-Z_][A-Z0-9_]*$/.test(ref))
+      const key=credentialDoc.refs?.[ref]
+      requireValue(typeof key==='string'&&key.length>0)
+      refKeys=[ref]
+      credentials={version:1,refs:{[ref]:key},records:{}}
+      providerRows=[{id:'llm-pi-ai',disabled:false,config:{providers:{[selection.provider]:{apiKeyEnv:ref}}}}]
+    }
 
     stage = 'prepare-isolated-home-patch'
     const prior = await readFile(homePatch, 'utf8').catch(error => {
@@ -116,8 +130,7 @@ export async function prepareLiveModelProfile({ home, profile }) {
     const rows = [
       { id: 'agent-default-model', config: { ...expectedSelection } },
       { id: 'credentials', disabled: false, config: { path: destination } },
-      { id: 'deepseek-account', disabled: false, config: { desktopPlatform: null } },
-      { id: 'llm-deepseek-account', disabled: false },
+      ...providerRows,
     ]
     const ids = new Set(rows.map(row => row.id))
     patch.contents.items = patch.contents.items.filter(row => !(isMap(row) && ids.has(row.get('id'))))
@@ -136,8 +149,8 @@ export async function prepareLiveModelProfile({ home, profile }) {
     stage = 'apply-home-patch'
     await writeFile(homePatch, patch.toString(), { encoding: 'utf8', mode: 0o600 })
     return { configurationReady: true, modelCallVerified: false, isolated: true,
-      profile, selection: { ...expectedSelection }, credentialRecordCount: 2,
-      credentialRecordKeys: [...recordKeys], access, patchLayer: 'home-after-profile',
+      profile, selection: { ...expectedSelection }, credentialRecordCount: recordKeys.length, credentialRefCount: refKeys.length,
+      credentialRecordKeys: [...recordKeys], credentialRefKeys:refKeys, access, patchLayer: 'home-after-profile',
       sourceModified: false }
   } catch {
     // Never surface YAML fragments, provider payloads or child-process errors to logs.

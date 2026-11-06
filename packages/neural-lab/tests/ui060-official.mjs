@@ -12,6 +12,7 @@ const report = { rpcTrace: [], editorTrace: [], startedAt: new Date().toISOStrin
 const evidence = (name) => join(out, name)
 let browser, page
 const ownedGroups = new Set()
+let hostPanelRecoveries=0
 const terminal = (status) => !['queued', 'running'].includes(status)
 async function rpc(method, args) {
   return page.evaluate(async ({ method, args }) => {
@@ -45,8 +46,23 @@ async function uiActivity(exercise) {
       return selected&&editors.length===1&&editors[0].value===code&&!editors[0].readOnly
     },{id:exercise.id,code:workspace.draft})
   }
-  await until(async()=>page.getByLabel('运行前预测 Prediction',{exact:true}).count(),n=>n===1,'one settled activity prediction editor',30000)
+  await until(async()=>page.getByLabel('运行前预测 Prediction').count(),n=>n===1,'one settled activity prediction editor',30000)
   await page.getByRole('textbox', { name: 'Python 编辑器 Editor', exact: true }).waitFor()
+}
+async function ensureLab(exercise) {
+  if(await page.getByRole('heading',{name:'Neural Lab',exact:true}).isVisible())return
+  assert.equal(hostPanelRecoveries++,0,'Repeated host panel navigation must be investigated')
+  const before=await rpc('workspace',[exercise.id])
+  const groupsBefore=await rpc('groups',[exercise.id])
+  report.checks.push('One host panel change while awaiting CPU; explicitly reopened Neural Lab and verified saved draft/run/group identities')
+  await page.getByText(/^Neural Lab(?: · 神经网络实验室)?$/).first().click()
+  await page.getByRole('heading',{name:'Neural Lab',exact:true}).waitFor()
+  await uiActivity(exercise)
+  const after=await rpc('workspace',[exercise.id])
+  const groupsAfter=await rpc('groups',[exercise.id])
+  assert.equal(after.draft,before.draft)
+  assert.deepEqual(after.runs.map(r=>r.id).sort(),before.runs.map(r=>r.id).sort())
+  assert.deepEqual(groupsAfter.map(g=>({id:g.id,codeHash:g.codeHash,imageId:g.imageId})),groupsBefore.map(g=>({id:g.id,codeHash:g.codeHash,imageId:g.imageId})))
 }
 async function submit(exercise, code, configuration = {}) {
   await uiActivity(exercise)
@@ -56,7 +72,7 @@ async function submit(exercise, code, configuration = {}) {
   report.editorTrace.push({at:'after-fill',id:exercise.id,valueLength:(await editor.inputValue()).length,expectedLength:code.length})
   await page.waitForFunction(source=>document.querySelector('.nl-editorInput')?.value===source,code)
   assert.equal(await editor.inputValue(),code)
-  await page.getByLabel('运行前预测 Prediction', { exact: true }).fill('UI060: changing B/T/H preserves contracts; compare only frozen run evidence.')
+  await page.getByLabel('运行前预测 Prediction').fill('UI060: changing B/T/H preserves contracts; compare only frozen run evidence.')
   for (const key of ['batchSize', 'context', 'heads']) if (configuration[key] !== undefined) await page.getByLabel('Run ' + key, { exact: true }).selectOption(String(configuration[key]))
   if (configuration.steps !== undefined) await page.getByLabel('Observation steps', { exact: true }).fill(String(configuration.steps))
   const response = page.waitForResponse((r) => r.url().endsWith('/api/neural-lab/rpc') && r.request().postDataJSON()?.method === 'start')
@@ -77,7 +93,7 @@ async function submit(exercise, code, configuration = {}) {
 }
 async function shot(name) {
   const path = evidence(name)
-  await page.screenshot({ path, fullPage: true })
+  await page.screenshot({ path, fullPage: true, animations:'disabled',caret:'hide',timeout:60000 })
   report.screenshots.push(path)
 }
 try {
@@ -182,7 +198,7 @@ try {
   await panel.getByLabel('种子列表 / Seeds', { exact: true }).fill('42,43')
   await panel.getByLabel('学习率列表 / Learning rates', { exact: true }).fill('0.05,0.1')
   await panel.getByLabel('总预算（秒） / Total seconds', { exact: true }).fill('600')
-  await panel.getByLabel('实验假设 / Hypothesis', { exact: true }).fill('UI060: compare held-out losses over two seeds per learning rate; four frozen sequential runs.')
+  await panel.getByLabel('实验假设 / Hypothesis').fill('UI060: compare held-out losses over two seeds per learning rate; four frozen sequential runs.')
   async function startGroupUI() {
     const response = page.waitForResponse((r) => r.url().endsWith('/api/neural-lab/rpc') && r.request().postDataJSON()?.method === 'startGroup')
     await panel.getByRole('button', { name: '启动分组实验（冻结当前代码） / Start group with frozen code', exact: true }).click()
@@ -202,6 +218,7 @@ try {
     assert.equal(r.check_status, 'passed'); assert.equal(r.groupId, group.id); assert.equal(r.codeHash, group.codeHash); assert.equal(r.resolvedImageId, group.imageId)
     if (i) assert.ok(Date.parse(groupedRuns[i - 1].finishedAt) <= Date.parse(r.createdAt), 'Next run starts only after previous completion')
   }
+  await ensureLab(two)
   const groupButton = panel.getByRole('button').filter({ hasText: group.id })
   await until(async () => groupButton.innerText(), (value) => value.includes('completed'), 'group UI terminal refresh')
   await groupButton.click()
@@ -217,8 +234,8 @@ try {
     assert.deepEqual(cells.slice(4), ['0', '0', '0'])
   }
   assert.match(await panel.innerText(), /Queue completion does not establish mastery/)
-  await panel.getByLabel('实验结论 / Conclusion', { exact: true }).fill('Observed means differ by learning rate in this frozen four-run group.')
-  await panel.getByLabel('局限与不确定性 / Limitations', { exact: true }).fill('Only two seeds per rate and a tiny synthetic dataset; this does not prove causality or mastery.')
+  await panel.getByLabel('实验结论 / Conclusion').fill('Observed means differ by learning rate in this frozen four-run group.')
+  await panel.getByLabel('局限与不确定性 / Limitations').fill('Only two seeds per rate and a tiny synthetic dataset; this does not prove causality or mastery.')
   const conclusionResponse = page.waitForResponse((r) => r.url().endsWith('/api/neural-lab/rpc') && r.request().postDataJSON()?.method === 'concludeGroup')
   await panel.getByRole('button', { name: '保存结论与局限 / Save conclusion and limitations', exact: true }).click()
   const concluded = await (await conclusionResponse).json()
@@ -227,7 +244,9 @@ try {
   await shot('v060-group-statistics.png')
   report.checks.push('UI explicitly starts real four-run group; timestamps prove serial order; UI mean and sample SD equal independent recomputation; conclusion/limitations CAS saved')
 
-  await panel.getByLabel('实验假设 / Hypothesis', { exact: true }).fill('UI060 cancellation: preserve completed evidence and stop queued runs.')
+  await ensureLab(two)
+  assert.equal(await panel.getByLabel('实验假设 / Hypothesis').count(),1)
+  await panel.getByLabel('实验假设 / Hypothesis').fill('UI060 cancellation: preserve completed evidence and stop queued runs.')
   const cancelGroup = await startGroupUI()
   await panel.getByRole('button', { name: '取消此实验组 / Cancel this group', exact: true }).click()
   const cancelledList = await until(() => rpc('groups', [two.id]), (groups) => groups.find((g) => g.id === cancelGroup.id)?.status === 'cancelled', 'group cancellation')

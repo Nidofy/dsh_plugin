@@ -132,7 +132,23 @@ try {
   await page.keyboard.press('ArrowRight')
   assert.notEqual(await page.evaluate(()=>document.activeElement?.getAttribute('data-debug-component')), await first.getAttribute('data-debug-component'))
   await mkdir(join(base, '.build/ui'), { recursive: true })
-  await page.screenshot({path:join(base,'.build/ui/native-060.png')})
+  await page.bringToFront()
+  await page.evaluate(()=>document.fonts.ready)
+  const capturedRun=await output.getAttribute('data-run-id')
+  assert.ok(capturedRun)
+  const testedWindow=await app.browserWindow(page)
+  const capture=await testedWindow.evaluate(async(window,runId)=>{
+    const selector=JSON.stringify('.nl-results[data-run-id="'+runId+'"]')
+    const probe='Boolean(document.querySelector('+selector+')) && document.body.innerText.includes("Neural Lab")'
+    if(!await window.webContents.executeJavaScript(probe))throw Error('Capture window does not contain tested Neural Lab run')
+    const image=await window.capturePage()
+    if(image.isEmpty())throw Error('Native window capture is empty')
+    return image.toPNG().toString('base64')
+  },capturedRun)
+  await testedWindow.dispose()
+  const png=Buffer.from(capture,'base64')
+  assert.ok(png.length>1000)
+  await writeFile(join(base,'.build/ui/native-060.png'),png)
   const log = {
     projectRun: await output.getAttribute('data-run-id'),
     version,
@@ -144,6 +160,7 @@ try {
     checks: [
       'two-layer transfer, CPU training and layer1/head1 indexed heatmap',
       'native component debugger, layer1 gradient and keyboard focus',
+      'real isolated BrowserWindow.capturePage PNG',
       'isolated install',
       'visible editor',
       'Docker CPU passed',

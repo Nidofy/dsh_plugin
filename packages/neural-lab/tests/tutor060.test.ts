@@ -76,3 +76,39 @@ test('failed/cancelled/unavailable/throw/empty output never count as delivered h
   assert.equal(engine.store.history(exerciseId, 'help-delivered').length, 0)
   assert.ok(engine.store.history<any>(exerciseId, 'message').filter(m => m.role === 'assistant').every(m => m.deliveredHelp === 'none'))
 }))
+
+test('shape-correct numeric failure supplies bounded actual component events and earlier global failure',async()=>fixture(async(engine,run)=>{
+ engine.exercise(exerciseId).components=[{name:'attention',version:'1',dependsOn:[]}]
+ run.events=[
+  {runId:run.id,seq:4,type:'check',name:'attention alternate B/T/heads',source:'program',passed:false},
+  {runId:run.id,seq:9,type:'shape',name:'attention',component:'attention',source:'student',shape:[1,2,6]},
+  {runId:run.id,seq:10,type:'check',name:'module attention',component:'attention',layer:0,source:'program',passed:false,detail:'expected shape [1, 2, 6], atol=1e-8'},
+  {runId:run.id,seq:69,type:'check',name:'module attention execution shape',component:'attention',layer:0,step:1,source:'program',passed:true},
+  {runId:run.id,seq:70,type:'shape',name:'attention',component:'attention',layer:0,step:1,source:'student',shape:[1,2,6]},
+  ...Array.from({length:100},(_,i)=>({runId:run.id,seq:100+i,type:'metric' as const,name:'gradient_norm',component:'attention',layer:1,step:i+1,source:'program' as const,value:.01})),
+  {runId:'foreign-run',seq:0,type:'shape',name:'attention',component:'attention',source:'student',shape:[9,9,9]},
+ ]
+ engine.store.putRun(run)
+ const prompts:any[]=[]
+ const provider=async(prompt:string)=>{prompts.push(JSON.parse(prompt));return {status:'completed',text:'Earlier response incorrectly called the shape invalid'}}
+ const focus={runId:run.id,component:'attention',check:'module attention'}
+ await askActivityTutor(engine,exerciseId,'Diagnose','',provider,'concept',focus)
+ await askActivityTutor(engine,exerciseId,'Check the previous assertion against actual shapes','',provider,'concept',focus)
+ const p=prompts[1]
+ assert.equal(p.lastExecutedSnapshot.earliestFailedCheck.seq,4)
+ assert.equal(p.focus.checks[0].seq,10)
+ assert.equal(p.focus.events.length,64)
+ assert.equal(p.focus.totalEvents,104)
+ assert.equal(p.focus.omittedEvents,40)
+ const sample=p.focus.events.find((e:any)=>e.seq===9)
+ assert.deepEqual(sample.shape,[1,2,6]);assert.equal(sample.source,'student');assert.equal(sample.layer,undefined)
+ const measured=p.focus.events.find((e:any)=>e.seq===70)
+ assert.equal(measured.layer,0);assert.equal(measured.step,1)
+ assert.equal(p.focus.events.find((e:any)=>e.seq===69).passed,true)
+ assert.ok(p.focus.events.every((e:any)=>e.runId===run.id))
+ assert.equal(p.focus.events.at(-1).seq,199)
+ assert.equal(p.lastExecutedSnapshot.diagnostics.at(-1).component,'attention')
+ assert.equal(p.lastExecutedSnapshot.diagnostics.at(-1).layer,1)
+ assert.match(p.focus.checkSemantics,/BOTH shape and numerical/)
+ assert.ok(p.recentMessages.some((m:any)=>m.role==='assistant'&&m.text.includes('incorrectly called')))
+}))

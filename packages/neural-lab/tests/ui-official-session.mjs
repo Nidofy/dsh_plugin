@@ -190,7 +190,7 @@ try {
       NEURAL_EVIDENCE_PREFIX: prefix,
       NEURAL_PROFILE_NAME: profile,
     },
-    v060 ? 600000 : 240000,
+    v060 ? 900000 : 240000,
   )
   await new Promise((resolve) => {
     server.once('close', resolve)

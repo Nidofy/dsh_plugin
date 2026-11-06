@@ -11,6 +11,17 @@ const mlpChecks: Record<string, string> = {
   'validation uses eval and no_grad': 'validate', 'validation preserves parameters': 'validate',
 }
 
+// Omit matrix payloads; keep event identity and attribution exactly as collected.
+function tutorEvent(event: RunEvent) {
+  const {runId,seq,type,name,source,component,layer,step,shape,value,passed,artifactId,detail}=event
+  return {runId,seq,type,name,source,component,layer,step,shape,value,passed,artifactId,detail:detail?.slice(0,1000)}
+}
+function boundedEvents(events: RunEvent[]) {
+  const ordered=[...events].sort((a,b)=>a.seq-b.seq)
+  const chosen=ordered.length<=64?ordered:[...ordered.slice(0,32),...ordered.slice(-32)]
+  return {events:chosen.map(tutorEvent),totalEvents:ordered.length,omittedEvents:ordered.length-chosen.length}
+}
+
 export function validateTutorContext(engine: Engine, exerciseId: string, context: TutorContext) {
   if (!context || typeof context !== 'object') throw Error('Invalid tutor context')
   for (const value of [context.runId, context.component, ...(context.check === undefined ? [] : [context.check])]) {
@@ -97,7 +108,15 @@ export async function askActivityTutor(
       question: text,
       mode,
       requestedMode: mode,
-      focus: focused ? { ...focused.context, checks: focused.checks, source: 'program', mapping: 'validated' } : null,
+      focus: focused ? {
+        ...focused.context,
+        checks: boundedEvents(focused.checks).events,
+        ...boundedEvents(focused.run.events.filter(event=>event.runId===focused.run.id &&
+          ['shape','metric','check'].includes(event.type) &&
+          (event.component===focused.context.component || focused.checks.includes(event)))),
+        mapping:'validated-component; event source/layer remain as collected',
+        checkSemantics: 'The check named exactly module <component> compares BOTH shape and numerical values against a reference. The separate module <component> execution shape check checks execution shape only; do not apply composite semantics to it. Failure does not isolate which condition failed. expected shape in detail is a requirement, NOT a measured shape. Compare the actual shape events; missing layer is unknown, not layer 0.',
+      } : null,
       recentMessages: workspace.messages
         .filter((m) => m.cycle === identity.cycle)
         .slice(-8)
@@ -126,13 +145,8 @@ export async function askActivityTutor(
                   e.name.includes('parameter_delta'),
               )
               .slice(-10)
-              .map(({ name, step, value, artifactId, shape }) => ({
-                name,
-                step,
-                value,
-                artifactId,
-                shape,
-              })),
+              .map(tutorEvent),
+            earliestFailedCheck: last.events.filter(event=>event.runId===last.id && event.type==='check' && event.passed===false).sort((a,b)=>a.seq-b.seq).map(tutorEvent)[0] ?? null,
             reflection: workspace.answers
               ?.filter((a) => a.runId === last.id)
               .at(-1)

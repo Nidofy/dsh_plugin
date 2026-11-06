@@ -15,6 +15,7 @@ export interface Config {
   dataRoot?: string
   image: string
   timeoutMs?: number
+  tutorTimeoutMs?: number
   memoryMb?: number
   cpus?: number
   outputBytes?: number
@@ -22,6 +23,7 @@ export interface Config {
 export const Config: Schema<Config> = Schema.object({
   dataRoot: Schema.string(),
   image: Schema.string().default('dsh-neural-lab-cpu:0.1'),
+  tutorTimeoutMs: Schema.natural().min(1000).max(600000).default(300000),
   timeoutMs: Schema.natural().min(1000).max(600000).default(120000),
   memoryMb: Schema.natural().min(256).max(8192).default(1024),
   cpus: Schema.number().min(0.25).max(8).default(1),
@@ -135,7 +137,7 @@ export async function dispatch(
         string(args[2]),
         tutor,
         args[3] === undefined ? 'unknown' : (string(args[3]) as HelpLevel),
-        args[4] === undefined ? undefined : object(args[4]) as unknown as import('./tutor-context.ts').TutorContext,
+        args[4] == null ? undefined : object(args[4]) as unknown as import('./tutor-context.ts').TutorContext,
       )
     default:
       throw Error('Unknown Neural Lab method')
@@ -202,6 +204,9 @@ export async function handleRequest(
   }
 }
 export async function apply(ctx: Context, config: Config): Promise<void> {
+  const tutorTimeoutMs = config.tutorTimeoutMs === undefined ? 300000 : config.tutorTimeoutMs
+  if (!Number.isInteger(tutorTimeoutMs) || tutorTimeoutMs < 1000 || tutorTimeoutMs > 600000)
+    throw Error('Invalid tutorTimeoutMs: expected integer 1000..600000')
   const profileDir = ctx.get('profileContext')?.dir
   const root = config.dataRoot ?? (profileDir && join(profileDir, 'neural-lab'))
   if (!root || !isAbsolute(root))
@@ -222,7 +227,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
       return await mentor(
         ctx,
         prompt,
-        AbortSignal.any([lifetime.signal, AbortSignal.timeout(120000)]),
+        AbortSignal.any([lifetime.signal, AbortSignal.timeout(tutorTimeoutMs)]),
       )
     } finally {
       tutoring = false
