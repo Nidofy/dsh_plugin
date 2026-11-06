@@ -447,14 +447,14 @@ export class Engine {
       !this.workspace(run.exerciseId).answers?.some((a) => a.runId === runId)
     )
       throw Error('请先记录本次解释 / Save a reflection first')
-    if (run.check_status === 'failed')
-      throw Error('失败运行仍须修复并重跑 / Failed checks still require repair and rerun')
     if (!reviews.some((r) => r.runId === runId)) return
     this.store.transaction(() => {
       this.store.record(run.exerciseId, 'review-completed', {
         id: randomUUID(),
         runId,
         source: 'learner',
+        resolution: run.check_status === 'failed' ? 'acknowledged-failure' : 'reflection-reviewed',
+        checkStatus: run.check_status,
         at: new Date().toISOString(),
       })
       this.store.set(

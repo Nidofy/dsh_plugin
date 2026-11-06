@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto'
 import { temporaryDirectory } from './temporary-directory.mjs'
 import { Engine } from '../src/engine.ts'
 import type { RunRecord } from '../src/types.ts'
+import { learningDimensions } from '../src/learning-progress.ts'
 const hash = (s: string) => createHash('sha256').update(s).digest('hex')
 test('historical reflection preserves run provenance and records current answer help separately', async () => {
   const temp = await temporaryDirectory('neural-provenance-')
@@ -53,7 +54,7 @@ test('single-file MLP replay roundtrips without component markers and rejects fo
 })
 
 
-test('a reflection cannot clear failed-program repair evidence or complete its review',async()=>{
+test('reflection preserves repair review until explicit acknowledgement without changing program failure',async()=>{
  const temp=await temporaryDirectory('neural-failed-review-')
  const engine=await Engine.open(temp.directory)
  try {
@@ -63,7 +64,27 @@ test('a reflection cannot clear failed-program repair evidence or complete its r
   engine.recordEvidence(e,'failed','none','program',{runId:run.id})
   engine.answer(e.id,'I understand the failure now',run.id)
   assert.equal(engine.store.get<any[]>('reviews',[]).find(r=>r.runId===run.id).rule,'repair-check')
-  assert.throws(()=>engine.finishTrainingReview(run.id),/Failed checks/)
+  engine.finishTrainingReview(run.id)
+  assert.equal(engine.store.history<any>(e.id,'review-completed').at(-1)!.resolution,'acknowledged-failure')
   assert.equal(engine.run(run.id).check_status,'failed')
+  assert.ok(engine.store.evidence().some(row=>row.source==='program'&&row.result==='failed'))
+ }finally{await engine.close();await temp.cleanup()}
+})
+
+test('old program passes and current observation do not grant current implementation mastery',async()=>{
+ const temp=await temporaryDirectory('neural-dimensions-'),engine=await Engine.open(temp.directory)
+ try {
+  const transfer=engine.exercise('L12-two'),observation=engine.exercise('L12-observe')
+  engine.recordEvidence(transfer,'passed','none','program',{contentVersion:'0.5.1',testVersion:transfer.testVersion})
+  engine.recordEvidence(observation,'passed','none','program',{})
+  const evidence=engine.store.evidence()
+  const transferRows=learningDimensions(transfer,engine.catalog.version,evidence)
+  assert.ok(transferRows.every(row=>!row.programPassed))
+  assert.ok(transferRows.some(row=>row.legacy>0))
+  const observationRows=learningDimensions(observation,engine.catalog.version,evidence)
+  assert.equal(observationRows.find(row=>row.kind==='observation')!.programPassed,true)
+  assert.equal(observationRows.find(row=>row.kind==='implementation')!.programPassed,false)
+  engine.recordEvidence(transfer,'passed','none','program',{})
+  assert.equal(learningDimensions(transfer,engine.catalog.version,engine.store.evidence()).find(row=>row.kind==='transfer')!.programPassed,true)
  }finally{await engine.close();await temp.cleanup()}
 })
