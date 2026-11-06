@@ -37,9 +37,9 @@ test('dependency validator rejects missing references, cycles and duplicate less
   duplicate.lessons[1]!.id = 'L01'
   assert.throws(() => validateCatalog(duplicate), /Duplicate lesson/)
 })
-test('v0.5.0 activities have specific guidance and experiment contracts', async () => {
+test('v0.5.1 activities have specific guidance and experiment contracts', async () => {
   const catalog = await loadCatalog()
-  assert.equal(catalog.version, '0.5.0')
+  assert.equal(catalog.version, '0.5.1')
   const activities = catalog.lessons.flatMap((l) => l.exercises)
   assert.equal(activities.length, 41)
   assert.equal(

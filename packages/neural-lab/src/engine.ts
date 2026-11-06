@@ -223,7 +223,8 @@ export class Engine {
       b.format !== 'neural-lab-project/1' ||
       b.exerciseId !== id ||
       b.testVersion !== e.testVersion ||
-      b.contentVersion !== this.catalog.version ||
+      !(b.contentVersion === this.catalog.version ||
+        (this.catalog.version === '0.5.1' && b.contentVersion === '0.5.0')) ||
       b.manifest?.protocol !== e.runtimeKey ||
       b.manifest.dataset !== trainingDataset(e.runtimeKey) ||
       !Number.isSafeInteger(b.seed) ||

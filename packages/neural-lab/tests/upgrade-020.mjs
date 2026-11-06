@@ -96,6 +96,13 @@ try {
   assert.deepEqual(engine.workspace('L04-train').answers, oldMLP.answers)
   assert.ok(engine.exercise('L12-variant').components.length > 10)
   console.log('PASS packaged 0.2.2 to 0.5.0 retains old runs and enables project contracts')
+  const beforePatch = JSON.parse(engine.store.export())
+  await engine.close()
+  engine = await open('0.5.1')
+  const afterPatch = JSON.parse(engine.store.export())
+  for (const key of ['drafts', 'runs', 'history']) assert.deepEqual(afterPatch[key], beforePatch[key])
+  assert.equal(engine.workspace(activity.id).draft, 'before upgrade')
+  console.log('PASS packaged 0.5.0 to 0.5.1 preserves drafts, runs and history')
   console.log('PASS packaged 0.2.1 to 0.2.2 preserves existing records')
   console.log('PASS packaged 0.2.0 to 0.2.1 preserves MLP run, prediction, reflection and review')
   console.log(

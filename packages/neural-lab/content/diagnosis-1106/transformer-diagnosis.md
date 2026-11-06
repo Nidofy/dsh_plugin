@@ -26,7 +26,7 @@ $$Q=NW_Q,\quad K=NW_K,\quad V=NW_V,\quad A=\mathrm{softmax}_{key}(QK^T/\sqrt{D/H
 
 ## 2. 实现：把轴、时间和计算图都连起来
 
-使用已有十四组件接口：shifted、embedding、position、causal_mask、head_weights、merge_heads、attention、pre_norm、ffn、block、lm_head、logits、loss_fn、update。遵守 starter 中的实际函数签名，不新增运行入口。
+使用已有十四组件接口：shifted、embed、position、causal_mask、head_weights、merge_heads、attention、pre_norm、ffn、block、lm_head、logits、loss_fn、update。遵守 starter 中的实际函数签名，不新增运行入口。
 
 从输入的 B/T/D 和传入 heads 推导 shape，先验证 D 可整除 H。拆头用 reshape 后 transpose；合头先将 `[B,H,T,d_head]` 换回 `[B,T,H,d_head]` 再 reshape。直接 reshape 不能表达交换时间轴和头轴。可信程序还会用 `B=1,T=2,H=1` 检查另一合法规格。
 

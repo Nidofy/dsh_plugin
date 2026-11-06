@@ -1,6 +1,8 @@
-# Neural Lab 0.5.0
+# Neural Lab 0.5.1
 
 面向有 Python 和基础数学经验的神经网络与 Transformer 学习工作台。目标宿主为 **DSH 0.2.1-rc.5**，Node 24+；CPU 优先。左侧课程路线、讲义/练习/实验/记录页签与可折叠导师使用同一内容和 SQLite 数据库。
+
+0.5.1 补齐 MLP 单文件训练的实验导出/导入，保留 0.5.0 的活动与 SQLite v1。历史运行解释保留原运行版本/帮助，并单独记录解释时的尝试与帮助。运行对照列出不可控变量；导入摘要只证明文件一致性，需显式重跑核对。
 
 ## 项目实训、诊断与复现
 
@@ -42,7 +44,7 @@ SQLite 结构版本仍为 1，课程 0.1.3、检查版本 3。旧记录按原版
 
 ## 安装与环境
 
-将构建生成的 `dsh-plugin-neural-lab-0.5.0.tgz` 通过 DSH 插件管理器安装到选定 profile，启用插件，在侧栏打开 Neural Lab。与 `dsh-plugin-learn` 使用不同包名、注册标识和数据根；不包含 LeetCode 搜题、邮件或 Hot100 worker。开发与验收只使用临时 profile，不修改用户实际 DSH_HOME。
+将构建生成的 `dsh-plugin-neural-lab-0.5.1.tgz` 通过 DSH 插件管理器安装到选定 profile，启用插件，在侧栏打开 Neural Lab。与 `dsh-plugin-learn` 使用不同包名、注册标识和数据根；不包含 LeetCode 搜题、邮件或 Hot100 worker。开发与验收只使用临时 profile，不修改用户实际 DSH_HOME。
 
 CPU 环境单独准备，课程运行不会安装依赖或下载数据：
 

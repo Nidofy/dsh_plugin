@@ -35,3 +35,7 @@ node --experimental-transform-types packages/neural-lab/tests/numeric-1106-real.
 首次执行因 Docker pipe 不存在失败，同时沙箱拒绝读取 Docker 配置；随后提权请求挂起并被中断，因此本线程没有真实数值 PASS 记录。主控后来已确认 Docker 启动，将接手执行。不得将本节写成通过，也未使用宿主 Python 代替沙箱。两套测试只使用 guarded temporaryRunner 临时根，不写用户 profile。
 
 既有覆盖已包含 MLP 漏 backward/zero_grad/step、固定 heads、unshifted targets、未来泄漏、训练/验证数据复用等，本轮不复制那些案例。尚无由本轮真实运行确认的生产数值缺陷。build/typecheck/打包由集成者统一执行。
+
+## A 集成后的真实复测
+
+2026-11-06：A在主工作树执行 `node --experimental-transform-types tests/numeric-1106-real.ts`，exit 0。Docker 29.9.2，镜像 `sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7`。两参考通过；九反例全部 completed/failed，并命中各自指定可信检查。无成功sample。此前待验证是子线程权限挂起记录，本段为随后实际结果。

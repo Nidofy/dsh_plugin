@@ -44,6 +44,8 @@ test('single-file MLP replay roundtrips without component markers and rejects fo
     const file = engine.projectFile(run.id)
     assert.deepEqual(file.components,[])
     assert.deepEqual(engine.inspectProject(e.id,JSON.stringify(file)),JSON.parse(JSON.stringify(file)))
+    file.contentVersion = '0.5.0'
+    assert.equal(engine.inspectProject(e.id, JSON.stringify(file)).contentVersion, '0.5.0')
     file.results[0]!.runId = 'another-run'
     assert.throws(()=>engine.inspectProject(e.id,JSON.stringify(file)),/Invalid imported event/)
     assert.equal(engine.store.runs().length,1)

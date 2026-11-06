@@ -100,7 +100,7 @@ try {
   const second = await run()
   assert.notEqual(second, first)
   await p.getByRole('button', { name: /Verify replay/ }).click()
-  await p.getByText('复现一致 / Replay matched').waitFor()
+  await p.getByText('复现摘要一致（不验证导入来源） / Replay matched (import provenance unverified)').waitFor()
   await p.getByLabel('我的解释 Reflection').fill('A retained second-profile reflection')
   await navigate(b, id)
   assert.equal(
@@ -149,3 +149,4 @@ try {
     }
   }
 }
+

@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-neural-lab",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "CPU-first neural network and Transformer learning laboratory",
   "type": "module",
   "license": "MIT",
@@ -30,7 +30,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "pretest": "node scripts/build.mjs",
-    "test": "node --experimental-transform-types --test tests/store.test.ts tests/content.test.ts tests/runner-limits.test.ts tests/host.test.mjs"
+    "test": "node --experimental-transform-types --test tests/*.test.ts tests/*.test.mjs"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "4.0.5",

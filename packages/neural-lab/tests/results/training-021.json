@@ -1,11 +1,11 @@
 {
-  "contentVersion": "0.2.1",
+  "contentVersion": "0.5.0",
   "testVersion": "1",
   "evidence": [
     {
       "label": "reference",
       "exerciseId": "L04-train",
-      "id": "c81fe586-0e83-4754-972f-14b764f5c42d",
+      "id": "5d983eb3-f94e-4ed1-b061-ac0d92f3ef3e",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -26,7 +26,7 @@
     {
       "label": "repeat",
       "exerciseId": "L04-train",
-      "id": "c4c0cd97-75d5-42c5-832a-449b45679039",
+      "id": "15f0e1b9-cb19-44d4-8b01-2a78f1f8739b",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -47,7 +47,7 @@
     {
       "label": "different learning rate",
       "exerciseId": "L04-train",
-      "id": "a3841ecb-fa4b-449a-bb3f-9b1d4baa4d5e",
+      "id": "3e2e096a-1f68-4f81-ba66-119697a0f456",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -68,7 +68,7 @@
     {
       "label": "different seed",
       "exerciseId": "L04-train",
-      "id": "f65a7b4e-a663-439b-8d91-ffbdbc25ef67",
+      "id": "04b439da-93d3-4ed7-ace5-9740dd930d09",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -89,7 +89,7 @@
     {
       "label": "skip zero_grad",
       "exerciseId": "L04-train",
-      "id": "e4f0c30a-af61-4dbf-819c-ef44226ad807",
+      "id": "26693f92-4b52-4aca-bdcf-4ac1e4e865a7",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -167,7 +167,7 @@
     {
       "label": "skip backward",
       "exerciseId": "L04-train",
-      "id": "2e81817d-8ddc-4dc5-a532-a7386bfc0f5c",
+      "id": "68823816-7f4c-4dca-b880-21ade5ea1831",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -193,7 +193,7 @@
     {
       "label": "skip step",
       "exerciseId": "L04-train",
-      "id": "c477f11b-8774-4c7e-b340-4125ffc65167",
+      "id": "1f30d6e5-b1d1-4f5f-ba9e-d42d17fbffb5",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -247,7 +247,7 @@
     {
       "label": "wrong loss",
       "exerciseId": "L04-train",
-      "id": "98e09e93-3ee2-4348-9e0a-7e5c39a78f0d",
+      "id": "fe6e9ed6-349f-4bc1-8668-4f1e352e4d89",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -365,7 +365,7 @@
     {
       "label": "constant metric",
       "exerciseId": "L04-train",
-      "id": "05f4085a-cfe2-49e8-a749-05fcfe172ba5",
+      "id": "3e497890-6c4b-4e51-a4cd-376ceea32914",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -419,7 +419,7 @@
     {
       "label": "wrong validation set",
       "exerciseId": "L04-train",
-      "id": "ead124c8-afa9-4d66-8583-f20aa3ca71dd",
+      "id": "b1eccb0b-d2c7-434c-a52e-f8dadd0d544d",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -438,14 +438,14 @@
       "failures": [
         [
           "held-out validation MSE",
-          "step 8, atol=1e-8, rtol=1e-6"
+          "validation, atol=1e-8, rtol=1e-6"
         ]
       ]
     },
     {
       "label": "validation changes weights",
       "exerciseId": "L04-train",
-      "id": "ebd9aa35-a20f-4b9c-81f8-4ac550f8bee6",
+      "id": "5c00a283-c986-49f1-a06e-67ad74113def",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -464,18 +464,18 @@
       "failures": [
         [
           "held-out validation MSE",
-          "step 8, atol=1e-8, rtol=1e-6"
+          "validation, atol=1e-8, rtol=1e-6"
         ],
         [
           "validation preserves parameters",
-          "step 8, atol=1e-8, rtol=1e-6"
+          "validation, atol=1e-8, rtol=1e-6"
         ]
       ]
     },
     {
       "label": "validation tracks grad",
       "exerciseId": "L04-train",
-      "id": "85b14217-7b21-4a00-bbc6-be0c11b0771f",
+      "id": "259ee49d-402a-41dc-84dd-8f15a3e5bc58",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -494,14 +494,14 @@
       "failures": [
         [
           "validation uses eval and no_grad",
-          "step 8, atol=1e-8, rtol=1e-6"
+          "validation, atol=1e-8, rtol=1e-6"
         ]
       ]
     },
     {
       "label": "validation training mode",
       "exerciseId": "L04-train",
-      "id": "bcfdc039-b2b2-449c-9ab4-f72d525e03f3",
+      "id": "6da55617-8136-48cc-82bc-daa65bfe70ec",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -520,14 +520,14 @@
       "failures": [
         [
           "validation uses eval and no_grad",
-          "step 8, atol=1e-8, rtol=1e-6"
+          "validation, atol=1e-8, rtol=1e-6"
         ]
       ]
     },
     {
       "label": "validation reuses actual last training batch",
       "exerciseId": "L04-train",
-      "id": "b07823e7-3649-49d3-9367-e57522dfb03e",
+      "id": "f74de7d2-d9f3-4aa7-8197-10e7c475a52b",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-mlp-v1",
@@ -546,14 +546,14 @@
       "failures": [
         [
           "held-out validation MSE",
-          "step 8, atol=1e-8, rtol=1e-6"
+          "validation, atol=1e-8, rtol=1e-6"
         ]
       ]
     },
     {
       "label": "first function only",
       "exerciseId": "L12-transformer",
-      "id": "83adf54c-dd77-494d-a5aa-fd3cd3868a54",
+      "id": "33c52540-3787-42a4-a0da-cc8461dc4035",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -594,7 +594,7 @@
     {
       "label": "decoder reference",
       "exerciseId": "L12-transformer",
-      "id": "ad8f7686-824c-4f27-9d84-456dd24beb14",
+      "id": "532dc57a-8c62-4cca-8262-8250ce17bf0d",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -618,7 +618,7 @@
     {
       "label": "decoder repeat",
       "exerciseId": "L12-transformer",
-      "id": "7e585ee3-1ecc-4da1-9fe0-baee0a20939e",
+      "id": "bc71c31e-bd6b-4339-b5d6-ca3d14534f14",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -642,7 +642,7 @@
     {
       "label": "decoder changed rate",
       "exerciseId": "L12-transformer",
-      "id": "60043b61-f428-4dae-a286-a3e21c7f46b4",
+      "id": "1b8113e0-5810-40f9-b5e7-9be2c0294226",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -666,7 +666,7 @@
     {
       "label": "unshifted targets",
       "exerciseId": "L12-transformer",
-      "id": "90604289-c412-4338-87a9-b0e048b42898",
+      "id": "005456cd-d89b-4d95-b130-56b5e9be7879",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -775,7 +775,7 @@
     {
       "label": "missing positions",
       "exerciseId": "L12-transformer",
-      "id": "47fefdee-0a85-46aa-b8e7-5907c00e7128",
+      "id": "418f0bb9-5da0-441b-b2e5-710f7de35e85",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -900,7 +900,7 @@
     {
       "label": "future leak",
       "exerciseId": "L12-transformer",
-      "id": "8b1451e1-d351-4cc5-8b30-3419412b25d4",
+      "id": "077c65e5-392d-4876-9654-5c67377fe7e3",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -1021,7 +1021,7 @@
     {
       "label": "mixed batches",
       "exerciseId": "L12-transformer",
-      "id": "a6c21a20-b01b-47b5-8791-4d2a1f983ac0",
+      "id": "a399fb05-04df-4436-9f01-d50a210ca879",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -1138,7 +1138,7 @@
     {
       "label": "unscaled attention",
       "exerciseId": "L12-transformer",
-      "id": "7b48167d-ca73-4b3b-b3c9-45ed2db73300",
+      "id": "7b92f9d0-4ca1-4e2a-bbcf-bf620362e937",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -1255,7 +1255,7 @@
     {
       "label": "wrong head merge",
       "exerciseId": "L12-transformer",
-      "id": "037ce719-4252-4dae-a92e-f4699188fb09",
+      "id": "4e06f06f-92b4-41b4-8d97-72652d478b34",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -1376,7 +1376,7 @@
     {
       "label": "detached embedding",
       "exerciseId": "L12-transformer",
-      "id": "5a169f4d-0a9f-4056-a34f-a1f91fd3a527",
+      "id": "3378f233-2bbe-4196-ad65-0e46aac20cff",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -1449,7 +1449,7 @@
     {
       "label": "detached query",
       "exerciseId": "L12-transformer",
-      "id": "f1e60eff-db17-46cd-82b0-1397d0e272d3",
+      "id": "ec2b47e8-7abf-4836-96b6-e3795e25c4e6",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -1506,7 +1506,7 @@
     {
       "label": "missing pre-LN",
       "exerciseId": "L12-transformer",
-      "id": "9f4cd4d5-0f1e-4bb9-b53e-63589497849e",
+      "id": "02a33d9e-4f55-4917-86b1-02a785e8b230",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
@@ -1619,7 +1619,7 @@
     {
       "label": "missing FFN",
       "exerciseId": "L12-transformer",
-      "id": "19e79f4b-d6e5-4bc2-ad3d-611d0fae3eeb",
+      "id": "95aa0bcb-4690-4a47-b2b3-cb053e049394",
       "image": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
       "manifest": {
         "protocol": "train-char-v1",
