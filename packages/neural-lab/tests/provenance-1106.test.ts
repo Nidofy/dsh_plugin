@@ -52,3 +52,18 @@ test('single-file MLP replay roundtrips without component markers and rejects fo
   } finally {await engine.close(); await temp.cleanup()}
 })
 
+
+test('a reflection cannot clear failed-program repair evidence or complete its review',async()=>{
+ const temp=await temporaryDirectory('neural-failed-review-')
+ const engine=await Engine.open(temp.directory)
+ try {
+  const e=engine.exercise('L04-train')
+  const run:RunRecord={id:'failed-run',exerciseId:e.id,code:e.reference,codeHash:hash(e.reference),contentVersion:engine.catalog.version,testVersion:e.testVersion,seed:42,config:{},environment:'fixture',run_status:'completed',check_status:'failed',createdAt:new Date().toISOString(),events:[],log:'',help:'none'}
+  engine.store.putRun(run)
+  engine.recordEvidence(e,'failed','none','program',{runId:run.id})
+  engine.answer(e.id,'I understand the failure now',run.id)
+  assert.equal(engine.store.get<any[]>('reviews',[]).find(r=>r.runId===run.id).rule,'repair-check')
+  assert.throws(()=>engine.finishTrainingReview(run.id),/Failed checks/)
+  assert.equal(engine.run(run.id).check_status,'failed')
+ }finally{await engine.close();await temp.cleanup()}
+})

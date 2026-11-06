@@ -9,6 +9,8 @@ import type {
   HelpLevel,
 } from './types.ts'
 import { css } from './client-style.ts'
+import { ExperimentGroupPanel } from './components/ExperimentGroupPanel.tsx'
+import { DebugWorkbench } from './components/DebugWorkbench.tsx'
 import { ProjectExchange } from './components/ProjectExchange.tsx'
 import { ProfileTab } from './components/ProfileTab.tsx'
 import { TrainingComparison } from './components/TrainingComparison.tsx'
@@ -109,6 +111,8 @@ export function Workbench({ api }: { api: LabApi }) {
     [mentorBusy, setMentorBusy] = useState(false),
     [prediction, setPrediction] = useState(''),
     [learningRate, setLearningRate] = useState(0.05),
+    [advancedConfig, setAdvancedConfig] = useState<Record<string, number>>({}),
+    [tutorContext, setTutorContext] = useState<{runId:string;component:string;check?:string}>(),
     [variantParent, setVariantParent] = useState<RunRecord>(),
     [reviewRun, setReviewRun] = useState(''),
     [explanation, setExplanation] = useState(''),
@@ -215,6 +219,8 @@ export function Workbench({ api }: { api: LabApi }) {
     setHint('')
     setReply('')
     setQuestion('')
+    setTutorContext(undefined)
+    setAdvancedConfig({})
     setPrediction('')
     setExplanation('')
     setSelection('')
@@ -394,7 +400,7 @@ export function Workbench({ api }: { api: LabApi }) {
       ? await api.start(
           exerciseId,
           code,
-          { seed, learningRate },
+          { ...advancedConfig, seed, learningRate },
           prediction,
           exerciseId === 'L12-variant' ? variantParent?.id : undefined,
         )
@@ -448,7 +454,7 @@ export function Workbench({ api }: { api: LabApi }) {
     const g = generation.current
     try {
       await save()
-      const result = await api.tutor(exerciseId, question, selection, mode)
+      const result = await api.tutor(exerciseId, question, selection, mode, tutorContext)
       if (g !== generation.current || !mounted.current) return
       const currentWorkspace = await api.workspace(exerciseId)
       if (g !== generation.current || !mounted.current) return
@@ -503,6 +509,7 @@ export function Workbench({ api }: { api: LabApi }) {
           </div>
         </div>
         <div className="nl-actions">
+          {tutorContext && <p>导师绑定 / Tutor scope: {tutorContext.runId} · {tutorContext.component} · {tutorContext.check ?? 'component'} <button onClick={()=>setTutorContext(undefined)}>解除绑定 / Clear scope</button></p>}
           {tab !== 'profile' && (
             <button
               onClick={() =>
@@ -590,7 +597,7 @@ export function Workbench({ api }: { api: LabApi }) {
             <summary>
               {environment.available ? '● CPU 就绪 Ready' : '○ CPU 不可用 Unavailable'}
             </summary>
-            <pre>{environment.detail}</pre>
+            <p>{environment.stage} · {environment.nextStep}</p><pre>{environment.detail}</pre>
           </details>
         )}
       </div>
@@ -756,6 +763,17 @@ export function Workbench({ api }: { api: LabApi }) {
               }
             />
           )}
+          {tab === 'exercise' && ws && ['project-char-flex-v1','project-char-two-v1','project-char-observe-v1'].includes(ws.exercise.runtimeKey ?? '') && <fieldset disabled={busy}>
+            <legend>运行规格 / Run specification</legend>
+            {(['batchSize','context','heads'] as const).map(key => <label key={key}>{key}<select aria-label={'Run '+key} value={advancedConfig[key] ?? ({batchSize:2,context:4,heads:2}[key])} onChange={e=>setAdvancedConfig({...advancedConfig,[key]:Number(e.target.value)})}>
+              {(key==='batchSize'?[1,2,3,4]:key==='context'?[2,3,4,5,6,7,8]:[1,2,3,6]).map(v=><option key={v} value={v}>{v}</option>)}</select></label>)}
+            {ws.exercise.mode==='observe' && <label>观察步数 / Observation steps<input aria-label="Observation steps" type="number" min={8} max={24} value={advancedConfig.steps ?? 12} onChange={e=>setAdvancedConfig({...advancedConfig,steps:Number(e.target.value)})}/></label>}
+            <p>{ws.exercise.mode==='observe'?'较长观察模式，只记录观察证据，不授实现掌握 / Observation only, not implementation mastery':'快速程序判题固定4步 / Quick checks: four steps'}</p>
+          </fieldset>}
+          {tab === 'exercise' && ws && (run ?? reflectionRun) && <DebugWorkbench key={(run ?? reflectionRun)!.id} run={(run ?? reflectionRun)!} exercise={ws.exercise} draft={code}
+            onHint={async context => {await api.debugHelp(exerciseId,context.runId,context.component,context.level); await syncActivity()}}
+            onTutor={context=>{setTutorContext(context);setMode(context.level);setQuestion('请分析组件 '+context.component+' 的实际检查 '+(context.check ?? '')+'，指出下一步单变量诊断。');document.querySelector('.nl-mentor')?.scrollIntoView({block:'start'})}} />}
+          {tab === 'exercise' && ws && trainingDataset(ws.exercise.runtimeKey) && <ExperimentGroupPanel key={exerciseId} api={api} exercise={ws.exercise} code={code} config={advancedConfig} busy={busy} runs={ws.runs} onChanged={()=>{void syncActivity()}} />}
           {tab === 'exercise' && ws && trainingDataset(ws.exercise.runtimeKey) && (
             <>
               {
@@ -770,6 +788,7 @@ export function Workbench({ api }: { api: LabApi }) {
                     updatePrediction(file.prediction)
                     setSeed(file.seed)
                     setLearningRate(file.learningRate)
+                    setAdvancedConfig(Object.fromEntries(Object.entries(file.config ?? {}).filter(([key])=>!['seed','learningRate'].includes(key))))
                     setStatus('已载入草稿，检查后运行 / Draft loaded for review')
                   }}
                 />
@@ -914,6 +933,7 @@ export function Workbench({ api }: { api: LabApi }) {
           <div hidden={tab !== 'profile'}>
             <ProfileTab key={overview.profileId} initial={overview} api={api} />
           </div>
+          {tutorContext && <p>导师绑定 / Tutor scope: {tutorContext.runId} · {tutorContext.component} · {tutorContext.check ?? 'component'} <button onClick={()=>setTutorContext(undefined)}>解除绑定 / Clear scope</button></p>}
           {tab !== 'profile' && (
             <MentorSidebar
               workspace={ws}

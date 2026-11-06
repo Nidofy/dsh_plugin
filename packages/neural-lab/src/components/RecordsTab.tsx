@@ -1,3 +1,4 @@
+import { learningDimensions } from '../learning-progress.ts'
 import type { Evidence, HelpLevel, Overview, Workspace } from '../types.ts'
 import { RunResults } from './RunResults.tsx'
 export function RecordsTab({
@@ -69,6 +70,9 @@ export function RecordsTab({
           <pre>{answer.text}</pre>
         </details>
       ))}
+      <h3>分维度学习证据 / Learning dimensions</h3>
+      <p>解释是自述而非程序判定；旧内容/测试版本不会自动完成当前活动。 / Reflections are self-reports; old versions do not complete current activities.</p>
+      {workspace && <div className="nl-table-wrap"><table><thead><tr><th>维度 / Dimension</th><th>当前来源 / Current evidence</th><th>旧版记录 / Historical</th></tr></thead><tbody>{learningDimensions(workspace.exercise,overview.catalog.version,overview.evidence).map(d=><tr key={d.kind}><th>{d.kind}</th><td>{d.records} · {d.programPassed?'程序通过 / Program passed':d.learnerRecorded?'已自述 / Self-reported':'未证实 / Unverified'} · {d.last?.runId ?? d.last?.answerId ?? '—'} · Help {d.last?.answerHelp ?? d.last?.help ?? '—'}</td><td>{d.legacy}</td></tr>)}</tbody></table></div>}
       <h3>知识点证据 / Evidence</h3>
       {overview.evidence
         .filter((e) => e.exerciseId === exerciseId)

@@ -121,7 +121,7 @@ test('actual HTTP RPC preserves drafts and notes, hides answers, validates input
       )
       return { status: 'completed', text: 'Complete answer from stub' }
     })
-    assert.equal(engine.store.help(id), 'answer')
+    assert.equal(engine.store.help(id), 'unknown')
     const delayed = Promise.withResolvers()
     const asked = Promise.withResolvers()
     const oldCycle = engine.workspace(id).attemptId

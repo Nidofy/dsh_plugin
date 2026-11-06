@@ -65,7 +65,6 @@ export function validateDiagnosticEvent(e: RunEvent): void {
   if (e.type === 'shape' || (e.type === 'tensor' && e.shape)) {
     if (
       !Array.isArray(e.shape) ||
-      e.shape.length < 1 ||
       e.shape.length > 5 ||
       e.shape.some((v) => !Number.isSafeInteger(v) || v <= 0 || v > 65536)
     )
@@ -175,26 +174,23 @@ export class Runner {
   async environment(): Promise<EnvironmentStatus> {
     try {
       const exe = await dockerPath()
-      const r = await this.dockerCommand(exe, [
-        'image',
-        'inspect',
-        this.image,
-        '--format',
-        '{{.Id}}',
-      ])
-      if (r.code !== 0) throw new Error(r.out)
       const p = await this.dockerCommand(exe, ['version', '--format', '{{.Server.Version}}'])
-      if (p.code !== 0) throw new Error(p.out)
+      if (p.code !== 0) return {available:false,image:this.image,requestedImage:this.image,stage:'docker_unavailable',detail:p.out,
+        nextStep:'启动 Docker Desktop 的 Linux engine，然后再次检查。 / Start Docker Desktop Linux engine, then retry.'}
+      const r = await this.dockerCommand(exe, ['image','inspect',this.image,'--format','{{.Id}}'])
+      if (r.code !== 0) return {available:false,image:this.image,requestedImage:this.image,stage:'image_missing',detail:r.out,
+        nextStep:'在插件目录显式运行 scripts/prepare-image.ps1（首次需网络），或导入同身份离线CPU镜像；插件不会自动下载。 / Prepare or import the pinned CPU image explicitly.'}
       if (!/^sha256:[0-9a-f]{64}$/.test(r.out.trim())) throw Error('Invalid Docker image identity')
       return {
         available: true,
+        stage: 'ready',
         requestedImage: this.image,
         resolvedImageId: r.out.trim(),
         detail: r.out.trim() + ' ' + p.out.trim(),
         image: this.image,
       }
     } catch (e) {
-      return { available: false, requestedImage: this.image, detail: String(e), image: this.image }
+      return { available: false, requestedImage: this.image, stage:'inspection_failed', nextStep:'检查 Docker 安装与当前账户访问权限，再重试 / Check Docker installation and account access, then retry', detail: String(e), image: this.image }
     }
   }
 
@@ -227,7 +223,7 @@ export class Runner {
     if (
       !/^[a-zA-Z0-9_-]{1,100}$/.test(r.id) ||
       !exercise.runtimeKey ||
-      !/^(code\d{2}|grad|mlp|train-mlp-v1|train-char-v1|project-char-v1|project-char-wide-v1|project-signal-v1|softmax|attention|causal|lm)$/.test(
+      !/^(code\d{2}|grad|mlp|train-mlp-v1|train-mlp-multi-v1|train-char-v1|project-char-flex-v1|project-char-two-v1|project-char-observe-v1|project-char-v1|project-char-wide-v1|project-signal-v1|softmax|attention|causal|lm)$/.test(
         exercise.runtimeKey,
       )
     )
@@ -247,6 +243,11 @@ export class Runner {
       return finish()
     }
 
+    if (original.expectedImageId && original.expectedImageId !== env.resolvedImageId) {
+      r.run_status = 'failed'
+      r.reason = 'Frozen image identity changed; group will not switch environments'
+      return finish()
+    }
     onUpdate?.({ ...r, cleanupPending: 'Check labelled container after interrupted execution' })
     const dir = resolve(this.root, r.id)
     await mkdir(this.root, { recursive: true })
@@ -343,6 +344,7 @@ export class Runner {
         r.id,
         String(r.seed),
         ...(trainingDataset(exercise.runtimeKey) ? [String(r.config.learningRate ?? 0.05)] : []),
+        ...(['train-mlp-multi-v1','project-char-flex-v1','project-char-two-v1','project-char-observe-v1'].includes(exercise.runtimeKey!) ? [JSON.stringify(Object.fromEntries(Object.entries(r.config).filter(([key]) => !['seed','learningRate'].includes(key))))] : []),
       ])
       if (creation.code !== 0) throw Error(creation.out)
       containerId = creation.out.trim()
@@ -405,9 +407,12 @@ export class Runner {
                     (typeof e.detail !== 'string' || e.detail.length > 4000))
                 )
                   throw new Error('Invalid event identity')
+                if ((e.component !== undefined && (typeof e.component !== 'string' || !/^[a-z_]{1,50}$/.test(e.component))) ||
+                    (e.layer !== undefined && (!Number.isInteger(e.layer) || e.layer < 0 || e.layer > 1)))
+                  throw Error('Invalid component/layer identity')
                 if (
                   e.type === 'sample' &&
-                  (!['train-char-v1', 'project-char-v1', 'project-char-wide-v1'].includes(
+                  (!['train-char-v1', 'project-char-v1', 'project-char-wide-v1','project-char-flex-v1','project-char-two-v1','project-char-observe-v1'].includes(
                     exercise.runtimeKey!,
                   ) ||
                     typeof e.detail !== 'string' ||
@@ -435,7 +440,7 @@ export class Runner {
                     e.config === undefined ||
                     typeof e.config !== 'object' ||
                     e.config === null ||
-                    Object.keys(e.config).length > 8 ||
+                    Object.keys(e.config).length > 10 ||
                     Object.values(e.config).some(
                       (v) =>
                         typeof v !== 'boolean' &&

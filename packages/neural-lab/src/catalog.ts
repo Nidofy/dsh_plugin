@@ -32,6 +32,7 @@ export function validateCatalog(c: Catalog): void {
     '0.2.2': '3',
     '0.5.0': '3',
     '0.5.1': '3',
+    '0.6.0': '3',
   }
   if (!Object.hasOwn(supported, c.version) || c.lessons.length !== 12)
     throw new Error('Invalid course version/count')
@@ -56,11 +57,11 @@ export function validateCatalog(c: Catalog): void {
     for (const e of l.exercises) {
       let version = supported[c.version]
       if (
-        (['0.2.1', '0.2.2', '0.5.0', '0.5.1'].includes(c.version) && trainingDataset(e.runtimeKey)) ||
+        (['0.2.1', '0.2.2', '0.5.0', '0.5.1', '0.6.0'].includes(c.version) && trainingDataset(e.runtimeKey)) ||
         (c.version === '0.2.0' && e.runtimeKey === 'train-mlp-v1')
       )
         version = '1'
-      if (['0.2.2', '0.5.0', '0.5.1'].includes(c.version) && e.id === 'L09-transfer') version = '4'
+      if (['0.2.2', '0.5.0', '0.5.1', '0.6.0'].includes(c.version) && e.id === 'L09-transfer') version = '4'
       if (e.testVersion !== version) throw Error('Unsupported exercise test version')
       if (exercises.has(e.id) || e.lessonId !== l.id || e.hints.length < 3 || !e.prompt)
         throw new Error('Invalid exercise')

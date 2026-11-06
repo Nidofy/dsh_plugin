@@ -144,7 +144,7 @@ test('provider extra fields cannot overwrite request attribution', async () => f
   assert.equal(reply.role, 'assistant')
   assert.equal(reply.cycle, request.cycle)
   assert.equal(reply.requestId, request.requestId)
-  assert.equal(engine.store.help(exerciseId), 'concept')
+  assert.equal(engine.store.help(exerciseId), 'unknown')
 }))
 
 test('review snooze preserves run source and reflection completes only its own review', async () => fixture(async engine => {

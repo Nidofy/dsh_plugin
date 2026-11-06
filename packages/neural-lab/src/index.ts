@@ -7,7 +7,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http'
 import { Engine } from './engine.ts'
 export { Engine } from './engine.ts'
 import { mentor } from './mentor.ts'
-import { askActivityTutor } from './tutor-context.ts'
+import { askActivityTutor, validateTutorContext } from './tutor-context.ts'
 import type { HelpLevel } from './types.ts'
 export const name = 'neural-lab'
 export const inject = ['connection']
@@ -80,6 +80,10 @@ export async function dispatch(
         args[3] == null ? undefined : string(args[3]),
         args[4] == null ? undefined : string(args[4]),
       )
+    case 'groups': return engine.groups.list(id())
+    case 'startGroup': return engine.groups.start(id(), string(args[1]), object(args[2]) as unknown as import('./types.ts').GroupRequest)
+    case 'cancelGroup': return engine.groups.cancel(id())
+    case 'concludeGroup': return engine.groups.conclude(id(), Number(args[1]), string(args[2]), string(args[3]))
     case 'run':
       return engine.run(id())
     case 'cancel':
@@ -90,6 +94,16 @@ export async function dispatch(
         string(args[1]),
         args[2] === undefined ? undefined : string(args[2]),
       )
+    case 'debugHelp': {
+      const context = {runId:string(args[1]),component:string(args[2])}
+      validateTutorContext(engine,id(),context)
+      const level=string(args[3]) as HelpLevel
+      if(!['concept','steps','code'].includes(level)) throw Error('Invalid debug help level')
+      engine.snapshotAttempt(id(),'debug-help')
+      engine.recordHelp(id(),level,'debugger')
+      engine.store.record(id(),'debug-help',{...context,level,attemptId:engine.workspace(id()).attemptId})
+      return
+    }
     case 'hint':
       return engine.hint(id(), string(args[1]) as HelpLevel)
     case 'environment':
@@ -121,6 +135,7 @@ export async function dispatch(
         string(args[2]),
         tutor,
         args[3] === undefined ? 'unknown' : (string(args[3]) as HelpLevel),
+        args[4] === undefined ? undefined : object(args[4]) as unknown as import('./tutor-context.ts').TutorContext,
       )
     default:
       throw Error('Unknown Neural Lab method')

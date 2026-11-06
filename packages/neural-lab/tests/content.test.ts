@@ -18,7 +18,7 @@ test('curriculum has complete distinct activities and consistent dependencies', 
       assert.ok(e.inputDomain)
       if (e.kind === 'code') {
         assert.notEqual(e.reference, e.starter)
-        if (e.id !== 'L01-debug') assert.match(e.starter, /NotImplementedError/)
+        if (!['L01-debug','L04-multi','L12-repair-mask','L12-repair-gradient'].includes(e.id)) assert.match(e.starter, /NotImplementedError/)
         assert.ok(e.runtimeKey)
       }
     }
@@ -37,20 +37,20 @@ test('dependency validator rejects missing references, cycles and duplicate less
   duplicate.lessons[1]!.id = 'L01'
   assert.throws(() => validateCatalog(duplicate), /Duplicate lesson/)
 })
-test('v0.5.1 activities have specific guidance and experiment contracts', async () => {
+test('v0.6.0 activities have specific guidance and experiment contracts', async () => {
   const catalog = await loadCatalog()
-  assert.equal(catalog.version, '0.5.1')
+  assert.equal(catalog.version, '0.6.0')
   const activities = catalog.lessons.flatMap((l) => l.exercises)
-  assert.equal(activities.length, 41)
+  assert.equal(activities.length, 47)
   assert.equal(
     new Set(activities.map((e) => e.hints.join('\n'))).size,
-    41,
+    47,
     'Every activity needs its own progressive guidance',
   )
   for (const exercise of activities) {
     assert.equal(
       exercise.testVersion,
-      exercise.components || ['L04-train', 'L12-transformer'].includes(exercise.id)
+      exercise.components || ['L04-train','L04-multi', 'L12-transformer'].includes(exercise.id)
         ? '1'
         : exercise.id === 'L09-transfer'
           ? '4'

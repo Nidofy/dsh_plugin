@@ -67,6 +67,8 @@ export function ProjectExchange({
       ] as const
     ).filter((k) => actual[k] !== file[k])
     const differences: string[] = [...changed]
+    if (JSON.stringify(Object.entries(actual.config ?? {}).sort()) !== JSON.stringify(Object.entries(file.config ?? {}).sort())) differences.push('config')
+    if ((actual.mode ?? 'check') !== (file.mode ?? 'check')) differences.push('mode')
     for (const key of ['protocol', 'dataset', 'splitHash', 'initialHash', 'batchHash'] as const)
       if (actual.manifest[key] !== file.manifest[key]) differences.push(key)
     setComparison({

@@ -1,4 +1,6 @@
-import { trainingDataset } from './training-protocol.ts'
+import { reviewRule } from './learning-progress.ts'
+import { ExperimentGroups } from './experiment-groups.ts'
+import { trainingDataset, validateTrainingConfig } from './training-protocol.ts'
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { splitProject } from './project.ts'
@@ -18,6 +20,7 @@ import type {
   CheckStatus,
 } from './types.ts'
 export class Engine {
+  readonly groups: ExperimentGroups
   private active = new Map<string, { abort: AbortController; done: Promise<void> }>()
   private recovery?: Promise<void>
   private closing = false
@@ -26,7 +29,7 @@ export class Engine {
     readonly store: Store,
     readonly runner: Runner,
     private releaseOwner: () => Promise<void> = async () => {},
-  ) {}
+  ) { this.groups = new ExperimentGroups(this) }
   static async open(root: string, image?: string, limits?: RunnerLimits): Promise<Engine> {
     await mkdir(root, { recursive: true })
     const release = await acquireOwner(join(root, 'owner.sqlite'))
@@ -182,6 +185,8 @@ export class Engine {
       .digest('hex')
     const bundle: ProjectFile = {
       format: 'neural-lab-project/1',
+      config: {...r.config, seed: r.seed, learningRate: r.config.learningRate ?? .05},
+      mode: r.mode ?? 'check',
       variantOf: r.variantOf,
       exerciseId: r.exerciseId,
       contentVersion: r.contentVersion,
@@ -224,7 +229,7 @@ export class Engine {
       b.exerciseId !== id ||
       b.testVersion !== e.testVersion ||
       !(b.contentVersion === this.catalog.version ||
-        (this.catalog.version === '0.5.1' && b.contentVersion === '0.5.0')) ||
+        (['0.5.1','0.6.0'].includes(this.catalog.version) && ['0.5.0','0.5.1'].includes(b.contentVersion))) ||
       b.manifest?.protocol !== e.runtimeKey ||
       b.manifest.dataset !== trainingDataset(e.runtimeKey) ||
       !Number.isSafeInteger(b.seed) ||
@@ -250,6 +255,10 @@ export class Engine {
       b.components.length !== (e.components?.length ?? 0)
     )
       throw Error('Incompatible project manifest')
+    validateTrainingConfig(e.runtimeKey, b.config ?? { seed: b.seed, learningRate: b.learningRate })
+    if (b.config && (b.config.seed !== b.seed || (b.config.learningRate ?? .05) !== b.learningRate)) throw Error('Project config identity mismatch')
+    if (e.runtimeKey?.startsWith('project-char-') && ['project-char-flex-v1','project-char-two-v1','project-char-observe-v1'].includes(e.runtimeKey) && !b.config) throw Error('Full configuration required for this protocol')
+    if (b.mode !== undefined && b.mode !== (e.mode ?? 'check')) throw Error('Project execution mode mismatch')
     let previousSeq = 0
     for (const event of b.results) {
       if (event.runId !== b.runId || !Number.isSafeInteger(event.seq) || event.seq <= previousSeq ||
@@ -290,6 +299,7 @@ export class Engine {
     config: Record<string, number>,
     prediction?: string,
     variantOf?: string,
+    frozen?: { id: string; attemptId: string; help: HelpLevel; groupId: string; expectedImageId: string },
   ): RunRecord {
     if (this.closing) throw Error('Plugin is stopping')
     if (this.active.size >= 2) throw Error('Two runs are already active')
@@ -302,14 +312,7 @@ export class Engine {
       this.text(prediction ?? '', 2000)
       if (!prediction?.trim()) throw Error('请先写下预测 / Record a prediction before running')
     }
-    for (const [key, v] of Object.entries(config)) {
-      if (training && key === 'learningRate' && Number.isFinite(v) && v >= 0.001 && v <= 0.3)
-        continue
-      if (key !== 'seed' || !Number.isFinite(v) || v < 0 || v > 10000)
-        throw Error('Invalid experiment configuration')
-    }
-    if (config.seed !== undefined && !Number.isSafeInteger(config.seed))
-      throw Error('Seed must be an integer')
+    validateTrainingConfig(exercise.runtimeKey, config)
     if (variantOf) {
       const parent = this.run(variantOf)
       if (
@@ -324,7 +327,9 @@ export class Engine {
     }
     const run: RunRecord = {
       ...(variantOf ? { variantOf } : {}),
-      id: randomUUID(),
+      id: frozen?.id ?? randomUUID(),
+      ...(frozen ? {groupId: frozen.groupId, expectedImageId: frozen.expectedImageId} : {}),
+      mode: exercise.mode ?? 'check',
       exerciseId: id,
       code,
       codeHash: createHash('sha256').update(code).digest('hex'),
@@ -342,14 +347,14 @@ export class Engine {
       testVersion: exercise.testVersion,
       seed: config.seed ?? 42,
       config,
-      attemptId: this.store.get('attempt:' + id, 'initial'),
+      attemptId: frozen?.attemptId ?? this.store.get('attempt:' + id, 'initial'),
       environment: 'pending environment inspection',
       run_status: 'queued',
       check_status: 'not_run',
       createdAt: new Date().toISOString(),
       events: [],
       log: '',
-      help: this.store.help(id),
+      help: frozen?.help ?? this.store.help(id),
     }
     this.store.putRun(run)
     const abort = new AbortController()
@@ -381,6 +386,7 @@ export class Engine {
     this.active.set(run.id, { abort, done })
     return run
   }
+  async waitRun(id: string): Promise<void> { await this.active.get(id)?.done }
   run(id: string): RunRecord {
     return this.store.run(id)
   }
@@ -441,6 +447,8 @@ export class Engine {
       !this.workspace(run.exerciseId).answers?.some((a) => a.runId === runId)
     )
       throw Error('请先记录本次解释 / Save a reflection first')
+    if (run.check_status === 'failed')
+      throw Error('失败运行仍须修复并重跑 / Failed checks still require repair and rerun')
     if (!reviews.some((r) => r.runId === runId)) return
     this.store.transaction(() => {
       this.store.record(run.exerciseId, 'review-completed', {
@@ -487,7 +495,7 @@ export class Engine {
         kind:
           origin.answerId && isTraining
             ? 'explanation'
-            : e.kind === 'experiment'
+            : e.mode === 'observe' || e.kind === 'experiment'
               ? 'observation'
               : e.id === 'L09-transfer'
                 ? origin.answerId
@@ -500,6 +508,8 @@ export class Engine {
         result,
         at: new Date().toISOString(),
       })
+    const subject = origin.runId ? this.store.runs().find((run) => run.id === origin.runId) : undefined
+    const rule = reviewRule(e, subject?.check_status === 'failed' ? 'failed' : result, source, origin.answerHelp ?? help)
     const reviews = this.store
       .get<Overview['reviews']>('reviews', [])
       .filter((r) => (isTraining ? r.runId !== origin.runId : r.exerciseId !== e.id))
@@ -515,16 +525,11 @@ export class Engine {
       reviews.push({
         exerciseId: e.id,
         runId: origin.runId,
-        reason: isTraining
-          ? origin.answerId
-            ? '用同种子复习预测与解释 / Revisit prediction and explanation'
-            : '解释本次训练结果 / Explain this training run'
-          : help === 'answer'
-            ? '请独立完成变式 / Retry independently'
-            : result === 'failed'
-              ? '检查失败 / Failed checks'
-              : '解释或独立迁移仍需证据 / More evidence needed',
-        due: new Date().toISOString(),
+        reason: rule.text,
+        rule: rule.id,
+        contentVersion: origin.contentVersion ?? this.catalog.version,
+        testVersion: origin.testVersion ?? e.testVersion,
+        due: new Date(Date.now() + rule.delay).toISOString(),
       })
     this.store.set('reviews', reviews)
   }
@@ -589,6 +594,7 @@ export class Engine {
   }
   async close(): Promise<void> {
     this.closing = true
+    await this.groups.close()
     for (const task of this.active.values()) task.abort.abort()
     await Promise.allSettled([...this.active.values()].map((t) => t.done))
     try {

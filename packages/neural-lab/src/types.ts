@@ -13,6 +13,9 @@ export interface ComponentSnapshot {
   sha256: string
 }
 export interface Exercise {
+  mode?: 'check' | 'observe'
+  transferFrom?: string
+  diagnosis?: string
   components?: ComponentContract[]
   evidenceKind?: 'explanation' | 'implementation' | 'debugging' | 'transfer'
   id: string
@@ -55,6 +58,8 @@ export interface TrainingManifest {
   batchHash: string
 }
 export interface RunEvent {
+  component?: string
+  layer?: number
   source?: 'student' | 'program'
   manifest?: TrainingManifest
   runId: string
@@ -73,6 +78,9 @@ export interface RunEvent {
   detail?: string
 }
 export interface RunRecord {
+  mode?: 'check' | 'observe'
+  groupId?: string
+  expectedImageId?: string
   variantOf?: string
   codeHash?: string
   components?: ComponentSnapshot[]
@@ -148,10 +156,12 @@ export interface Overview {
   currentLesson: string
   readLessons: string[]
   profile: Record<string, string>
-  reviews: { exerciseId: string; reason: string; due: string; runId?: string }[]
+  reviews: { exerciseId: string; reason: string; due: string; runId?: string; rule?: string; contentVersion?: string; testVersion?: string }[]
   evidence: Evidence[]
 }
 export interface ProjectFile {
+  config?: Record<string, number>
+  mode?: 'check' | 'observe'
   variantOf?: string
   format: 'neural-lab-project/1'
   exerciseId: string
@@ -172,13 +182,47 @@ export interface ProjectFile {
   results: RunEvent[]
 }
 export interface EnvironmentStatus {
+  stage?: 'ready' | 'docker_unavailable' | 'image_missing' | 'inspection_failed'
+  nextStep?: string
   requestedImage?: string
   resolvedImageId?: string
   available: boolean
   detail: string
   image: string
 }
+export interface ExperimentGroup {
+  id: string
+  revision: number
+  exerciseId: string
+  code: string
+  codeHash: string
+  contentVersion: string
+  testVersion: string
+  attemptId: string
+  help: HelpLevel
+  imageId: string
+  dataset: string
+  hypothesis: string
+  conclusion: string
+  limitations: string
+  createdAt: string
+  finishedAt?: string
+  status: RunStatus
+  budgetMs: number
+  items: { runId: string; seed: number; learningRate: number; config: Record<string, number>; status: RunStatus; reason?: string }[]
+}
+export interface GroupRequest {
+  seeds: number[]
+  learningRates: number[]
+  hypothesis: string
+  budgetMs: number
+  config?: Record<string, number>
+}
 export interface LabApi {
+  groups(id: string): Promise<ExperimentGroup[]>
+  startGroup(id: string, code: string, request: GroupRequest): Promise<ExperimentGroup>
+  cancelGroup(id: string): Promise<void>
+  concludeGroup(id: string, revision: number, conclusion: string, limitations: string): Promise<ExperimentGroup>
   overview(): Promise<Overview>
   workspace(id: string, signal?: AbortSignal): Promise<Workspace>
   saveDraft(id: string, code: string, revision: number): Promise<number>
@@ -196,12 +240,14 @@ export interface LabApi {
   run(id: string, signal?: AbortSignal): Promise<RunRecord>
   cancel(id: string): Promise<void>
   answer(id: string, text: string, runId?: string): Promise<CheckStatus>
+  debugHelp(id: string, runId: string, component: string, level: HelpLevel): Promise<void>
   hint(id: string, level: HelpLevel): Promise<string>
   tutor(
     id: string,
     text: string,
     selection: string,
     mode?: HelpLevel,
+    context?: {runId: string; component: string; check?: string},
   ): Promise<{ status: string; text: string; attemptId: string }>
   environment(): Promise<EnvironmentStatus>
   projectFile(runId: string): Promise<ProjectFile>

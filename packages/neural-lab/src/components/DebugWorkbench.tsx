@@ -13,6 +13,7 @@ export interface DebugWorkbenchProps {
   run: RunRecord
   exercise: Exercise
   draft: string
+  onHint?: (context: DebugTutorContext) => Promise<void>
   onTutor?: (context: DebugTutorContext) => void
 }
 const panel: CSSProperties = { border: '1px solid var(--nl-border)', borderRadius: 8, padding: 12, minWidth: 0, background: 'var(--nl-card)', color: 'var(--nl-fg)' }
@@ -31,7 +32,8 @@ function Evidence({ observations }: { observations: DebugObservation[] }) {
   </table></div>
 }
 
-export function DebugWorkbench({ run, exercise, draft, onTutor }: DebugWorkbenchProps) {
+export function DebugWorkbench({ run, exercise, draft, onTutor, onHint }: DebugWorkbenchProps) {
+  const [hintError, setHintError] = useState('')
   const model = debugModel(run, exercise)
   const [selection, setSelection] = useState({ runId: run.id, component: '', layer: 'all', level: 'concept' as DebugTutorContext['level'] })
   // Synchronous ownership check prevents even one render of the previous run's selection.
@@ -79,9 +81,11 @@ export function DebugWorkbench({ run, exercise, draft, onTutor }: DebugWorkbench
         <details open><summary>运行源码切片 / Frozen component source</summary>{source ? <pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere', maxHeight: 320, overflow: 'auto' }}>{source.code}</pre> : <p>此运行缺少有效组件标记，无法可靠切片。 / Component markers unavailable.</p>}</details>
         <aside style={{ ...panel, marginTop: 12 }} aria-label="分级诊断 / Graded diagnosis">
           <h4>诊断路径 / Diagnosis</h4>
+          {hintError && <p role="alert">{hintError}</p>}
+          <p>基础概念说明属于教材；显式步骤与代码提示会记录帮助。 / Steps and code hints are recorded.</p>
           {model.firstFailure ? <p>最早失败观察 / Earliest failed observation: #{model.firstFailure.event.seq} {model.firstFailure.event.name}。后续失败 {model.failures.length - 1} 项仅为后续观察，不断言因果。 / Later failures are observations, not proven consequences.</p> : <p>尚无失败检查证据；缺失采样不等于通过。 / No failed check observed; missing samples do not imply success.</p>}
           {selectedFailure && model.firstFailure !== selectedFailure && <p>当前组件的后续失败观察 / Later failed observation in this component: #{selectedFailure.event.seq} {selectedFailure.event.name}</p>}
-          {(['concept', 'steps', 'code'] as const).map((level) => <button type="button" key={level} aria-pressed={current.level === level} onClick={() => setSelection({ ...current, level })}>{level === 'concept' ? '概念 / Concept' : level === 'steps' ? '步骤 / Steps' : '代码提示 / Code hint'}</button>)}
+          {(['concept', 'steps', 'code'] as const).map((level) => <button type="button" key={level} aria-pressed={current.level === level} onClick={() => { if (!onHint) setSelection({...current,level}); else void onHint({runId:run.id,component,level}).then(()=>setSelection({...current,level})).catch(e=>setHintError(String(e))) }}>{level === 'concept' ? '概念 / Concept' : level === 'steps' ? '步骤 / Steps' : '代码提示 / Code hint'}</button>)}
           <p>{debugHint(component, current.level)}</p>
           <button type="button" disabled={!onTutor} onClick={() => onTutor?.({ runId: run.id, component, check: selectedFailure?.event.name, level: current.level })}>请求导师解释当前组件 / Ask tutor about component</button>
           {!onTutor && <p style={muted}>导师入口未连接 / Tutor unavailable</p>}

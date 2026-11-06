@@ -18,6 +18,10 @@ export function createApi(): LabApi {
     return value as T
   }
   return {
+    groups: (...a) => call('groups', a),
+    startGroup: (...a) => call('startGroup', a),
+    cancelGroup: (...a) => call('cancelGroup', a),
+    concludeGroup: (...a) => call('concludeGroup', a),
     selectLesson: (...a) => call('selectLesson', a),
     finishReview: (...a) => call('finishReview', a),
     independent: (...a) => call('independent', a),
@@ -31,6 +35,7 @@ export function createApi(): LabApi {
     run: (id, signal) => call('run', [id], signal),
     cancel: (...a) => call('cancel', a),
     answer: (...a) => call('answer', a),
+    debugHelp: (...a) => call('debugHelp', a),
     hint: (...a) => call('hint', a),
     tutor: (...a) => call('tutor', a),
     environment: () => call('environment'),
