@@ -47,7 +47,7 @@ export async function askActivityTutor(
     sha256: createHash('sha256').update(code).digest('hex'),
     truncated: code.length > 12000,
   })
-  const result = await tutor(
+  const result = await Promise.resolve().then(() => tutor(
     JSON.stringify({
       exercise: { title: e.title, prompt: e.prompt, inputDomain: e.inputDomain },
       lesson: { id: e.lessonId, title: lesson?.title, objectives: lesson?.objectives, excerpt },
@@ -112,7 +112,16 @@ export async function askActivityTutor(
           }
         : null,
     }),
-  ).catch((error: unknown) => ({ status: 'failed', text: String(error) }))
+  )).then((reply) => {
+    // Treat provider output as external input; never spread it over request identity.
+    if (!reply || typeof reply.text !== 'string' ||
+        !['completed', 'failed', 'cancelled', 'unavailable'].includes(reply.status))
+      return { status: 'failed', text: '导师返回无效结果 / Invalid tutor response' }
+    return {
+      status: reply.status === 'completed' && !reply.text.trim() ? 'failed' : reply.status,
+      text: reply.text,
+    }
+  }).catch((error: unknown) => ({ status: 'failed', text: String(error) }))
   engine.store.record(e.id, 'message', { ...identity, role: 'assistant', ...result })
   if (result.status === 'completed' && result.text.trim())
     engine.recordHelp(e.id, mode, 'mentor', requestId, identity.cycle)

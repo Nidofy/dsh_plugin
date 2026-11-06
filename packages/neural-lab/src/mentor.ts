@@ -87,10 +87,10 @@ export async function mentor(
     }
     return {
       status:
-        reason === 'completed' && text.trim()
-          ? 'completed'
-          : signal.aborted
-            ? 'cancelled'
+        signal.aborted
+          ? 'cancelled'
+          : reason === 'completed' && text.trim()
+            ? 'completed'
             : 'failed',
       text: text || failure || `模型回合结束 / Model turn ended: ${reason}`,
     }
