@@ -1,12 +1,12 @@
 {
   "package": "dsh-plugin-neural-lab",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "dsh": "0.2.1-rc.5",
-  "file": "packages/neural-lab/dsh-plugin-neural-lab-0.5.1.tgz",
-  "bytes": 123308,
-  "sha256": "6d43261f2fe552d096ac9aa809370f9bc1242b7a13650a388c982818b8d12016",
+  "file": "packages/neural-lab/dsh-plugin-neural-lab-0.6.0.tgz",
+  "bytes": 160008,
+  "sha256": "054f135447f1dd0366f5b86a3581d6274d48e1ccb95d51ef8e6601281aa0665e",
   "cpuImage": "dsh-neural-lab-cpu:0.1",
   "cpuImageId": "sha256:83565079cb5893c1677fa68d04b564e2eade7b56d1314fda0e106bac10d0e0f7",
   "published": false,
-  "sourceCommit": "7f733e4a3f927dcc5c0ae107ecb73045cd219c9c"
+  "sourceCommit": "b991b2d62906a05611220472371da22e4cbdd3ed"
 }
