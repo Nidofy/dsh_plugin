@@ -5,7 +5,7 @@ import { splitProject } from './project.ts'
 import { createHash, randomUUID } from 'node:crypto'
 import { acquireOwner } from './owner.ts'
 import { Store } from './store.ts'
-import { Runner, type RunnerLimits } from './runner.ts'
+import { Runner, validateDiagnosticEvent, type RunnerLimits } from './runner.ts'
 import { loadCatalog } from './catalog.ts'
 import type {
   ProjectFile,
@@ -165,7 +165,7 @@ export class Engine {
   projectFile(runId: string): ProjectFile {
     const r = this.run(runId)
     if (
-      !r.components ||
+      !trainingDataset(this.exercise(r.exerciseId).runtimeKey) ||
       !r.codeHash ||
       !r.trainingManifest ||
       !r.resolvedImageId ||
@@ -189,7 +189,7 @@ export class Engine {
       runId: r.id,
       code: r.code,
       codeHash: r.codeHash,
-      components: r.components,
+      components: r.components ?? [],
       seed: r.seed,
       learningRate: r.config.learningRate ?? 0.05,
       prediction: r.prediction ?? '',
@@ -219,7 +219,7 @@ export class Engine {
     if (
       !b ||
       typeof b !== 'object' ||
-      !e.components ||
+      !trainingDataset(e.runtimeKey) ||
       b.format !== 'neural-lab-project/1' ||
       b.exerciseId !== id ||
       b.testVersion !== e.testVersion ||
@@ -246,9 +246,23 @@ export class Engine {
       b.explanations.some((s) => typeof s !== 'string') ||
       b.results.length > 1024 ||
       !Array.isArray(b.components) ||
-      b.components.length !== e.components.length
+      b.components.length !== (e.components?.length ?? 0)
     )
       throw Error('Incompatible project manifest')
+    let previousSeq = 0
+    for (const event of b.results) {
+      if (event.runId !== b.runId || !Number.isSafeInteger(event.seq) || event.seq <= previousSeq ||
+          !['metric', 'sample', 'check', 'tensor', 'shape'].includes(event.type) ||
+          typeof event.name !== 'string' || event.name.length > 200 ||
+          (event.source !== undefined && !['program', 'student'].includes(event.source)) ||
+          (event.step !== undefined && (!Number.isSafeInteger(event.step) || event.step < 0)) ||
+          (event.detail !== undefined && (typeof event.detail !== 'string' || event.detail.length > 4000)) ||
+          (event.type === 'metric' && !Number.isFinite(event.value)) ||
+          (event.type === 'check' && typeof event.passed !== 'boolean'))
+        throw Error('Invalid imported event')
+      if (event.type === 'tensor' || event.type === 'shape') validateDiagnosticEvent(event)
+      previousSeq = event.seq
+    }
     this.text(b.code)
     this.text(b.prediction, 2000)
     const hash = (v: string) => createHash('sha256').update(v).digest('hex')
@@ -257,12 +271,12 @@ export class Engine {
       hash(JSON.stringify(b.results.map(({ runId, seq, ...event }) => event))) !== b.signature
     )
       throw Error('Project digest mismatch')
-    const parts = splitProject(b.code, e.components).parts
+    const parts = e.components ? splitProject(b.code, e.components).parts : []
     for (const [i, part] of parts.entries()) {
       const c = b.components[i]
       if (
         c?.name !== part.name ||
-        c.version !== e.components[i]!.version ||
+        c.version !== e.components![i]!.version ||
         c.sha256 !== hash(part.code)
       )
         throw Error('Invalid component digest: ' + part.name)
@@ -391,6 +405,15 @@ export class Engine {
         ? 'passed'
         : 'failed'
     const answerId = randomUUID()
+    // The reflection is made now, but its subject is an immutable historical run.
+    const currentAttemptId = this.store.get<string>('attempt:' + id, 'initial')
+    const answerHelp = this.store.help(id)
+    const provenance = {
+      contentVersion: run?.contentVersion ?? this.catalog.version,
+      testVersion: run?.testVersion ?? e.testVersion,
+      ...(run ? { answerAttemptId: currentAttemptId, answerHelp,
+        answerContentVersion: this.catalog.version, answerTestVersion: e.testVersion } : {}),
+    }
     this.store.transaction(() => {
       this.store.record(id, 'answer', {
         id: answerId,
@@ -398,10 +421,10 @@ export class Engine {
         ...(run ? { runId: run.id } : {}),
         text,
         status,
-        contentVersion: this.catalog.version,
-        testVersion: e.testVersion,
+        ...provenance,
       })
-      this.recordEvidence(e, status, this.store.help(id), explanation ? 'learner' : 'program', {
+      this.recordEvidence(e, status, run?.help ?? answerHelp, explanation ? 'learner' : 'program', {
+        ...provenance,
         answerId,
         runId: run?.id,
         attemptId: run?.attemptId ?? this.store.get('attempt:' + id, 'initial'),
@@ -447,15 +470,17 @@ export class Engine {
     result: string,
     help: HelpLevel,
     source: 'program' | 'learner',
-    origin: { runId?: string; answerId?: string; attemptId?: string },
+    origin: { runId?: string; answerId?: string; attemptId?: string;
+      contentVersion?: string; testVersion?: string; answerAttemptId?: string;
+      answerHelp?: HelpLevel; answerContentVersion?: string; answerTestVersion?: string },
   ): void {
     const isTraining = Boolean(trainingDataset(e.runtimeKey))
     for (const concept of e.concepts)
       this.store.record(e.id, 'evidence', {
         id: randomUUID(),
         ...origin,
-        contentVersion: this.catalog.version,
-        testVersion: e.testVersion,
+        contentVersion: origin.contentVersion ?? this.catalog.version,
+        testVersion: origin.testVersion ?? e.testVersion,
         exerciseId: e.id,
         concept,
         kind:

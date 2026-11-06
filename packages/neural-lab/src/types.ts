@@ -101,6 +101,10 @@ export interface RunRecord {
   help: HelpLevel
 }
 export interface Evidence {
+  answerAttemptId?: string
+  answerHelp?: HelpLevel
+  answerContentVersion?: string
+  answerTestVersion?: string
   provenance?: 'legacy' | 'recorded'
   id?: string
   runId?: string

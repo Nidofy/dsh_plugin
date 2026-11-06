@@ -758,7 +758,7 @@ export function Workbench({ api }: { api: LabApi }) {
           )}
           {tab === 'exercise' && ws && trainingDataset(ws.exercise.runtimeKey) && (
             <>
-              {ws.exercise.components && (
+              {
                 <ProjectExchange
                   key={exerciseId}
                   api={api}
@@ -773,7 +773,7 @@ export function Workbench({ api }: { api: LabApi }) {
                     setStatus('已载入草稿，检查后运行 / Draft loaded for review')
                   }}
                 />
-              )}
+              }
               {exerciseId === 'L12-assembly' && reflectionRun && reflections.length > 0 && (
                 <button
                   disabled={busy}
