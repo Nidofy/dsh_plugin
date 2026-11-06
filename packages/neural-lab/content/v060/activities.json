@@ -1,0 +1,655 @@
+[
+  {
+    "id": "L04-multi",
+    "lessonId": "L04",
+    "title": "迁移 · 三输出 MSE / Three-output MSE",
+    "kind": "code",
+    "runtimeKey": "train-mlp-multi-v1",
+    "prompt": "先写预测，再实现并运行；保存代码、有效配置、runId、最早失败的可信 check 与 detail。解释修复原因后只改变一个合法配置重复检查；次日闭卷复习。 / Predict, implement, check, explain, transfer, review. 2→4→3 Tanh 模型，每批6样本。starter 完整可运行，但把输出误差相加后只对 batch 平均。先预测损失及梯度相对正确值的倍数；修复 train_step 与 validate。用公式 dL/dŷ=2(ŷ−y)/(B×O) 解释 O=1 时为什么掩盖了错误。",
+    "starter": "import torch\n\n\ndef train_step(model, optimizer, batch):\n    model.train()\n    optimizer.zero_grad()\n    x, y = batch\n    loss = (model(x) - y).square().sum() / x.size(0)\n    loss.backward()\n    optimizer.step()\n    return loss.item()\n\n\ndef validate(model, batch):\n    model.eval()\n    x, y = batch\n    with torch.no_grad():\n        return ((model(x) - y).square().sum() / x.size(0)).item()\n",
+    "reference": "import torch\n\n\ndef train_step(model, optimizer, batch):\n    model.train()\n    optimizer.zero_grad()\n    x, y = batch\n    loss = (model(x) - y).square().mean()\n    loss.backward()\n    optimizer.step()\n    return loss.item()\n\n\ndef validate(model, batch):\n    model.eval()\n    x, y = batch\n    with torch.no_grad():\n        return (model(x) - y).square().mean().item()\n",
+    "hints": [
+      "从 B=2,O=3、每项误差均为1 的手算开始：正确 MSE=1，starter=3。",
+      "把两个函数的 reduction 都改为对所有 B×O 元素平均；不要仅缩小学习率。",
+      "loss=(model(x)-y).square().mean()；反传此 loss，验证在 no_grad 中使用相同定义。"
+    ],
+    "concepts": [
+      "L04"
+    ],
+    "testVersion": "1",
+    "inputDomain": "CPU float64，2→4→3 Tanh，O=3；24训练/8验证，8步，每批6样本。targets=[x0²+0.6x1−0.15, x1²−0.4x0+0.2, x0x1+0.3x0]。MSE 分母 B×O，argv配置为空对象。lr=0.001..0.3，seed=0..10000。",
+    "commonErrors": [
+      "只除 B 会让 O=3 时初始损失与梯度放大三倍。",
+      "只修返回的数值而仍对错误 loss 反传，梯度检查继续失败。",
+      "只改训练不改验证，held-out 检查仍失败。"
+    ],
+    "mode": "check",
+    "transferFrom": "L04-train",
+    "evidenceKind": "transfer",
+    "diagnosis": "查看 forward + MSE、fresh minibatch gradients 和参数更新检查。O=3 时初始同一参数/批次上的错误损失和梯度是正确值3倍；更新后路径已改变，后续步不保证仍是3倍。验证应 eval + no_grad，且权重不变。"
+  },
+  {
+    "id": "L12-flex",
+    "lessonId": "L12",
+    "title": "迁移 · 合法尺寸与头数 / Flexible dimensions",
+    "kind": "code",
+    "prompt": "先写预测，再实现并运行；保存代码、有效配置、runId、最早失败的可信 check 与 detail。解释修复原因后只改变一个合法配置重复检查；次日闭卷复习。 / Predict, implement, check, explain, transfer, review. 迁移自己的十四组件实现到宽度6的单层模型。默认B2/T4/H2；先推导B1/T2/H1与B4/T8/H6的每个shape，再用相同代码实际运行。H=3是合法变式，H=4不满足整除。从通用starter实现，禁止硬编码batch、context或heads。",
+    "starter": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    raise NotImplementedError(\"shifted\")\n\n# %% position\ndef position(ids, p):\n    raise NotImplementedError(\"position\")\n\n# %% embed\ndef embed(ids, p):\n    raise NotImplementedError(\"embed\")\n\n# %% causal_mask\ndef causal_mask(scores):\n    raise NotImplementedError(\"causal_mask\")\n\n# %% head_weights\ndef head_weights(x, p):\n    raise NotImplementedError(\"head_weights\")\n\n# %% merge_heads\ndef merge_heads(heads):\n    raise NotImplementedError(\"merge_heads\")\n\n# %% attention\ndef attention(x, p):\n    raise NotImplementedError(\"attention\")\n\n# %% pre_norm\ndef pre_norm(x):\n    raise NotImplementedError(\"pre_norm\")\n\n# %% ffn\ndef ffn(x, p):\n    raise NotImplementedError(\"ffn\")\n\n# %% block\ndef block(x, p):\n    raise NotImplementedError(\"block\")\n\n# %% lm_head\ndef lm_head(x, p):\n    raise NotImplementedError(\"lm_head\")\n\n# %% logits\ndef logits(x, p):\n    raise NotImplementedError(\"logits\")\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    raise NotImplementedError(\"loss_fn\")\n\n# %% update\ndef update(optimizer):\n    raise NotImplementedError(\"update\")\n",
+    "reference": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores.masked_fill(~torch.ones(scores.size(-2), scores.size(-1), dtype=torch.bool).tril(), -torch.inf)\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    z = block(x, p)\n    if p.layers == 2:\n        second = {k: p[k + \"2\"] if k in (\"q\", \"k\", \"v\", \"out\", \"up\", \"down\") else v for k, v in p.items() if not k.endswith(\"2\")}\n        class Layer(dict):\n            pass\n        second = Layer(second)\n        second.heads = p.heads\n        second.layer = 1\n        z = block(z, second)\n    return lm_head(z, p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+    "hints": [
+      "画出当前组件输入/输出shape与依赖路径，再运行starter或迁移自己的实现。",
+      "找到本run最早失败的check，只改相关组件；对照layer与step，不复用旧草稿结果。",
+      "参考实现揭示完整答案；使用后如实记录帮助，再用另一合法B/T/H独立解释。"
+    ],
+    "concepts": [
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L11",
+      "L12"
+    ],
+    "testVersion": "1",
+    "runtimeKey": "project-char-flex-v1",
+    "inputDomain": "CPU float64；D=6，B=1..4，T=2..8，H∈{1,2,3,6}，D%H=0。p.heads / p.layers 由协议提供；单文件十四组件接口沿用 L12-assembly。quick steps=4；observe steps=8..24。词表 abcde，tiny-char-v2：训练字符0..71，validation字符72..99，分别建T+1窗口。学习率0.001..0.3，seed整数0..10000。 / Bounded CPU decoder contract.",
+    "commonErrors": [
+      "把前向正确等同于梯度和更新正确。",
+      "把不同seed、学习率、层数和步数同时变化误称单变量实验。",
+      "把observe通过或旧版运行当作新活动实现掌握。"
+    ],
+    "components": [
+      {
+        "name": "shifted",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "position",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "embed",
+        "version": "1",
+        "dependsOn": [
+          "position"
+        ]
+      },
+      {
+        "name": "causal_mask",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "head_weights",
+        "version": "1",
+        "dependsOn": [
+          "causal_mask"
+        ]
+      },
+      {
+        "name": "merge_heads",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "attention",
+        "version": "1",
+        "dependsOn": [
+          "head_weights",
+          "merge_heads"
+        ]
+      },
+      {
+        "name": "pre_norm",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "ffn",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "block",
+        "version": "1",
+        "dependsOn": [
+          "attention",
+          "pre_norm",
+          "ffn"
+        ]
+      },
+      {
+        "name": "lm_head",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "logits",
+        "version": "1",
+        "dependsOn": [
+          "block",
+          "lm_head"
+        ]
+      },
+      {
+        "name": "loss_fn",
+        "version": "1",
+        "dependsOn": [
+          "shifted",
+          "logits"
+        ]
+      },
+      {
+        "name": "update",
+        "version": "1",
+        "dependsOn": [
+          "loss_fn"
+        ]
+      }
+    ],
+    "mode": "check",
+    "transferFrom": "L12-assembly",
+    "evidenceKind": "transfer",
+    "diagnosis": "查 module head_weights、module merge_heads、attention alternate B/T/heads；shape正确仍须比较数值。transpose负责交换头/时间轴，reshape不能替代。module logits 与梯度检查全部通过才记录本次迁移。"
+  },
+  {
+    "id": "L12-two",
+    "lessonId": "L12",
+    "title": "迁移 · 双层解码器快判 / Two-layer quick check",
+    "kind": "code",
+    "prompt": "先写预测，再实现并运行；保存代码、有效配置、runId、最早失败的可信 check 与 detail。解释修复原因后只改变一个合法配置重复检查；次日闭卷复习。 / Predict, implement, check, explain, transfer, review. 将单层迁移到双层。先画 loss→lm_head→block1→block0→embedding 反向路径。logits 必须根据 p.layers 调用两次学生 block；第二次用 q2/k2/v2/out2/up2/down2 的真实 Parameter，不能复制成新张量。4步快判检查两层参与、梯度和更新，之后再进入观察活动。",
+    "starter": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    raise NotImplementedError(\"shifted\")\n\n# %% position\ndef position(ids, p):\n    raise NotImplementedError(\"position\")\n\n# %% embed\ndef embed(ids, p):\n    raise NotImplementedError(\"embed\")\n\n# %% causal_mask\ndef causal_mask(scores):\n    raise NotImplementedError(\"causal_mask\")\n\n# %% head_weights\ndef head_weights(x, p):\n    raise NotImplementedError(\"head_weights\")\n\n# %% merge_heads\ndef merge_heads(heads):\n    raise NotImplementedError(\"merge_heads\")\n\n# %% attention\ndef attention(x, p):\n    raise NotImplementedError(\"attention\")\n\n# %% pre_norm\ndef pre_norm(x):\n    raise NotImplementedError(\"pre_norm\")\n\n# %% ffn\ndef ffn(x, p):\n    raise NotImplementedError(\"ffn\")\n\n# %% block\ndef block(x, p):\n    raise NotImplementedError(\"block\")\n\n# %% lm_head\ndef lm_head(x, p):\n    raise NotImplementedError(\"lm_head\")\n\n# %% logits\ndef logits(x, p):\n    raise NotImplementedError(\"logits\")\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    raise NotImplementedError(\"loss_fn\")\n\n# %% update\ndef update(optimizer):\n    raise NotImplementedError(\"update\")\n",
+    "reference": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores.masked_fill(~torch.ones(scores.size(-2), scores.size(-1), dtype=torch.bool).tril(), -torch.inf)\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    z = block(x, p)\n    if p.layers == 2:\n        second = {k: p[k + \"2\"] if k in (\"q\", \"k\", \"v\", \"out\", \"up\", \"down\") else v for k, v in p.items() if not k.endswith(\"2\")}\n        class Layer(dict):\n            pass\n        second = Layer(second)\n        second.heads = p.heads\n        second.layer = 1\n        z = block(z, second)\n    return lm_head(z, p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+    "hints": [
+      "画出当前组件输入/输出shape与依赖路径，再运行starter或迁移自己的实现。",
+      "找到本run最早失败的check，只改相关组件；对照layer与step，不复用旧草稿结果。",
+      "参考实现揭示完整答案；使用后如实记录帮助，再用另一合法B/T/H独立解释。"
+    ],
+    "concepts": [
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L11",
+      "L12"
+    ],
+    "testVersion": "1",
+    "runtimeKey": "project-char-two-v1",
+    "inputDomain": "CPU float64；D=6，B=1..4，T=2..8，H∈{1,2,3,6}，D%H=0。p.heads / p.layers 由协议提供；单文件十四组件接口沿用 L12-assembly。quick steps=4；observe steps=8..24。词表 abcde，tiny-char-v2：训练字符0..71，validation字符72..99，分别建T+1窗口。学习率0.001..0.3，seed整数0..10000。 / Bounded CPU decoder contract.",
+    "commonErrors": [
+      "把前向正确等同于梯度和更新正确。",
+      "把不同seed、学习率、层数和步数同时变化误称单变量实验。",
+      "把observe通过或旧版运行当作新活动实现掌握。"
+    ],
+    "components": [
+      {
+        "name": "shifted",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "position",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "embed",
+        "version": "1",
+        "dependsOn": [
+          "position"
+        ]
+      },
+      {
+        "name": "causal_mask",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "head_weights",
+        "version": "1",
+        "dependsOn": [
+          "causal_mask"
+        ]
+      },
+      {
+        "name": "merge_heads",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "attention",
+        "version": "1",
+        "dependsOn": [
+          "head_weights",
+          "merge_heads"
+        ]
+      },
+      {
+        "name": "pre_norm",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "ffn",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "block",
+        "version": "1",
+        "dependsOn": [
+          "attention",
+          "pre_norm",
+          "ffn"
+        ]
+      },
+      {
+        "name": "lm_head",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "logits",
+        "version": "1",
+        "dependsOn": [
+          "block",
+          "lm_head"
+        ]
+      },
+      {
+        "name": "loss_fn",
+        "version": "1",
+        "dependsOn": [
+          "shifted",
+          "logits"
+        ]
+      },
+      {
+        "name": "update",
+        "version": "1",
+        "dependsOn": [
+          "loss_fn"
+        ]
+      }
+    ],
+    "mode": "check",
+    "transferFrom": "L12-flex",
+    "evidenceKind": "transfer",
+    "diagnosis": "前向值检查与 all parameter gradients、SGD parameter updates 都要通过。第二层参数字典是原 Parameter 的视图；不是 clone/detach 或重新初始化。layer=0/1来自真实trace，未采集不等于零。"
+  },
+  {
+    "id": "L12-observe",
+    "lessonId": "L12",
+    "title": "实验 · 双层有限步观察 / Bounded two-layer observation",
+    "kind": "code",
+    "prompt": "先写预测，再实现并运行；保存代码、有效配置、runId、最早失败的可信 check 与 detail。解释修复原因后只改变一个合法配置重复检查；次日闭卷复习。 / Predict, implement, check, explain, transfer, review. 先完成双层快判。将自己的已通过代码带入；默认12步，可选8..24步。写下关于lr与留出loss的假设，固定代码/seed/B/T/H/steps，只改lr，比较同step的 program validation_loss。若使用实验组，最多6项，必须报告失败/取消/缺指标与样本量。解释首末步各层梯度、参数增量与首步attention，不能以漂亮曲线代替实现判题。",
+    "starter": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    raise NotImplementedError(\"shifted\")\n\n# %% position\ndef position(ids, p):\n    raise NotImplementedError(\"position\")\n\n# %% embed\ndef embed(ids, p):\n    raise NotImplementedError(\"embed\")\n\n# %% causal_mask\ndef causal_mask(scores):\n    raise NotImplementedError(\"causal_mask\")\n\n# %% head_weights\ndef head_weights(x, p):\n    raise NotImplementedError(\"head_weights\")\n\n# %% merge_heads\ndef merge_heads(heads):\n    raise NotImplementedError(\"merge_heads\")\n\n# %% attention\ndef attention(x, p):\n    raise NotImplementedError(\"attention\")\n\n# %% pre_norm\ndef pre_norm(x):\n    raise NotImplementedError(\"pre_norm\")\n\n# %% ffn\ndef ffn(x, p):\n    raise NotImplementedError(\"ffn\")\n\n# %% block\ndef block(x, p):\n    raise NotImplementedError(\"block\")\n\n# %% lm_head\ndef lm_head(x, p):\n    raise NotImplementedError(\"lm_head\")\n\n# %% logits\ndef logits(x, p):\n    raise NotImplementedError(\"logits\")\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    raise NotImplementedError(\"loss_fn\")\n\n# %% update\ndef update(optimizer):\n    raise NotImplementedError(\"update\")\n",
+    "reference": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores.masked_fill(~torch.ones(scores.size(-2), scores.size(-1), dtype=torch.bool).tril(), -torch.inf)\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    z = block(x, p)\n    if p.layers == 2:\n        second = {k: p[k + \"2\"] if k in (\"q\", \"k\", \"v\", \"out\", \"up\", \"down\") else v for k, v in p.items() if not k.endswith(\"2\")}\n        class Layer(dict):\n            pass\n        second = Layer(second)\n        second.heads = p.heads\n        second.layer = 1\n        z = block(z, second)\n    return lm_head(z, p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+    "hints": [
+      "画出当前组件输入/输出shape与依赖路径，再运行starter或迁移自己的实现。",
+      "找到本run最早失败的check，只改相关组件；对照layer与step，不复用旧草稿结果。",
+      "参考实现揭示完整答案；使用后如实记录帮助，再用另一合法B/T/H独立解释。"
+    ],
+    "concepts": [
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L11",
+      "L12"
+    ],
+    "testVersion": "1",
+    "runtimeKey": "project-char-observe-v1",
+    "inputDomain": "CPU float64；D=6，B=1..4，T=2..8，H∈{1,2,3,6}，D%H=0。p.heads / p.layers 由协议提供；单文件十四组件接口沿用 L12-assembly。quick steps=4；observe steps=8..24。词表 abcde，tiny-char-v2：训练字符0..71，validation字符72..99，分别建T+1窗口。学习率0.001..0.3，seed整数0..10000。 / Bounded CPU decoder contract.",
+    "commonErrors": [
+      "把前向正确等同于梯度和更新正确。",
+      "把不同seed、学习率、层数和步数同时变化误称单变量实验。",
+      "把observe通过或旧版运行当作新活动实现掌握。"
+    ],
+    "components": [
+      {
+        "name": "shifted",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "position",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "embed",
+        "version": "1",
+        "dependsOn": [
+          "position"
+        ]
+      },
+      {
+        "name": "causal_mask",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "head_weights",
+        "version": "1",
+        "dependsOn": [
+          "causal_mask"
+        ]
+      },
+      {
+        "name": "merge_heads",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "attention",
+        "version": "1",
+        "dependsOn": [
+          "head_weights",
+          "merge_heads"
+        ]
+      },
+      {
+        "name": "pre_norm",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "ffn",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "block",
+        "version": "1",
+        "dependsOn": [
+          "attention",
+          "pre_norm",
+          "ffn"
+        ]
+      },
+      {
+        "name": "lm_head",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "logits",
+        "version": "1",
+        "dependsOn": [
+          "block",
+          "lm_head"
+        ]
+      },
+      {
+        "name": "loss_fn",
+        "version": "1",
+        "dependsOn": [
+          "shifted",
+          "logits"
+        ]
+      },
+      {
+        "name": "update",
+        "version": "1",
+        "dependsOn": [
+          "loss_fn"
+        ]
+      }
+    ],
+    "mode": "observe",
+    "transferFrom": "L12-two",
+    "diagnosis": "这是 mode=observe 的观察证据。即使数值检查通过也不授实现掌握；缺少参数或层观测应写未采集。样本标准差仅在n≥2时定义；少量seed不能证明普遍因果或语言能力。"
+  },
+  {
+    "id": "L12-repair-mask",
+    "lessonId": "L12",
+    "title": "调试 · 修复未来泄漏 / Repair future leakage",
+    "kind": "code",
+    "prompt": "先写预测，再实现并运行；保存代码、有效配置、runId、最早失败的可信 check 与 detail。解释修复原因后只改变一个合法配置重复检查；次日闭卷复习。 / Predict, implement, check, explain, transfer, review. 先运行这个可执行的双层坏starter，记录真实失败。它只在 causal_mask 中返回未遮蔽 scores。手算两个位置、零scores、values=[2,6] 的输出；再仅改未来value为10。修复一处并重新运行，解释为什么训练loss下降也不能证明因果性。",
+    "starter": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores  # BUG: future keys remain visible\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    z = block(x, p)\n    if p.layers == 2:\n        second = {k: p[k + \"2\"] if k in (\"q\", \"k\", \"v\", \"out\", \"up\", \"down\") else v for k, v in p.items() if not k.endswith(\"2\")}\n        class Layer(dict):\n            pass\n        second = Layer(second)\n        second.heads = p.heads\n        second.layer = 1\n        z = block(z, second)\n    return lm_head(z, p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+    "reference": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores.masked_fill(~torch.ones(scores.size(-2), scores.size(-1), dtype=torch.bool).tril(), -torch.inf)\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    z = block(x, p)\n    if p.layers == 2:\n        second = {k: p[k + \"2\"] if k in (\"q\", \"k\", \"v\", \"out\", \"up\", \"down\") else v for k, v in p.items() if not k.endswith(\"2\")}\n        class Layer(dict):\n            pass\n        second = Layer(second)\n        second.heads = p.heads\n        second.layer = 1\n        z = block(z, second)\n    return lm_head(z, p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+    "hints": [
+      "画出当前组件输入/输出shape与依赖路径，再运行starter或迁移自己的实现。",
+      "找到本run最早失败的check，只改相关组件；对照layer与step，不复用旧草稿结果。",
+      "参考实现揭示完整答案；使用后如实记录帮助，再用另一合法B/T/H独立解释。"
+    ],
+    "concepts": [
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L11",
+      "L12"
+    ],
+    "testVersion": "1",
+    "runtimeKey": "project-char-two-v1",
+    "inputDomain": "CPU float64；D=6，B=1..4，T=2..8，H∈{1,2,3,6}，D%H=0。p.heads / p.layers 由协议提供；单文件十四组件接口沿用 L12-assembly。quick steps=4；observe steps=8..24。词表 abcde，tiny-char-v2：训练字符0..71，validation字符72..99，分别建T+1窗口。学习率0.001..0.3，seed整数0..10000。 / Bounded CPU decoder contract.",
+    "commonErrors": [
+      "把前向正确等同于梯度和更新正确。",
+      "把不同seed、学习率、层数和步数同时变化误称单变量实验。",
+      "把observe通过或旧版运行当作新活动实现掌握。"
+    ],
+    "components": [
+      {
+        "name": "shifted",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "position",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "embed",
+        "version": "1",
+        "dependsOn": [
+          "position"
+        ]
+      },
+      {
+        "name": "causal_mask",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "head_weights",
+        "version": "1",
+        "dependsOn": [
+          "causal_mask"
+        ]
+      },
+      {
+        "name": "merge_heads",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "attention",
+        "version": "1",
+        "dependsOn": [
+          "head_weights",
+          "merge_heads"
+        ]
+      },
+      {
+        "name": "pre_norm",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "ffn",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "block",
+        "version": "1",
+        "dependsOn": [
+          "attention",
+          "pre_norm",
+          "ffn"
+        ]
+      },
+      {
+        "name": "lm_head",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "logits",
+        "version": "1",
+        "dependsOn": [
+          "block",
+          "lm_head"
+        ]
+      },
+      {
+        "name": "loss_fn",
+        "version": "1",
+        "dependsOn": [
+          "shifted",
+          "logits"
+        ]
+      },
+      {
+        "name": "update",
+        "version": "1",
+        "dependsOn": [
+          "loss_fn"
+        ]
+      }
+    ],
+    "mode": "check",
+    "transferFrom": "L12-two",
+    "evidenceKind": "debugging",
+    "diagnosis": "最早局部失败预计是 module causal_mask，后续 head_weights/attention 或 causal prefix unchanged 也可能失败。修复为含对角线的下三角mask，未来填−inf，softmax沿最后key轴。先后失败要按实际run记录，不把预计检查当观测。"
+  },
+  {
+    "id": "L12-repair-gradient",
+    "lessonId": "L12",
+    "title": "调试 · 修复第二层断梯度 / Repair layer-two gradient",
+    "kind": "code",
+    "prompt": "先写预测，再实现并运行；保存代码、有效配置、runId、最早失败的可信 check 与 detail。解释修复原因后只改变一个合法配置重复检查；次日闭卷复习。 / Predict, implement, check, explain, transfer, review. 先预测：仅第二层query参数detach后，初次前向值是否改变？运行可执行坏starter并定位第二层q2的梯度路径。只删除错误detach后重跑，连接 all parameter gradients 与 SGD parameter updates 的证据解释修复；禁止给 .grad 手工填零或改可信容差。",
+    "starter": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores.masked_fill(~torch.ones(scores.size(-2), scores.size(-1), dtype=torch.bool).tril(), -torch.inf)\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    z = block(x, p)\n    if p.layers == 2:\n        second = {k: p[k + \"2\"] if k in (\"q\", \"k\", \"v\", \"out\", \"up\", \"down\") else v for k, v in p.items() if not k.endswith(\"2\")}\n        class Layer(dict):\n            pass\n        second = Layer(second)\n        second[\"q\"] = second[\"q\"].detach()  # BUG: disconnect layer 1 query gradient\n        second.heads = p.heads\n        second.layer = 1\n        z = block(z, second)\n    return lm_head(z, p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+    "reference": "import torch\nimport torch.nn.functional as F\n\n# %% shifted\ndef shifted(window):\n    return window[:, :-1], window[:, 1:]\n\n# %% position\ndef position(ids, p):\n    return p[\"position\"][:ids.size(1)]\n\n# %% embed\ndef embed(ids, p):\n    return p[\"token\"][ids] + position(ids, p)\n\n# %% causal_mask\ndef causal_mask(scores):\n    return scores.masked_fill(~torch.ones(scores.size(-2), scores.size(-1), dtype=torch.bool).tril(), -torch.inf)\n\n# %% head_weights\ndef head_weights(x, p):\n    b, t, width = x.shape\n    h = p.heads\n    q, k = [(x @ p[key]).reshape(b, t, h, width // h).transpose(1, 2) for key in (\"q\", \"k\")]\n    scores = q @ k.transpose(-2, -1) / (width // h) ** 0.5\n    return causal_mask(scores).softmax(-1)\n\n# %% merge_heads\ndef merge_heads(heads):\n    return heads.transpose(1, 2).reshape(heads.size(0), heads.size(2), -1)\n\n# %% attention\ndef attention(x, p):\n    b, t, width = x.shape\n    v = (x @ p[\"v\"]).reshape(b, t, p.heads, width // p.heads).transpose(1, 2)\n    return merge_heads(head_weights(x, p) @ v) @ p[\"out\"]\n\n# %% pre_norm\ndef pre_norm(x):\n    return F.layer_norm(x, (x.size(-1),))\n\n# %% ffn\ndef ffn(x, p):\n    return F.relu(x @ p[\"up\"]) @ p[\"down\"]\n\n# %% block\ndef block(x, p):\n    h = x + attention(pre_norm(x), p)\n    return h + ffn(pre_norm(h), p)\n\n# %% lm_head\ndef lm_head(x, p):\n    return x @ p[\"lm\"]\n\n# %% logits\ndef logits(x, p):\n    z = block(x, p)\n    if p.layers == 2:\n        second = {k: p[k + \"2\"] if k in (\"q\", \"k\", \"v\", \"out\", \"up\", \"down\") else v for k, v in p.items() if not k.endswith(\"2\")}\n        class Layer(dict):\n            pass\n        second = Layer(second)\n        second.heads = p.heads\n        second.layer = 1\n        z = block(z, second)\n    return lm_head(z, p)\n\n# %% loss_fn\ndef loss_fn(scores, targets):\n    return F.cross_entropy(scores.flatten(0, 1), targets.flatten())\n\n# %% update\ndef update(optimizer):\n    optimizer.step()\n",
+    "hints": [
+      "画出当前组件输入/输出shape与依赖路径，再运行starter或迁移自己的实现。",
+      "找到本run最早失败的check，只改相关组件；对照layer与step，不复用旧草稿结果。",
+      "参考实现揭示完整答案；使用后如实记录帮助，再用另一合法B/T/H独立解释。"
+    ],
+    "concepts": [
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L11",
+      "L12"
+    ],
+    "testVersion": "1",
+    "runtimeKey": "project-char-two-v1",
+    "inputDomain": "CPU float64；D=6，B=1..4，T=2..8，H∈{1,2,3,6}，D%H=0。p.heads / p.layers 由协议提供；单文件十四组件接口沿用 L12-assembly。quick steps=4；observe steps=8..24。词表 abcde，tiny-char-v2：训练字符0..71，validation字符72..99，分别建T+1窗口。学习率0.001..0.3，seed整数0..10000。 / Bounded CPU decoder contract.",
+    "commonErrors": [
+      "把前向正确等同于梯度和更新正确。",
+      "把不同seed、学习率、层数和步数同时变化误称单变量实验。",
+      "把observe通过或旧版运行当作新活动实现掌握。"
+    ],
+    "components": [
+      {
+        "name": "shifted",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "position",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "embed",
+        "version": "1",
+        "dependsOn": [
+          "position"
+        ]
+      },
+      {
+        "name": "causal_mask",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "head_weights",
+        "version": "1",
+        "dependsOn": [
+          "causal_mask"
+        ]
+      },
+      {
+        "name": "merge_heads",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "attention",
+        "version": "1",
+        "dependsOn": [
+          "head_weights",
+          "merge_heads"
+        ]
+      },
+      {
+        "name": "pre_norm",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "ffn",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "block",
+        "version": "1",
+        "dependsOn": [
+          "attention",
+          "pre_norm",
+          "ffn"
+        ]
+      },
+      {
+        "name": "lm_head",
+        "version": "1",
+        "dependsOn": []
+      },
+      {
+        "name": "logits",
+        "version": "1",
+        "dependsOn": [
+          "block",
+          "lm_head"
+        ]
+      },
+      {
+        "name": "loss_fn",
+        "version": "1",
+        "dependsOn": [
+          "shifted",
+          "logits"
+        ]
+      },
+      {
+        "name": "update",
+        "version": "1",
+        "dependsOn": [
+          "loss_fn"
+        ]
+      }
+    ],
+    "mode": "check",
+    "transferFrom": "L12-two",
+    "evidenceKind": "debugging",
+    "diagnosis": "坏starter仅在logits的第二层字典设置 second[\"q\"]=second[\"q\"].detach()。前向仍相同，但原q2不收梯度；运行可能先报 decoder contract（缺少梯度），也可能给梯度比较失败，以真实detail为准。恢复对原Parameter的引用；非零总梯度不能证明每个参数都连接。"
+  }
+]
