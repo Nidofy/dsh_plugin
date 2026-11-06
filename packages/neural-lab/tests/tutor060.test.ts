@@ -1,5 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { allowedTrainingConfig,validateTrainingConfig } from '../src/training-protocol.ts'
 import { Engine } from '../src/engine.ts'
 import { askActivityTutor, validateTutorContext } from '../src/tutor-context.ts'
 import type { RunRecord } from '../src/types.ts'
@@ -112,3 +113,20 @@ test('shape-correct numeric failure supplies bounded actual component events and
  assert.match(p.focus.checkSemantics,/BOTH shape and numerical/)
  assert.ok(p.recentMessages.some((m:any)=>m.role==='assistant'&&m.text.includes('incorrectly called')))
 }))
+
+test('focused tutor exposes the same executable bounds enforced by Host and forbids editing fixed probes',async()=>{
+ const tmp=await temporaryDirectory('neural-tutor-bounds-'),engine=await Engine.open(tmp.directory)
+ try {
+  const id='L12-two';let prompt:any
+  await askActivityTutor(engine,id,'Give an executable single-variable diagnostic','',async raw=>{prompt=JSON.parse(raw);return {status:'completed',text:'fixture'}},'concept')
+  assert.deepEqual(prompt.executionConstraints.allowedRunConfig,allowedTrainingConfig('project-char-two-v1'))
+  assert.deepEqual(prompt.executionConstraints.allowedRunConfig.context,{min:2,max:8,integer:true})
+  assert.throws(()=>validateTrainingConfig('project-char-two-v1',{context:1}))
+  assert.throws(()=>validateTrainingConfig('project-char-two-v1',{constructor:1}))
+  for(const context of [2,4,8])assert.doesNotThrow(()=>validateTrainingConfig('project-char-two-v1',{context}))
+  assert.throws(()=>validateTrainingConfig('project-char-two-v1',{steps:4}))
+  assert.doesNotThrow(()=>validateTrainingConfig('project-char-observe-v1',{steps:24}))
+  assert.match(prompt.executionConstraints.fixedGraderProbes,/NOT editable/)
+  assert.match(prompt.executionConstraints.followup,/Explicitly retract/)
+ }finally{await engine.close();await tmp.cleanup()}
+})

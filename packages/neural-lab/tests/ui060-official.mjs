@@ -7,8 +7,9 @@ import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises'
 
 const base = resolve(import.meta.dirname, '..')
 const out = join(base, '.build/ui')
+const tutorOnly=process.env.NEURAL_TUTOR_ONLY==='1'
 await mkdir(out, { recursive: true })
-const report = { rpcTrace: [], editorTrace: [], startedAt: new Date().toISOString(), runtime: 'official DSH 0.2.1-rc.5', checks: [], errors: [], runs: [], groups: [], screenshots: [], tutor: { requested: process.env.NEURAL_LIVE_TUTOR === '1', semanticReview: 'Not performed; raw replies require human review' } }
+const report = { scope:tutorOnly?'focused real tutor only':'full official UI', rpcTrace: [], editorTrace: [], startedAt: new Date().toISOString(), runtime: 'official DSH 0.2.1-rc.5', checks: [], errors: [], runs: [], groups: [], screenshots: [], tutor: { requested: process.env.NEURAL_LIVE_TUTOR === '1', semanticReview: 'Not performed; raw replies require human review' } }
 const evidence = (name) => join(out, name)
 let browser, page
 const ownedGroups = new Set()
@@ -97,6 +98,7 @@ async function shot(name) {
   report.screenshots.push(path)
 }
 try {
+  if(tutorOnly)assert.equal(process.env.NEURAL_LIVE_TUTOR,'1','Tutor-only gate must actually call the authorized model')
   assert.ok(process.env.NEURAL_WEB_URL, 'NEURAL_WEB_URL must identify the existing isolated official Host')
   const source = process.env.DSH_SOURCE ?? resolve(base, '../../../../.build/official-source-rc5')
   const pnpm = join(source, 'node_modules/.pnpm')
@@ -135,6 +137,7 @@ try {
   assert.equal(environment.available, true, environment.detail)
   report.environment = environment
 
+  if(!tutorOnly) {
   const run = await submit(two, two.reference, { batchSize: 1, context: 2, heads: 6 })
   assert.equal(run.check_status, 'passed')
   assert.equal(run.mode, 'check')
@@ -269,6 +272,7 @@ try {
   report.checks.push('eight-step observation has actual observation-only evidence; four-step check has its declared transfer evidence; debug panel switches run identity')
   await shot('v060-observation.png')
 
+  }
   if (process.env.NEURAL_LIVE_TUTOR === '1') {
     const needle = 'return causal_mask(scores).softmax(-1)'
     assert.equal(two.reference.split(needle).length, 2, 'Failure mutation must match once')
@@ -294,7 +298,7 @@ try {
   }
   assert.deepEqual(report.errors, [])
   report.status = 'passed'
-  console.log('PASS official UI060 CPU, debugger, group lifecycle/statistics and observation evidence')
+  console.log(tutorOnly?'PASS focused real tutor transport; semantic review required':'PASS official UI060 CPU, debugger, group lifecycle/statistics and observation evidence')
 } catch (error) {
   report.status = 'failed'; report.errors.push(String(error?.stack ?? error))
   if(page)report.editorTrace.push({at:'error',editors:await page.locator('.nl-editorInput').evaluateAll(nodes=>nodes.map(node=>({length:node.value.length,readonly:node.readOnly})))})
@@ -305,5 +309,5 @@ try {
   await browser?.close()
   report.finishedAt = new Date().toISOString()
   if (report.errors.length) { report.status = 'failed'; process.exitCode = 1 }
-  await writeFile(evidence('v060-official-validation.json'), JSON.stringify(report, null, 2))
+  await writeFile(evidence((process.env.NEURAL_EVIDENCE_PREFIX ?? 'v060-')+'official-validation.json'), JSON.stringify(report, null, 2))
 }

@@ -1,3 +1,4 @@
+import { allowedTrainingConfig } from './training-protocol.ts'
 import { randomUUID, createHash } from 'node:crypto'
 import type { HelpLevel, RunEvent } from './types.ts'
 import type { Engine } from './engine.ts'
@@ -108,6 +109,13 @@ export async function askActivityTutor(
       question: text,
       mode,
       requestedMode: mode,
+      executionConstraints: {
+        allowedRunConfig:allowedTrainingConfig(e.runtimeKey),
+        editable:'Only one legal UI/Host run parameter OR one local change to the student draft. Preserve every other variable.',
+        fixedGraderProbes:'Internal reference checks, alternate B/T/heads probes, fixtures and expected values are Host-owned and NOT editable. UI config does not rewrite fixed probes.',
+        forbidden:'Do not recommend out-of-domain configurations or editing the Host grader, even as a theoretical probe. If no new run exists, do not invent new outcomes.',
+        followup:'Audit the previous recommendation for executability. Explicitly retract any out-of-domain or fixed-grader edit before offering a legal alternative.',
+      },
       focus: focused ? {
         ...focused.context,
         checks: boundedEvents(focused.checks).events,

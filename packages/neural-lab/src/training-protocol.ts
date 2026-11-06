@@ -7,18 +7,26 @@ export function trainingDataset(key?: string): string | undefined {
   if (key === 'train-char-v1') return 'tiny-char-v1'
 }
 
+export interface TrainingConfigRule { min?:number; max?:number; integer?:boolean; values?:number[] }
+/** Shared Host validation and tutor executable-action contract. */
+export function allowedTrainingConfig(key?:string):Record<string,TrainingConfigRule> {
+ const rules:Record<string,TrainingConfigRule>={seed:{min:0,max:10000,integer:true}}
+ if(trainingDataset(key))rules.learningRate={min:.001,max:.3}
+ if(['project-char-flex-v1','project-char-two-v1','project-char-observe-v1'].includes(key??'')) {
+  rules.batchSize={min:1,max:4,integer:true}
+  rules.context={min:2,max:8,integer:true}
+  rules.heads={values:[1,2,3,6],integer:true}
+  if(key==='project-char-observe-v1')rules.steps={min:8,max:24,integer:true}
+ }
+ return rules
+}
 export function validateTrainingConfig(key: string | undefined, config: Record<string, number>): void {
-  const advanced = ['project-char-flex-v1', 'project-char-two-v1', 'project-char-observe-v1'].includes(key ?? '')
-  for (const [name, value] of Object.entries(config)) {
-    if (!Number.isFinite(value)) throw Error('Nonfinite configuration')
-    if (name === 'seed' && Number.isInteger(value) && value >= 0 && value <= 10000) continue
-    if (name === 'learningRate' && trainingDataset(key) && value >= .001 && value <= .3) continue
-    if (advanced && Number.isInteger(value)) {
-      if (name === 'batchSize' && value >= 1 && value <= 4) continue
-      if (name === 'context' && value >= 2 && value <= 8) continue
-      if (name === 'heads' && [1,2,3,6].includes(value)) continue
-      if (name === 'steps' && key === 'project-char-observe-v1' && value >= 8 && value <= 24) continue
-    }
-    throw Error('Invalid experiment configuration: ' + name)
-  }
+ const rules=allowedTrainingConfig(key)
+ for(const [name,value] of Object.entries(config)) {
+  if(!Number.isFinite(value))throw Error('Nonfinite configuration')
+  const rule=Object.hasOwn(rules,name)?rules[name]:undefined
+  if(!rule || (rule.integer&&!Number.isInteger(value)) || (rule.min!==undefined&&value<rule.min) ||
+    (rule.max!==undefined&&value>rule.max) || (rule.values&&!rule.values.includes(value)))
+    throw Error('Invalid experiment configuration: '+name)
+ }
 }

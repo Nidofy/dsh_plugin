@@ -10,7 +10,7 @@ const output = join(base, '.build/ui')
 await mkdir(output, { recursive: true })
 const deep = process.env.NEURAL_UI_DEEP === '1'
 const v060 = process.env.NEURAL_060_MODE === '1'
-const prefix = v060 ? 'v060-' : deep ? 'deep-' : ''
+const prefix = v060 ? (process.env.NEURAL_TUTOR_ONLY==='1'?'v060-tutor-only-':'v060-') : deep ? 'deep-' : ''
 const evidencePath = join(output, `${prefix}official-validation.json`)
 const diagnostic = { startedAt: new Date().toISOString(), deep, probes: [], cleanupCompleted: false }
 const scratch = deep ? output : resolve(base, '../../.build/u')
