@@ -76,7 +76,8 @@ def call(args, configure=False, mode=None):
             chunk = stream.read(4096)
             if not chunk:
                 break
-            if len(target) + len(chunk) > 65536:
+            limit = 2097152 if target is out and key in ("project-char-flex-v1", "project-char-two-v1", "project-char-observe-v1") else 65536
+            if len(target) + len(chunk) > limit:
                 overflow.set()
                 try:
                     os.killpg(p.pid, signal.SIGKILL)
@@ -632,7 +633,16 @@ def experiment():
 
 try:
     student_directory = stage_student()
-    if key in ("train-char-v1", "project-char-v1", "project-char-wide-v1"):
+    if key in ("project-char-flex-v1", "project-char-two-v1", "project-char-observe-v1"):
+        from char060 import train_character
+        train_character(seed, float(sys.argv[4]), call, emit, key, json.loads(sys.argv[5]))
+    elif key == "train-mlp-multi-v1":
+        from training060 import editable_mlp
+        config = json.loads(sys.argv[5])
+        if config != {}:
+            raise ValueError("multi-output config must be empty")
+        editable_mlp(seed, float(sys.argv[4]), call, emit)
+    elif key in ("train-char-v1", "project-char-v1", "project-char-wide-v1"):
         from char_transformer import train_character
 
         train_character(seed, float(sys.argv[4]), call, emit, key)

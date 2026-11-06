@@ -6,7 +6,7 @@ def training(module, mode, data):
 
     torch.set_num_threads(1)
     model = torch.nn.Sequential(
-        torch.nn.Linear(2, 4), torch.nn.Tanh(), torch.nn.Linear(4, 1)
+        torch.nn.Linear(2, 4), torch.nn.Tanh(), torch.nn.Linear(4, len(data["state"][3]))
     ).double()
     params = list(model.parameters())
     with torch.no_grad():
@@ -61,6 +61,40 @@ def character(module, mode, data):
     )
 
     p.heads = data.get("heads", 2)
+    p.layers = data.get("layers", 1)
+
+    # Observe the submitted component calls; no trusted model runs in this process.
+    observed = {}
+    current_layer = [0]
+    if data.get("diagnostics060"):
+        import functools
+        def instrument(name, original):
+            @functools.wraps(original)
+            def wrapped(*args, **kwargs):
+                previous = current_layer[0]
+                if name == "block":
+                    current_layer[0] = getattr(args[1], "layer", 0)
+                layer = current_layer[0]
+                try:
+                    value = original(*args, **kwargs)
+                    key = name + ":" + str(layer)
+                    entry = observed.setdefault(key, {"component": name, "layer": layer, "calls": 0})
+                    entry["calls"] += 1
+                    tensor = value[0] if isinstance(value, tuple) else value
+                    if isinstance(tensor, torch.Tensor):
+                        entry["shape"] = list(tensor.shape)
+                        if name == "head_weights":
+                            entry["weights"] = tensor.detach().tolist()
+                        if tensor.requires_grad:
+                            def gradient_hook(grad, entry=entry):
+                                entry["gradient_norm"] = float(grad.norm())
+                            tensor.register_hook(gradient_hook)
+                    return value
+                finally:
+                    current_layer[0] = previous
+            return wrapped
+        for name in ("shifted", "position", "embed", "causal_mask", "head_weights", "merge_heads", "attention", "pre_norm", "ffn", "block", "lm_head", "logits", "loss_fn", "update"):
+            setattr(module, name, instrument(name, getattr(module, name)))
 
     def predict(ids):
         return module.logits(module.embed(ids, p), p)
@@ -121,6 +155,7 @@ def character(module, mode, data):
     trace = []
     optimizer = torch.optim.SGD(p.values(), lr=data["lr"])
     for window in data["windows"]:
+        observed.clear()
         optimizer.zero_grad()
         inputs, targets = module.shifted(torch.tensor(window))
         x = module.embed(inputs, p)
@@ -144,13 +179,18 @@ def character(module, mode, data):
                 k: None if v.grad is None else v.grad.tolist() for k, v in p.items()
             },
         }
+        if data.get("diagnostics060"):
+            row["components"] = [dict(v) for v in observed.values()]
+            if p.layers == 2:
+                row["weights2"] = observed.get("head_weights:1", {}).get("weights")
         if not trace:
             with torch.no_grad():
                 changed = inputs.clone()
                 changed[:, -1] = (changed[:, -1] + 1) % 5
                 row["prefix"] = predict(changed)[:, :-1].tolist()
                 changed = inputs.clone()
-                changed[1] = (changed[1] + 2) % 5
+                if changed.size(0) > 1:
+                    changed[1:] = (changed[1:] + 2) % 5
                 row["firstBatch"] = predict(changed)[:1].tolist()
         if data.get("project"):
             if not trace:
@@ -160,9 +200,16 @@ def character(module, mode, data):
                     .tolist()
                 )
             module.update(optimizer)
+            if data.get("diagnostics060"):
+                row["components"].append(dict(observed.get("update:0", {"component": "update", "layer": 0, "calls": 0})))
         else:
             optimizer.step()
         row["state"] = {k: v.detach().tolist() for k, v in p.items()}
+        if data.get("diagnostics060"):
+            for component in row["components"]:
+                component.pop("weights", None)
+            if trace:
+                row.pop("weights2", None)
         trace.append(row)
     return trace
 
