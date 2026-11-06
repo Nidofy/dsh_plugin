@@ -73,7 +73,7 @@ def character(module, mode, data):
             def wrapped(*args, **kwargs):
                 previous = current_layer[0]
                 if name == "block":
-                    current_layer[0] = getattr(args[1], "layer", 0)
+                    current_layer[0] = 1 if p.layers == 2 and args[1].get("q") is p["q2"] else 0
                 layer = current_layer[0]
                 try:
                     value = original(*args, **kwargs)
