@@ -30,7 +30,9 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "pretest": "node scripts/build.mjs",
-    "test": "node --experimental-transform-types --test tests/*.test.ts tests/*.test.mjs"
+    "test": "node --experimental-transform-types --test tests/*.test.ts tests/*.test.mjs",
+    "check": "node scripts/check.mjs",
+    "check:full": "node scripts/check.mjs --full"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "4.0.5",

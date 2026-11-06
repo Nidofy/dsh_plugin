@@ -773,7 +773,7 @@ export function Workbench({ api }: { api: LabApi }) {
           {tab === 'exercise' && ws && (run ?? reflectionRun) && <DebugWorkbench key={(run ?? reflectionRun)!.id} run={(run ?? reflectionRun)!} exercise={ws.exercise} draft={code}
             onHint={async context => {await api.debugHelp(exerciseId,context.runId,context.component,context.level); await syncActivity()}}
             onTutor={context=>{setTutorContext(context);setMode(context.level);setQuestion('请分析组件 '+context.component+' 的实际检查 '+(context.check ?? '')+'，指出下一步单变量诊断。');document.querySelector('.nl-mentor')?.scrollIntoView({block:'start'})}} />}
-          {tab === 'exercise' && ws && trainingDataset(ws.exercise.runtimeKey) && <ExperimentGroupPanel key={exerciseId} api={api} exercise={ws.exercise} code={code} config={advancedConfig} busy={busy} runs={ws.runs} onChanged={()=>{void syncActivity()}} />}
+          {tab === 'exercise' && ws && trainingDataset(ws.exercise.runtimeKey) && <ExperimentGroupPanel key={'group:'+exerciseId} api={api} exercise={ws.exercise} code={code} config={advancedConfig} busy={busy} runs={ws.runs} onChanged={()=>{void syncActivity()}} />}
           {tab === 'exercise' && ws && trainingDataset(ws.exercise.runtimeKey) && (
             <>
               {

@@ -109,19 +109,30 @@ try {
   )
   assert.equal(await page.locator('.nl-results').getAttribute('data-run-id'), id)
   const catalog = JSON.parse(await readFile(join(base, 'content/catalog.json'), 'utf8'))
-  const project = catalog.lessons.flatMap((l) => l.exercises).find((e) => e.id === 'L12-variant')
+  const project = catalog.lessons.flatMap((l) => l.exercises).find((e) => e.id === 'L12-two')
   await page.getByRole('button', { name: /L12 / }).click()
   await page.getByRole('tab', { name: '练习 Exercise' }).click()
   await page.getByLabel('当前活动 Activity').selectOption(project.id)
   await page.getByRole('textbox', { name: 'Python 编辑器 Editor' }).fill(project.reference)
   await page
     .getByLabel('运行前预测 Prediction')
-    .fill('Three causal heads should preserve earlier outputs')
+    .fill('Two causal layers should preserve earlier outputs')
   await page.getByRole('button', { name: '运行 / 提交 Run & check' }).click()
   const output = page.locator('.nl-results').first()
   await output.locator('.nl-verdict-passed').waitFor({ timeout: 120000 })
-  await output.getByRole('button', { name: /Inspect attention.layer0.head2/ }).click()
+  await output.getByRole('button', { name: /Inspect attention.layer1.head1/ }).click()
   await output.getByText('Q / K').waitFor()
+  const debug = page.getByRole('region', {name:'组件调试工作台 / Component debug workbench'})
+  await debug.waitFor()
+  await debug.locator('button[data-debug-component="attention"]').click()
+  await debug.getByLabel('层 / Layer').selectOption('1')
+  assert.match(await debug.innerText(), /gradient_norm/)
+  const first = debug.locator('button[data-debug-component]').first()
+  await first.focus()
+  await page.keyboard.press('ArrowRight')
+  assert.notEqual(await page.evaluate(()=>document.activeElement?.getAttribute('data-debug-component')), await first.getAttribute('data-debug-component'))
+  await mkdir(join(base, '.build/ui'), { recursive: true })
+  await page.screenshot({path:join(base,'.build/ui/native-060.png')})
   const log = {
     projectRun: await output.getAttribute('data-run-id'),
     version,
@@ -131,7 +142,8 @@ try {
       .digest('hex'),
     runId: id,
     checks: [
-      'three-head transfer, CPU training and indexed heatmap',
+      'two-layer transfer, CPU training and layer1/head1 indexed heatmap',
+      'native component debugger, layer1 gradient and keyboard focus',
       'isolated install',
       'visible editor',
       'Docker CPU passed',

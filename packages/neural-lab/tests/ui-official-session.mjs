@@ -9,9 +9,10 @@ const repo = resolve(base, '../../../..')
 const output = join(base, '.build/ui')
 await mkdir(output, { recursive: true })
 const deep = process.env.NEURAL_UI_DEEP === '1'
-const prefix = deep ? 'deep-' : ''
+const v060 = process.env.NEURAL_060_MODE === '1'
+const prefix = v060 ? 'v060-' : deep ? 'deep-' : ''
 const evidencePath = join(output, `${prefix}official-validation.json`)
-const diagnostic = { deep, probes: [], cleanupCompleted: false }
+const diagnostic = { startedAt: new Date().toISOString(), deep, probes: [], cleanupCompleted: false }
 const scratch = deep ? output : resolve(base, '../../.build/u')
 await mkdir(scratch, { recursive: true })
 const session = await mkdtemp(join(scratch, 'session-official-'))
@@ -120,6 +121,11 @@ try {
       '--store-dir',
       join(repo, '.pnpm-store'),
     ])
+  if (process.env.NEURAL_LIVE_TUTOR === '1') {
+    if (!v060) throw Error('Live tutor requires the bounded 0.6 harness')
+    const { prepareLiveModelProfile } = await import('./live-model-profile060.mjs')
+    diagnostic.liveModel = await prepareLiveModelProfile({ home, profile })
+  }
   const installed = join(home, 'profiles', profile, 'node_modules/dsh-plugin-neural-lab')
   const runtimePath = await realpath(join(installed, 'runtime/student.py'))
   await writeFile(
@@ -177,14 +183,14 @@ try {
     })
   })
   const result = await command(
-    [join(base, 'tests/ui-official.mjs')],
+    [join(base, v060 ? 'tests/ui060-official.mjs' : 'tests/ui-official.mjs')],
     {
       ...environment,
       NEURAL_WEB_URL: url,
       NEURAL_EVIDENCE_PREFIX: prefix,
       NEURAL_PROFILE_NAME: profile,
     },
-    240000,
+    v060 ? 600000 : 240000,
   )
   await new Promise((resolve) => {
     server.once('close', resolve)
@@ -240,10 +246,14 @@ try {
   diagnostic.serverStopped = !server || server.exitCode !== null || server.signalCode !== null
   if (deep)
     await writeFile(join(output, 'deep-diagnostic.json'), JSON.stringify(diagnostic, null, 2))
-  if (evidenceWritten) {
+  await writeFile(join(output, `${prefix}session-diagnostic.json`), JSON.stringify(diagnostic, null, 2))
+  try {
     const evidence = JSON.parse(await readFile(evidencePath, 'utf8'))
-    evidence.cleanupCompleted = true
-    evidence.serverStopped = server?.exitCode !== null || server?.signalCode !== null
-    await writeFile(evidencePath, JSON.stringify(evidence, null, 2))
-  }
+    if (evidenceWritten || (evidence.startedAt && evidence.startedAt >= diagnostic.startedAt)) {
+      evidence.cleanupCompleted = true
+      evidence.serverStopped = diagnostic.serverStopped
+      evidence.sessionDiagnostic = `${prefix}session-diagnostic.json`
+      await writeFile(evidencePath, JSON.stringify(evidence, null, 2))
+    }
+  } catch(error) { if(error.code !== 'ENOENT') throw error }
 }
