@@ -57,7 +57,7 @@ export interface StepContract {
   title: BilingualText
 }
 
-export type SimulatorWidgetKind = 'bit-layout' | 'roofline' | 'gpu-coalescing'
+export type SimulatorWidgetKind = 'bit-layout' | 'roofline' | 'gpu-coalescing' | 'memory-waterfall'
 
 export interface SimulatorTargetSpec {
   widget: SimulatorWidgetKind

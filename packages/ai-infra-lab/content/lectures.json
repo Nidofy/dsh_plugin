@@ -128,5 +128,45 @@
       "zh": "### 先算一个输出\n\nC[i,j] 是 A 的第 i 行和 B 的第 j 列的点积。每次乘加读取两个数，累加值一直留到点积结束才写回。求 N × N 个输出、每个输出做 N 次乘加，朴素实现读取 2N³ 个显存元素。\n\n### 在一个块内复用\n\n一起求 16 × 16 个输出。沿归约方向每前进 16 项，先将 A、B 各一块 16 × 16 搬进 SRAM，再做 16³ 次乘加。A 中每个元素服务于 16 列，B 中每个元素服务于 16 行。保留块内部分和，下一轮继续累加。\n\n若 N=32，朴素读取 65,536 个元素，分块读取 4,096 个。两者均写 1,024 个结果，还要分别乘元素宽度才能得到字节数。这里数的是显式搬运操作；真实 GPU 的缓存命中、指令发射及同步会影响耗时。运行前预测哪本账会增大，再检查四组计数。",
       "en": "### Start with one output\n\nC[i,j] is a dot product of row i of A and column j of B. Each multiply-add loads two numbers. Keep the sum until the dot product ends and store it once. For N² outputs of length N, the naive kernel reads 2N³ elements from HBM.\n\n### Reuse inside a block\n\nCompute a 16 × 16 output tile together. For each slice of 16 along the reduction axis, stage two 16 × 16 tiles into SRAM and perform 16³ multiply-adds. One A value serves 16 columns and one B value serves 16 rows. Keep partial sums across slices.\n\nAt N=32 the kernels read 65,536 and 4,096 HBM elements respectively. Both write 1,024 outputs. Multiply each count by element width to get bytes. These are explicit modeled transfers. Cache hits, issue rate and synchronization affect hardware time. Predict which traffic moves on chip, then inspect all four counters."
     }
+  },
+  "C01": {
+    "summary": {
+      "zh": "沿两层网络的数据依赖追踪每一个暂存张量。",
+      "en": "Follow saved tensors through the data dependencies of a two-layer network."
+    },
+    "body": {
+      "zh": "### 一个位置上的一行数据\n\n用 [B,S,H] 表示 B 个样本、每个样本 S 个位置、每个位置 H 个数字。例如 [2,3,4] 有六行，每行四个特征。让每行乘同一张 [4,5] 权重表 W，输出成为 [2,3,5]。前两维告诉我们结果属于谁，最后一维描述结果有多少个通道。\n\n### 把更新看作一次数据读取\n\n假设某个输出需要调低。要分摊这个修正，更新 W 的步骤需要知道当时哪些输入通道参与了乘法，以及它们各有多大。只保留 Y=XW 时，从混合后的结果通常无法恢复原来的 X。系统可以在前向保留 X，也可以在反向需要时重算它。这里追的是数据依赖；导数的推导可在 Neural Lab 继续学习。\n\n把两层连起来，hidden=ReLU(XW1)，Y=hidden W2。第二层更新要读 hidden，第一层要读 X。若 H=4、中间宽度为 5，上例按 FP32 留存这两项需要 (24+30)×4=216 B。字典中只保存这两项，然后改变 S，先预测账本再运行。",
+      "en": "### One row per position\n\nA [B,S,H] tensor holds B examples, S positions per example and H numbers per position. Shape [2,3,4] contains six rows of four features. Applying the same [4,5] weight table W to each row gives [2,3,5]. The first two axes keep track of ownership and the last axis counts channels.\n\n### Follow the inputs to an update\n\nSuppose one output needs to decrease. To assign that correction to entries of W, the update needs the values of the input channels that contributed to the product. The mixed output Y=XW generally cannot recover X. The system can save X during forward or reproduce it when the update needs it. This is a data dependency. Neural Lab covers the derivative behind it.\n\nConnect two layers as hidden=ReLU(XW1) and Y=hidden W2. Updating the second layer needs hidden and updating the first needs X. In our example with intermediate width five, saving the two FP32 tensors uses (24+30)×4=216 B. Save these two entries in a dictionary. Predict how the bill changes as S increases."
+    }
+  },
+  "C02": {
+    "summary": {
+      "zh": "给持久训练状态与临时激活分别建账。",
+      "en": "Separate persistent training state from activations that live only within a step."
+    },
+    "body": {
+      "zh": "### 给每个参数分配字节\n\n本账本的混合精度 AdamW 包括 BF16 模型权重 2 B、BF16 梯度 2 B、FP32 主权重 4 B，以及两个 FP32 矩各 4 B，总计 16 B。若梯度改用 FP32 累加，每参数多 2 B，总计 18 B。普通 SGD 在这里无动量；全 FP32 模式无需额外主权重。\n\n### 标出哪些数随序列增长\n\n若直接给定 P，静态状态与 B、S 无关。若按结构推算，无偏置、共享词嵌入的简化解码器取 P≈12LH²+VH。每层保留四个 [B,S,H] 激活时，共占 4LBSH×元素宽度。重算方案只留每层输入。前向约 2PBS FLOPs，常规前反向约 6PBS；多做一次前向为 8PBS，约增加三分之一。工作空间、分配器保留和注意力分数矩阵需另算。\n\n试算 1,000 个参数和长度 1,024 的序列。只把 S 翻倍，静态柱应原样保留。再固定 S 换优化器。代码实验可以直接检查真正的 AdamW.step() 后的 state_dict。每个参数张量还有一个步数标量，在小模型上必须逐个计入。",
+      "en": "### Budget bytes per parameter\n\nOur mixed AdamW ledger uses 2 B for a BF16 weight, 2 B for its gradient, 4 B for an FP32 master and 4 B for each of two FP32 moments. This totals 16 B per parameter. FP32 gradient accumulation adds 2 B, bringing the total to 18 B. The modeled SGD has no momentum. Full FP32 uses the parameter itself as its master.\n\n### Find the terms that grow with sequence length\n\nWith explicit P, static state is independent of B and S. For the geometry option we approximate a bias-free decoder with tied embeddings by P≈12LH²+VH. Four saved [B,S,H] tensors per layer cost 4LBSH times element width. Checkpointing retains one input per layer. Forward costs about 2PBS FLOPs and a full step about 6PBS. One extra forward raises this to 8PBS, about a third more. Workspace, allocator reserves and attention scores are separate costs.\n\nTry holding P fixed while doubling a sequence of 1,024 positions. Static bars should stay in place. Next hold S fixed and change the optimizer. The code lab inspects state_dict after an actual AdamW.step(). Each parameter tensor also has a step scalar that matters for exact accounting in a small model."
+    }
+  },
+  "C03": {
+    "summary": {
+      "zh": "在低精度计算与高精度更新之间安排缩放。",
+      "en": "Place scaling between low-precision computation and a high-precision update."
+    },
+    "body": {
+      "zh": "### 两处舍入\n\n把约 10⁻⁸ 的梯度直接存成 FP16 会变成零，这是指数范围的问题。另一个例子是把 10⁻⁴ 加到接近 1 的 FP16 权重上，两数的和可能又舍入到原值。即便梯度能表示，这次更新也消失了。所以用低精度做大矩阵运算，更新时保留一份 FP32 主权重。\n\n### 放大、检查、还原\n\n先用正数 scale 放大损失，梯度也放大相同比例。本实验直接把这个关系施加到梯度上。先算 g×scale，再按 FP16 舍入，恢复 FP32 后除回 scale，最后更新主权重。若乘完出现 Inf 或 NaN，本轮丢弃更新，权重保持原值。\n\n从 scale=128 开始，假设本步有限，则下步可尝试 256；若溢出，则退到 64。教学控制器用一次成功作为增长窗口，上下界为 1 和 65536。生产训练常积累多次成功再增长。预测哪种顺序能救回 10⁻⁸，然后与 FP64 基准对照。",
+      "en": "### Two places where rounding matters\n\nA gradient near 10⁻⁸ can become zero when stored in FP16 because it lies outside the representable range. Adding 10⁻⁴ to an FP16 weight near one can round back to the same weight. Even a representable gradient can lose its update. Keep a master copy in FP32 while large matrix operations use lower precision.\n\n### Scale, check, unscale\n\nMultiplying the loss by a positive scale multiplies its gradients by that same scale. Here we apply that relationship directly to a gradient. Form g×scale, round in FP16, convert back to FP32 and divide by scale before updating the master. If the scaled value is Inf or NaN, skip this update and retain the old weight.\n\nStart at scale 128. A finite update can try 256 next, while an overflow backs off to 64. The teaching controller uses a one-success growth interval and clamps values to [1,65536]. Production systems commonly require more consecutive successes. Predict which operation order rescues 10⁻⁸ and compare it with FP64 arithmetic."
+    }
+  },
+  "C04": {
+    "summary": {
+      "zh": "在扫描 K、V 时累计一行输出，避免保存完整分数方阵。",
+      "en": "Accumulate each output row while scanning K and V in tiles."
+    },
+    "body": {
+      "zh": "### 每个位置向谁取信息\n\n一个查询向量 q 与每个键 k 点积，再除以 √d 得到相关分数。Softmax 把分数变成权重，按这些权重对值向量 v 求加权和。若有 S 个查询和 S 个键，一头就有 S² 个分数。序列翻倍会让分数存储增长到四倍。\n\n### 给两批指数找同一把尺\n\n设旧最大值 m，分母 l=Σexp(s−m)，未归一化分子 o=Σexp(s−m)v。收到新块后取 M=max(m,max(block))。旧分母和旧分子都乘 exp(m−M)，再加新块按 M 计算的指数和与加权和。初值 m=−∞、l=0、o=0，末尾再返回 o/l。\n\n例如先见分数 2，分母为 1；再见分数 4，旧贡献变成 exp(−2)，新贡献为 1。每一步都能丢掉旧分数。FlashAttention 利用这种精确递推与片上分块减少 HBM 流量。本实验在 CPU 上逐行验证数值和最大张量大小；块尾可以短于 block_size。",
+      "en": "### Where each position looks\n\nA query q takes a dot product with each key k and divides by √d to obtain a score. Softmax produces weights and the output is a weighted sum of value vectors v. With S queries and S keys one head has S² scores. Doubling sequence length quadruples score storage.\n\n### Put both groups of exponentials on one scale\n\nKeep maximum m, denominator l=Σexp(s−m) and unnormalized numerator o=Σexp(s−m)v. For the next block choose M=max(m,max(block)). Multiply both old sums by exp(m−M), then add the new block’s exponential sum and weighted sum relative to M. Start from m=−∞, l=0 and o=0. Return o/l after the last block.\n\nSee score 2 first and the denominator is one. When score 4 arrives, the old contribution becomes exp(−2) and the new contribution is one. Old scores can now be discarded. FlashAttention combines this exact recurrence with on-chip tiling to reduce HBM traffic. Here CPU tests verify values and tensor size row by row, including a short final block."
+    }
   }
 }

@@ -34,15 +34,6 @@ export async function askInfraTutor(
       reason: r.reason ?? null,
       stderrTail: r.log.slice(-800),
     })
-  } else if (ws.runs[0]) {
-    const r = ws.runs[0]
-    runSummary = JSON.stringify({
-      runId: r.id,
-      runStatus: r.run_status,
-      checkStatus: r.check_status,
-      dataSource: r.dataSource,
-      events: r.events.slice(0, 20),
-    })
   }
 
   const lesson = engine.catalog.lessons.find((l) => l.id === ex.lessonId)

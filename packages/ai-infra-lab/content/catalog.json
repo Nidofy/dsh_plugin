@@ -1,7 +1,7 @@
 {
   "id": "ai-infra-lab",
-  "version": "0.2.0",
-  "stage": "B",
+  "version": "0.3.0",
+  "stage": "C",
   "glossary": [],
   "lessons": [
     {
@@ -2208,6 +2208,692 @@
             {
               "zh": "实现 naive_matmul_step 与 tiled_matmul_step。A、B、out 均用 [i,j] 单元素索引，有 .shape。A.scratch((tile,tile)) 创建共享计数的 SRAM。用局部列表保存输出块的累加值。所有维度均可整除 tile。",
               "en": "Implement both kernels with scalar [i,j] accesses on A, B and out. Each buffer has .shape. A.scratch((tile,tile)) allocates counted SRAM. Keep output accumulators in local lists. Every dimension is divisible by tile."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C01",
+      "stage": "C",
+      "title": {
+        "zh": "训练为什么要留住输入",
+        "en": "Why training keeps inputs"
+      },
+      "prerequisites": [
+        "A02",
+        "B05"
+      ],
+      "objectives": [
+        {
+          "zh": "读出批次、序列和隐藏维度",
+          "en": "Read batch, sequence and hidden dimensions"
+        },
+        {
+          "zh": "解释反向步骤为何仍需 X",
+          "en": "Explain why the update still needs X"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "C01-quiz",
+          "lessonId": "C01",
+          "title": {
+            "zh": "找回更新需要的输入",
+            "en": "Identify a saved input"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "稍后要更新 W2，应该保留哪个前向量？",
+            "en": "Which forward value is needed later to update W2?"
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "activation-memory"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "只有形状不能恢复每个数。",
+              "en": "A shape cannot recover individual values."
+            },
+            {
+              "zh": "最终输出混合了多个通道。",
+              "en": "The final output mixes multiple channels."
+            }
+          ],
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "批次编号",
+                  "en": "The batch number"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "hidden 的实际数值",
+                  "en": "The values of hidden"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "缓存字节数",
+                  "en": "The cache size"
+                }
+              }
+            ],
+            "correctOptionId": "b"
+          },
+          "hints": [
+            {
+              "zh": "画出第二次乘法的两个输入。",
+              "en": "Draw the two inputs to the second product."
+            },
+            {
+              "zh": "权重已经保存在模型中。",
+              "en": "The model already holds the weights."
+            },
+            {
+              "zh": "追踪另一个输入来自哪一步。",
+              "en": "Trace where the other input came from."
+            },
+            {
+              "zh": "hidden 的实际数值",
+              "en": "The values of hidden"
+            }
+          ]
+        },
+        {
+          "id": "C01-code",
+          "lessonId": "C01",
+          "title": {
+            "zh": "显式激活缓存",
+            "en": "Build an activation cache"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "cached_forward 返回 (Y, {'x': X, 'hidden': ReLU(X@W1)})。cache_bytes 对字典内每个张量计算字节并求和。",
+            "en": "Return (Y, {'x': X, 'hidden': ReLU(X@W1)}) from cached_forward. In cache_bytes sum the byte sizes of all dictionary values."
+          },
+          "starter": "import torch\n\ndef cached_forward(x, w1, w2):\n    # 返回输出与两个缓存项 / Return output and two cache entries\n    return None\n\ndef cache_bytes(cache):\n    # 按各张量的 dtype 汇总 / Sum bytes with each tensor’s dtype\n    return None\n",
+          "reference": "import torch\n\n\ndef cached_forward(x, w1, w2):\n    hidden = torch.relu(x @ w1)\n    return hidden @ w2, {\"x\": x, \"hidden\": hidden}\n\n\ndef cache_bytes(cache):\n    return sum(t.numel() * t.element_size() for t in cache.values())\n",
+          "concepts": [
+            "activation-memory"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "不要把最后一层 Y 当作 hidden。",
+              "en": "Save hidden before the last product."
+            },
+            {
+              "zh": "缓存可能混合不同 dtype。",
+              "en": "Cached tensors can have different dtypes."
+            }
+          ],
+          "runtimeKey": "c01-mlp-io-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "cached_forward",
+              "title": {
+                "zh": "返回输出与两个缓存项",
+                "en": "Return output and two cache entries"
+              }
+            },
+            {
+              "name": "cache_bytes",
+              "title": {
+                "zh": "按各张量的 dtype 汇总",
+                "en": "Sum bytes with each tensor’s dtype"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "保持位置的前两维。",
+              "en": "Preserve both leading axes."
+            },
+            {
+              "zh": "第一层输出经过 ReLU 后才送入第二层。",
+              "en": "Apply ReLU before the second matrix product."
+            },
+            {
+              "zh": "每个张量都有 numel() 和 element_size()。",
+              "en": "Each tensor exposes numel() and element_size()."
+            },
+            {
+              "zh": "cached_forward 返回 (Y, {'x': X, 'hidden': ReLU(X@W1)})。cache_bytes 对字典内每个张量计算字节并求和。",
+              "en": "Return (Y, {'x': X, 'hidden': ReLU(X@W1)}) from cached_forward. In cache_bytes sum the byte sizes of all dictionary values."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C02",
+      "stage": "C",
+      "title": {
+        "zh": "训练一步要带多少显存",
+        "en": "Budget memory for one training step"
+      },
+      "prerequisites": [
+        "C01",
+        "A03"
+      ],
+      "objectives": [
+        {
+          "zh": "写出 16P 和 18P 各自的假设",
+          "en": "State the assumptions behind 16P and 18P"
+        },
+        {
+          "zh": "核对真实 AdamW 的矩与步数张量",
+          "en": "Check the moments and step counters of a real AdamW optimizer"
+        }
+      ],
+      "simulatorWidget": "memory-waterfall",
+      "exercises": [
+        {
+          "id": "C02-sim",
+          "lessonId": "C02",
+          "title": {
+            "zh": "对照两次单因素变化",
+            "en": "Compare two one-factor changes"
+          },
+          "kind": "simulator",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "保持其他参数相同，分别比较重计算开关，以及 AdamW 与 SGD。",
+            "en": "Hold the other settings fixed to compare checkpointing on/off and AdamW against SGD."
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "activation-checkpointing",
+            "activation-memory"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "同时改变两项无法归因。",
+              "en": "Changing two settings confounds the comparison."
+            },
+            {
+              "zh": "减小 S 不会缩小主权重。",
+              "en": "Reducing S does not shrink master weights."
+            }
+          ],
+          "simulator": {
+            "widget": "memory-waterfall",
+            "goalDescription": {
+              "zh": "保持其他参数相同，分别比较重计算开关，以及 AdamW 与 SGD。",
+              "en": "Hold the other settings fixed to compare checkpointing on/off and AdamW against SGD."
+            }
+          },
+          "hints": [
+            {
+              "zh": "先记录原始柱形。",
+              "en": "Start from the original bars."
+            },
+            {
+              "zh": "只改变重计算，看激活与 FLOPs。",
+              "en": "Change checkpointing alone and inspect activations and FLOPs."
+            },
+            {
+              "zh": "再只改变优化器，比较矩所占字节。",
+              "en": "Change only the optimizer and compare moment bytes."
+            },
+            {
+              "zh": "保持其他参数相同，分别比较重计算开关，以及 AdamW 与 SGD。",
+              "en": "Hold the other settings fixed to compare checkpointing on/off and AdamW against SGD."
+            }
+          ]
+        },
+        {
+          "id": "C02-estimate",
+          "lessonId": "C02",
+          "title": {
+            "zh": "7B 参数的静态下限",
+            "en": "Static budget for 7B parameters"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "7×10⁹ 参数，混合精度 AdamW 按每参数 16 B，静态总量是多少？带容量单位作答。",
+            "en": "At 16 B per parameter, what is the static footprint for 7×10⁹ parameters? Include a capacity unit."
+          },
+          "starter": "",
+          "reference": "112 GB",
+          "concepts": [
+            "master-weights"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "7B 是参数数目。",
+              "en": "7B denotes a parameter count."
+            },
+            {
+              "zh": "GB 和 GiB 的倍率不同。",
+              "en": "GB and GiB use different factors."
+            }
+          ],
+          "estimate": {
+            "dimension": "bytes",
+            "expectedBase": 112000000000,
+            "canonicalDisplay": "112 GB",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "这里仅数持久参数状态。",
+              "en": "Count only persistent state."
+            },
+            {
+              "zh": "将参数量乘单参数字节数。",
+              "en": "Multiply the count by bytes per parameter."
+            },
+            {
+              "zh": "1 GB 为 10⁹ B。",
+              "en": "A decimal GB contains 10⁹ B."
+            },
+            {
+              "zh": "112 GB",
+              "en": "112 GB"
+            }
+          ]
+        },
+        {
+          "id": "C02-code",
+          "lessonId": "C02",
+          "title": {
+            "zh": "实查 AdamW 状态",
+            "en": "Inspect live AdamW state"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "给定已经反传并执行过 step() 的 FP32 线性层与 AdamW，返回四项字节的列表 [参数, 梯度, 两个矩, step 标量]。",
+            "en": "Given an FP32 linear layer and AdamW after backward and step(), return [parameter bytes, gradient bytes, moment bytes, step-counter bytes]."
+          },
+          "starter": "def train_ledger(model, optimizer):\n    # 实查模型和优化器张量 / Inspect model and optimizer tensors\n    return None\n",
+          "reference": "def train_ledger(model, optimizer):\n    def size(t):\n        return t.numel() * t.element_size()\n    states = optimizer.state.values()\n    return [sum(size(p) for p in model.parameters()),\n            sum(size(p.grad) for p in model.parameters()),\n            sum(size(s[k]) for s in states for k in (\"exp_avg\", \"exp_avg_sq\")),\n            sum(size(s[\"step\"]) for s in states)]\n",
+          "concepts": [
+            "activation-memory"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "不要把偏置漏出参数集合。",
+              "en": "Include the bias tensor."
+            },
+            {
+              "zh": "step 是每个参数张量一个，不是每个元素一个。",
+              "en": "There is one step scalar per parameter tensor."
+            }
+          ],
+          "runtimeKey": "c02-train-ledger-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "train_ledger",
+              "title": {
+                "zh": "实查模型和优化器张量",
+                "en": "Inspect model and optimizer tensors"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "每一项先数张量，再看 dtype。",
+              "en": "Identify tensors and then their dtypes."
+            },
+            {
+              "zh": "优化器状态按参数索引。",
+              "en": "Optimizer state is indexed by parameter."
+            },
+            {
+              "zh": "在 optimizer.state.values() 中查 exp_avg、exp_avg_sq 和 step。",
+              "en": "Inspect exp_avg, exp_avg_sq and step in optimizer.state.values()."
+            },
+            {
+              "zh": "给定已经反传并执行过 step() 的 FP32 线性层与 AdamW，返回四项字节的列表 [参数, 梯度, 两个矩, step 标量]。",
+              "en": "Given an FP32 linear layer and AdamW after backward and step(), return [parameter bytes, gradient bytes, moment bytes, step-counter bytes]."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C03",
+      "stage": "C",
+      "title": {
+        "zh": "保住微小的梯度与更新",
+        "en": "Preserve small gradients and updates"
+      },
+      "prerequisites": [
+        "A03",
+        "C02"
+      ],
+      "objectives": [
+        {
+          "zh": "区分梯度下溢与权重加法舍入",
+          "en": "Distinguish gradient underflow from weight-update rounding"
+        },
+        {
+          "zh": "在溢出时保留旧权重",
+          "en": "Preserve the old weight on overflow"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "C03-quiz",
+          "lessonId": "C03",
+          "title": {
+            "zh": "遇到无穷大",
+            "en": "Handle an infinite gradient"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "放大后的梯度变为 Inf，这一步应该如何处理？",
+            "en": "A scaled gradient becomes Inf. How should this step proceed?"
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "loss-scaling"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "直接把 Inf 除以有限 scale 仍是 Inf。",
+              "en": "Dividing infinity by a finite scale still yields infinity."
+            },
+            {
+              "zh": "继续放大会更易溢出。",
+              "en": "A larger scale increases overflow risk."
+            }
+          ],
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "跳过更新并减小 scale",
+                  "en": "Skip the update and reduce scale"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "保留 Inf 写回权重",
+                  "en": "Write the infinite update into the weight"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "增大 scale 再写回",
+                  "en": "Increase scale and apply the update"
+                }
+              }
+            ],
+            "correctOptionId": "a"
+          },
+          "hints": [
+            {
+              "zh": "无穷大不能用于有效的参数更新。",
+              "en": "An infinite gradient cannot give a valid update."
+            },
+            {
+              "zh": "下一次应让最大梯度远离溢出上界。",
+              "en": "Give the largest gradient more headroom next time."
+            },
+            {
+              "zh": "把本轮权重和下一轮 scale 分开处理。",
+              "en": "Consider the current weight and next scale separately."
+            },
+            {
+              "zh": "跳过更新并减小 scale",
+              "en": "Skip the update and reduce scale"
+            }
+          ]
+        },
+        {
+          "id": "C03-code",
+          "lessonId": "C03",
+          "title": {
+            "zh": "实现缩放的一步",
+            "en": "Implement one scaled update"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "三步分别返回 FP16 舍入后的梯度数值、FP32 新主权重和下一轮 scale。有限更新翻倍，非有限减半，限制在 [1,65536]。先预测朴素和缩放后的梯度。",
+            "en": "Return the FP16-rounded gradient value, the new FP32 master weight, and the next scale. Double on success, halve on nonfinite data, clamp to [1,65536]. Predict both gradient values first."
+          },
+          "starter": "import torch\n\ndef fp16_underflow_grad(grad):\n    # 直接观察 FP16 梯度 / Observe direct FP16 rounding\n    return None\n\ndef loss_scaled_step(weight, grad, lr, scale):\n    # 缩放并尝试更新主权重 / Scale and update the master\n    return None\n\ndef dynamic_scaler_update(scale, found_inf):\n    # 调整下一步的缩放因子 / Adjust the scale for the next step\n    return None\n",
+          "reference": "import torch\n\n\ndef fp16_underflow_grad(grad):\n    return torch.tensor(grad, dtype=torch.float16).item()\n\n\ndef loss_scaled_step(weight, grad, lr, scale):\n    scaled = torch.tensor(grad * scale, dtype=torch.float16)\n    if not torch.isfinite(scaled):\n        return weight\n    return (torch.tensor(weight, dtype=torch.float32) - lr * (scaled.float() / scale)).item()\n\n\ndef dynamic_scaler_update(scale, found_inf):\n    return max(1, scale / 2) if found_inf else min(65536, scale * 2)\n",
+          "concepts": [
+            "loss-scaling",
+            "master-weights"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "先转 FP16 再放大可能只会放大零。",
+              "en": "Casting first may only scale a zero."
+            },
+            {
+              "zh": "不要在 FP16 中更新主权重。",
+              "en": "Keep the master update in FP32."
+            }
+          ],
+          "runtimeKey": "c03-amp-scaling-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": true,
+          "steps": [
+            {
+              "name": "fp16_underflow_grad",
+              "title": {
+                "zh": "直接观察 FP16 梯度",
+                "en": "Observe direct FP16 rounding"
+              }
+            },
+            {
+              "name": "loss_scaled_step",
+              "title": {
+                "zh": "缩放并尝试更新主权重",
+                "en": "Scale and update the master"
+              }
+            },
+            {
+              "name": "dynamic_scaler_update",
+              "title": {
+                "zh": "调整下一步的缩放因子",
+                "en": "Adjust the scale for the next step"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "先在哪一步转换 dtype 会决定梯度是否已经丢失。",
+              "en": "The first dtype conversion can irreversibly lose the gradient."
+            },
+            {
+              "zh": "检查已缩放张量是否有限。",
+              "en": "Check the scaled tensor for finiteness."
+            },
+            {
+              "zh": "用 torch.isfinite，先恢复 float() 再除回 scale。",
+              "en": "Use torch.isfinite and restore float() before dividing by scale."
+            },
+            {
+              "zh": "三步分别返回 FP16 舍入后的梯度数值、FP32 新主权重和下一轮 scale。有限更新翻倍，非有限减半，限制在 [1,65536]。先预测朴素和缩放后的梯度。",
+              "en": "Return the FP16-rounded gradient value, the new FP32 master weight, and the next scale. Double on success, halve on nonfinite data, clamp to [1,65536]. Predict both gradient values first."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C04",
+      "stage": "C",
+      "title": {
+        "zh": "逐块归一化的 Attention",
+        "en": "Normalize attention one block at a time"
+      },
+      "prerequisites": [
+        "B05",
+        "C02"
+      ],
+      "objectives": [
+        {
+          "zh": "从分数形状计算容量",
+          "en": "Compute the size of an attention score tensor"
+        },
+        {
+          "zh": "用同一个新最大值重标定分母与分子",
+          "en": "Rescale the numerator and denominator to a common maximum"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "C04-estimate",
+          "lessonId": "C04",
+          "title": {
+            "zh": "分数张量占多少显存",
+            "en": "Size the score tensor"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "B=1，32 个头，S=8192，每分数 2 B。完整分数矩阵占多少容量？",
+            "en": "For batch one, 32 heads, S=8192 and 2 B per score, how large is the full score tensor?"
+          },
+          "starter": "",
+          "reference": "4 GiB",
+          "concepts": [
+            "online-softmax"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "漏掉一个 S 会只得到一行的开销。",
+              "en": "One missing S counts only one query row."
+            },
+            {
+              "zh": "FP16 用两个字节。",
+              "en": "FP16 uses two bytes."
+            }
+          ],
+          "estimate": {
+            "dimension": "bytes",
+            "expectedBase": 4294967296,
+            "canonicalDisplay": "4 GiB",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "每个查询要看所有键。",
+              "en": "Every query sees all keys."
+            },
+            {
+              "zh": "先按 B×头数×S×S 数元素。",
+              "en": "Count B×heads×S×S elements."
+            },
+            {
+              "zh": "把元素乘 2，再换算为 GiB。",
+              "en": "Multiply by two, then convert bytes to GiB."
+            },
+            {
+              "zh": "4 GiB",
+              "en": "4 GiB"
+            }
+          ]
+        },
+        {
+          "id": "C04-code",
+          "lessonId": "C04",
+          "title": {
+            "zh": "三步填写分块 Attention",
+            "en": "Fill in tiled attention in three steps"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "用一维分数和二维值块完成三个函数。第一步返回 (m,l)，第二步返回 (m,l,o) 的未归一化分子，第三步返回所有查询行。误差须小于 1e-5。",
+            "en": "Use 1D scores and a 2D value tile. Return (m,l), then (m,l,o) with an unnormalized numerator, then the stacked output rows. Maximum error must be below 1e-5."
+          },
+          "starter": "import math\nimport torch\n\n\ndef online_softmax_update(m_prev, l_prev, block_scores):\n    # ① 新最大值 / New maximum: M = max(m_prev, max(scores)).\n    # 分母 / Denominator: l = l_prev * exp(m_prev-M) + sum(exp(scores-M)).\n    return None\n\n\ndef online_attention_step(m_prev, l_prev, o_prev, block_scores, block_v):\n    # ② 调用第一步 / Call step 1 for M,l.\n    # 未归一化分子 / Unnormalized numerator: o = o_prev*exp(m_prev-M) + exp(scores-M) @ block_v.\n    return None\n\n\ndef tiled_attention(Q, K, V, block_size):\n    # ③ 逐行计算 / Process one query row at a time.\n    rows = []\n    for q in Q:\n        m, l, o = -math.inf, 0.0, V.new_zeros(V.shape[1])\n        for i in range(0, len(K), block_size):\n            # 分数 / Scores: K[i:i+block_size] @ q / sqrt(d).\n            # 用对应的值块调用第二步 / Use the matching V tile in step 2.\n            pass\n        # 行输出 / Row output: o/l.\n    return None\n",
+          "reference": "import math\nimport torch\n\n\ndef online_softmax_update(m_prev, l_prev, block_scores):\n    m = max(m_prev, block_scores.max().item())\n    weights = torch.exp(block_scores - m)\n    return m, l_prev * math.exp(m_prev - m) + weights.sum().item()\n\n\ndef online_attention_step(m_prev, l_prev, o_prev, block_scores, block_v):\n    m, l = online_softmax_update(m_prev, l_prev, block_scores)\n    o = o_prev * math.exp(m_prev - m) + torch.exp(block_scores - m) @ block_v\n    return m, l, o\n\n\ndef tiled_attention(Q, K, V, block_size):\n    rows = []\n    for q in Q:\n        m, l, o = -math.inf, 0.0, V.new_zeros(V.shape[1])\n        for i in range(0, len(K), block_size):\n            scores = K[i:i+block_size] @ q / math.sqrt(q.numel())\n            m, l, o = online_attention_step(m, l, o, scores, V[i:i+block_size])\n        rows.append(o / l)\n    return torch.stack(rows)\n",
+          "concepts": [
+            "online-softmax",
+            "flashattention"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "每个块单独做 softmax 后求和会丢失块间权重。",
+              "en": "Summing per-block softmax outputs loses relative block weights."
+            },
+            {
+              "zh": "先求整个 Q@K.T 再切片仍然分配了方阵。",
+              "en": "Slicing Q@K.T after computing it still allocates the square matrix."
+            }
+          ],
+          "runtimeKey": "c04-online-softmax-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": true,
+          "steps": [
+            {
+              "name": "online_softmax_update",
+              "title": {
+                "zh": "重标定行最大值与分母",
+                "en": "Rescale the row maximum and denominator"
+              }
+            },
+            {
+              "name": "online_attention_step",
+              "title": {
+                "zh": "同尺度累计加权分子",
+                "en": "Accumulate a weighted numerator on the same scale"
+              }
+            },
+            {
+              "name": "tiled_attention",
+              "title": {
+                "zh": "扫描每行的 K/V 短块",
+                "en": "Scan K/V tiles for each query row"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "只需要当前最大值、分母和加权值向量。",
+              "en": "Keep just a maximum, denominator and weighted value vector."
+            },
+            {
+              "zh": "新块的最大值较大时，缩小旧贡献。",
+              "en": "When a larger maximum arrives, shrink the old contribution."
+            },
+            {
+              "zh": "最后一块处理后才除以分母。",
+              "en": "Divide by the denominator only after the final block."
+            },
+            {
+              "zh": "用一维分数和二维值块完成三个函数。第一步返回 (m,l)，第二步返回 (m,l,o) 的未归一化分子，第三步返回所有查询行。误差须小于 1e-5。",
+              "en": "Use 1D scores and a 2D value tile. Return (m,l), then (m,l,o) with an unnormalized numerator, then the stacked output rows. Maximum error must be below 1e-5."
             }
           ]
         }

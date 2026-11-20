@@ -456,5 +456,119 @@
       "en": "Consult one open book for several questions."
     },
     "firstLessonId": "B05"
+  },
+  {
+    "term": "activation-memory",
+    "aliases": [
+      "Activation memory"
+    ],
+    "title": {
+      "zh": "激活显存",
+      "en": "Activation memory"
+    },
+    "short": {
+      "zh": "前向产生且供后续更新读取的中间张量占用的空间。",
+      "en": "Space for intermediate tensors saved for later updates."
+    },
+    "analogy": {
+      "zh": "留下算题草稿以便回查输入。",
+      "en": "Keep intermediate work to trace an earlier input."
+    },
+    "firstLessonId": "C01"
+  },
+  {
+    "term": "master-weights",
+    "aliases": [
+      "Master weights"
+    ],
+    "title": {
+      "zh": "主权重",
+      "en": "Master weights"
+    },
+    "short": {
+      "zh": "用于准确累加多次小更新的高精度参数副本。",
+      "en": "High-precision parameter copies that accumulate small updates."
+    },
+    "analogy": {
+      "zh": "账本保留比分次展示更多的小数位。",
+      "en": "A ledger retains more digits than a displayed balance."
+    },
+    "firstLessonId": "C03"
+  },
+  {
+    "term": "loss-scaling",
+    "aliases": [
+      "Loss scaling"
+    ],
+    "title": {
+      "zh": "损失缩放",
+      "en": "Loss scaling"
+    },
+    "short": {
+      "zh": "先放大再恢复梯度，让低精度运算保留小量。",
+      "en": "Scale gradients up before low-precision arithmetic and unscale before updating."
+    },
+    "analogy": {
+      "zh": "先调高录音增益，再校正音量。",
+      "en": "Raise recording gain then correct the playback level."
+    },
+    "firstLessonId": "C03"
+  },
+  {
+    "term": "activation-checkpointing",
+    "aliases": [
+      "Activation checkpointing"
+    ],
+    "title": {
+      "zh": "激活重计算",
+      "en": "Activation checkpointing"
+    },
+    "short": {
+      "zh": "只保存选定边界，在反向时重跑边界之间的前向。",
+      "en": "Save selected boundaries and replay forward segments during backward."
+    },
+    "analogy": {
+      "zh": "只留几个路标，需要时重走一小段。",
+      "en": "Keep waypoints and retrace one segment when needed."
+    },
+    "firstLessonId": "C02"
+  },
+  {
+    "term": "online-softmax",
+    "aliases": [
+      "Online softmax"
+    ],
+    "title": {
+      "zh": "在线归一化",
+      "en": "Online softmax"
+    },
+    "short": {
+      "zh": "用当前最大值稳定地累加指数分母。",
+      "en": "Accumulate exponentials stably using a running maximum."
+    },
+    "analogy": {
+      "zh": "更换计量单位时同时换算旧账。",
+      "en": "Convert the old balance whenever the unit changes."
+    },
+    "firstLessonId": "C04"
+  },
+  {
+    "term": "flashattention",
+    "aliases": [
+      "FlashAttention"
+    ],
+    "title": {
+      "zh": "分块精确注意力",
+      "en": "FlashAttention"
+    },
+    "short": {
+      "zh": "以片上分块和在线归一化减少注意力中间量的片外搬运。",
+      "en": "Tile exact attention and normalize online to reduce off-chip transfers."
+    },
+    "analogy": {
+      "zh": "看完一页就更新总账，无须摊开整本。",
+      "en": "Update a running sum after each page."
+    },
+    "firstLessonId": "C04"
   }
 ]

@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import { loadCatalog } from './catalog.ts'
 import { evaluateEstimate } from './estimator.ts'
 import { completedWarpAccess } from './sim-stage-b.ts'
+import { completedMemoryLedger } from './sim-stage-c.ts'
 import { acquireOwner } from './owner.ts'
 import { LocalDockerCpuRunner, type RunnerBackend, type RunnerLimits } from './runner.ts'
 import { Store } from './store.ts'
@@ -497,7 +498,10 @@ export class Engine {
 
     let passed = false
     let diagnostic: BilingualText
-    if (exercise.simulator.widget === 'gpu-coalescing') {
+    if (exercise.simulator.widget === 'memory-waterfall') {
+      passed = completedMemoryLedger(payload.observations)
+      diagnostic = passed ? {"zh":"已核对重计算与优化器的两组对照。","en":"Verified both checkpointing and optimizer comparisons."} : exercise.simulator.goalDescription
+    } else if (exercise.simulator.widget === 'gpu-coalescing') {
       passed = completedWarpAccess(payload.observations)
       diagnostic = passed ? { zh: '已核对合并、分裂和 Bank 冲突的访存记录。', en: 'Verified the coalesced, split and bank-conflicted accesses.' }
         : exercise.simulator.goalDescription

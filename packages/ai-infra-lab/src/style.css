@@ -6,6 +6,8 @@
 .ail-lane-grid > div { display: grid; gap: 2px; padding: .3rem; border: 1px solid var(--ail-border); font-variant-numeric: tabular-nums; }
 .ail-lane-grid [data-band="1"] { background: var(--ail-accent-soft); }
 .ail-explorer footer { margin-top: .8rem; border-top: 1px solid var(--ail-border); }
+.ail-memory-stack { display:flex; height:1.4rem; overflow:hidden; border-radius:.35rem; }
+.ail-explorer dl > div { display:flex; justify-content:space-between; border-bottom:1px solid var(--ail-border); padding:.2rem 0; }
 .ai-infra-lab {
   --ail-bg: var(--dsw-alias-bg-base, #f4f6f9);
   --ail-surface: var(--dsw-alias-bg-layer-1, #ffffff);

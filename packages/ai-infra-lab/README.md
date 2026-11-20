@@ -6,6 +6,8 @@ A bilingual, CPU-first course in AI infrastructure with worked examples, graded 
 
 ## 课程与工作台
 
+- **C01–C04 · 训练系统** — 显式激活缓存、显存瀑布、动态损失缩放和三步在线 Attention。Trace tensor lifetimes, audit optimizer state, and stream stable attention over tiles.
+
 - **B01–B05 · GPU** — Warp 访存与 Bank 地址矩阵、边界线程与可计数分块矩阵乘法。Trace memory segments and bank conflicts, launch a guarded grid, then measure tile reuse in bytes.
 
 - **自底向上零基础路线（A00–A07）**：从工作台自检、Python 最小集（支持 2 分钟小测快速跳过）、二维 NumPy 与向量化、IEEE 754 `fp32/fp16/bf16` 位翻转、CPU 指令与 SIMD 点积、内存层次与 Cache Line `stride` 局部性、多核并行与 Amdahl 定律，一路衔接到 Roofline 性能模型。

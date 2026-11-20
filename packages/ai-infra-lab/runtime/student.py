@@ -371,7 +371,10 @@ def main():
         else:
             module = _load_submission(submission_path)
             if mode == "lab_step":
-                from infra_sim.stage_b import observe
+                if payload["key"].startswith("c"):
+                    from infra_sim.stage_c import observe
+                else:
+                    from infra_sim.stage_b import observe
                 out = observe(module, payload["step"], payload["case"])
             elif mode == "call_fn":
                 out = _run_call_fn(module, payload)

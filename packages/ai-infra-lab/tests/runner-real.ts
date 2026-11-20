@@ -53,6 +53,16 @@ try {
     console.log(`  PASS [${ex.id}] (${ex.resourceProfile ?? 'scalar-cpu'}): reference=passed, starter=failed`)
   }
 
+  // A numerically correct dense implementation must still fail the streaming memory contract.
+  const attention = engine.exercise('C04-code')
+  const dense = attention.reference.slice(0, attention.reference.indexOf('def tiled_attention(')) +
+    'def tiled_attention(Q, K, V, block_size):\n    return torch.softmax(Q @ K.T / math.sqrt(Q.shape[1]), -1) @ V\n'
+  const denseStart = await engine.start(attention.id, dense, {}, 'Dense scores will exceed the memory bound')
+  const denseDone = await engine.waitRun(denseStart.id)
+  assert.equal(denseDone.run_status, 'completed')
+  assert.equal(denseDone.events.find(e => e.step === 'tiled_attention' && e.type === 'check')?.passed, false)
+  console.log('  PASS [C04] dense attention rejected by tensor allocation oracle')
+
   // Verify A04/A05 emitted measured roofline points
   const ov = engine.overview()
   assert.ok(ov.measuredRooflinePoints.length >= 2, 'Expected measured roofline points from A04/A05')
