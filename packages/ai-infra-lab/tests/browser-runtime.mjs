@@ -10,7 +10,7 @@ const repo = resolve(pkg, '../..')
 export const carrier = existsSync(join(repo, '.build/official-runtime-rc5')) ? repo : resolve(repo, '../..')
 export const official = createRequire(join(carrier, '.build/official-runtime-rc5/package.json'))
 
-export async function launchBrowser() {
+export async function loadPlaywright() {
   const local = createRequire(import.meta.url)
   let entry = process.env.PLAYWRIGHT_MODULE
   if (!entry) {
@@ -24,7 +24,11 @@ export async function launchBrowser() {
       entry = join(modules, name, 'node_modules/playwright/index.mjs')
     }
   }
-  const { chromium } = await import(pathToFileURL(resolve(entry)).href)
+  return import(pathToFileURL(resolve(entry)).href)
+}
+
+export async function launchBrowser() {
+  const { chromium } = await loadPlaywright()
   const executablePath = process.env.CHROMIUM_PATH ?? [
     process.env['ProgramFiles(x86)'] && join(process.env['ProgramFiles(x86)'], 'Microsoft/Edge/Application/msedge.exe'),
     chromium.executablePath(),

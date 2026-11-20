@@ -10,6 +10,7 @@ import { generateStyleModule } from './style-module.mjs'
 
 const base = resolve(import.meta.dirname, '..')
 const repo = resolve(base, '../..')
+const manifest = JSON.parse(await readFile(join(base, 'package.json'), 'utf8'))
 
 await generateStyleModule(base)
 
@@ -153,9 +154,11 @@ await writeFile(
   join(base, 'lib/build-identity.json'),
   JSON.stringify(
     {
-      name: 'dsh-plugin-ai-infra-lab',
+      name: manifest.name,
+      version: manifest.version,
       revision,
-      dshRange: '>=0.2.1-rc.2 <0.3.0-0',
+      typecheckDshVersion: JSON.parse(await readFile(join(source, 'apps/cli/package.json'), 'utf8')).version,
+      dshRange: manifest.engines.dsh,
       source: sourceHashes,
     },
     null,

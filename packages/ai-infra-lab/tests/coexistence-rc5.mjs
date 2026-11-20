@@ -176,7 +176,8 @@ try {
       notebook:(await request('nidofy-notebook/settings',{})).mode,
       repositories:(await request('nidofy-vcs/repositories',{})).repositories,village:(await request('nidofy-ai-village/state')).profileId}
   })
-  assert.equal(routes.lab,manifest.version)
+  const catalog=JSON.parse(await readFile(join(pkg,'content/catalog.json'),'utf8'))
+  assert.equal(routes.lab,catalog.version)
   assert.equal(routes.notebook,'enhanced')
   assert.ok(Array.isArray(routes.repositories))
   assert.ok(routes.village)

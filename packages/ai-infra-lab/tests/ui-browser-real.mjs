@@ -207,7 +207,8 @@ try {
   assert.notEqual(themes.light.bg,themes.dark.bg)
   const archive=JSON.parse(await rpc('exportData'))
   assert.equal(archive.answers.filter(a=>a.exerciseId==='X01-design' && a.status==='inconclusive').length,submissions)
-  await writeFile(join(build,'browser-v'+catalog.version+'.json'),JSON.stringify({browser:browser.version(),viewport:[1280,800],themes,submissions,trafficBytes,ranks,errors,records},null,2))
+  const {version}=JSON.parse(await readFile(join(pkg,'package.json'),'utf8'))
+  await writeFile(join(build,'browser-v'+version+'.json'),JSON.stringify({version,contentVersion:catalog.version,browser:browser.version(),viewport:[1280,800],themes,submissions,trafficBytes,ranks,errors,records},null,2))
 } finally {
   await browser?.close()
   if(server.listening) { server.closeAllConnections(); await new Promise(resolve=>server.close(resolve)) }

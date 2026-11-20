@@ -15,7 +15,7 @@ const mainRepo = existsSync(join(repo, '.build/official-runtime-rc5'))
   : resolve(repo, '../..')
 
 const sourceManifest = JSON.parse(await readFile(join(pkg, 'package.json'), 'utf8'))
-const unitsByVersion = { '0.2.0': 13, '0.3.0': 17, '0.4.0': 22, '0.5.0': 26, '0.6.0': 26 }
+const catalog = JSON.parse(await readFile(join(pkg, 'content/catalog.json'), 'utf8'))
 const archive = join(pkg, `${sourceManifest.name}-${sourceManifest.version}.tgz`)
 assert.ok(existsSync(archive), `Missing packed tarball: ${archive}`)
 
@@ -100,9 +100,14 @@ try {
     const manifest = JSON.parse(await readFile(join(installedDir, 'package.json'), 'utf8'))
 
     // 1. Official compatibility check
-    assert.equal(manifest.engines.dsh, '>=0.2.1-rc.2 <0.3.0-0')
+    assert.equal(manifest.version, sourceManifest.version)
+    const { satisfies } = runtimeReq('semver')
+    for (const version of [label, '0.2.2-rc.5']) assert.ok(satisfies(version, manifest.engines.dsh), version)
+    assert.equal(satisfies('0.3.0', manifest.engines.dsh), false)
     for (const [peer, range] of Object.entries(manifest.peerDependencies)) {
       if (peer.startsWith('@deepseek-ai/dsh-')) assert.equal(range, manifest.engines.dsh)
+      const provided = JSON.parse(await readFile(join(runtimeRoot, 'node_modules', peer, 'package.json'), 'utf8'))
+      assert.ok(satisfies(provided.version, range), `${peer}@${provided.version} must satisfy ${range}`)
     }
     const compatIssue = boot.evaluatePluginCompatibility(manifest, {})
     assert.equal(compatIssue, undefined, `[${label}] rejected: ${JSON.stringify(compatIssue)}`)
@@ -141,6 +146,8 @@ try {
 
     // 4. Verify build-identity hashes match source & packaged files
     const identity = JSON.parse(await readFile(join(installedDir, 'lib/build-identity.json'), 'utf8'))
+    assert.equal(identity.version, manifest.version)
+    assert.equal(identity.dshRange, manifest.engines.dsh)
     for (const [relFile, expectedHash] of Object.entries(identity.source)) {
       const srcBytes = await readFile(join(pkg, relFile))
       assert.equal(createHash('sha256').update(srcBytes).digest('hex'), expectedHash, `Stale build input: ${relFile}`)
@@ -180,8 +187,8 @@ try {
         const response = await overview()
         assert.equal(response.status, 200)
         const data = await response.json()
-        assert.equal(data.catalog.version, manifest.version)
-        assert.equal(data.catalog.lessons.length, unitsByVersion[manifest.version])
+        assert.equal(data.catalog.version, catalog.version)
+        assert.equal(data.catalog.lessons.length, catalog.lessons.length)
         await fiber.dispose()
         assert.equal((await overview()).status, 404)
       }
@@ -192,8 +199,8 @@ try {
     }
     const engine = await hostMod.Engine.open(join(profile, 'ai-infra-lab'))
     try {
-      assert.equal(engine.catalog.version, manifest.version)
-      assert.equal(engine.overview().catalog.lessons.length, unitsByVersion[manifest.version])
+      assert.equal(engine.catalog.version, catalog.version)
+      assert.equal(engine.overview().catalog.lessons.length, catalog.lessons.length)
     } finally { await engine.close() }
     console.log(`PASS [${label}] installed Host/Client load, lifecycle and catalog integrity`)
   }

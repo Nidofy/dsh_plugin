@@ -41,8 +41,11 @@ cd packages/ai-infra-lab
 npm run build
 npm test
 npm run check
-# 包含真实 Docker、六代数据库升级、浏览器八组合与七插件共存门禁。
+# 包含真实 Docker、历代数据库升级、浏览器八组合、七插件共存及目标 Desktop 验收。
+# DSH_DESKTOP_EXE 可指定官方 0.2.2-rc.5 可执行文件。
 npm run check:full
 ```
 
-兼容宿主版本范围：`>=0.2.1-rc.2 <0.3.0-0`（已在 `0.2.1-rc.2` 与 `0.2.1-rc.5` 官方离线基线验证）。
+本地安装包 `dsh-plugin-ai-infra-lab-0.6.1.tgz` 适配 DeepSeek Harness `0.2.2-rc.5`。在插件管理器中选择此文件即可安装。课程与学习归档沿用 `0.6.0`。兼容范围为 `>=0.2.1-rc.2 <0.3.0-0 || 0.2.2-rc.5`，离线安装门禁覆盖 `0.2.1-rc.2`、`0.2.1-rc.5` 和 `0.2.2-rc.5`。
+
+Select `dsh-plugin-ai-infra-lab-0.6.1.tgz` in the plugin manager to install it on DeepSeek Harness `0.2.2-rc.5`. The course and its learning archives retain version `0.6.0`. Offline installation checks also cover the earlier `0.2.1-rc.2` and `0.2.1-rc.5` hosts.

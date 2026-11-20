@@ -1,12 +1,12 @@
 {
   "name": "dsh-plugin-ai-infra-lab",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Zero-prerequisite CPU-first AI infrastructure learning laboratory for DSH",
   "type": "module",
   "license": "MIT",
   "engines": {
     "node": ">=24",
-    "dsh": ">=0.2.1-rc.2 <0.3.0-0"
+    "dsh": ">=0.2.1-rc.2 <0.3.0-0 || 0.2.2-rc.5"
   },
   "main": "lib/index.js",
   "exports": {
@@ -34,12 +34,11 @@
     "check:full": "node scripts/check.mjs --full"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "4.0.5",
-    "@deepseek-ai/schemastery": "3.18.5",
-    "@deepseek-ai/dsh-client-connection": ">=0.2.1-rc.2 <0.3.0-0",
-    "@deepseek-ai/dsh-brand": ">=0.2.1-rc.2 <0.3.0-0",
-    "@deepseek-ai/dsh-llm": ">=0.2.1-rc.2 <0.3.0-0",
-    "@deepseek-ai/dsh-client-ui-primitives": ">=0.2.1-rc.2 <0.3.0-0",
+    "@deepseek-ai/cordis": "4.0.5 || 4.1.0",
+    "@deepseek-ai/schemastery": "3.18.5 || 3.19.0",
+    "@deepseek-ai/dsh-client-connection": ">=0.2.1-rc.2 <0.3.0-0 || 0.2.2-rc.5",
+    "@deepseek-ai/dsh-brand": ">=0.2.1-rc.2 <0.3.0-0 || 0.2.2-rc.5",
+    "@deepseek-ai/dsh-llm": ">=0.2.1-rc.2 <0.3.0-0 || 0.2.2-rc.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -52,7 +51,6 @@
         "@deepseek-ai/dsh-client-ui-layout",
         "@deepseek-ai/dsh-client-locale",
         "@deepseek-ai/dsh-client-connection",
-        "@deepseek-ai/dsh-client-ui-primitives",
         "@deepseek-ai/dsh-client-ui-renderer",
         "@deepseek-ai/dsh-client-ui-sidebar"
       ],

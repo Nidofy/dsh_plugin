@@ -22,12 +22,14 @@ if (full) {
   ])
   steps.push(['distributed process limits, missing rank, output budget and hot unload',
     node, ['--experimental-transform-types', 'tests/runner-distributed-adversarial.ts']])
-  steps.push(['historical v0.1.0 through v0.6.0 database upgrade and six archive replays',
+  steps.push(['historical v0.1.0 through v0.6.1 database upgrade and seven archive replays',
     node, ['--experimental-transform-types', 'tests/upgrade-chain.mjs']])
   steps.push(['real browser: seven simulators, eight display configurations and neutral feedback',
     node, ['tests/ui-browser-real.mjs']])
   steps.push(['seven installed packages on the official rc.5 Host and web client',
     node, ['tests/coexistence-rc5.mjs']])
+  steps.push(['official Desktop 0.2.2-rc.5 offline installation, Host, browser client and RPC',
+    node, ['tests/desktop-022-rc5.mjs']])
 }
 
 await mkdir(join(base, '.build'), { recursive: true })
