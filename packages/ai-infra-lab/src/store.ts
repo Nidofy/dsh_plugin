@@ -149,7 +149,7 @@ export class Store {
   }
 
   help(exerciseId: string): HelpLevel {
-    const levels: HelpLevel[] = ['none', 'concept', 'steps', 'code', 'unknown', 'answer']
+    const levels: HelpLevel[] = ['none', 'concept', 'steps', 'formula', 'code', 'unknown', 'answer']
     const since = this.get<number>('helpCycle:' + exerciseId, 0)
     return this.history<HelpLevel>(exerciseId, 'hint')
       .slice(since)

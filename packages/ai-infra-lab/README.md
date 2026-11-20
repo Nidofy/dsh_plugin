@@ -4,6 +4,12 @@
 
 A bilingual, CPU-first course in AI infrastructure with worked examples, graded labs and a local learning journal.
 
+26 个单元均提供双语图解、手算示例、预测题和小结。实验中可逐级查看概念、步骤、公式与边界、局部伪代码。代码题可另外打开参考实现。
+All 26 units include a diagram, a worked example, a prediction and takeaways in both languages. Four hints progress from intuition to pseudocode. Code exercises also include a separate reference implementation.
+
+在同一道代码题完成两次运行后，可选择任意两条记录对照预测、参数、检查项和指标。B05 展示模拟缓冲区实际记录的 HBM/SRAM 读写字节，分布式题展示各 rank 的通信调用。开放设计说明会存入学习档案，可在导师栏选择失败步骤或讨论自己的容量分析。
+After two runs of the same exercise, select any pair to compare predictions, settings, checks and measurements. B05 plots the bytes read and written through the simulated buffers. Distributed exercises show communication calls by rank. The tutor accepts questions about a failed step or a saved capacity analysis.
+
 ## 课程与工作台
 
 - **E01–E03 / X01 · 推理与容量规划** — KV 增量解码、分页共享、连续批处理、分组 INT4 和 8 卡预算审计。Compare serving policies and qualify plans for 70B inference and 13B training.
@@ -35,7 +41,7 @@ cd packages/ai-infra-lab
 npm run build
 npm test
 npm run check
-# 包含真实 Docker 容器全部参考解/起始模板回归、Gloo 4 进程与对抗性安全隔离检查：
+# 包含真实 Docker、六代数据库升级、浏览器八组合与七插件共存门禁。
 npm run check:full
 ```
 

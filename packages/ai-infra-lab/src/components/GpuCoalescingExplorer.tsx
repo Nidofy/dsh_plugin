@@ -1,5 +1,5 @@
 import { completedWarpAccess, STRIDES, warpAccess } from '../sim-stage-b.ts'
-import { Choice, ExplorerPanel, useObservations, type ExplorerProps } from './ExplorerPanel.tsx'
+import { Choice, ExplorerPanel, LegendItem, Presets, useObservations, type ExplorerProps } from './ExplorerPanel.tsx'
 
 export function GpuCoalescingExplorer(props: ExplorerProps) {
   const { locale } = props
@@ -7,6 +7,11 @@ export function GpuCoalescingExplorer(props: ExplorerProps) {
   const result = warpAccess(input)
   return <ExplorerPanel {...props} title={{ zh: '一个 Warp 的访存轨迹', en: 'Memory accesses in one warp' }}
     observations={observations} complete={completedWarpAccess(observations)}>
+    <Presets<typeof input> locale={locale} value={input} onSelect={select} items={[
+      { label: {zh:'连续且对齐', en:'Aligned neighbors'}, value: { stride:1, baseOffsetElements:0, broadcast:false } },
+      { label: {zh:'跨步争用', en:'Strided contention'}, value: { stride:4, baseOffsetElements:0, broadcast:false } },
+      { label: {zh:'同字广播', en:'Single-word broadcast'}, value: { stride:4, baseOffsetElements:0, broadcast:true } },
+    ]}/>
     <div className="ail-controls">
       <Choice label={{ zh: '步长（元素）', en: 'Stride (elements)' }[locale]} values={STRIDES} value={input.stride}
         onChange={stride => select({ ...input, stride })} />
@@ -15,6 +20,9 @@ export function GpuCoalescingExplorer(props: ExplorerProps) {
       <label><input type="checkbox" checked={input.broadcast} onChange={e => select({ ...input, broadcast: e.target.checked })} />
         {{ zh: '广播同一地址', en: 'Broadcast one address' }[locale]}</label>
     </div>
+    <div className="ail-legend"><LegendItem color="var(--ail-surface-2)">{{zh:'偶数段',en:'Even segment'}[locale]}</LegendItem>
+      <LegendItem color="var(--ail-accent-soft)">{{zh:'奇数段',en:'Odd segment'}[locale]}</LegendItem>
+      <span>{(100*result.utilization).toFixed(1)}% {{zh:'有效字节',en:'useful bytes'}[locale]}</span></div>
     <p aria-live="polite">{result.transactionsCount} × 128 B · {result.usefulBytes} / {result.transferredBytes} B
       {' = '}{(100 * result.utilization).toFixed(1)}% · {result.maxWayConflict}{{ zh: ' 路 Bank 访问', en: '-way bank access' }[locale]}</p>
     <p>{{ zh: '每格对应一条线程通道。S 是 128 B 段号，B 是片上 Bank 编号。同一 Bank 中不同字地址越多，服务轮数越多。', en: 'Each cell is one lane. S identifies its 128 B segment and B its on-chip bank. Distinct words in the same bank need successive service rounds.' }[locale]}</p>

@@ -13,6 +13,20 @@ export interface ExplorerProps {
   }
 }
 
+export function Presets<T extends object>({ locale, value, items, onSelect }: {
+  locale: Locale; value: T; items: readonly { label: BilingualText; value: T }[]; onSelect(next: T): void
+}) {
+  return <div className="ail-presets" role="group" aria-label={{zh:'教学预设', en:'Teaching presets'}[locale]}>
+    {items.map(item => <button key={item.label.en} type="button" className="ail-btn ail-btn-sm"
+      aria-pressed={Object.entries(item.value).every(([k, v]) => value[k as keyof T] === v)}
+      onClick={() => onSelect(item.value)}>{item.label[locale]}</button>)}
+  </div>
+}
+
+export function LegendItem({ color, children }: { color: string; children: ReactNode }) {
+  return <span className="ail-legend-item"><i aria-hidden="true" style={{backgroundColor:color}}/>{children}</span>
+}
+
 export function useObservations<T>(initial: T) {
   const [observations, set] = useState<T[]>([initial])
   const select = (value: T) => set(previous =>

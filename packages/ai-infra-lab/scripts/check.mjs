@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process'
+import { execFileSync, spawn } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
@@ -22,8 +22,12 @@ if (full) {
   ])
   steps.push(['distributed process limits, missing rank, output budget and hot unload',
     node, ['--experimental-transform-types', 'tests/runner-distributed-adversarial.ts']])
-  steps.push(['historical v0.1.0 through v0.5.0 database upgrade and archive replay',
+  steps.push(['historical v0.1.0 through v0.6.0 database upgrade and six archive replays',
     node, ['--experimental-transform-types', 'tests/upgrade-chain.mjs']])
+  steps.push(['real browser: seven simulators, eight display configurations and neutral feedback',
+    node, ['tests/ui-browser-real.mjs']])
+  steps.push(['seven installed packages on the official rc.5 Host and web client',
+    node, ['tests/coexistence-rc5.mjs']])
 }
 
 await mkdir(join(base, '.build'), { recursive: true })
@@ -50,6 +54,12 @@ try {
     report.steps.push({ name, code, elapsedMs: Date.now() - t0 })
     await writeFile(reportPath, JSON.stringify(report, null, 2))
     if (code !== 0) throw Error(`Gate failed (${code}): ${name}`)
+  }
+  if (full) {
+    const remaining = execFileSync('docker', ['ps', '-aq', '--filter', 'name=ai-infra-lab-'], {encoding:'utf8',windowsHide:true}).trim()
+    if (remaining) throw Error('Lab containers remain after the gate: '+remaining)
+    report.remainingContainers = 0
+    console.log('PASS no remaining lab containers (including stopped containers)')
   }
   const tarball = `dsh-plugin-ai-infra-lab-${version}.tgz`
   const bytes = await readFile(join(base, tarball))

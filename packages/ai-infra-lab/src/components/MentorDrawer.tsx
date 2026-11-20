@@ -19,7 +19,7 @@ export interface MentorDrawerProps {
   readonly glossary: readonly GlossaryEntry[]
   readonly onToggle: () => void
   readonly onClearSelection: () => void
-  readonly onAsk: (question: string, mode: HelpLevel, runId?: string) => Promise<void>
+  readonly onAsk: (question: string, mode: HelpLevel, runId?: string, focusStep?: string) => Promise<void>
   readonly onJumpLesson: (lessonId: string) => void
 }
 
@@ -39,6 +39,11 @@ export function MentorDrawer({
   const [question, setQuestion] = useState('')
   const [mode, setMode] = useState<HelpLevel>('concept')
   const [attachRun, setAttachRun] = useState(true)
+  const [focus, setFocus] = useState({ runId:'', step:'' })
+  const current = activeRun?.exerciseId === workspace?.exercise.id ? activeRun : undefined
+  const failures = current?.events.filter(e => e.type==='check' && e.passed===false)
+    .map(e=>e.step ?? e.name).filter(name=>workspace?.exercise.steps?.some(s=>s.name===name)) ?? []
+  const focusStep = focus.runId === current?.id && failures.includes(focus.step) ? focus.step : ''
 
   if (!open) {
     return (
@@ -65,7 +70,7 @@ export function MentorDrawer({
       ? `${baseText}\n\n\`\`\`python\n${selectedCode}\n\`\`\``
       : baseText
     setQuestion('')
-    await onAsk(composed, mode, attachRun && activeRun ? activeRun.id : undefined)
+    await onAsk(composed, mode, attachRun ? current?.id : undefined, attachRun && focusStep ? focusStep : undefined)
   }
 
   const quickPrompts = [
@@ -118,13 +123,16 @@ export function MentorDrawer({
             <option value="steps">
               {tr(locale, '推导步骤引导 (steps)', 'Step-by-step Guidance')}
             </option>
+            <option value="formula">
+              {tr(locale, '核对公式与边界', 'Check formulas and edge cases')}
+            </option>
             <option value="code">
               {tr(locale, '允许代码级诊断 (code)', 'Code-level Diagnostics')}
             </option>
           </select>
         </label>
 
-        {activeRun && (
+        {current && (
           <label className="ail-checkbox-row">
             <input
               type="checkbox"
@@ -134,14 +142,21 @@ export function MentorDrawer({
             <span>
               {tr(
                 locale,
-                `附带最近运行日志 (${activeRun.run_status})`,
-                `Attach latest run (${activeRun.run_status})`,
+                `附带所选运行 (${current.run_status})`,
+                `Attach selected run (${current.run_status})`,
               )}
             </span>
           </label>
         )}
       </div>
 
+      {attachRun && current && failures.length > 0 && <label className="ail-focus-step">
+        {tr(locale,'聚焦失败步骤','Focus on a failed step')}
+        <select value={focusStep} onChange={e=>setFocus({ runId:current.id, step:e.target.value })}>
+          <option value="">{tr(locale,'整次运行','Whole run')}</option>
+          {[...new Set(failures)].map(name=><option key={name} value={name}>{name}</option>)}
+        </select>
+      </label>}
       <div className="ail-mentor-messages">
         {!workspace || workspace.messages.length === 0 ? (
           <div className="ail-mentor-empty">

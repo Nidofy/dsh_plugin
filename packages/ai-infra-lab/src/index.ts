@@ -119,6 +119,7 @@ export async function dispatch(
         (args[2] == null ? 'concept' : expectString(args[2], 'mode')) as HelpLevel,
         args[3] == null ? undefined : expectString(args[3], 'runId'),
         tutor,
+        args[4] == null ? undefined : expectString(args[4], 'step'),
       )
     case 'exportData':
       return engine.exportData()

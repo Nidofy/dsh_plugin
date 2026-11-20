@@ -573,9 +573,9 @@ export class Engine {
 
   hint(id: string, level: HelpLevel): BilingualText {
     const exercise = this.exercise(id)
-    const order: HelpLevel[] = ['concept', 'steps', 'code', 'answer']
+    const order: HelpLevel[] = ['concept', 'steps', 'formula', 'code', 'answer']
     const idx = order.indexOf(level)
-    if (idx < 0) throw Error(`Invalid hint level: ${level}`)
+    if (idx < 0) throw Error(`提示级别无效 / Invalid hint level: ${level}`)
     this.store.record(id, 'hint', level)
     if (level === 'answer' && exercise.kind === 'code') {
       return {
@@ -588,6 +588,9 @@ export class Engine {
         zh: `标准参考值：${exercise.estimate.canonicalDisplay}`,
         en: `Canonical answer: ${exercise.estimate.canonicalDisplay}`,
       }
+    }
+    if (level === 'answer' && exercise.quiz) {
+      return exercise.quiz.options.find(option => option.id === exercise.quiz!.correctOptionId)!.label
     }
     return exercise.hints[Math.min(idx, exercise.hints.length - 1)]!
   }

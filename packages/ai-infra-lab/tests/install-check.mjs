@@ -15,7 +15,7 @@ const mainRepo = existsSync(join(repo, '.build/official-runtime-rc5'))
   : resolve(repo, '../..')
 
 const sourceManifest = JSON.parse(await readFile(join(pkg, 'package.json'), 'utf8'))
-const unitsByVersion = { '0.2.0': 13, '0.3.0': 17, '0.4.0': 22, '0.5.0': 26 }
+const unitsByVersion = { '0.2.0': 13, '0.3.0': 17, '0.4.0': 22, '0.5.0': 26, '0.6.0': 26 }
 const archive = join(pkg, `${sourceManifest.name}-${sourceManifest.version}.tgz`)
 assert.ok(existsSync(archive), `Missing packed tarball: ${archive}`)
 

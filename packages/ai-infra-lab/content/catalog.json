@@ -1,6 +1,6 @@
 {
   "id": "ai-infra-lab",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "stage": "E",
   "glossary": [],
   "lessons": [
@@ -81,20 +81,20 @@
           "reference": "b",
           "hints": [
             {
-              "zh": "概念提示：先区分“硬件无关的数学守恒量”（如元素个数×字节宽）与“依赖具体机器的实测耗时”。",
-              "en": "Concept: Separate hardware-independent math invariants (elements × byte width) from machine-specific timings."
+              "zh": "给一个数字贴标签前，先问是谁产生了它：算式、计时器，还是可调参数的模型？",
+              "en": "Ask what produced a number: arithmetic, a timer or a configurable model."
             },
             {
-              "zh": "步骤提示：逐项排除把 CPU 毫秒直接当成 GPU 真实数据，或认为没有 GPU 就没法算内存账的说法。",
-              "en": "Steps: Eliminate options claiming CPU timings equal GPU timings or claiming byte math requires a physical GPU."
+              "zh": "把数组字节数、容器耗时、假想显卡的上限分别写在三张卡片上。",
+              "en": "Make separate cards for an array's byte count, a container timing and a hypothetical GPU ceiling."
             },
             {
-              "zh": "关键原则：公式算理论上下界，CPU 沙箱测真实访存与指令规律，模拟器探索参数变化后的拐点迁移。",
-              "en": "Key rule: Formulas give exact invariants, CPU runs measure real instruction/cache effects, simulators explore hardware parameter sweeps."
+              "zh": "改变 CPU 型号时，固定形状和 dtype 的字节数仍相同，实测耗时则可能改变。",
+              "en": "Changing the CPU can change elapsed time while leaving the byte count of a fixed shape and dtype unchanged."
             },
             {
-              "zh": "参考答案：选择第 2 项（选项 b），它准确概括了三类数据来源互补且绝不混用的工程边界。",
-              "en": "Answer: Option `b` accurately states how the three data sources complement one another without conflation."
+              "zh": "逐项判定：能从规格算出 → 公式；在机器上计时 → 实测；改模型参数再推演 → 模拟。",
+              "en": "Classify each claim: derive from a specification → formula, time an execution → measurement, vary a modeled machine → simulation."
             }
           ],
           "concepts": [
@@ -147,20 +147,20 @@
           "reference": "def greet_machine(device_name: str, cores: int) -> str:\n    return f\"Hello {device_name}, ready with {cores} cores!\"\n\n\ndef add_shapes(count_a: int, count_b: int) -> int:\n    return int(count_a + count_b)\n",
           "hints": [
             {
-              "zh": "概念提示：Python 的 f-string 可以在字符串前加 `f`，用花括号 `{变量名}` 把变量值自动嵌入文本中。",
-              "en": "Concept: Python f-strings prefix quotes with `f` and embed variables directly via `{var_name}`."
+              "zh": "返回值是函数交给调用者的结果，打印的内容走另一条通道。",
+              "en": "A return value travels back to the caller; printed text goes to an output stream."
             },
             {
-              "zh": "步骤提示：先修改 `greet_machine` 中的 `return None`，再修改 `add_shapes` 中的 `return None`。",
-              "en": "Steps: Replace `return None` in `greet_machine` first, then replace `return None` in `add_shapes`."
+              "zh": "先用一台两核设备手写预期问候语，再单独检查两个计数的和。",
+              "en": "Write the expected greeting for a two-core device by hand, then separately check the sum of the counts."
             },
             {
-              "zh": "关键写法：第 1 步写 `f\"Hello {device_name}, ready with {cores} cores!\"`；第 2 步写 `count_a + count_b`。",
-              "en": "Key syntax: Step 1 uses `f\"Hello {device_name}, ready with {cores} cores!\"`; Step 2 uses `count_a + count_b`."
+              "zh": "逗号后保留一个空格，结尾保留感叹号；计数相加仍应是数字。",
+              "en": "Keep one space after the comma and the final exclamation point. The count sum should stay numeric."
             },
             {
-              "zh": "参考写法：\n`def greet_machine(device_name, cores): return f\"Hello {device_name}, ready with {cores} cores!\"`\n`def add_shapes(count_a, count_b): return count_a + count_b`",
-              "en": "Reference:\n`def greet_machine(device_name, cores): return f\"Hello {device_name}, ready with {cores} cores!\"`\n`def add_shapes(count_a, count_b): return count_a + count_b`"
+              "zh": "先拼固定文字与两个变量 → 返回消息；进入第二个函数 → 合并两个计数。",
+              "en": "Assemble fixed text with both variables → return the greeting. In the second function → combine the counts."
             }
           ],
           "concepts": [
@@ -261,20 +261,20 @@
           "reference": "b",
           "hints": [
             {
-              "zh": "概念提示：列表下标从 `0` 开始，因此 `nums[0]=2, nums[1]=4, nums[2]=6, nums[3]=8, nums[4]=10`。",
-              "en": "Concept: Lists are 0-indexed: `nums[0]=2, nums[1]=4, nums[2]=6, nums[3]=8, nums[4]=10`."
+              "zh": "列表位置从零开始，切片的右端是第一个不取的位置。",
+              "en": "Positions start at zero, and the right slice endpoint is the first omitted position."
             },
             {
-              "zh": "步骤提示：先写出左闭右开切片 `nums[1:4]` 取出的 3 个数字（包含下标 1，不包含下标 4）。",
-              "en": "Steps: First list the 3 elements selected by half-open slice `nums[1:4]` (includes 1, excludes 4)."
+              "zh": "沿纸上的列表圈出索引 1、2、3，再写这些位置的值。",
+              "en": "Circle positions 1, 2 and 3 and read the values stored there."
             },
             {
-              "zh": "关键计算：`nums[1:4]` 是 `[4, 6, 8]`，每个元素乘 2 得到 `8, 12, 16`，再把三者相加。",
-              "en": "Key math: `nums[1:4]` gives `[4, 6, 8]`; multiplying each by 2 gives `8 + 12 + 16`."
+              "zh": "每次循环给总数增加两倍当前值，索引 4 不参与。",
+              "en": "Each iteration contributes twice the current value. Position four contributes nothing."
             },
             {
-              "zh": "参考答案：`8 + 12 + 16 = 36`，对应选项 `b`。",
-              "en": "Answer: `8 + 12 + 16 = 36` (option `b`)."
+              "zh": "从零出发，对圈出的每个值画一行“旧总数 → 加上两倍值 → 新总数”。",
+              "en": "Start at zero. For each circled value, trace previous total → add twice the value → new total."
             }
           ],
           "concepts": [
@@ -334,20 +334,20 @@
           "reference": "def scale_list(values: list[float], factor: float) -> list[float]:\n    result = []\n    for x in values:\n        result.append(x * factor)\n    return result\n\n\ndef pair_multiply_sum(a: list[float], b: list[float]) -> float:\n    total = 0.0\n    for i in range(len(a)):\n        total = total + a[i] * b[i]\n    return float(total)\n\n\ndef chunk_ranges(total: int, chunk_size: int) -> list[list[int]]:\n    chunks = []\n    for start in range(0, total, chunk_size):\n        end = min(start + chunk_size, total)\n        chunks.append([start, end])\n    return chunks\n",
           "hints": [
             {
-              "zh": "概念提示：生成新列表时先建空列表 `out = []` 用 `.append(...)` 追加；求总和时先设 `total = 0.0` 循环累加。",
-              "en": "Concept: Build a list by initializing `out = []` and `.append(...)`; accumulate a sum by initializing `total = 0.0` before the loop."
+              "zh": "映射会产生一列数，点积会把许多乘积合成一个数，分块则产生区间。",
+              "en": "Mapping produces a list, a dot product reduces products to one number, and chunking yields intervals."
             },
             {
-              "zh": "步骤提示：`pair_multiply_sum` 可用 `for i in range(len(a)):` 同时按下标访问 `a[i]` 与 `b[i]`；`chunk_ranges` 用三参数 `range(0, total, chunk_size)` 跨步生成每段起点。",
-              "en": "Steps: Use `for i in range(len(a)):` in `pair_multiply_sum`; use 3-arg `range(0, total, chunk_size)` in `chunk_ranges`."
+              "zh": "分别准备输出列表、求和变量和块起点，先用三个元素试算。",
+              "en": "Choose a list, a running sum and a starting index respectively. Try each on three elements."
             },
             {
-              "zh": "关键公式：在 `chunk_ranges` 中，每段起点为 `start`，终点写成 `end = min(start + chunk_size, total)`，追加 `[start, end]`。",
-              "en": "Key formula: For each `start` in `range(0, total, chunk_size)`, set `end = min(start + chunk_size, total)` and append `[start, end]`."
+              "zh": "半开区间的末端最多为 total；最后不足一块仍要保留。",
+              "en": "A half-open range ends at most at total. A short final chunk still belongs in the result."
             },
             {
-              "zh": "参考写法：\n- `scale_list`: `return [x * factor for x in values]`\n- `pair_multiply_sum`: `return float(sum(a[i] * b[i] for i in range(len(a))))`\n- `chunk_ranges`: `return [[s, min(s + chunk_size, total)] for s in range(0, total, chunk_size)]`",
-              "en": "Reference:\n- `scale_list`: `return [x * factor for x in values]`\n- `pair_multiply_sum`: `return float(sum(a[i] * b[i] for i in range(len(a))))`\n- `chunk_ranges`: `return [[s, min(s + chunk_size, total)] for s in range(0, total, chunk_size)]`"
+              "zh": "对齐一对元素再累加；分块时依次写下 start 与截断后的 end，再推进 start。",
+              "en": "Pair elements before accumulating. For each chunk record start and a clamped end, then advance the start."
             }
           ],
           "concepts": [
@@ -419,20 +419,20 @@
           "reference": "4 MiB",
           "hints": [
             {
-              "zh": "概念提示：数组占用的内存字节数只取决于“总共有多少个元素”以及“每个元素占几个字节”。",
-              "en": "Concept: Array memory equals total element count multiplied by bytes per element (`dtype.itemsize`)."
+              "zh": "矩阵占用取决于格子数和每格宽度。",
+              "en": "Storage depends on the number of cells and the width of one cell."
             },
             {
-              "zh": "步骤提示：先算 `1024 × 1024` 得到总元素个数，再乘以 `float32` 的单元素字节数 `4`。",
-              "en": "Steps: Multiply `1024 × 1024` to get total elements, then multiply by `4` bytes for `float32`."
+              "zh": "先把行数乘列数，再查看 FP32 的元素宽度。",
+              "en": "Multiply rows by columns, then look up the element width of FP32."
             },
             {
-              "zh": "关键公式：`1024 × 1024 = 1,048,576`（恰好是 `1 Mi`），乘以 `4 Bytes` 等于 `4,194,304 Bytes`；除以 `1024^2` 即得 `MiB` 数。",
-              "en": "Key formula: `1024 × 1024 = 1,048,576` elements; times `4 B` = `4,194,304 B`, and `1 MiB = 1,048,576 B`."
+              "zh": "一 MiB 有 2²⁰ B，把字节总数除以它才能用 MiB 回答。",
+              "en": "One MiB contains 2²⁰ bytes. Divide the byte total by this value to report MiB."
             },
             {
-              "zh": "参考答案：直接输入 `4 MiB`（或 `4194304 B` / `4.19 MB` 均可过关）。",
-              "en": "Answer: Enter `4 MiB` (or `4194304 B` / `4.19 MB`)."
+              "zh": "按“行 × 列 → 元素 × 字节宽 → 带单位的容量”填写三栏。",
+              "en": "Fill three columns: rows × columns → elements × byte width → capacity with unit."
             }
           ],
           "concepts": [
@@ -494,20 +494,20 @@
           "reference": "import numpy as np\n\n\ndef row_bias_broadcast(matrix_2d: np.ndarray, bias_1d: np.ndarray) -> np.ndarray:\n    return matrix_2d + bias_1d\n\n\ndef py_loop_dot(a_1d: np.ndarray, b_1d: np.ndarray) -> float:\n    total = 0.0\n    for i in range(len(a_1d)):\n        total += float(a_1d[i]) * float(b_1d[i])\n    return float(total)\n\n\ndef np_vector_dot(a_1d: np.ndarray, b_1d: np.ndarray) -> float:\n    return float(np.dot(a_1d, b_1d))\n",
           "hints": [
             {
-              "zh": "概念提示：在 NumPy 中，`shape (rows, cols)` 的二维数组与 `shape (cols,)` 的一维数组直接用 `+` 号就会自动沿每一行广播对齐。",
-              "en": "Concept: In NumPy, `matrix_2d + bias_1d` automatically broadcasts `(cols,)` across every row of `(rows, cols)`."
+              "zh": "广播让每行共用一条偏置，点积则沿同一轴把乘积加起来。",
+              "en": "Broadcasting reuses one bias across rows. A dot product sums matched products along an axis."
             },
             {
-              "zh": "步骤提示：`py_loop_dot` 用 `for i in range(len(a_1d)): total += float(a_1d[i]) * float(b_1d[i])`；`np_vector_dot` 直接调用底层 C/SIMD 实现的 `np.dot`。",
-              "en": "Steps: Use an explicit `for` loop in `py_loop_dot`, and call `np.dot(a_1d, b_1d)` in `np_vector_dot`."
+              "zh": "先画出列轴的对齐关系，再分别写逐元素基准和数组库的向量调用。",
+              "en": "Draw the aligned column axes, then build a scalar baseline and a separate library call."
             },
             {
-              "zh": "关键细节：`np.dot` 返回的是 NumPy 标量（如 `np.float32`），外层套上 `float(...)` 即可转为标准 Python `float`。",
-              "en": "Key detail: Wrap `np.dot(a_1d, b_1d)` in `float(...)` to return a plain Python float."
+              "zh": "偏置长度应等于列数；两个点积都返回单个数值。",
+              "en": "The bias length matches the column count. Each dot implementation returns a single number."
             },
             {
-              "zh": "参考写法：\n- `row_bias_broadcast`: `return matrix_2d + bias_1d`\n- `py_loop_dot`: 循环累加 `float(a_1d[i]) * float(b_1d[i])`\n- `np_vector_dot`: `return float(np.dot(a_1d, b_1d))`",
-              "en": "Reference:\n- `row_bias_broadcast`: `return matrix_2d + bias_1d`\n- `py_loop_dot`: loop `total += float(a_1d[i]) * float(b_1d[i])`\n- `np_vector_dot`: `return float(np.dot(a_1d, b_1d))`"
+              "zh": "行操作沿末轴配对；基准循环累加 aᵢbᵢ；向量版把整条数组交给点积原语。",
+              "en": "Pair columns on the final axis; accumulate aᵢbᵢ for the baseline; hand whole arrays to the dot primitive for the vector version."
             }
           ],
           "concepts": [
@@ -583,20 +583,20 @@
           "reference": "{\"widget\":\"bit-layout\",\"comparedFormats\":[\"fp16\",\"bf16\"],\"observedOverflow\":true,\"sampleInput\":70000}",
           "hints": [
             {
-              "zh": "概念提示：IEEE-754 规定当所有指数位全为 `1` 且尾数位全为 `0` 时，该位模式专用于表示正负无穷大（`±Infinity`）。",
-              "en": "Concept: In IEEE-754, all exponent bits set to `1` with zero mantissa encodes `±Infinity`."
+              "zh": "指数位的数量决定可表示的数量级范围。",
+              "en": "Exponent width determines the range of magnitudes a format can represent."
             },
             {
-              "zh": "步骤提示：在模拟器格式切换栏依次点选 `FP16` 与 `BF16`，分别输入 `65504` 和 `70000` 对比解码类别（`normal` vs `infinity`）。",
-              "en": "Steps: Toggle between `FP16` and `BF16` in the widget and compare decoded category (`normal` vs `infinity`) at `65504` and `70000`."
+              "zh": "先在 FP16 调整数值并记下类别，再固定同一输入切换到 BF16。",
+              "en": "Change the value in FP16 and record its category, then hold that input fixed while switching to BF16."
             },
             {
-              "zh": "关键对比：`FP16` 只有 5 位指数（最大偏置后指数 $2^{15}$，上限 `65504`）；`BF16` 有 8 位指数（最大偏置后指数 $2^{127}$，上限 $\\approx 3.39 \\times 10^{38}$）。",
-              "en": "Key contrast: `FP16` has 5 exponent bits (max `65504`), whereas `BF16` has 8 exponent bits (max $\\approx 3.39 \\times 10^{38}$)."
+              "zh": "指数全一且尾数全零表示无穷；65504 位于 FP16 有限范围的上沿。",
+              "en": "An all-ones exponent and zero fraction encode infinity. 65,504 is the top finite FP16 value."
             },
             {
-              "zh": "完成方式：在模拟器中完成两种格式与溢出值的交互观察后，点击模拟器的确认提交按钮即可通过。",
-              "en": "Completion: After inspecting `FP16` overflow vs `BF16` in the widget, click the simulator completion button."
+              "zh": "记录“格式、输入、类别”三列，找出相同输入在两种格式中类别不同的一行。",
+              "en": "Log format, input and category. Find a row where the same input has different categories in the two formats."
             }
           ],
           "concepts": [
@@ -665,20 +665,20 @@
           "reference": "c",
           "hints": [
             {
-              "zh": "概念提示：对比 `FP16`（1+5+10）与 `BF16`（1+8+7）的位宽分配，想想训练中途最怕突然发生什么致命故障。",
-              "en": "Concept: Compare `FP16` (1+5+10) vs `BF16` (1+8+7) and recall what numerical failure kills a training run instantly."
+              "zh": "能表示多大的数和相邻数之间隔多远，由不同的位域影响。",
+              "en": "Range and spacing are influenced by different bit fields."
             },
             {
-              "zh": "步骤提示：一旦某层激活值或梯度超过上限变成 `Inf`，反向传播相乘就会迅速传染整张网络的 `NaN`。",
-              "en": "Steps: Once a single activation or gradient overflows into `Inf`, backpropagation quickly infects weights with `NaN`."
+              "zh": "先对齐 FP16、BF16、FP32 的指数位，再考察一个很大的激活。",
+              "en": "Line up the exponent fields of FP16, BF16 and FP32, then consider a large activation."
             },
             {
-              "zh": "关键对比：`BF16` 的 8 位指数与 `FP32` 动态范围一致（高达 $\\sim 3.4 \\times 10^{38}$），省去繁琐的动态 Loss Scaling 也不易上溢。",
-              "en": "Key contrast: `BF16`'s 8 exponent bits match `FP32`'s dynamic range ($\\sim 3.4 \\times 10^{38}$), avoiding `FP16`'s `65504` ceiling."
+              "zh": "BF16 留有八个指数位；尾数较短仍会带来舍入误差。",
+              "en": "BF16 keeps eight exponent bits. Its shorter fraction still introduces rounding error."
             },
             {
-              "zh": "参考答案：选择选项 `c`。",
-              "en": "Answer: Select option `c`."
+              "zh": "在备选说法中依次检查“能否避免大数溢出”和“是否误称尾数更精细”。",
+              "en": "Check each option for protection against range overflow and for any false claim of finer fraction precision."
             }
           ],
           "concepts": [
@@ -732,20 +732,20 @@
           "reference": "import numpy as np\n\n\ndef detect_fp16_overflow(values: list[float]) -> list[bool]:\n    with np.errstate(over=\"ignore\"):\n        arr16 = np.asarray(values, dtype=np.float16)\n        return [bool(x) for x in np.isinf(arr16)]\n\n\ndef swallow_small_delta(big_base: float, small_delta: float, repeat: int) -> dict:\n    acc = np.float32(big_base)\n    delta32 = np.float32(small_delta)\n    for _ in range(repeat):\n        acc = np.float32(acc + delta32)\n\n    deltas = np.full(repeat, delta32, dtype=np.float32)\n    chunk_sum = np.float32(np.sum(deltas, dtype=np.float32))\n    mitigated = np.float32(np.float32(big_base) + chunk_sum)\n    return {\n        \"naive\": float(acc),\n        \"mitigated\": float(mitigated),\n    }\n",
           "hints": [
             {
-              "zh": "概念提示：在 `np.errstate(over=\"ignore\")` 上下文中转换 `np.asarray(values, dtype=np.float16)` 可以干净地把超界值变成 `inf` 而不打印运行时警告。",
-              "en": "Concept: `with np.errstate(over=\"ignore\"):` lets `np.asarray(values, dtype=np.float16)` convert out-of-range numbers to `inf` cleanly."
+              "zh": "溢出与小增量被舍掉，是两个不同的观测。",
+              "en": "Overflow and losing a small increment are different observations."
             },
             {
-              "zh": "步骤提示：对转换后的 `arr16` 调用 `np.isinf(arr16)`，再用 `[bool(x) for x in ...]` 转成纯 Python 布尔列表返回。",
-              "en": "Steps: Call `np.isinf(arr16)` and convert via `[bool(x) for x in np.isinf(arr16)]`."
+              "zh": "先窄化输入并检查无穷，再比较逐次累加与先合并小增量的路径。",
+              "en": "Narrow the inputs and inspect for infinity, then compare incremental accumulation with grouping the small terms first."
             },
             {
-              "zh": "关键对比：复现 `naive` 时注意每一步都要保持 `np.float32`（若不小心转成 Python 默认 64 位 `float` 就不会在 `1e8` 发生吞没了！）；缓解时先算 `chunk = np.float32(np.sum(np.full(repeat, small_delta, dtype=np.float32)))`，再算 `np.float32(np.float32(big_base) + chunk)`。",
-              "en": "Key detail: Keep `acc` and `delta` explicitly `np.float32` in the `naive` loop (Python's built-in `float` is 64-bit!); for `mitigated`, sum `np.full(repeat, small_delta, dtype=np.float32)` first, then add to `np.float32(big_base)`."
+              "zh": "Python 普通浮点可能把加法提升到更宽精度；逐次舍入处都需保持 FP32。",
+              "en": "Ordinary Python floats can widen an addition. Keep each intended rounding point in FP32."
             },
             {
-              "zh": "参考写法：\n`deltas = np.full(repeat, np.float32(small_delta), dtype=np.float32)`\n`mitigated = np.float32(np.float32(big_base) + np.float32(deltas.sum()))`",
-              "en": "Reference:\n`deltas = np.full(repeat, np.float32(small_delta), dtype=np.float32)`\n`mitigated = np.float32(np.float32(big_base) + np.float32(deltas.sum()))`"
+              "zh": "两条累加轨迹从同一大数出发：一条每次加一个 delta，另一条先求所有 delta 的小计。",
+              "en": "Trace two paths from the same base: add one delta per iteration, or form a subtotal of the deltas before adding."
             }
           ],
           "concepts": [
@@ -819,20 +819,20 @@
           "reference": "2 MFLOPs",
           "hints": [
             {
-              "zh": "概念提示：注意题目问的是“总共做多少次运算”（工作总量 `FLOPs`），而不是“每秒多少次”（速率 `FLOP/s`）。",
-              "en": "Concept: The question asks for total work count (`FLOPs`), NOT per-second rate (`FLOP/s`)."
+              "zh": "FLOPs 数的是工作量，答案不带时间分母。",
+              "en": "FLOPs counts work, so the result has no time denominator."
             },
             {
-              "zh": "步骤提示：每个下标位置 `i` 执行 1 次乘法 `a[i] * b[i]` 和 1 次累加 `+`，共 `2` 次浮点运算。",
-              "en": "Steps: Each index `i` performs 1 multiplication and 1 addition = `2` FLOPs."
+              "zh": "展开一个索引位置的乘法与累加，再数有多少个位置。",
+              "en": "Expand the multiply and accumulate at one index, then count the indices."
             },
             {
-              "zh": "关键公式：`总 FLOPs = 2 × 1,000,000 = 2,000,000 FLOPs`；记住十进制词头 `1 MFLOPs = 10^6 FLOPs`。",
-              "en": "Key formula: `Total FLOPs = 2 × 1,000,000 = 2,000,000 FLOPs = 2 MFLOPs` (`1 MFLOPs = 10^6 FLOPs`)."
+              "zh": "本题采用每个元素两次运算的约定，一百万次记作一 MFLOP。",
+              "en": "Use the lab convention of two operations per element and one million operations per MFLOP."
             },
             {
-              "zh": "参考答案：输入 `2 MFLOPs`（或 `2000000 FLOPs`）。",
-              "en": "Answer: Enter `2 MFLOPs` (or `2000000 FLOPs`)."
+              "zh": "先填每项操作数，再乘向量长度，最后选择工作量单位。",
+              "en": "Write operations per item, multiply by vector length, then choose a work-count unit."
             }
           ],
           "concepts": [
@@ -887,20 +887,20 @@
           "reference": "import time\nimport numpy as np\n\n\ndef dot_flops_count(n: int) -> int:\n    return int(2 * n)\n\n\ndef measure_dot_gflops(a_1d: np.ndarray, b_1d: np.ndarray, repeats: int = 7) -> dict:\n    val = np.dot(a_1d, b_1d)\n    timings = []\n    for _ in range(max(1, repeats)):\n        t0 = time.perf_counter()\n        val = np.dot(a_1d, b_1d)\n        t1 = time.perf_counter()\n        timings.append(max(t1 - t0, 1e-9))\n    median_sec = float(np.median(timings))\n    flops = dot_flops_count(len(a_1d))\n    gflops = float(flops / median_sec / 1e9)\n    return {\n        \"dot_value\": float(val),\n        \"elapsed_sec\": median_sec,\n        \"gflops\": gflops,\n    }\n",
           "hints": [
             {
-              "zh": "概念提示：为什么计时前要先预热一次？因为第一次调用往往包含内存页首次触碰与指令缓存加载，不代表稳定吞吐率。",
-              "en": "Concept: A warm-up call primes instruction caches and memory pages before stopwatch timing starts."
+              "zh": "首次执行包含预热开销，重复计时的中位数更能代表典型一次。",
+              "en": "A first call includes warm-up effects. A median of repeated timings describes a typical call."
             },
             {
-              "zh": "步骤提示：在循环中用 `t0 = time.perf_counter()`、`val = np.dot(a_1d, b_1d)`、`t1 = time.perf_counter()` 记录 `t1 - t0` 到列表，再用 `np.median(timings)` 取中位数。",
-              "en": "Steps: Record `t1 - t0` using `time.perf_counter()` around `np.dot(a_1d, b_1d)` for `repeats` iterations, then take `float(np.median(timings))`."
+              "zh": "把一次未计时点积放在循环之前，每次只记录实际运算开始到结束的差。",
+              "en": "Place an untimed dot before the loop. Record the interval around only the measured computation."
             },
             {
-              "zh": "关键换算：`1 GFLOP/s = 10^9 FLOP/s`，因此必须把 `flops / median_sec` 再除以 `1e9`（如果除以 `1e6` 就会变成 MFLOP/s，偏大 1000 倍！）。",
-              "en": "Key conversion: `1 GFLOP/s = 1e9 FLOP/s`, so divide `flops / median_sec` by `1e9` (not `1e6`!)."
+              "zh": "秒作分母，运算数除以十亿才得到每秒十亿次的单位。",
+              "en": "Use seconds in the denominator and divide operations per second by one billion for GFLOP/s."
             },
             {
-              "zh": "参考写法：\n`val = np.dot(a_1d, b_1d)`\n`timings = [ ... ]`\n`median_sec = float(np.median(timings))`\n`gflops = dot_flops_count(len(a_1d)) / median_sec / 1e9`",
-              "en": "Reference:\n`val = np.dot(a_1d, b_1d)`\n`timings = [ ... ]`\n`median_sec = float(np.median(timings))`\n`gflops = dot_flops_count(len(a_1d)) / median_sec / 1e9`"
+              "zh": "记录耗时列表 → 取中位数 → 用同一输入的工作量换算速率 → 返回数值与时间。",
+              "en": "Collect intervals → take their median → convert the work on that same input to a rate → return the result and time."
             }
           ],
           "concepts": [
@@ -973,20 +973,20 @@
           "reference": "64 MiB",
           "hints": [
             {
-              "zh": "概念提示：算软件有效数据量时乘 `4 B`，但算硬件实际主存搬运量时，每次缓存未命中搬运的是一整条 `64 B` Cache Line！",
-              "en": "Concept: Software asks for `4 B` per element, but on a stride-16 cache miss, hardware fetches a full `64 B` cache line each time!"
+              "zh": "缓存缺失时硬件整行取数，应用只会用到其中一部分。",
+              "en": "A cache miss fetches a whole line, even when the application uses only part of it."
             },
             {
-              "zh": "步骤提示：一共读取了 `1,048,576` 次，每次都跨了 `64 B` 触发一条新的 `64 B` Cache Line 搬运。",
-              "en": "Steps: There are `1,048,576` reads, and each read triggers one distinct `64 B` cache-line transfer."
+              "zh": "先把步长从元素换成字节，再判断相邻访问是否碰到同一行。",
+              "en": "Convert stride to bytes and decide whether neighboring accesses hit the same line."
             },
             {
-              "zh": "关键公式：`实际搬运字节 = 1,048,576 × 64 Bytes = 67,108,864 Bytes`；除以 `1 MiB = 1,048,576 Bytes` 恰好等于 `64 MiB`（是有效数据 `4 MiB` 的 16 倍！）。",
-              "en": "Key formula: `Actual bytes = 1,048,576 × 64 B = 67,108,864 B = 64 MiB` (16x the `4 MiB` of useful elements!)."
+              "zh": "本例每步恰好跨一条 64 B 行，读多少个元素就触及多少条新行。",
+              "en": "Each step spans one 64-byte line here, so every element read touches a new line."
             },
             {
-              "zh": "参考答案：输入 `64 MiB`（或 `67.1 MB` / `67108864 B`）。",
-              "en": "Answer: Enter `64 MiB` (or `67.1 MB` / `67108864 B`)."
+              "zh": "画第一条与第二条行界，数不同的行，然后乘每行字节并换成 MiB。",
+              "en": "Mark the first two line boundaries, count distinct lines, then multiply by line width and convert to MiB."
             }
           ],
           "concepts": [
@@ -1048,20 +1048,20 @@
           "reference": "import numpy as np\n\n\ndef strided_view_sum(arr_1d: np.ndarray, stride: int, count: int) -> tuple[np.ndarray, float]:\n    view = arr_1d[: count * stride : stride]\n    return view, float(view.sum())\n\n\ndef row_slice_sum(mat_2d: np.ndarray, row_idx: int) -> tuple[np.ndarray, float]:\n    view = mat_2d[row_idx, :]\n    return view, float(view.sum())\n\n\ndef col_slice_sum(mat_2d: np.ndarray, col_idx: int) -> tuple[np.ndarray, float]:\n    view = mat_2d[:, col_idx]\n    return view, float(view.sum())\n",
           "hints": [
             {
-              "zh": "概念提示：NumPy 的基础切片 `start:stop:step` 只构造新的 `(shape, strides)` 头信息指向原内存块，因此 `np.shares_memory` 一定为 `True`。",
-              "en": "Concept: Basic slicing `start:stop:step` creates a new header pointing at the exact same buffer, so `np.shares_memory` is `True`."
+              "zh": "视图保留原始存储并改变起点、形状或步距。",
+              "en": "A view keeps the original storage and changes offset, shape or stride."
             },
             {
-              "zh": "步骤提示：为什么终点是 `count * stride`？因为每隔 `stride` 取 1 个数，要取够 `count` 个数，覆盖的下标跨度正好是 `count * stride`！",
-              "en": "Steps: Stepping by `stride` picks 1 item per `stride` slots, so `arr_1d[: count * stride : stride]` selects `count` items."
+              "zh": "为一维序列写步进切片，再在二维矩阵中分别固定行号与列号。",
+              "en": "Make a stepped slice for the vector, then fix a row or a column in the two matrix cases."
             },
             {
-              "zh": "关键禁忌：千万不要写 `arr_1d[np.arange(count) * stride]` 或 `.copy()`！传入整数索引数组属于“花式索引”，会偷偷分配新内存拷贝数据，`shares_memory` 会变成 `False`。",
-              "en": "Key pitfall: Do NOT use fancy indexing like `arr_1d[np.arange(count) * stride]` or `.copy()` — that allocates a copy and fails `np.shares_memory`!"
+              "zh": "末端不包含在切片内，高级索引会生成副本，需保留原存储关系。",
+              "en": "The slice stop is excluded. Advanced indexing makes a copy, so preserve a basic slice."
             },
             {
-              "zh": "参考写法：\n- `strided_view_sum`: `view = arr_1d[: count * stride : stride]; return view, float(view.sum())`\n- `row_slice_sum`: `view = mat_2d[row_idx, :]; return view, float(view.sum())`\n- `col_slice_sum`: `view = mat_2d[:, col_idx]; return view, float(view.sum())`",
-              "en": "Reference:\n- `strided_view_sum`: `view = arr_1d[: count * stride : stride]; return view, float(view.sum())`\n- `row_slice_sum`: `view = mat_2d[row_idx, :]; return view, float(view.sum())`\n- `col_slice_sum`: `view = mat_2d[:, col_idx]; return view, float(view.sum())`"
+              "zh": "先取得 view，再对 view 规约，最后把“视图、标量和”一起交给检查器。",
+              "en": "Take a view, reduce that view, then give the checker both the view and its scalar sum."
             }
           ],
           "concepts": [
@@ -1134,20 +1134,20 @@
           "reference": "2.5x",
           "hints": [
             {
-              "zh": "概念提示：只有那 `80%`（`0.8`）的可并行时间能被 4 个核心除以 4，那 `20%`（`0.2`）的串行时间一秒也省不掉！",
-              "en": "Concept: Only the parallelizable `80%` (`0.8`) shrinks by 4x; the serial `20%` (`0.2`) cannot shrink at all!"
+              "zh": "不可并行的部分决定加速上限。",
+              "en": "The serial portion bounds speedup."
             },
             {
-              "zh": "步骤提示：设原单核总时间为 `1.0`，先算 4 核并行后的新总时间 `0.2 + 0.8 / 4`，再用原时间 `1.0` 除以新时间。",
-              "en": "Steps: Set original 1-core time to `1.0`, compute new 4-core time `0.2 + 0.8 / 4`, then divide `1.0` by that new time."
+              "zh": "把原始总时间设为一单位，分开写串行等待与各核分担的时间。",
+              "en": "Normalize the old duration to one unit and list serial time separately from shared work."
             },
             {
-              "zh": "关键公式：`新时间 = 0.2 + 0.2 = 0.4`；`加速比 = 1.0 / 0.4`。",
-              "en": "Key formula: `New time = 0.2 + 0.2 = 0.4`; `Speedup = 1.0 / 0.4`."
+              "zh": "P 个核时，新时间是 s+(1−s)/P，加速比以旧时间除新时间。",
+              "en": "With P cores the new duration is s+(1−s)/P. Speedup divides old duration by new duration."
             },
             {
-              "zh": "参考答案：`1.0 / 0.4 = 2.5`，输入 `2.5x` 或 `2.5`。",
-              "en": "Answer: `1.0 / 0.4 = 2.5` — enter `2.5x` or `2.5`."
+              "zh": "先算分母里的两段时间，再倒数并检查结果是否小于核数。",
+              "en": "Evaluate both pieces of the denominator, take its reciprocal and check the result against the core count."
             }
           ],
           "concepts": [
@@ -1201,20 +1201,20 @@
           "reference": "import multiprocessing as mp\nimport numpy as np\n\n\ndef amdahl_speedup(serial_fraction: float, num_workers: int) -> float:\n    s = float(serial_fraction)\n    p = int(num_workers)\n    return float(1.0 / (s + (1.0 - s) / p))\n\n\ndef _single_matmul_checksum(pair: tuple[np.ndarray, np.ndarray]) -> float:\n    a_2d, b_2d = pair\n    return float(np.sum(a_2d @ b_2d, dtype=np.float64))\n\n\ndef parallel_matmul_checksums(\n    tasks: list[tuple[np.ndarray, np.ndarray]],\n    num_workers: int,\n) -> list[float]:\n    if num_workers <= 1:\n        return [_single_matmul_checksum(pair) for pair in tasks]\n    with mp.Pool(processes=int(num_workers)) as pool:\n        return [float(x) for x in pool.map(_single_matmul_checksum, tasks)]\n",
           "hints": [
             {
-              "zh": "概念提示：使用 `with mp.Pool(processes=num_workers) as pool:` 上下文管理器可以确保计算结束后自动回收子进程，不留僵尸进程。",
-              "en": "Concept: Using `with mp.Pool(processes=num_workers) as pool:` cleanly shuts down worker processes when the block exits."
+              "zh": "独立矩阵可分给不同进程，启动和传输也会消耗时间。",
+              "en": "Independent matrices can run in separate processes. Startup and transfers also cost time."
             },
             {
-              "zh": "步骤提示：`pool.map(_single_matmul_checksum, tasks)` 会保持输入 `tasks` 的原有顺序返回结果列表。",
-              "en": "Steps: `pool.map(_single_matmul_checksum, tasks)` preserves input task order automatically."
+              "zh": "先用单进程得到保序校验和，再把相同任务列表映射到进程池。",
+              "en": "Collect ordered checksums sequentially first, then map those same tasks over a pool."
             },
             {
-              "zh": "关键细节：传递给 `pool.map` 的工作函数必须是模块顶层定义的函数（脚手架已为你提供 `_single_matmul_checksum`），不能用嵌套局部函数或 `lambda`，否则多进程序列化（pickle）会报错！",
-              "en": "Key detail: Pass the top-level `_single_matmul_checksum` function to `pool.map` — nested functions or `lambda`s cannot be pickled across processes!"
+              "zh": "worker 需能由子进程导入，核数为 1 时直接走串行路径。",
+              "en": "A child must be able to import its worker function. Use the serial path for a single worker."
             },
             {
-              "zh": "参考写法：\n`if num_workers <= 1: return [_single_matmul_checksum(t) for t in tasks]`\n`with mp.Pool(processes=num_workers) as pool: return [float(x) for x in pool.map(_single_matmul_checksum, tasks)]`",
-              "en": "Reference:\n`if num_workers <= 1: return [_single_matmul_checksum(t) for t in tasks]`\n`with mp.Pool(processes=num_workers) as pool: return [float(x) for x in pool.map(_single_matmul_checksum, tasks)]`"
+              "zh": "先按核数分支 → 对每个任务调用同一校验函数 → 收集有序结果并关闭池。",
+              "en": "Branch on worker count → use the same checksum function per task → collect ordered results and close the pool."
             }
           ],
           "concepts": [
@@ -1291,20 +1291,20 @@
           "reference": "{\"widget\":\"roofline\",\"peakGflops\":200,\"peakBandwidthGBps\":50,\"ridgePoint\":4,\"comparedOperators\":[\"dot\",\"matmul\"]}",
           "hints": [
             {
-              "zh": "概念提示：斜屋檐代表带宽上限 `AI × Peak_BW`，平屋顶代表算力上限 `Peak_GFLOPs`，两者中较低的那个就是当前算子的性能天花板。",
-              "en": "Concept: The sloped roof is `AI × Peak_BW` and the flat roof is `Peak_GFLOPs`; `min(...)` of the two caps performance."
+              "zh": "屋顶的斜边由内存喂数速度决定，平顶由算力决定。",
+              "en": "The sloped roof follows memory delivery, while the flat roof follows compute capacity."
             },
             {
-              "zh": "步骤提示：试着保持算力不变、把内存带宽翻倍，看看左侧 `memory-bound` 算子的上限是否翻倍，而右侧 `compute-bound` 算子的上限是否不变！",
-              "en": "Steps: Try doubling bandwidth while holding compute fixed — watch memory-bound ceiling double while compute-bound ceiling stays unchanged!"
+              "zh": "固定算力改变带宽，分别跟踪一个低强度点与一个高强度点。",
+              "en": "Vary bandwidth at fixed compute and follow one low-intensity and one high-intensity point."
             },
             {
-              "zh": "关键洞察：当算子处于 `memory-bound` 区时，单纯换算力更高的核却不加带宽或提高数据复用度（AI），速度几乎不会提升。",
-              "en": "Key insight: When an operator is `memory-bound`, adding more FLOP/s without increasing bandwidth or data reuse (AI) yields zero speedup."
+              "zh": "交点满足强度乘带宽等于峰值算力，两条约束都要检查。",
+              "en": "At the ridge, intensity times bandwidth equals peak compute. Check both ceilings."
             },
             {
-              "zh": "完成方式：调节滑块观察拐点与算子归属变化后，点击模拟器的完成确认按钮即可通过。",
-              "en": "Completion: Adjust the sliders to inspect the Ridge Point and operator regimes, then click the simulator complete button."
+              "zh": "记录一次拐点 → 移动带宽滑块 → 标出两个算子各自先碰到的屋顶。",
+              "en": "Record a ridge → move the bandwidth slider → mark which roof each operator meets first."
             }
           ],
           "concepts": [
@@ -1346,20 +1346,20 @@
           "reference": "4",
           "hints": [
             {
-              "zh": "概念提示：拐点就是“内存带宽刚好能喂饱峰值算力”时的临界算术强度，满足 `AI × 峰值带宽 = 峰值算力`。",
-              "en": "Concept: The Ridge Point is the exact AI where bandwidth ceiling equals compute ceiling: `AI × Peak_BW = Peak_Compute`."
+              "zh": "拐点是计算上限与带宽上限给出同一速率的强度。",
+              "en": "The ridge is the intensity at which compute and bandwidth give the same rate."
             },
             {
-              "zh": "步骤提示：注意到 `GFLOP/s`（$10^9$ FLOP/s）与 `GB/s`（$10^9$ B/s）分子分母的 $10^9$ 和 `/s` 恰好全部约掉！",
-              "en": "Steps: Notice `10^9` and `/s` cancel cleanly when dividing `GFLOP/s` by `GB/s`, leaving `FLOPs/Byte`!"
+              "zh": "写出两种峰值的单位，把共同的每秒与十亿因子划掉。",
+              "en": "Write the units of both peak rates and cancel seconds and billions."
             },
             {
-              "zh": "关键公式：`Ridge Point = 200 / 50`。",
-              "en": "Key formula: `Ridge Point = 200 / 50`."
+              "zh": "由 I×BW=P 单独解出 I，剩下的量纲是每字节运算数。",
+              "en": "Isolate I in I×BW=P. The remaining units are operations per byte."
             },
             {
-              "zh": "参考答案：直接输入数字 `4`。",
-              "en": "Answer: Enter `4`."
+              "zh": "分子填计算峰值，分母填字节带宽，将所得强度放回斜边验证。",
+              "en": "Put compute peak above byte bandwidth and plug the resulting intensity back into the sloped ceiling."
             }
           ],
           "concepts": [
@@ -1420,20 +1420,20 @@
           "reference": "def vector_add_ai(n: int, bytes_per_elem: int = 4) -> float:\n    flops = float(n)\n    total_bytes = float(3 * n * bytes_per_elem)\n    return flops / total_bytes\n\n\ndef square_matmul_ai(n: int, bytes_per_elem: int = 4) -> float:\n    flops = float(2 * (n ** 3))\n    total_bytes = float(3 * (n ** 2) * bytes_per_elem)\n    return flops / total_bytes\n\n\ndef classify_bottleneck(\n    arithmetic_intensity: float,\n    peak_gflops: float,\n    peak_bw_gbps: float,\n) -> str:\n    ridge_point = float(peak_gflops) / float(peak_bw_gbps)\n    if float(arithmetic_intensity) < ridge_point:\n        return \"memory-bound\"\n    return \"compute-bound\"\n",
           "hints": [
             {
-              "zh": "概念提示：算主存总流量时别忘了输出数组也要写回内存！无论是 `c = a + b` 还是 `C = A @ B`，都涉及 2 个输入和 1 个输出（共 3 份数组体积）。",
-              "en": "Concept: Remember output writes count toward memory traffic! Both `c = a + b` and `C = A @ B` touch 2 inputs + 1 output = 3 buffers."
+              "zh": "算术强度统计每搬一字节能完成的浮点运算。",
+              "en": "Arithmetic intensity counts operations enabled by a transferred byte."
             },
             {
-              "zh": "步骤提示：向量加法 `FLOPs = n`，`Bytes = 3 * n * bytes_per_elem`；方阵乘法 `FLOPs = 2 * (n ** 3)`，`Bytes = 3 * (n ** 2) * bytes_per_elem`。",
-              "en": "Steps: Vector add uses `n` FLOPs and `3 * n * bytes_per_elem` bytes; square matmul uses `2 * (n ** 3)` FLOPs and `3 * (n ** 2) * bytes_per_elem` bytes."
+              "zh": "分别列出加法和矩阵乘的输入、输出字节，再计算其工作量。",
+              "en": "List input and output traffic separately for addition and matmul, then count their work."
             },
             {
-              "zh": "关键逻辑：先算 `ridge = peak_gflops / peak_bw_gbps`，当 `arithmetic_intensity < ridge` 时返回 `\"memory-bound\"`，大于或等于时返回 `\"compute-bound\"`。",
-              "en": "Key logic: Compute `ridge = peak_gflops / peak_bw_gbps`; return `\"memory-bound\"` when `arithmetic_intensity < ridge`, else `\"compute-bound\"`."
+              "zh": "矩阵乘工作量随边长的三次方增长，理想传输量只按平方增长。",
+              "en": "Square matmul work grows cubically with side length; ideal input/output traffic grows quadratically."
             },
             {
-              "zh": "参考写法：\n- `vector_add_ai`: `return n / (3.0 * n * bytes_per_elem)`\n- `square_matmul_ai`: `return (2.0 * n ** 3) / (3.0 * (n ** 2) * bytes_per_elem)`\n- `classify_bottleneck`: `return \"memory-bound\" if arithmetic_intensity < (peak_gflops / peak_bw_gbps) else \"compute-bound\"`",
-              "en": "Reference:\n- `vector_add_ai`: `return n / (3.0 * n * bytes_per_elem)`\n- `square_matmul_ai`: `return (2.0 * n ** 3) / (3.0 * (n ** 2) * bytes_per_elem)`\n- `classify_bottleneck`: `return \"memory-bound\" if arithmetic_intensity < (peak_gflops / peak_bw_gbps) else \"compute-bound\"`"
+              "zh": "逐算子求 work/bytes；再比较该强度与峰值算力除以峰值带宽的交点。",
+              "en": "For each operator form work/bytes, then compare with the ridge derived from peak compute and bandwidth."
             }
           ],
           "concepts": [
@@ -1534,20 +1534,20 @@
           },
           "hints": [
             {
-              "zh": "找出没有数据依赖的工作。",
-              "en": "Find work without a data dependency."
+              "zh": "掩盖等待需要还有输入已经准备好的工作。",
+              "en": "Hiding a wait requires another group whose inputs are already available."
             },
             {
-              "zh": "一组线程等待时还有哪些线程就绪？",
-              "en": "Which other groups are ready while one waits?"
+              "zh": "挑两个不同像素，沿箭头检查第二个输出是否依赖第一个结果。",
+              "en": "Pick two pixels and trace whether the second depends on the first result."
             },
             {
-              "zh": "比较单次读延迟和整批完成时间。",
-              "en": "Compare one load’s latency with batch completion time."
+              "zh": "访存请求的延迟仍在，变化的是执行单元空闲的拍数。",
+              "en": "The individual load still takes time. The number of idle execution slots can change."
             },
             {
-              "zh": "调度另一个就绪的线程组",
-              "en": "Schedule another ready group"
+              "zh": "若当前组等待数据 → 从就绪集合取另一组 → 数据到达后再调度原组。",
+              "en": "If one group waits → issue a ready group → return to the first when its data arrives."
             }
           ]
         },
@@ -1589,20 +1589,20 @@
           },
           "hints": [
             {
-              "zh": "拐点是算力和供数速度正好平衡的位置。",
-              "en": "At the ridge, data arrives just fast enough."
+              "zh": "拐点让每秒可运算的工作与每秒送来的数据刚好匹配。",
+              "en": "At the ridge, arithmetic capacity matches the work fed by arriving bytes."
             },
             {
-              "zh": "两个 T 均为十进制万亿。",
-              "en": "Both T prefixes represent a decimal trillion."
+              "zh": "先对齐两项的十进制前缀，写出 FLOP/s 和 B/s。",
+              "en": "Align the decimal prefixes, then write FLOP/s and B/s explicitly."
             },
             {
-              "zh": "用每秒运算次数除以每秒字节数。",
-              "en": "Divide operations per second by bytes per second."
+              "zh": "由强度乘带宽等于峰值算力解出强度；两个 T 和每秒相消。",
+              "en": "Solve intensity times bandwidth equals peak compute. Both tera prefixes and seconds cancel."
             },
             {
-              "zh": "195",
-              "en": "195"
+              "zh": "取 compute_peak / byte_rate，再用该值乘回 byte_rate 检查单位。",
+              "en": "Form compute_peak / byte_rate, then multiply it back by byte_rate to check units."
             }
           ]
         }
@@ -1687,20 +1687,20 @@
           },
           "hints": [
             {
-              "zh": "先判断使用者是否属于同一块。",
-              "en": "Identify the block that owns the users."
+              "zh": "数据放在哪里要看有多少线程会读同一份内容。",
+              "en": "Storage placement depends on which threads need the same data."
             },
             {
-              "zh": "寄存器由单线程持有。",
-              "en": "Registers belong to individual threads."
+              "zh": "区分线程私有、块内共享与整卡可见三种范围。",
+              "en": "Separate thread-private, block-shared and device-wide visibility."
             },
             {
-              "zh": "需要块内可见且可显式填充的空间。",
-              "en": "Look for explicitly filled block-visible storage."
+              "zh": "每块显式装入的小矩阵应能被同块其他线程看见，同时具有片上访问路径。",
+              "en": "A tile staged by a block must be visible to its peers and accessible on chip."
             },
             {
-              "zh": "片上共享存储",
-              "en": "On-chip shared memory"
+              "zh": "标记生产者与消费者所属的块 → 排除私有寄存器 → 选择能共同读取的片上存储。",
+              "en": "Mark producer and consumer blocks → rule out private registers → find the on-chip space they can share."
             }
           ]
         },
@@ -1741,20 +1741,20 @@
           },
           "hints": [
             {
-              "zh": "把线程分成等大的组。",
-              "en": "Partition threads into equal groups."
+              "zh": "Warp 是一组通道，共同占用线程驻留预算。",
+              "en": "A warp is a group of lanes drawing from one resident-thread budget."
             },
             {
-              "zh": "每放入一组就用掉 32 个名额。",
-              "en": "Each group uses 32 slots."
+              "zh": "列出总线程位和每组所需线程位。",
+              "en": "List total thread slots and slots occupied by one group."
             },
             {
-              "zh": "线程容量除以每组线程数。",
-              "en": "Divide the thread budget by threads per group."
+              "zh": "每组占 32 个位置，只计完整组；实际发射还受其他资源限制。",
+              "en": "A complete group occupies 32 slots. Other resources can still limit issue rate."
             },
             {
-              "zh": "64",
-              "en": "64"
+              "zh": "将 budget 按组宽分块，统计完整块的数量。",
+              "en": "Partition the budget into groups of one warp width and count complete groups."
             }
           ]
         }
@@ -1818,20 +1818,20 @@
           },
           "hints": [
             {
-              "zh": "每个方向独立铺满。",
-              "en": "Cover each axis independently."
+              "zh": "尾行或尾列剩一个元素，仍需启动一整个块。",
+              "en": "Even one leftover row or column needs coverage by a whole block."
             },
             {
-              "zh": "余下一个元素也需要完整的块。",
-              "en": "Even one leftover element needs a block."
+              "zh": "分别画宽度方向和高度方向的格线，不能对总元素数一次整除。",
+              "en": "Draw grid lines separately across width and height. A single division of total area loses edge geometry."
             },
             {
-              "zh": "总数为两个向上取整结果的乘积。",
-              "en": "Multiply the two rounded-up counts."
+              "zh": "每轴的块数为 (长度+块长−1) 整除块长。",
+              "en": "On each axis, round up using (length+tile−1) integer-divided by tile."
             },
             {
-              "zh": "63",
-              "en": "63"
+              "zh": "求 gx，再求 gy；每个块坐标是一对 (x,y)，最后数坐标对。",
+              "en": "Find gx and gy individually. Count all distinct (x,y) block-coordinate pairs."
             }
           ]
         },
@@ -1848,7 +1848,7 @@
             "zh": "依次返回一维全局索引、二维块数 (gx,gy)，最后向 out[row,col] 写 A+B。H、W 是有效行列数。",
             "en": "Return the global 1D index, then block counts (gx,gy), then write A+B into out[row,col]. H and W give the valid rows and columns."
           },
-          "starter": "def global_index_1d(bx, tx, bdim):\n    # 定位一维元素 / Locate a 1D element\n    return None\n\ndef ceil_grid_2d(height, width, tile_h, tile_w):\n    # 覆盖尾块，返回 (gx,gy) / Cover edge tiles and return (gx,gy)\n    return None\n\ndef matrix_add_kernel(bx, by, tx, ty, bdim_x, bdim_y, A, B, out, H, W):\n    # 仅对有效行列执行加法 / Add only for valid rows and columns\n    return None\n",
+          "starter": "def global_index_1d(bx, tx, bdim):\n    # 输入 · bx、tx、bdim 是整数块号、块内 lane 和每块宽度。\n    # Input · Integers bx, tx and bdim denote block, local lane and block width.\n    # 边界 · 首块从 0 起，局部编号在 [0,bdim) 内；编号先乘块宽。\n    # Edge · Blocks start at zero and lanes lie in [0,bdim). Scale the block index first.\n    # 思路 · 第一个全局格 = bx × bdim，再加本地偏移 tx。\n    # Guide · First global cell = bx × bdim. Add the local offset tx.\n    return None\n\ndef ceil_grid_2d(height, width, tile_h, tile_w):\n    # 输入 · height、width 是矩阵行列数，tile_h、tile_w 是正整数块尺寸。\n    # Input · Integer height and width count rows and columns. Tile sizes are positive.\n    # 边界 · 不足一块的尾部仍需覆盖，返回的 (gx,gy) 先宽后高。\n    # Edge · Cover partial tails. Return (gx,gy) in width-then-height order.\n    # 思路 · 对各轴独立应用 ceil(n/tile) = (n+tile−1)//tile。\n    # Guide · Use ceil(n/tile) = (n+tile−1)//tile independently per axis.\n    return None\n\ndef matrix_add_kernel(bx, by, tx, ty, bdim_x, bdim_y, A, B, out, H, W):\n    # 输入 · A、B、out 是形状 [H,W] 的二维缓冲，块坐标和线程坐标是整数。\n    # Input · A, B and out are [H,W] buffers. Block and lane coordinates are integers.\n    # 边界 · 边缘线程在取任何输入之前先检查两个方向。\n    # Edge · An edge lane must test both bounds before any input read.\n    # 思路 · row=by×bdim_y+ty，col=bx×bdim_x+tx；合法时写出对应格的两项之和。\n    # Guide · Compute row and column from their block origins; sum the two matching cells only when valid.\n    return None\n",
           "reference": "def global_index_1d(bx, tx, bdim):\n    return bx * bdim + tx\n\n\ndef ceil_grid_2d(height, width, tile_h, tile_w):\n    return ((width + tile_w - 1) // tile_w, (height + tile_h - 1) // tile_h)\n\n\ndef matrix_add_kernel(bx, by, tx, ty, bdim_x, bdim_y, A, B, out, H, W):\n    row, col = by * bdim_y + ty, bx * bdim_x + tx\n    if row < H and col < W:\n        out[row, col] = A[row, col] + B[row, col]\n",
           "concepts": [
             "grid-map"
@@ -1892,20 +1892,20 @@
           ],
           "hints": [
             {
-              "zh": "把块首地址与块内偏移分开。",
-              "en": "Separate the block origin and the offset."
+              "zh": "块号选择一块区域，局部线程号选择该区域中的一个元素。",
+              "en": "A block index selects a region; a local lane selects a cell inside it."
             },
             {
-              "zh": "先定位 row、col，再访问数组。",
-              "en": "Locate row and col before touching the arrays."
+              "zh": "先标出块原点，再加线程偏移，最后把 x、y 对应到列和行。",
+              "en": "Mark the block origin, add the lane offset, then map x and y to column and row."
             },
             {
-              "zh": "整数向上取整可以用 (n+d-1)//d。",
-              "en": "Integer ceiling division is (n+d-1)//d."
+              "zh": "最右和最下的块不一定填满，同时比较 row<H、col<W 后才能读输入。",
+              "en": "Right and bottom tiles may be partial. Test both row<H and col<W before reading."
             },
             {
-              "zh": "依次返回一维全局索引、二维块数 (gx,gy)，最后向 out[row,col] 写 A+B。H、W 是有效行列数。",
-              "en": "Return the global 1D index, then block counts (gx,gy), then write A+B into out[row,col]. H and W give the valid rows and columns."
+              "zh": "块数分轴向上取整；块内先算全局坐标 → 有效时相加并写本格。",
+              "en": "Round up the grid per axis. In the kernel form global coordinates → add and store only for valid cells."
             }
           ]
         }
@@ -1972,20 +1972,20 @@
           },
           "hints": [
             {
-              "zh": "先让每个通道取相邻元素。",
-              "en": "Start with adjacent words."
+              "zh": "全局事务数不同的段，Bank 冲突数同 Bank 的不同字。",
+              "en": "Count distinct segments for global transactions and distinct words in a bank for contention."
             },
             {
-              "zh": "对齐起点后逐次调大步长。",
-              "en": "Align the base, then increase stride."
+              "zh": "从对齐连续访问出发，只改步长并追踪 Bank 0 中的通道。",
+              "en": "Start aligned and contiguous. Change only stride and trace the lanes mapped to bank zero."
             },
             {
-              "zh": "对照段号和 Bank 编号，尝试广播。",
-              "en": "Compare segment and bank numbers, then try broadcast."
+              "zh": "段号为字节地址整除 128，Bank 号为字地址对 32 取余。",
+              "en": "Segment ID is byte address divided by 128 with truncation. Bank ID is word address modulo 32."
             },
             {
-              "zh": "观察一次满利用率的单事务、一次至少 4 个事务的访问，以及一次至少 4 路 Bank 冲突。",
-              "en": "Observe a fully utilized single transaction, at least four transactions, and a bank conflict involving at least four distinct words."
+              "zh": "记下满利用率的配置，再列出跨四段时的地址；按 Bank 分组检查争用字数。",
+              "en": "Record a full-utilization configuration, list addresses spanning four segments, then group by bank to count competing words."
             }
           ]
         },
@@ -2047,20 +2047,20 @@
           },
           "hints": [
             {
-              "zh": "只追踪连续两行的同一列。",
-              "en": "Follow the same column across two rows."
+              "zh": "同列相邻行的间距决定它们会落到哪几个 Bank。",
+              "en": "The pitch between adjacent rows determines the banks visited down a column."
             },
             {
-              "zh": "Bank 是字地址除以 32 的余数。",
-              "en": "Bank is word address modulo 32."
+              "zh": "固定列号，分别写出行宽为 32 和 33 时头三行的字地址。",
+              "en": "Keep the column fixed and write the first three word addresses for row widths 32 and 33."
             },
             {
-              "zh": "比较步长 32 与 33 的余数序列。",
-              "en": "Compare remainders at strides 32 and 33."
+              "zh": "地址每增加 32 个字，Bank 号回到原处；再多一个字则前进一格。",
+              "en": "Adding 32 words returns to the same bank; one extra word advances by one bank."
             },
             {
-              "zh": "使相邻行落入不同 Bank",
-              "en": "Place successive rows in different banks"
+              "zh": "对每行计算 (row×pitch+col) mod 32，比较两列余数的重复情况。",
+              "en": "For each row evaluate (row×pitch+col) mod 32 and compare repeated remainders between layouts."
             }
           ]
         }
@@ -2125,20 +2125,20 @@
           },
           "hints": [
             {
-              "zh": "只算输入读取。",
-              "en": "Count input reads only."
+              "zh": "同一个 A 元素能给多列输出提供乘数。",
+              "en": "One A element can provide a factor for several output columns."
             },
             {
-              "zh": "跟踪一个 A 元素服务几列。",
-              "en": "Track how many output columns reuse one A value."
+              "zh": "围绕一个输出块，只统计从显存装入两份输入的次数。",
+              "en": "Around one output tile, count just the global loads of its two inputs."
             },
             {
-              "zh": "比较 2T³ 与 2T²。",
-              "en": "Compare 2T³ with 2T²."
+              "zh": "同样 T³ 次乘加，逐项装入需 2T³ 次读，装两块只需 2T² 次。",
+              "en": "For T³ multiply-adds, repeated scalar loads cost 2T³ reads, while staging two tiles costs 2T²."
             },
             {
-              "zh": "16x",
-              "en": "16x"
+              "zh": "写下 naive_reads / staged_reads，约去相同因子后再代入块宽。",
+              "en": "Form naive_reads / staged_reads, cancel shared factors, then substitute tile width."
             }
           ]
         },
@@ -2155,7 +2155,7 @@
             "zh": "实现 naive_matmul_step 与 tiled_matmul_step。A、B、out 均用 [i,j] 单元素索引，有 .shape。A.scratch((tile,tile)) 创建共享计数的 SRAM。用局部列表保存输出块的累加值。所有维度均可整除 tile。",
             "en": "Implement both kernels with scalar [i,j] accesses on A, B and out. Each buffer has .shape. A.scratch((tile,tile)) allocates counted SRAM. Keep output accumulators in local lists. Every dimension is divisible by tile."
           },
-          "starter": "def naive_matmul_step(A, B, out, tile):\n    # 逐输出累加乘积 / Accumulate each output separately\n    return None\n\ndef tiled_matmul_step(A, B, out, tile):\n    # 装块、复用、写回 / Stage, reuse and store a tile\n    return None\n",
+          "starter": "def naive_matmul_step(A, B, out, tile):\n    # 输入 · A[H,K]、B[K,W]、out[H,W] 是按元素计数的 TrackedBuffer；tile 是正整数。\n    # Input · Inputs and output are scalar-indexed TrackedBuffers; tile is a positive integer.\n    # 边界 · 每个输出格用独立局部和；中途写 out 会多算显存搬运。\n    # Edge · Start a private sum per output. Intermediate stores would bill extra HBM traffic.\n    # 思路 · 固定 i,j 沿 k 累加 A[i,k]×B[k,j]，最后一次写回。\n    # Guide · For fixed i,j reduce A[i,k]×B[k,j] along k, then store once.\n    return None\n\ndef tiled_matmul_step(A, B, out, tile):\n    # 输入 · 形状仍为 [H,K]×[K,W]；A.scratch((tile,tile)) 创建计数的片上缓冲。\n    # Input · Shapes are [H,K]×[K,W]. A.scratch((tile,tile)) allocates counted scratch storage.\n    # 边界 · 本题各维可被 tile 整除；跨归约块保留局部和。\n    # Edge · All dimensions are divisible by tile here. Preserve accumulators across reduction tiles.\n    # 思路 · 每块先装两份 tile² 个数，复用它们做 tile³ 次乘加。\n    # Guide · Stage two tile² slabs, then reuse their entries across tile³ multiply-adds.\n    return None\n",
           "reference": "def naive_matmul_step(A, B, out, tile):\n    for i in range(A.shape[0]):\n        for j in range(B.shape[1]):\n            out[i, j] = sum(A[i, k] * B[k, j] for k in range(A.shape[1]))\n\n\ndef tiled_matmul_step(A, B, out, tile):\n    left = A.scratch((tile, tile))\n    right = B.scratch((tile, tile))\n    for row in range(0, A.shape[0], tile):\n        for col in range(0, B.shape[1], tile):\n            acc = [[0.0] * tile for _ in range(tile)]\n            for base in range(0, A.shape[1], tile):\n                for i in range(tile):\n                    for j in range(tile):\n                        left[i, j] = A[row+i, base+j]\n                        right[i, j] = B[base+i, col+j]\n                for i in range(tile):\n                    for j in range(tile):\n                        acc[i][j] += sum(left[i, k] * right[k, j] for k in range(tile))\n            for i in range(tile):\n                for j in range(tile):\n                    out[row+i, col+j] = acc[i][j]\n",
           "concepts": [
             "tiling",
@@ -2194,20 +2194,20 @@
           ],
           "hints": [
             {
-              "zh": "先让朴素实现输出每个点积。",
-              "en": "First compute every dot product in the naive kernel."
+              "zh": "显存读与片上读各有一本账，重复利用只会节省其中一类。",
+              "en": "Global and scratch reads have separate ledgers. Reuse saves traffic at one level."
             },
             {
-              "zh": "将输出矩阵按块的起点遍历。",
-              "en": "Visit output tile origins."
+              "zh": "先实现一个输出的完整点积，再把多个输出的部分和一起保留。",
+              "en": "Finish one output dot product first, then keep a tile of partial sums alive together."
             },
             {
-              "zh": "每个归约块先装入两个片上块，然后在内层仅从这两块取数。",
-              "en": "Load both scratch tiles before doing the inner products entirely from them."
+              "zh": "一个归约块只从 A、B 各装 T² 项；所有归约块完成后才写输出。",
+              "en": "One reduction tile loads T² items from each input. Delay output stores until all reduction tiles finish."
             },
             {
-              "zh": "实现 naive_matmul_step 与 tiled_matmul_step。A、B、out 均用 [i,j] 单元素索引，有 .shape。A.scratch((tile,tile)) 创建共享计数的 SRAM。用局部列表保存输出块的累加值。所有维度均可整除 tile。",
-              "en": "Implement both kernels with scalar [i,j] accesses on A, B and out. Each buffer has .shape. A.scratch((tile,tile)) allocates counted SRAM. Keep output accumulators in local lists. Every dimension is divisible by tile."
+              "zh": "遍历输出块 → 清零局部和 → 逐归约块装盘并复用 → 将局部和一次写回。",
+              "en": "Visit output tiles → clear local sums → stage and reuse each reduction tile → store finished sums once."
             }
           ]
         }
@@ -2292,20 +2292,20 @@
           },
           "hints": [
             {
-              "zh": "画出第二次乘法的两个输入。",
-              "en": "Draw the two inputs to the second product."
+              "zh": "更新某层的权重，要知道当时进入该层的特征。",
+              "en": "A weight update needs the features that entered that layer during forward."
             },
             {
-              "zh": "权重已经保存在模型中。",
-              "en": "The model already holds the weights."
+              "zh": "从第二层乘积向左追踪，找出乘以 W2 的张量。",
+              "en": "Trace backward from the second product to the tensor multiplied by W2."
             },
             {
-              "zh": "追踪另一个输入来自哪一步。",
-              "en": "Trace where the other input came from."
+              "zh": "这一张量含非线性处理后的中间宽度 F，形状为 [B,S,F]。",
+              "en": "That tensor has the intermediate width F after the nonlinearity, with shape [B,S,F]."
             },
             {
-              "zh": "hidden 的实际数值",
-              "en": "The values of hidden"
+              "zh": "写 X → 第一层 → 激活 → 第二层；圈出紧挨第二层左边的值。",
+              "en": "Write X → first layer → activation → second layer and circle the value immediately before the second layer."
             }
           ]
         },
@@ -2322,7 +2322,7 @@
             "zh": "cached_forward 返回 (Y, {'x': X, 'hidden': ReLU(X@W1)})。cache_bytes 对字典内每个张量计算字节并求和。",
             "en": "Return (Y, {'x': X, 'hidden': ReLU(X@W1)}) from cached_forward. In cache_bytes sum the byte sizes of all dictionary values."
           },
-          "starter": "import torch\n\ndef cached_forward(x, w1, w2):\n    # 返回输出与两个缓存项 / Return output and two cache entries\n    return None\n\ndef cache_bytes(cache):\n    # 按各张量的 dtype 汇总 / Sum bytes with each tensor’s dtype\n    return None\n",
+          "starter": "import torch\n\ndef cached_forward(x, w1, w2):\n    # 输入 · x 是 [B,S,H] 张量，w1[H,F]、w2[F,O] 共享于所有位置。\n    # Input · x is a [B,S,H] tensor; w1[H,F] and w2[F,O] apply to every position.\n    # 边界 · 保留 B、S 两轴；缓存键名为 x 和 hidden，避免把输出重复保存。\n    # Edge · Preserve B and S. Name the saved inputs x and hidden without storing the output twice.\n    # 思路 · hidden=ReLU(x@w1)，用 hidden@w2 得到输出，返回输出和缓存字典。\n    # Guide · Form hidden=ReLU(x@w1), then hidden@w2. Return the output and a cache dictionary.\n    return None\n\ndef cache_bytes(cache):\n    # 输入 · cache 是字符串键到不同形状、dtype 的张量字典，输出是整数字节数。\n    # Input · cache maps string names to tensors of potentially different shapes and dtypes; return integer bytes.\n    # 边界 · 标量也有一个元素，不要假设所有值都占四字节。\n    # Edge · A scalar has one element. Do not assume every dtype uses four bytes.\n    # 思路 · 逐张量求 numel()×element_size()，再汇总。\n    # Guide · Sum numel()×element_size() separately over the values.\n    return None\n",
           "reference": "import torch\n\n\ndef cached_forward(x, w1, w2):\n    hidden = torch.relu(x @ w1)\n    return hidden @ w2, {\"x\": x, \"hidden\": hidden}\n\n\ndef cache_bytes(cache):\n    return sum(t.numel() * t.element_size() for t in cache.values())\n",
           "concepts": [
             "activation-memory"
@@ -2359,20 +2359,20 @@
           ],
           "hints": [
             {
-              "zh": "保持位置的前两维。",
-              "en": "Preserve both leading axes."
+              "zh": "激活缓存保存未来更新还要访问的前向值。",
+              "en": "An activation cache saves forward values that a later update needs to read."
             },
             {
-              "zh": "第一层输出经过 ReLU 后才送入第二层。",
-              "en": "Apply ReLU before the second matrix product."
+              "zh": "分别画出第一层输入与第二层输入的形状，把两者挂到各自的字典键。",
+              "en": "Draw the first and second layer inputs and assign each to its own cache key."
             },
             {
-              "zh": "每个张量都有 numel() 和 element_size()。",
-              "en": "Each tensor exposes numel() and element_size()."
+              "zh": "每个张量独立计算元素数乘 dtype 宽度，最后相加。",
+              "en": "Compute element count times dtype width for each tensor before summing."
             },
             {
-              "zh": "cached_forward 返回 (Y, {'x': X, 'hidden': ReLU(X@W1)})。cache_bytes 对字典内每个张量计算字节并求和。",
-              "en": "Return (Y, {'x': X, 'hidden': ReLU(X@W1)}) from cached_forward. In cache_bytes sum the byte sizes of all dictionary values."
+              "zh": "先求中间特征 → 生成输出并保留两个输入 → 遍历缓存值累计字节。",
+              "en": "Form hidden features → produce output and retain both inputs → walk cached tensors and add bytes."
             }
           ]
         }
@@ -2440,20 +2440,20 @@
           },
           "hints": [
             {
-              "zh": "先记录原始柱形。",
-              "en": "Start from the original bars."
+              "zh": "激活用于以后反向读取，优化器矩用于后续参数更新。",
+              "en": "Activations feed backward, while optimizer moments persist for future updates."
             },
             {
-              "zh": "只改变重计算，看激活与 FLOPs。",
-              "en": "Change checkpointing alone and inspect activations and FLOPs."
+              "zh": "锁定模型规模与精度，单独改变重算，再单独比较优化器。",
+              "en": "Keep model size and precision fixed. Sweep checkpointing and optimizer in separate comparisons."
             },
             {
-              "zh": "再只改变优化器，比较矩所占字节。",
-              "en": "Change only the optimizer and compare moment bytes."
+              "zh": "本账本中重算只留每层输入；无动量 SGD 的两个矩占零字节。",
+              "en": "Checkpointing retains each layer input. Momentum-free SGD allocates zero bytes for the two moments."
             },
             {
-              "zh": "保持其他参数相同，分别比较重计算开关，以及 AdamW 与 SGD。",
-              "en": "Hold the other settings fixed to compare checkpointing on/off and AdamW against SGD."
+              "zh": "保存基线 → 改重算对照激活和 FLOPs → 回到同一配置只改优化器并读矩栏。",
+              "en": "Save baseline → toggle checkpointing and compare activations and FLOPs → change only optimizer on a matched configuration."
             }
           ]
         },
@@ -2494,20 +2494,20 @@
           },
           "hints": [
             {
-              "zh": "这里仅数持久参数状态。",
-              "en": "Count only persistent state."
+              "zh": "静态状态为每个参数分配固定的字节预算。",
+              "en": "Persistent state gives every parameter a fixed byte budget."
             },
             {
-              "zh": "将参数量乘单参数字节数。",
-              "en": "Multiply the count by bytes per parameter."
+              "zh": "先写出参数个数，再叠加权重、梯度、主副本和两个矩的每项宽度。",
+              "en": "Write the parameter count, then add the widths of the weight, gradient, master copy and both moments."
             },
             {
-              "zh": "1 GB 为 10⁹ B。",
-              "en": "A decimal GB contains 10⁹ B."
+              "zh": "十进制 7B 参数等于七十亿个元素，1 GiB 则等于 2³⁰ 字节。",
+              "en": "Seven billion parameters is a decimal count; one GiB contains 2³⁰ bytes."
             },
             {
-              "zh": "112 GB",
-              "en": "112 GB"
+              "zh": "计算 count×bytes_per_parameter，最后选择 GB 或 GiB 并明确标注。",
+              "en": "Compute count×bytes_per_parameter and label the converted result explicitly as GB or GiB."
             }
           ]
         },
@@ -2524,7 +2524,7 @@
             "zh": "给定已经反传并执行过 step() 的 FP32 线性层与 AdamW，返回四项字节的列表 [参数, 梯度, 两个矩, step 标量]。",
             "en": "Given an FP32 linear layer and AdamW after backward and step(), return [parameter bytes, gradient bytes, moment bytes, step-counter bytes]."
           },
-          "starter": "def train_ledger(model, optimizer):\n    # 实查模型和优化器张量 / Inspect model and optimizer tensors\n    return None\n",
+          "starter": "def train_ledger(model, optimizer):\n    # 输入 · model 是已反向的 FP32 线性层，optimizer 是已 step() 的 AdamW。\n    # Input · model is an FP32 linear layer after backward. optimizer is AdamW after step().\n    # 边界 · 权重张量与偏置形状可能不同，step 是每个参数张量独立的小标量。\n    # Edge · Weights and bias can differ in shape. Each parameter tensor owns a small step counter.\n    # 思路 · 按 numel×element_size 分别汇总参数、梯度、两个矩与计数器四项。\n    # Guide · Bill numel×element_size to four subtotals: parameters, gradients, both moments and step counters.\n    return None\n",
           "reference": "def train_ledger(model, optimizer):\n    def size(t):\n        return t.numel() * t.element_size()\n    states = optimizer.state.values()\n    return [sum(size(p) for p in model.parameters()),\n            sum(size(p.grad) for p in model.parameters()),\n            sum(size(s[k]) for s in states for k in (\"exp_avg\", \"exp_avg_sq\")),\n            sum(size(s[\"step\"]) for s in states)]\n",
           "concepts": [
             "activation-memory"
@@ -2554,20 +2554,20 @@
           ],
           "hints": [
             {
-              "zh": "每一项先数张量，再看 dtype。",
-              "en": "Identify tensors and then their dtypes."
+              "zh": "真正分配的优化器张量可能包含与参数不同形状的标量。",
+              "en": "Allocated optimizer tensors include scalars with a different shape from a parameter."
             },
             {
-              "zh": "优化器状态按参数索引。",
-              "en": "Optimizer state is indexed by parameter."
+              "zh": "遍历模型参数读取权重和梯度，另遍历优化器的每份参数状态。",
+              "en": "Visit model parameters for weights and gradients, then visit optimizer state once per parameter."
             },
             {
-              "zh": "在 optimizer.state.values() 中查 exp_avg、exp_avg_sq 和 step。",
-              "en": "Inspect exp_avg, exp_avg_sq and step in optimizer.state.values()."
+              "zh": "exp_avg 与 exp_avg_sq 归入矩，step 只按它自身的元素数和 dtype 计费。",
+              "en": "Bill exp_avg and exp_avg_sq to moments. Size step using its own element count and dtype."
             },
             {
-              "zh": "给定已经反传并执行过 step() 的 FP32 线性层与 AdamW，返回四项字节的列表 [参数, 梯度, 两个矩, step 标量]。",
-              "en": "Given an FP32 linear layer and AdamW after backward and step(), return [parameter bytes, gradient bytes, moment bytes, step-counter bytes]."
+              "zh": "建立四个小计 → 每访问一个张量按角色累计 → 按接口指定次序返回。",
+              "en": "Initialize four subtotals → add each tensor by role → return the subtotals in contract order."
             }
           ]
         }
@@ -2652,20 +2652,20 @@
           },
           "hints": [
             {
-              "zh": "无穷大不能用于有效的参数更新。",
-              "en": "An infinite gradient cannot give a valid update."
+              "zh": "非有限梯度无法给出有效的参数修正量。",
+              "en": "A nonfinite gradient cannot describe a usable parameter correction."
             },
             {
-              "zh": "下一次应让最大梯度远离溢出上界。",
-              "en": "Give the largest gradient more headroom next time."
+              "zh": "分开判断本步是否写权重、下步应怎样改变缩放。",
+              "en": "Decide independently whether to write this weight and how to change the next scale."
             },
             {
-              "zh": "把本轮权重和下一轮 scale 分开处理。",
-              "en": "Consider the current weight and next scale separately."
+              "zh": "把 Inf 除以一个有限 scale 仍是 Inf，不能靠事后解除缩放补救。",
+              "en": "Dividing infinity by a finite scale still gives infinity. Unscaling afterward cannot rescue this update."
             },
             {
-              "zh": "跳过更新并减小 scale",
-              "en": "Skip the update and reduce scale"
+              "zh": "若窄格式结果非有限 → 跳过权重写入 → 为下一次尝试留出更大指数余量。",
+              "en": "If the narrow result is nonfinite → skip the weight write → give the next attempt more exponent headroom."
             }
           ]
         },
@@ -2682,7 +2682,7 @@
             "zh": "三步分别返回 FP16 舍入后的梯度数值、FP32 新主权重和下一轮 scale。有限更新翻倍，非有限减半，限制在 [1,65536]。先预测朴素和缩放后的梯度。",
             "en": "Return the FP16-rounded gradient value, the new FP32 master weight, and the next scale. Double on success, halve on nonfinite data, clamp to [1,65536]. Predict both gradient values first."
           },
-          "starter": "import torch\n\ndef fp16_underflow_grad(grad):\n    # 直接观察 FP16 梯度 / Observe direct FP16 rounding\n    return None\n\ndef loss_scaled_step(weight, grad, lr, scale):\n    # 缩放并尝试更新主权重 / Scale and update the master\n    return None\n\ndef dynamic_scaler_update(scale, found_inf):\n    # 调整下一步的缩放因子 / Adjust the scale for the next step\n    return None\n",
+          "starter": "import torch\n\ndef fp16_underflow_grad(grad):\n    # 输入 · grad 是一个 Python 浮点标量，返回它经过 FP16 舍入后的数值。\n    # Input · grad is a Python scalar. Report its numerical value after FP16 rounding.\n    # 边界 · 特别小的正数或负数可能变为带符号零。\n    # Edge · Tiny positive or negative inputs may round to signed zero.\n    # 思路 · 用窄类型保存一次再取标量，比较窄化前后的 g。\n    # Guide · Cast once to the narrow dtype, extract the scalar and compare before/after g.\n    return None\n\ndef loss_scaled_step(weight, grad, lr, scale):\n    # 输入 · weight、grad、lr、scale 为标量，主权重始终以 FP32 运算。\n    # Input · weight, grad, lr and scale are scalars. Do master-weight arithmetic in FP32.\n    # 边界 · 若窄化后的 scaled 是 Inf 或 NaN，仅返回原权重。\n    # Edge · If the narrow scaled value is Inf or NaN, leave the current weight intact.\n    # 思路 · scaled=FP16(g×scale)；有限时在 FP32 中做 w−lr×(scaled/scale)。\n    # Guide · Use scaled=FP16(g×scale); for finite data evaluate w−lr×(scaled/scale) in FP32.\n    return None\n\ndef dynamic_scaler_update(scale, found_inf):\n    # 输入 · scale 是正数，found_inf 是本步非有限结果的布尔标志。\n    # Input · scale is positive; found_inf is a boolean indicating nonfinite data.\n    # 边界 · 下一比例应夹在闭区间 [1,65536]，边界不能越过。\n    # Edge · Clamp the next scale to the closed interval [1,65536].\n    # 思路 · 成功步尝试翻倍，非有限步尝试减半，再应用上下界。\n    # Guide · Try doubling on success or halving on nonfinite data before applying both bounds.\n    return None\n",
           "reference": "import torch\n\n\ndef fp16_underflow_grad(grad):\n    return torch.tensor(grad, dtype=torch.float16).item()\n\n\ndef loss_scaled_step(weight, grad, lr, scale):\n    scaled = torch.tensor(grad * scale, dtype=torch.float16)\n    if not torch.isfinite(scaled):\n        return weight\n    return (torch.tensor(weight, dtype=torch.float32) - lr * (scaled.float() / scale)).item()\n\n\ndef dynamic_scaler_update(scale, found_inf):\n    return max(1, scale / 2) if found_inf else min(65536, scale * 2)\n",
           "concepts": [
             "loss-scaling",
@@ -2727,20 +2727,20 @@
           ],
           "hints": [
             {
-              "zh": "先在哪一步转换 dtype 会决定梯度是否已经丢失。",
-              "en": "The first dtype conversion can irreversibly lose the gradient."
+              "zh": "第一次窄化之前保留小梯度；更新时让主权重保有更细的刻度。",
+              "en": "Preserve a small gradient before its first narrow cast and keep finer spacing for the master update."
             },
             {
-              "zh": "检查已缩放张量是否有限。",
-              "en": "Check the scaled tensor for finiteness."
+              "zh": "分别追踪直接舍入、先放大再窄化以及下一步比例，勿混用三者。",
+              "en": "Trace direct rounding, scaling before the cast and the next scale as three separate quantities."
             },
             {
-              "zh": "用 torch.isfinite，先恢复 float() 再除回 scale。",
-              "en": "Use torch.isfinite and restore float() before dividing by scale."
+              "zh": "只有 scaled 有限才在 FP32 中解除缩放；比例始终在 [1,65536] 内。",
+              "en": "Unscale in FP32 only for a finite scaled value. Keep the scale inside [1,65536]."
             },
             {
-              "zh": "三步分别返回 FP16 舍入后的梯度数值、FP32 新主权重和下一轮 scale。有限更新翻倍，非有限减半，限制在 [1,65536]。先预测朴素和缩放后的梯度。",
-              "en": "Return the FP16-rounded gradient value, the new FP32 master weight, and the next scale. Double on success, halve on nonfinite data, clamp to [1,65536]. Predict both gradient values first."
+              "zh": "计算窄格式读数 → 按有限性分支处理权重 → 单独夹紧下一比例。",
+              "en": "Compute a narrow reading → branch on finiteness for the weight → clamp the next scale separately."
             }
           ]
         }
@@ -2805,20 +2805,20 @@
           },
           "hints": [
             {
-              "zh": "每个查询要看所有键。",
-              "en": "Every query sees all keys."
+              "zh": "每个查询要对应全部键，所以增加序列长度会同时拉长两个轴。",
+              "en": "Every query has a score for every key, so increasing sequence length grows two axes."
             },
             {
-              "zh": "先按 B×头数×S×S 数元素。",
-              "en": "Count B×heads×S×S elements."
+              "zh": "依次列出批、头、查询位置、键位置四个维度。",
+              "en": "List batch, heads, query positions and key positions in order."
             },
             {
-              "zh": "把元素乘 2，再换算为 GiB。",
-              "en": "Multiply by two, then convert bytes to GiB."
+              "zh": "FP16 每项占 2 B，只统计分数张量一次。",
+              "en": "Each FP16 entry takes two bytes. Count the score tensor exactly once."
             },
             {
-              "zh": "4 GiB",
-              "en": "4 GiB"
+              "zh": "先相乘四个维度 → 乘元素宽度 → 除以 2³⁰ 读取 GiB。",
+              "en": "Multiply all four axes → multiply by element width → divide by 2³⁰ to read GiB."
             }
           ]
         },
@@ -2835,7 +2835,7 @@
             "zh": "用一维分数和二维值块完成三个函数。第一步返回 (m,l)，第二步返回 (m,l,o) 的未归一化分子，第三步返回所有查询行。误差须小于 1e-5。",
             "en": "Use 1D scores and a 2D value tile. Return (m,l), then (m,l,o) with an unnormalized numerator, then the stacked output rows. Maximum error must be below 1e-5."
           },
-          "starter": "import math\nimport torch\n\n\ndef online_softmax_update(m_prev, l_prev, block_scores):\n    # ① 新最大值 / New maximum: M = max(m_prev, max(scores)).\n    # 分母 / Denominator: l = l_prev * exp(m_prev-M) + sum(exp(scores-M)).\n    return None\n\n\ndef online_attention_step(m_prev, l_prev, o_prev, block_scores, block_v):\n    # ② 调用第一步 / Call step 1 for M,l.\n    # 未归一化分子 / Unnormalized numerator: o = o_prev*exp(m_prev-M) + exp(scores-M) @ block_v.\n    return None\n\n\ndef tiled_attention(Q, K, V, block_size):\n    # ③ 逐行计算 / Process one query row at a time.\n    rows = []\n    for q in Q:\n        m, l, o = -math.inf, 0.0, V.new_zeros(V.shape[1])\n        for i in range(0, len(K), block_size):\n            # 分数 / Scores: K[i:i+block_size] @ q / sqrt(d).\n            # 用对应的值块调用第二步 / Use the matching V tile in step 2.\n            pass\n        # 行输出 / Row output: o/l.\n    return None\n",
+          "starter": "import math\nimport torch\n\n\ndef online_softmax_update(m_prev, l_prev, block_scores):\n    # 输入 · m_prev、l_prev 为标量，block_scores 是非空的一维 [T] 浮点张量。\n    # Input · m_prev and l_prev are scalars; block_scores is a nonempty floating [T] tensor.\n    # 边界 · 第一块从 m_prev=−∞、l_prev=0 开始，尾块可以更短。\n    # Edge · Start the first block at m_prev=−∞ and l_prev=0. The final tile can be short.\n    # 思路 · m_new=max(m_prev,max(scores))，alpha = exp(m_prev - m_new)；l_new=alpha*l_prev+sum(exp(scores−m_new))。\n    # Guide · Rescale old mass with alpha before adding this tile's exponentials.\n    return None\n\n\ndef online_attention_step(m_prev, l_prev, o_prev, block_scores, block_v):\n    # 输入 · o_prev 是 [Dv] 分子，block_scores[T] 与 block_v[T,Dv] 的 T 必须匹配。\n    # Input · o_prev is a [Dv] numerator. block_scores[T] and block_v[T,Dv] share T.\n    # 边界 · 保留未归一化的分子；不能在块内先返回概率加权平均。\n    # Edge · Keep an unnormalized numerator. Do not return a separately normalized tile average.\n    # 思路 · 用同一 m_new 和 alpha 计算 o_new=alpha*o_prev+exp(scores−m_new)@block_v，返回三个状态。\n    # Guide · Use the same maximum and correction for the numerator and return all three states.\n    return None\n\n\ndef tiled_attention(Q, K, V, block_size):\n    # 输入 · Q[Sq,d]、K[Sk,d]、V[Sk,Dv] 是浮点矩阵；block_size 为正。\n    # Input · Q[Sq,d], K[Sk,d] and V[Sk,Dv] are floating matrices; block_size is positive.\n    # 边界 · 最后一块按实际长度取键与值；保持单行状态，避开整张分数矩阵。\n    # Edge · Slice both key and value tails to their actual length. Keep only one row of score tiles.\n    # 思路 · 每块算 K_tile@q/√d 并更新 (m,l,o)，行末以 o/l 作为输出。\n    # Guide · Compute K_tile@q/√d and update (m,l,o). Finish each row with o/l.\n    rows = []\n    for q in Q:\n        m, l, o = -math.inf, 0.0, V.new_zeros(V.shape[1])\n        for i in range(0, len(K), block_size):\n            # 分数 / Scores: K[i:i+block_size] @ q / sqrt(d).\n            # 用对应的值块调用第二步 / Use the matching V tile in step 2.\n            pass\n        # 行输出 / Row output: o/l.\n    return None\n",
           "reference": "import math\nimport torch\n\n\ndef online_softmax_update(m_prev, l_prev, block_scores):\n    m = max(m_prev, block_scores.max().item())\n    weights = torch.exp(block_scores - m)\n    return m, l_prev * math.exp(m_prev - m) + weights.sum().item()\n\n\ndef online_attention_step(m_prev, l_prev, o_prev, block_scores, block_v):\n    m, l = online_softmax_update(m_prev, l_prev, block_scores)\n    o = o_prev * math.exp(m_prev - m) + torch.exp(block_scores - m) @ block_v\n    return m, l, o\n\n\ndef tiled_attention(Q, K, V, block_size):\n    rows = []\n    for q in Q:\n        m, l, o = -math.inf, 0.0, V.new_zeros(V.shape[1])\n        for i in range(0, len(K), block_size):\n            scores = K[i:i+block_size] @ q / math.sqrt(q.numel())\n            m, l, o = online_attention_step(m, l, o, scores, V[i:i+block_size])\n        rows.append(o / l)\n    return torch.stack(rows)\n",
           "concepts": [
             "online-softmax",
@@ -2880,20 +2880,20 @@
           ],
           "hints": [
             {
-              "zh": "只需要当前最大值、分母和加权值向量。",
-              "en": "Keep just a maximum, denominator and weighted value vector."
+              "zh": "不同块的指数质量要在同一个最大值基准下相加。",
+              "en": "Exponential mass from different tiles must share one maximum as its origin."
             },
             {
-              "zh": "新块的最大值较大时，缩小旧贡献。",
-              "en": "When a larger maximum arrives, shrink the old contribution."
+              "zh": "先维护最大值与分母，再用同一缩放更新值向量的分子。",
+              "en": "Update the maximum and denominator first, then apply the same correction to the value numerator."
             },
             {
-              "zh": "最后一块处理后才除以分母。",
-              "en": "Divide by the denominator only after the final block."
+              "zh": "旧贡献乘 exp(m_prev−m_new)，序列末尾可能只剩短块。",
+              "en": "Multiply the old contribution by exp(m_prev−m_new). The tail tile can be short."
             },
             {
-              "zh": "用一维分数和二维值块完成三个函数。第一步返回 (m,l)，第二步返回 (m,l,o) 的未归一化分子，第三步返回所有查询行。误差须小于 1e-5。",
-              "en": "Use 1D scores and a 2D value tile. Return (m,l), then (m,l,o) with an unnormalized numerator, then the stacked output rows. Maximum error must be below 1e-5."
+              "zh": "对一行初始化 (−∞,0,零向量) → 合并每一对键值块 → 最后一块后才除分母。",
+              "en": "Initialize one row with (−∞,0,zero vector) → merge matching key/value tiles → divide only after the final tile."
             }
           ]
         }
@@ -2978,20 +2978,20 @@
           },
           "hints": [
             {
-              "zh": "看看哪一项比另一项大。",
-              "en": "Compare the two time terms."
+              "zh": "每发一条消息都要重新支付启动延迟。",
+              "en": "Each send pays a new startup cost."
             },
             {
-              "zh": "每条消息都会付启动成本。",
-              "en": "Each message pays startup."
+              "zh": "把十次独立启动的固定项与一次合并启动的固定项排在一起。",
+              "en": "Line up the fixed terms for ten sends beside the fixed term for one combined send."
             },
             {
-              "zh": "相邻的数据可以装进一个连续缓冲。",
-              "en": "Adjacent data can share one packed buffer."
+              "zh": "相同总字节数在相同带宽下仍付相同传输项，差别来自 α 的次数。",
+              "en": "At fixed bandwidth, equal total bytes have equal transfer time. Count how many times α appears."
             },
             {
-              "zh": "把小消息合并发送",
-              "en": "Coalesce the messages"
+              "zh": "分别估计 10×α+总字节/β 和 α+总字节/β，再选能减少固定项的操作。",
+              "en": "Estimate 10×α+total/β and α+total/β, then choose the operation that removes repeated startup."
             }
           ]
         },
@@ -3032,20 +3032,20 @@
           },
           "hints": [
             {
-              "zh": "写出启动项和搬运项。",
-              "en": "Write the startup and byte terms."
+              "zh": "发送时间包含一次固定启动和一段按字节计费的传输。",
+              "en": "A send includes a fixed startup interval and a byte-dependent transfer interval."
             },
             {
-              "zh": "2 MB 是 2×10⁶ B。",
-              "en": "2 MB is 2×10⁶ B."
+              "zh": "统一消息及带宽的十进制前缀，先算传输需要多少秒。",
+              "en": "Align decimal prefixes for the message and bandwidth and compute transfer seconds first."
             },
             {
-              "zh": "把 M/β 从秒转换到微秒再加 α。",
-              "en": "Convert M/β from seconds to microseconds before adding α."
+              "zh": "微秒比秒小一百万倍，只有换成同一单位才能相加。",
+              "en": "There are a million microseconds per second. Convert both terms before adding."
             },
             {
-              "zh": "105 us",
-              "en": "105 us"
+              "zh": "把 M/β 换为 μs → 加题给的启动延迟 → 连单位一起填写。",
+              "en": "Convert M/β to microseconds → add the supplied startup latency → include the time unit."
             }
           ]
         }
@@ -3110,20 +3110,20 @@
           },
           "hints": [
             {
-              "zh": "每一片需要经过其余所有 rank。",
-              "en": "A shard must travel past the other ranks."
+              "zh": "一个环形阶段让分片依次走过其他成员。",
+              "en": "In one ring phase a shard visits the other members in order."
             },
             {
-              "zh": "两个阶段的轮数相同。",
-              "en": "The phases have equal round counts."
+              "zh": "画四个 rank，把一个分片从发起点跟踪到最后一个不同的 rank。",
+              "en": "Draw four ranks and follow a shard from its origin to the last other rank."
             },
             {
-              "zh": "每阶段 N−1 轮。",
-              "en": "Count N−1 rounds per phase."
+              "zh": "同一轮内多条链路并行，一个阶段的关键路径为 N−1 轮。",
+              "en": "Several links work in the same round. A phase has N−1 rounds on its critical path."
             },
             {
-              "zh": "6",
-              "en": "6"
+              "zh": "数完归约阶段，再为收集阶段画同样多的轮次，求两段之和。",
+              "en": "Count reduction rounds, draw equally many for distribution, then add the two phase lengths."
             }
           ]
         },
@@ -3140,7 +3140,7 @@
             "zh": "仅用 dist.irecv、dist.send 和接收请求的 wait()。reduce_scatter(x) 返回本 rank 的和分片；all_gather(shard) 返回按 rank 顺序拼接的向量；all_reduce(x) 组合前两步。函数名见模板，向量长度可被进程数整除。",
             "en": "Use only dist.irecv, dist.send and receive work.wait(). Return this rank’s reduced shard, gather shards in rank order, then compose both functions. Use the template names. Vector length is divisible by world size."
           },
-          "starter": "import torch\nimport torch.distributed as dist\n\ndef ring_reduce_scatter(x):\n    # 将输入归约到本地分片 / Reduce into the rank-local shard\n    return None\n\ndef ring_all_gather(shard):\n    # 按编号收集分片 / Gather shards by index\n    return None\n\ndef ring_all_reduce(x):\n    # 组合两阶段求全量和 / Compose the phases into a full sum\n    return None\n",
+          "starter": "import torch\nimport torch.distributed as dist\n\ndef ring_reduce_scatter(x):\n    # 输入 · x 是长度 N×K 的一维张量，N 是进程数；返回本 rank 的 K 项和分片。\n    # Input · x is a vector of N×K items across N ranks. Return this rank's reduced shard of K items.\n    # 边界 · 所有 rank 必须走相同轮数。先挂接收，等句柄完成后才读缓冲。\n    # Edge · Run the same number of rounds on all ranks. Post the receive and wait before reading.\n    # 思路 · 第 j 轮发 (r−1−j)%N、收 (r−2−j)%N，接收值累加到对应分片。\n    # Guide · In round j send (r−1−j)%N and receive (r−2−j)%N, adding to the matching shard.\n    return None\n\ndef ring_all_gather(shard):\n    # 输入 · shard 是本 rank 所有的一维 [K] 已归约张量；返回 [N×K]。\n    # Input · shard is this rank's reduced [K] tensor. The output has length N×K.\n    # 边界 · 独立接收缓冲按 rank 编号排列，不能按到达顺序拼接。\n    # Edge · Keep receive buffers in rank order, independent of arrival order.\n    # 思路 · 起始拥有片 r，第 j 轮发 (r−j)%N，收前一片；收集阶段只复制。\n    # Guide · Start with shard r, send (r−j)%N in round j and receive the preceding shard without adding.\n    return None\n\ndef ring_all_reduce(x):\n    # 输入 · x[N×K] 是每个 rank 的浮点贡献；各 rank 返回同形的完整和。\n    # Input · Each rank supplies a floating vector x[N×K] and returns the same-shaped full sum.\n    # 边界 · 两阶段的调用次序在所有进程上一致，勿拼本地未归约的输入。\n    # Edge · Both phases must occur in the same order everywhere. Gather the reduced shard.\n    # 思路 · 先将输入归约到所属片，再用该片作为收集阶段的输入。\n    # Guide · Reduce to an owned shard, then feed that shard into the gather phase.\n    return None\n",
           "reference": "import torch\nimport torch.distributed as dist\n\n\ndef ring_reduce_scatter(x):\n    n, rank = dist.get_world_size(), dist.get_rank()\n    shards = [s.clone() for s in x.chunk(n)]\n    for j in range(n-1):\n        send, recv = (rank-1-j)%n, (rank-2-j)%n\n        buf = torch.empty_like(shards[recv])\n        work = dist.irecv(buf, (rank-1)%n)\n        dist.send(shards[send], (rank+1)%n)\n        work.wait()\n        shards[recv] += buf\n    return shards[rank]\n\n\ndef ring_all_gather(shard):\n    n, rank = dist.get_world_size(), dist.get_rank()\n    parts = [torch.empty_like(shard) for _ in range(n)]\n    parts[rank] = shard\n    for j in range(n-1):\n        work = dist.irecv(parts[(rank-j-1)%n], (rank-1)%n)\n        dist.send(parts[(rank-j)%n], (rank+1)%n)\n        work.wait()\n    return torch.cat(parts)\n\n\ndef ring_all_reduce(x):\n    return ring_all_gather(ring_reduce_scatter(x))\n",
           "concepts": [
             "all-reduce",
@@ -3186,20 +3186,20 @@
           ],
           "hints": [
             {
-              "zh": "把向量按 rank 数均分，并保留独立缓冲。",
-              "en": "Split the vector evenly and keep independent buffers."
+              "zh": "每一片都有固定的最终位置，发送者与持有者每轮在改变。",
+              "en": "A shard has a fixed final position although its holder changes each round."
             },
             {
-              "zh": "右邻居是 (rank+1)%N，左邻居是 (rank−1)%N。",
-              "en": "The right neighbor is (rank+1)%N and the left is (rank−1)%N."
+              "zh": "先写左、右邻居，再给自己的发送片和接收片编号。",
+              "en": "Identify the left and right neighbor before deriving outgoing and incoming shard labels."
             },
             {
-              "zh": "归约第一轮发送 rank−1 号片，收集第一轮发送本 rank 号片。",
-              "en": "Reduce starts by sending shard rank−1. Gather starts by sending the rank’s own shard."
+              "zh": "归约首轮发 (r−1) mod N，收 (r−2) mod N；收集首轮从自己的 r 片出发。",
+              "en": "Reduce starts by sending (r−1) mod N and receiving (r−2) mod N. Gather starts with shard r."
             },
             {
-              "zh": "仅用 dist.irecv、dist.send 和接收请求的 wait()。reduce_scatter(x) 返回本 rank 的和分片；all_gather(shard) 返回按 rank 顺序拼接的向量；all_reduce(x) 组合前两步。函数名见模板，向量长度可被进程数整除。",
-              "en": "Use only dist.irecv, dist.send and receive work.wait(). Return this rank’s reduced shard, gather shards in rank order, then compose both functions. Use the template names. Vector length is divisible by world size."
+              "zh": "先挂接收 → 向右发送 → 等待 → 归约阶段累加或收集阶段保留；下一轮编号减一。",
+              "en": "Post receive → send right → wait → add during reduction or keep during gather. Decrement labels for the next round."
             }
           ]
         }
@@ -3284,20 +3284,20 @@
           },
           "hints": [
             {
-              "zh": "检查数据是否齐全。",
-              "en": "Check data readiness."
+              "zh": "链路与梯度是一次发送同时需要的两项资源。",
+              "en": "A send needs both a link and ready gradient data."
             },
             {
-              "zh": "再检查链路空闲时间。",
-              "en": "Check when the link is free."
+              "zh": "把桶就绪时刻和上次传输的结束时刻标在同一轴上。",
+              "en": "Mark bucket readiness and previous transfer completion on a single time axis."
             },
             {
-              "zh": "两个条件都要满足。",
-              "en": "Both conditions must hold."
+              "zh": "开始时刻必须同时大于等于两项时刻，空闲设备也不能传未完成的梯度。",
+              "en": "A legal start is at least both timestamps. An idle link cannot send unfinished gradients."
             },
             {
-              "zh": "7 ms",
-              "en": "7 ms"
+              "zh": "从梯度就绪点向右找第一个空闲的链路格，再读格子的开始时间。",
+              "en": "From the ready mark, scan right to the first free link slot and read its start time."
             }
           ]
         },
@@ -3314,7 +3314,7 @@
             "zh": "输入依次为绝对就绪时刻(ms)、均为正数的梯度字节数、桶容量、启动时间(ms)、带宽(B/ms)。返回每桶 [开始,结束,字节数]。保持输入顺序，单个过大梯度独立成桶。",
             "en": "Inputs are absolute ready times (ms), positive gradient sizes (bytes), bucket capacity, startup (ms) and bandwidth (B/ms). Return [start,end,bytes] per bucket in input order, allowing one oversized gradient in its own bucket."
           },
-          "starter": "def bucket_timeline(ready_ms, sizes, cap, alpha_ms, bytes_per_ms):\n    # 按梯度就绪时刻启动桶 / Launch buckets on gradient readiness\n    return None\n",
+          "starter": "def bucket_timeline(ready_ms, sizes, cap, alpha_ms, bytes_per_ms):\n    # 输入 · ready_ms 与 sizes 为等长列表，给出绝对毫秒与正字节；带宽以 B/ms 计。\n    # Input · Equal-length ready_ms and sizes lists contain absolute milliseconds and positive bytes; bandwidth is B/ms.\n    # 边界 · 过大单项可以独占一桶，末尾的未满桶也要发出。\n    # Edge · An oversized item can stand alone. Flush a partial final bucket.\n    # 思路 · start=max(最后成员就绪,上桶结束)，end=start+alpha_ms+桶字节/带宽。\n    # Guide · Start at the later of readiness and link availability, then add startup and transfer time.\n    return None\n",
           "reference": "def bucket_timeline(ready_ms, sizes, cap, alpha_ms, bytes_per_ms):\n    timeline = []\n    used = 0\n    for i, size in enumerate(sizes):\n        used += size\n        if i+1 == len(sizes) or used + sizes[i+1] > cap:\n            start = max(ready_ms[i], timeline[-1][1] if timeline else 0)\n            timeline.append([start, start + alpha_ms + used / bytes_per_ms, used])\n            used = 0\n    return timeline\n",
           "concepts": [
             "gradient-bucketing"
@@ -3344,20 +3344,20 @@
           ],
           "hints": [
             {
-              "zh": "分桶只依赖已知大小。",
-              "en": "Group by known tensor sizes."
+              "zh": "分桶把多个启动合并，同时仍可在后续层反向时发送。",
+              "en": "Bucketing amortizes startup while allowing sends to overlap later backward layers."
             },
             {
-              "zh": "一桶中最后成员的回调决定就绪时刻。",
-              "en": "The last member’s callback determines readiness."
+              "zh": "按原序装相邻梯度，最后一个成员就绪后该桶才具备发送条件。",
+              "en": "Pack adjacent gradients in order. A bucket becomes sendable when its last member is ready."
             },
             {
-              "zh": "记录上一桶结束时刻，再加 α+bytes/带宽。",
-              "en": "Track previous completion and add startup plus bytes/bandwidth."
+              "zh": "传输末时刻是 max(桶就绪,前桶结束)+α+字节/带宽，超大单项独立成桶。",
+              "en": "End time is max(bucket ready,previous end)+α+bytes/bandwidth. An oversized item forms its own bucket."
             },
             {
-              "zh": "输入依次为绝对就绪时刻(ms)、均为正数的梯度字节数、桶容量、启动时间(ms)、带宽(B/ms)。返回每桶 [开始,结束,字节数]。保持输入顺序，单个过大梯度独立成桶。",
-              "en": "Inputs are absolute ready times (ms), positive gradient sizes (bytes), bucket capacity, startup (ms) and bandwidth (B/ms). Return [start,end,bytes] per bucket in input order, allowing one oversized gradient in its own bucket."
+              "zh": "先试下一成员能否装下 → 封桶并记录起止 → 清空累计字节，最后冲刷尾桶。",
+              "en": "Test whether the next member fits → close and timestamp the bucket → clear byte count and flush the final bucket."
             }
           ]
         }
@@ -3423,20 +3423,20 @@
           },
           "hints": [
             {
-              "zh": "先确定分片的对象。",
-              "en": "Identify the partitioned state."
+              "zh": "ZeRO-1 把持久优化器状态分给数据并行副本。",
+              "en": "ZeRO-1 distributes persistent optimizer state among data-parallel peers."
             },
             {
-              "zh": "这里四份分片等大。",
-              "en": "The four shards have equal size."
+              "zh": "只取优化器这一栏，区分整个进程组与单个所有者。",
+              "en": "Isolate the optimizer column and distinguish group total from one owner's share."
             },
             {
-              "zh": "保留原容量单位再除以 4。",
-              "en": "Divide by four in the original capacity unit."
+              "zh": "均分时每片占完整状态的 1/N，原容量单位可保留。",
+              "en": "An even shard holds 1/N of the complete state, in the original capacity unit."
             },
             {
-              "zh": "12 GiB",
-              "en": "12 GiB"
+              "zh": "先写 full_state/N，再把每卡答案乘 N 核对总量。",
+              "en": "Form full_state/N, then multiply your per-rank result by N to recover the total."
             }
           ]
         },
@@ -3453,7 +3453,7 @@
             "zh": "使用 reduce_scatter_tensor 求本地梯度和。将平均梯度并入动量 v=μv+g，对本 rank 的权重片更新，再用 all_gather 得到完整权重。返回 (完整新权重,本地新速度)。",
             "en": "Use reduce_scatter_tensor to obtain a local summed gradient. Average, update momentum v=μv+g and update the owned weight slice. Use all_gather to return (full updated weights, local updated velocity)."
           },
-          "starter": "import torch\nimport torch.distributed as dist\n\ndef zero_stage1(weight, grad, velocity, lr, momentum):\n    # 更新本片后收集全量权重 / Update the owned shard and gather weights\n    return None\n",
+          "starter": "import torch\nimport torch.distributed as dist\n\ndef zero_stage1(weight, grad, velocity, lr, momentum):\n    # 输入 · weight 与 grad 是等长 [N×K] 张量，velocity 是本 rank 的 [K] 浮点状态。\n    # Input · weight and grad have shape [N×K]; velocity is this rank's floating [K] state.\n    # 边界 · 每一步都从输入 velocity 延续动量，只更新当前 rank 的权重区间。\n    # Edge · Carry incoming velocity into each update and modify only the owned weight range.\n    # 思路 · 先平均规约梯度，v_new=momentum×v+g_avg，w_new=w−lr×v_new，再收集权重。\n    # Guide · Average the reduced gradient, update momentum and local weights, then gather weights.\n    return None\n",
           "reference": "import torch\nimport torch.distributed as dist\n\n\ndef zero_stage1(weight, grad, velocity, lr, momentum):\n    n, rank = dist.get_world_size(), dist.get_rank()\n    shard_grad = torch.empty_like(velocity)\n    dist.reduce_scatter_tensor(shard_grad, grad.contiguous())\n    velocity = momentum * velocity + shard_grad / n\n    shard = weight.chunk(n)[rank] - lr * velocity\n    gathered = [torch.empty_like(shard) for _ in range(n)]\n    dist.all_gather(gathered, shard)\n    return torch.cat(gathered), velocity\n",
           "concepts": [
             "zero-fsdp",
@@ -3484,20 +3484,20 @@
           ],
           "hints": [
             {
-              "zh": "各 rank 用不同样本得到不同梯度。",
-              "en": "Ranks have different sample gradients."
+              "zh": "本地速度跨步存在，每个所有者只维护自己的区间。",
+              "en": "Local velocity survives between steps. Each owner maintains only its own interval."
             },
             {
-              "zh": "本地速度和本地权重片形状相同。",
-              "en": "Local velocity and weight shard have the same shape."
+              "zh": "先将梯度规约并分发，再用本地速度更新权重，最后收集新分片。",
+              "en": "Reduce and distribute gradients, update the owned weights with local velocity, then gather updated shards."
             },
             {
-              "zh": "all_gather 接收列表按 rank 排列。",
-              "en": "The all_gather receive list follows rank order."
+              "zh": "规约之和要除以 N；v_new=μv_old+g_avg，下步接收本步返回的速度。",
+              "en": "Divide the reduced sum by N. The recurrence v_new=μv_old+g_avg feeds the next step."
             },
             {
-              "zh": "使用 reduce_scatter_tensor 求本地梯度和。将平均梯度并入动量 v=μv+g，对本 rank 的权重片更新，再用 all_gather 得到完整权重。返回 (完整新权重,本地新速度)。",
-              "en": "Use reduce_scatter_tensor to obtain a local summed gradient. Average, update momentum v=μv+g and update the owned weight slice. Use all_gather to return (full updated weights, local updated velocity)."
+              "zh": "定位 rank 的权重片 → 用新速度算局部更新 → 按 rank 顺序拼回权重并单独返回本地速度。",
+              "en": "Locate the rank's shard → update using new velocity → concatenate weights in rank order and return the local velocity separately."
             }
           ]
         }
@@ -3564,20 +3564,20 @@
           },
           "hints": [
             {
-              "zh": "一个 F 留下一份激活。",
-              "en": "Each F leaves one live activation."
+              "zh": "一个微批前向结束到相应反向之间，需要保留该级激活。",
+              "en": "A stage retains a microbatch activation between forward and its matching backward."
             },
             {
-              "zh": "对应的 B 完成后才能释放。",
-              "en": "Release it after its matching B."
+              "zh": "固定四级并给足微批，在两种调度中逐格跟踪第一级。",
+              "en": "Fix four stages with several microbatches and trace stage zero under both schedules."
             },
             {
-              "zh": "保持 M、P 相同，只改调度。",
-              "en": "Hold M and P fixed and switch schedules."
+              "zh": "每遇 F 加一，每遇对应 B 减一，轨迹的最高点就是峰值。",
+              "en": "Add one for F and subtract one for its matching B. The highest running count is the peak."
             },
             {
-              "zh": "选微批数大于级数，在相同参数下观察 GPipe 与 1F1B 的首级激活峰值。",
-              "en": "Use more microbatches than stages and compare the first-stage activation peak under GPipe and 1F1B at identical settings."
+              "zh": "固定 P、M → 记录 GPipe 峰值 → 切到交替调度 → 比较活跃份数和空闲拍。",
+              "en": "Hold P and M → record the GPipe peak → switch to alternating scheduling → compare live counts and idle ticks."
             }
           ]
         },
@@ -3618,20 +3618,20 @@
           },
           "hints": [
             {
-              "zh": "数首尾填充与排空。",
-              "en": "Count filling and draining."
+              "zh": "启动填充和末尾排空时，流水线有级找不到就绪任务。",
+              "en": "During fill and drain some stages have no ready work."
             },
             {
-              "zh": "每个阶段执行 2M 个忙拍。",
-              "en": "Each stage has 2M busy ticks."
+              "zh": "计算一级的忙拍数，再画出理想等长前反向的总拍数。",
+              "en": "Count busy ticks on one stage, then calculate the full equal-duration schedule."
             },
             {
-              "zh": "气泡占比为 (P−1)/(M+P−1)。",
-              "en": "The fraction is (P−1)/(M+P−1)."
+              "zh": "每级忙 2M 拍，总时长 2(M+P−1) 拍。",
+              "en": "Each stage is busy for 2M ticks within 2(M+P−1) total ticks."
             },
             {
-              "zh": "20%",
-              "en": "20%"
+              "zh": "先取 total−busy 得空闲拍，再除以 total，并转换成百分比。",
+              "en": "Subtract busy from total, divide idle by total, then convert the fraction to a percentage."
             }
           ]
         },
@@ -3648,7 +3648,7 @@
             "zh": "输入 X 在各 rank 相同，W_col 只含第一层的本地输出列，W_row 只含第二层匹配的行。返回完整 MLP 输出，使用一次 dist.all_reduce。",
             "en": "X is replicated. W_col contains the local output columns of layer one and W_row the matching rows of layer two. Return the full MLP output using one dist.all_reduce."
           },
-          "starter": "import torch\nimport torch.distributed as dist\n\ndef tp_mlp_forward(x, w_col, w_row):\n    # 在第二层末尾归约部分和 / Reduce partial sums after layer two\n    return None\n",
+          "starter": "import torch\nimport torch.distributed as dist\n\ndef tp_mlp_forward(x, w_col, w_row):\n    # 输入 · x[B,H] 在各 rank 复制，w_col[H,F/N] 与 w_row[F/N,O] 是本地分片。\n    # Input · x[B,H] is replicated; w_col[H,F/N] and w_row[F/N,O] are local shards.\n    # 边界 · 两层之间在本地做 ReLU；所有进程在相同形状的最终部分和上通信。\n    # Edge · Apply ReLU locally between products. All ranks communicate on equal-shaped partial outputs.\n    # 思路 · partial=ReLU(x@w_col)@w_row；对 partial 做一次求和归约。\n    # Guide · Reduce partial=ReLU(x@w_col)@w_row once by summation.\n    return None\n",
           "reference": "import torch\nimport torch.distributed as dist\n\n\ndef tp_mlp_forward(x, w_col, w_row):\n    partial = torch.relu(x @ w_col) @ w_row\n    dist.all_reduce(partial)\n    return partial\n",
           "concepts": [
             "tensor-parallelism",
@@ -3679,20 +3679,20 @@
           ],
           "hints": [
             {
-              "zh": "沿中间宽度对齐两个分片。",
-              "en": "Align the shard widths on the hidden axis."
+              "zh": "中间特征各自独立，第二层的对应行只产生最终输出的一部分。",
+              "en": "Hidden channels are independent. Matching rows of the second layer produce a contribution to every output."
             },
             {
-              "zh": "非线性在本地第一层之后。",
-              "en": "Apply the nonlinearity after the local first layer."
+              "zh": "核对第一层局部列数与第二层局部行数，再在两次乘法之间应用激活。",
+              "en": "Match local column and row counts, then apply activation between the two products."
             },
             {
-              "zh": "对第二个乘法的结果按元素求和。",
-              "en": "Sum the second matmul outputs elementwise."
+              "zh": "各 rank 的末层部分和具有相同形状，最终操作是逐项求和。",
+              "en": "Partial outputs share the same shape across ranks and must be summed element by element."
             },
             {
-              "zh": "输入 X 在各 rank 相同，W_col 只含第一层的本地输出列，W_row 只含第二层匹配的行。返回完整 MLP 输出，使用一次 dist.all_reduce。",
-              "en": "X is replicated. W_col contains the local output columns of layer one and W_row the matching rows of layer two. Return the full MLP output using one dist.all_reduce."
+              "zh": "先算本地隐藏块 → 形成本地输出贡献 → 在相同大小的输出上归约一次。",
+              "en": "Form the local hidden block → compute its output contribution → reduce the equal-shaped outputs once."
             }
           ]
         }
@@ -3757,20 +3757,20 @@
           },
           "hints": [
             {
-              "zh": "先数一层一个位置的元素。",
-              "en": "Count elements for one position in one layer."
+              "zh": "缓存随每层和每个历史位置累加，键与值分别占空间。",
+              "en": "Both keys and values consume storage at each layer and historical position."
             },
             {
-              "zh": "每个位置要保留键和值。",
-              "en": "Store a key and value at every position."
+              "zh": "从单头单位置开始，依次扩展到 KV 头数、序列长和层数。",
+              "en": "Start with one head at one position, then multiply by KV heads, sequence length and layers."
             },
             {
-              "zh": "最后乘 2 B 并换算为 MiB。",
-              "en": "Multiply by 2 B and convert to MiB."
+              "zh": "使用 KV 头数而非查询头数，FP16 每项占 2 B。",
+              "en": "Use the count of KV heads, and bill two bytes per FP16 element."
             },
             {
-              "zh": "256 MiB",
-              "en": "256 MiB"
+              "zh": "先求一份 K 的元素和字节 → 为 V 加相同份额 → 换算成 MiB。",
+              "en": "Compute elements and bytes for K → add the same amount for V → convert to MiB."
             }
           ]
         },
@@ -3787,7 +3787,7 @@
             "zh": "decode_step 接收一维 q、k、v，两个形状 [容量,d] 的预分配缓冲和从零开始的位置 pos。原位写入该行，返回当前输出向量。预测与全前缀重算的差别。",
             "en": "decode_step receives 1D q, k and v, two preallocated [capacity,d] buffers and a zero-based position. Write that row in place and return the current output vector. Predict how this differs from full-prefix recomputation."
           },
-          "starter": "import math\nimport torch\n\ndef decode_step(q, k, v, keys, values, pos):\n    # 追加 KV 并只计算当前行 / Append KV and compute the current row\n    return None\n",
+          "starter": "import math\nimport torch\n\ndef decode_step(q, k, v, keys, values, pos):\n    # 输入 · q、k、v 为 [d] 浮点向量，keys 和 values 是已分配的 [capacity,d] 缓冲。\n    # Input · q, k and v are floating [d] vectors; keys and values are allocated [capacity,d] buffers.\n    # 边界 · 原地写 pos；只读到 pos 包含本行。pos=0 时输出应等于当前 v。\n    # Edge · Write pos in place and include it in the live prefix. At pos=0 the output equals the new v.\n    # 思路 · 单行分数=有效 K@q/√d，沿位置归一化后加权有效 V。\n    # Guide · Score the live keys against q/√d, normalize over positions and combine the live values.\n    return None\n",
           "reference": "import math\nimport torch\n\n\ndef decode_step(q, k, v, keys, values, pos):\n    keys[pos].copy_(k)\n    values[pos].copy_(v)\n    scores = keys[:pos+1] @ q / math.sqrt(q.numel())\n    return torch.softmax(scores, dim=0) @ values[:pos+1]\n",
           "concepts": [
             "kv-cache",
@@ -3819,20 +3819,20 @@
           ],
           "hints": [
             {
-              "zh": "先填写当前位置。",
-              "en": "Write the current position first."
+              "zh": "新 token 只需一个查询，历史键值在因果模型中仍有效。",
+              "en": "A new token needs one query; past causal keys and values remain valid."
             },
             {
-              "zh": "切片终点要包括 pos。",
-              "en": "Include pos in the valid prefix."
+              "zh": "先把新 k、v 写入预分配缓存，再沿有效位置计算分数。",
+              "en": "Write the new k and v into the allocated cache, then score valid positions."
             },
             {
-              "zh": "一行分数除以 √d 后沿键的维度归一化。",
-              "en": "Scale the score row by √d and normalize across keys."
+              "zh": "有效切片的右端是 pos+1，按 √d 缩放，在位置维做 Softmax。",
+              "en": "The live slice stops at pos+1. Scale by √d and normalize over positions."
             },
             {
-              "zh": "decode_step 接收一维 q、k、v，两个形状 [容量,d] 的预分配缓冲和从零开始的位置 pos。原位写入该行，返回当前输出向量。预测与全前缀重算的差别。",
-              "en": "decode_step receives 1D q, k and v, two preallocated [capacity,d] buffers and a zero-based position. Write that row in place and return the current output vector. Predict how this differs from full-prefix recomputation."
+              "zh": "写当前行 → 形成长度 pos+1 的分数向量 → 用同一前缀的 V 合成一行输出。",
+              "en": "Append one row → form a score vector of length pos+1 → combine V from the matching prefix into one output row."
             }
           ]
         }
@@ -3899,20 +3899,20 @@
           },
           "hints": [
             {
-              "zh": "安排长短不同的输出。",
-              "en": "Use outputs of different lengths."
+              "zh": "短请求结束后，下一位能否入场取决于调度边界以及页预算。",
+              "en": "Admission after a short request ends depends on the scheduling boundary and available pages."
             },
             {
-              "zh": "给多个请求同时入场的槽位。",
-              "en": "Allow several requests to run together."
+              "zh": "先选至少两个槽和长短不一的输出，在两种策略中复用同一轨迹。",
+              "en": "Use at least two slots and unequal output lengths, replaying identical arrivals for both policies."
             },
             {
-              "zh": "同一配置只切换策略，观察时间线起点。",
-              "en": "Switch only policy and compare the starting times."
+              "zh": "TTFT 从到达到首个输出计时，包含排队；空槽还需要可用页才能接新请求。",
+              "en": "TTFT runs from arrival to first output, including queueing. A free slot also needs page capacity."
             },
             {
-              "zh": "在相同到达、长度和页预算下选用两种策略，使一个后来请求在连续批处理中提前或延后入场。",
-              "en": "Use both policies with identical arrivals, lengths and page budget. Observe a later request starting at a different time under continuous batching."
+              "zh": "找出首个短请求结束时刻 → 跟踪下一请求的入场时刻 → 再核对吞吐和占页曲线。",
+              "en": "Find the first short completion → trace the next admission → compare throughput and page occupancy."
             }
           ]
         },
@@ -3929,7 +3929,7 @@
             "zh": "state 含 free（空闲页号列表）、refs（每页引用数）、pages（每页 16 个 token）和 seq（名称映射到 {'length': n, 'blocks': [页号]}）。四个函数原位更新。重复名称或未知名称抛 KeyError；页不足抛 MemoryError，原状态须完整。fork_prefix 按给定 token 数共享，写共享尾页前复制。",
             "en": "state has free (free page IDs), refs (reference counts), pages (16 token slots each) and seq (name to {'length': n, 'blocks': [page IDs]}). Mutate in place. Raise KeyError on duplicate or missing names. An out-of-pages MemoryError must leave state intact. Share the requested token prefix and copy a shared partial tail before writing."
           },
-          "starter": "def allocate_sequence(state, name, tokens):\n    # 预检容量并写入新序列 / Check capacity and populate a new sequence\n    return None\n\ndef append_token(state, name, token):\n    # 追加并处理写时复制 / Append with copy-on-write\n    return None\n\ndef free_sequence(state, name):\n    # 最后一个引用释放时回收 / Recycle on the final release\n    return None\n\ndef fork_prefix(state, parent, child, length):\n    # 共享指定长度的前缀 / Share a logical prefix\n    return None\n",
+          "starter": "def allocate_sequence(state, name, tokens):\n    # 输入 · state 是含 free、refs、pages、seq 的字典，name 为字符串，tokens 是整数列表。\n    # Input · state holds free, refs, pages and seq; name is a string and tokens a list of integers.\n    # 边界 · 重名抛 KeyError；空序列合法。页不够应在修改任何列表前抛 MemoryError。\n    # Edge · Reject duplicate names with KeyError, allow an empty list and reject insufficient pages before mutating.\n    # 思路 · 所需页数=(len(tokens)+15)//16；给每个新页一次引用并保存逻辑块表。\n    # Guide · Compute ceil(length/16), start each acquired page at one reference and save its table.\n    return None\n\ndef append_token(state, name, token):\n    # 输入 · name 标识现有序列，token 是一个整数，state 中每个物理页有 16 格。\n    # Input · name identifies a live sequence, token is an integer and each physical page has 16 slots.\n    # 边界 · 共享半满页需先取得私有副本；分配失败不能改变原表或引用。\n    # Edge · A shared partial tail needs a private copy. Failed allocation must preserve tables and references.\n    # 思路 · 用 divmod(length,16) 求逻辑块与偏移，完成写入后再增加长度。\n    # Guide · Use divmod(length,16) for block and offset, and advance length after writing.\n    return None\n\ndef free_sequence(state, name):\n    # 输入 · name 是字符串，state 保存该序列的块表和全池的整型引用计数。\n    # Input · name is a string; state includes its block table and integer pool reference counts.\n    # 边界 · 不存在的名字抛 KeyError；其他序列仍引用的页须保留。\n    # Edge · Raise KeyError for a missing name and leave pages used by other sequences allocated.\n    # 思路 · 对表内每页执行 refs−1；新值为零时把页号还给 free。\n    # Guide · Decrement each table entry's reference count and return only zero-count IDs to free.\n    return None\n\ndef fork_prefix(state, parent, child, length):\n    # 输入 · parent、child 是序列名，length 是以 token 计的共享前缀长度。\n    # Input · parent and child are names; length counts shared prefix tokens.\n    # 边界 · 验证子名未占用且 0≤length≤父长度；子块表本身必须独立。\n    # Edge · Validate an unused child name and a length within the parent. Give the child a separate table.\n    # 思路 · 复制前 ceil(length/16) 个页号，每个引用加一，子序列记录实际 length。\n    # Guide · Copy the first ceil(length/16) IDs, increment references and store the actual token length.\n    return None\n",
           "reference": "def allocate_sequence(state, name, tokens):\n    if name in state[\"seq\"]:\n        raise KeyError(name)\n    needed = (len(tokens)+15)//16\n    if len(state[\"free\"]) < needed:\n        raise MemoryError\n    blocks = []\n    for start in range(0, len(tokens), 16):\n        page = state[\"free\"].pop()\n        blocks.append(page)\n        state[\"refs\"][page] = 1\n        chunk = tokens[start:start+16]\n        state[\"pages\"][page][:len(chunk)] = chunk\n    state[\"seq\"][name] = {\"length\":len(tokens), \"blocks\":blocks}\n\n\ndef append_token(state, name, token):\n    seq = state[\"seq\"][name]\n    block, offset = divmod(seq[\"length\"],16)\n    table = seq[\"blocks\"]\n    if offset == 0 or state[\"refs\"][table[block]] > 1:\n        if not state[\"free\"]:\n            raise MemoryError\n        page = state[\"free\"].pop()\n        state[\"refs\"][page] = 1\n        if offset:\n            old = table[block]\n            state[\"pages\"][page][:] = state[\"pages\"][old]\n            state[\"refs\"][old] -= 1\n            table[block] = page\n        else:\n            table.append(page)\n    state[\"pages\"][table[block]][offset] = token\n    seq[\"length\"] += 1\n\n\ndef free_sequence(state, name):\n    for page in state[\"seq\"].pop(name)[\"blocks\"]:\n        state[\"refs\"][page] -= 1\n        if state[\"refs\"][page] == 0:\n            state[\"free\"].append(page)\n\n\ndef fork_prefix(state, parent, child, length):\n    if child in state[\"seq\"]:\n        raise KeyError(child)\n    src = state[\"seq\"][parent]\n    if not 0 <= length <= src[\"length\"]:\n        raise ValueError(length)\n    table = src[\"blocks\"][:(length+15)//16]\n    for page in table:\n        state[\"refs\"][page] += 1\n    state[\"seq\"][child] = {\"length\":length,\"blocks\":table}\n",
           "concepts": [
             "paged-attention",
@@ -3981,20 +3981,20 @@
           ],
           "hints": [
             {
-              "zh": "逻辑块编号与池内物理页号不同。",
-              "en": "Distinguish logical block index from physical page ID."
+              "zh": "块表记录顺序，物理页可被多条独立块表引用。",
+              "en": "A table preserves order. Several independent tables may reference one physical page."
             },
             {
-              "zh": "先算此次需要的新页数，确认空闲页足够。",
-              "en": "Compute required new pages and check free space first."
+              "zh": "先验证名字和可用页数，再决定追加需要新页、私有尾页还是共享尾页副本。",
+              "en": "Validate names and free capacity first. Decide whether an append needs a new page, a private tail or a copied shared tail."
             },
             {
-              "zh": "用 divmod(length,16) 找新位置，检查尾页 refs。",
-              "en": "Use divmod(length,16) to find the append position and inspect its page count."
+              "zh": "用 divmod(length,16) 定位位置，引用数减到零才可回收。",
+              "en": "Use divmod(length,16) to locate the write. Recycle a page only on its transition to zero references."
             },
             {
-              "zh": "state 含 free（空闲页号列表）、refs（每页引用数）、pages（每页 16 个 token）和 seq（名称映射到 {'length': n, 'blocks': [页号]}）。四个函数原位更新。重复名称或未知名称抛 KeyError；页不足抛 MemoryError，原状态须完整。fork_prefix 按给定 token 数共享，写共享尾页前复制。",
-              "en": "state has free (free page IDs), refs (reference counts), pages (16 token slots each) and seq (name to {'length': n, 'blocks': [page IDs]}). Mutate in place. Raise KeyError on duplicate or missing names. An out-of-pages MemoryError must leave state intact. Share the requested token prefix and copy a shared partial tail before writing."
+              "zh": "预检 → 为子序列复制块表并增引用 → 写共享尾时换成新页 → 完成后才提交长度。",
+              "en": "Preflight → copy the child's table and increment references → replace a shared tail on write → commit length last."
             }
           ]
         }
@@ -4060,20 +4060,20 @@
           },
           "hints": [
             {
-              "zh": "每两个权重占 1 B。",
-              "en": "Two weights share one byte."
+              "zh": "每生成一个 token，本模型假设要把全部权重读一次。",
+              "en": "The model assumes one complete weight read per generated token."
             },
             {
-              "zh": "先求一次完整读取的 GB。",
-              "en": "Find GB read per output first."
+              "zh": "先把参数数目乘每权重占用的字节，再同带宽统一成十进制单位。",
+              "en": "Multiply parameter count by bytes per weight and express traffic and bandwidth in matching decimal units."
             },
             {
-              "zh": "用带宽除以每 token 字节数，带速率单位。",
-              "en": "Divide bandwidth by bytes per token and include a rate unit."
+              "zh": "一个字节能放两个 INT4 权重，GB/s 除以 GB/token 才得到 tok/s。",
+              "en": "Two INT4 weights fit in a byte. Divide GB/s by GB/token to obtain tok/s."
             },
             {
-              "zh": "20 tok/s",
-              "en": "20 tok/s"
+              "zh": "算 bytes_per_token → 用 byte_rate 相除 → 检查填入的是速率单位。",
+              "en": "Calculate bytes_per_token → divide byte_rate by it → check that the answer carries a rate unit."
             }
           ]
         },
@@ -4090,7 +4090,7 @@
             "zh": "输入是一维浮点张量。quantize 返回 (打包的 uint8 张量, 浮点比例张量)，dequantize 按原长度返回浮点张量。低位在先，负数使用四位补码；末组可能不满。",
             "en": "For a 1D weight tensor, quantize returns (packed uint8 tensor, scale tensor). Dequantize returns a float tensor of the original length. Pack low nibble first using signed four-bit two’s complement, including a short last group."
           },
-          "starter": "import torch\n\ndef quantize_int4_grouped(w, group):\n    # 独立定标并压成字节 / Scale each group and pack bytes\n    return None\n\ndef dequantize_int4_grouped(packed, scales, group, length):\n    # 按四位符号和组号还原 / Restore signed codes with their group scales\n    return None\n",
+          "starter": "import torch\n\ndef quantize_int4_grouped(w, group):\n    # 输入 · w 是一维浮点权重，group 是正整数；输出为 uint8 字节和逐组浮点比例。\n    # Input · w is a floating vector and group a positive size; output packed uint8 bytes and per-group floating scales.\n    # 边界 · 全零组比例取 1，尾组可能较短；若总项数为奇数，只填充高半字节。\n    # Edge · Use scale one for an all-zero group, allow a short group and pad only the last high nibble if needed.\n    # 思路 · s=max(abs(group))/7，q=clamp(round(w/s),−7,7)，偶项低四位，奇项高四位。\n    # Guide · Scale and round per group, clip to [−7,7], then pack even indices low and odd indices high.\n    return None\n\ndef dequantize_int4_grouped(packed, scales, group, length):\n    # 输入 · packed 是 uint8 一维数组，scales 是浮点组比例，length 是原始元素数。\n    # Input · packed is a uint8 vector, scales holds floating group scales and length is the original item count.\n    # 边界 · 按原长度停止，最后为对齐而补的半字节不属于输出。\n    # Edge · Stop at the original length. The padded final nibble is not an output element.\n    # 思路 · 从 packed[i//2] 取相应四位，值≥8 减 16，再乘 scales[i//group]。\n    # Guide · Extract the nibble, sign-extend values ≥8 by subtracting 16, then multiply by its group's scale.\n    return None\n",
           "reference": "import torch\n\n\ndef quantize_int4_grouped(w, group):\n    scales, codes = [], []\n    for chunk in w.split(group):\n        scale = chunk.abs().max().item()/7 or 1.0\n        scales.append(scale)\n        codes.extend((chunk/scale).round().clamp(-7,7).int().tolist())\n    if len(codes)%2:\n        codes.append(0)\n    packed = [(codes[i]&15) | ((codes[i+1]&15)<<4) for i in range(0,len(codes),2)]\n    return torch.tensor(packed,dtype=torch.uint8), torch.tensor(scales)\n\n\ndef dequantize_int4_grouped(packed, scales, group, length):\n    out = []\n    for i in range(length):\n        value = (packed[i//2].item() >> (4*(i%2))) & 15\n        signed = value-16 if value >= 8 else value\n        out.append(signed * scales[i//group].item())\n    return torch.tensor(out)\n",
           "concepts": [
             "group-quantization"
@@ -4127,20 +4127,20 @@
           ],
           "hints": [
             {
-              "zh": "先在一个小组内算比例。",
-              "en": "Compute a scale for one small group first."
+              "zh": "每个组共享自己的量化刻度，每个物理字节承载两个带符号编码。",
+              "en": "Each group has its own quantization scale, and each stored byte carries two signed codes."
             },
             {
-              "zh": "用 code & 15 取低四位。",
-              "en": "Use code & 15 for its four bits."
+              "zh": "分组定标并舍入，保持原元素次序，再为相邻两项分配低、高半字节。",
+              "en": "Scale and round per group, preserve element order and assign adjacent codes to low and high nibbles."
             },
             {
-              "zh": "解码值大于等于 8 时减去 16。",
-              "en": "Subtract 16 from decoded nibbles at least eight."
+              "zh": "全零组取比例 1；解码半字节≥8 时减 16；输出以原长度裁齐。",
+              "en": "Use scale one for a zero group, subtract 16 for decoded nibbles ≥8, and trim to the original length."
             },
             {
-              "zh": "输入是一维浮点张量。quantize 返回 (打包的 uint8 张量, 浮点比例张量)，dequantize 按原长度返回浮点张量。低位在先，负数使用四位补码；末组可能不满。",
-              "en": "For a 1D weight tensor, quantize returns (packed uint8 tensor, scale tensor). Dequantize returns a float tensor of the original length. Pack low nibble first using signed four-bit two’s complement, including a short last group."
+              "zh": "按组生成 codes → 两两拼成 uint8；恢复时按索引拆半字节并乘该索引的组比例。",
+              "en": "Build grouped codes → pack pairs into uint8. Decode by index and multiply by the scale of its original group."
             }
           ]
         }
@@ -4212,20 +4212,20 @@
           },
           "hints": [
             {
-              "zh": "先看卡数乘积与每卡容量。",
-              "en": "Start with GPU divisibility and local capacity."
+              "zh": "同一节点需要分别满足推理与训练的约束，每项预算都要过关。",
+              "en": "Serving and training qualify separately on the same node. Each budget must pass."
             },
             {
-              "zh": "推理关注 KV 与首 token，训练要加上主权重和矩。",
-              "en": "Budget KV and TTFT for serving, masters and moments for training."
+              "zh": "先配平 TP、PP、数据副本数，再看每卡账本中占比最大的项目。",
+              "en": "Balance TP, PP and replica count first. Identify the largest per-device ledger entry."
             },
             {
-              "zh": "从失败项选择要调整的一个旋钮。",
-              "en": "Change one setting according to the failing check."
+              "zh": "推理同时核对至少 32 路和 500 ms 首字目标；训练核对批量、步时与分片状态。",
+              "en": "Serving needs at least 32 requests and a 500 ms first-token target. Training checks batch, step time and state sharding."
             },
             {
-              "zh": "分别为 70B 推理与 13B 训练找到通过所有检查的方案。保持观察记录，最后一起提交。",
-              "en": "Find a plan passing every check for both 70B serving and 13B training. Submit both observed configurations together."
+              "zh": "保存可行推理点 → 切换训练并核对六项 → 两份配置一起提交。",
+              "en": "Save a feasible serving point → switch to training and inspect all six checks → submit both observations."
             }
           ]
         },
@@ -4242,7 +4242,7 @@
             "zh": "输入字典的 weights、gradients、optimizer 为全模型总字节；分别按 TP×PP 和适用的 ZeRO/DP 均分，逐项向上取整。local 是已知每卡工作区字节，limit 为单卡上限。时间为 flops/flops_s + transfer/bandwidth 秒，与 deadline_ms 比较。返回 [每卡字节,容量达标,时间达标]。",
             "en": "weights, gradients and optimizer are full-model bytes. Divide each by TP×PP and by DP when its ZeRO stage applies, rounding each up. local is per-device workspace and limit is device capacity. Time in seconds is flops/flops_s + transfer/bandwidth. Compare against deadline_ms and return [local bytes, fits memory, meets time]."
           },
-          "starter": "def plan_cluster_budget(spec):\n    # 审核每卡容量与截止时间 / Audit per-device storage and deadline\n    return None\n",
+          "starter": "def plan_cluster_budget(spec):\n    # 输入 · spec 字典包含整数字节、TP/PP/DP/ZeRO、FLOPs、每秒速率与毫秒时限。\n    # Input · spec contains integer byte counts, TP/PP/DP/ZeRO, FLOPs, per-second rates and a millisecond deadline.\n    # 边界 · 逐类向上取整，local 工作区只加一次；正好等于上限也通过。\n    # Edge · Round each category up and add local workspace once. Equality with a limit passes.\n    # 思路 · 每卡=local+Σceil(bytes/owners)，耗时毫秒=1000×(工作量/速率+传输字节/带宽)。\n    # Guide · Sum local and per-owner state; convert compute plus transfer seconds to milliseconds.\n    return None\n",
           "reference": "def plan_cluster_budget(spec):\n    shards = spec[\"tp\"] * spec[\"pp\"]\n    total = spec[\"local\"]\n    for field, stage in [(\"weights\",3),(\"gradients\",2),(\"optimizer\",1)]:\n        owners = shards * (spec[\"dp\"] if spec[\"zero\"] >= stage else 1)\n        total += (spec[field]+owners-1)//owners\n    ms = 1000*(spec[\"flops\"]/spec[\"flops_s\"] + spec[\"transfer\"]/spec[\"bandwidth\"])\n    return [total, total <= spec[\"limit\"], ms <= spec[\"deadline_ms\"]]\n",
           "concepts": [
             "zero-fsdp",
@@ -4273,20 +4273,20 @@
           ],
           "hints": [
             {
-              "zh": "先按 TP×PP 切模型。",
-              "en": "Shard the model by TP×PP first."
+              "zh": "分片规则由状态的所有者决定，本地工作区不参与分片。",
+              "en": "Ownership determines sharding. Local workspace remains local."
             },
             {
-              "zh": "ZeRO 的切分顺序依次是优化器、梯度、权重。",
-              "en": "ZeRO progressively partitions optimizer state, gradients and weights."
+              "zh": "分别为权重、梯度、优化器写出所有者数；把结果汇总到每卡。",
+              "en": "Write separate owner counts for weights, gradients and optimizer state, then sum per-device costs."
             },
             {
-              "zh": "用整数向上取整，毫秒比较前先换算秒。",
-              "en": "Use integer ceiling division and convert seconds before testing the millisecond deadline."
+              "zh": "每项向上取整；阶段门槛分别为 3、2、1。算力与链路时间都要换成毫秒。",
+              "en": "Round up each field separately at stage thresholds 3, 2 and 1. Convert compute and transfer seconds to milliseconds."
             },
             {
-              "zh": "输入字典的 weights、gradients、optimizer 为全模型总字节；分别按 TP×PP 和适用的 ZeRO/DP 均分，逐项向上取整。local 是已知每卡工作区字节，limit 为单卡上限。时间为 flops/flops_s + transfer/bandwidth 秒，与 deadline_ms 比较。返回 [每卡字节,容量达标,时间达标]。",
-              "en": "weights, gradients and optimizer are full-model bytes. Divide each by TP×PP and by DP when its ZeRO stage applies, rounding each up. local is per-device workspace and limit is device capacity. Time in seconds is flops/flops_s + transfer/bandwidth. Compare against deadline_ms and return [local bytes, fits memory, meets time]."
+              "zh": "local 加每项 ceil(bytes/owners) → 独立计算耗时 → 分别与容量和时限比较。",
+              "en": "Add each ceil(bytes/owners) to local → calculate duration independently → compare against capacity and deadline separately."
             }
           ]
         },
@@ -4322,20 +4322,20 @@
           ],
           "hints": [
             {
-              "zh": "先写出模型规模和目标。",
-              "en": "Start with model size and target."
+              "zh": "工程判断需要把模型的预测与今后能收集的证据连接起来。",
+              "en": "An engineering judgment connects a model prediction to evidence that could be collected."
             },
             {
-              "zh": "引用自己的账本数字并交代单位。",
-              "en": "Cite your own ledger values with units."
+              "zh": "为两个工作负载各记一行每卡字节、时间和通过的约束。",
+              "en": "Record one row per workload with per-device bytes, time and satisfied constraints."
             },
             {
-              "zh": "比较只改一个参数前后的结果。",
-              "en": "Compare results before and after one change."
+              "zh": "一次仅改一个参数，记录变更前后同一单位的差额，并注明哪条预算变紧。",
+              "en": "Change one choice at a time, record the margin in the same unit and identify a budget that tightened."
             },
             {
-              "zh": "分别记下推理和训练方案的每卡显存与耗时。选一个修改前失败的指标，解释修正它的代价，并提出一项实机测量。可以向导师请求点评。",
-              "en": "Record per-device memory and time for both plans. Explain one initially failing check, the cost of fixing it and one measurement to take on hardware. Ask the tutor for feedback if desired."
+              "zh": "按“原假设 → 失败数字 → 改动与代价 → 实机要测的量”组织一段说明。",
+              "en": "Structure a paragraph as assumption → failing value → change and cost → measurement on hardware."
             }
           ]
         }

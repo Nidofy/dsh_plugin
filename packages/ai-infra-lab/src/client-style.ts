@@ -9,6 +9,37 @@ export const css = `.ail-explorer { padding: 1rem; background: var(--ail-surface
 .ail-explorer footer { margin-top: .8rem; border-top: 1px solid var(--ail-border); }
 .ail-memory-stack { display:flex; height:1.4rem; overflow:hidden; border-radius:.35rem; }
 .ail-explorer dl > div { display:flex; justify-content:space-between; border-bottom:1px solid var(--ail-border); padding:.2rem 0; }
+.ail-presets, .ail-legend { display:flex; flex-wrap:wrap; align-items:center; gap:.45rem .8rem; margin:.8rem 0; }
+.ail-presets button[aria-pressed="true"] { border-color:var(--ail-accent); background:var(--ail-accent-soft); color:var(--ail-fg); }
+.ail-legend-item { display:inline-flex; align-items:center; gap:.45rem; }
+.ail-legend-item i { width:.85em; height:.85em; flex:none; border-radius:50%; border:1px solid var(--ail-muted); }
+.ail-memory-legend, .ail-traffic-row { display:grid; gap:.45rem; }
+.ail-explorer .ail-memory-legend { grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); }
+.ail-explorer .ail-memory-legend > div { display:grid; align-content:start; padding:.6rem; border:1px solid var(--ail-border); border-radius:.5rem; }
+.ail-memory-legend dd { margin:0; font-variant-numeric:tabular-nums; }
+.ail-explorer select, .ail-comparison select { max-width:100%; border:1px solid var(--ail-border); border-radius:.45rem; padding:.35rem .5rem; color:var(--ail-fg); background:var(--ail-surface-2); }
+.ail-explorer :is(button,select,input):focus-visible, .ail-comparison select:focus-visible { outline:2px solid var(--ail-accent); outline-offset:2px; }
+.ail-explorer table, .ail-chart table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+.ail-explorer :is(td,th), .ail-chart :is(td,th) { text-align:start; border-bottom:1px solid var(--ail-border); padding:.45rem; overflow-wrap:anywhere; }
+.ail-explorer thead, .ail-chart thead { background:var(--ail-surface-2); }
+.ail-capacity-budget { display:grid; gap:.35rem; padding:.75rem; background:var(--ail-surface-2); border-radius:.5rem; }
+.ail-capacity-budget label { display:grid; gap:.25rem; }
+.ail-capacity-budget progress { width:100%; height:.8rem; accent-color:var(--ail-ok); }
+.ail-capacity-budget[data-over="true"] progress { accent-color:var(--ail-danger); }
+.ail-capacity-budget[data-over="true"] strong { color:var(--ail-danger); }
+.ail-chart, .ail-chart figure { min-width:0; margin:.65rem 0; }
+.ail-chart figcaption { font-weight:600; margin:.5rem 0; overflow-wrap:anywhere; }
+.ail-chart svg { display:block; width:100%; height:auto; }
+.ail-table-scroll { overflow-x:auto; max-width:100%; }
+.ail-focus-step { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin:.5rem; }
+.ail-focus-step select { max-width:100%; border:1px solid var(--ail-border); border-radius:.45rem; padding:.35rem; color:var(--ail-fg); background:var(--ail-surface); }
+.ail-comparison tr[data-changed="true"] { background:var(--ail-accent-soft); }
+.ail-traffic-row { grid-template-columns:minmax(6em,1fr) minmax(0,4fr); align-items:center; margin:.6rem 0; }
+.ail-traffic-row strong { grid-row:span 2; }
+.ail-traffic-series { display:grid; grid-template-columns:minmax(1rem,1fr) 8em; gap:.5rem; align-items:center; text-align:end; font-variant-numeric:tabular-nums; }
+.ail-track { display:block; height:.55rem; background:var(--ail-surface-2); border-radius:.25rem; overflow:hidden; }
+.ail-track i { display:block; height:100%; }
+.ail-feedback-neutral { color:var(--ail-fg-secondary); background:var(--ail-surface-2); border:1px solid var(--ail-muted); border-inline-start:3px solid var(--ail-formula-fg); }
 .ai-infra-lab {
   --ail-bg: var(--dsw-alias-bg-base, #f4f6f9);
   --ail-surface: var(--dsw-alias-bg-layer-1, #ffffff);

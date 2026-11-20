@@ -1,7 +1,13 @@
 import { useEffect, useMemo, useState, type ChangeEvent } from 'react'
-import type { Locale, Overview } from '../types.ts'
+import type { HelpLevel, Locale, Overview } from '../types.ts'
 import { DataSourceBadge } from './DataSourceBadge.tsx'
 import { pickText, tr } from './i18n.ts'
+
+const helpLabels: Record<HelpLevel, {zh:string; en:string}> = {
+  none:{zh:'独立完成',en:'Unassisted'}, unknown:{zh:'未记录',en:'Unrecorded'},
+  concept:{zh:'概念',en:'Concept'}, steps:{zh:'步骤',en:'Steps'}, formula:{zh:'公式与边界',en:'Formula and edges'},
+  code:{zh:'伪代码',en:'Pseudocode'}, answer:{zh:'参考答案',en:'Reference answer'},
+}
 
 export interface RecordsViewProps {
   readonly overview: Overview
@@ -271,7 +277,7 @@ export function RecordsView({
                             : 'ail-pill'
                         }
                       >
-                        {ev.help}
+                        {helpLabels[ev.help][locale]}
                       </span>
                     </td>
                     <td>{ev.result}</td>

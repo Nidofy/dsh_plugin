@@ -20,6 +20,9 @@ import { LessonExplorer } from './LessonExplorer.tsx'
 import { CodeEditor } from './CodeEditor.tsx'
 import { DataSourceBadge } from './DataSourceBadge.tsx'
 import { DecodeTimingChart } from './DecodeTimingChart.tsx'
+import { RankTimelineChart } from './RankTimelineChart.tsx'
+import { TrafficComparisonChart } from './TrafficComparisonChart.tsx'
+import { RunComparison } from './RunComparison.tsx'
 import { MarkdownView } from './MarkdownView.tsx'
 import { pickText, tr } from './i18n.ts'
 
@@ -53,7 +56,7 @@ export interface ActivityViewProps {
   readonly onNoteChange: (nextNote: string) => void
   readonly onPredictionChange: (nextPrediction: string) => void
   readonly onCodeSelection: (selected: string) => void
-  readonly onStartRun: () => void
+  readonly onStartRun: (config: Record<string,number>) => void
   readonly onCancelRun: (runId: string) => void
   readonly onSelectRun: (run: RunRecord) => void
   readonly onSubmitAnswer: (text: string, runId?: string) => void
@@ -71,8 +74,9 @@ const HINT_LADDER: readonly {
 }[] = [
   { level: 'concept', zh: '1. 概念直觉', en: '1. Concept' },
   { level: 'steps', zh: '2. 推导步骤', en: '2. Steps' },
-  { level: 'code', zh: '3. 代码骨架', en: '3. Code Skeleton' },
-  { level: 'answer', zh: '4. 参考解答', en: '4. Reference' },
+  { level: 'formula', zh: '3. 公式与边界', en: '3. Formula and bounds' },
+  { level: 'code', zh: '4. 局部伪代码', en: '4. Pseudocode' },
+  { level: 'answer', zh: '查看参考答案', en: 'Show reference answer' },
 ]
 
 const UNIT_EXAMPLES: Record<UnitDimension, readonly string[]> = {
@@ -152,6 +156,7 @@ export function ActivityView({
   const [estimateInput, setEstimateInput] = useState<string>('')
   const [explanationInput, setExplanationInput] = useState<string>('')
   const [activeHintTab, setActiveHintTab] = useState<HelpLevel | undefined>(undefined)
+  const [worldSize, setWorldSize] = useState(4)
 
   useEffect(() => {
     setSelectedQuizOption('')
@@ -254,6 +259,7 @@ export function ActivityView({
     prediction.trim().length === 0
 
   const unlockedHints = new Set(workspace?.hints ?? [])
+  const startCurrentRun = () => onStartRun(exercise.resourceProfile === 'distributed-gloo' ? {world_size:worldSize} : {})
 
   return (
     <div className="ail-activity-stack">
@@ -429,6 +435,12 @@ export function ActivityView({
             </div>
           </div>
 
+          {exercise.resourceProfile === 'distributed-gloo' && <label className="ail-focus-step">
+            {tr(locale,'Gloo 进程数','Gloo rank count')}
+            <select disabled={isRunning} value={worldSize} onChange={e=>setWorldSize(Number(e.target.value))}>
+              {[2,3,4].map(n=><option key={n} value={n}>{n}</option>)}
+            </select>
+          </label>}
           <CodeEditor
             value={code}
             label={tr(locale, '实验代码编辑器', 'Exercise Python Editor')}
@@ -437,7 +449,7 @@ export function ActivityView({
             onSelection={onCodeSelection}
             onRun={() => {
               if (!predictionMissing && !busy && !isRunning) {
-                onStartRun()
+                startCurrentRun()
               }
             }}
           />
@@ -467,7 +479,7 @@ export function ActivityView({
               type="button"
               className="ail-btn ail-btn-primary"
               disabled={busy || isRunning || predictionMissing}
-              onClick={onStartRun}
+              onClick={startCurrentRun}
             >
               {isRunning
                 ? tr(locale, '⏳ 容器执行中…', '⏳ Running in Sandbox…')
@@ -750,13 +762,12 @@ export function ActivityView({
       )}
 
       {exercise.id === 'E01-code' && activeRun?.exerciseId === exercise.id && <DecodeTimingChart events={activeRun.events} locale={locale} />}
-      {activeRun?.exerciseId === exercise.id && activeRun.events.some(e => e.timeline?.length) && <details>
-        <summary>{{zh:'查看各进程通信时间线',en:'Inspect per-rank communication calls'}[locale]}</summary>
-        <table><thead><tr><th>Rank</th><th>{{zh:'调用',en:'Call'}[locale]}</th>
-          <th>{{zh:'开始 (ms)',en:'Start (ms)'}[locale]}</th><th>{{zh:'结束 (ms)',en:'End (ms)'}[locale]}</th></tr></thead>
-          <tbody>{activeRun.events.flatMap(e => (e.timeline ?? []).map((t,i) =>
-            <tr key={e.seq+'-'+i}><td>{t.rank}</td><td>{t.op}</td><td>{t.startMs.toFixed(2)}</td><td>{t.endMs.toFixed(2)}</td></tr>))}</tbody></table>
-      </details>}
+      {activeRun?.exerciseId === exercise.id && <RankTimelineChart events={activeRun.events} locale={locale}/>}
+      {exercise.id === 'B05-code' && activeRun?.exerciseId === exercise.id &&
+        <TrafficComparisonChart events={activeRun.events} locale={locale}/>}
+      {exercise.kind === 'code' && workspace?.exercise.id === exercise.id &&
+        <RunComparison key={exercise.id} runs={workspace.runs} exerciseId={exercise.id} locale={locale}/>}
+
 
       {/* ==================== 4. SIMULATOR EXERCISE ==================== */}
       {exercise.kind === 'simulator' && exercise.simulator && <LessonExplorer key={exercise.id}
@@ -792,7 +803,7 @@ export function ActivityView({
               type="button"
               className="ail-btn ail-btn-primary"
               disabled={busy || !explanationInput.trim()}
-              onClick={() => onSubmitAnswer(explanationInput.trim(), activeRun?.id)}
+              onClick={() => onSubmitAnswer(explanationInput.trim())}
             >
               {tr(locale, '提交机制解释', 'Submit Explanation')}
             </button>
@@ -800,18 +811,12 @@ export function ActivityView({
 
           {effectiveDiagnostic && (
             <div
-              className={
-                effectiveStatus === 'passed'
-                  ? 'ail-feedback ail-feedback-pass'
-                  : 'ail-feedback ail-feedback-fail'
-              }
+              role="status"
+              className={'ail-feedback ail-feedback-' + (effectiveStatus === 'inconclusive' ? 'neutral' : effectiveStatus === 'passed' ? 'pass' : 'fail')}
             >
-              <strong>
-                {effectiveStatus === 'passed'
-                  ? tr(locale, '✓ 解释已通过检定：', '✓ Explanation Accepted: ')
-                  : tr(locale, '💡 改进建议：', '💡 Feedback: ')}
-              </strong>
-              <span>{pickText(effectiveDiagnostic, locale)}</span>
+              {effectiveStatus === 'inconclusive'
+                ? tr(locale, '已保存分析记录 · 可请右侧导师结合你的账本数据点评', 'Analysis saved · Ask the tutor to review the figures in your ledger.')
+                : pickText(effectiveDiagnostic, locale)}
             </div>
           )}
         </section>
@@ -843,7 +848,7 @@ export function ActivityView({
         </div>
 
         <div className="ail-hint-buttons">
-          {HINT_LADDER.map((item) => {
+          {HINT_LADDER.filter(item => item.level !== 'answer' || ['code', 'estimate', 'quiz'].includes(exercise.kind)).map((item) => {
             const unlocked = unlockedHints.has(item.level) || Boolean(hintTexts[item.level])
             const selected = activeHintTab === item.level
             return (

@@ -9,7 +9,7 @@ export type RunStatus =
 
 export type CheckStatus = 'not_run' | 'passed' | 'failed' | 'inconclusive' | 'not_applicable'
 
-export type HelpLevel = 'unknown' | 'none' | 'concept' | 'steps' | 'code' | 'answer'
+export type HelpLevel = 'unknown' | 'none' | 'concept' | 'steps' | 'formula' | 'code' | 'answer'
 
 export type Locale = 'zh' | 'en'
 
@@ -264,7 +264,7 @@ export interface InfraLabApi {
   hint(id: string, level: HelpLevel): Promise<BilingualText>
   beginIndependent(id: string): Promise<void>
   dismissReview(exerciseId: string): Promise<void>
-  tutor(id: string, question: string, mode: HelpLevel, runId?: string): Promise<{ status: string; text: string }>
+  tutor(id: string, question: string, mode: HelpLevel, runId?: string, focusStep?: string): Promise<{ status: string; text: string }>
   exportData(): Promise<string>
   importData(rawJson: string): Promise<{ importedRuns: number; importedEvidence: number }>
 }

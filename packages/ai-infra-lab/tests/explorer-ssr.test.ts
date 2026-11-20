@@ -10,6 +10,7 @@ import { Engine } from '../src/engine.ts'
 import { renderToStaticMarkup } from 'react-dom/server'
 import ts from 'typescript'
 import { loadCatalog } from '../src/catalog.ts'
+import type { RunEvent, RunRecord } from '../src/types.ts'
 
 function enableJsx() {
   return registerHooks({ load(url, context, next) {
@@ -42,6 +43,31 @@ it('renders each lecture and embedded explorer in both locales and escapes suppl
       }
     }
   } finally { hook.deregister() }
+})
+
+it('compares matching metric samples by step and unit, escaping predictions and keeping missing or zero baselines explicit', async()=>{
+  const hook=enableJsx()
+  try {
+    const {RunComparison}=await import('../src/components/RunComparison.tsx')
+    const measure=(step:string,value:number,unit='B')=>({type:'metric',name:'bytes',step,value,unit})
+    const run=(id:string,events:unknown[])=>({id,exerciseId:'B05-code',run_status:'completed',config:{},
+      seed:42,createdAt:'2026-01-01T00:00:00Z',prediction:'<script>fixture</script>',
+      events:events as RunEvent[]}) as RunRecord
+    const a=run('first',[measure('tile',262144),measure('tile',0),measure('naive',7)])
+    const b=run('second',[measure('tile',16384),measure('tile',12),measure('naive',8,'ms')])
+    const excluded={...a,id:'other-run',exerciseId:'C04-code'}
+    const pending={...b,id:'in-progress',run_status:'running' as const}
+    const render=(runs:RunRecord[])=>renderToStaticMarkup(createElement(RunComparison,{exerciseId:'B05-code',locale:'en',runs}))
+    assert.equal(render([b,excluded,pending]),'')
+    const html=render([b,a,excluded,pending])
+    assert.match(html,/16× reduction/)
+    assert.match(html,/zero baseline, ratio undefined/)
+    assert.match(html,/#2/)
+    assert.match(html,/<td>7 B<\/td><td>—<\/td>/)
+    assert.match(html,/<td>—<\/td><td>8 ms<\/td>/)
+    assert.match(html,/&lt;script&gt;fixture/)
+    assert.doesNotMatch(html,/other-run|in-progress|<script>/)
+  } finally {hook.deregister()}
 })
 
 it('submits all five interactive explorers through their controls and the Host grading path',async()=>{

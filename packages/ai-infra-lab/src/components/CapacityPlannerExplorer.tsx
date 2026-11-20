@@ -1,5 +1,5 @@
 import { capacityExample, completedCapacity, evaluateCapacityPlan } from '../sim-stage-e.ts'
-import { Choice, ExplorerPanel, useObservations, type ExplorerProps } from './ExplorerPanel.tsx'
+import { Choice, ExplorerPanel, Presets, useObservations, type ExplorerProps } from './ExplorerPanel.tsx'
 
 export function CapacityPlannerExplorer(props: ExplorerProps) {
   const {locale} = props
@@ -13,6 +13,11 @@ export function CapacityPlannerExplorer(props: ExplorerProps) {
     latency:{zh:'达到时间目标',en:'Time target met'},link:{zh:'通信处于预算内',en:'Within link budget'}}
   return <ExplorerPanel {...props} title={{zh:'八卡容量规划台',en:'Eight-GPU capacity planner'}}
     observations={observations} complete={completedCapacity(observations)}>
+    <Presets<typeof input> locale={locale} value={input} onSelect={select} items={[
+      { label: {zh:'70B FP16 单卡超限', en:'70B FP16 over budget'}, value: capacityExample },
+      { label: {zh:'70B INT4，TP8', en:'70B INT4, TP8'}, value: { ...capacityExample, precision:'int4', tp:8 } },
+      { label: {zh:'13B 训练，ZeRO-1', en:'13B training, ZeRO-1'}, value: { ...capacityExample, scenario:'train13b', tp:2, zero:1, batch:8 } },
+    ]}/>
     <div className="ail-controls">
       <Choice label={{zh:'任务',en:'Workload'}[locale]} values={['serve70b','train13b'] as const} value={input.scenario}
         format={s=>s==='serve70b'?{zh:'70B 推理',en:'70B serving'}[locale]:{zh:'13B 训练',en:'13B training'}[locale]} onChange={scenario=>select({...input,scenario})}/>
@@ -27,7 +32,14 @@ export function CapacityPlannerExplorer(props: ExplorerProps) {
       {zh:'目标为总批量 ≥8、训练步 ≤2 s、通信 ≤500 ms。序列长 512，混合精度 AdamW。',en:'Target batch ≥8, step ≤2 s and communication ≤500 ms. Sequence length is 512 with mixed AdamW.'}[locale]}</p>
     <p>{{zh:'每卡按有效 200 TFLOP/s，单向链路按 400 GB/s、每轮 3 μs 计算。整机 8 × 80 GiB。',en:'Assume 200 effective TFLOP/s per GPU and 400 GB/s one-way links with 3 μs startup per round, on 8 × 80 GiB.'}[locale]}</p>
     <dl>{(Object.keys(labels) as (keyof typeof labels)[]).map(k=><div key={k}><dt>{labels[k][locale]}</dt><dd>{(r[k]/2**30).toFixed(2)} GiB</dd></div>)}</dl>
-    <p>{(r.totalBytes/2**30).toFixed(2)} / 80 GiB · {{zh:'计算',en:'Compute'}[locale]} {r.computeMs.toFixed(1)} ms +
+    <div className="ail-capacity-budget" data-over={!r.checks.memory}>
+      <label>{{zh:'每卡显存使用量', en:'Memory used per GPU'}[locale]}
+        <progress max={80} value={Math.min(80,r.totalBytes/2**30)} />
+      </label>
+      <strong>{(r.totalBytes/2**30).toFixed(2)} / 80 GiB · {(100*r.totalBytes/(80*2**30)).toFixed(1)}%</strong>
+      <span>{r.checks.memory ? {zh:'剩余',en:'Remaining'}[locale] : {zh:'超出',en:'Over budget by'}[locale]} {Math.abs(80-r.totalBytes/2**30).toFixed(2)} GiB</span>
+    </div>
+    <p>{{zh:'计算',en:'Compute'}[locale]} {r.computeMs.toFixed(1)} ms +
       {' '}{{zh:'通信',en:'Communication'}[locale]} {r.linkMs.toFixed(1)} ms = {r.latencyMs.toFixed(1)} ms</p>
     <ul>{(Object.keys(checks) as (keyof typeof checks)[]).map(k=><li key={k}>
       {r.checks[k]?'✓':'×'} {checks[k][locale]}</li>)}</ul>

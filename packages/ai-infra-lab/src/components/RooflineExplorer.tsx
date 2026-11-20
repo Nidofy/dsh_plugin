@@ -106,7 +106,7 @@ export function RooflineExplorer({
     return [
       {
         id: 'vec-add',
-        label: 'Vector Add (AI=0.17)',
+        label: tr(locale,'向量加法 (AI=0.17)','Vector Add (AI=0.17)'),
         ai: vecAddAi,
         gflops: vecAddCeiling * 0.85, // realistic 85% of ceiling reference marker
       },
@@ -117,7 +117,7 @@ export function RooflineExplorer({
         gflops: gemmCeiling * 0.88,
       },
     ]
-  }, [peakGflops, peakBandwidthGBps])
+  }, [peakGflops, peakBandwidthGBps, locale])
 
   // Roofline polyline coordinates
   const ridgeX = xFromAi(evaluation.ridgePoint)

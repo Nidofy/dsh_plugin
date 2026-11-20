@@ -1,5 +1,5 @@
 import { completedServing, servingExample, simulateServing } from '../sim-stage-e.ts'
-import { Choice, ExplorerPanel, useObservations, type ExplorerProps } from './ExplorerPanel.tsx'
+import { Choice, ExplorerPanel, LegendItem, Presets, useObservations, type ExplorerProps } from './ExplorerPanel.tsx'
 
 export function ServingSchedulerExplorer(props: ExplorerProps) {
   const {locale} = props
@@ -9,6 +9,11 @@ export function ServingSchedulerExplorer(props: ExplorerProps) {
   const x = (ms:number) => 50 + 460*ms/Math.max(1,run.wallMs)
   return <ExplorerPanel {...props} title={{zh:'请求队列与 KV 占用',en:'Request queue and KV occupancy'}}
     observations={observations} complete={completedServing(observations)}>
+    <Presets<typeof input> locale={locale} value={input} onSelect={select} items={[
+      { label: {zh:'长短混合，静态', en:'Mixed lengths, static'}, value: servingExample },
+      { label: {zh:'相同请求，连续', en:'Same arrivals, continuous'}, value: { ...servingExample, policy:'continuous' } },
+      { label: {zh:'紧张页预算', en:'Tight page budget'}, value: { ...servingExample, policy:'continuous', pages:2 } },
+    ]}/>
     <div className="ail-controls">
       <Choice label={{zh:'调度',en:'Batching'}[locale]} values={['static','continuous'] as const} value={input.policy}
         format={v=>v==='static'?{zh:'静态',en:'Static'}[locale]:{zh:'连续',en:'Continuous'}[locale]} onChange={policy=>select({...input,policy})}/>
@@ -18,6 +23,11 @@ export function ServingSchedulerExplorer(props: ExplorerProps) {
       <Choice label={{zh:'到达间隔 (ms)',en:'Arrival gap (ms)'}[locale]} values={[0,1,4,12]} value={input.arrivalGap} onChange={arrivalGap=>select({...input,arrivalGap})}/>
       <Choice label={{zh:'输入长度上界',en:'Maximum input length'}[locale]} values={[8,24,64]} value={input.promptLength} onChange={promptLength=>select({...input,promptLength})}/>
       <Choice label={{zh:'输出长度上界',en:'Maximum output length'}[locale]} values={[1,8,16,32]} value={input.outputLength} onChange={outputLength=>select({...input,outputLength})}/>
+    </div>
+    <div className="ail-legend">
+      <LegendItem color="var(--ail-accent-soft)">{{zh:'预填充',en:'Prefill'}[locale]}</LegendItem>
+      <LegendItem color="var(--ail-accent)">{{zh:'解码',en:'Decode'}[locale]}</LegendItem>
+      <span>{{zh:'KV 峰值占用',en:'Peak KV occupancy'}[locale]} {(100*Math.max(0,...run.curve.map(p=>p.utilization))).toFixed(1)}%</span>
     </div>
     <p>{{zh:'TTFT 从到达到首个输出。TPOT 取各多 token 请求的平均输出间隔，再按请求统计。',en:'TTFT runs from arrival to first output. TPOT summarizes mean inter-token gaps per multi-token request.'}[locale]}</p>
     <table><thead><tr><th>{{zh:'策略',en:'Policy'}[locale]}</th><th>TTFT μ / P95 (ms)</th><th>TPOT μ / P95 (ms)</th><th>tok/s</th></tr></thead>

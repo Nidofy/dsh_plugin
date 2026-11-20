@@ -61,8 +61,8 @@ export function createApi(): InfraLabApi {
     hint: (id, level) => call('hint', [id, level]),
     beginIndependent: (id) => call('beginIndependent', [id]),
     dismissReview: (exerciseId) => call('dismissReview', [exerciseId]),
-    tutor: (id, question, mode, runId) =>
-      call('tutor', runId === undefined ? [id, question, mode] : [id, question, mode, runId]),
+    tutor: (id, question, mode, runId, focusStep) =>
+      call('tutor', [id, question, mode, runId, focusStep]),
     exportData: () => call('exportData'),
     importData: (rawJson) => call('importData', [rawJson]),
   }

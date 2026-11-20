@@ -1,5 +1,5 @@
 import { completedPipeline, pipelineSchedule, ringCost, type PipelineInput } from '../sim-stage-d.ts'
-import { Choice, ExplorerPanel, useObservations, type ExplorerProps } from './ExplorerPanel.tsx'
+import { Choice, ExplorerPanel, LegendItem, Presets, useObservations, type ExplorerProps } from './ExplorerPanel.tsx'
 import { useState } from 'react'
 
 export function PipelineScheduleExplorer(props: ExplorerProps) {
@@ -10,15 +10,28 @@ export function PipelineScheduleExplorer(props: ExplorerProps) {
   const net = ringCost(4, 5, 25e9, bytes)
   return <ExplorerPanel {...props} title={{ zh:'流水线与通信时间', en:'Pipeline and communication time' }}
     observations={observations} complete={completedPipeline(observations)}>
+    <Presets<typeof input> locale={locale} value={input} onSelect={select} items={[
+      { label: {zh:'四级 GPipe', en:'Four-stage GPipe'}, value: { stages:4, microbatches:12, schedule:'GPipe' } },
+      { label: {zh:'同批量 1F1B', en:'Same batch, 1F1B'}, value: { stages:4, microbatches:12, schedule:'1F1B' } },
+      { label: {zh:'单微批看气泡', en:'Single microbatch'}, value: { stages:4, microbatches:1, schedule:'1F1B' } },
+    ]}/>
     <div className="ail-controls">
       <Choice label={{zh:'流水级数',en:'Stages'}[locale]} value={input.stages} values={[1,2,4,8]} onChange={stages=>select({...input,stages})} />
       <Choice label={{zh:'微批数',en:'Microbatches'}[locale]} value={input.microbatches} values={[1,4,8,12,16]} onChange={microbatches=>select({...input,microbatches})} />
       <Choice label={{zh:'调度',en:'Schedule'}[locale]} value={input.schedule} values={['GPipe','1F1B'] as const} onChange={schedule=>select({...input,schedule})} />
     </div>
+    <div className="ail-legend">
+      <LegendItem color="var(--ail-accent-soft)">{{zh:'F 前向',en:'F forward'}[locale]}</LegendItem>
+      <LegendItem color="var(--ail-sim-bg)">{{zh:'B 反向',en:'B backward'}[locale]}</LegendItem>
+      <LegendItem color="var(--ail-surface-2)">{{zh:'空闲气泡',en:'Idle bubble'}[locale]} {(100*r.bubble).toFixed(1)}%</LegendItem>
+    </div>
     <p>{{zh:'每行是一级，每列一拍。F 为前向，B 为反向，数字是微批编号。空白格表示等待。',en:'Each row is a stage and each column a tick. F means forward, B backward, and the number identifies the microbatch. Empty cells are idle.'}[locale]}</p>
     <div style={{overflowX:'auto'}}><svg width={r.ticks*35+32} height={input.stages*27} role="img"
       aria-label={{zh:'逐级前反向调度',en:'Forward and backward schedule by stage'}[locale]}>
-      {r.peaks.map((_,i)=><text key={i} x={1} y={i*27+16} fill="currentColor">P{i}</text>)}
+      {r.peaks.map((_,i)=><g key={i}>
+        <rect x={32} y={i*27} width={r.ticks*35-1} height={24} rx={2} fill="var(--ail-surface-2)" />
+        <text x={1} y={i*27+16} fill="currentColor">P{i}</text>
+      </g>)}
       {r.slots.map(s=><g key={s.stage+'-'+s.tick} transform={`translate(${32+s.tick*35} ${s.stage*27})`}>
         <rect width={34} height={24} rx={2} fill={s.phase==='F'?'var(--ail-accent-soft)':'var(--ail-sim-bg)'} />
         <text x={3} y={17} fill="currentColor" fontSize={12}>{s.phase}{s.microbatch}</text>

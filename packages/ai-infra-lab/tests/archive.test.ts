@@ -36,6 +36,8 @@ it('restores valid runs, answers, reading and evidence once, rejecting malformed
       (a:any)=>a.evidence[0].runId=randomUUID(), (a:any)=>a.runs[0].cleanupPending='unconfirmed',
       (a:any)=>a.runs[0].events[0].timeline=[{rank:4,op:'send',startMs:1,endMs:2}],
       (a:any)=>a.answers.pop(), (a:any)=>a.answers[0].diagnostic.en=null,
+      (a:any)=>delete a.answers,
+      (a:any)=>{ a.legacyAnswerIds.push(a.answers.at(-1).id); a.answers.pop() },
       (a:any)=>a.unexpected=true, (a:any)=>a.evidence.push({...a.evidence[0]}),
       (a:any)=>a.readLessons=Array(27).fill('A00'),
     ]) {

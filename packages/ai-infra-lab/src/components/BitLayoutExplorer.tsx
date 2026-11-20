@@ -249,7 +249,7 @@ export function BitLayoutExplorer({ locale, simulatorExercise }: BitLayoutExplor
       </div>
 
       {/* Interactive Bit Grid */}
-      <div className="ail-bit-grid" role="group" aria-label={`${spec.label} bits`}>
+      <div className="ail-bit-grid" role="group" aria-label={tr(locale, `${spec.label} 二进制位`, `${spec.label} bits`)}>
         {bits.map((bit, idx) => {
           const bitPos = spec.totalBits - 1 - idx
           const zone =

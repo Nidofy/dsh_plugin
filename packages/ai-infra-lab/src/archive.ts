@@ -16,9 +16,10 @@ const string = (v: unknown, max: number): v is string => typeof v === 'string' &
 const id = (v: unknown): v is string => typeof v === 'string' && /^[\da-f]{8}(?:-[\da-f]{4}){3}-[\da-f]{12}$/i.test(v)
 const stamp = (v: unknown) => string(v,32) && /^\d{4}-\d\d-\d\dT/.test(v) && Number.isFinite(Date.parse(v))
 const oneOf = (v: unknown, values: readonly string[]) => typeof v === 'string' && values.includes(v)
-const helpLevels = ['unknown','none','concept','steps','code','answer']
+const helpLevels = ['unknown','none','concept','steps','formula','code','answer']
 const bilingual = (v: unknown) => object(v) && string(v.zh,4000) && !!v.zh && string(v.en,4000) && !!v.en
-const versions = ['0.1.0','0.2.0','0.3.0','0.4.0','0.5.0']
+const beforeAnswerIndex = ['0.1.0','0.2.0','0.3.0','0.4.0']
+const versions = [...beforeAnswerIndex,'0.5.0','0.6.0']
 function released(v: unknown, lesson: string, ceiling: string) {
   return typeof v === 'string' && versions.includes(v) && versions.indexOf(v) <= versions.indexOf(ceiling) &&
     versions.indexOf(v) >= 'ABCDE'.indexOf(lesson[0] === 'X' ? 'E' : lesson[0]!)
@@ -95,7 +96,7 @@ export function importArchive(raw: string, catalog: Catalog, store: Store) {
     requireField(id(v),'legacy answer id')
     return v
   }))
-  requireField(hasAnswers || version !== '0.5.0','missing answer index')
+  requireField(hasAnswers || beforeAnswerIndex.includes(version),'missing answer index')
   const kindMap = {code:'implementation',quiz:'quiz',estimate:'estimate',simulator:'simulation',explanation:'explanation'} as const
 
   return store.transaction(()=>{
@@ -156,7 +157,7 @@ export function importArchive(raw: string, catalog: Catalog, store: Store) {
           requireField(id(ev.answerId) && !currentRuns.has(ev.answerId),'evidence.answerId')
           const answer=currentAnswers.get(ev.answerId)
           // v0.1–v0.4 exported evidence and its answer ID but omitted answer bodies.
-          const legacy = ev.contentVersion !== '0.5.0' && (!hasAnswers || legacyIds.has(ev.answerId))
+          const legacy = beforeAnswerIndex.includes(String(ev.contentVersion)) && (!hasAnswers || legacyIds.has(ev.answerId))
           requireField((answer || legacy) &&
             (!answer || (answer.exerciseId===ex.id && answer.attemptId===ev.attemptId &&
               answer.status===ev.result && answer.contentVersion===ev.contentVersion)), 'evidence.answer binding')

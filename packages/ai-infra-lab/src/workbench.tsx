@@ -314,8 +314,9 @@ export function Workbench({ api }: { readonly api: InfraLabApi }) {
       try {
         const updated = await api.run(activeRun.id, abort.signal)
         if (cancelled || !mountedRef.current) return
-        setActiveRun(updated)
-        if (!isRunActive(updated)) {
+        if (isRunActive(updated)) {
+          setActiveRun(updated)
+        } else {
           const [freshWs] = await Promise.all([
             api.workspace(updated.exerciseId, abort.signal),
             refreshOverview(),
@@ -324,8 +325,9 @@ export function Workbench({ api }: { readonly api: InfraLabApi }) {
             setWorkspace((prev) =>
               prev && prev.exercise.id === freshWs.exercise.id
                 ? { ...prev, runs: freshWs.runs, messages: freshWs.messages }
-                : freshWs,
+                : prev,
             )
+            setActiveRun(updated)
           }
         }
       } catch (err) {
@@ -712,7 +714,7 @@ export function Workbench({ api }: { readonly api: InfraLabApi }) {
                 <div className="ail-lesson-header">
                   <div className="ail-ex-kicker">
                     <span className="ail-pill">
-                      {currentLesson.id} · Stage {currentLesson.stage}
+                      {currentLesson.id} · {tr(locale, '阶段', 'Stage')} {currentLesson.stage}
                     </span>
                     {isCurrentLessonRead && (
                       <span className="ail-pill ail-pill-ok">
@@ -857,14 +859,14 @@ export function Workbench({ api }: { readonly api: InfraLabApi }) {
               onNoteChange={updateNote}
               onPredictionChange={updatePrediction}
               onCodeSelection={setSelectedCode}
-              onStartRun={() =>
+              onStartRun={(config) =>
                 void runGuardedAction(async () => {
                   if (!exerciseId) return
                   await flushSave().catch(() => undefined)
                   const created = await api.start(
                     exerciseId,
                     code,
-                    {},
+                    config,
                     prediction.trim() ? prediction.trim() : undefined,
                   )
                   if (!mountedRef.current) return
@@ -1025,12 +1027,12 @@ export function Workbench({ api }: { readonly api: InfraLabApi }) {
           glossary={overview.catalog.glossary}
           onToggle={() => setMentorOpen((v) => !v)}
           onClearSelection={() => setSelectedCode('')}
-          onAsk={async (questionText, mode, runId) => {
+          onAsk={async (questionText, mode, runId, focusStep) => {
             if (!exerciseId) return
             setMentorBusy(true)
             setErrorBanner('')
             try {
-              await api.tutor(exerciseId, questionText, mode, runId)
+              await api.tutor(exerciseId, questionText, mode, runId, focusStep)
               const freshWs = await api.workspace(exerciseId)
               if (mountedRef.current) {
                 setWorkspace((prev) =>
