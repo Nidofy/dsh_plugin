@@ -1,5 +1,6 @@
 import { spawn } from 'node:child_process'
-import { mkdir, writeFile } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 
 const base = resolve(import.meta.dirname, '..')
@@ -22,7 +23,8 @@ if (full) {
 }
 
 await mkdir(join(base, '.build'), { recursive: true })
-const reportPath = join(base, '.build/gate-v010.json')
+const { version } = JSON.parse(await readFile(join(base, 'package.json'), 'utf8'))
+const reportPath = join(base, `.build/gate-v${version}.json`)
 const report = { startedAt: new Date().toISOString(), full, steps: [], status: 'running' }
 
 try {
@@ -45,6 +47,9 @@ try {
     await writeFile(reportPath, JSON.stringify(report, null, 2))
     if (code !== 0) throw Error(`Gate failed (${code}): ${name}`)
   }
+  const tarball = `dsh-plugin-ai-infra-lab-${version}.tgz`
+  const bytes = await readFile(join(base, tarball))
+  report.artifact = { tarball, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') }
   report.status = 'passed'
   console.log('\nALL GATES PASSED')
 } catch (error) {

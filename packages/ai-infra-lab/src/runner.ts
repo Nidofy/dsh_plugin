@@ -144,6 +144,10 @@ export function validateRunEvent(e: RunEvent, expectedRunId: string, expectedSeq
   if (e.detail !== undefined && (typeof e.detail !== 'string' || e.detail.length > 4000)) {
     throw Error('Invalid event detail')
   }
+  if (e.message !== undefined && (!e.message || ![e.message.zh, e.message.en].every(
+    text => typeof text === 'string' && text.length > 0 && text.length <= 4000))) {
+    throw Error('事件缺少双语说明 / Invalid bilingual event message')
+  }
   if (e.value !== undefined && (typeof e.value !== 'number' || !Number.isFinite(e.value))) {
     throw Error('Invalid metric value')
   }

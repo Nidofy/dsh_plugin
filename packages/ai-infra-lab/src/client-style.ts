@@ -1,5 +1,13 @@
 // GENERATED from style.css; do not edit.
-export const css = `.ai-infra-lab {
+export const css = `.ail-explorer { padding: 1rem; background: var(--ail-surface); color: var(--ail-fg); border: 1px solid var(--ail-border); border-radius: 10px; }
+.ail-explorer header, .ail-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; }
+.ail-controls label { display: inline-flex; align-items: center; gap: .35rem; }
+.ail-controls select { color: var(--ail-fg); background: var(--ail-surface-2); border: 1px solid var(--ail-border); padding: .25rem; }
+.ail-lane-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(66px,1fr)); gap: .25rem; }
+.ail-lane-grid > div { display: grid; gap: 2px; padding: .3rem; border: 1px solid var(--ail-border); font-variant-numeric: tabular-nums; }
+.ail-lane-grid [data-band="1"] { background: var(--ail-accent-soft); }
+.ail-explorer footer { margin-top: .8rem; border-top: 1px solid var(--ail-border); }
+.ai-infra-lab {
   --ail-bg: var(--dsw-alias-bg-base, #f4f6f9);
   --ail-surface: var(--dsw-alias-bg-layer-1, #ffffff);
   --ail-surface-2: var(--dsw-alias-bg-layer-2, #eef2f6);

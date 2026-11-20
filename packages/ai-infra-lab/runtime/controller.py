@@ -113,6 +113,7 @@ def call_student(mode: str, payload: dict, timeout: int = STUDENT_TIMEOUT_SEC) -
         "PATH": os.environ.get("PATH", "/usr/local/bin:/usr/bin:/bin"),
         "PYTHONDONTWRITEBYTECODE": "1",
         "PYTHONUNBUFFERED": "1",
+        "PYTHONPATH": SCRIPT_DIR,
         "OMP_NUM_THREADS": "1",
         "OPENBLAS_NUM_THREADS": "1",
         "MKL_NUM_THREADS": "1",
@@ -1077,6 +1078,26 @@ def run_gloo_selftest():
     )
 
 
+import lab_checks
+
+
+def run_lab_steps():
+    def metric(name, value, unit, step, zh, en):
+        emit("metric", name, step=step, value=float(value), unit=unit, message={"zh": zh, "en": en})
+
+    for step in lab_checks.STEPS[key]:
+        zh, en = lab_checks.GUIDANCE[step]
+        extra = ""
+        try:
+            passed = bool(lab_checks.verify(key, step, rng, call_student, metric))
+        except Exception as error:
+            passed = False
+            extra = " (" + str(error)[-500:] + ")"
+        msg = {"zh": ("已核对。 " if passed else "请复查。 ") + zh + extra,
+               "en": ("Verified. " if passed else "Check your implementation. ") + en + extra}
+        emit("check", step, step=step, passed=passed, detail=msg["en"], message=msg)
+
+
 DISPATCH = {
     "a00-hello-v1": run_a00,
     "a01-py-basics-v1": run_a01,
@@ -1091,7 +1112,7 @@ DISPATCH = {
 
 
 try:
-    if key not in DISPATCH:
+    if key not in DISPATCH and key not in lab_checks.STEPS:
         raise ValueError(f"Unsupported runtimeKey: {key}")
     stage_files()
     if raw_config:
@@ -1102,7 +1123,10 @@ try:
         }
         if numeric_cfg:
             emit("config", "effective_config", **{"value": float(len(numeric_cfg))})
-    DISPATCH[key]()
+    if key in lab_checks.STEPS:
+        run_lab_steps()
+    else:
+        DISPATCH[key]()
     print(json.dumps({"controller_complete": True}, allow_nan=False), flush=True)
 except Exception:
     traceback.print_exc()

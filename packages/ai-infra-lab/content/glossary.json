@@ -304,5 +304,157 @@
       "en": "Like factory output capped by min(machine speed, conveyor belt speed × work per kg): if the belt starves machines you are memory-bound; if each item gets heavy processing you hit the compute ceiling."
     },
     "firstLessonId": "A07"
+  },
+  {
+    "term": "simt",
+    "aliases": [
+      "SIMT"
+    ],
+    "title": {
+      "zh": "单指令多线程",
+      "en": "SIMT"
+    },
+    "short": {
+      "zh": "一个指令作用于多条各有寄存器的线程。",
+      "en": "One issued instruction serves threads with individual registers."
+    },
+    "analogy": {
+      "zh": "同一道加法，每位学生拿自己的数。",
+      "en": "Each student adds a different pair on the same cue."
+    },
+    "firstLessonId": "B01"
+  },
+  {
+    "term": "warp",
+    "aliases": [
+      "Warp"
+    ],
+    "title": {
+      "zh": "线程束",
+      "en": "Warp"
+    },
+    "short": {
+      "zh": "本模型中共同发射指令的 32 个通道。",
+      "en": "A group of 32 lanes issued together in this model."
+    },
+    "analogy": {
+      "zh": "同一排座位，每个座位有自己的编号。",
+      "en": "One row of seats with individually numbered positions."
+    },
+    "firstLessonId": "B02"
+  },
+  {
+    "term": "warp-divergence",
+    "aliases": [
+      "Warp divergence"
+    ],
+    "title": {
+      "zh": "线程束分支发散",
+      "en": "Warp divergence"
+    },
+    "short": {
+      "zh": "不同通道走不同分支时，部分通道在另一条路径执行期间等待。",
+      "en": "Lanes taking different branches may wait while another path executes."
+    },
+    "analogy": {
+      "zh": "同一队人分两批通过不同入口。",
+      "en": "One group takes turns passing through different doors."
+    },
+    "firstLessonId": "B04"
+  },
+  {
+    "term": "hbm",
+    "aliases": [
+      "HBM"
+    ],
+    "title": {
+      "zh": "高带宽显存",
+      "en": "HBM"
+    },
+    "short": {
+      "zh": "为整卡提供大容量和高吞吐的片外存储。",
+      "en": "High-bandwidth off-chip memory shared by the device."
+    },
+    "analogy": {
+      "zh": "可以大量进货的中央库房。",
+      "en": "A central warehouse equipped for bulk deliveries."
+    },
+    "firstLessonId": "B01"
+  },
+  {
+    "term": "shared-memory",
+    "aliases": [
+      "Shared memory (SRAM)"
+    ],
+    "title": {
+      "zh": "片上共享存储",
+      "en": "Shared memory (SRAM)"
+    },
+    "short": {
+      "zh": "由同一线程块显式读写的片上空间。",
+      "en": "On-chip storage explicitly managed by a block."
+    },
+    "analogy": {
+      "zh": "同一工作组共用的近手工具台。",
+      "en": "A nearby bench shared by one work team."
+    },
+    "firstLessonId": "B02"
+  },
+  {
+    "term": "memory-coalescing",
+    "aliases": [
+      "Memory coalescing"
+    ],
+    "title": {
+      "zh": "访存合并",
+      "en": "Memory coalescing"
+    },
+    "short": {
+      "zh": "把相邻通道的地址归并到少量对齐事务。",
+      "en": "Serve neighboring lane addresses with fewer aligned transactions."
+    },
+    "analogy": {
+      "zh": "同一路段的多个订单合在一趟车上。",
+      "en": "One delivery trip covers several adjacent addresses."
+    },
+    "firstLessonId": "B04"
+  },
+  {
+    "term": "bank-conflict",
+    "aliases": [
+      "Bank conflict"
+    ],
+    "title": {
+      "zh": "存储体冲突",
+      "en": "Bank conflict"
+    },
+    "short": {
+      "zh": "同一指令向一个 Bank 索取多个不同字时需要多轮。",
+      "en": "Several distinct words requested from one bank require successive rounds."
+    },
+    "analogy": {
+      "zh": "一个窗口依次处理不同的申请。",
+      "en": "One counter serves distinct requests in turn."
+    },
+    "firstLessonId": "B04"
+  },
+  {
+    "term": "tiling",
+    "aliases": [
+      "Tiling"
+    ],
+    "title": {
+      "zh": "分块复用",
+      "en": "Tiling"
+    },
+    "short": {
+      "zh": "一次装入一小片数据，在片上完成多次运算。",
+      "en": "Stage a small region once and reuse it across operations."
+    },
+    "analogy": {
+      "zh": "一本书摊开后同时查多个问题。",
+      "en": "Consult one open book for several questions."
+    },
+    "firstLessonId": "B05"
   }
 ]

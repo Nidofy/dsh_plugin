@@ -1,8 +1,12 @@
 # AI Infra Lab (`dsh-plugin-ai-infra-lab`)
 
-面向完全零基础学习者的 **AI 算力与系统基础设施实验室**（独立 DeepSeek Harness 插件，v0.1）。
+面向零基础学习者的独立 DeepSeek Harness 插件。每个单元提供中英双语讲义、练习、分级提示和可复核的学习记录。
 
-## 特性（v0.1 · 阶段 A）
+A bilingual, CPU-first course in AI infrastructure with worked examples, graded labs and a local learning journal.
+
+## 课程与工作台
+
+- **B01–B05 · GPU** — Warp 访存与 Bank 地址矩阵、边界线程与可计数分块矩阵乘法。Trace memory segments and bank conflicts, launch a guarded grid, then measure tile reuse in bytes.
 
 - **自底向上零基础路线（A00–A07）**：从工作台自检、Python 最小集（支持 2 分钟小测快速跳过）、二维 NumPy 与向量化、IEEE 754 `fp32/fp16/bf16` 位翻转、CPU 指令与 SIMD 点积、内存层次与 Cache Line `stride` 局部性、多核并行与 Amdahl 定律，一路衔接到 Roofline 性能模型。
 - **三源区分徽章**：每项实验明确标识 `公式估算`、`CPU 实测`、`架构模拟`，避免将容器 CPU 耗时直接误认为 GPU 结论。

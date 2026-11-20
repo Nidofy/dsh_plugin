@@ -30,11 +30,12 @@ export async function loadCatalog(): Promise<Catalog> {
 }
 
 export function validateCatalog(c: Catalog): void {
-  if (c.id !== 'ai-infra-lab' || c.version !== '0.1.0') {
+  const counts: Record<string, number> = { '0.1.0': 8, '0.2.0': 13, '0.3.0': 17, '0.4.0': 22, '0.5.0': 26 }
+  if (c.id !== 'ai-infra-lab' || !Object.hasOwn(counts, c.version)) {
     throw Error(`Unsupported catalog identity: ${c.id}@${c.version}`)
   }
-  if (!Array.isArray(c.lessons) || c.lessons.length < 8) {
-    throw Error('Stage A requires at least 8 lessons (A00-A07)')
+  if (!Array.isArray(c.lessons) || c.lessons.length !== counts[c.version]) {
+    throw Error('课程单元数量与版本不符 / Lesson count does not match catalog version')
   }
   const lessonIds = new Set(c.lessons.map((l) => l.id))
   if (lessonIds.size !== c.lessons.length) {
@@ -100,7 +101,7 @@ export function validateCatalog(c: Catalog): void {
           throw Error(`Quiz exercise ${ex.id} requires valid options and correctOptionId`)
         }
       } else if (ex.kind === 'simulator') {
-        if (!ex.simulator || !['bit-layout', 'roofline'].includes(ex.simulator.widget)) {
+        if (!ex.simulator || !['bit-layout', 'roofline', 'gpu-coalescing'].includes(ex.simulator.widget)) {
           throw Error(`Simulator exercise ${ex.id} requires valid widget spec`)
         }
       }

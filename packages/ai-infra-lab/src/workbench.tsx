@@ -1,14 +1,13 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { css } from './client-style.ts'
 import { ActivityView } from './components/ActivityView.tsx'
-import { BitLayoutExplorer } from './components/BitLayoutExplorer.tsx'
+import { LessonExplorer } from './components/LessonExplorer.tsx'
 import { EnvironmentBanner } from './components/EnvironmentBanner.tsx'
 import { GlossaryDrawer } from './components/GlossaryDrawer.tsx'
 import { MarkdownView } from './components/MarkdownView.tsx'
 import { MentorDrawer } from './components/MentorDrawer.tsx'
 import { PrereqGraph } from './components/PrereqGraph.tsx'
 import { RecordsView } from './components/RecordsView.tsx'
-import { RooflineExplorer } from './components/RooflineExplorer.tsx'
 import { detectInitialLocale, persistLocale, pickText, tr } from './components/i18n.ts'
 import type {
   BilingualText,
@@ -602,7 +601,7 @@ export function Workbench({ api }: { readonly api: InfraLabApi }) {
           aria-label={tr(locale, '课程单元目录', 'Course Curriculum')}
         >
           <div className="ail-nav-section-label">
-            {tr(locale, '课程单元 (Stage A)', 'Curriculum (Stage A)')}
+            {tr(locale, '课程单元', 'Curriculum')}
           </div>
 
           <div className="ail-lesson-list">
@@ -779,16 +778,8 @@ export function Workbench({ api }: { readonly api: InfraLabApi }) {
                 />
               </article>
 
-              {/* Embedded Interactive Simulator in Lesson (A03 bit-layout / A07 roofline) */}
-              {currentLesson.simulatorWidget === 'bit-layout' && (
-                <BitLayoutExplorer locale={locale} />
-              )}
-              {currentLesson.simulatorWidget === 'roofline' && (
-                <RooflineExplorer
-                  locale={locale}
-                  measuredPoints={overview.measuredRooflinePoints}
-                />
-              )}
+              {currentLesson.simulatorWidget && <LessonExplorer key={currentLesson.id} widget={currentLesson.simulatorWidget}
+                locale={locale} measuredPoints={overview.measuredRooflinePoints} />}
 
               <div className="ail-lesson-footer">
                 <button

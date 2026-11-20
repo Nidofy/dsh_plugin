@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -121,8 +121,12 @@ try {
       'react',
       'react-dom',
       'react/jsx-runtime',
-      '@deepseek-ai/dsh-client-ui-primitives',
     ])
+    const client = registered.factory(id => {
+      assert.ok(allowedBrowserExternals.has(id), `Disallowed browser runtime import: ${id}`)
+      return runtimeReq(id)
+    })
+    assert.equal(typeof client.apply, 'function')
     for (const reqId of browserRequires) {
       assert.ok(allowedBrowserExternals.has(reqId), `Disallowed browser external require: ${reqId}`)
     }
@@ -141,24 +145,27 @@ try {
     console.log(`PASS [${label}] empty-store offline install, compatibility, bundle audit, and build-identity verification`)
 
     // 5. Dynamically import installed Host bundle and run mount/dispose lifecycle against temporary profile dataRoot
+    // Bind the installed Host to this lane's official peer implementations.
+    await symlink(join(runtimeRoot, 'node_modules/@deepseek-ai'), join(profile, 'node_modules/@deepseek-ai'), 'junction')
     const hostMod = await import(pathToFileURL(join(installedDir, 'lib/index.js')).href)
     assert.equal(hostMod.name, 'ai-infra-lab')
-    const disposers = []
-    const fakeHostCtx = {
-      get: (k) => (k === 'profileContext' ? { dir: profile } : undefined),
-      on: () => {
-        const off = () => {}
-        disposers.push(off)
-        return off
-      },
-      effect: (fn) => {
-        disposers.push(fn())
-      },
-      logger: { warn() {} },
-    }
-    await hostMod.apply(fakeHostCtx, { image: 'dsh-ai-infra-lab-cpu:0.1' })
-    for (const d of disposers.reverse()) await d()
-    console.log(`PASS [${label}] installed lib/index.js host import & lifecycle smoke`)
+    const { Context, Service } = await import(pathToFileURL(runtimeReq.resolve('@deepseek-ai/cordis')).href)
+    class Transport extends Service { constructor(ctx) { super(ctx, 'connection') } }
+    const ctx = new Context()
+    try {
+      await ctx.plugin(Transport)
+      for (let cycle = 0; cycle < 2; cycle++) {
+        const fiber = await ctx.plugin(hostMod, hostMod.Config({ dataRoot: join(profile, 'ai-infra-lab') }))
+        await fiber.dispose()
+      }
+    } finally { await ctx.fiber.dispose() }
+    const engine = await hostMod.Engine.open(join(profile, 'ai-infra-lab'))
+    try {
+      assert.equal(engine.catalog.version, manifest.version)
+      const counts = { '0.2.0': 13, '0.3.0': 17, '0.4.0': 22, '0.5.0': 26 }
+      assert.equal(engine.overview().catalog.lessons.length, counts[manifest.version])
+    } finally { await engine.close() }
+    console.log(`PASS [${label}] installed Host/Client load, lifecycle and catalog integrity`)
   }
 } finally {
   await rm(stage, { recursive: true, force: true })

@@ -15,11 +15,10 @@ import type {
   UnitDimension,
   Workspace,
 } from '../types.ts'
-import { BitLayoutExplorer } from './BitLayoutExplorer.tsx'
+import { LessonExplorer } from './LessonExplorer.tsx'
 import { CodeEditor } from './CodeEditor.tsx'
 import { DataSourceBadge } from './DataSourceBadge.tsx'
 import { MarkdownView } from './MarkdownView.tsx'
-import { RooflineExplorer } from './RooflineExplorer.tsx'
 import { pickText, tr } from './i18n.ts'
 
 export interface ActivityViewProps {
@@ -222,16 +221,16 @@ export function ActivityView({
       }
       const failed = matched.find((ev) => ev.passed === false)
       if (failed) {
-        return { step, state: 'failed' as const, detail: failed.detail ?? failed.name }
+        return { step, state: 'failed' as const, detail: failed.message?.[locale] ?? failed.detail ?? failed.name }
       }
       const allPassed = matched.every((ev) => ev.passed === true)
       return {
         step,
         state: allPassed ? ('passed' as const) : ('pending' as const),
-        detail: matched[0]?.detail ?? '',
+        detail: matched[0]?.message?.[locale] ?? matched[0]?.detail ?? '',
       }
     })
-  }, [exercise.steps, activeRun])
+  }, [exercise.steps, activeRun, locale])
 
   const metricEvents = useMemo(
     () =>
@@ -514,7 +513,7 @@ export function ActivityView({
                 <div className="ail-metrics-grid">
                   {metricEvents.map((ev) => (
                     <div key={ev.seq} className="ail-metric-card">
-                      <small>{ev.name}</small>
+                      <small>{ev.message?.[locale] ?? ev.name}</small>
                       <strong>
                         {ev.type === 'roofline_point'
                           ? `AI=${ev.arithmeticIntensity?.toFixed(2)} · ${ev.gflops?.toFixed(2)} GFLOP/s`
@@ -748,31 +747,10 @@ export function ActivityView({
       )}
 
       {/* ==================== 4. SIMULATOR EXERCISE ==================== */}
-      {exercise.kind === 'simulator' &&
-        (exercise.simulator?.widget === 'roofline' ? (
-          <RooflineExplorer
-            locale={locale}
-            measuredPoints={measuredRooflinePoints}
-            simulatorExercise={{
-              goalDescription: exercise.simulator.goalDescription,
-              busy,
-              status: effectiveStatus,
-              diagnostic: effectiveDiagnostic,
-              onComplete: onCompleteSimulator,
-            }}
-          />
-        ) : (
-          <BitLayoutExplorer
-            locale={locale}
-            simulatorExercise={{
-              goalDescription: exercise.simulator?.goalDescription,
-              busy,
-              status: effectiveStatus,
-              diagnostic: effectiveDiagnostic,
-              onComplete: onCompleteSimulator,
-            }}
-          />
-        ))}
+      {exercise.kind === 'simulator' && exercise.simulator && <LessonExplorer key={exercise.id}
+        locale={locale} widget={exercise.simulator.widget} measuredPoints={measuredRooflinePoints}
+        simulatorExercise={{ goalDescription: exercise.simulator.goalDescription, busy, status: effectiveStatus,
+          diagnostic: effectiveDiagnostic, onComplete: onCompleteSimulator }} />}
 
       {/* ==================== 5. EXPLANATION EXERCISE ==================== */}
       {exercise.kind === 'explanation' && (

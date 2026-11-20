@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { Evidence, Lesson, Locale } from '../types.ts'
 import { pickText, tr } from './i18n.ts'
 
@@ -39,6 +39,8 @@ export function PrereqGraph({
   locale,
   onSelectLesson,
 }: PrereqGraphProps) {
+  const [stage, setStage] = useState('all')
+  const stages = [...new Set(lessons.map(l => l.stage))]
   const { nodes, edges, svgWidth, svgHeight } = useMemo(() => {
     const byId = new Map(lessons.map((l) => [l.id, l]))
     const depthMemo = new Map<string, number>()
@@ -66,7 +68,7 @@ export function PrereqGraph({
 
     const columns = new Map<number, Lesson[]>()
     let maxCol = 0
-    for (const lesson of lessons) {
+    for (const lesson of lessons.filter(l => stage === 'all' || l.stage === stage)) {
       const col = getDepth(lesson.id)
       maxCol = Math.max(maxCol, col)
       const bucket = columns.get(col) ?? []
@@ -81,7 +83,7 @@ export function PrereqGraph({
 
     const passedExercises = new Set(
       evidence
-        .filter((e) => e.kind !== 'reading')
+        .filter(e => e.result === 'passed' || (e.kind === 'explanation' && e.result === 'inconclusive'))
         .map((e) => e.exerciseId),
     )
     const readSet = new Set(readLessons)
@@ -143,19 +145,23 @@ export function PrereqGraph({
       svgWidth: totalWidth,
       svgHeight: totalHeight,
     }
-  }, [lessons, readLessons, fastTrackedLessons, evidence])
+  }, [lessons, readLessons, fastTrackedLessons, evidence, stage])
 
   if (nodes.length === 0) return null
 
   return (
     <section
       className="ail-prereq-panel"
-      aria-label={tr(locale, '阶段 A 课程前置拓扑图', 'Stage A Prerequisite Topology')}
+      aria-label={tr(locale, '课程前置关系图', 'Course prerequisites')}
     >
       <div className="ail-prereq-head">
         <span className="ail-prereq-title">
-          {tr(locale, '🗺️ 阶段 A 知识依赖拓扑（点击节点跳转）', '🗺️ Stage A Dependency Map (Click node to jump)')}
+          {tr(locale, '课程前置关系（点击单元跳转）', 'Prerequisites (select a unit to open it)')}
         </span>
+        <label>{tr(locale, '筛选阶段', 'Filter by stage')} <select value={stage} onChange={e => setStage(e.target.value)}>
+          <option value="all">{tr(locale, '全部', 'All')}</option>
+          {stages.map(s => <option key={s} value={s}>{tr(locale, '阶段', 'Stage')} {s}</option>)}
+        </select></label>
         <div className="ail-prereq-legend">
           <span>
             <i className="ail-dot ail-dot-done" />

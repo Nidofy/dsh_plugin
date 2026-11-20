@@ -370,7 +370,10 @@ def main():
             out = _run_gloo_selftest(payload)
         else:
             module = _load_submission(submission_path)
-            if mode == "call_fn":
+            if mode == "lab_step":
+                from infra_sim.stage_b import observe
+                out = observe(module, payload["step"], payload["case"])
+            elif mode == "call_fn":
                 out = _run_call_fn(module, payload)
             elif mode == "a02_bench":
                 out = _run_a02_bench(module, submission_path, payload)

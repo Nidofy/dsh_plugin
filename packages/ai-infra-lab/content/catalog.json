@@ -1,7 +1,7 @@
 {
   "id": "ai-infra-lab",
-  "version": "0.1.0",
-  "stage": "A",
+  "version": "0.2.0",
+  "stage": "B",
   "glossary": [],
   "lessons": [
     {
@@ -1449,6 +1449,765 @@
             {
               "zh": "拼错了返回字符串（例如把连字符 `-` 写成了下划线 `_`，如 `memory_bound`），请严格返回 `\"memory-bound\"` 或 `\"compute-bound\"`。",
               "en": "Misspelling the regime string with an underscore (`memory_bound`) instead of hyphenated `\"memory-bound\"` / `\"compute-bound\"`."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "stage": "B",
+      "title": {
+        "zh": "从单条指令到一批数据",
+        "en": "From one instruction to a batch"
+      },
+      "prerequisites": [
+        "A06",
+        "A07"
+      ],
+      "objectives": [
+        {
+          "zh": "区分单个请求延迟和每秒完成的请求数",
+          "en": "Distinguish latency per request from work completed per second"
+        },
+        {
+          "zh": "用峰值算力和带宽求拐点",
+          "en": "Locate the ridge from peak compute and bandwidth"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "B01-quiz",
+          "lessonId": "B01",
+          "title": {
+            "zh": "为像素选处理器",
+            "en": "Choose a processor for pixels"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "同一滤镜处理百万独立像素，GPU 靠什么隐藏一次 HBM 读取的等待？",
+            "en": "A filter processes a million independent pixels. How can a GPU hide the wait for an HBM load?"
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "simt",
+            "hbm"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "带宽大不等于单次延迟小。",
+              "en": "High bandwidth does not guarantee low latency for one load."
+            },
+            {
+              "zh": "依赖上一像素结果的任务不能任意并行。",
+              "en": "Dependent pixels cannot all run independently."
+            }
+          ],
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "调度另一个就绪的线程组",
+                  "en": "Schedule another ready group"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "让依赖同一个结果的线程一起空等",
+                  "en": "Make all threads wait for the same result"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "增加每个像素的读取次数",
+                  "en": "Read each pixel more times"
+                }
+              }
+            ],
+            "correctOptionId": "a"
+          },
+          "hints": [
+            {
+              "zh": "找出没有数据依赖的工作。",
+              "en": "Find work without a data dependency."
+            },
+            {
+              "zh": "一组线程等待时还有哪些线程就绪？",
+              "en": "Which other groups are ready while one waits?"
+            },
+            {
+              "zh": "比较单次读延迟和整批完成时间。",
+              "en": "Compare one load’s latency with batch completion time."
+            },
+            {
+              "zh": "调度另一个就绪的线程组",
+              "en": "Schedule another ready group"
+            }
+          ]
+        },
+        {
+          "id": "B01-estimate",
+          "lessonId": "B01",
+          "title": {
+            "zh": "算术强度拐点",
+            "en": "Find the ridge"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "312 TFLOP/s 和 1.6 TB/s 的拐点是多少 FLOPs/B？填写数值。",
+            "en": "At 312 TFLOP/s and 1.6 TB/s, how many FLOPs per byte reach the ridge? Enter the number."
+          },
+          "starter": "",
+          "reference": "195",
+          "concepts": [
+            "arithmetic-intensity",
+            "hbm"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "分子分母颠倒会得到每次运算的字节数。",
+              "en": "Inverting the fraction yields bytes per operation."
+            },
+            {
+              "zh": "不要把 TB/s 当成 Tb/s。",
+              "en": "Keep bytes distinct from bits."
+            }
+          ],
+          "estimate": {
+            "dimension": "scalar",
+            "expectedBase": 195,
+            "canonicalDisplay": "195",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "拐点是算力和供数速度正好平衡的位置。",
+              "en": "At the ridge, data arrives just fast enough."
+            },
+            {
+              "zh": "两个 T 均为十进制万亿。",
+              "en": "Both T prefixes represent a decimal trillion."
+            },
+            {
+              "zh": "用每秒运算次数除以每秒字节数。",
+              "en": "Divide operations per second by bytes per second."
+            },
+            {
+              "zh": "195",
+              "en": "195"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "stage": "B",
+      "title": {
+        "zh": "一条指令如何驱动 32 个线程",
+        "en": "How one instruction drives 32 threads"
+      },
+      "prerequisites": [
+        "B01"
+      ],
+      "objectives": [
+        {
+          "zh": "把线程数换算为 Warp 数",
+          "en": "Convert threads to warps"
+        },
+        {
+          "zh": "分清寄存器、片上共享存储和 HBM 的作用域",
+          "en": "Identify register, shared-memory and HBM scope"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "B02-quiz",
+          "lessonId": "B02",
+          "title": {
+            "zh": "选择共享位置",
+            "en": "Choose a storage scope"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "同一块的多个线程都要重复读一个小矩阵，应优先将它暂存在哪里？",
+            "en": "Several threads of one block repeatedly read a small matrix. Where should they stage it?"
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "shared-memory",
+            "warp"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "私有寄存器不能直接当块内共享数组。",
+              "en": "Private registers cannot act as a block-wide array."
+            },
+            {
+              "zh": "每轮重读 HBM 会重复产生片外流量。",
+              "en": "Reloading from HBM each round repeats off-chip traffic."
+            }
+          ],
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "每个线程的私有寄存器",
+                  "en": "Each thread’s private registers"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "片上共享存储",
+                  "en": "On-chip shared memory"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "宿主机文件",
+                  "en": "A host file"
+                }
+              }
+            ],
+            "correctOptionId": "b"
+          },
+          "hints": [
+            {
+              "zh": "先判断使用者是否属于同一块。",
+              "en": "Identify the block that owns the users."
+            },
+            {
+              "zh": "寄存器由单线程持有。",
+              "en": "Registers belong to individual threads."
+            },
+            {
+              "zh": "需要块内可见且可显式填充的空间。",
+              "en": "Look for explicitly filled block-visible storage."
+            },
+            {
+              "zh": "片上共享存储",
+              "en": "On-chip shared memory"
+            }
+          ]
+        },
+        {
+          "id": "B02-estimate",
+          "lessonId": "B02",
+          "title": {
+            "zh": "可驻留的 Warp 数",
+            "en": "Count resident warps"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "线程容量是 2048，每个 Warp 有 32 个线程。仅按线程数可驻留几组？",
+            "en": "A thread limit is 2,048 and each warp has 32 threads. How many groups fit by thread count alone?"
+          },
+          "starter": "",
+          "reference": "64",
+          "concepts": [
+            "warp"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "同时驻留不保证每拍全部执行。",
+              "en": "Resident warps need not all issue each cycle."
+            },
+            {
+              "zh": "不要把一个线程块当作一个 Warp。",
+              "en": "A block can contain multiple warps."
+            }
+          ],
+          "estimate": {
+            "dimension": "scalar",
+            "expectedBase": 64,
+            "canonicalDisplay": "64",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "把线程分成等大的组。",
+              "en": "Partition threads into equal groups."
+            },
+            {
+              "zh": "每放入一组就用掉 32 个名额。",
+              "en": "Each group uses 32 slots."
+            },
+            {
+              "zh": "线程容量除以每组线程数。",
+              "en": "Divide the thread budget by threads per group."
+            },
+            {
+              "zh": "64",
+              "en": "64"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "stage": "B",
+      "title": {
+        "zh": "给矩阵元素分派线程",
+        "en": "Assign threads to matrix cells"
+      },
+      "prerequisites": [
+        "B02"
+      ],
+      "objectives": [
+        {
+          "zh": "用块和线程的坐标定位一个元素",
+          "en": "Locate an element from block and thread coordinates"
+        },
+        {
+          "zh": "处理无法整除块大小的输入",
+          "en": "Handle a partial last tile"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "B03-estimate",
+          "lessonId": "B03",
+          "title": {
+            "zh": "覆盖尾块",
+            "en": "Count edge blocks"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "35 行 50 列，块高 4、宽 8，总共需要多少个块？",
+            "en": "For 35 rows and 50 columns, how many 4-row by 8-column blocks cover the matrix?"
+          },
+          "starter": "",
+          "reference": "63",
+          "concepts": [
+            "grid-map"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "总面积相除会忽略二维边缘。",
+              "en": "Dividing total areas misses two-dimensional edges."
+            },
+            {
+              "zh": "块数不等于启动的线程数。",
+              "en": "Block count differs from thread count."
+            }
+          ],
+          "estimate": {
+            "dimension": "scalar",
+            "expectedBase": 63,
+            "canonicalDisplay": "63",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "每个方向独立铺满。",
+              "en": "Cover each axis independently."
+            },
+            {
+              "zh": "余下一个元素也需要完整的块。",
+              "en": "Even one leftover element needs a block."
+            },
+            {
+              "zh": "总数为两个向上取整结果的乘积。",
+              "en": "Multiply the two rounded-up counts."
+            },
+            {
+              "zh": "63",
+              "en": "63"
+            }
+          ]
+        },
+        {
+          "id": "B03-code",
+          "lessonId": "B03",
+          "title": {
+            "zh": "网格索引与带边界的加法",
+            "en": "Grid indexing and guarded addition"
+          },
+          "kind": "code",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "依次返回一维全局索引、二维块数 (gx,gy)，最后向 out[row,col] 写 A+B。H、W 是有效行列数。",
+            "en": "Return the global 1D index, then block counts (gx,gy), then write A+B into out[row,col]. H and W give the valid rows and columns."
+          },
+          "starter": "def global_index_1d(bx, tx, bdim):\n    # 定位一维元素 / Locate a 1D element\n    return None\n\ndef ceil_grid_2d(height, width, tile_h, tile_w):\n    # 覆盖尾块，返回 (gx,gy) / Cover edge tiles and return (gx,gy)\n    return None\n\ndef matrix_add_kernel(bx, by, tx, ty, bdim_x, bdim_y, A, B, out, H, W):\n    # 仅对有效行列执行加法 / Add only for valid rows and columns\n    return None\n",
+          "reference": "def global_index_1d(bx, tx, bdim):\n    return bx * bdim + tx\n\n\ndef ceil_grid_2d(height, width, tile_h, tile_w):\n    return ((width + tile_w - 1) // tile_w, (height + tile_h - 1) // tile_h)\n\n\ndef matrix_add_kernel(bx, by, tx, ty, bdim_x, bdim_y, A, B, out, H, W):\n    row, col = by * bdim_y + ty, bx * bdim_x + tx\n    if row < H and col < W:\n        out[row, col] = A[row, col] + B[row, col]\n",
+          "concepts": [
+            "grid-map"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "块宽不能用于计算行号。",
+              "en": "Block width cannot locate the row."
+            },
+            {
+              "zh": "先读再判断仍会越界。",
+              "en": "Checking after a read is too late."
+            }
+          ],
+          "runtimeKey": "b03-grid-map-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "global_index_1d",
+              "title": {
+                "zh": "定位一维元素",
+                "en": "Locate a 1D element"
+              }
+            },
+            {
+              "name": "ceil_grid_2d",
+              "title": {
+                "zh": "覆盖尾块，返回 (gx,gy)",
+                "en": "Cover edge tiles and return (gx,gy)"
+              }
+            },
+            {
+              "name": "matrix_add_kernel",
+              "title": {
+                "zh": "仅对有效行列执行加法",
+                "en": "Add only for valid rows and columns"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "把块首地址与块内偏移分开。",
+              "en": "Separate the block origin and the offset."
+            },
+            {
+              "zh": "先定位 row、col，再访问数组。",
+              "en": "Locate row and col before touching the arrays."
+            },
+            {
+              "zh": "整数向上取整可以用 (n+d-1)//d。",
+              "en": "Integer ceiling division is (n+d-1)//d."
+            },
+            {
+              "zh": "依次返回一维全局索引、二维块数 (gx,gy)，最后向 out[row,col] 写 A+B。H、W 是有效行列数。",
+              "en": "Return the global 1D index, then block counts (gx,gy), then write A+B into out[row,col]. H and W give the valid rows and columns."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B04",
+      "stage": "B",
+      "title": {
+        "zh": "从地址看合并和 Bank 冲突",
+        "en": "Read coalescing and bank conflicts from addresses"
+      },
+      "prerequisites": [
+        "B03"
+      ],
+      "objectives": [
+        {
+          "zh": "从字节地址列出命中的事务段",
+          "en": "List transaction segments from byte addresses"
+        },
+        {
+          "zh": "用不同字地址数计算每个 Bank 的服务轮数",
+          "en": "Count distinct words served in each bank"
+        }
+      ],
+      "simulatorWidget": "gpu-coalescing",
+      "exercises": [
+        {
+          "id": "B04-sim",
+          "lessonId": "B04",
+          "title": {
+            "zh": "比较三种访存轨迹",
+            "en": "Compare warp access patterns"
+          },
+          "kind": "simulator",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "观察一次满利用率的单事务、一次至少 4 个事务的访问，以及一次至少 4 路 Bank 冲突。",
+            "en": "Observe a fully utilized single transaction, at least four transactions, and a bank conflict involving at least four distinct words."
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "memory-coalescing",
+            "bank-conflict"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "广播时有效数据只有一个字。",
+              "en": "A broadcast has a single useful word."
+            },
+            {
+              "zh": "跨段数和 Bank 冲突路数有不同的计算规则。",
+              "en": "Segment count and bank conflict degree use different rules."
+            }
+          ],
+          "simulator": {
+            "widget": "gpu-coalescing",
+            "goalDescription": {
+              "zh": "观察一次满利用率的单事务、一次至少 4 个事务的访问，以及一次至少 4 路 Bank 冲突。",
+              "en": "Observe a fully utilized single transaction, at least four transactions, and a bank conflict involving at least four distinct words."
+            }
+          },
+          "hints": [
+            {
+              "zh": "先让每个通道取相邻元素。",
+              "en": "Start with adjacent words."
+            },
+            {
+              "zh": "对齐起点后逐次调大步长。",
+              "en": "Align the base, then increase stride."
+            },
+            {
+              "zh": "对照段号和 Bank 编号，尝试广播。",
+              "en": "Compare segment and bank numbers, then try broadcast."
+            },
+            {
+              "zh": "观察一次满利用率的单事务、一次至少 4 个事务的访问，以及一次至少 4 路 Bank 冲突。",
+              "en": "Observe a fully utilized single transaction, at least four transactions, and a bank conflict involving at least four distinct words."
+            }
+          ]
+        },
+        {
+          "id": "B04-quiz",
+          "lessonId": "B04",
+          "title": {
+            "zh": "给共享矩阵加一列",
+            "en": "Pad a shared tile"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "按列读取 32 字宽的共享矩阵，给每行加一个填充字有什么作用？",
+            "en": "When reading down a 32-word-wide shared tile, what does one padding word per row do?"
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "bank-conflict",
+            "warp-divergence"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "填充不会改变 Warp 的分支条件。",
+              "en": "Padding does not change a warp’s branch conditions."
+            },
+            {
+              "zh": "同 Bank 不同字不能广播。",
+              "en": "Different words in one bank cannot broadcast."
+            }
+          ],
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "让所有通道读取同一字",
+                  "en": "Make all lanes read one word"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "消除所有分支",
+                  "en": "Eliminate every branch"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "使相邻行落入不同 Bank",
+                  "en": "Place successive rows in different banks"
+                }
+              }
+            ],
+            "correctOptionId": "c"
+          },
+          "hints": [
+            {
+              "zh": "只追踪连续两行的同一列。",
+              "en": "Follow the same column across two rows."
+            },
+            {
+              "zh": "Bank 是字地址除以 32 的余数。",
+              "en": "Bank is word address modulo 32."
+            },
+            {
+              "zh": "比较步长 32 与 33 的余数序列。",
+              "en": "Compare remainders at strides 32 and 33."
+            },
+            {
+              "zh": "使相邻行落入不同 Bank",
+              "en": "Place successive rows in different banks"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B05",
+      "stage": "B",
+      "title": {
+        "zh": "让一块数据参与多次乘法",
+        "en": "Reuse a tile across multiply-adds"
+      },
+      "prerequisites": [
+        "B03",
+        "B04"
+      ],
+      "objectives": [
+        {
+          "zh": "分开统计 HBM 与片上流量",
+          "en": "Account for HBM and scratch traffic separately"
+        },
+        {
+          "zh": "在同一输出上验证数值与流量",
+          "en": "Verify both values and traffic on the same output"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "B05-estimate",
+          "lessonId": "B05",
+          "title": {
+            "zh": "读取量降幅",
+            "en": "Reduction in HBM reads"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "矩阵维度均为 16 的倍数，两个输入块均复用，每个输出只写回一次。TILE=16 时 HBM 读取量缩小几倍？",
+            "en": "All dimensions are multiples of 16. Both input tiles are reused and each output is written once. By what factor do HBM reads drop for TILE=16?"
+          },
+          "starter": "",
+          "reference": "16x",
+          "concepts": [
+            "tiling"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "把输出写入混入读取量会改变比值。",
+              "en": "Including output writes changes the ratio."
+            },
+            {
+              "zh": "不要把块面积当作单个元素复用次数。",
+              "en": "Tile area is not the reuse count of one element."
+            }
+          ],
+          "estimate": {
+            "dimension": "scalar",
+            "expectedBase": 16,
+            "canonicalDisplay": "16x",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "只算输入读取。",
+              "en": "Count input reads only."
+            },
+            {
+              "zh": "跟踪一个 A 元素服务几列。",
+              "en": "Track how many output columns reuse one A value."
+            },
+            {
+              "zh": "比较 2T³ 与 2T²。",
+              "en": "Compare 2T³ with 2T²."
+            },
+            {
+              "zh": "16x",
+              "en": "16x"
+            }
+          ]
+        },
+        {
+          "id": "B05-code",
+          "lessonId": "B05",
+          "title": {
+            "zh": "两本搬运账的矩阵乘法",
+            "en": "Matmul with two traffic ledgers"
+          },
+          "kind": "code",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "实现 naive_matmul_step 与 tiled_matmul_step。A、B、out 均用 [i,j] 单元素索引，有 .shape。A.scratch((tile,tile)) 创建共享计数的 SRAM。用局部列表保存输出块的累加值。所有维度均可整除 tile。",
+            "en": "Implement both kernels with scalar [i,j] accesses on A, B and out. Each buffer has .shape. A.scratch((tile,tile)) allocates counted SRAM. Keep output accumulators in local lists. Every dimension is divisible by tile."
+          },
+          "starter": "def naive_matmul_step(A, B, out, tile):\n    # 逐输出累加乘积 / Accumulate each output separately\n    return None\n\ndef tiled_matmul_step(A, B, out, tile):\n    # 装块、复用、写回 / Stage, reuse and store a tile\n    return None\n",
+          "reference": "def naive_matmul_step(A, B, out, tile):\n    for i in range(A.shape[0]):\n        for j in range(B.shape[1]):\n            out[i, j] = sum(A[i, k] * B[k, j] for k in range(A.shape[1]))\n\n\ndef tiled_matmul_step(A, B, out, tile):\n    left = A.scratch((tile, tile))\n    right = B.scratch((tile, tile))\n    for row in range(0, A.shape[0], tile):\n        for col in range(0, B.shape[1], tile):\n            acc = [[0.0] * tile for _ in range(tile)]\n            for base in range(0, A.shape[1], tile):\n                for i in range(tile):\n                    for j in range(tile):\n                        left[i, j] = A[row+i, base+j]\n                        right[i, j] = B[base+i, col+j]\n                for i in range(tile):\n                    for j in range(tile):\n                        acc[i][j] += sum(left[i, k] * right[k, j] for k in range(tile))\n            for i in range(tile):\n                for j in range(tile):\n                    out[row+i, col+j] = acc[i][j]\n",
+          "concepts": [
+            "tiling",
+            "hbm",
+            "shared-memory"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "在每个输出前重新拷贝输入块会浪费复用。",
+              "en": "Reloading a tile per output loses reuse."
+            },
+            {
+              "zh": "把部分和写回 HBM 会多算写入。",
+              "en": "Spilling partial sums to HBM adds writes."
+            }
+          ],
+          "runtimeKey": "b05-tiled-matmul-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": true,
+          "steps": [
+            {
+              "name": "naive_matmul_step",
+              "title": {
+                "zh": "逐输出累加乘积",
+                "en": "Accumulate each output separately"
+              }
+            },
+            {
+              "name": "tiled_matmul_step",
+              "title": {
+                "zh": "装块、复用、写回",
+                "en": "Stage, reuse and store a tile"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "先让朴素实现输出每个点积。",
+              "en": "First compute every dot product in the naive kernel."
+            },
+            {
+              "zh": "将输出矩阵按块的起点遍历。",
+              "en": "Visit output tile origins."
+            },
+            {
+              "zh": "每个归约块先装入两个片上块，然后在内层仅从这两块取数。",
+              "en": "Load both scratch tiles before doing the inner products entirely from them."
+            },
+            {
+              "zh": "实现 naive_matmul_step 与 tiled_matmul_step。A、B、out 均用 [i,j] 单元素索引，有 .shape。A.scratch((tile,tile)) 创建共享计数的 SRAM。用局部列表保存输出块的累加值。所有维度均可整除 tile。",
+              "en": "Implement both kernels with scalar [i,j] accesses on A, B and out. Each buffer has .shape. A.scratch((tile,tile)) allocates counted SRAM. Keep output accumulators in local lists. Every dimension is divisible by tile."
             }
           ]
         }

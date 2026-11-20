@@ -18,7 +18,7 @@ try {
     .flatMap((l) => l.exercises)
     .filter((e) => e.kind === 'code')
 
-  console.log(`Testing ${codeExercises.length} Stage A code exercises in real Docker container...`)
+  console.log(`Testing ${codeExercises.length} cumulative code exercises in real Docker containers...`)
 
   for (const ex of codeExercises) {
     // 1. Reference solution must pass every check

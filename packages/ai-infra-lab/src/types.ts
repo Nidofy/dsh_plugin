@@ -57,7 +57,7 @@ export interface StepContract {
   title: BilingualText
 }
 
-export type SimulatorWidgetKind = 'bit-layout' | 'roofline'
+export type SimulatorWidgetKind = 'bit-layout' | 'roofline' | 'gpu-coalescing'
 
 export interface SimulatorTargetSpec {
   widget: SimulatorWidgetKind
@@ -126,6 +126,7 @@ export interface RunEvent {
   unit?: string
   passed?: boolean
   detail?: string
+  message?: BilingualText
   arithmeticIntensity?: number
   gflops?: number
   bandwidthGBps?: number

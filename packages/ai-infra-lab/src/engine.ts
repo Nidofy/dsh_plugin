@@ -3,6 +3,7 @@ import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { loadCatalog } from './catalog.ts'
 import { evaluateEstimate } from './estimator.ts'
+import { completedWarpAccess } from './sim-stage-b.ts'
 import { acquireOwner } from './owner.ts'
 import { LocalDockerCpuRunner, type RunnerBackend, type RunnerLimits } from './runner.ts'
 import { Store } from './store.ts'
@@ -496,7 +497,11 @@ export class Engine {
 
     let passed = false
     let diagnostic: BilingualText
-    if (exercise.simulator.widget === 'bit-layout') {
+    if (exercise.simulator.widget === 'gpu-coalescing') {
+      passed = completedWarpAccess(payload.observations)
+      diagnostic = passed ? { zh: '已核对合并、分裂和 Bank 冲突的访存记录。', en: 'Verified the coalesced, split and bank-conflicted accesses.' }
+        : exercise.simulator.goalDescription
+    } else if (exercise.simulator.widget === 'bit-layout') {
       const formatsVisited = Array.isArray(payload.formatsVisited) ? payload.formatsVisited.length : 0
       const flips = typeof payload.bitFlips === 'number' ? payload.bitFlips : 0
       passed = formatsVisited >= 2 && flips >= 1
