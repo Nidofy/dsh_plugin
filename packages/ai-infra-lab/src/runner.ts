@@ -151,6 +151,12 @@ export function validateRunEvent(e: RunEvent, expectedRunId: string, expectedSeq
   if (e.value !== undefined && (typeof e.value !== 'number' || !Number.isFinite(e.value))) {
     throw Error('Invalid metric value')
   }
+  if (e.timeline !== undefined && (!Array.isArray(e.timeline) || e.timeline.length > 128 ||
+    !e.timeline.every(t => t && Number.isInteger(t.rank) && t.rank >= 0 && t.rank < 4 &&
+      typeof t.op === 'string' && /^[\w.-]{1,64}$/.test(t.op) && Number.isFinite(t.startMs) &&
+      Number.isFinite(t.endMs) && t.startMs >= 0 && t.endMs >= t.startMs))) {
+    throw Error('通信时间线无效 / Invalid rank timeline')
+  }
   if (e.type === 'check' && typeof e.passed !== 'boolean') {
     throw Error('Check event must provide boolean passed')
   }
@@ -421,6 +427,7 @@ export class LocalDockerCpuRunner implements RunnerBackend {
         r.id,
         String(r.seed),
         JSON.stringify(r.config ?? {}),
+        String(this.limits.outputBytes),
       ]
 
       const creation = await this.dockerCommand(exe, createArgs)
@@ -478,7 +485,7 @@ export class LocalDockerCpuRunner implements RunnerBackend {
                 r.events.push(ev)
                 if (Date.now() - lastFlush > 150) {
                   lastFlush = Date.now()
-                  onUpdate?.({ ...r })
+                  onUpdate?.({ ...r, cleanupPending: containerName })
                 }
               } catch (err) {
                 r.log += `\nProtocol violation: ${String(err)} (${line.slice(0, 120)})`

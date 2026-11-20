@@ -366,7 +366,10 @@ def main():
     payload = json.load(sys.stdin)
 
     with contextlib.redirect_stdout(sys.stderr):
-        if mode == "gloo_selftest":
+        if mode == "distributed":
+            from infra_sim.dist_harness import run
+            out = run(submission_path, payload["step"], payload["case"], payload["size"])
+        elif mode == "gloo_selftest":
             out = _run_gloo_selftest(payload)
         else:
             module = _load_submission(submission_path)

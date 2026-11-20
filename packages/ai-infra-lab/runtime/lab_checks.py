@@ -1,15 +1,20 @@
 """Root-side oracles. Only JSON crosses the learner process boundary."""
 import numpy as np
 import oracle_c
+import oracle_d
 
 STEPS = {
     **oracle_c.STEPS,
+    **oracle_d.STEPS,
     "b03-grid-map-v1": ["global_index_1d", "ceil_grid_2d", "matrix_add_kernel"],
     "b05-tiled-matmul-v1": ["naive_matmul_step", "tiled_matmul_step"],
 }
 
 
-def verify(stage_key, step, rng, call, metric):
+def verify(stage_key, step, rng, call, metric, emit, config):
+    if stage_key in oracle_d.STEPS:
+        return oracle_d.verify(stage_key, step, rng, call, metric, emit, config.get("world_size", 4))
+
     def observe(case):
         return call("lab_step", {"key": stage_key, "step": step, "case": case})
 
@@ -50,6 +55,7 @@ def verify(stage_key, step, rng, call, metric):
 
 GUIDANCE = {
     **oracle_c.GUIDANCE,
+    **oracle_d.GUIDANCE,
     "global_index_1d": ("从块的首元素向右数线程偏移。", "Count the thread offset from the first element of its block."),
     "ceil_grid_2d": ("分别向上取整宽和高，按 x、y 顺序返回。", "Round width and height up separately and return x before y."),
     "matrix_add_kernel": ("检查最后一个块中行、列两个边界和输出写入。", "Check both edges of the last block and write each valid output once."),

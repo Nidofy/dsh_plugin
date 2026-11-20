@@ -11,7 +11,7 @@ import threading
 import traceback
 import numpy as np
 
-MAX_STUDENT_OUTPUT_BYTES = 131072
+MAX_STUDENT_OUTPUT_BYTES = min(131072, max(4096, int(sys.argv[5]))) if len(sys.argv) > 5 else 131072
 STUDENT_TIMEOUT_SEC = 30
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -108,6 +108,10 @@ def _kill_process_group(proc: subprocess.Popen):
             pass
 
 
+class StudentOutputLimit(RuntimeError):
+    pass
+
+
 def call_student(mode: str, payload: dict, timeout: int = STUDENT_TIMEOUT_SEC) -> dict:
     child_env = {
         "PATH": os.environ.get("PATH", "/usr/local/bin:/usr/bin:/bin"),
@@ -148,17 +152,19 @@ def call_student(mode: str, payload: dict, timeout: int = STUDENT_TIMEOUT_SEC) -
     err_buf = bytearray()
     overflow = threading.Event()
     timed_out = False
+    budget_lock = threading.Lock()
 
     def drain(stream, target: bytearray):
         while True:
             chunk = stream.read(4096)
             if not chunk:
                 break
-            if len(target) + len(chunk) > MAX_STUDENT_OUTPUT_BYTES:
-                overflow.set()
-                _kill_process_group(proc)
-                break
-            target.extend(chunk)
+            with budget_lock:
+                if len(out_buf) + len(err_buf) + len(chunk) > MAX_STUDENT_OUTPUT_BYTES:
+                    overflow.set()
+                    _kill_process_group(proc)
+                    break
+                target.extend(chunk)
 
     threads = [
         threading.Thread(daemon=True, target=drain, args=(proc.stdout, out_buf)),
@@ -191,7 +197,7 @@ def call_student(mode: str, payload: dict, timeout: int = STUDENT_TIMEOUT_SEC) -
         print("[student stderr]", err_text[-3500:], file=sys.stderr, flush=True)
 
     if overflow.is_set():
-        raise RuntimeError(f"Student output exceeded {MAX_STUDENT_OUTPUT_BYTES} bytes limit")
+        raise StudentOutputLimit(f"子进程输出已达上限 / Student output exceeded {MAX_STUDENT_OUTPUT_BYTES} bytes limit")
     if timed_out:
         raise TimeoutError(f"Student execution timed out after {timeout}s")
     if proc.returncode != 0:
@@ -1089,7 +1095,9 @@ def run_lab_steps():
         zh, en = lab_checks.GUIDANCE[step]
         extra = ""
         try:
-            passed = bool(lab_checks.verify(key, step, rng, call_student, metric))
+            passed = bool(lab_checks.verify(key, step, rng, call_student, metric, emit, raw_config))
+        except StudentOutputLimit:
+            raise
         except Exception as error:
             passed = False
             extra = " (" + str(error)[-500:] + ")"

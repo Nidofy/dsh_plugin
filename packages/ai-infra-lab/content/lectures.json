@@ -168,5 +168,55 @@
       "zh": "### 每个位置向谁取信息\n\n一个查询向量 q 与每个键 k 点积，再除以 √d 得到相关分数。Softmax 把分数变成权重，按这些权重对值向量 v 求加权和。若有 S 个查询和 S 个键，一头就有 S² 个分数。序列翻倍会让分数存储增长到四倍。\n\n### 给两批指数找同一把尺\n\n设旧最大值 m，分母 l=Σexp(s−m)，未归一化分子 o=Σexp(s−m)v。收到新块后取 M=max(m,max(block))。旧分母和旧分子都乘 exp(m−M)，再加新块按 M 计算的指数和与加权和。初值 m=−∞、l=0、o=0，末尾再返回 o/l。\n\n例如先见分数 2，分母为 1；再见分数 4，旧贡献变成 exp(−2)，新贡献为 1。每一步都能丢掉旧分数。FlashAttention 利用这种精确递推与片上分块减少 HBM 流量。本实验在 CPU 上逐行验证数值和最大张量大小；块尾可以短于 block_size。",
       "en": "### Where each position looks\n\nA query q takes a dot product with each key k and divides by √d to obtain a score. Softmax produces weights and the output is a weighted sum of value vectors v. With S queries and S keys one head has S² scores. Doubling sequence length quadruples score storage.\n\n### Put both groups of exponentials on one scale\n\nKeep maximum m, denominator l=Σexp(s−m) and unnormalized numerator o=Σexp(s−m)v. For the next block choose M=max(m,max(block)). Multiply both old sums by exp(m−M), then add the new block’s exponential sum and weighted sum relative to M. Start from m=−∞, l=0 and o=0. Return o/l after the last block.\n\nSee score 2 first and the denominator is one. When score 4 arrives, the old contribution becomes exp(−2) and the new contribution is one. Old scores can now be discarded. FlashAttention combines this exact recurrence with on-chip tiling to reduce HBM traffic. Here CPU tests verify values and tensor size row by row, including a short final block."
     }
+  },
+  "D01": {
+    "summary": {
+      "zh": "用启动延迟和链路带宽估算一次通信。",
+      "en": "Estimate a transfer from startup latency and link bandwidth."
+    },
+    "body": {
+      "zh": "### 数据离开一张卡以后\n\n同一台机器中的 GPU 可以通过 NVLink 等互联直接交换数据。跨机器常经网卡和交换机，RDMA 允许网卡直接访问已登记缓冲，RoCE 将这种传输放在以太网上。节点内高带宽互联可以达到每秒数百 GB 的量级。实际可用的单向带宽取决于路径、拓扑和竞争。\n\n### 一封短信也要等\n\n每次发送先付固定延迟 α，再按字节数 M 和单向带宽 β 付 M/β 秒。α=5 μs、β=20 GB/s 时，100 B 只需 0.005 μs 的传输时间，启动占了大头。换成 20 MB，传输就需 1 ms，启动的相对影响很小。\n\n把同样多字节拆成十条顺序消息，按字节的部分相同，启动却付十次。这解释了下一节为何要数通信轮次，以及后面为什么要把小梯度装入同一桶。用纸分别列出两项，再转成同一个时间单位。",
+      "en": "### When data leaves a device\n\nGPUs in one machine can exchange data over links such as NVLink. A cross-machine transfer commonly goes through network adapters and switches. RDMA lets an adapter access registered buffers, and RoCE carries this traffic over Ethernet. Intra-node fabrics can carry hundreds of GB/s in aggregate. Usable one-way bandwidth depends on topology and contention.\n\n### Even a short message takes time\n\nPay a startup latency α per message plus M/β seconds for M bytes at one-way bandwidth β. At 5 μs startup and 20 GB/s, 100 B spends only 0.005 μs in transfer. Startup dominates. A 20 MB message spends 1 ms moving bytes, making the same startup relatively small.\n\nSplit the same bytes into ten sequential messages. The byte term stays fixed while startup is paid ten times. This motivates counting collective rounds and later grouping small gradients into buckets. Write the two terms separately and convert them to one unit before adding."
+    }
+  },
+  "D02": {
+    "summary": {
+      "zh": "用点对点消息组成跨 rank 的分片求和与收集。",
+      "en": "Build shard reduction and collection from point-to-point messages."
+    },
+    "body": {
+      "zh": "### 四种通信结果\n\nrank 是进程组内的编号。Broadcast 将一份数据从根复制给大家。All-Gather 将每个 rank 独有的一片按编号拼成完整向量。Reduce-Scatter 先对各 rank 的同位元素求和，最后每人留下和的一片。先分片归约、再收集，就让所有人拿到完整的和，即 All-Reduce。\n\n### 一轮只搬一片\n\n四人排成环，每轮往右发一片并从左收一片。先登记非阻塞接收，再执行发送，最后等待接收完成。三轮后同一片已累加四人的贡献；再用三轮传递已归约的片。四个发送可以同时发生，关键路径是六轮而非二十四轮。\n\n总消息 M 字节，每轮发 M/N 字节，耗时 α+M/(Nβ)。整圈两阶段合计 2(N−1) 个串行轮次。记下每轮的发送编号和接收编号；若最后 rank 0 拿到的是分片 1，数值正确也会拼错位置。",
+      "en": "### Four destinations for the data\n\nA rank identifies a process within a group. Broadcast copies a root’s value to everyone. All-gather assembles distinct rank-owned shards in order. Reduce-scatter sums corresponding entries across ranks and leaves each rank responsible for one slice of the sum. Reducing shards and gathering them gives the full sum on every rank.\n\n### Move one shard each round\n\nFour ranks form a ring. Each sends a shard to the right and receives one from the left. Post the nonblocking receive, send, then wait before reading the receive buffer. Three rounds incorporate all four contributions and another three distribute the reduced shards. Concurrent sends make the critical path six rounds.\n\nFor M total bytes, each round sends M/N bytes and costs α+M/(Nβ). The two phases need 2(N−1) serial rounds. Record send and receive indices for each round. Even correct sums assemble incorrectly if rank zero ends up holding shard one."
+    }
+  },
+  "D03": {
+    "summary": {
+      "zh": "为梯度分桶排出可以和反向计算重叠的时间线。",
+      "en": "Schedule gradient buckets to overlap communication with backward compute."
+    },
+    "body": {
+      "zh": "### 复制权重，分开处理样本\n\n数据并行让每张卡持有完整模型，分别处理不同样本。更新前需要相同的平均梯度才能维持副本一致。反向传播逐层产出梯度，一层完成时更早层仍在计算。若每个小张量都单独通信，启动延迟可能压倒传输本身。\n\n### 两条时间轴\n\n按梯度就绪顺序把相邻张量装入有容量上限的桶。放不下下一个张量就封桶，单个超大张量独占一桶。桶的内容预先已知，因此最后成员一就绪即可发送。开始时间是桶就绪时间与上一桶发送结束时间的较大者。\n\n若第一桶在 4 ms 就绪并通信到 7 ms，而下一层到 9 ms 才完成，则这 3 ms 通信全部藏在计算后面。把整模型合成一桶虽然只启动一次，却必须等到最后一层。画出两种排法并比较最后一个结束时刻。",
+      "en": "### Replicate weights and split examples\n\nIn data parallelism each rank holds the full model and works on different examples. Replicas need the same average gradient before updating. Backward produces gradients layer by layer while earlier layers are still computing. Sending every small tensor separately can make startup cost dominate.\n\n### Two clocks\n\nPack adjacent gradients into capped buckets in readiness order. Close a bucket before the next tensor would exceed capacity. An oversized tensor gets a bucket of its own. Membership is known in advance, so a bucket may launch when its last member becomes ready. Start at the later of that time and the previous transmission’s end.\n\nIf the first bucket is ready at 4 ms and finishes at 7 ms while another layer computes until 9 ms, all 3 ms are hidden under compute. A single huge bucket pays startup only once but waits for the last gradient. Draw both schedules and compare the final completion times."
+    }
+  },
+  "D04": {
+    "summary": {
+      "zh": "用连续两次带动量更新检验 ZeRO-1 分片。",
+      "en": "Verify ZeRO-1 ownership across two momentum updates."
+    },
+    "body": {
+      "zh": "### 找出四份相同的东西\n\n在四路数据并行中，每个 rank 的持久权重、梯度与优化器状态可能各有四份。ZeRO-1 把优化器状态分成四片，每人维护一片；ZeRO-2 再分梯度，ZeRO-3 进一步分参数，并在使用每层前收集权重。FSDP 的完全分片模式使用类似的思路。\n\n### 一次有状态的更新\n\n先把梯度总和以 Reduce-Scatter 分给所有者。除以 rank 数得到平均梯度。本地速度 v←μv+g，分片权重 w←w−ηv，然后 All-Gather 新权重。下一步每人继续用自己的 v。只验证第一步可能看不出动量丢失，连续两步可发现每轮清零的问题。\n\n粗算大 N 通信量时，常以一份完整参数的字节数 P 作单位。基本归约约 2P；完全分片若在反向前重新收集权重，两个权重收集加一次梯度分发约 3P。实际量受分片大小、重用和调度影响。先列出谁持有哪一片，再讨论省下的显存。",
+      "en": "### Find four identical copies\n\nFour data-parallel ranks may hold four persistent copies of weights, gradients and optimizer state. ZeRO-1 partitions optimizer state among the four owners. ZeRO-2 also shards gradients. ZeRO-3 shards parameters and gathers layer weights before use. Fully sharded data parallelism uses a related arrangement.\n\n### One stateful update\n\nReduce-scatter the summed gradient to shard owners, then divide by the rank count to average it. Update the local velocity v←μv+g and weight shard w←w−ηv, then all-gather updated weights. Each rank retains its own v. Checking only the first update misses an implementation that resets momentum every round.\n\nFor large N, express approximate bytes moved per rank in units of one full parameter buffer P. A basic gradient all-reduce moves roughly 2P. Full sharding with a second parameter gather for backward uses about 3P across two gathers and a gradient scatter. Shard size, retention and scheduling affect actual traffic. List ownership first, then count the memory saved."
+    }
+  },
+  "D05": {
+    "summary": {
+      "zh": "在两层 MLP 和流水线中比较计算划分与激活峰值。",
+      "en": "Compare partitioning and peak live activations in an MLP and a pipeline."
+    },
+    "body": {
+      "zh": "### 切分中间维\n\n第一层 XW1 按输出列切开 W1，每个 rank 算一组中间特征。ReLU 独立作用于每个数，仍可本地完成。第二层 W2 按同一隐藏维切行，每人算一份输出部分和。各份形状相同，做一次求和 All-Reduce 就得到普通两层 MLP 的输出。\n\n### 让不同微批通过不同层\n\n流水并行把连续网络层放到不同设备，微批依次流过。每一级每拍只做一次前向或反向。本模型各拍等长，忽略通信。GPipe 先让所有微批完成前向再反向，首级最多留 M 份激活。1F1B 在预热后交替前反向，首级峰值为 min(P,M)。\n\n四级流水线、12 个微批，共用 2×(12+4−1)=30 拍；每级忙 24 拍，空闲率 6/30。对照两种调度，数一个微批的 F 到对应 B 之间还活着多少份。进一步增加 M 会降低气泡，但可能增加 GPipe 的激活压力。",
+      "en": "### Partition the hidden dimension\n\nPartition W1 by output columns. Each rank computes a slice of hidden features in XW1. ReLU is elementwise and remains local. Split W2 by rows along the matching hidden axis. Each rank forms a partial sum with the full output shape. One sum all-reduce reconstructs the ordinary two-layer MLP output.\n\n### Send microbatches through stages\n\nPipeline parallelism puts consecutive layers on separate devices. Microbatches flow through them in order. Each stage handles one forward or backward operation per tick. All ticks here have equal duration and communication is ignored. GPipe completes all forwards before backwards and the first stage holds M activations. After warmup, 1F1B alternates forward and backward, bounding that peak by min(P,M).\n\nFour stages and twelve microbatches take 2×(12+4−1)=30 ticks. Each stage is busy for 24, leaving 6/30 idle. Compare both schedules and count live activations between forward and matching backward. More microbatches lower the bubble fraction but may raise GPipe’s memory bill."
+    }
   }
 }

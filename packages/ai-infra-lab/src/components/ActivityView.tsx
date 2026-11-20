@@ -746,6 +746,14 @@ export function ActivityView({
         </section>
       )}
 
+      {activeRun?.exerciseId === exercise.id && activeRun.events.some(e => e.timeline?.length) && <details>
+        <summary>{{zh:'查看各进程通信时间线',en:'Inspect per-rank communication calls'}[locale]}</summary>
+        <table><thead><tr><th>Rank</th><th>{{zh:'调用',en:'Call'}[locale]}</th>
+          <th>{{zh:'开始 (ms)',en:'Start (ms)'}[locale]}</th><th>{{zh:'结束 (ms)',en:'End (ms)'}[locale]}</th></tr></thead>
+          <tbody>{activeRun.events.flatMap(e => (e.timeline ?? []).map((t,i) =>
+            <tr key={e.seq+'-'+i}><td>{t.rank}</td><td>{t.op}</td><td>{t.startMs.toFixed(2)}</td><td>{t.endMs.toFixed(2)}</td></tr>))}</tbody></table>
+      </details>}
+
       {/* ==================== 4. SIMULATOR EXERCISE ==================== */}
       {exercise.kind === 'simulator' && exercise.simulator && <LessonExplorer key={exercise.id}
         locale={locale} widget={exercise.simulator.widget} measuredPoints={measuredRooflinePoints}

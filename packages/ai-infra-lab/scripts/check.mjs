@@ -20,6 +20,8 @@ if (full) {
     node,
     ['--experimental-transform-types', 'tests/runner-real.ts'],
   ])
+  steps.push(['distributed process limits, missing rank, output budget and hot unload',
+    node, ['--experimental-transform-types', 'tests/runner-distributed-adversarial.ts']])
 }
 
 await mkdir(join(base, '.build'), { recursive: true })

@@ -1,7 +1,7 @@
 {
   "id": "ai-infra-lab",
-  "version": "0.3.0",
-  "stage": "C",
+  "version": "0.4.0",
+  "stage": "D",
   "glossary": [],
   "lessons": [
     {
@@ -2894,6 +2894,805 @@
             {
               "zh": "用一维分数和二维值块完成三个函数。第一步返回 (m,l)，第二步返回 (m,l,o) 的未归一化分子，第三步返回所有查询行。误差须小于 1e-5。",
               "en": "Use 1D scores and a 2D value tile. Return (m,l), then (m,l,o) with an unnormalized numerator, then the stacked output rows. Maximum error must be below 1e-5."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D01",
+      "stage": "D",
+      "title": {
+        "zh": "一次传输的两笔费用",
+        "en": "Two costs of sending a message"
+      },
+      "prerequisites": [
+        "A05",
+        "C02"
+      ],
+      "objectives": [
+        {
+          "zh": "分清节点内和节点间链路",
+          "en": "Distinguish intra-node from inter-node links"
+        },
+        {
+          "zh": "将固定延迟和按字节计费的耗时相加",
+          "en": "Add fixed startup time to byte-dependent transfer time"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "D01-quiz",
+          "lessonId": "D01",
+          "title": {
+            "zh": "判断短消息的瓶颈",
+            "en": "Identify the small-message bottleneck"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "100 B 的消息仅传输 0.005 μs，每次启动花 5 μs，怎样降低十个小消息的总耗时？",
+            "en": "Each 100 B message needs 0.005 μs of transfer and 5 μs of startup. How could ten sequential messages finish sooner?"
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "alpha-beta"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "增大峰值算力不会消除网络启动延迟。",
+              "en": "More compute does not remove network startup."
+            },
+            {
+              "zh": "带宽描述的是字节率。",
+              "en": "Bandwidth is a byte rate."
+            }
+          ],
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "把消息再拆小",
+                  "en": "Split messages further"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "每次发送前等待",
+                  "en": "Wait before each send"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "把小消息合并发送",
+                  "en": "Coalesce the messages"
+                }
+              }
+            ],
+            "correctOptionId": "c"
+          },
+          "hints": [
+            {
+              "zh": "看看哪一项比另一项大。",
+              "en": "Compare the two time terms."
+            },
+            {
+              "zh": "每条消息都会付启动成本。",
+              "en": "Each message pays startup."
+            },
+            {
+              "zh": "相邻的数据可以装进一个连续缓冲。",
+              "en": "Adjacent data can share one packed buffer."
+            },
+            {
+              "zh": "把小消息合并发送",
+              "en": "Coalesce the messages"
+            }
+          ]
+        },
+        {
+          "id": "D01-estimate",
+          "lessonId": "D01",
+          "title": {
+            "zh": "单次传输时间",
+            "en": "Time one transfer"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "α=5 μs，β=20 GB/s，M=2 MB，按十进制容量计算总时间。",
+            "en": "Use decimal units for a 2 MB message at 20 GB/s and 5 μs startup. Give elapsed time."
+          },
+          "starter": "",
+          "reference": "105 us",
+          "concepts": [
+            "alpha-beta"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "不要把微秒当毫秒。",
+              "en": "Keep microseconds distinct from milliseconds."
+            },
+            {
+              "zh": "延迟与传输时间相加。",
+              "en": "Startup and transfer times add."
+            }
+          ],
+          "estimate": {
+            "dimension": "time",
+            "expectedBase": 0.000105,
+            "canonicalDisplay": "105 us",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "写出启动项和搬运项。",
+              "en": "Write the startup and byte terms."
+            },
+            {
+              "zh": "2 MB 是 2×10⁶ B。",
+              "en": "2 MB is 2×10⁶ B."
+            },
+            {
+              "zh": "把 M/β 从秒转换到微秒再加 α。",
+              "en": "Convert M/β from seconds to microseconds before adding α."
+            },
+            {
+              "zh": "105 us",
+              "en": "105 us"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "stage": "D",
+      "title": {
+        "zh": "把求和拆成环上的两圈",
+        "en": "Reduce and distribute around a ring"
+      },
+      "prerequisites": [
+        "D01"
+      ],
+      "objectives": [
+        {
+          "zh": "区分广播、收集和归约",
+          "en": "Distinguish broadcast, gather and reduction"
+        },
+        {
+          "zh": "追踪环上每一片数据的编号",
+          "en": "Track each shard index around a ring"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "D02-estimate",
+          "lessonId": "D02",
+          "title": {
+            "zh": "环上有几轮",
+            "en": "Count ring rounds"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "4 个 rank，先 Reduce-Scatter 再 All-Gather。两阶段总共多少轮？",
+            "en": "Four ranks perform reduce-scatter followed by all-gather. How many rounds in the two phases?"
+          },
+          "starter": "",
+          "reference": "6",
+          "concepts": [
+            "reduce-scatter",
+            "all-gather"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "每个 rank 同时发，不把并发发送相加。",
+              "en": "Simultaneous sends share a round."
+            },
+            {
+              "zh": "一轮发一片，不是整个向量。",
+              "en": "One round moves one shard."
+            }
+          ],
+          "estimate": {
+            "dimension": "scalar",
+            "expectedBase": 6,
+            "canonicalDisplay": "6",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "每一片需要经过其余所有 rank。",
+              "en": "A shard must travel past the other ranks."
+            },
+            {
+              "zh": "两个阶段的轮数相同。",
+              "en": "The phases have equal round counts."
+            },
+            {
+              "zh": "每阶段 N−1 轮。",
+              "en": "Count N−1 rounds per phase."
+            },
+            {
+              "zh": "6",
+              "en": "6"
+            }
+          ]
+        },
+        {
+          "id": "D02-code",
+          "lessonId": "D02",
+          "title": {
+            "zh": "手写环形集合通信",
+            "en": "Build ring collectives"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "仅用 dist.irecv、dist.send 和接收请求的 wait()。reduce_scatter(x) 返回本 rank 的和分片；all_gather(shard) 返回按 rank 顺序拼接的向量；all_reduce(x) 组合前两步。函数名见模板，向量长度可被进程数整除。",
+            "en": "Use only dist.irecv, dist.send and receive work.wait(). Return this rank’s reduced shard, gather shards in rank order, then compose both functions. Use the template names. Vector length is divisible by world size."
+          },
+          "starter": "import torch\nimport torch.distributed as dist\n\ndef ring_reduce_scatter(x):\n    # 将输入归约到本地分片 / Reduce into the rank-local shard\n    return None\n\ndef ring_all_gather(shard):\n    # 按编号收集分片 / Gather shards by index\n    return None\n\ndef ring_all_reduce(x):\n    # 组合两阶段求全量和 / Compose the phases into a full sum\n    return None\n",
+          "reference": "import torch\nimport torch.distributed as dist\n\n\ndef ring_reduce_scatter(x):\n    n, rank = dist.get_world_size(), dist.get_rank()\n    shards = [s.clone() for s in x.chunk(n)]\n    for j in range(n-1):\n        send, recv = (rank-1-j)%n, (rank-2-j)%n\n        buf = torch.empty_like(shards[recv])\n        work = dist.irecv(buf, (rank-1)%n)\n        dist.send(shards[send], (rank+1)%n)\n        work.wait()\n        shards[recv] += buf\n    return shards[rank]\n\n\ndef ring_all_gather(shard):\n    n, rank = dist.get_world_size(), dist.get_rank()\n    parts = [torch.empty_like(shard) for _ in range(n)]\n    parts[rank] = shard\n    for j in range(n-1):\n        work = dist.irecv(parts[(rank-j-1)%n], (rank-1)%n)\n        dist.send(parts[(rank-j)%n], (rank+1)%n)\n        work.wait()\n    return torch.cat(parts)\n\n\ndef ring_all_reduce(x):\n    return ring_all_gather(ring_reduce_scatter(x))\n",
+          "concepts": [
+            "all-reduce",
+            "reduce-scatter",
+            "all-gather"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "全体先阻塞发送可能互相等待。",
+              "en": "Blocking sends before posting receives can stall the ring."
+            },
+            {
+              "zh": "未 wait 就累加会读取尚未填好的数据。",
+              "en": "Accumulating before wait can read unfinished data."
+            }
+          ],
+          "runtimeKey": "d02-ring-collectives-v1",
+          "resourceProfile": "distributed-gloo",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "ring_reduce_scatter",
+              "title": {
+                "zh": "将输入归约到本地分片",
+                "en": "Reduce into the rank-local shard"
+              }
+            },
+            {
+              "name": "ring_all_gather",
+              "title": {
+                "zh": "按编号收集分片",
+                "en": "Gather shards by index"
+              }
+            },
+            {
+              "name": "ring_all_reduce",
+              "title": {
+                "zh": "组合两阶段求全量和",
+                "en": "Compose the phases into a full sum"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "把向量按 rank 数均分，并保留独立缓冲。",
+              "en": "Split the vector evenly and keep independent buffers."
+            },
+            {
+              "zh": "右邻居是 (rank+1)%N，左邻居是 (rank−1)%N。",
+              "en": "The right neighbor is (rank+1)%N and the left is (rank−1)%N."
+            },
+            {
+              "zh": "归约第一轮发送 rank−1 号片，收集第一轮发送本 rank 号片。",
+              "en": "Reduce starts by sending shard rank−1. Gather starts by sending the rank’s own shard."
+            },
+            {
+              "zh": "仅用 dist.irecv、dist.send 和接收请求的 wait()。reduce_scatter(x) 返回本 rank 的和分片；all_gather(shard) 返回按 rank 顺序拼接的向量；all_reduce(x) 组合前两步。函数名见模板，向量长度可被进程数整除。",
+              "en": "Use only dist.irecv, dist.send and receive work.wait(). Return this rank’s reduced shard, gather shards in rank order, then compose both functions. Use the template names. Vector length is divisible by world size."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "stage": "D",
+      "title": {
+        "zh": "让已就绪的梯度先通信",
+        "en": "Communicate gradients as they become ready"
+      },
+      "prerequisites": [
+        "C02",
+        "D02"
+      ],
+      "objectives": [
+        {
+          "zh": "在启动开销和就绪延迟之间取舍",
+          "en": "Trade startup cost against readiness delay"
+        },
+        {
+          "zh": "从层完成时间推出通信区间",
+          "en": "Derive communication intervals from layer completion times"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "D03-quiz",
+          "lessonId": "D03",
+          "title": {
+            "zh": "判断桶何时可发",
+            "en": "Decide when a bucket may launch"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "桶在 5 ms 就绪，前一桶占用链路到 7 ms，当前桶最早什么时候启动？",
+            "en": "A bucket is ready at 5 ms and the previous send holds the link until 7 ms. When can this bucket launch?"
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "gradient-bucketing"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "发不完整的梯度会影响数值。",
+              "en": "Sending an incomplete gradient changes results."
+            },
+            {
+              "zh": "一条串行通信链路不能同时传两个桶。",
+              "en": "A serial link cannot transmit two buckets at once."
+            }
+          ],
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "5 ms",
+                  "en": "5 ms"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "7 ms",
+                  "en": "7 ms"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "12 ms",
+                  "en": "12 ms"
+                }
+              }
+            ],
+            "correctOptionId": "b"
+          },
+          "hints": [
+            {
+              "zh": "检查数据是否齐全。",
+              "en": "Check data readiness."
+            },
+            {
+              "zh": "再检查链路空闲时间。",
+              "en": "Check when the link is free."
+            },
+            {
+              "zh": "两个条件都要满足。",
+              "en": "Both conditions must hold."
+            },
+            {
+              "zh": "7 ms",
+              "en": "7 ms"
+            }
+          ]
+        },
+        {
+          "id": "D03-code",
+          "lessonId": "D03",
+          "title": {
+            "zh": "梯度分桶的回调时间线",
+            "en": "Schedule ready gradient buckets"
+          },
+          "kind": "code",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "输入依次为绝对就绪时刻(ms)、均为正数的梯度字节数、桶容量、启动时间(ms)、带宽(B/ms)。返回每桶 [开始,结束,字节数]。保持输入顺序，单个过大梯度独立成桶。",
+            "en": "Inputs are absolute ready times (ms), positive gradient sizes (bytes), bucket capacity, startup (ms) and bandwidth (B/ms). Return [start,end,bytes] per bucket in input order, allowing one oversized gradient in its own bucket."
+          },
+          "starter": "def bucket_timeline(ready_ms, sizes, cap, alpha_ms, bytes_per_ms):\n    # 按梯度就绪时刻启动桶 / Launch buckets on gradient readiness\n    return None\n",
+          "reference": "def bucket_timeline(ready_ms, sizes, cap, alpha_ms, bytes_per_ms):\n    timeline = []\n    used = 0\n    for i, size in enumerate(sizes):\n        used += size\n        if i+1 == len(sizes) or used + sizes[i+1] > cap:\n            start = max(ready_ms[i], timeline[-1][1] if timeline else 0)\n            timeline.append([start, start + alpha_ms + used / bytes_per_ms, used])\n            used = 0\n    return timeline\n",
+          "concepts": [
+            "gradient-bucketing"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "最后剩余的一小桶也要发送。",
+              "en": "Flush the final partial bucket."
+            },
+            {
+              "zh": "不要等全层反向完成才开始第一桶。",
+              "en": "The first bucket can launch before all backward work finishes."
+            }
+          ],
+          "runtimeKey": "d03-ddp-bucketing-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "bucket_timeline",
+              "title": {
+                "zh": "按梯度就绪时刻启动桶",
+                "en": "Launch buckets on gradient readiness"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "分桶只依赖已知大小。",
+              "en": "Group by known tensor sizes."
+            },
+            {
+              "zh": "一桶中最后成员的回调决定就绪时刻。",
+              "en": "The last member’s callback determines readiness."
+            },
+            {
+              "zh": "记录上一桶结束时刻，再加 α+bytes/带宽。",
+              "en": "Track previous completion and add startup plus bytes/bandwidth."
+            },
+            {
+              "zh": "输入依次为绝对就绪时刻(ms)、均为正数的梯度字节数、桶容量、启动时间(ms)、带宽(B/ms)。返回每桶 [开始,结束,字节数]。保持输入顺序，单个过大梯度独立成桶。",
+              "en": "Inputs are absolute ready times (ms), positive gradient sizes (bytes), bucket capacity, startup (ms) and bandwidth (B/ms). Return [start,end,bytes] per bucket in input order, allowing one oversized gradient in its own bucket."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D04",
+      "stage": "D",
+      "title": {
+        "zh": "把优化器状态分给各个 rank",
+        "en": "Assign optimizer state to individual ranks"
+      },
+      "prerequisites": [
+        "C02",
+        "D02",
+        "D03"
+      ],
+      "objectives": [
+        {
+          "zh": "区分 ZeRO 三个阶段各自切分的状态",
+          "en": "Identify what each ZeRO stage shards"
+        },
+        {
+          "zh": "从本地速度分片重建一致的新权重",
+          "en": "Reconstruct consistent weights from local velocity shards"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "D04-estimate",
+          "lessonId": "D04",
+          "title": {
+            "zh": "每个 rank 的优化器份额",
+            "en": "Size the optimizer shard"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "完整优化器状态共 48 GiB，ZeRO-1 均分到 4 个 rank。每个 rank 持久保存多少状态？",
+            "en": "A full optimizer state is 48 GiB. Under even four-way ZeRO-1 sharding, how much persistent optimizer state does one rank own?"
+          },
+          "starter": "",
+          "reference": "12 GiB",
+          "concepts": [
+            "zero-fsdp"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "题目仅问优化器状态。",
+              "en": "Only optimizer state is requested."
+            },
+            {
+              "zh": "不要将每卡值再乘卡数。",
+              "en": "Do not multiply the per-rank answer by the rank count."
+            }
+          ],
+          "estimate": {
+            "dimension": "bytes",
+            "expectedBase": 12884901888,
+            "canonicalDisplay": "12 GiB",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "先确定分片的对象。",
+              "en": "Identify the partitioned state."
+            },
+            {
+              "zh": "这里四份分片等大。",
+              "en": "The four shards have equal size."
+            },
+            {
+              "zh": "保留原容量单位再除以 4。",
+              "en": "Divide by four in the original capacity unit."
+            },
+            {
+              "zh": "12 GiB",
+              "en": "12 GiB"
+            }
+          ]
+        },
+        {
+          "id": "D04-code",
+          "lessonId": "D04",
+          "title": {
+            "zh": "本地速度分片",
+            "en": "Maintain local velocity shards"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "使用 reduce_scatter_tensor 求本地梯度和。将平均梯度并入动量 v=μv+g，对本 rank 的权重片更新，再用 all_gather 得到完整权重。返回 (完整新权重,本地新速度)。",
+            "en": "Use reduce_scatter_tensor to obtain a local summed gradient. Average, update momentum v=μv+g and update the owned weight slice. Use all_gather to return (full updated weights, local updated velocity)."
+          },
+          "starter": "import torch\nimport torch.distributed as dist\n\ndef zero_stage1(weight, grad, velocity, lr, momentum):\n    # 更新本片后收集全量权重 / Update the owned shard and gather weights\n    return None\n",
+          "reference": "import torch\nimport torch.distributed as dist\n\n\ndef zero_stage1(weight, grad, velocity, lr, momentum):\n    n, rank = dist.get_world_size(), dist.get_rank()\n    shard_grad = torch.empty_like(velocity)\n    dist.reduce_scatter_tensor(shard_grad, grad.contiguous())\n    velocity = momentum * velocity + shard_grad / n\n    shard = weight.chunk(n)[rank] - lr * velocity\n    gathered = [torch.empty_like(shard) for _ in range(n)]\n    dist.all_gather(gathered, shard)\n    return torch.cat(gathered), velocity\n",
+          "concepts": [
+            "zero-fsdp",
+            "reduce-scatter"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "漏除 world_size 会放大学习率。",
+              "en": "Forgetting the average scales the effective learning rate."
+            },
+            {
+              "zh": "每次初始化速度会丢失上一轮动量。",
+              "en": "Resetting velocity loses previous momentum."
+            }
+          ],
+          "runtimeKey": "d04-zero-shard-v1",
+          "resourceProfile": "distributed-gloo",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "zero_stage1",
+              "title": {
+                "zh": "更新本片后收集全量权重",
+                "en": "Update the owned shard and gather weights"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "各 rank 用不同样本得到不同梯度。",
+              "en": "Ranks have different sample gradients."
+            },
+            {
+              "zh": "本地速度和本地权重片形状相同。",
+              "en": "Local velocity and weight shard have the same shape."
+            },
+            {
+              "zh": "all_gather 接收列表按 rank 排列。",
+              "en": "The all_gather receive list follows rank order."
+            },
+            {
+              "zh": "使用 reduce_scatter_tensor 求本地梯度和。将平均梯度并入动量 v=μv+g，对本 rank 的权重片更新，再用 all_gather 得到完整权重。返回 (完整新权重,本地新速度)。",
+              "en": "Use reduce_scatter_tensor to obtain a local summed gradient. Average, update momentum v=μv+g and update the owned weight slice. Use all_gather to return (full updated weights, local updated velocity)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D05",
+      "stage": "D",
+      "title": {
+        "zh": "切张量还是切网络层",
+        "en": "Split tensors or split layers"
+      },
+      "prerequisites": [
+        "C01",
+        "D02"
+      ],
+      "objectives": [
+        {
+          "zh": "推导列切分与行切分的通信位置",
+          "en": "Locate communication in column- and row-parallel layers"
+        },
+        {
+          "zh": "从甘特图读出气泡和激活生存期",
+          "en": "Read idle slots and activation lifetime from a Gantt chart"
+        }
+      ],
+      "simulatorWidget": "pipeline-schedule",
+      "exercises": [
+        {
+          "id": "D05-sim",
+          "lessonId": "D05",
+          "title": {
+            "zh": "比较激活生存期",
+            "en": "Compare activation lifetimes"
+          },
+          "kind": "simulator",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "选微批数大于级数，在相同参数下观察 GPipe 与 1F1B 的首级激活峰值。",
+            "en": "Use more microbatches than stages and compare the first-stage activation peak under GPipe and 1F1B at identical settings."
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "pipeline-bubble"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "不要把微批数当作级数。",
+              "en": "Do not exchange stage and microbatch counts."
+            },
+            {
+              "zh": "激活峰值变化可以发生在相同气泡率下。",
+              "en": "Peak activations may change at equal bubble fraction."
+            }
+          ],
+          "simulator": {
+            "widget": "pipeline-schedule",
+            "goalDescription": {
+              "zh": "选微批数大于级数，在相同参数下观察 GPipe 与 1F1B 的首级激活峰值。",
+              "en": "Use more microbatches than stages and compare the first-stage activation peak under GPipe and 1F1B at identical settings."
+            }
+          },
+          "hints": [
+            {
+              "zh": "一个 F 留下一份激活。",
+              "en": "Each F leaves one live activation."
+            },
+            {
+              "zh": "对应的 B 完成后才能释放。",
+              "en": "Release it after its matching B."
+            },
+            {
+              "zh": "保持 M、P 相同，只改调度。",
+              "en": "Hold M and P fixed and switch schedules."
+            },
+            {
+              "zh": "选微批数大于级数，在相同参数下观察 GPipe 与 1F1B 的首级激活峰值。",
+              "en": "Use more microbatches than stages and compare the first-stage activation peak under GPipe and 1F1B at identical settings."
+            }
+          ]
+        },
+        {
+          "id": "D05-estimate",
+          "lessonId": "D05",
+          "title": {
+            "zh": "多少设备时间空闲",
+            "en": "Find the idle fraction"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "等时前反向、忽略传输，P=4、M=12，流水线气泡占比是多少？可输入百分数。",
+            "en": "With equal forward/backward ticks and no transfer time, what is the bubble fraction at P=4, M=12? Percentages are accepted."
+          },
+          "starter": "",
+          "reference": "20%",
+          "concepts": [
+            "pipeline-bubble"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "分母应包含空闲拍。",
+              "en": "Include idle ticks in the denominator."
+            },
+            {
+              "zh": "20% 的数值写法为 0.2。",
+              "en": "A fraction of 0.2 equals 20%."
+            }
+          ],
+          "estimate": {
+            "dimension": "scalar",
+            "expectedBase": 0.2,
+            "canonicalDisplay": "20%",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "数首尾填充与排空。",
+              "en": "Count filling and draining."
+            },
+            {
+              "zh": "每个阶段执行 2M 个忙拍。",
+              "en": "Each stage has 2M busy ticks."
+            },
+            {
+              "zh": "气泡占比为 (P−1)/(M+P−1)。",
+              "en": "The fraction is (P−1)/(M+P−1)."
+            },
+            {
+              "zh": "20%",
+              "en": "20%"
+            }
+          ]
+        },
+        {
+          "id": "D05-code",
+          "lessonId": "D05",
+          "title": {
+            "zh": "列并行接行并行",
+            "en": "Join column and row parallelism"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "输入 X 在各 rank 相同，W_col 只含第一层的本地输出列，W_row 只含第二层匹配的行。返回完整 MLP 输出，使用一次 dist.all_reduce。",
+            "en": "X is replicated. W_col contains the local output columns of layer one and W_row the matching rows of layer two. Return the full MLP output using one dist.all_reduce."
+          },
+          "starter": "import torch\nimport torch.distributed as dist\n\ndef tp_mlp_forward(x, w_col, w_row):\n    # 在第二层末尾归约部分和 / Reduce partial sums after layer two\n    return None\n",
+          "reference": "import torch\nimport torch.distributed as dist\n\n\ndef tp_mlp_forward(x, w_col, w_row):\n    partial = torch.relu(x @ w_col) @ w_row\n    dist.all_reduce(partial)\n    return partial\n",
+          "concepts": [
+            "tensor-parallelism",
+            "all-reduce"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "先求和再 ReLU 会改变函数。",
+              "en": "Moving the sum before ReLU changes the function."
+            },
+            {
+              "zh": "不要对部分和再除以 rank 数。",
+              "en": "Do not average second-layer partial sums."
+            }
+          ],
+          "runtimeKey": "d05-tp-mlp-v1",
+          "resourceProfile": "distributed-gloo",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "tp_mlp_forward",
+              "title": {
+                "zh": "在第二层末尾归约部分和",
+                "en": "Reduce partial sums after layer two"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "沿中间宽度对齐两个分片。",
+              "en": "Align the shard widths on the hidden axis."
+            },
+            {
+              "zh": "非线性在本地第一层之后。",
+              "en": "Apply the nonlinearity after the local first layer."
+            },
+            {
+              "zh": "对第二个乘法的结果按元素求和。",
+              "en": "Sum the second matmul outputs elementwise."
+            },
+            {
+              "zh": "输入 X 在各 rank 相同，W_col 只含第一层的本地输出列，W_row 只含第二层匹配的行。返回完整 MLP 输出，使用一次 dist.all_reduce。",
+              "en": "X is replicated. W_col contains the local output columns of layer one and W_row the matching rows of layer two. Return the full MLP output using one dist.all_reduce."
             }
           ]
         }

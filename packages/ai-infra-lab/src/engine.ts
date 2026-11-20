@@ -5,6 +5,7 @@ import { loadCatalog } from './catalog.ts'
 import { evaluateEstimate } from './estimator.ts'
 import { completedWarpAccess } from './sim-stage-b.ts'
 import { completedMemoryLedger } from './sim-stage-c.ts'
+import { completedPipeline } from './sim-stage-d.ts'
 import { acquireOwner } from './owner.ts'
 import { LocalDockerCpuRunner, type RunnerBackend, type RunnerLimits } from './runner.ts'
 import { Store } from './store.ts'
@@ -332,6 +333,10 @@ export class Engine {
       cleanConfig[k] = v
     }
 
+    if ('world_size' in cleanConfig && (exercise.resourceProfile !== 'distributed-gloo' ||
+        ![2, 3, 4].includes(cleanConfig.world_size!))) {
+      throw Error('Gloo 实验只接受 2、3 或 4 个进程 / Gloo labs accept 2, 3 or 4 ranks')
+    }
     const help = this.store.help(id)
     const run: RunRecord = {
       id: randomUUID(),
@@ -498,7 +503,10 @@ export class Engine {
 
     let passed = false
     let diagnostic: BilingualText
-    if (exercise.simulator.widget === 'memory-waterfall') {
+    if (exercise.simulator.widget === 'pipeline-schedule') {
+      passed = completedPipeline(payload.observations)
+      diagnostic = passed ? {"zh":"已核对两种调度的激活峰值和气泡。","en":"Verified activation peaks and bubbles for both schedules."} : exercise.simulator.goalDescription
+    } else if (exercise.simulator.widget === 'memory-waterfall') {
       passed = completedMemoryLedger(payload.observations)
       diagnostic = passed ? {"zh":"已核对重计算与优化器的两组对照。","en":"Verified both checkpointing and optimizer comparisons."} : exercise.simulator.goalDescription
     } else if (exercise.simulator.widget === 'gpu-coalescing') {

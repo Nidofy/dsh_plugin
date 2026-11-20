@@ -570,5 +570,157 @@
       "en": "Update a running sum after each page."
     },
     "firstLessonId": "C04"
+  },
+  {
+    "term": "alpha-beta",
+    "aliases": [
+      "α-β model"
+    ],
+    "title": {
+      "zh": "启动延迟与带宽模型",
+      "en": "α-β model"
+    },
+    "short": {
+      "zh": "把每次启动和按量传输分别计时。",
+      "en": "Account separately for per-message startup and variable transfer time."
+    },
+    "analogy": {
+      "zh": "叫车等候和按里程行驶分别耗时。",
+      "en": "Waiting for a taxi and traveling the distance both take time."
+    },
+    "firstLessonId": "D01"
+  },
+  {
+    "term": "all-reduce",
+    "aliases": [
+      "All-reduce"
+    ],
+    "title": {
+      "zh": "全归约",
+      "en": "All-reduce"
+    },
+    "short": {
+      "zh": "所有参与者都收到逐元素归约后的完整结果。",
+      "en": "All participants receive the full elementwise reduction."
+    },
+    "analogy": {
+      "zh": "每家分店拿到相同的全店销售总表。",
+      "en": "Each shop gets the same chain-wide totals."
+    },
+    "firstLessonId": "D02"
+  },
+  {
+    "term": "reduce-scatter",
+    "aliases": [
+      "Reduce-scatter"
+    ],
+    "title": {
+      "zh": "归约分发",
+      "en": "Reduce-scatter"
+    },
+    "short": {
+      "zh": "每个 rank 只收到总结果的一片。",
+      "en": "Each rank receives one slice of the reduced result."
+    },
+    "analogy": {
+      "zh": "各人负责汇总表中的一段。",
+      "en": "Each owner receives one part of the summary."
+    },
+    "firstLessonId": "D02"
+  },
+  {
+    "term": "all-gather",
+    "aliases": [
+      "All-gather"
+    ],
+    "title": {
+      "zh": "全收集",
+      "en": "All-gather"
+    },
+    "short": {
+      "zh": "收集各 rank 的分片并按编号拼接。",
+      "en": "Collect rank-owned shards in order."
+    },
+    "analogy": {
+      "zh": "所有人交换各自负责的章节，得到整本。",
+      "en": "Exchange separately owned chapters to assemble a book."
+    },
+    "firstLessonId": "D02"
+  },
+  {
+    "term": "gradient-bucketing",
+    "aliases": [
+      "Gradient bucketing"
+    ],
+    "title": {
+      "zh": "梯度分桶",
+      "en": "Gradient bucketing"
+    },
+    "short": {
+      "zh": "把小梯度合并为一个通信单元。",
+      "en": "Group small gradients into a single communication unit."
+    },
+    "analogy": {
+      "zh": "凑齐一箱就发车，下一箱继续装。",
+      "en": "Ship each filled crate while packing the next."
+    },
+    "firstLessonId": "D03"
+  },
+  {
+    "term": "zero-fsdp",
+    "aliases": [
+      "ZeRO / FSDP"
+    ],
+    "title": {
+      "zh": "状态分片",
+      "en": "ZeRO / FSDP"
+    },
+    "short": {
+      "zh": "分摊优化器、梯度或参数的持久存储，按需交换分片。",
+      "en": "Partition persistent optimizer state, gradients or parameters and exchange shards as needed."
+    },
+    "analogy": {
+      "zh": "分工保管不同账页。",
+      "en": "Different owners keep different ledger pages."
+    },
+    "firstLessonId": "D04"
+  },
+  {
+    "term": "tensor-parallelism",
+    "aliases": [
+      "Tensor parallelism"
+    ],
+    "title": {
+      "zh": "张量并行",
+      "en": "Tensor parallelism"
+    },
+    "short": {
+      "zh": "在多个设备间分割同一层的矩阵运算。",
+      "en": "Split the matrix computation of a single layer across devices."
+    },
+    "analogy": {
+      "zh": "把同一张大表的列分给不同计算者。",
+      "en": "Divide columns of one large table among workers."
+    },
+    "firstLessonId": "D05"
+  },
+  {
+    "term": "pipeline-bubble",
+    "aliases": [
+      "Pipeline bubble"
+    ],
+    "title": {
+      "zh": "流水线气泡",
+      "en": "Pipeline bubble"
+    },
+    "short": {
+      "zh": "因依赖未满足而空闲的级与时间格。",
+      "en": "Idle stage-time slots caused by unsatisfied dependencies."
+    },
+    "analogy": {
+      "zh": "流水线上工位等待下一件产品。",
+      "en": "A station waits for its next workpiece."
+    },
+    "firstLessonId": "D05"
   }
 ]
