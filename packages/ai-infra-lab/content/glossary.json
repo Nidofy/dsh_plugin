@@ -722,5 +722,157 @@
       "en": "A station waits for its next workpiece."
     },
     "firstLessonId": "D05"
+  },
+  {
+    "term": "prefill",
+    "aliases": [
+      "Prefill"
+    ],
+    "title": {
+      "zh": "提示词预填充",
+      "en": "Prefill"
+    },
+    "short": {
+      "zh": "并行处理已知提示位置并建立初始 KV。",
+      "en": "Process known prompt positions together and build their KV entries."
+    },
+    "analogy": {
+      "zh": "一次读完整段题干。",
+      "en": "Read the entire question in one pass."
+    },
+    "firstLessonId": "E01"
+  },
+  {
+    "term": "decode",
+    "aliases": [
+      "Decode"
+    ],
+    "title": {
+      "zh": "逐 token 解码",
+      "en": "Decode"
+    },
+    "short": {
+      "zh": "使用当前上下文逐步生成下一个 token。",
+      "en": "Generate each next token using the current context."
+    },
+    "analogy": {
+      "zh": "写下一字后才能确定接下来的文字。",
+      "en": "Each new word conditions what comes next."
+    },
+    "firstLessonId": "E01"
+  },
+  {
+    "term": "kv-cache",
+    "aliases": [
+      "KV cache"
+    ],
+    "title": {
+      "zh": "键值缓存",
+      "en": "KV cache"
+    },
+    "short": {
+      "zh": "保留每层历史位置的键和值供后续查询。",
+      "en": "Keep past keys and values per layer for later queries."
+    },
+    "analogy": {
+      "zh": "记下已经查好的索引和资料。",
+      "en": "Retain previously looked-up indices and values."
+    },
+    "firstLessonId": "E01"
+  },
+  {
+    "term": "ttft-tpot",
+    "aliases": [
+      "TTFT / TPOT"
+    ],
+    "title": {
+      "zh": "首 token 与后续间隔",
+      "en": "TTFT / TPOT"
+    },
+    "short": {
+      "zh": "从请求到首输出的等待和后续输出之间的平均间隔。",
+      "en": "Wait from arrival to first output and mean gap between later outputs."
+    },
+    "analogy": {
+      "zh": "等第一盘上桌和后续上菜间隔是两项体验。",
+      "en": "Waiting for the first course and pacing later courses are distinct."
+    },
+    "firstLessonId": "E02"
+  },
+  {
+    "term": "paged-attention",
+    "aliases": [
+      "PagedAttention"
+    ],
+    "title": {
+      "zh": "分页键值缓存",
+      "en": "PagedAttention"
+    },
+    "short": {
+      "zh": "通过块表将逻辑序列映射到可共享的物理 KV 块。",
+      "en": "Map logical sequences onto shareable physical KV blocks."
+    },
+    "analogy": {
+      "zh": "目录指向分散存放的书页。",
+      "en": "A directory points to separate stored pages."
+    },
+    "firstLessonId": "E02"
+  },
+  {
+    "term": "continuous-batching",
+    "aliases": [
+      "Continuous batching"
+    ],
+    "title": {
+      "zh": "连续批处理",
+      "en": "Continuous batching"
+    },
+    "short": {
+      "zh": "在迭代边界用新请求补入空闲槽位。",
+      "en": "Refill available slots with waiting requests between iterations."
+    },
+    "analogy": {
+      "zh": "收银台空出就迎接下一位。",
+      "en": "The next customer takes an available checkout."
+    },
+    "firstLessonId": "E02"
+  },
+  {
+    "term": "group-quantization",
+    "aliases": [
+      "Group quantization"
+    ],
+    "title": {
+      "zh": "分组量化",
+      "en": "Group quantization"
+    },
+    "short": {
+      "zh": "相邻若干权重使用独立比例编码。",
+      "en": "Encode each local group of weights using its own scale."
+    },
+    "analogy": {
+      "zh": "大件与小件用不同量程的尺。",
+      "en": "Use different measuring ranges for large and small items."
+    },
+    "firstLessonId": "E03"
+  },
+  {
+    "term": "speculative-decoding",
+    "aliases": [
+      "Speculative decoding"
+    ],
+    "title": {
+      "zh": "投机解码",
+      "en": "Speculative decoding"
+    },
+    "short": {
+      "zh": "由草稿模型提议多步，大模型并行核验。",
+      "en": "A draft proposes several tokens for parallel verification by the target."
+    },
+    "analogy": {
+      "zh": "先写几个候选词，再一起校对。",
+      "en": "Draft several candidate words and proofread them together."
+    },
+    "firstLessonId": "E03"
   }
 ]

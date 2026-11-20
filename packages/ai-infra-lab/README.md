@@ -6,6 +6,8 @@ A bilingual, CPU-first course in AI infrastructure with worked examples, graded 
 
 ## 课程与工作台
 
+- **E01–E03 / X01 · 推理与容量规划** — KV 增量解码、分页共享、连续批处理、分组 INT4 和 8 卡预算审计。Compare serving policies and qualify plans for 70B inference and 13B training.
+
 - **D01–D05 · 分布式训练** — 实际四进程 Gloo 环形通信、ZeRO-1 和张量并行，配合梯度分桶与流水线调度模型。Run four local ranks and compare their communication traces with the pipeline model.
 
 - **C01–C04 · 训练系统** — 显式激活缓存、显存瀑布、动态损失缩放和三步在线 Attention。Trace tensor lifetimes, audit optimizer state, and stream stable attention over tiles.

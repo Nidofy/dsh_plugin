@@ -51,6 +51,10 @@ const UNITS: Record<string, UnitEntry> = {
   'mib/s': { dimension: 'bandwidth', factor: 1024 ** 2 },
   'gib/s': { dimension: 'bandwidth', factor: 1024 ** 3 },
 
+  'tok/s': { dimension: 'token_rate', factor: 1 },
+  'tokens/s': { dimension: 'token_rate', factor: 1 },
+  'ktok/s': { dimension: 'token_rate', factor: 1000 },
+
   // Time (seconds)
   s: { dimension: 'time', factor: 1 },
   sec: { dimension: 'time', factor: 1 },
@@ -81,6 +85,7 @@ const DIMENSION_HINTS: Record<UnitDimension, BilingualText> = {
     zh: '带宽单位（如 MB/s、GB/s、GiB/s、TB/s）',
     en: 'a bandwidth unit (e.g. MB/s, GB/s, GiB/s, TB/s)',
   },
+  token_rate: { zh: '每秒生成的 token 数（tok/s 或 ktok/s）', en: 'an output rate in tok/s or ktok/s' },
   time: {
     zh: '时间单位（如 ns、us、ms、s）',
     en: 'a time unit (e.g. ns, us, ms, s)',

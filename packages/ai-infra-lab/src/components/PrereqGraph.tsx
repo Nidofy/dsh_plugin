@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { completesActivity } from '../progress.ts'
 import type { Evidence, Lesson, Locale } from '../types.ts'
 import { pickText, tr } from './i18n.ts'
 
@@ -83,7 +84,7 @@ export function PrereqGraph({
 
     const passedExercises = new Set(
       evidence
-        .filter(e => e.result === 'passed' || (e.kind === 'explanation' && e.result === 'inconclusive'))
+        .filter(completesActivity)
         .map((e) => e.exerciseId),
     )
     const readSet = new Set(readLessons)
@@ -93,9 +94,10 @@ export function PrereqGraph({
       NODE_H + PAD_Y * 2,
       maxRows * NODE_H + (maxRows - 1) * ROW_GAP + PAD_Y * 2,
     )
+    const firstCol = Math.min(...columns.keys())
     const totalWidth = Math.max(
       320,
-      (maxCol + 1) * NODE_W + maxCol * COL_GAP + PAD_X * 2,
+      (maxCol - firstCol + 1) * NODE_W + (maxCol - firstCol) * COL_GAP + PAD_X * 2,
     )
 
     const positioned: PositionedNode[] = []
@@ -106,7 +108,7 @@ export function PrereqGraph({
       const colContentH = bucket.length * NODE_H + Math.max(0, bucket.length - 1) * ROW_GAP
       const startY = Math.round((totalHeight - colContentH) / 2)
       bucket.forEach((lesson, row) => {
-        const x = PAD_X + col * (NODE_W + COL_GAP)
+        const x = PAD_X + (col - firstCol) * (NODE_W + COL_GAP)
         const y = startY + row * (NODE_H + ROW_GAP)
         const isRead = readSet.has(lesson.id)
         const isFastTracked = fastSet.has(lesson.id)

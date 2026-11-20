@@ -13,6 +13,9 @@ it('counts aligned, shifted, strided and broadcast words using unique addresses'
   const broadcast = warpAccess({ ...b, broadcast: true })
   assert.equal(broadcast.maxWayConflict, 1)
   assert.equal(broadcast.usefulBytes, 4)
+  assert.equal(broadcast.bankDistribution[0]!.lanes.length, 32)
+  assert.equal(broadcast.bankDistribution[0]!.ways, 1)
+  assert.equal(warpAccess(b).bankDistribution[0]!.ways, 32)
   assert.equal(completedWarpAccess([a,b]), true)
   for (const invalid of [[a], [b], [a,b,null], [a,{ ...b, stride: 33 }], Array(33).fill(a), true]) {
     assert.equal(completedWarpAccess(invalid), false)

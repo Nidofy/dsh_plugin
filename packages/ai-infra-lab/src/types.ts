@@ -31,6 +31,7 @@ export type UnitDimension =
   | 'rate_flops'
   | 'bandwidth'
   | 'time'
+  | 'token_rate'
 
 export interface EstimateSpec {
   dimension: UnitDimension
@@ -57,7 +58,7 @@ export interface StepContract {
   title: BilingualText
 }
 
-export type SimulatorWidgetKind = 'bit-layout' | 'roofline' | 'gpu-coalescing' | 'memory-waterfall' | 'pipeline-schedule'
+export type SimulatorWidgetKind = 'bit-layout' | 'roofline' | 'gpu-coalescing' | 'memory-waterfall' | 'pipeline-schedule' | 'serving-scheduler' | 'capacity-planner'
 
 export interface SimulatorTargetSpec {
   widget: SimulatorWidgetKind

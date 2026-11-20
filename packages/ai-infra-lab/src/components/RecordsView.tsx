@@ -98,6 +98,10 @@ export function RecordsView({
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.currentTarget.files?.[0]
     if (!file) return
+    if (file.size > 4_000_000) {
+      setIoMessage({zh:'文件超过 4 MB，无法导入。',en:'The file exceeds the 4 MB import limit.'}[locale])
+      return
+    }
     const reader = new FileReader()
     reader.onload = () => {
       if (typeof reader.result === 'string') {

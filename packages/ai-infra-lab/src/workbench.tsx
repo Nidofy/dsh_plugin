@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { css } from './client-style.ts'
+import { completesActivity } from './progress.ts'
 import { ActivityView } from './components/ActivityView.tsx'
 import { LessonExplorer } from './components/LessonExplorer.tsx'
 import { EnvironmentBanner } from './components/EnvironmentBanner.tsx'
@@ -610,7 +611,7 @@ export function Workbench({ api }: { readonly api: InfraLabApi }) {
               const read = overview.readLessons.includes(item.id)
               const fast = overview.fastTrackedLessons.includes(item.id)
               const doneCount = item.exercises.filter((ex) =>
-                overview.evidence.some((ev) => ev.exerciseId === ex.id && ev.kind !== 'reading'),
+                overview.evidence.some(ev => ev.exerciseId === ex.id && completesActivity(ev)),
               ).length
 
               return (

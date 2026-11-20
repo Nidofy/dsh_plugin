@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
+import { createServer } from 'node:http'
 import { dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { Script } from 'node:vm'
@@ -14,6 +15,7 @@ const mainRepo = existsSync(join(repo, '.build/official-runtime-rc5'))
   : resolve(repo, '../..')
 
 const sourceManifest = JSON.parse(await readFile(join(pkg, 'package.json'), 'utf8'))
+const unitsByVersion = { '0.2.0': 13, '0.3.0': 17, '0.4.0': 22, '0.5.0': 26 }
 const archive = join(pkg, `${sourceManifest.name}-${sourceManifest.version}.tgz`)
 assert.ok(existsSync(archive), `Missing packed tarball: ${archive}`)
 
@@ -33,14 +35,16 @@ try {
     ['0.2.1-rc.2', 'official-runtime'],
     ['0.2.1-rc.5', 'official-runtime-rc5'],
   ]) {
+    const laneStage = join(stage, label)
+    process.env.DSH_HOME = join(laneStage, 'home')
     const runtimeRoot = join(mainRepo, '.build', runtimeSub)
     const runtimeReq = createRequire(join(runtimeRoot, 'package.json'))
+    assert.equal(runtimeReq('@deepseek-ai/dsh/package.json').version, label)
     const { runProfilePnpm } = await import(
       pathToFileURL(runtimeReq.resolve('@deepseek-ai/dsh-plugin-manager/operations')).href
     )
     const boot = await import(pathToFileURL(runtimeReq.resolve('@deepseek-ai/dsh-app-boot')).href)
 
-    const laneStage = join(stage, label)
     const profile = join(laneStage, 'home/profiles/qualification')
     const store = join(laneStage, 'empty-store')
     await mkdir(profile, { recursive: true })
@@ -96,6 +100,10 @@ try {
     const manifest = JSON.parse(await readFile(join(installedDir, 'package.json'), 'utf8'))
 
     // 1. Official compatibility check
+    assert.equal(manifest.engines.dsh, '>=0.2.1-rc.2 <0.3.0-0')
+    for (const [peer, range] of Object.entries(manifest.peerDependencies)) {
+      if (peer.startsWith('@deepseek-ai/dsh-')) assert.equal(range, manifest.engines.dsh)
+    }
     const compatIssue = boot.evaluatePluginCompatibility(manifest, {})
     assert.equal(compatIssue, undefined, `[${label}] rejected: ${JSON.stringify(compatIssue)}`)
 
@@ -152,18 +160,40 @@ try {
     const { Context, Service } = await import(pathToFileURL(runtimeReq.resolve('@deepseek-ai/cordis')).href)
     class Transport extends Service { constructor(ctx) { super(ctx, 'connection') } }
     const ctx = new Context()
+    const server = createServer((req, res) => {
+      void ctx.waterfall('connection/request', req, res, async () => {
+        res.statusCode = 404
+        res.end('{}')
+      })
+    })
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve))
+    const endpoint = `http://127.0.0.1:${server.address().port}/api/ai-infra-lab/rpc`
+    const overview = () => fetch(endpoint, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ method: 'overview', args: [] }),
+    })
     try {
       await ctx.plugin(Transport)
       for (let cycle = 0; cycle < 2; cycle++) {
         const fiber = await ctx.plugin(hostMod, hostMod.Config({ dataRoot: join(profile, 'ai-infra-lab') }))
+        const response = await overview()
+        assert.equal(response.status, 200)
+        const data = await response.json()
+        assert.equal(data.catalog.version, manifest.version)
+        assert.equal(data.catalog.lessons.length, unitsByVersion[manifest.version])
         await fiber.dispose()
+        assert.equal((await overview()).status, 404)
       }
-    } finally { await ctx.fiber.dispose() }
+    } finally {
+      await ctx.fiber.dispose()
+      server.closeAllConnections()
+      await new Promise(resolve => server.close(resolve))
+    }
     const engine = await hostMod.Engine.open(join(profile, 'ai-infra-lab'))
     try {
       assert.equal(engine.catalog.version, manifest.version)
-      const counts = { '0.2.0': 13, '0.3.0': 17, '0.4.0': 22, '0.5.0': 26 }
-      assert.equal(engine.overview().catalog.lessons.length, counts[manifest.version])
+      assert.equal(engine.overview().catalog.lessons.length, unitsByVersion[manifest.version])
     } finally { await engine.close() }
     console.log(`PASS [${label}] installed Host/Client load, lifecycle and catalog integrity`)
   }

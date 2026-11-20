@@ -218,5 +218,45 @@
       "zh": "### 切分中间维\n\n第一层 XW1 按输出列切开 W1，每个 rank 算一组中间特征。ReLU 独立作用于每个数，仍可本地完成。第二层 W2 按同一隐藏维切行，每人算一份输出部分和。各份形状相同，做一次求和 All-Reduce 就得到普通两层 MLP 的输出。\n\n### 让不同微批通过不同层\n\n流水并行把连续网络层放到不同设备，微批依次流过。每一级每拍只做一次前向或反向。本模型各拍等长，忽略通信。GPipe 先让所有微批完成前向再反向，首级最多留 M 份激活。1F1B 在预热后交替前反向，首级峰值为 min(P,M)。\n\n四级流水线、12 个微批，共用 2×(12+4−1)=30 拍；每级忙 24 拍，空闲率 6/30。对照两种调度，数一个微批的 F 到对应 B 之间还活着多少份。进一步增加 M 会降低气泡，但可能增加 GPipe 的激活压力。",
       "en": "### Partition the hidden dimension\n\nPartition W1 by output columns. Each rank computes a slice of hidden features in XW1. ReLU is elementwise and remains local. Split W2 by rows along the matching hidden axis. Each rank forms a partial sum with the full output shape. One sum all-reduce reconstructs the ordinary two-layer MLP output.\n\n### Send microbatches through stages\n\nPipeline parallelism puts consecutive layers on separate devices. Microbatches flow through them in order. Each stage handles one forward or backward operation per tick. All ticks here have equal duration and communication is ignored. GPipe completes all forwards before backwards and the first stage holds M activations. After warmup, 1F1B alternates forward and backward, bounding that peak by min(P,M).\n\nFour stages and twelve microbatches take 2×(12+4−1)=30 ticks. Each stage is busy for 24, leaving 6/30 idle. Compare both schedules and count live activations between forward and matching backward. More microbatches lower the bubble fraction but may raise GPipe’s memory bill."
     }
+  },
+  "E01": {
+    "summary": {
+      "zh": "用算术强度比较预填充和增量解码。",
+      "en": "Compare prefill and incremental decode through arithmetic intensity."
+    },
+    "body": {
+      "zh": "### 同一套权重，两种工作量\n\n提示词到齐后，Prefill 可以把许多位置放在同一个矩阵里，一次读取的权重参与多行运算。Decode 要等上一个 token 才知道下一个输入。单路解码时，同样多的权重只服务一行，算术强度低，常受显存带宽限制。长提示或高并发会改变这个判断，可在 Roofline 上移动工作点。\n\n### 保存以后仍会被读的部分\n\n因果 Attention 中，过去位置的键 K 和值 V 不随新 token 改变。预先准备两个缓冲，每步在当前位置写一行，当前 q 只和有效键前缀点积，再按权重汇总值。可用完整因果 Attention 最后一行作参照。未来位置尚未写入，必须从分母中排除。\n\n一条序列共需 2×层数×KV 头数×每头宽度×序列长×元素字节数。这里的 2 代表 K 和 V。分组查询中多个查询头可以共享一个 KV 头，须按实际 KV 头数计费。实验在三种序列长度下计时，先看数值误差，再解释小矩阵上调度开销对曲线的影响。",
+      "en": "### The same weights do two jobs\n\nDuring prefill many prompt positions share a matrix multiplication. A weight load serves many rows. Autoregressive decode waits for the previous token to determine the next input. In single-stream decode the same weights serve only one row, giving low arithmetic intensity and often a bandwidth limit. Prompt length and batching can move the point on the roofline.\n\n### Save what later queries need\n\nPast keys and values in causal attention do not change when a token arrives. Preallocate two buffers and write one row to each at the current position. The new query scores only the live key prefix and combines its values. Compare with the final row of full causal attention. Unwritten future positions must stay out of the denominator.\n\nPer-sequence cache bytes are 2×layers×KV heads×head width×sequence length×bytes per element. The two stands for K and V. Grouped-query attention shares KV heads across query heads, so charge the actual KV count. The lab times three sequence lengths. Check numerical equivalence first, then consider dispatch overhead on these small CPU matrices."
+    }
+  },
+  "E02": {
+    "summary": {
+      "zh": "用块表和引用计数管理 KV，再追踪每次迭代的请求。",
+      "en": "Map KV through pages and reference counts, then follow requests iteration by iteration."
+    },
+    "body": {
+      "zh": "### 一个虚拟连续的序列\n\n若每条请求开始就预留最长序列的连续空间，短请求会留下大量空位，已释放的小孔也可能装不下新长序列。PagedAttention 的思路是把 KV 切成定长块。每页 16 个 token 时，逻辑位置 18 查询块表第 1 项、页内偏移 2。页面可以散布在物理池中，最后一页仍可能留空。\n\n两个请求共享 17 个前缀 token，可以共同引用前两页。引用计数记录每页被多少张块表持有。若要在共享的半满尾页写入不同 token，先申请一页、复制旧内容，再修改写入者的块表。释放序列只减少引用，降到零才归还物理页。\n\n### 哪些请求在同一拍\n\n静态批次等最长请求结束后才接下一批。连续批处理在迭代边界回收完成请求、加入到达者。本模型按入场顺序为未来增长预留预算并按需占页；每拍耗时为 1 ms + 新提示词数/8 ms + 活跃请求数/4 ms。比较同一轨迹的平均与 P95 首 token 延迟，再看生成间隔和总吞吐，留意新长提示带来的等待。",
+      "en": "### Give a sequence a logical address space\n\nReserving one contiguous maximum-length region per request wastes slots on short requests. Holes left by freed requests may also be too small for a new long request. PagedAttention maps logical KV positions to fixed-size blocks. With 16 tokens per page, position 18 uses block-table entry one and offset two. Physical pages can be scattered and the final page can still have unused slots.\n\nTwo requests sharing 17 prefix tokens can point at the same two pages. A reference count records how many tables own each page. To append a different token to a shared partial tail, allocate a fresh page, copy the contents and redirect the writer’s table. Releasing a sequence drops references. Return a page to the free pool only when its count reaches zero.\n\n### Decide who participates in a tick\n\nA static cohort waits for its longest request before admitting another cohort. Continuous batching releases finished requests and admits arrivals between iterations. This model reserves growth capacity in arrival order and materializes pages on demand. An iteration costs 1 ms plus new prompt tokens/8 ms plus advancing requests/4 ms. Compare mean and P95 time to first token on an identical trace, then examine output intervals and throughput when a long prompt joins."
+    }
+  },
+  "E03": {
+    "summary": {
+      "zh": "比较按组量化误差，并用带宽解释解码上限。",
+      "en": "Compare grouped quantization error and use bandwidth to bound decoding."
+    },
+    "body": {
+      "zh": "### 给一组数配一把刻度尺\n\n对称四位量化在本题使用整数 −7 到 7，每组比例为 max(abs(w))/7。将 w/scale 四舍六入到最近偶数并限制范围，解码时乘回 scale。全零组取比例 1。相邻两项各用一个四位编码，偶数索引在低四位，奇数索引在高四位。奇数长度的末尾补零。\n\n如果一组权重集中在 ±0.5，另一组却有 60，全局比例约 8.57，小值大多量化成零。给两组各自刻度能保留更多小值。算均方误差时，先逐项做差、平方，再取平均；还需记录每组比例所占的额外字节。\n\n纯读权重的解码上限是每秒可搬字节数除以每 token 要搬的字节数。FP16 改成打包 INT4，权重搬运约降到四分之一。投机解码从另一方向改善利用率：小模型先提议多个 token，大模型并行验证提议，接受的前缀越长越可能摊薄验证成本。拒绝时需按正确的采样规则修正。",
+      "en": "### Give each group its own scale\n\nThis symmetric four-bit exercise uses integers −7 through 7. The scale is max(abs(w))/7 per group. Round w/scale to nearest with ties to even, clamp, then multiply by the scale when decoding. Use scale one for an all-zero group. Pack even-indexed codes in the low nibble and odd-indexed codes in the high nibble. Pad an odd final length with zero.\n\nIf one group lies around ±0.5 and another contains 60, a global scale near 8.57 maps most small weights to zero. Group-specific scales preserve more resolution for the small group. Compute mean squared error by squaring individual reconstruction errors then averaging. Budget storage for the group scales too.\n\nA weight-streaming decode ceiling is bytes per second divided by weight bytes per token. Packed INT4 cuts that traffic to roughly one quarter of FP16 before scale overhead. Speculative decoding improves utilization differently: a small model proposes several tokens that a larger model verifies in parallel. Longer accepted prefixes amortize verification cost. Rejected proposals require the appropriate sampling correction."
+    }
+  },
+  "X01": {
+    "summary": {
+      "zh": "同时提交可复算的推理、训练两套方案和设计说明。",
+      "en": "Submit reproducible serving and training budgets with a design rationale."
+    },
+    "body": {
+      "zh": "### 把目标变成逐项检查\n\n机器有 8 张 80 GiB 卡。推理任务要用 70B 模型服务至少 32 路并发，首 token 不超过 500 ms。训练任务用 13B 模型，批量至少 8，步时不超过 2 s。模型假设每卡有效 200 TFLOP/s、链路 400 GB/s、启动 3 μs；两项任务的通信预算分别为 100 和 500 ms。先写下目标与单位，再试不同精度和并行度。\n\n### 跟踪一张卡持有哪些数据\n\nTP×PP 是一个副本的模型分片数，其余卡做数据副本。训练的权重、梯度、主权重与矩按 ZeRO 级别继续分摊；激活使用本级完整隐藏宽度。推理按 80 层、8 个 KV 头、头宽 128、2048 个缓存位置预算，量化每 64 个权重另存一个 2 B 比例。模型为每卡保留 2 GiB 工作区。总量必须按每卡比较上限。\n\n### 一项通过并不足以交付\n\n预填充按 128 个提示 token 计算，训练序列长 512。首批沿 PP 级串行前进，本账本只让 TP 缩短这条计算路径。TP 的逐层归约、跨级传送和训练的数据归约另计，按未重叠通信求和。先找一组显存装得下但时间超标的方案，再记录一次只改一个参数的修正。设计说明引用两项数字，列出部署时要实测的一项假设。",
+      "en": "### Turn a target into checks\n\nThe node has eight 80 GiB GPUs. Serve a 70B model at concurrency 32 or more with TTFT at most 500 ms. Train a 13B model at batch eight or more in at most two seconds per step. Model 200 effective TFLOP/s per device, 400 GB/s links and 3 μs startup. Communication budgets are 100 and 500 ms respectively. Write down these targets and units before varying precision and parallelism.\n\n### Follow ownership on one GPU\n\nTP×PP gives the number of model shards per replica. Remaining GPUs form data replicas. In training, shard weights, gradients and optimizer storage according to the ZeRO stage, while activations retain the stage’s full hidden width. Serving budgets 80 layers, eight KV heads, width 128 and 2,048 positions. Quantized weights carry a two-byte scale per 64 values. Reserve 2 GiB of workspace on each device. Compare the total per device with its own limit.\n\n### Audit the full plan\n\nPrefill uses 128 prompt tokens and training uses a 512-position sequence. A first microbatch traverses PP stages in series, so only TP shortens its modeled compute path. Add per-layer TP reductions, inter-stage transfers and training data reductions without overlap. Find a plan that fits memory but misses time, then revise one setting. Cite two ledger numbers in the design note and name an assumption to measure before deployment."
+    }
   }
 }

@@ -1,7 +1,7 @@
 {
   "id": "ai-infra-lab",
-  "version": "0.4.0",
-  "stage": "D",
+  "version": "0.5.0",
+  "stage": "E",
   "glossary": [],
   "lessons": [
     {
@@ -3693,6 +3693,649 @@
             {
               "zh": "输入 X 在各 rank 相同，W_col 只含第一层的本地输出列，W_row 只含第二层匹配的行。返回完整 MLP 输出，使用一次 dist.all_reduce。",
               "en": "X is replicated. W_col contains the local output columns of layer one and W_row the matching rows of layer two. Return the full MLP output using one dist.all_reduce."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01",
+      "stage": "E",
+      "title": {
+        "zh": "先读提示，再逐词生成",
+        "en": "Read the prompt, then decode"
+      },
+      "prerequisites": [
+        "A07",
+        "C04"
+      ],
+      "objectives": [
+        {
+          "zh": "计算按 KV 头数计费的缓存大小",
+          "en": "Size a cache using the number of KV heads"
+        },
+        {
+          "zh": "用全序列参考结果核验增量解码",
+          "en": "Check incremental outputs against full-prefix attention"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "E01-estimate",
+          "lessonId": "E01",
+          "title": {
+            "zh": "一条序列的 KV",
+            "en": "KV for one sequence"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "32 层、8 个 KV 头、每头 128 维、2048 个位置、FP16，K 和 V 共需多少容量？",
+            "en": "With 32 layers, 8 KV heads, width 128, 2,048 positions and FP16, how much memory do K and V need together?"
+          },
+          "starter": "",
+          "reference": "256 MiB",
+          "concepts": [
+            "kv-cache"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "查询头的数量未必等于 KV 头数。",
+              "en": "Query-head count may differ from KV-head count."
+            },
+            {
+              "zh": "不要只计算 K。",
+              "en": "Include V as well as K."
+            }
+          ],
+          "estimate": {
+            "dimension": "bytes",
+            "expectedBase": 268435456,
+            "canonicalDisplay": "256 MiB",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "先数一层一个位置的元素。",
+              "en": "Count elements for one position in one layer."
+            },
+            {
+              "zh": "每个位置要保留键和值。",
+              "en": "Store a key and value at every position."
+            },
+            {
+              "zh": "最后乘 2 B 并换算为 MiB。",
+              "en": "Multiply by 2 B and convert to MiB."
+            },
+            {
+              "zh": "256 MiB",
+              "en": "256 MiB"
+            }
+          ]
+        },
+        {
+          "id": "E01-code",
+          "lessonId": "E01",
+          "title": {
+            "zh": "只追加当前 token",
+            "en": "Append only the current token"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "decode_step 接收一维 q、k、v，两个形状 [容量,d] 的预分配缓冲和从零开始的位置 pos。原位写入该行，返回当前输出向量。预测与全前缀重算的差别。",
+            "en": "decode_step receives 1D q, k and v, two preallocated [capacity,d] buffers and a zero-based position. Write that row in place and return the current output vector. Predict how this differs from full-prefix recomputation."
+          },
+          "starter": "import math\nimport torch\n\ndef decode_step(q, k, v, keys, values, pos):\n    # 追加 KV 并只计算当前行 / Append KV and compute the current row\n    return None\n",
+          "reference": "import math\nimport torch\n\n\ndef decode_step(q, k, v, keys, values, pos):\n    keys[pos].copy_(k)\n    values[pos].copy_(v)\n    scores = keys[:pos+1] @ q / math.sqrt(q.numel())\n    return torch.softmax(scores, dim=0) @ values[:pos+1]\n",
+          "concepts": [
+            "kv-cache",
+            "prefill",
+            "decode"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "对整块预分配缓存求 softmax 会包含未来的空位。",
+              "en": "Softmax over the whole buffer counts future slots."
+            },
+            {
+              "zh": "每步重新分配完整缓存会失去追加的好处。",
+              "en": "Reallocating the full cache every step loses the benefit of appending."
+            }
+          ],
+          "runtimeKey": "e01-kv-decode-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": true,
+          "steps": [
+            {
+              "name": "decode_step",
+              "title": {
+                "zh": "追加 KV 并只计算当前行",
+                "en": "Append KV and compute the current row"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "先填写当前位置。",
+              "en": "Write the current position first."
+            },
+            {
+              "zh": "切片终点要包括 pos。",
+              "en": "Include pos in the valid prefix."
+            },
+            {
+              "zh": "一行分数除以 √d 后沿键的维度归一化。",
+              "en": "Scale the score row by √d and normalize across keys."
+            },
+            {
+              "zh": "decode_step 接收一维 q、k、v，两个形状 [容量,d] 的预分配缓冲和从零开始的位置 pos。原位写入该行，返回当前输出向量。预测与全前缀重算的差别。",
+              "en": "decode_step receives 1D q, k and v, two preallocated [capacity,d] buffers and a zero-based position. Write that row in place and return the current output vector. Predict how this differs from full-prefix recomputation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "stage": "E",
+      "title": {
+        "zh": "让短请求及时让出位置",
+        "en": "Release slots when short requests finish"
+      },
+      "prerequisites": [
+        "E01"
+      ],
+      "objectives": [
+        {
+          "zh": "解释分页、尾页空槽与共享前缀",
+          "en": "Explain paging, unused tail slots and shared prefixes"
+        },
+        {
+          "zh": "结合 TTFT、TPOT 和吞吐比较调度",
+          "en": "Compare policies using TTFT, TPOT and throughput"
+        }
+      ],
+      "simulatorWidget": "serving-scheduler",
+      "exercises": [
+        {
+          "id": "E02-sim",
+          "lessonId": "E02",
+          "title": {
+            "zh": "同轨迹比较调度",
+            "en": "Replay one trace under both schedulers"
+          },
+          "kind": "simulator",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "在相同到达、长度和页预算下选用两种策略，使一个后来请求在连续批处理中提前或延后入场。",
+            "en": "Use both policies with identical arrivals, lengths and page budget. Observe a later request starting at a different time under continuous batching."
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "continuous-batching",
+            "ttft-tpot"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "单槽位时通常看不到补位差异。",
+              "en": "One slot generally leaves no cohort to refill."
+            },
+            {
+              "zh": "只比较不同提示长度不能隔离策略因素。",
+              "en": "Changing prompt lengths also changes the workload."
+            }
+          ],
+          "simulator": {
+            "widget": "serving-scheduler",
+            "goalDescription": {
+              "zh": "在相同到达、长度和页预算下选用两种策略，使一个后来请求在连续批处理中提前或延后入场。",
+              "en": "Use both policies with identical arrivals, lengths and page budget. Observe a later request starting at a different time under continuous batching."
+            }
+          },
+          "hints": [
+            {
+              "zh": "安排长短不同的输出。",
+              "en": "Use outputs of different lengths."
+            },
+            {
+              "zh": "给多个请求同时入场的槽位。",
+              "en": "Allow several requests to run together."
+            },
+            {
+              "zh": "同一配置只切换策略，观察时间线起点。",
+              "en": "Switch only policy and compare the starting times."
+            },
+            {
+              "zh": "在相同到达、长度和页预算下选用两种策略，使一个后来请求在连续批处理中提前或延后入场。",
+              "en": "Use both policies with identical arrivals, lengths and page budget. Observe a later request starting at a different time under continuous batching."
+            }
+          ]
+        },
+        {
+          "id": "E02-code",
+          "lessonId": "E02",
+          "title": {
+            "zh": "实现带共享前缀的页池",
+            "en": "Build a prefix-sharing page pool"
+          },
+          "kind": "code",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "state 含 free（空闲页号列表）、refs（每页引用数）、pages（每页 16 个 token）和 seq（名称映射到 {'length': n, 'blocks': [页号]}）。四个函数原位更新。重复名称或未知名称抛 KeyError；页不足抛 MemoryError，原状态须完整。fork_prefix 按给定 token 数共享，写共享尾页前复制。",
+            "en": "state has free (free page IDs), refs (reference counts), pages (16 token slots each) and seq (name to {'length': n, 'blocks': [page IDs]}). Mutate in place. Raise KeyError on duplicate or missing names. An out-of-pages MemoryError must leave state intact. Share the requested token prefix and copy a shared partial tail before writing."
+          },
+          "starter": "def allocate_sequence(state, name, tokens):\n    # 预检容量并写入新序列 / Check capacity and populate a new sequence\n    return None\n\ndef append_token(state, name, token):\n    # 追加并处理写时复制 / Append with copy-on-write\n    return None\n\ndef free_sequence(state, name):\n    # 最后一个引用释放时回收 / Recycle on the final release\n    return None\n\ndef fork_prefix(state, parent, child, length):\n    # 共享指定长度的前缀 / Share a logical prefix\n    return None\n",
+          "reference": "def allocate_sequence(state, name, tokens):\n    if name in state[\"seq\"]:\n        raise KeyError(name)\n    needed = (len(tokens)+15)//16\n    if len(state[\"free\"]) < needed:\n        raise MemoryError\n    blocks = []\n    for start in range(0, len(tokens), 16):\n        page = state[\"free\"].pop()\n        blocks.append(page)\n        state[\"refs\"][page] = 1\n        chunk = tokens[start:start+16]\n        state[\"pages\"][page][:len(chunk)] = chunk\n    state[\"seq\"][name] = {\"length\":len(tokens), \"blocks\":blocks}\n\n\ndef append_token(state, name, token):\n    seq = state[\"seq\"][name]\n    block, offset = divmod(seq[\"length\"],16)\n    table = seq[\"blocks\"]\n    if offset == 0 or state[\"refs\"][table[block]] > 1:\n        if not state[\"free\"]:\n            raise MemoryError\n        page = state[\"free\"].pop()\n        state[\"refs\"][page] = 1\n        if offset:\n            old = table[block]\n            state[\"pages\"][page][:] = state[\"pages\"][old]\n            state[\"refs\"][old] -= 1\n            table[block] = page\n        else:\n            table.append(page)\n    state[\"pages\"][table[block]][offset] = token\n    seq[\"length\"] += 1\n\n\ndef free_sequence(state, name):\n    for page in state[\"seq\"].pop(name)[\"blocks\"]:\n        state[\"refs\"][page] -= 1\n        if state[\"refs\"][page] == 0:\n            state[\"free\"].append(page)\n\n\ndef fork_prefix(state, parent, child, length):\n    if child in state[\"seq\"]:\n        raise KeyError(child)\n    src = state[\"seq\"][parent]\n    if not 0 <= length <= src[\"length\"]:\n        raise ValueError(length)\n    table = src[\"blocks\"][:(length+15)//16]\n    for page in table:\n        state[\"refs\"][page] += 1\n    state[\"seq\"][child] = {\"length\":length,\"blocks\":table}\n",
+          "concepts": [
+            "paged-attention",
+            "kv-cache"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "浅拷贝同一块表会让父子序列互相改指针。",
+              "en": "Sharing the table object lets one owner redirect the other."
+            },
+            {
+              "zh": "释放仍有引用的页会破坏其他序列。",
+              "en": "Freeing a referenced page corrupts other sequences."
+            }
+          ],
+          "runtimeKey": "e02-paged-allocator-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "allocate_sequence",
+              "title": {
+                "zh": "预检容量并写入新序列",
+                "en": "Check capacity and populate a new sequence"
+              }
+            },
+            {
+              "name": "append_token",
+              "title": {
+                "zh": "追加并处理写时复制",
+                "en": "Append with copy-on-write"
+              }
+            },
+            {
+              "name": "free_sequence",
+              "title": {
+                "zh": "最后一个引用释放时回收",
+                "en": "Recycle on the final release"
+              }
+            },
+            {
+              "name": "fork_prefix",
+              "title": {
+                "zh": "共享指定长度的前缀",
+                "en": "Share a logical prefix"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "逻辑块编号与池内物理页号不同。",
+              "en": "Distinguish logical block index from physical page ID."
+            },
+            {
+              "zh": "先算此次需要的新页数，确认空闲页足够。",
+              "en": "Compute required new pages and check free space first."
+            },
+            {
+              "zh": "用 divmod(length,16) 找新位置，检查尾页 refs。",
+              "en": "Use divmod(length,16) to find the append position and inspect its page count."
+            },
+            {
+              "zh": "state 含 free（空闲页号列表）、refs（每页引用数）、pages（每页 16 个 token）和 seq（名称映射到 {'length': n, 'blocks': [页号]}）。四个函数原位更新。重复名称或未知名称抛 KeyError；页不足抛 MemoryError，原状态须完整。fork_prefix 按给定 token 数共享，写共享尾页前复制。",
+              "en": "state has free (free page IDs), refs (reference counts), pages (16 token slots each) and seq (name to {'length': n, 'blocks': [page IDs]}). Mutate in place. Raise KeyError on duplicate or missing names. An out-of-pages MemoryError must leave state intact. Share the requested token prefix and copy a shared partial tail before writing."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "stage": "E",
+      "title": {
+        "zh": "把权重装进四个位",
+        "en": "Pack a weight into four bits"
+      },
+      "prerequisites": [
+        "A03",
+        "E01"
+      ],
+      "objectives": [
+        {
+          "zh": "按组求缩放因子并打包两个 INT4 值",
+          "en": "Find per-group scales and pack two INT4 codes per byte"
+        },
+        {
+          "zh": "解释投机解码的验证开销",
+          "en": "Explain verification in speculative decoding"
+        }
+      ],
+      "exercises": [
+        {
+          "id": "E03-estimate",
+          "lessonId": "E03",
+          "title": {
+            "zh": "从带宽估算 token 速率",
+            "en": "Bound the output token rate"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "70B 权重用打包 INT4，每个输出读全套权重一次。忽略比例、KV 和计算开销，带宽 700 GB/s，输出上限多少 tok/s？",
+            "en": "Stream 70B packed INT4 weights once per output. Ignoring scales, KV and compute, what output rate can 700 GB/s sustain?"
+          },
+          "starter": "",
+          "reference": "20 tok/s",
+          "concepts": [
+            "group-quantization",
+            "decode"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "直接按 4 B 会数成 FP32。",
+              "en": "Four bytes would count FP32."
+            },
+            {
+              "zh": "每秒 token 数与 token 的总数不同。",
+              "en": "A token rate differs from a token count."
+            }
+          ],
+          "estimate": {
+            "dimension": "token_rate",
+            "expectedBase": 20,
+            "canonicalDisplay": "20 tok/s",
+            "relativeTolerance": 0.025
+          },
+          "hints": [
+            {
+              "zh": "每两个权重占 1 B。",
+              "en": "Two weights share one byte."
+            },
+            {
+              "zh": "先求一次完整读取的 GB。",
+              "en": "Find GB read per output first."
+            },
+            {
+              "zh": "用带宽除以每 token 字节数，带速率单位。",
+              "en": "Divide bandwidth by bytes per token and include a rate unit."
+            },
+            {
+              "zh": "20 tok/s",
+              "en": "20 tok/s"
+            }
+          ]
+        },
+        {
+          "id": "E03-code",
+          "lessonId": "E03",
+          "title": {
+            "zh": "按组编码与解码",
+            "en": "Encode and decode grouped INT4"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "prompt": {
+            "zh": "输入是一维浮点张量。quantize 返回 (打包的 uint8 张量, 浮点比例张量)，dequantize 按原长度返回浮点张量。低位在先，负数使用四位补码；末组可能不满。",
+            "en": "For a 1D weight tensor, quantize returns (packed uint8 tensor, scale tensor). Dequantize returns a float tensor of the original length. Pack low nibble first using signed four-bit two’s complement, including a short last group."
+          },
+          "starter": "import torch\n\ndef quantize_int4_grouped(w, group):\n    # 独立定标并压成字节 / Scale each group and pack bytes\n    return None\n\ndef dequantize_int4_grouped(packed, scales, group, length):\n    # 按四位符号和组号还原 / Restore signed codes with their group scales\n    return None\n",
+          "reference": "import torch\n\n\ndef quantize_int4_grouped(w, group):\n    scales, codes = [], []\n    for chunk in w.split(group):\n        scale = chunk.abs().max().item()/7 or 1.0\n        scales.append(scale)\n        codes.extend((chunk/scale).round().clamp(-7,7).int().tolist())\n    if len(codes)%2:\n        codes.append(0)\n    packed = [(codes[i]&15) | ((codes[i+1]&15)<<4) for i in range(0,len(codes),2)]\n    return torch.tensor(packed,dtype=torch.uint8), torch.tensor(scales)\n\n\ndef dequantize_int4_grouped(packed, scales, group, length):\n    out = []\n    for i in range(length):\n        value = (packed[i//2].item() >> (4*(i%2))) & 15\n        signed = value-16 if value >= 8 else value\n        out.append(signed * scales[i//group].item())\n    return torch.tensor(out)\n",
+          "concepts": [
+            "group-quantization"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "全零组的比例若为零会导致除零。",
+              "en": "A zero scale would divide by zero."
+            },
+            {
+              "zh": "奇数个权重不能把填充字节解码成新权重。",
+              "en": "Do not append a padded nibble to an odd-length output."
+            }
+          ],
+          "runtimeKey": "e03-group-quant-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "quantize_int4_grouped",
+              "title": {
+                "zh": "独立定标并压成字节",
+                "en": "Scale each group and pack bytes"
+              }
+            },
+            {
+              "name": "dequantize_int4_grouped",
+              "title": {
+                "zh": "按四位符号和组号还原",
+                "en": "Restore signed codes with their group scales"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "先在一个小组内算比例。",
+              "en": "Compute a scale for one small group first."
+            },
+            {
+              "zh": "用 code & 15 取低四位。",
+              "en": "Use code & 15 for its four bits."
+            },
+            {
+              "zh": "解码值大于等于 8 时减去 16。",
+              "en": "Subtract 16 from decoded nibbles at least eight."
+            },
+            {
+              "zh": "输入是一维浮点张量。quantize 返回 (打包的 uint8 张量, 浮点比例张量)，dequantize 按原长度返回浮点张量。低位在先，负数使用四位补码；末组可能不满。",
+              "en": "For a 1D weight tensor, quantize returns (packed uint8 tensor, scale tensor). Dequantize returns a float tensor of the original length. Pack low nibble first using signed four-bit two’s complement, including a short last group."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "X01",
+      "stage": "E",
+      "title": {
+        "zh": "结课项目：为八张卡写预算",
+        "en": "Capstone: budget an eight-GPU node"
+      },
+      "prerequisites": [
+        "C02",
+        "D04",
+        "D05",
+        "E02",
+        "E03"
+      ],
+      "objectives": [
+        {
+          "zh": "给显存、延迟和通信设置可检验的限制",
+          "en": "Set checkable limits on memory, latency and communication"
+        },
+        {
+          "zh": "解释方案在哪种假设变化后会失效",
+          "en": "Explain which assumption would make a plan fail"
+        }
+      ],
+      "simulatorWidget": "capacity-planner",
+      "exercises": [
+        {
+          "id": "X01-sim",
+          "lessonId": "X01",
+          "title": {
+            "zh": "配平两种任务",
+            "en": "Qualify both workloads"
+          },
+          "kind": "simulator",
+          "dataSource": "simulated",
+          "prompt": {
+            "zh": "分别为 70B 推理与 13B 训练找到通过所有检查的方案。保持观察记录，最后一起提交。",
+            "en": "Find a plan passing every check for both 70B serving and 13B training. Submit both observed configurations together."
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "zero-fsdp",
+            "tensor-parallelism",
+            "kv-cache"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "把八张卡的总容量当作单卡容量会掩盖 OOM。",
+              "en": "Aggregate node capacity can hide a single-device OOM."
+            },
+            {
+              "zh": "推理没有训练优化器可以用 ZeRO 切分。",
+              "en": "Inference has no training optimizer to shard."
+            }
+          ],
+          "simulator": {
+            "widget": "capacity-planner",
+            "goalDescription": {
+              "zh": "分别为 70B 推理与 13B 训练找到通过所有检查的方案。保持观察记录，最后一起提交。",
+              "en": "Find a plan passing every check for both 70B serving and 13B training. Submit both observed configurations together."
+            }
+          },
+          "hints": [
+            {
+              "zh": "先看卡数乘积与每卡容量。",
+              "en": "Start with GPU divisibility and local capacity."
+            },
+            {
+              "zh": "推理关注 KV 与首 token，训练要加上主权重和矩。",
+              "en": "Budget KV and TTFT for serving, masters and moments for training."
+            },
+            {
+              "zh": "从失败项选择要调整的一个旋钮。",
+              "en": "Change one setting according to the failing check."
+            },
+            {
+              "zh": "分别为 70B 推理与 13B 训练找到通过所有检查的方案。保持观察记录，最后一起提交。",
+              "en": "Find a plan passing every check for both 70B serving and 13B training. Submit both observed configurations together."
+            }
+          ]
+        },
+        {
+          "id": "X01-code",
+          "lessonId": "X01",
+          "title": {
+            "zh": "编写容量审计函数",
+            "en": "Implement a capacity audit"
+          },
+          "kind": "code",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "输入字典的 weights、gradients、optimizer 为全模型总字节；分别按 TP×PP 和适用的 ZeRO/DP 均分，逐项向上取整。local 是已知每卡工作区字节，limit 为单卡上限。时间为 flops/flops_s + transfer/bandwidth 秒，与 deadline_ms 比较。返回 [每卡字节,容量达标,时间达标]。",
+            "en": "weights, gradients and optimizer are full-model bytes. Divide each by TP×PP and by DP when its ZeRO stage applies, rounding each up. local is per-device workspace and limit is device capacity. Time in seconds is flops/flops_s + transfer/bandwidth. Compare against deadline_ms and return [local bytes, fits memory, meets time]."
+          },
+          "starter": "def plan_cluster_budget(spec):\n    # 审核每卡容量与截止时间 / Audit per-device storage and deadline\n    return None\n",
+          "reference": "def plan_cluster_budget(spec):\n    shards = spec[\"tp\"] * spec[\"pp\"]\n    total = spec[\"local\"]\n    for field, stage in [(\"weights\",3),(\"gradients\",2),(\"optimizer\",1)]:\n        owners = shards * (spec[\"dp\"] if spec[\"zero\"] >= stage else 1)\n        total += (spec[field]+owners-1)//owners\n    ms = 1000*(spec[\"flops\"]/spec[\"flops_s\"] + spec[\"transfer\"]/spec[\"bandwidth\"])\n    return [total, total <= spec[\"limit\"], ms <= spec[\"deadline_ms\"]]\n",
+          "concepts": [
+            "zero-fsdp",
+            "alpha-beta"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "local 已是每卡值，不能再次分摊。",
+              "en": "local is already per-device and must not be divided again."
+            },
+            {
+              "zh": "内存达标并不能推出时间达标。",
+              "en": "Meeting the memory budget does not establish a latency pass."
+            }
+          ],
+          "runtimeKey": "x01-capstone-v1",
+          "resourceProfile": "scalar-cpu",
+          "requiresPrediction": false,
+          "steps": [
+            {
+              "name": "plan_cluster_budget",
+              "title": {
+                "zh": "审核每卡容量与截止时间",
+                "en": "Audit per-device storage and deadline"
+              }
+            }
+          ],
+          "hints": [
+            {
+              "zh": "先按 TP×PP 切模型。",
+              "en": "Shard the model by TP×PP first."
+            },
+            {
+              "zh": "ZeRO 的切分顺序依次是优化器、梯度、权重。",
+              "en": "ZeRO progressively partitions optimizer state, gradients and weights."
+            },
+            {
+              "zh": "用整数向上取整，毫秒比较前先换算秒。",
+              "en": "Use integer ceiling division and convert seconds before testing the millisecond deadline."
+            },
+            {
+              "zh": "输入字典的 weights、gradients、optimizer 为全模型总字节；分别按 TP×PP 和适用的 ZeRO/DP 均分，逐项向上取整。local 是已知每卡工作区字节，limit 为单卡上限。时间为 flops/flops_s + transfer/bandwidth 秒，与 deadline_ms 比较。返回 [每卡字节,容量达标,时间达标]。",
+              "en": "weights, gradients and optimizer are full-model bytes. Divide each by TP×PP and by DP when its ZeRO stage applies, rounding each up. local is per-device workspace and limit is device capacity. Time in seconds is flops/flops_s + transfer/bandwidth. Compare against deadline_ms and return [local bytes, fits memory, meets time]."
+            }
+          ]
+        },
+        {
+          "id": "X01-design",
+          "lessonId": "X01",
+          "title": {
+            "zh": "写下设计取舍",
+            "en": "Explain a design trade-off"
+          },
+          "kind": "explanation",
+          "dataSource": "formula",
+          "prompt": {
+            "zh": "分别记下推理和训练方案的每卡显存与耗时。选一个修改前失败的指标，解释修正它的代价，并提出一项实机测量。可以向导师请求点评。",
+            "en": "Record per-device memory and time for both plans. Explain one initially failing check, the cost of fixing it and one measurement to take on hardware. Ask the tutor for feedback if desired."
+          },
+          "starter": "",
+          "reference": "",
+          "concepts": [
+            "tensor-parallelism",
+            "ttft-tpot"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "仅写通过无法说明代价。",
+              "en": "A pass label alone does not explain a trade-off."
+            },
+            {
+              "zh": "估算时间需要实机数据核验。",
+              "en": "Validate modeled timing on hardware."
+            }
+          ],
+          "hints": [
+            {
+              "zh": "先写出模型规模和目标。",
+              "en": "Start with model size and target."
+            },
+            {
+              "zh": "引用自己的账本数字并交代单位。",
+              "en": "Cite your own ledger values with units."
+            },
+            {
+              "zh": "比较只改一个参数前后的结果。",
+              "en": "Compare results before and after one change."
+            },
+            {
+              "zh": "分别记下推理和训练方案的每卡显存与耗时。选一个修改前失败的指标，解释修正它的代价，并提出一项实机测量。可以向导师请求点评。",
+              "en": "Record per-device memory and time for both plans. Explain one initially failing check, the cost of fixing it and one measurement to take on hardware. Ask the tutor for feedback if desired."
             }
           ]
         }

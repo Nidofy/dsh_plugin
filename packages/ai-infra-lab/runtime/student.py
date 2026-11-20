@@ -374,7 +374,9 @@ def main():
         else:
             module = _load_submission(submission_path)
             if mode == "lab_step":
-                if payload["key"].startswith("c"):
+                if payload["key"][0] in ("e", "x"):
+                    from infra_sim.stage_e import observe
+                elif payload["key"].startswith("c"):
                     from infra_sim.stage_c import observe
                 else:
                     from infra_sim.stage_b import observe

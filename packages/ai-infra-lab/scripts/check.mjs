@@ -22,6 +22,8 @@ if (full) {
   ])
   steps.push(['distributed process limits, missing rank, output budget and hot unload',
     node, ['--experimental-transform-types', 'tests/runner-distributed-adversarial.ts']])
+  steps.push(['historical v0.1.0 through v0.5.0 database upgrade and archive replay',
+    node, ['--experimental-transform-types', 'tests/upgrade-chain.mjs']])
 }
 
 await mkdir(join(base, '.build'), { recursive: true })

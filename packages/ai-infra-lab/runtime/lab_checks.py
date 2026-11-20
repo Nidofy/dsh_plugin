@@ -2,10 +2,12 @@
 import numpy as np
 import oracle_c
 import oracle_d
+import oracle_e
 
 STEPS = {
     **oracle_c.STEPS,
     **oracle_d.STEPS,
+    **oracle_e.STEPS,
     "b03-grid-map-v1": ["global_index_1d", "ceil_grid_2d", "matrix_add_kernel"],
     "b05-tiled-matmul-v1": ["naive_matmul_step", "tiled_matmul_step"],
 }
@@ -20,6 +22,8 @@ def verify(stage_key, step, rng, call, metric, emit, config):
 
     if stage_key in oracle_c.STEPS:
         return oracle_c.verify(step, rng, observe, metric)
+    if stage_key in oracle_e.STEPS:
+        return oracle_e.verify(stage_key, step, rng, observe, metric)
     if step == "global_index_1d":
         args = [[0, 0, 8], [2, 3, 8], [9, 15, 16]]
         return observe({"args": args}) == [x*d+t for x, t, d in args]
@@ -49,13 +53,18 @@ def verify(stage_key, step, rng, call, metric, emit, config):
         for field, n in expected.items():
             if counts.get(field, 0) != n or counts.get(field+"_bytes", 0) != n*4:
                 return False
-    metric("hbm_read_bytes", counts["hbm_reads_bytes"], "B", step, "从显存读取的字节数", "Bytes read from HBM")
+    for field in expected:
+        space, op = field.split("_")
+        zh = ("显存" if space == "hbm" else "片上存储") + ("读取" if op == "reads" else "写入")
+        metric(field, counts.get(field, 0), "elements", step, zh+"元素数", space.upper()+" "+op+" (elements)")
+        metric(field+"_bytes", counts.get(field+"_bytes", 0), "B", step, zh+"字节数", space.upper()+" "+op+" (bytes)")
     return True
 
 
 GUIDANCE = {
     **oracle_c.GUIDANCE,
     **oracle_d.GUIDANCE,
+    **oracle_e.GUIDANCE,
     "global_index_1d": ("从块的首元素向右数线程偏移。", "Count the thread offset from the first element of its block."),
     "ceil_grid_2d": ("分别向上取整宽和高，按 x、y 顺序返回。", "Round width and height up separately and return x before y."),
     "matrix_add_kernel": ("检查最后一个块中行、列两个边界和输出写入。", "Check both edges of the last block and write each valid output once."),

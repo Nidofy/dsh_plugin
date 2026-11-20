@@ -22,9 +22,13 @@ export function warpAccess(input: WarpAccess) {
     return { lane, address, segment: Math.floor(address / 128), bank }
   })
   const segments = [...new Set(lanes.map(l => l.segment))]
+  const bankDistribution = banks.map((words, bank) => ({
+    bank, lanes: lanes.filter(lane => lane.bank === bank).map(lane => lane.lane),
+    distinctWords: [...words], ways: words.size,
+  }))
   const transferredBytes = 128 * segments.length
   const usefulBytes = 4 * new Set(lanes.map(l => l.address)).size
-  return { lanes, segments, transactionsCount: segments.length, usefulBytes, transferredBytes,
+  return { lanes, segments, bankDistribution, transactionsCount: segments.length, usefulBytes, transferredBytes,
     utilization: usefulBytes / transferredBytes, maxWayConflict: Math.max(...banks.map(b => b.size)) }
 }
 

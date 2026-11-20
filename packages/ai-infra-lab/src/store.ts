@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { DatabaseSync } from 'node:sqlite'
-import type { Evidence, HelpLevel, RunRecord } from './types.ts'
+import type { AnswerRecord, Evidence, HelpLevel, RunRecord } from './types.ts'
 
 /** Dedicated SQLite application_id: 0x494C4142 ('ILAB') = 1229734210 */
 export const AI_INFRA_LAB_APP_ID = 1229734210
@@ -173,33 +173,34 @@ export class Store {
       .map((r) => JSON.parse(String(r.body)) as Evidence)
   }
 
+  archiveAnswers(): (AnswerRecord & {exerciseId: string})[] {
+    return this.db.prepare("SELECT exercise,body FROM history WHERE kind='answer' ORDER BY seq").all()
+      .map(r=>({...JSON.parse(String(r.body)) as AnswerRecord, exerciseId:String(r.exercise)}))
+  }
+
   exportArchive(contentVersion: string): string {
-    const total = this.db
-      .prepare(
-        `SELECT
-          (SELECT coalesce(sum(length(cast(body as blob))),0) FROM runs) +
-          (SELECT coalesce(sum(length(cast(body as blob))),0) FROM history) +
-          (SELECT coalesce(sum(length(cast(code as blob))),0) FROM drafts) +
-          (SELECT coalesce(sum(length(cast(value as blob))),0) FROM kv) AS bytes`,
-      )
-      .get()
-    if (Number(total?.bytes) > 8_000_000) {
-      throw Error('Archive exceeds 8 MB export budget.')
+    const size = this.db.prepare(`SELECT
+      (SELECT coalesce(sum(length(cast(body AS blob))),0) FROM runs) +
+      (SELECT coalesce(sum(length(cast(body AS blob))),0) FROM history WHERE kind IN ('evidence','answer')) AS bytes,
+      (SELECT count(*) FROM runs) AS runs,
+      (SELECT count(*) FROM history WHERE kind='answer') AS answers,
+      (SELECT count(*) FROM history WHERE kind='evidence') AS evidence`).get()!
+    if (Number(size.bytes)>4_000_000 || Number(size.runs)>1000 || Number(size.answers)>5000 || Number(size.evidence)>5000) {
+      throw Error('归档超出容量或条目上限 / Archive exceeds size or item budget')
     }
-    return JSON.stringify(
-      {
-        format: 'ai-infra-lab-archive/1',
-        schemaVersion: 1,
-        contentVersion,
-        exportedAt: new Date().toISOString(),
-        readLessons: this.get<string[]>('readLessons', []),
-        fastTrackedLessons: this.get<string[]>('fastTrackedLessons', []),
-        runs: this.runs(),
-        evidence: this.evidence(),
-      },
-      null,
-      2,
-    )
+    const runs = this.runs()
+    if (runs.some(r=>r.run_status==='queued' || r.run_status==='running' || r.cleanupPending)) {
+      throw Error('请等待运行与清理完成后导出 / Wait for pending runs and cleanup before exporting')
+    }
+    const answers=this.archiveAnswers()
+    const evidence=this.evidence()
+    const answerIds=new Set(answers.map(a=>a.id))
+    const legacyAnswerIds=[...new Set(evidence.flatMap(e=>e.answerId && !answerIds.has(e.answerId)?[e.answerId]:[]))]
+    const raw=JSON.stringify({ format:'ai-infra-lab-archive/1',schemaVersion:1,contentVersion,
+      exportedAt:new Date().toISOString(),readLessons:this.get<string[]>('readLessons',[]),
+      fastTrackedLessons:this.get<string[]>('fastTrackedLessons',[]),runs,answers,evidence,legacyAnswerIds })
+    if (Buffer.byteLength(raw)>4_000_000) throw Error('归档超过 4 MB / Archive exceeds 4 MB')
+    return raw
   }
 
   close(): void {

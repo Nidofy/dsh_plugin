@@ -21,5 +21,11 @@ export function GpuCoalescingExplorer(props: ExplorerProps) {
     <div className="ail-lane-grid">{result.lanes.map(l => <div key={l.lane} data-band={l.segment % 2}>
       <strong>#{l.lane}</strong><span>{l.address} B</span><span>S{l.segment} → B{l.bank}</span>
     </div>)}</div>
+    <details><summary>{{zh:'按 Bank 查看通道分布',en:'Inspect lanes grouped by bank'}[locale]}</summary>
+      <div className="ail-lane-grid">{result.bankDistribution.map(b=><div key={b.bank} data-band={b.ways>1?1:0}>
+        <strong>B{b.bank}</strong><span>{b.lanes.length ? b.lanes.map(n=>'#'+n).join(' ') : '—'}</span>
+        <span>{b.ways} {{zh:'个字',en:'words'}[locale]}</span>
+      </div>)}</div>
+    </details>
   </ExplorerPanel>
 }

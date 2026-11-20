@@ -1,11 +1,13 @@
 import { createHash, randomUUID } from 'node:crypto'
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
+import { importArchive } from './archive.ts'
 import { loadCatalog } from './catalog.ts'
 import { evaluateEstimate } from './estimator.ts'
 import { completedWarpAccess } from './sim-stage-b.ts'
 import { completedMemoryLedger } from './sim-stage-c.ts'
 import { completedPipeline } from './sim-stage-d.ts'
+import { completedServing, completedCapacity } from './sim-stage-e.ts'
 import { acquireOwner } from './owner.ts'
 import { LocalDockerCpuRunner, type RunnerBackend, type RunnerLimits } from './runner.ts'
 import { Store } from './store.ts'
@@ -413,6 +415,7 @@ export class Engine {
   ): { status: CheckStatus; diagnostic: BilingualText } {
     const exercise = this.exercise(id)
     this.assertText(text, 12000)
+    if (runId !== undefined && this.store.run(runId).exerciseId !== id) throw Error('运行属于其他练习 / Run belongs to another exercise')
     const trimmed = text.trim()
     if (!trimmed) throw Error('请先输入作答内容 / Answer cannot be empty')
 
@@ -503,7 +506,13 @@ export class Engine {
 
     let passed = false
     let diagnostic: BilingualText
-    if (exercise.simulator.widget === 'pipeline-schedule') {
+    if (exercise.simulator.widget === 'serving-scheduler') {
+      passed = completedServing(payload.observations)
+      diagnostic = passed ? {"zh":"已核对相同请求轨迹下的两种调度。","en":"Verified both scheduling policies on the same arrival trace."} : exercise.simulator.goalDescription
+    } else if (exercise.simulator.widget === 'capacity-planner') {
+      passed = completedCapacity(payload.observations)
+      diagnostic = passed ? { zh: '推理和训练方案均通过账本核对。', en: 'Both the inference and training plans meet their budgets.' } : exercise.simulator.goalDescription
+    } else if (exercise.simulator.widget === 'pipeline-schedule') {
       passed = completedPipeline(payload.observations)
       diagnostic = passed ? {"zh":"已核对两种调度的激活峰值和气泡。","en":"Verified activation peaks and bubbles for both schedules."} : exercise.simulator.goalDescription
     } else if (exercise.simulator.widget === 'memory-waterfall') {
@@ -593,77 +602,7 @@ export class Engine {
   }
 
   importData(rawJson: string): { importedRuns: number; importedEvidence: number } {
-    this.assertText(rawJson, 4_000_000)
-    let parsed: Record<string, unknown>
-    try {
-      const obj = JSON.parse(rawJson)
-      if (!obj || typeof obj !== 'object' || Array.isArray(obj)) throw Error('Root must be object')
-      parsed = obj as Record<string, unknown>
-    } catch {
-      throw Error('导入格式错误：需要有效的 JSON 归档 / Invalid JSON archive')
-    }
-    if (parsed.format !== 'ai-infra-lab-archive/1' || parsed.schemaVersion !== 1) {
-      throw Error('不支持的归档格式版本 / Unsupported archive format')
-    }
-    const runs = Array.isArray(parsed.runs) ? parsed.runs : []
-    const evidence = Array.isArray(parsed.evidence) ? parsed.evidence : []
-    if (runs.length > 1000 || evidence.length > 5000) {
-      throw Error('导入条目超出上限 / Archive item count exceeds safety limit')
-    }
-
-    const validExerciseIds = new Set(this.catalog.lessons.flatMap((l) => l.exercises.map((e) => e.id)))
-    const validLessonIds = new Set(this.catalog.lessons.map((l) => l.id))
-    let importedRuns = 0
-    let importedEvidence = 0
-
-    this.store.transaction(() => {
-      if (Array.isArray(parsed.readLessons)) {
-        const merged = [
-          ...new Set([
-            ...this.store.get<string[]>('readLessons', []),
-            ...parsed.readLessons.filter((id): id is string => typeof id === 'string' && validLessonIds.has(id)),
-          ]),
-        ]
-        this.store.set('readLessons', merged)
-      }
-      const existingRunIds = new Set(this.store.runs().map((r) => r.id))
-      for (const item of runs) {
-        if (!item || typeof item !== 'object') continue
-        const r = item as RunRecord
-        if (
-          typeof r.id !== 'string' ||
-          existingRunIds.has(r.id) ||
-          !validExerciseIds.has(r.exerciseId) ||
-          typeof r.code !== 'string' ||
-          r.code.length > 100000 ||
-          !Array.isArray(r.events)
-        ) {
-          continue
-        }
-        this.store.putRun(r)
-        existingRunIds.add(r.id)
-        importedRuns++
-      }
-
-      const existingEvIds = new Set(this.store.evidence().map((e) => e.id))
-      for (const item of evidence) {
-        if (!item || typeof item !== 'object') continue
-        const ev = item as Evidence
-        if (
-          typeof ev.id !== 'string' ||
-          existingEvIds.has(ev.id) ||
-          !validExerciseIds.has(ev.exerciseId) ||
-          typeof ev.concept !== 'string'
-        ) {
-          continue
-        }
-        this.store.record(ev.exerciseId, 'evidence', ev, typeof ev.at === 'string' ? ev.at : undefined)
-        existingEvIds.add(ev.id)
-        importedEvidence++
-      }
-    })
-
-    return { importedRuns, importedEvidence }
+    return importArchive(rawJson,this.catalog,this.store)
   }
 
   async close(): Promise<void> {

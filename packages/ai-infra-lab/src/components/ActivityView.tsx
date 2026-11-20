@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { parseQuantity } from '../estimator.ts'
+import { completesActivity } from '../progress.ts'
 import type {
   BilingualText,
   CheckStatus,
@@ -18,6 +19,7 @@ import type {
 import { LessonExplorer } from './LessonExplorer.tsx'
 import { CodeEditor } from './CodeEditor.tsx'
 import { DataSourceBadge } from './DataSourceBadge.tsx'
+import { DecodeTimingChart } from './DecodeTimingChart.tsx'
 import { MarkdownView } from './MarkdownView.tsx'
 import { pickText, tr } from './i18n.ts'
 
@@ -80,6 +82,7 @@ const UNIT_EXAMPLES: Record<UnitDimension, readonly string[]> = {
   rate_flops: ['MFLOP/s', 'GFLOP/s', 'TFLOP/s'],
   bandwidth: ['MB/s', 'GB/s', 'GiB/s', 'TB/s'],
   time: ['ns', 'us', 'ms', 's'],
+  token_rate: ['tok/s', 'tokens/s', 'ktok/s'],
 }
 
 function kindLabel(kind: Exercise['kind'], locale: Locale): string {
@@ -160,7 +163,7 @@ export function ActivityView({
   // Pre-fill previous answer if available in current attempt
   useEffect(() => {
     if (!workspace || workspace.exercise.id !== activeExerciseId) return
-    const latestAns = workspace.answers[0]
+    const latestAns = workspace.answers.findLast(a => a.attemptId === workspace.attemptId)
     if (!latestAns) return
     if (workspace.exercise.kind === 'quiz' && !selectedQuizOption) {
       setSelectedQuizOption(latestAns.text)
@@ -172,7 +175,7 @@ export function ActivityView({
   }, [workspace, activeExerciseId])
 
   const passedExerciseIds = useMemo(
-    () => new Set(evidence.filter((e) => e.kind !== 'reading').map((e) => e.exerciseId)),
+    () => new Set(evidence.filter(completesActivity).map(e => e.exerciseId)),
     [evidence],
   )
 
@@ -194,7 +197,7 @@ export function ActivityView({
     latestFeedback?.exerciseId === exercise.id ? latestFeedback : undefined
 
   const lastWorkspaceAnswer =
-    workspace?.exercise.id === exercise.id ? workspace.answers[0] : undefined
+    workspace?.exercise.id === exercise.id ? workspace.answers.findLast(a => a.attemptId === workspace.attemptId) : undefined
 
   const effectiveStatus: CheckStatus | undefined =
     feedbackForCurrent?.status ?? lastWorkspaceAnswer?.status
@@ -746,6 +749,7 @@ export function ActivityView({
         </section>
       )}
 
+      {exercise.id === 'E01-code' && activeRun?.exerciseId === exercise.id && <DecodeTimingChart events={activeRun.events} locale={locale} />}
       {activeRun?.exerciseId === exercise.id && activeRun.events.some(e => e.timeline?.length) && <details>
         <summary>{{zh:'查看各进程通信时间线',en:'Inspect per-rank communication calls'}[locale]}</summary>
         <table><thead><tr><th>Rank</th><th>{{zh:'调用',en:'Call'}[locale]}</th>

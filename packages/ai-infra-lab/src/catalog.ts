@@ -101,7 +101,7 @@ export function validateCatalog(c: Catalog): void {
           throw Error(`Quiz exercise ${ex.id} requires valid options and correctOptionId`)
         }
       } else if (ex.kind === 'simulator') {
-        if (!ex.simulator || !['bit-layout', 'roofline', 'gpu-coalescing', 'memory-waterfall', 'pipeline-schedule'].includes(ex.simulator.widget)) {
+        if (!ex.simulator || !['bit-layout', 'roofline', 'gpu-coalescing', 'memory-waterfall', 'pipeline-schedule', 'serving-scheduler', 'capacity-planner'].includes(ex.simulator.widget)) {
           throw Error(`Simulator exercise ${ex.id} requires valid widget spec`)
         }
       }

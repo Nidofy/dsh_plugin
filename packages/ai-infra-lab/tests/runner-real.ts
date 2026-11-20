@@ -53,6 +53,21 @@ try {
     console.log(`  PASS [${ex.id}] (${ex.resourceProfile ?? 'scalar-cpu'}): reference=passed, starter=failed`)
   }
 
+  const unguarded = engine.exercise('B03-code')
+  const unguardedSource = unguarded.reference.replace('if row < H and col < W:', 'if True:')
+  const untiled = engine.exercise('B05-code')
+  const untiledSource = untiled.reference + '\ntiled_matmul_step = naive_matmul_step\n'
+  for (const [exercise, source, step] of [
+    [unguarded, unguardedSource, 'matrix_add_kernel'],
+    [untiled, untiledSource, 'tiled_matmul_step'],
+  ] as const) {
+    const started = await engine.start(exercise.id, source, {}, 'Checking edges and memory traffic')
+    const finished = await engine.waitRun(started.id)
+    assert.equal(finished.run_status, 'completed', finished.log)
+    assert.equal(finished.events.find(e => e.step === step && e.type === 'check')?.passed, false)
+  }
+  console.log('  PASS [B03/B05] missing edge guard and correct result with excessive HBM traffic rejected')
+
   // A numerically correct dense implementation must still fail the streaming memory contract.
   const attention = engine.exercise('C04-code')
   const dense = attention.reference.slice(0, attention.reference.indexOf('def tiled_attention(')) +

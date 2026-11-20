@@ -166,7 +166,8 @@ export async function handleRequest(
     for await (const chunk of req) {
       signal.throwIfAborted()
       size += chunk.length
-      if (size > 4_200_000) throw Error('Request payload too large')
+      // A 4 MB archive string can approach 8 MB once escaped inside the RPC envelope.
+      if (size > 8_000_128) throw Error('请求体过大 / Request payload too large')
       chunks.push(Buffer.from(chunk))
     }
     const payload = expectObject(JSON.parse(Buffer.concat(chunks).toString('utf8')))
