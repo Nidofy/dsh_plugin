@@ -1,0 +1,1458 @@
+{
+  "id": "ai-infra-lab",
+  "version": "0.1.0",
+  "stage": "A",
+  "glossary": [],
+  "lessons": [
+    {
+      "id": "A00",
+      "stage": "A",
+      "title": {
+        "zh": "上手工作台与环境自检",
+        "en": "Workbench Onboarding & Self-Check"
+      },
+      "summary": {
+        "zh": "",
+        "en": ""
+      },
+      "prerequisites": [],
+      "objectives": [
+        {
+          "zh": "区分“公式估算 (formula) / CPU 实测 (cpu_measured) / 架构模拟 (simulated)”三类数据来源的意义与边界",
+          "en": "Distinguish Formula, CPU Measured, and Simulated data sources and why CPU timings are never mistaken for GPU facts"
+        },
+        {
+          "zh": "在隔离沙箱中完成第一次代码运行，学会阅读微步骤断言结果与性能指标",
+          "en": "Run your first sandboxed Python code and read per-step assertion checks and metrics"
+        }
+      ],
+      "body": {
+        "zh": "",
+        "en": ""
+      },
+      "exercises": [
+        {
+          "id": "A00-quiz",
+          "lessonId": "A00",
+          "title": {
+            "zh": "区分三种数据来源徽章",
+            "en": "Distinguish the Three Data-Source Badges"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "可以把本机单核 CPU 测出的毫秒耗时直接乘以固定系数当作多卡 GPU 真实耗时",
+                  "en": "Multiply single-core CPU milliseconds by a fixed constant and treat it as real multi-GPU runtime"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "公式估算算守恒账（字节与 FLOPs），CPU 实测验证真实硬件局部性与向量化行为，架构模拟推演不同峰值参数下的瓶颈转移",
+                  "en": "Formula counts exact bytes/FLOPs, CPU Measured observes real vectorization & cache behavior, and Simulated models bottleneck shifts across hardware specs"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "只有拥有昂贵的 GPU 服务器才能计算数组占多少字节和矩阵乘法做多少次运算",
+                  "en": "You need an expensive GPU server just to calculate how many bytes an array uses or how many FLOPs matmul performs"
+                }
+              },
+              {
+                "id": "d",
+                "label": {
+                  "zh": "架构模拟器输出的数字等于你当前电脑正在运行的物理显卡硬件温度",
+                  "en": "Numbers from an architectural simulator measure the physical temperature of a GPU inside your laptop"
+                }
+              }
+            ],
+            "correctOptionId": "b"
+          },
+          "prompt": {
+            "zh": "在 AI Infra Lab 中，每道练习和每个实验数字都会标注 `formula`（公式估算）、`cpu_measured`（CPU 实测）或 `simulated`（架构模拟）。下列哪一项准确解释了区分这三种数据来源的原因？",
+            "en": "In AI Infra Lab, every exercise and metric is tagged as `formula`, `cpu_measured`, or `simulated`. Which statement accurately explains why we separate these three data sources?"
+          },
+          "starter": "",
+          "reference": "b",
+          "hints": [
+            {
+              "zh": "概念提示：先区分“硬件无关的数学守恒量”（如元素个数×字节宽）与“依赖具体机器的实测耗时”。",
+              "en": "Concept: Separate hardware-independent math invariants (elements × byte width) from machine-specific timings."
+            },
+            {
+              "zh": "步骤提示：逐项排除把 CPU 毫秒直接当成 GPU 真实数据，或认为没有 GPU 就没法算内存账的说法。",
+              "en": "Steps: Eliminate options claiming CPU timings equal GPU timings or claiming byte math requires a physical GPU."
+            },
+            {
+              "zh": "关键原则：公式算理论上下界，CPU 沙箱测真实访存与指令规律，模拟器探索参数变化后的拐点迁移。",
+              "en": "Key rule: Formulas give exact invariants, CPU runs measure real instruction/cache effects, simulators explore hardware parameter sweeps."
+            },
+            {
+              "zh": "参考答案：选择第 2 项（选项 b），它准确概括了三类数据来源互补且绝不混用的工程边界。",
+              "en": "Answer: Option `b` accurately states how the three data sources complement one another without conflation."
+            }
+          ],
+          "concepts": [
+            "data-source"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "把本机 CPU 上跑出的绝对耗时直接外推成 GPU 耗时，忽略了两者的内存带宽与并行度架构差异。",
+              "en": "Extrapolating raw CPU latency directly to GPU latency while ignoring vastly different bandwidth and parallelism."
+            },
+            {
+              "zh": "误以为没有 GPU 就无法学习系统算账——实际上显存容量、FLOPs 与算术强度首先都是精确公式。",
+              "en": "Assuming you cannot learn AI infra without a GPU, when memory footprint, FLOPs, and Arithmetic Intensity start with exact math."
+            }
+          ]
+        },
+        {
+          "id": "A00-code",
+          "lessonId": "A00",
+          "title": {
+            "zh": "第一次沙箱运行与断言排错",
+            "en": "First Sandbox Run & Reading Assertions"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "resourceProfile": "scalar-cpu",
+          "runtimeKey": "a00-hello-v1",
+          "steps": [
+            {
+              "name": "greet_machine",
+              "title": {
+                "zh": "生成机器自检问候语",
+                "en": "Format Machine Greeting"
+              }
+            },
+            {
+              "name": "add_shapes",
+              "title": {
+                "zh": "汇总两个缓冲区的元素总数",
+                "en": "Sum Element Counts of Two Buffers"
+              }
+            }
+          ],
+          "prompt": {
+            "zh": "欢迎第一次动手运行沙箱代码！你可以先直接点击一次“运行”，观察未完成状态下清晰的断言提示（`passed: false`），然后完成两个微步骤：\n1. `greet_machine(device_name, cores)`：返回精确字符串 `\"Hello <device_name>, ready with <cores> cores!\"`（注意大小写、逗号、空格与感叹号）。\n2. `add_shapes(count_a, count_b)`：返回两个一维缓冲区元素个数之和 `count_a + count_b`。",
+            "en": "Welcome to your first sandboxed run! Try clicking Run once before editing to see how unfinished steps report clear `passed: false` diagnostics, then complete both steps:\n1. `greet_machine(device_name, cores)`: Return exact string `\"Hello <device_name>, ready with <cores> cores!\"` (mind spaces, comma, and `!`).\n2. `add_shapes(count_a, count_b)`: Return `count_a + count_b`."
+          },
+          "starter": "# A00: 上手工作台与第一次断言自检 / Workbench Onboarding & First Assertion Check\n# 请依次完成下方两个函数中的 TODO，然后点击运行观察检查结果。\n# Complete the two TODOs below, then run to inspect each step's check output.\n\n\ndef greet_machine(device_name: str, cores: int) -> str:\n    \"\"\"\n    返回格式严格一致的自检问候字符串 / Return the exact greeting string:\n    \"Hello <device_name>, ready with <cores> cores!\"\n    例如 / Example: greet_machine(\"CPU-0\", 4) -> \"Hello CPU-0, ready with 4 cores!\"\n    \"\"\"\n    # TODO: 使用 f-string 拼接并返回问候语 / Use an f-string to return the greeting\n    return None\n\n\ndef add_shapes(count_a: int, count_b: int) -> int:\n    \"\"\"\n    返回两个一维缓冲区元素个数的总和 / Return total element count of two 1D buffers.\n    例如 / Example: add_shapes(128, 256) -> 384\n    \"\"\"\n    # TODO: 返回 count_a 与 count_b 相加的结果 / Return count_a + count_b\n    return None\n",
+          "reference": "def greet_machine(device_name: str, cores: int) -> str:\n    return f\"Hello {device_name}, ready with {cores} cores!\"\n\n\ndef add_shapes(count_a: int, count_b: int) -> int:\n    return int(count_a + count_b)\n",
+          "hints": [
+            {
+              "zh": "概念提示：Python 的 f-string 可以在字符串前加 `f`，用花括号 `{变量名}` 把变量值自动嵌入文本中。",
+              "en": "Concept: Python f-strings prefix quotes with `f` and embed variables directly via `{var_name}`."
+            },
+            {
+              "zh": "步骤提示：先修改 `greet_machine` 中的 `return None`，再修改 `add_shapes` 中的 `return None`。",
+              "en": "Steps: Replace `return None` in `greet_machine` first, then replace `return None` in `add_shapes`."
+            },
+            {
+              "zh": "关键写法：第 1 步写 `f\"Hello {device_name}, ready with {cores} cores!\"`；第 2 步写 `count_a + count_b`。",
+              "en": "Key syntax: Step 1 uses `f\"Hello {device_name}, ready with {cores} cores!\"`; Step 2 uses `count_a + count_b`."
+            },
+            {
+              "zh": "参考写法：\n`def greet_machine(device_name, cores): return f\"Hello {device_name}, ready with {cores} cores!\"`\n`def add_shapes(count_a, count_b): return count_a + count_b`",
+              "en": "Reference:\n`def greet_machine(device_name, cores): return f\"Hello {device_name}, ready with {cores} cores!\"`\n`def add_shapes(count_a, count_b): return count_a + count_b`"
+            }
+          ],
+          "concepts": [
+            "assertion",
+            "data-source"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "只用了 `print(...)` 打印问候语却忘了写 `return`，导致函数默认返回 `None`。",
+              "en": "Using `print(...)` instead of `return`, which leaves the function returning `None`."
+            },
+            {
+              "zh": "字符串漏写了逗号后面的空格或末尾的感叹号 `!`，对照断言报错里的 `expected` 与 `actual` 即可一眼定位。",
+              "en": "Missing the space after the comma or the trailing `!` — compare `expected` and `actual` in the check detail."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A01",
+      "stage": "A",
+      "title": {
+        "zh": "Python 最小集",
+        "en": "Minimal Python for Infra Math"
+      },
+      "summary": {
+        "zh": "",
+        "en": ""
+      },
+      "prerequisites": [
+        "A00"
+      ],
+      "objectives": [
+        {
+          "zh": "掌握 Python 列表下标、左闭右开切片 `a[start:stop]` 与 `for` 循环累加模式",
+          "en": "Master 0-based list indexing, half-open slicing `a[start:stop]`, and `for`-loop accumulation"
+        },
+        {
+          "zh": "能够编写通用的连续区间切块函数 `chunk_ranges`，为后续缓存分块与多核分片打下基础",
+          "en": "Write the standard `chunk_ranges` interval splitter used across batching, tiling, and multi-core partitioning"
+        }
+      ],
+      "body": {
+        "zh": "",
+        "en": ""
+      },
+      "exercises": [
+        {
+          "id": "A01-fasttrack",
+          "lessonId": "A01",
+          "title": {
+            "zh": "2 分钟语法快通小测（答对可跳过本节练习）",
+            "en": "2-Minute Python Fast-Track Quiz"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "fastTrackSkipLesson": true,
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "18（误把切片元素直接相加，忘了乘 2）",
+                  "en": "18 (summed slice without multiplying by 2)"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "36（nums[1:4] 为 [4, 6, 8]，乘 2 累加得 8 + 12 + 16 = 36）",
+                  "en": "36 (nums[1:4] is [4, 6, 8]; doubled sum is 8 + 12 + 16 = 36)"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "56（误把下标 4 的元素 10 也包含进了左闭右开切片）",
+                  "en": "56 (mistakenly included index 4 value 10 in half-open slice)"
+                }
+              },
+              {
+                "id": "d",
+                "label": {
+                  "zh": "60（把整个列表全部乘 2 求和）",
+                  "en": "60 (doubled and summed the entire list)"
+                }
+              }
+            ],
+            "correctOptionId": "b"
+          },
+          "prompt": {
+            "zh": "【有 Python 基础者快通道】已知列表 `nums = [2, 4, 6, 8, 10]`（下标从 0 开始）。执行以下代码后，`total` 的值是多少？\n```python\ntotal = 0\nfor x in nums[1:4]:\n    total = total + x * 2\n```\n（答对即可自动标记跳过本节基础语法练习；零基础同学也欢迎试一试！）",
+            "en": "[Fast-Track] Given `nums = [2, 4, 6, 8, 10]` (0-indexed), what is `total` after running:\n```python\ntotal = 0\nfor x in nums[1:4]:\n    total = total + x * 2\n```\n(Answering correctly marks this Python warm-up fast-tracked so you can jump straight to A02!)"
+          },
+          "starter": "",
+          "reference": "b",
+          "hints": [
+            {
+              "zh": "概念提示：列表下标从 `0` 开始，因此 `nums[0]=2, nums[1]=4, nums[2]=6, nums[3]=8, nums[4]=10`。",
+              "en": "Concept: Lists are 0-indexed: `nums[0]=2, nums[1]=4, nums[2]=6, nums[3]=8, nums[4]=10`."
+            },
+            {
+              "zh": "步骤提示：先写出左闭右开切片 `nums[1:4]` 取出的 3 个数字（包含下标 1，不包含下标 4）。",
+              "en": "Steps: First list the 3 elements selected by half-open slice `nums[1:4]` (includes 1, excludes 4)."
+            },
+            {
+              "zh": "关键计算：`nums[1:4]` 是 `[4, 6, 8]`，每个元素乘 2 得到 `8, 12, 16`，再把三者相加。",
+              "en": "Key math: `nums[1:4]` gives `[4, 6, 8]`; multiplying each by 2 gives `8 + 12 + 16`."
+            },
+            {
+              "zh": "参考答案：`8 + 12 + 16 = 36`，对应选项 `b`。",
+              "en": "Answer: `8 + 12 + 16 = 36` (option `b`)."
+            }
+          ],
+          "concepts": [
+            "loop-slice"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "误以为 `nums[1:4]` 包含下标 `4`（即 `10`），忘记了 Python 切片左闭右开的规则。",
+              "en": "Thinking `nums[1:4]` includes index `4` (`10`), forgetting Python slices are half-open `[start, stop)`."
+            },
+            {
+              "zh": "误把第 1 个元素算作 `2`，忽略了 Python 下标从 `0` 起算、`nums[1]` 其实是第二个元素 `4`。",
+              "en": "Starting index count at 1 instead of 0, reading `nums[1]` as `2` instead of `4`."
+            }
+          ]
+        },
+        {
+          "id": "A01-code",
+          "lessonId": "A01",
+          "title": {
+            "zh": "动手写 Infra 常用列表与切块函数",
+            "en": "Implement Core List & Chunk-Splitting Functions"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "resourceProfile": "scalar-cpu",
+          "runtimeKey": "a01-py-basics-v1",
+          "steps": [
+            {
+              "name": "scale_list",
+              "title": {
+                "zh": "列表按比例缩放",
+                "en": "Scale Every Element in a List"
+              }
+            },
+            {
+              "name": "pair_multiply_sum",
+              "title": {
+                "zh": "对应元素相乘并累加",
+                "en": "Pairwise Multiply and Sum"
+              }
+            },
+            {
+              "name": "chunk_ranges",
+              "title": {
+                "zh": "切分连续任务区间",
+                "en": "Split Range into Fixed-Size Chunks"
+              }
+            }
+          ],
+          "prompt": {
+            "zh": "依次实现后续系统计算最常复用的三个微函数：\n1. `scale_list(values, factor)`：返回每个元素乘以 `factor` 后的新列表。\n2. `pair_multiply_sum(a, b)`：对两个等长列表计算对应位置乘积之和 $\\sum_i a_i b_i$（这就是下一节“向量点积”的原型！）。\n3. `chunk_ranges(total, chunk_size)`：把 `[0, total)` 按最大宽度 `chunk_size` 切成连续区间列表 `[[start, end], ...]`，最后一块自动截断到 `total`。",
+            "en": "Implement three foundational helper functions you will reuse throughout systems engineering:\n1. `scale_list(values, factor)`: Return a new list with every element multiplied by `factor`.\n2. `pair_multiply_sum(a, b)`: Return $\\sum_i a_i b_i$ for two equal-length lists (the exact math of a dot product!).\n3. `chunk_ranges(total, chunk_size)`: Partition `[0, total)` into `[[start, end], ...]` chunks of size at most `chunk_size`, clamping the tail at `total`."
+          },
+          "starter": "# A01: Python 最小集（列表、循环累加与区间切分）\n# Minimal Python for Infra Math (Lists, Loop Accumulation & Chunk Ranges)\n\n\ndef scale_list(values: list[float], factor: float) -> list[float]:\n    \"\"\"\n    将列表 values 中的每个元素乘以 factor，返回新列表。\n    Multiply every element in `values` by `factor` and return a new list.\n    \"\"\"\n    # TODO: 遍历 values，将每个元素 x * factor 放入新列表返回\n    return None\n\n\ndef pair_multiply_sum(a: list[float], b: list[float]) -> float:\n    \"\"\"\n    给定两个等长列表 a 和 b，计算对应位置元素乘积之和 sum(a[i] * b[i])。\n    Given equal-length lists `a` and `b`, return sum(a[i] * b[i]).\n    \"\"\"\n    # TODO: 初始化累加变量 total = 0.0，循环累加 a[i] * b[i] 并返回\n    return None\n\n\ndef chunk_ranges(total: int, chunk_size: int) -> list[list[int]]:\n    \"\"\"\n    将 [0, total) 按每块最多 chunk_size 切分为连续左闭右开区间 [[start, end], ...]。\n    Split [0, total) into consecutive intervals [[start, end], ...] of width <= chunk_size.\n    例如 / Example: chunk_ranges(10, 4) -> [[0, 4], [4, 8], [8, 10]]\n    \"\"\"\n    # TODO: 使用 range(0, total, chunk_size) 与 min(start + chunk_size, total) 生成区间列表\n    return None\n",
+          "reference": "def scale_list(values: list[float], factor: float) -> list[float]:\n    result = []\n    for x in values:\n        result.append(x * factor)\n    return result\n\n\ndef pair_multiply_sum(a: list[float], b: list[float]) -> float:\n    total = 0.0\n    for i in range(len(a)):\n        total = total + a[i] * b[i]\n    return float(total)\n\n\ndef chunk_ranges(total: int, chunk_size: int) -> list[list[int]]:\n    chunks = []\n    for start in range(0, total, chunk_size):\n        end = min(start + chunk_size, total)\n        chunks.append([start, end])\n    return chunks\n",
+          "hints": [
+            {
+              "zh": "概念提示：生成新列表时先建空列表 `out = []` 用 `.append(...)` 追加；求总和时先设 `total = 0.0` 循环累加。",
+              "en": "Concept: Build a list by initializing `out = []` and `.append(...)`; accumulate a sum by initializing `total = 0.0` before the loop."
+            },
+            {
+              "zh": "步骤提示：`pair_multiply_sum` 可用 `for i in range(len(a)):` 同时按下标访问 `a[i]` 与 `b[i]`；`chunk_ranges` 用三参数 `range(0, total, chunk_size)` 跨步生成每段起点。",
+              "en": "Steps: Use `for i in range(len(a)):` in `pair_multiply_sum`; use 3-arg `range(0, total, chunk_size)` in `chunk_ranges`."
+            },
+            {
+              "zh": "关键公式：在 `chunk_ranges` 中，每段起点为 `start`，终点写成 `end = min(start + chunk_size, total)`，追加 `[start, end]`。",
+              "en": "Key formula: For each `start` in `range(0, total, chunk_size)`, set `end = min(start + chunk_size, total)` and append `[start, end]`."
+            },
+            {
+              "zh": "参考写法：\n- `scale_list`: `return [x * factor for x in values]`\n- `pair_multiply_sum`: `return float(sum(a[i] * b[i] for i in range(len(a))))`\n- `chunk_ranges`: `return [[s, min(s + chunk_size, total)] for s in range(0, total, chunk_size)]`",
+              "en": "Reference:\n- `scale_list`: `return [x * factor for x in values]`\n- `pair_multiply_sum`: `return float(sum(a[i] * b[i] for i in range(len(a))))`\n- `chunk_ranges`: `return [[s, min(s + chunk_size, total)] for s in range(0, total, chunk_size)]`"
+            }
+          ],
+          "concepts": [
+            "loop-slice"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "把 `total = 0.0` 错写在了 `for` 循环内部，导致每一轮都把之前攒下的总和清零。",
+              "en": "Initializing `total = 0.0` inside the `for` loop body, resetting the accumulator on every iteration."
+            },
+            {
+              "zh": "在 `chunk_ranges` 中直接写 `end = start + chunk_size` 忘了用 `min(..., total)` 封顶，导致最后一块越界超过 `total`。",
+              "en": "Writing `end = start + chunk_size` without `min(..., total)`, causing the final chunk to overshoot `total`."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A02",
+      "stage": "A",
+      "title": {
+        "zh": "NumPy 与二维形状",
+        "en": "NumPy & 2D Shapes"
+      },
+      "summary": {
+        "zh": "",
+        "en": ""
+      },
+      "prerequisites": [
+        "A01"
+      ],
+      "objectives": [
+        {
+          "zh": "熟练核算一维/二维数组的内存字节容量（元素总数 × dtype 字节数，转换 MiB/MB）",
+          "en": "Calculate exact byte capacity of 1D/2D arrays (`elements × itemsize`) in MiB/MB"
+        },
+        {
+          "zh": "实现二维矩阵按行广播加偏置，并通过 CPU 实测对比纯 Python 循环与 NumPy 向量化点积的数量级速度差",
+          "en": "Apply 2D row broadcasting and benchmark pure Python loop dot product against NumPy vectorized dot product"
+        }
+      ],
+      "body": {
+        "zh": "",
+        "en": ""
+      },
+      "exercises": [
+        {
+          "id": "A02-estimate",
+          "lessonId": "A02",
+          "title": {
+            "zh": "估算 1024×1024 float32 二维数组的字节容量",
+            "en": "Estimate Byte Capacity of a 1024×1024 float32 2D Array"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "estimate": {
+            "dimension": "bytes",
+            "expectedBase": 4194304,
+            "canonicalDisplay": "4 MiB",
+            "relativeTolerance": 0.05
+          },
+          "prompt": {
+            "zh": "在模型线性层中有一个形状为 `1024 × 1024`、数据类型为 `float32`（每个元素占 `4 Byte`）的二维数组。请问它在内存中占用多少容量？（请同时输入数值与容量单位，例如 `4 MiB` 或 `4.19 MB`）",
+            "en": "A linear layer holds a 2D array of shape `1024 × 1024` with dtype `float32` (`4 Bytes` per element). How much memory does it occupy? (Enter both number and byte unit, e.g. `4 MiB` or `4.19 MB`.)"
+          },
+          "starter": "",
+          "reference": "4 MiB",
+          "hints": [
+            {
+              "zh": "概念提示：数组占用的内存字节数只取决于“总共有多少个元素”以及“每个元素占几个字节”。",
+              "en": "Concept: Array memory equals total element count multiplied by bytes per element (`dtype.itemsize`)."
+            },
+            {
+              "zh": "步骤提示：先算 `1024 × 1024` 得到总元素个数，再乘以 `float32` 的单元素字节数 `4`。",
+              "en": "Steps: Multiply `1024 × 1024` to get total elements, then multiply by `4` bytes for `float32`."
+            },
+            {
+              "zh": "关键公式：`1024 × 1024 = 1,048,576`（恰好是 `1 Mi`），乘以 `4 Bytes` 等于 `4,194,304 Bytes`；除以 `1024^2` 即得 `MiB` 数。",
+              "en": "Key formula: `1024 × 1024 = 1,048,576` elements; times `4 B` = `4,194,304 B`, and `1 MiB = 1,048,576 B`."
+            },
+            {
+              "zh": "参考答案：直接输入 `4 MiB`（或 `4194304 B` / `4.19 MB` 均可过关）。",
+              "en": "Answer: Enter `4 MiB` (or `4194304 B` / `4.19 MB`)."
+            }
+          ],
+          "concepts": [
+            "dtype-bytes",
+            "shape-2d"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "只输入了裸数字 `4` 忘了写容量单位 `MiB`——工程估算必须带单位，否则 `4 KB` 与 `4 GB` 相差百万倍！",
+              "en": "Entering bare `4` without a unit like `MiB` — systems estimates always require explicit units."
+            },
+            {
+              "zh": "把 `float32`（32 比特 = 4 字节）误当成每个元素占 32 字节（混淆了 bit 与 Byte，1 Byte = 8 bits）。",
+              "en": "Multiplying by 32 instead of 4 by confusing 32 bits with 32 Bytes (`1 Byte = 8 bits`)."
+            }
+          ]
+        },
+        {
+          "id": "A02-code",
+          "lessonId": "A02",
+          "title": {
+            "zh": "二维广播与向量化提速实测",
+            "en": "2D Row Broadcasting & Vectorization Speedup Benchmark"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "requiresPrediction": true,
+          "resourceProfile": "scalar-cpu",
+          "runtimeKey": "a02-numpy-2d-v1",
+          "steps": [
+            {
+              "name": "row_bias_broadcast",
+              "title": {
+                "zh": "二维矩阵按行广播加偏置",
+                "en": "2D Row Broadcast Bias Addition"
+              }
+            },
+            {
+              "name": "py_loop_dot",
+              "title": {
+                "zh": "纯 Python 循环一维点积",
+                "en": "Pure Python Loop 1D Dot Product"
+              }
+            },
+            {
+              "name": "np_vector_dot",
+              "title": {
+                "zh": "NumPy 向量化一维点积",
+                "en": "NumPy Vectorized 1D Dot Product"
+              }
+            }
+          ],
+          "prompt": {
+            "zh": "先写下你对“NumPy 向量化点积相比纯 Python 循环能快多少倍”的预测，然后完成三个一维/二维数组步骤：\n1. `row_bias_broadcast(matrix_2d, bias_1d)`：利用广播把形状 `(cols,)` 的一维偏置加到形状 `(rows, cols)` 的二维矩阵每一行上。\n2. `py_loop_dot(a_1d, b_1d)`：用纯 Python `for` 循环逐元素计算一维点积（慢速基准）。\n3. `np_vector_dot(a_1d, b_1d)`：用 `np.dot` 向量化计算一维点积（严禁使用任何 Python 循环或列表推导式！），观察沙箱实测加速比指标。",
+            "en": "First record your speedup prediction, then complete all three 1D/2D array steps:\n1. `row_bias_broadcast(matrix_2d, bias_1d)`: Add 1D `bias_1d` `(cols,)` to every row of 2D `matrix_2d` `(rows, cols)` via broadcasting.\n2. `py_loop_dot(a_1d, b_1d)`: Compute 1D dot product with a pure Python `for` loop (baseline).\n3. `np_vector_dot(a_1d, b_1d)`: Compute 1D dot product with `np.dot` (no Python loops or list comprehensions!) and inspect the measured speedup."
+          },
+          "starter": "# A02: NumPy 一维/二维数组、广播与向量化提速\n# NumPy 1D/2D Arrays, Row Broadcasting & Vectorization Speedup\nimport numpy as np\n\n\ndef row_bias_broadcast(matrix_2d: np.ndarray, bias_1d: np.ndarray) -> np.ndarray:\n    \"\"\"\n    matrix_2d 形状为 (rows, cols)，bias_1d 形状为 (cols,)。\n    利用 NumPy 广播机制将 bias_1d 加到 matrix_2d 的每一行，返回二维数组。\n    Add 1D `bias_1d` of shape (cols,) across every row of 2D `matrix_2d` (rows, cols).\n    \"\"\"\n    # TODO: 直接利用 NumPy 广播相加并返回结果（切勿写双层循环）\n    return None\n\n\ndef py_loop_dot(a_1d: np.ndarray, b_1d: np.ndarray) -> float:\n    \"\"\"\n    使用纯 Python for 循环计算两个一维数组的点积，作为慢速对照组。\n    Compute 1D dot product with a pure Python `for` loop as our baseline.\n    \"\"\"\n    # TODO: 用 for i in range(len(a_1d)) 逐个相乘累加，返回 float(total)\n    return None\n\n\ndef np_vector_dot(a_1d: np.ndarray, b_1d: np.ndarray) -> float:\n    \"\"\"\n    使用 NumPy 向量化算子（如 np.dot）计算两个一维数组的点积，禁止使用 Python 循环！\n    Compute 1D dot product with NumPy vectorization (e.g. np.dot); NO Python loops!\n    \"\"\"\n    # TODO: 调用 np.dot(a_1d, b_1d) 并转为 Python float 返回\n    return None\n",
+          "reference": "import numpy as np\n\n\ndef row_bias_broadcast(matrix_2d: np.ndarray, bias_1d: np.ndarray) -> np.ndarray:\n    return matrix_2d + bias_1d\n\n\ndef py_loop_dot(a_1d: np.ndarray, b_1d: np.ndarray) -> float:\n    total = 0.0\n    for i in range(len(a_1d)):\n        total += float(a_1d[i]) * float(b_1d[i])\n    return float(total)\n\n\ndef np_vector_dot(a_1d: np.ndarray, b_1d: np.ndarray) -> float:\n    return float(np.dot(a_1d, b_1d))\n",
+          "hints": [
+            {
+              "zh": "概念提示：在 NumPy 中，`shape (rows, cols)` 的二维数组与 `shape (cols,)` 的一维数组直接用 `+` 号就会自动沿每一行广播对齐。",
+              "en": "Concept: In NumPy, `matrix_2d + bias_1d` automatically broadcasts `(cols,)` across every row of `(rows, cols)`."
+            },
+            {
+              "zh": "步骤提示：`py_loop_dot` 用 `for i in range(len(a_1d)): total += float(a_1d[i]) * float(b_1d[i])`；`np_vector_dot` 直接调用底层 C/SIMD 实现的 `np.dot`。",
+              "en": "Steps: Use an explicit `for` loop in `py_loop_dot`, and call `np.dot(a_1d, b_1d)` in `np_vector_dot`."
+            },
+            {
+              "zh": "关键细节：`np.dot` 返回的是 NumPy 标量（如 `np.float32`），外层套上 `float(...)` 即可转为标准 Python `float`。",
+              "en": "Key detail: Wrap `np.dot(a_1d, b_1d)` in `float(...)` to return a plain Python float."
+            },
+            {
+              "zh": "参考写法：\n- `row_bias_broadcast`: `return matrix_2d + bias_1d`\n- `py_loop_dot`: 循环累加 `float(a_1d[i]) * float(b_1d[i])`\n- `np_vector_dot`: `return float(np.dot(a_1d, b_1d))`",
+              "en": "Reference:\n- `row_bias_broadcast`: `return matrix_2d + bias_1d`\n- `py_loop_dot`: loop `total += float(a_1d[i]) * float(b_1d[i])`\n- `np_vector_dot`: `return float(np.dot(a_1d, b_1d))`"
+            }
+          ],
+          "concepts": [
+            "broadcasting",
+            "vectorization",
+            "shape-2d"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "在 `np_vector_dot` 里写了 `sum([a[i] * b[i] for i in ...])`——列表推导式本质仍是纯 Python 逐元素循环，不是 NumPy 向量化！",
+              "en": "Writing `sum([a[i] * b[i] for i in ...])` inside `np_vector_dot` — list comprehensions still run slow Python loops!"
+            },
+            {
+              "zh": "在 `row_bias_broadcast` 中试图把 `(rows, cols)` 与 `(rows,)` 直接相加而没有对齐最后一维列数。",
+              "en": "Confusing row count with column count — 1D `(cols,)` aligns automatically with the trailing dimension of `(rows, cols)`."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A03",
+      "stage": "A",
+      "title": {
+        "zh": "数字的二进制表示",
+        "en": "Binary Representation of Numbers"
+      },
+      "summary": {
+        "zh": "",
+        "en": ""
+      },
+      "prerequisites": [
+        "A02"
+      ],
+      "simulatorWidget": "bit-layout",
+      "objectives": [
+        {
+          "zh": "通过交互式位布局检查器直观区分符号位、指数位与尾数位，理解为什么 FP16 在 65504 之后溢出而 BF16 不会",
+          "en": "Inspect sign, exponent, and mantissa bits visually and see why FP16 overflows past 65504 while BF16 stays finite"
+        },
+        {
+          "zh": "用 NumPy 复现 FP16 上溢与 FP32“大数吃小数”现象，并掌握分块累加缓解方法",
+          "en": "Reproduce FP16 overflow and FP32 swamping (`1e8 + 1.0 == 1e8`) in NumPy and mitigate swamping with chunked summation"
+        }
+      ],
+      "body": {
+        "zh": "",
+        "en": ""
+      },
+      "exercises": [
+        {
+          "id": "A03-sim",
+          "lessonId": "A03",
+          "title": {
+            "zh": "位布局模拟：对比 FP16 与 BF16 的溢出边界",
+            "en": "Bit-Layout Simulator: Compare FP16 vs BF16 Overflow"
+          },
+          "kind": "simulator",
+          "dataSource": "simulated",
+          "simulator": {
+            "widget": "bit-layout",
+            "goalDescription": {
+              "zh": "在位布局检查器中切换查看 FP16（5 位指数、10 位尾数）与 BF16（8 位指数、7 位尾数），输入 65504 与 70000（或手动将 FP16 的 5 个指数位全部翻转为 1），观察 FP16 溢出为 +Infinity 而 BF16 仍能正常表示有限数值，完成后提交实验观察。",
+              "en": "Switch between FP16 (5 exp, 10 mantissa bits) and BF16 (8 exp, 7 mantissa bits) in the Bit-Layout widget, test 65504 and 70000 (or flip all 5 FP16 exponent bits to 1), observe FP16 overflowing to +Infinity while BF16 stays finite, then complete the simulator check."
+            }
+          },
+          "prompt": {
+            "zh": "无需写任何位操作代码！请使用上方的**浮点数位布局模拟器（Bit-Layout Inspector）**：\n1. 先选 `FP16`，输入 `65504` 查看正常最大有限值，再输入 `70000` 观察 5 个指数位全部变成 `1`（`+Infinity`）。\n2. 切换到 `BF16`，同样输入 `70000`，观察它的 8 个指数位如何轻松容纳该量级。\n完成探索后点击模拟器完成确认。",
+            "en": "No bitmask coding needed! Use the interactive **Bit-Layout Inspector**:\n1. Select `FP16`, enter `65504` (max finite FP16), then enter `70000` and watch all 5 exponent bits saturate to `1` (`+Infinity`).\n2. Switch to `BF16` with `70000` and observe how its 8 exponent bits represent the value cleanly.\nClick complete once you have observed the difference."
+          },
+          "starter": "",
+          "reference": "{\"widget\":\"bit-layout\",\"comparedFormats\":[\"fp16\",\"bf16\"],\"observedOverflow\":true,\"sampleInput\":70000}",
+          "hints": [
+            {
+              "zh": "概念提示：IEEE-754 规定当所有指数位全为 `1` 且尾数位全为 `0` 时，该位模式专用于表示正负无穷大（`±Infinity`）。",
+              "en": "Concept: In IEEE-754, all exponent bits set to `1` with zero mantissa encodes `±Infinity`."
+            },
+            {
+              "zh": "步骤提示：在模拟器格式切换栏依次点选 `FP16` 与 `BF16`，分别输入 `65504` 和 `70000` 对比解码类别（`normal` vs `infinity`）。",
+              "en": "Steps: Toggle between `FP16` and `BF16` in the widget and compare decoded category (`normal` vs `infinity`) at `65504` and `70000`."
+            },
+            {
+              "zh": "关键对比：`FP16` 只有 5 位指数（最大偏置后指数 $2^{15}$，上限 `65504`）；`BF16` 有 8 位指数（最大偏置后指数 $2^{127}$，上限 $\\approx 3.39 \\times 10^{38}$）。",
+              "en": "Key contrast: `FP16` has 5 exponent bits (max `65504`), whereas `BF16` has 8 exponent bits (max $\\approx 3.39 \\times 10^{38}$)."
+            },
+            {
+              "zh": "完成方式：在模拟器中完成两种格式与溢出值的交互观察后，点击模拟器的确认提交按钮即可通过。",
+              "en": "Completion: After inspecting `FP16` overflow vs `BF16` in the widget, click the simulator completion button."
+            }
+          ],
+          "concepts": [
+            "floating-point",
+            "fp16-vs-bf16"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "误以为位数多的是指数位决定了“小数点后更准”——其实指数位管的是“上限有多大、下限有多小”，尾数位才管有效数字精度。",
+              "en": "Confusing exponent bits with decimal precision — exponent bits control min/max dynamic range, while mantissa bits control precision."
+            },
+            {
+              "zh": "误以为 `BF16` 比 `FP16` 多占内存——两者都是刚好 16 bit（2 Bytes），只是内部指数与尾数的位数分配不同。",
+              "en": "Thinking `BF16` uses more bytes than `FP16` — both are 16-bit (2-byte) formats with different exponent/mantissa splits."
+            }
+          ]
+        },
+        {
+          "id": "A03-quiz",
+          "lessonId": "A03",
+          "title": {
+            "zh": "为什么深度学习训练更偏爱 BF16 而不是 FP16？",
+            "en": "Why Does Deep Learning Training Prefer BF16 Over FP16?"
+          },
+          "kind": "quiz",
+          "dataSource": "formula",
+          "quiz": {
+            "options": [
+              {
+                "id": "a",
+                "label": {
+                  "zh": "因为 BF16 每个数字只占 1 字节，比占 2 字节的 FP16 省一半显存",
+                  "en": "Because BF16 uses 1 byte per element, half the memory of 2-byte FP16"
+                }
+              },
+              {
+                "id": "b",
+                "label": {
+                  "zh": "因为 BF16 的尾数位（15 位）比 FP32 还长，完全不存在任何舍入误差",
+                  "en": "Because BF16 has more mantissa bits than FP32 and zero rounding error"
+                }
+              },
+              {
+                "id": "c",
+                "label": {
+                  "zh": "因为 BF16 保留了与 FP32 相同的 8 位指数，动态范围极大，训练中的大激活值或梯度不易超过 65504 爆成 Inf/NaN",
+                  "en": "Because BF16 keeps 8 exponent bits matching FP32's dynamic range, preventing activations/gradients above 65504 from overflowing to Inf/NaN"
+                }
+              },
+              {
+                "id": "d",
+                "label": {
+                  "zh": "因为 BF16 只能表示整数，不需要做浮点指数对齐",
+                  "en": "Because BF16 only represents integers and skips exponent alignment"
+                }
+              }
+            ],
+            "correctOptionId": "c"
+          },
+          "prompt": {
+            "zh": "大模型混合精度训练普遍把前向与反向矩阵乘法从 `FP16` 切换到了 `BF16`（同时仍保留 `FP32` 主权重累加器）。工程上偏爱 `BF16` 的最核心原因是什么？",
+            "en": "Modern LLM mixed-precision training overwhelmingly favors `BF16` over `FP16` (paired with `FP32` master accumulators). What is the primary engineering reason?"
+          },
+          "starter": "",
+          "reference": "c",
+          "hints": [
+            {
+              "zh": "概念提示：对比 `FP16`（1+5+10）与 `BF16`（1+8+7）的位宽分配，想想训练中途最怕突然发生什么致命故障。",
+              "en": "Concept: Compare `FP16` (1+5+10) vs `BF16` (1+8+7) and recall what numerical failure kills a training run instantly."
+            },
+            {
+              "zh": "步骤提示：一旦某层激活值或梯度超过上限变成 `Inf`，反向传播相乘就会迅速传染整张网络的 `NaN`。",
+              "en": "Steps: Once a single activation or gradient overflows into `Inf`, backpropagation quickly infects weights with `NaN`."
+            },
+            {
+              "zh": "关键对比：`BF16` 的 8 位指数与 `FP32` 动态范围一致（高达 $\\sim 3.4 \\times 10^{38}$），省去繁琐的动态 Loss Scaling 也不易上溢。",
+              "en": "Key contrast: `BF16`'s 8 exponent bits match `FP32`'s dynamic range ($\\sim 3.4 \\times 10^{38}$), avoiding `FP16`'s `65504` ceiling."
+            },
+            {
+              "zh": "参考答案：选择选项 `c`。",
+              "en": "Answer: Select option `c`."
+            }
+          ],
+          "concepts": [
+            "fp16-vs-bf16",
+            "floating-point"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "误以为 `BF16` 在所有方面都比 `FP16` 更精确——其实 `BF16` 尾数只有 7 位（单数有效数字比 `FP16` 粗），因此权重主副本更新仍需 `FP32` 累加器配合！",
+              "en": "Thinking `BF16` has finer precision than `FP16` — `BF16` actually has fewer mantissa bits (7 vs 10), which is why master weight updates still accumulate in `FP32`."
+            },
+            {
+              "zh": "把 `BF16`（2 Bytes）与 `FP8` / `INT8`（1 Byte）的字节数记混。",
+              "en": "Confusing 2-byte `BF16` with 1-byte `FP8`/`INT8` formats."
+            }
+          ]
+        },
+        {
+          "id": "A03-code",
+          "lessonId": "A03",
+          "title": {
+            "zh": "复现 FP16 溢出与缓解“大数吃小数”",
+            "en": "Reproduce FP16 Overflow & Mitigate Swamping"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "resourceProfile": "scalar-cpu",
+          "runtimeKey": "a03-float-limits-v1",
+          "steps": [
+            {
+              "name": "detect_fp16_overflow",
+              "title": {
+                "zh": "检测数值在 FP16 下是否溢出",
+                "en": "Detect FP16 Overflow vs FP32"
+              }
+            },
+            {
+              "name": "swallow_small_delta",
+              "title": {
+                "zh": "复现大数吃小数并用分块累加缓解",
+                "en": "Reproduce Swamping & Mitigate via Chunked Sum"
+              }
+            }
+          ],
+          "prompt": {
+            "zh": "无需任何位掩码操作，直接用 NumPy 验证刚刚学到的两条浮点铁律：\n1. `detect_fp16_overflow(values)`：把输入列表中的有限实数转为 `np.float16`，返回布尔列表标记哪些数溢出了（变成 `inf` / `-inf`）。\n2. `swallow_small_delta(big_base, small_delta, repeat)`：在 `np.float32` 精度下对比两种求和顺序——\n   - `\"naive\"`：从 `acc = np.float32(big_base)` 开始，循环 `repeat` 次每次执行 `acc = np.float32(acc + np.float32(small_delta))`（当 `big_base=1e8, small_delta=1.0` 时观察它如何原地踏步！）；\n   - `\"mitigated\"`：先把 `repeat` 个 `np.float32(small_delta)` 汇总成块（如用 `np.sum` 对 `float32` 数组求和，或使用 Kahan 求和），最后再加到 `np.float32(big_base)` 上。\n   返回 `{\"naive\": float(...), \"mitigated\": float(...)}`。",
+            "en": "Use NumPy (no bitmasks!) to verify both floating-point phenomena:\n1. `detect_fp16_overflow(values)`: Cast finite numbers to `np.float16` and return `list[bool]` indicating which overflowed to `±inf`.\n2. `swallow_small_delta(big_base, small_delta, repeat)`: Compare two `float32` summation orders:\n   - `\"naive\"`: Start at `acc = np.float32(big_base)` and add `np.float32(small_delta)` `repeat` times in `float32` (`acc = np.float32(acc + delta32)`).\n   - `\"mitigated\"`: Sum the `repeat` `float32` deltas into a chunk first (or use Kahan summation in `float32`), then add to `np.float32(big_base)`.\n   Return `{\"naive\": float(...), \"mitigated\": float(...)}`."
+          },
+          "starter": "# A03: 浮点数上溢检测与“大数吃小数”缓解实验（无需位操作代码）\n# Floating-Point Overflow Detection & Swamping Mitigation (No Bitmasks Needed)\nimport numpy as np\n\n\ndef detect_fp16_overflow(values: list[float]) -> list[bool]:\n    \"\"\"\n    检查列表 values 中的每个有限实数转换为 np.float16 后是否溢出为无穷大 (inf)。\n    Return a list of booleans indicating whether each number overflows to inf in float16.\n    例如 / Example: [65504.0, 70000.0] -> [False, True]\n    \"\"\"\n    # TODO: 在 np.errstate(over=\"ignore\") 下转换为 np.float16，并用 np.isinf 判断是否溢出\n    return None\n\n\ndef swallow_small_delta(big_base: float, small_delta: float, repeat: int) -> dict:\n    \"\"\"\n    对比两种 float32 累加顺序（例如 big_base=1e8, small_delta=1.0, repeat=4096）：\n    Compare two float32 accumulation orders:\n    1) naive: 从 acc = np.float32(big_base) 开始，循环 repeat 次直接加 np.float32(small_delta)\n    2) mitigated: 先把 repeat 个 np.float32(small_delta) 单独汇总成块 chunk_sum，最后再与 np.float32(big_base) 相加\n    返回字典 / Return dict: {\"naive\": float(naive_acc), \"mitigated\": float(mitigated_acc)}\n    \"\"\"\n    # TODO: 分别计算 naive 与 mitigated 并返回 {\"naive\": ..., \"mitigated\": ...}\n    return None\n",
+          "reference": "import numpy as np\n\n\ndef detect_fp16_overflow(values: list[float]) -> list[bool]:\n    with np.errstate(over=\"ignore\"):\n        arr16 = np.asarray(values, dtype=np.float16)\n        return [bool(x) for x in np.isinf(arr16)]\n\n\ndef swallow_small_delta(big_base: float, small_delta: float, repeat: int) -> dict:\n    acc = np.float32(big_base)\n    delta32 = np.float32(small_delta)\n    for _ in range(repeat):\n        acc = np.float32(acc + delta32)\n\n    deltas = np.full(repeat, delta32, dtype=np.float32)\n    chunk_sum = np.float32(np.sum(deltas, dtype=np.float32))\n    mitigated = np.float32(np.float32(big_base) + chunk_sum)\n    return {\n        \"naive\": float(acc),\n        \"mitigated\": float(mitigated),\n    }\n",
+          "hints": [
+            {
+              "zh": "概念提示：在 `np.errstate(over=\"ignore\")` 上下文中转换 `np.asarray(values, dtype=np.float16)` 可以干净地把超界值变成 `inf` 而不打印运行时警告。",
+              "en": "Concept: `with np.errstate(over=\"ignore\"):` lets `np.asarray(values, dtype=np.float16)` convert out-of-range numbers to `inf` cleanly."
+            },
+            {
+              "zh": "步骤提示：对转换后的 `arr16` 调用 `np.isinf(arr16)`，再用 `[bool(x) for x in ...]` 转成纯 Python 布尔列表返回。",
+              "en": "Steps: Call `np.isinf(arr16)` and convert via `[bool(x) for x in np.isinf(arr16)]`."
+            },
+            {
+              "zh": "关键对比：复现 `naive` 时注意每一步都要保持 `np.float32`（若不小心转成 Python 默认 64 位 `float` 就不会在 `1e8` 发生吞没了！）；缓解时先算 `chunk = np.float32(np.sum(np.full(repeat, small_delta, dtype=np.float32)))`，再算 `np.float32(np.float32(big_base) + chunk)`。",
+              "en": "Key detail: Keep `acc` and `delta` explicitly `np.float32` in the `naive` loop (Python's built-in `float` is 64-bit!); for `mitigated`, sum `np.full(repeat, small_delta, dtype=np.float32)` first, then add to `np.float32(big_base)`."
+            },
+            {
+              "zh": "参考写法：\n`deltas = np.full(repeat, np.float32(small_delta), dtype=np.float32)`\n`mitigated = np.float32(np.float32(big_base) + np.float32(deltas.sum()))`",
+              "en": "Reference:\n`deltas = np.full(repeat, np.float32(small_delta), dtype=np.float32)`\n`mitigated = np.float32(np.float32(big_base) + np.float32(deltas.sum()))`"
+            }
+          ],
+          "concepts": [
+            "fp16-vs-bf16",
+            "catastrophic-absorption"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "在 `naive` 循环里写了 `acc = acc + 1.0`（右边是 Python 64 位 `float`），导致类型悄悄提升为 `float64`，没能真实复现 `float32` 的精度吞没。",
+              "en": "Adding Python literal `float` (`64-bit`) to `np.float32` promotes to `float64` in some expressions — keep `np.float32(acc + np.float32(small_delta))`."
+            },
+            {
+              "zh": "直接返回了 `np.bool_` 数组而不是 `list[bool]`，建议用 `[bool(x) for x in ...]` 保持返回类型干净明确。",
+              "en": "Returning raw `np.bool_` scalars instead of `[bool(x) for x in ...]`."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A04",
+      "stage": "A",
+      "title": {
+        "zh": "CPU 执行程序",
+        "en": "How the CPU Executes Programs"
+      },
+      "summary": {
+        "zh": "",
+        "en": ""
+      },
+      "prerequisites": [
+        "A02",
+        "A03"
+      ],
+      "objectives": [
+        {
+          "zh": "准确计算点积等基础算子的理论浮点运算次数（FLOPs），严格区分工作总量 FLOPs 与速率 GFLOP/s",
+          "en": "Calculate theoretical FLOPs for dot products (`2N`) and strictly separate work volume (FLOPs) from compute rate (GFLOP/s)"
+        },
+        {
+          "zh": "使用预热与中位数计时规范实测 NumPy SIMD 点积的 GFLOP/s，并生成首个实测 Roofline 坐标点",
+          "en": "Benchmark NumPy SIMD dot product using warm-up + median timing to compute GFLOP/s and emit your first measured Roofline point"
+        }
+      ],
+      "body": {
+        "zh": "",
+        "en": ""
+      },
+      "exercises": [
+        {
+          "id": "A04-estimate",
+          "lessonId": "A04",
+          "title": {
+            "zh": "估算百万维向量点积的浮点运算次数",
+            "en": "Estimate FLOPs of a 1,000,000-Element Dot Product"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "estimate": {
+            "dimension": "flops",
+            "expectedBase": 2000000,
+            "canonicalDisplay": "2 MFLOPs",
+            "relativeTolerance": 0.02
+          },
+          "prompt": {
+            "zh": "长度为 `1,000,000`（一百万）的两个一维向量做一次点积 $\\sum_{i=0}^{N-1} a_i \\cdot b_i$。按照工程标准约定（每次乘法算 1 FLOP，每次加法算 1 FLOP，即每个元素共 `2` FLOPs），完成这一次点积总共需要多少 **FLOPs**？（请填写带运算次数单位的结果，如 `2 MFLOPs`）",
+            "en": "Two 1D vectors of length `1,000,000` perform one dot product $\\sum_{i=0}^{N-1} a_i b_i$. Counting 1 multiply + 1 add = `2` FLOPs per element, how many total **FLOPs** are required? (Include a FLOP count unit such as `2 MFLOPs`.)"
+          },
+          "starter": "",
+          "reference": "2 MFLOPs",
+          "hints": [
+            {
+              "zh": "概念提示：注意题目问的是“总共做多少次运算”（工作总量 `FLOPs`），而不是“每秒多少次”（速率 `FLOP/s`）。",
+              "en": "Concept: The question asks for total work count (`FLOPs`), NOT per-second rate (`FLOP/s`)."
+            },
+            {
+              "zh": "步骤提示：每个下标位置 `i` 执行 1 次乘法 `a[i] * b[i]` 和 1 次累加 `+`，共 `2` 次浮点运算。",
+              "en": "Steps: Each index `i` performs 1 multiplication and 1 addition = `2` FLOPs."
+            },
+            {
+              "zh": "关键公式：`总 FLOPs = 2 × 1,000,000 = 2,000,000 FLOPs`；记住十进制词头 `1 MFLOPs = 10^6 FLOPs`。",
+              "en": "Key formula: `Total FLOPs = 2 × 1,000,000 = 2,000,000 FLOPs = 2 MFLOPs` (`1 MFLOPs = 10^6 FLOPs`)."
+            },
+            {
+              "zh": "参考答案：输入 `2 MFLOPs`（或 `2000000 FLOPs`）。",
+              "en": "Answer: Enter `2 MFLOPs` (or `2000000 FLOPs`)."
+            }
+          ],
+          "concepts": [
+            "flops",
+            "simd"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "把工作量单位 `MFLOPs` 错写成了速率单位 `MFLOP/s` 或 `GFLOP/s`——多一个 `/s` 量纲就完全变了！",
+              "en": "Writing rate unit `MFLOP/s` instead of work count unit `MFLOPs` — `/s` changes the physical dimension!"
+            },
+            {
+              "zh": "漏算了累加的加法，只算了乘法得出 `1 MFLOPs`（刚好差 2 倍）。",
+              "en": "Counting only multiplications and forgetting additions, getting `1 MFLOPs` (off by 2x)."
+            }
+          ]
+        },
+        {
+          "id": "A04-code",
+          "lessonId": "A04",
+          "title": {
+            "zh": "实测 NumPy SIMD 点积吞吐率 (GFLOP/s)",
+            "en": "Measure NumPy SIMD Dot-Product GFLOP/s"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "requiresPrediction": true,
+          "resourceProfile": "scalar-cpu",
+          "runtimeKey": "a04-dot-flops-v1",
+          "steps": [
+            {
+              "name": "dot_flops_count",
+              "title": {
+                "zh": "计算向量点积的理论浮点运算次数",
+                "en": "Compute Theoretical Dot-Product FLOPs"
+              }
+            },
+            {
+              "name": "measure_dot_gflops",
+              "title": {
+                "zh": "实测 NumPy SIMD 点积吞吐率 (GFLOP/s)",
+                "en": "Measure NumPy SIMD Dot-Product GFLOP/s"
+              }
+            }
+          ],
+          "prompt": {
+            "zh": "先在预测框写下你预估单核 CPU 上 `np.dot` 能跑出多少 `GFLOP/s`，然后完成两个步骤：\n1. `dot_flops_count(n)`：返回长度为 `n` 的一维点积理论浮点运算次数 `2 * n`。\n2. `measure_dot_gflops(a_1d, b_1d, repeats=7)`：先跑 1 次 `np.dot(a_1d, b_1d)` 预热，再用 `time.perf_counter()` 连续测量 `repeats` 次耗时并取中位数 `median_sec`，最后按 `dot_flops_count(len(a_1d)) / median_sec / 1e9` 算出 `gflops`，返回 `{\"dot_value\": float(...), \"elapsed_sec\": float(...), \"gflops\": float(...)}`。\n通过后，控制器会自动把你测出的算力点记录到 Roofline 图上！",
+            "en": "Enter your GFLOP/s prediction first, then complete both steps:\n1. `dot_flops_count(n)`: Return `2 * n`.\n2. `measure_dot_gflops(a_1d, b_1d, repeats=7)`: Run one warm-up `np.dot(a_1d, b_1d)`, time `repeats` runs with `time.perf_counter()`, take the median `median_sec`, compute `gflops = dot_flops_count(len(a_1d)) / median_sec / 1e9`, and return `{\"dot_value\": float(...), \"elapsed_sec\": float(...), \"gflops\": float(...)}`.\nThe controller will automatically plot your measured point onto the Roofline tracker!"
+          },
+          "starter": "# A04: 点积理论 FLOPs 核算与 NumPy SIMD 吞吐率实测\n# Dot-Product FLOPs Accounting & Measured NumPy SIMD GFLOP/s\nimport time\nimport numpy as np\n\n\ndef dot_flops_count(n: int) -> int:\n    \"\"\"\n    返回长度为 n 的两个一维向量做一次点积的理论浮点运算次数（1 乘 + 1 加 = 2 FLOPs/元素）。\n    Return theoretical FLOPs for a length-`n` dot product (2 * n FLOPs).\n    \"\"\"\n    # TODO: 返回 2 * n\n    return None\n\n\ndef measure_dot_gflops(a_1d: np.ndarray, b_1d: np.ndarray, repeats: int = 7) -> dict:\n    \"\"\"\n    1) 先执行一次 np.dot(a_1d, b_1d) 作为预热 (warm-up)\n    2) 连续运行 repeats 次 np.dot(a_1d, b_1d)，用 time.perf_counter() 记录每次耗时（秒）并取中位数 median_sec\n    3) 计算实测算力吞吐率 gflops = dot_flops_count(len(a_1d)) / median_sec / 1e9\n    返回 / Return:\n      {\"dot_value\": float(val), \"elapsed_sec\": float(median_sec), \"gflops\": float(gflops)}\n    \"\"\"\n    # TODO: 完成预热、多次计时取中位数与 GFLOP/s 换算\n    return None\n",
+          "reference": "import time\nimport numpy as np\n\n\ndef dot_flops_count(n: int) -> int:\n    return int(2 * n)\n\n\ndef measure_dot_gflops(a_1d: np.ndarray, b_1d: np.ndarray, repeats: int = 7) -> dict:\n    val = np.dot(a_1d, b_1d)\n    timings = []\n    for _ in range(max(1, repeats)):\n        t0 = time.perf_counter()\n        val = np.dot(a_1d, b_1d)\n        t1 = time.perf_counter()\n        timings.append(max(t1 - t0, 1e-9))\n    median_sec = float(np.median(timings))\n    flops = dot_flops_count(len(a_1d))\n    gflops = float(flops / median_sec / 1e9)\n    return {\n        \"dot_value\": float(val),\n        \"elapsed_sec\": median_sec,\n        \"gflops\": gflops,\n    }\n",
+          "hints": [
+            {
+              "zh": "概念提示：为什么计时前要先预热一次？因为第一次调用往往包含内存页首次触碰与指令缓存加载，不代表稳定吞吐率。",
+              "en": "Concept: A warm-up call primes instruction caches and memory pages before stopwatch timing starts."
+            },
+            {
+              "zh": "步骤提示：在循环中用 `t0 = time.perf_counter()`、`val = np.dot(a_1d, b_1d)`、`t1 = time.perf_counter()` 记录 `t1 - t0` 到列表，再用 `np.median(timings)` 取中位数。",
+              "en": "Steps: Record `t1 - t0` using `time.perf_counter()` around `np.dot(a_1d, b_1d)` for `repeats` iterations, then take `float(np.median(timings))`."
+            },
+            {
+              "zh": "关键换算：`1 GFLOP/s = 10^9 FLOP/s`，因此必须把 `flops / median_sec` 再除以 `1e9`（如果除以 `1e6` 就会变成 MFLOP/s，偏大 1000 倍！）。",
+              "en": "Key conversion: `1 GFLOP/s = 1e9 FLOP/s`, so divide `flops / median_sec` by `1e9` (not `1e6`!)."
+            },
+            {
+              "zh": "参考写法：\n`val = np.dot(a_1d, b_1d)`\n`timings = [ ... ]`\n`median_sec = float(np.median(timings))`\n`gflops = dot_flops_count(len(a_1d)) / median_sec / 1e9`",
+              "en": "Reference:\n`val = np.dot(a_1d, b_1d)`\n`timings = [ ... ]`\n`median_sec = float(np.median(timings))`\n`gflops = dot_flops_count(len(a_1d)) / median_sec / 1e9`"
+            }
+          ],
+          "concepts": [
+            "flops",
+            "simd"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "把毫秒当成秒代入公式，或者漏除以 `1e9`，导致算出的 `gflops` 偏离 1000 倍或 $10^9$ 倍。",
+              "en": "Mixing milliseconds with seconds (`perf_counter()` returns seconds!) or forgetting `/ 1e9`."
+            },
+            {
+              "zh": "把 `repeats` 次循环的总时间直接当成了单次点积耗时，忘了除以次数或取单次耗时列表的中位数。",
+              "en": "Using total time of `repeats` runs while dividing into single-run FLOPs (`2 * n`) instead of per-run median time."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A05",
+      "stage": "A",
+      "title": {
+        "zh": "内存层次与局部性",
+        "en": "Memory Hierarchy & Locality"
+      },
+      "summary": {
+        "zh": "",
+        "en": ""
+      },
+      "prerequisites": [
+        "A04"
+      ],
+      "objectives": [
+        {
+          "zh": "核算 64B Cache Line 在跨步访问（stride = 16）下的带宽浪费与真实主存搬运总量",
+          "en": "Calculate 64B Cache Line waste and actual DRAM byte traffic under `stride = 16` access"
+        },
+        {
+          "zh": "使用零拷贝 NumPy 切片视图（通过 `np.shares_memory` 校验）实测连续 vs 跨步、按行 vs 按列规约的耗时比值",
+          "en": "Use zero-copy NumPy slice views (verified via `np.shares_memory`) to measure contiguous vs strided and row vs column reduction slowdowns"
+        }
+      ],
+      "body": {
+        "zh": "",
+        "en": ""
+      },
+      "exercises": [
+        {
+          "id": "A05-estimate",
+          "lessonId": "A05",
+          "title": {
+            "zh": "估算跨步访问触发的真实主存搬运字节量",
+            "en": "Estimate Actual DRAM Traffic Under Stride-16 Access"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "estimate": {
+            "dimension": "bytes",
+            "expectedBase": 67108864,
+            "canonicalDisplay": "64 MiB",
+            "relativeTolerance": 0.05
+          },
+          "prompt": {
+            "zh": "在一台 **Cache Line 大小为 `64 Byte`** 的机器上，有一个远大于缓存容量的连续 `float32`（每个元素 `4 Byte`）一维数组。程序以步长 **`stride = 16`**（每次跳过 16 个元素，跨度恰好为 `16 × 4 = 64 Byte`）依次读取了 **`1,048,576`（即 $2^{20} = 1\\text{ Mi}$）个有效元素**。\n由于每次访问都落入一条全新的 64B Cache Line，每读 1 个 `4B` 元素都会触发硬件从主存搬运整条 `64B` 缓存行（其中 60B 未被使用）。请问为了读完这 `1,048,576` 个有效元素，**硬件实际从主存搬运了多少字节的数据**？（请填写带容量单位的结果，例如 `64 MiB`）",
+            "en": "On a machine with a **`64 Byte` Cache Line**, a huge uncached contiguous `float32` (`4 Bytes` per element) 1D array is accessed with **`stride = 16`** (`16 × 4 = 64 Bytes` jump per step) to read **`1,048,576` ($2^{20} = 1\\text{ Mi}$) useful elements**.\nBecause every read lands on a brand-new 64B cache line, reading each `4B` number forces hardware to fetch a full `64B` cache line from DRAM (wasting 60B). **How many total bytes are actually transferred from DRAM?** (Include a byte capacity unit, e.g. `64 MiB`.)"
+          },
+          "starter": "",
+          "reference": "64 MiB",
+          "hints": [
+            {
+              "zh": "概念提示：算软件有效数据量时乘 `4 B`，但算硬件实际主存搬运量时，每次缓存未命中搬运的是一整条 `64 B` Cache Line！",
+              "en": "Concept: Software asks for `4 B` per element, but on a stride-16 cache miss, hardware fetches a full `64 B` cache line each time!"
+            },
+            {
+              "zh": "步骤提示：一共读取了 `1,048,576` 次，每次都跨了 `64 B` 触发一条新的 `64 B` Cache Line 搬运。",
+              "en": "Steps: There are `1,048,576` reads, and each read triggers one distinct `64 B` cache-line transfer."
+            },
+            {
+              "zh": "关键公式：`实际搬运字节 = 1,048,576 × 64 Bytes = 67,108,864 Bytes`；除以 `1 MiB = 1,048,576 Bytes` 恰好等于 `64 MiB`（是有效数据 `4 MiB` 的 16 倍！）。",
+              "en": "Key formula: `Actual bytes = 1,048,576 × 64 B = 67,108,864 B = 64 MiB` (16x the `4 MiB` of useful elements!)."
+            },
+            {
+              "zh": "参考答案：输入 `64 MiB`（或 `67.1 MB` / `67108864 B`）。",
+              "en": "Answer: Enter `64 MiB` (or `67.1 MB` / `67108864 B`)."
+            }
+          ],
+          "concepts": [
+            "cache-line",
+            "stride-and-view"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "算成了 `1,048,576 × 4 B = 4 MiB`——那是程序逻辑上用到的有效载荷，漏算了每条 64B Cache Line 中被连带搬来却浪费掉的 60B！",
+              "en": "Answering `4 MiB` (`1,048,576 × 4 B`), which counts only useful bytes and forgets the other 60B fetched per 64B cache line!"
+            },
+            {
+              "zh": "在步长 `stride = 16` 的基础上又多乘了一次 16（`64 B` 已经是 `16 × 4 B` 整条缓存行的大小了）。",
+              "en": "Multiplying `64 B` by `16` a second time (`64 B` already accounts for the full cache line per element)."
+            }
+          ]
+        },
+        {
+          "id": "A05-code",
+          "lessonId": "A05",
+          "title": {
+            "zh": "零拷贝视图切片：实测跨步与行列局部性差距",
+            "en": "Zero-Copy Slice Views: Measure Stride & Row/Col Locality"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "requiresPrediction": true,
+          "resourceProfile": "scalar-cpu",
+          "runtimeKey": "a05-cache-stride-v1",
+          "steps": [
+            {
+              "name": "strided_view_sum",
+              "title": {
+                "zh": "创建零拷贝跨步切片视图并求和",
+                "en": "Zero-Copy Strided View Slice & Sum"
+              }
+            },
+            {
+              "name": "row_slice_sum",
+              "title": {
+                "zh": "二维矩阵按行连续切片规约",
+                "en": "2D Row-Major Contiguous Row Slice Sum"
+              }
+            },
+            {
+              "name": "col_slice_sum",
+              "title": {
+                "zh": "二维矩阵按列跨步切片规约",
+                "en": "2D Strided Column Slice Sum"
+              }
+            }
+          ],
+          "prompt": {
+            "zh": "先写下你的预测（同样求和一百万个元素，`stride=16` 会比 `stride=1` 慢多少？按列规约会比按行规约慢多少？），然后实现三个**零拷贝视图规约**函数：\n1. `strided_view_sum(arr_1d, stride, count)`：用基础切片 `arr_1d[: count * stride : stride]` 取出 `count` 个元素的视图 `view`，返回 `(view, float(view.sum()))`。\n2. `row_slice_sum(mat_2d, row_idx)`：取出第 `row_idx` 行视图 `mat_2d[row_idx, :]`，返回 `(view, float(view.sum()))`。\n3. `col_slice_sum(mat_2d, col_idx)`：取出第 `col_idx` 列视图 `mat_2d[:, col_idx]`，返回 `(view, float(view.sum()))`。\n**硬性约束**：控制器会用 `np.shares_memory` 验证返回的 `view` 未发生隐式内存拷贝，并检查语法树禁止纯 Python 循环！",
+            "en": "Record your slowdown prediction first, then implement three **zero-copy view reduction** functions:\n1. `strided_view_sum(arr_1d, stride, count)`: Slice `view = arr_1d[: count * stride : stride]` and return `(view, float(view.sum()))`.\n2. `row_slice_sum(mat_2d, row_idx)`: Slice `view = mat_2d[row_idx, :]` and return `(view, float(view.sum()))`.\n3. `col_slice_sum(mat_2d, col_idx)`: Slice `view = mat_2d[:, col_idx]` and return `(view, float(view.sum()))`.\n**Strict check**: The controller verifies `np.shares_memory(input, view) == True` (no implicit copies!) and forbids Python loops."
+          },
+          "starter": "# A05: 缓存行局部性与零拷贝切片视图规约（禁止拷贝与 Python 循环！）\n# Cache-Line Locality & Zero-Copy Slice View Reductions (NO Copies or Python Loops!)\nimport numpy as np\n\n\ndef strided_view_sum(arr_1d: np.ndarray, stride: int, count: int) -> tuple[np.ndarray, float]:\n    \"\"\"\n    从一维数组 arr_1d 的下标 0 开始，以步长 stride 截取恰好 count 个元素的【零拷贝视图切片】，\n    并用 NumPy 规约求和。返回 (view, float(total))。\n    Create a zero-copy slice view `arr_1d[: count * stride : stride]` of `count` elements,\n    sum it with NumPy reduction, and return `(view, float(total))`.\n    注意：控制器会检查 np.shares_memory(arr_1d, view) 必须为 True！\n    \"\"\"\n    # TODO: 用基础切片创建 view，计算 view.sum()，返回 (view, float(total))\n    return None\n\n\ndef row_slice_sum(mat_2d: np.ndarray, row_idx: int) -> tuple[np.ndarray, float]:\n    \"\"\"\n    取出二维行主序矩阵 mat_2d 的第 row_idx 行零拷贝视图 mat_2d[row_idx, :] 并求和。\n    Take zero-copy row view `mat_2d[row_idx, :]` and return `(view, float(view.sum()))`.\n    \"\"\"\n    # TODO: 返回第 row_idx 行的零拷贝视图及其元素总和 (view, float(total))\n    return None\n\n\ndef col_slice_sum(mat_2d: np.ndarray, col_idx: int) -> tuple[np.ndarray, float]:\n    \"\"\"\n    取出二维行主序矩阵 mat_2d 的第 col_idx 列零拷贝视图 mat_2d[:, col_idx] 并求和。\n    Take zero-copy column view `mat_2d[:, col_idx]` and return `(view, float(view.sum()))`.\n    \"\"\"\n    # TODO: 返回第 col_idx 列的零拷贝视图及其元素总和 (view, float(total))\n    return None\n",
+          "reference": "import numpy as np\n\n\ndef strided_view_sum(arr_1d: np.ndarray, stride: int, count: int) -> tuple[np.ndarray, float]:\n    view = arr_1d[: count * stride : stride]\n    return view, float(view.sum())\n\n\ndef row_slice_sum(mat_2d: np.ndarray, row_idx: int) -> tuple[np.ndarray, float]:\n    view = mat_2d[row_idx, :]\n    return view, float(view.sum())\n\n\ndef col_slice_sum(mat_2d: np.ndarray, col_idx: int) -> tuple[np.ndarray, float]:\n    view = mat_2d[:, col_idx]\n    return view, float(view.sum())\n",
+          "hints": [
+            {
+              "zh": "概念提示：NumPy 的基础切片 `start:stop:step` 只构造新的 `(shape, strides)` 头信息指向原内存块，因此 `np.shares_memory` 一定为 `True`。",
+              "en": "Concept: Basic slicing `start:stop:step` creates a new header pointing at the exact same buffer, so `np.shares_memory` is `True`."
+            },
+            {
+              "zh": "步骤提示：为什么终点是 `count * stride`？因为每隔 `stride` 取 1 个数，要取够 `count` 个数，覆盖的下标跨度正好是 `count * stride`！",
+              "en": "Steps: Stepping by `stride` picks 1 item per `stride` slots, so `arr_1d[: count * stride : stride]` selects `count` items."
+            },
+            {
+              "zh": "关键禁忌：千万不要写 `arr_1d[np.arange(count) * stride]` 或 `.copy()`！传入整数索引数组属于“花式索引”，会偷偷分配新内存拷贝数据，`shares_memory` 会变成 `False`。",
+              "en": "Key pitfall: Do NOT use fancy indexing like `arr_1d[np.arange(count) * stride]` or `.copy()` — that allocates a copy and fails `np.shares_memory`!"
+            },
+            {
+              "zh": "参考写法：\n- `strided_view_sum`: `view = arr_1d[: count * stride : stride]; return view, float(view.sum())`\n- `row_slice_sum`: `view = mat_2d[row_idx, :]; return view, float(view.sum())`\n- `col_slice_sum`: `view = mat_2d[:, col_idx]; return view, float(view.sum())`",
+              "en": "Reference:\n- `strided_view_sum`: `view = arr_1d[: count * stride : stride]; return view, float(view.sum())`\n- `row_slice_sum`: `view = mat_2d[row_idx, :]; return view, float(view.sum())`\n- `col_slice_sum`: `view = mat_2d[:, col_idx]; return view, float(view.sum())`"
+            }
+          ],
+          "concepts": [
+            "cache-line",
+            "stride-and-view"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "写成了 `arr_1d[:count:stride]`，导致当 `stride = 16` 时实际只取出了 `count / 16` 个元素，两边求和的元素个数不相等！",
+              "en": "Writing `arr_1d[:count:stride]` instead of `arr_1d[: count * stride : stride]`, selecting 16x fewer elements!"
+            },
+            {
+              "zh": "使用了 `arr_1d[list_of_indices]` 花式索引或 `np.array(view)` 触发了隐式拷贝，导致 `np.shares_memory` 检查不通过。",
+              "en": "Using fancy index arrays `arr_1d[indices]` or `np.array(...)`, triggering a memory copy that fails `np.shares_memory`."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A06",
+      "stage": "A",
+      "title": {
+        "zh": "并行基础",
+        "en": "Parallelism Fundamentals"
+      },
+      "summary": {
+        "zh": "",
+        "en": ""
+      },
+      "prerequisites": [
+        "A04"
+      ],
+      "objectives": [
+        {
+          "zh": "运用 Amdahl 定律定量计算串行比例对多核加速比的天花板限制",
+          "en": "Apply Amdahl's Law to compute how serial fractions cap multi-core speedup"
+        },
+        {
+          "zh": "使用 Python `multiprocessing.Pool` 并行处理独立二维矩阵任务，理解理想加速比与真实进程调度开销的差异",
+          "en": "Parallelize independent 2D matrix tasks with `multiprocessing.Pool` and observe real process scheduling & IPC overhead"
+        }
+      ],
+      "body": {
+        "zh": "",
+        "en": ""
+      },
+      "exercises": [
+        {
+          "id": "A06-estimate",
+          "lessonId": "A06",
+          "title": {
+            "zh": "Amdahl 定律：估算 4 核机器的理论最高加速比",
+            "en": "Amdahl's Law: Estimate Theoretical Max Speedup on 4 Cores"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "estimate": {
+            "dimension": "scalar",
+            "expectedBase": 2.5,
+            "canonicalDisplay": "2.5x",
+            "relativeTolerance": 0.03
+          },
+          "prompt": {
+            "zh": "某训练前处理程序中，有 **`20%` 的时间必须单线程串行执行**，其余 **`80%` 的时间可以完美均分并行**且忽略通信开销。请问在 **`4` 核**处理器上，该程序的**理论最大加速比**是多少？（可输入如 `2.5x` 或 `2.5`）",
+            "en": "In a data-preprocessing pipeline, **`20%` of execution time is strictly serial**, and the remaining **`80%` can be perfectly parallelized** with zero overhead. On a **`4`-core** machine, what is the **theoretical maximum speedup**? (Enter e.g. `2.5x` or `2.5`.)"
+          },
+          "starter": "",
+          "reference": "2.5x",
+          "hints": [
+            {
+              "zh": "概念提示：只有那 `80%`（`0.8`）的可并行时间能被 4 个核心除以 4，那 `20%`（`0.2`）的串行时间一秒也省不掉！",
+              "en": "Concept: Only the parallelizable `80%` (`0.8`) shrinks by 4x; the serial `20%` (`0.2`) cannot shrink at all!"
+            },
+            {
+              "zh": "步骤提示：设原单核总时间为 `1.0`，先算 4 核并行后的新总时间 `0.2 + 0.8 / 4`，再用原时间 `1.0` 除以新时间。",
+              "en": "Steps: Set original 1-core time to `1.0`, compute new 4-core time `0.2 + 0.8 / 4`, then divide `1.0` by that new time."
+            },
+            {
+              "zh": "关键公式：`新时间 = 0.2 + 0.2 = 0.4`；`加速比 = 1.0 / 0.4`。",
+              "en": "Key formula: `New time = 0.2 + 0.2 = 0.4`; `Speedup = 1.0 / 0.4`."
+            },
+            {
+              "zh": "参考答案：`1.0 / 0.4 = 2.5`，输入 `2.5x` 或 `2.5`。",
+              "en": "Answer: `1.0 / 0.4 = 2.5` — enter `2.5x` or `2.5`."
+            }
+          ],
+          "concepts": [
+            "amdahl-law"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "误把加速比算成了 `4 × 0.8 = 3.2x`，没有用倒数公式 `1 / (s + (1 - s) / P)` 计算总耗时之比。",
+              "en": "Computing `4 × 0.8 = 3.2x` instead of taking the reciprocal of total runtime `1 / (0.2 + 0.8 / 4)`."
+            },
+            {
+              "zh": "填成了新耗时占原耗时的比例 `0.4`（或 `40%`），而题目问的是“快了多少倍”（加速比 `1 / 0.4 = 2.5x`）。",
+              "en": "Entering relative runtime `0.4` instead of speedup ratio `1 / 0.4 = 2.5x`."
+            }
+          ]
+        },
+        {
+          "id": "A06-code",
+          "lessonId": "A06",
+          "title": {
+            "zh": "实现 Amdahl 公式与多进程二维矩阵并行",
+            "en": "Implement Amdahl's Formula & Multi-Process 2D Matmuls"
+          },
+          "kind": "code",
+          "dataSource": "cpu_measured",
+          "requiresPrediction": true,
+          "resourceProfile": "multicore-cpu",
+          "runtimeKey": "a06-multicore-v1",
+          "steps": [
+            {
+              "name": "amdahl_speedup",
+              "title": {
+                "zh": "实现 Amdahl 定律理论加速比函数",
+                "en": "Implement Amdahl's Law Speedup Function"
+              }
+            },
+            {
+              "name": "parallel_matmul_checksums",
+              "title": {
+                "zh": "使用多进程并行计算独立二维矩阵任务",
+                "en": "Compute Independent 2D Matmul Tasks with Multiprocessing"
+              }
+            }
+          ],
+          "prompt": {
+            "zh": "先写下你对多核实测加速比与理想核心数关系的预测，然后完成两个步骤：\n1. `amdahl_speedup(serial_fraction, num_workers)`：按公式 `1.0 / (s + (1.0 - s) / P)` 返回理论加速比。\n2. `parallel_matmul_checksums(tasks, num_workers)`：给定一组独立的二维矩阵对 `[(A0, B0), ...]`，当 `num_workers <= 1` 时单进程依次调用顶层辅助函数 `_single_matmul_checksum`；当 `num_workers > 1` 时使用 `with mp.Pool(processes=num_workers) as pool:` 并行 `pool.map` 计算并返回 `list[float]`。\n（注：控制器会自动检测容器可用核数；若 `>= 2` 核将实测多进程加速趋势，若 `< 2` 核则验证多进程结果一致性并给出受限说明，不会误判失败。）",
+            "en": "Predict how real multi-process speedup compares to core count, then complete two steps:\n1. `amdahl_speedup(serial_fraction, num_workers)`: Return `1.0 / (s + (1.0 - s) / P)`.\n2. `parallel_matmul_checksums(tasks, num_workers)`: For `[(A0, B0), ...]`, run `_single_matmul_checksum` sequentially when `num_workers <= 1`, and use `with mp.Pool(processes=num_workers) as pool:` + `pool.map` when `num_workers > 1`.\n(Note: Controller auto-detects container CPU quota: if `>= 2` cores it benchmarks speedup; if `< 2` cores it verifies multi-process consistency without false failure.)"
+          },
+          "starter": "# A06: Amdahl 定律与多进程二维矩阵并行计算\n# Amdahl's Law & Multi-Process 2D Matrix Checksums\nimport multiprocessing as mp\nimport numpy as np\n\n\ndef amdahl_speedup(serial_fraction: float, num_workers: int) -> float:\n    \"\"\"\n    根据 Amdahl 定律计算理论最高加速比：1 / (s + (1 - s) / P)\n    Return theoretical max speedup: 1.0 / (serial_fraction + (1.0 - serial_fraction) / num_workers)\n    \"\"\"\n    # TODO: 实现并返回 Amdahl 加速比公式结果 (float)\n    return None\n\n\ndef _single_matmul_checksum(pair: tuple[np.ndarray, np.ndarray]) -> float:\n    \"\"\"顶层辅助函数（便于多进程 pickle 传递）：计算二维矩阵乘积的元素总和。\"\"\"\n    a_2d, b_2d = pair\n    return float(np.sum(a_2d @ b_2d, dtype=np.float64))\n\n\ndef parallel_matmul_checksums(\n    tasks: list[tuple[np.ndarray, np.ndarray]],\n    num_workers: int,\n) -> list[float]:\n    \"\"\"\n    对一组独立的二维矩阵对 [(A0, B0), (A1, B1), ...] 计算各自矩阵乘积之和：\n    - 当 num_workers <= 1 时，单进程顺序调用 _single_matmul_checksum\n    - 当 num_workers > 1 时，使用 mp.Pool(processes=num_workers) 并行 map 计算\n    返回与 tasks 顺序一致的 list[float]。\n    \"\"\"\n    # TODO: 根据 num_workers 实现单进程与 mp.Pool 多进程分支，返回 list[float]\n    return None\n",
+          "reference": "import multiprocessing as mp\nimport numpy as np\n\n\ndef amdahl_speedup(serial_fraction: float, num_workers: int) -> float:\n    s = float(serial_fraction)\n    p = int(num_workers)\n    return float(1.0 / (s + (1.0 - s) / p))\n\n\ndef _single_matmul_checksum(pair: tuple[np.ndarray, np.ndarray]) -> float:\n    a_2d, b_2d = pair\n    return float(np.sum(a_2d @ b_2d, dtype=np.float64))\n\n\ndef parallel_matmul_checksums(\n    tasks: list[tuple[np.ndarray, np.ndarray]],\n    num_workers: int,\n) -> list[float]:\n    if num_workers <= 1:\n        return [_single_matmul_checksum(pair) for pair in tasks]\n    with mp.Pool(processes=int(num_workers)) as pool:\n        return [float(x) for x in pool.map(_single_matmul_checksum, tasks)]\n",
+          "hints": [
+            {
+              "zh": "概念提示：使用 `with mp.Pool(processes=num_workers) as pool:` 上下文管理器可以确保计算结束后自动回收子进程，不留僵尸进程。",
+              "en": "Concept: Using `with mp.Pool(processes=num_workers) as pool:` cleanly shuts down worker processes when the block exits."
+            },
+            {
+              "zh": "步骤提示：`pool.map(_single_matmul_checksum, tasks)` 会保持输入 `tasks` 的原有顺序返回结果列表。",
+              "en": "Steps: `pool.map(_single_matmul_checksum, tasks)` preserves input task order automatically."
+            },
+            {
+              "zh": "关键细节：传递给 `pool.map` 的工作函数必须是模块顶层定义的函数（脚手架已为你提供 `_single_matmul_checksum`），不能用嵌套局部函数或 `lambda`，否则多进程序列化（pickle）会报错！",
+              "en": "Key detail: Pass the top-level `_single_matmul_checksum` function to `pool.map` — nested functions or `lambda`s cannot be pickled across processes!"
+            },
+            {
+              "zh": "参考写法：\n`if num_workers <= 1: return [_single_matmul_checksum(t) for t in tasks]`\n`with mp.Pool(processes=num_workers) as pool: return [float(x) for x in pool.map(_single_matmul_checksum, tasks)]`",
+              "en": "Reference:\n`if num_workers <= 1: return [_single_matmul_checksum(t) for t in tasks]`\n`with mp.Pool(processes=num_workers) as pool: return [float(x) for x in pool.map(_single_matmul_checksum, tasks)]`"
+            }
+          ],
+          "concepts": [
+            "amdahl-law",
+            "multiprocessing"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "在 `parallel_matmul_checksums` 内部定义了局部嵌套函数或 `lambda` 传给 `pool.map`，触发 `AttributeError / Can't pickle local object`。",
+              "en": "Passing a `lambda` or nested inner function to `pool.map`, triggering `Can't pickle local object`."
+            },
+            {
+              "zh": "创建了 `mp.Pool(...)` 却没有用 `with` 语句也没有调用 `pool.close(); pool.join()`，导致子进程泄漏。",
+              "en": "Creating `mp.Pool(...)` without a `with` block or `close()/join()`, leaking worker processes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A07",
+      "stage": "A",
+      "title": {
+        "zh": "Roofline 性能模型",
+        "en": "The Roofline Performance Model"
+      },
+      "summary": {
+        "zh": "",
+        "en": ""
+      },
+      "prerequisites": [
+        "A04",
+        "A05",
+        "A06"
+      ],
+      "simulatorWidget": "roofline",
+      "objectives": [
+        {
+          "zh": "通过 Roofline 模拟器定位机器拐点（Ridge Point），对比已实测的一维点积/规约算子与大矩阵乘法的瓶颈区间",
+          "en": "Locate the hardware Ridge Point in the Roofline simulator and compare measured 1D dot/reduction operators against matrix multiplication"
+        },
+        {
+          "zh": "独立编写向量加法与方阵乘法的算术强度计算函数，并自动判定算子属于 `memory-bound` 还是 `compute-bound`",
+          "en": "Compute Arithmetic Intensity for vector add vs N×N matrix multiply and classify `memory-bound` vs `compute-bound` regimes"
+        }
+      ],
+      "body": {
+        "zh": "",
+        "en": ""
+      },
+      "exercises": [
+        {
+          "id": "A07-sim",
+          "lessonId": "A07",
+          "title": {
+            "zh": "Roofline 模拟：寻找拐点与诊断算子瓶颈",
+            "en": "Roofline Simulator: Find Ridge Point & Diagnose Bottlenecks"
+          },
+          "kind": "simulator",
+          "dataSource": "simulated",
+          "simulator": {
+            "widget": "roofline",
+            "goalDescription": {
+              "zh": "在 Roofline 模拟器中调节峰值算力（GFLOP/s）与内存带宽（GB/s），观察拐点算术强度（Ridge Point = 峰值算力 / 峰值带宽）的移动，对比左侧斜坡上的点积算子（memory-bound）与右侧平顶上的大尺寸矩阵乘算子（compute-bound），完成后点击确认。",
+              "en": "Adjust Peak Compute (GFLOP/s) and Memory Bandwidth (GB/s) in the Roofline widget, observe how the Ridge Point (`Peak Compute / Peak Bandwidth`) shifts, compare memory-bound dot product on the left slope vs compute-bound large matmul on the flat roof, then mark complete."
+            }
+          },
+          "prompt": {
+            "zh": "打开上方的 **Roofline 交互式性能分析器**：\n1. 尝试将峰值算力调到 `200 GFLOP/s`、内存带宽调到 `50 GB/s`，找到斜坡与平屋顶交汇处的拐点算术强度（Ridge Point）。\n2. 观察你在 A04/A05 中实测的一维点积（`AI = 0.25`）与跨步求和点落在斜屋檐下方（访存受限区），再把算术强度滑块拖向大矩阵乘法区间（如 `AI = 32`），观察它进入平屋顶（算力受限区）。\n探索完成后点击模拟器确认按钮。",
+            "en": "Explore the interactive **Roofline Analyzer**:\n1. Set Peak Compute to `200 GFLOP/s` and Bandwidth to `50 GB/s` to locate the Ridge Point where slope meets flat roof.\n2. Inspect where 1D dot product (`AI = 0.25`) and strided reductions sit under the memory-bound slope versus where large matrix multiplication (`AI = 32+`) hits the compute-bound ceiling.\nClick complete when ready."
+          },
+          "starter": "",
+          "reference": "{\"widget\":\"roofline\",\"peakGflops\":200,\"peakBandwidthGBps\":50,\"ridgePoint\":4,\"comparedOperators\":[\"dot\",\"matmul\"]}",
+          "hints": [
+            {
+              "zh": "概念提示：斜屋檐代表带宽上限 `AI × Peak_BW`，平屋顶代表算力上限 `Peak_GFLOPs`，两者中较低的那个就是当前算子的性能天花板。",
+              "en": "Concept: The sloped roof is `AI × Peak_BW` and the flat roof is `Peak_GFLOPs`; `min(...)` of the two caps performance."
+            },
+            {
+              "zh": "步骤提示：试着保持算力不变、把内存带宽翻倍，看看左侧 `memory-bound` 算子的上限是否翻倍，而右侧 `compute-bound` 算子的上限是否不变！",
+              "en": "Steps: Try doubling bandwidth while holding compute fixed — watch memory-bound ceiling double while compute-bound ceiling stays unchanged!"
+            },
+            {
+              "zh": "关键洞察：当算子处于 `memory-bound` 区时，单纯换算力更高的核却不加带宽或提高数据复用度（AI），速度几乎不会提升。",
+              "en": "Key insight: When an operator is `memory-bound`, adding more FLOP/s without increasing bandwidth or data reuse (AI) yields zero speedup."
+            },
+            {
+              "zh": "完成方式：调节滑块观察拐点与算子归属变化后，点击模拟器的完成确认按钮即可通过。",
+              "en": "Completion: Adjust the sliders to inspect the Ridge Point and operator regimes, then click the simulator complete button."
+            }
+          ],
+          "concepts": [
+            "roofline-model",
+            "arithmetic-intensity"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "误以为只要实测 GFLOP/s 远低于芯片峰值算力就说明代码没写好——如果算子 `AI` 很低（如向量加），它可能已经把内存带宽跑满了！",
+              "en": "Assuming low GFLOP/s relative to peak compute means bad code — a low-AI operator like vector add can saturate 100% of memory bandwidth at tiny GFLOP/s!"
+            },
+            {
+              "zh": "把拐点公式记反成了 `带宽 / 算力`，正确公式是 `峰值算力 (GFLOP/s) / 峰值带宽 (GB/s)`。",
+              "en": "Inverting the Ridge Point formula as `Bandwidth / Compute` instead of `Peak Compute / Peak Bandwidth`."
+            }
+          ]
+        },
+        {
+          "id": "A07-estimate",
+          "lessonId": "A07",
+          "title": {
+            "zh": "计算处理器的 Roofline 拐点算术强度",
+            "en": "Calculate Processor Roofline Ridge Point"
+          },
+          "kind": "estimate",
+          "dataSource": "formula",
+          "estimate": {
+            "dimension": "scalar",
+            "expectedBase": 4,
+            "canonicalDisplay": "4",
+            "relativeTolerance": 0.02
+          },
+          "prompt": {
+            "zh": "某处理器的峰值浮点算力为 **`200 GFLOP/s`**，主存峰值带宽为 **`50 GB/s`**。请问这台机器的 **Roofline 拐点算术强度（Ridge Point）** 是多少？（单位为 FLOPs/Byte，请在输入框中直接填写无量纲标量数值，例如 `4`）",
+            "en": "A processor has **`200 GFLOP/s`** peak compute and **`50 GB/s`** peak memory bandwidth. What is its **Roofline Ridge Point** in FLOPs/Byte? (Enter the dimensionless scalar value directly, e.g. `4`.)"
+          },
+          "starter": "",
+          "reference": "4",
+          "hints": [
+            {
+              "zh": "概念提示：拐点就是“内存带宽刚好能喂饱峰值算力”时的临界算术强度，满足 `AI × 峰值带宽 = 峰值算力`。",
+              "en": "Concept: The Ridge Point is the exact AI where bandwidth ceiling equals compute ceiling: `AI × Peak_BW = Peak_Compute`."
+            },
+            {
+              "zh": "步骤提示：注意到 `GFLOP/s`（$10^9$ FLOP/s）与 `GB/s`（$10^9$ B/s）分子分母的 $10^9$ 和 `/s` 恰好全部约掉！",
+              "en": "Steps: Notice `10^9` and `/s` cancel cleanly when dividing `GFLOP/s` by `GB/s`, leaving `FLOPs/Byte`!"
+            },
+            {
+              "zh": "关键公式：`Ridge Point = 200 / 50`。",
+              "en": "Key formula: `Ridge Point = 200 / 50`."
+            },
+            {
+              "zh": "参考答案：直接输入数字 `4`。",
+              "en": "Answer: Enter `4`."
+            }
+          ],
+          "concepts": [
+            "roofline-model",
+            "arithmetic-intensity"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "在数字后面手打了估算器未收录的复合单位文本（如 `FLOPs/Byte`），本题按标量（scalar）判分，直接填纯数字 `4` 即可。",
+              "en": "Appending unsupported unit text like `FLOPs/Byte` — this Ridge Point check expects a plain scalar number like `4`."
+            },
+            {
+              "zh": "分子分母颠倒算成了 `50 / 200 = 0.25`。",
+              "en": "Dividing `50 / 200 = 0.25` upside down instead of `200 / 50 = 4`."
+            }
+          ]
+        },
+        {
+          "id": "A07-code",
+          "lessonId": "A07",
+          "title": {
+            "zh": "编写算术强度与瓶颈分类器",
+            "en": "Implement Arithmetic Intensity & Bottleneck Classifier"
+          },
+          "kind": "code",
+          "dataSource": "formula",
+          "resourceProfile": "scalar-cpu",
+          "runtimeKey": "a07-roofline-calc-v1",
+          "steps": [
+            {
+              "name": "vector_add_ai",
+              "title": {
+                "zh": "计算 float32 向量加法的算术强度",
+                "en": "Arithmetic Intensity of float32 Vector Addition"
+              }
+            },
+            {
+              "name": "square_matmul_ai",
+              "title": {
+                "zh": "计算 N×N float32 矩阵乘法的算术强度",
+                "en": "Arithmetic Intensity of N×N float32 Matrix Multiply"
+              }
+            },
+            {
+              "name": "classify_bottleneck",
+              "title": {
+                "zh": "判断算子属于访存受限还是算力受限",
+                "en": "Classify Operator Regime on the Roofline"
+              }
+            }
+          ],
+          "prompt": {
+            "zh": "完成阶段 A 的压轴编程练习，用代码把 Roofline 定量算账自动化：\n1. `vector_add_ai(n, bytes_per_elem=4)`：计算 `c = a + b`（读 `a`、读 `b`、写 `c` 共 `3 * n * bytes_per_elem` 字节，`n` 次加法）的理想算术强度。\n2. `square_matmul_ai(n, bytes_per_elem=4)`：计算 `n × n` 方阵乘法 `C = A @ B`（`2 * n**3` FLOPs，理想读 `A`、读 `B`、写 `C` 各一次共 `3 * n**2 * bytes_per_elem` 字节）的理想算术强度。\n3. `classify_bottleneck(arithmetic_intensity, peak_gflops, peak_bw_gbps)`：若 `arithmetic_intensity < peak_gflops / peak_bw_gbps` 返回字符串 `\"memory-bound\"`，否则返回 `\"compute-bound\"`。",
+            "en": "Complete the Stage A capstone by automating Roofline analysis in code:\n1. `vector_add_ai(n, bytes_per_elem=4)`: Ideal AI for `c = a + b` (`n` FLOPs divided by `3 * n * bytes_per_elem` bytes read+written).\n2. `square_matmul_ai(n, bytes_per_elem=4)`: Ideal AI for `n × n` matmul `C = A @ B` (`2 * n**3` FLOPs divided by `3 * n**2 * bytes_per_elem` bytes).\n3. `classify_bottleneck(arithmetic_intensity, peak_gflops, peak_bw_gbps)`: Return `\"memory-bound\"` if `arithmetic_intensity < peak_gflops / peak_bw_gbps`, else `\"compute-bound\"`."
+          },
+          "starter": "# A07: Roofline 算术强度核算与瓶颈自动诊断\n# Roofline Arithmetic Intensity & Bottleneck Classification\n\n\ndef vector_add_ai(n: int, bytes_per_elem: int = 4) -> float:\n    \"\"\"\n    计算一维向量加法 c = a + b（长度 n）的理想算术强度（FLOPs / Byte）：\n    - 总浮点运算次数 = n FLOPs（每个元素 1 次加法）\n    - 理想总访存字节数 = 读 a + 读 b + 写 c = 3 * n * bytes_per_elem\n    Compute ideal Arithmetic Intensity (FLOPs/Byte) for `c = a + b` of length `n`.\n    \"\"\"\n    # TODO: 返回 FLOPs / Bytes 的浮点比值\n    return None\n\n\ndef square_matmul_ai(n: int, bytes_per_elem: int = 4) -> float:\n    \"\"\"\n    计算两个 n × n 方阵相乘 C = A @ B 的理想算术强度（FLOPs / Byte）：\n    - 总浮点运算次数 = 2 * (n ** 3) FLOPs\n    - 理想总访存字节数（读 A、读 B、写 C 各一次）= 3 * (n ** 2) * bytes_per_elem\n    Compute ideal Arithmetic Intensity (FLOPs/Byte) for `n x n` matrix multiplication.\n    \"\"\"\n    # TODO: 返回 (2 * n^3) / (3 * n^2 * bytes_per_elem)\n    return None\n\n\ndef classify_bottleneck(\n    arithmetic_intensity: float,\n    peak_gflops: float,\n    peak_bw_gbps: float,\n) -> str:\n    \"\"\"\n    计算机器拐点算术强度 ridge_point = peak_gflops / peak_bw_gbps：\n    - 若 arithmetic_intensity < ridge_point，返回 \"memory-bound\"\n    - 否则返回 \"compute-bound\"\n    Return \"memory-bound\" if `arithmetic_intensity < peak_gflops / peak_bw_gbps` else \"compute-bound\".\n    \"\"\"\n    # TODO: 比较算术强度与拐点，返回精确字符串 \"memory-bound\" 或 \"compute-bound\"\n    return None\n",
+          "reference": "def vector_add_ai(n: int, bytes_per_elem: int = 4) -> float:\n    flops = float(n)\n    total_bytes = float(3 * n * bytes_per_elem)\n    return flops / total_bytes\n\n\ndef square_matmul_ai(n: int, bytes_per_elem: int = 4) -> float:\n    flops = float(2 * (n ** 3))\n    total_bytes = float(3 * (n ** 2) * bytes_per_elem)\n    return flops / total_bytes\n\n\ndef classify_bottleneck(\n    arithmetic_intensity: float,\n    peak_gflops: float,\n    peak_bw_gbps: float,\n) -> str:\n    ridge_point = float(peak_gflops) / float(peak_bw_gbps)\n    if float(arithmetic_intensity) < ridge_point:\n        return \"memory-bound\"\n    return \"compute-bound\"\n",
+          "hints": [
+            {
+              "zh": "概念提示：算主存总流量时别忘了输出数组也要写回内存！无论是 `c = a + b` 还是 `C = A @ B`，都涉及 2 个输入和 1 个输出（共 3 份数组体积）。",
+              "en": "Concept: Remember output writes count toward memory traffic! Both `c = a + b` and `C = A @ B` touch 2 inputs + 1 output = 3 buffers."
+            },
+            {
+              "zh": "步骤提示：向量加法 `FLOPs = n`，`Bytes = 3 * n * bytes_per_elem`；方阵乘法 `FLOPs = 2 * (n ** 3)`，`Bytes = 3 * (n ** 2) * bytes_per_elem`。",
+              "en": "Steps: Vector add uses `n` FLOPs and `3 * n * bytes_per_elem` bytes; square matmul uses `2 * (n ** 3)` FLOPs and `3 * (n ** 2) * bytes_per_elem` bytes."
+            },
+            {
+              "zh": "关键逻辑：先算 `ridge = peak_gflops / peak_bw_gbps`，当 `arithmetic_intensity < ridge` 时返回 `\"memory-bound\"`，大于或等于时返回 `\"compute-bound\"`。",
+              "en": "Key logic: Compute `ridge = peak_gflops / peak_bw_gbps`; return `\"memory-bound\"` when `arithmetic_intensity < ridge`, else `\"compute-bound\"`."
+            },
+            {
+              "zh": "参考写法：\n- `vector_add_ai`: `return n / (3.0 * n * bytes_per_elem)`\n- `square_matmul_ai`: `return (2.0 * n ** 3) / (3.0 * (n ** 2) * bytes_per_elem)`\n- `classify_bottleneck`: `return \"memory-bound\" if arithmetic_intensity < (peak_gflops / peak_bw_gbps) else \"compute-bound\"`",
+              "en": "Reference:\n- `vector_add_ai`: `return n / (3.0 * n * bytes_per_elem)`\n- `square_matmul_ai`: `return (2.0 * n ** 3) / (3.0 * (n ** 2) * bytes_per_elem)`\n- `classify_bottleneck`: `return \"memory-bound\" if arithmetic_intensity < (peak_gflops / peak_bw_gbps) else \"compute-bound\"`"
+            }
+          ],
+          "concepts": [
+            "arithmetic-intensity",
+            "roofline-model"
+          ],
+          "testVersion": "1",
+          "commonErrors": [
+            {
+              "zh": "漏算了写回输出数组 `c` 或 `C` 的字节数，把分母写成了 `2 * ...` 而不是 `3 * ...`。",
+              "en": "Forgetting output write traffic and using `2 * ...` instead of `3 * ...` in the byte denominator."
+            },
+            {
+              "zh": "拼错了返回字符串（例如把连字符 `-` 写成了下划线 `_`，如 `memory_bound`），请严格返回 `\"memory-bound\"` 或 `\"compute-bound\"`。",
+              "en": "Misspelling the regime string with an underscore (`memory_bound`) instead of hyphenated `\"memory-bound\"` / `\"compute-bound\"`."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

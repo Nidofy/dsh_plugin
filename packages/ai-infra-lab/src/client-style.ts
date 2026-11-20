@@ -1,0 +1,2257 @@
+// GENERATED from style.css; do not edit.
+export const css = `.ai-infra-lab {
+  --ail-bg: var(--dsw-alias-bg-base, #f4f6f9);
+  --ail-surface: var(--dsw-alias-bg-layer-1, #ffffff);
+  --ail-surface-2: var(--dsw-alias-bg-layer-2, #eef2f6);
+  --ail-fg: var(--dsw-alias-label-primary, #17212b);
+  --ail-fg-secondary: var(--dsw-alias-label-secondary, #3b4a5a);
+  --ail-muted: var(--dsw-alias-label-tertiary, #64748b);
+  --ail-border: var(--dsw-alias-border-l2, #d8e0e8);
+  --ail-accent: #0d9488;
+  --ail-accent-hover: #0f766e;
+  --ail-accent-soft: rgba(13, 148, 136, 0.12);
+  --ail-ok: #15803d;
+  --ail-ok-soft: rgba(21, 128, 61, 0.12);
+  --ail-warn: #b45309;
+  --ail-warn-soft: rgba(180, 83, 9, 0.12);
+  --ail-danger: #dc2626;
+  --ail-danger-soft: rgba(220, 38, 38, 0.11);
+  --ail-formula-fg: #1d4ed8;
+  --ail-formula-bg: rgba(37, 99, 235, 0.12);
+  --ail-measured-fg: #b45309;
+  --ail-measured-bg: rgba(217, 119, 6, 0.14);
+  --ail-sim-fg: #6d28d9;
+  --ail-sim-bg: rgba(124, 58, 237, 0.12);
+  --ail-sign-fg: #be123c;
+  --ail-sign-bg: rgba(225, 29, 72, 0.12);
+  --ail-exp-fg: #1d4ed8;
+  --ail-exp-bg: rgba(37, 99, 235, 0.12);
+  --ail-mant-fg: #047857;
+  --ail-mant-bg: rgba(5, 150, 105, 0.12);
+  --ail-code-bg: #f8fafc;
+  --ail-tok-kw: #7c3aed;
+  --ail-tok-str: #047857;
+  --ail-tok-num: #b45309;
+  --ail-tok-cmt: #64748b;
+  --ail-tok-fn: #0369a1;
+  --ail-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ail-bg);
+  color: var(--ail-fg);
+  font-family: var(
+    --dsw-font-sans-font-family,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif
+  );
+  font-size: 13px;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-theme='light']):not([data-color-mode='light']) .ai-infra-lab {
+    --ail-bg: var(--dsw-alias-bg-base, #0f141b);
+    --ail-surface: var(--dsw-alias-bg-layer-1, #171e27);
+    --ail-surface-2: var(--dsw-alias-bg-layer-2, #1f2937);
+    --ail-fg: var(--dsw-alias-label-primary, #e6edf3);
+    --ail-fg-secondary: var(--dsw-alias-label-secondary, #b8c4d0);
+    --ail-muted: var(--dsw-alias-label-tertiary, #8b9bb0);
+    --ail-border: var(--dsw-alias-border-l2, #2b3645);
+    --ail-accent: #14b8a6;
+    --ail-accent-hover: #2dd4bf;
+    --ail-accent-soft: rgba(20, 184, 166, 0.16);
+    --ail-ok: #4ade80;
+    --ail-ok-soft: rgba(74, 222, 128, 0.14);
+    --ail-warn: #fbbf24;
+    --ail-warn-soft: rgba(251, 191, 36, 0.14);
+    --ail-danger: #f87171;
+    --ail-danger-soft: rgba(248, 113, 113, 0.15);
+    --ail-formula-fg: #60a5fa;
+    --ail-formula-bg: rgba(96, 165, 250, 0.16);
+    --ail-measured-fg: #fbbf24;
+    --ail-measured-bg: rgba(251, 191, 36, 0.16);
+    --ail-sim-fg: #c084fc;
+    --ail-sim-bg: rgba(192, 132, 252, 0.16);
+    --ail-sign-fg: #fb7185;
+    --ail-sign-bg: rgba(251, 113, 133, 0.18);
+    --ail-exp-fg: #60a5fa;
+    --ail-exp-bg: rgba(96, 165, 250, 0.18);
+    --ail-mant-fg: #34d399;
+    --ail-mant-bg: rgba(52, 211, 153, 0.18);
+    --ail-code-bg: #111822;
+    --ail-tok-kw: #c084fc;
+    --ail-tok-str: #34d399;
+    --ail-tok-num: #fbbf24;
+    --ail-tok-cmt: #7d8da1;
+    --ail-tok-fn: #38bdf8;
+    --ail-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+:is(.dark, [data-theme='dark'], [data-color-mode='dark']) .ai-infra-lab,
+.ai-infra-lab:is(.dark, [data-theme='dark'], [data-color-mode='dark']) {
+  --ail-bg: var(--dsw-alias-bg-base, #0f141b);
+  --ail-surface: var(--dsw-alias-bg-layer-1, #171e27);
+  --ail-surface-2: var(--dsw-alias-bg-layer-2, #1f2937);
+  --ail-fg: var(--dsw-alias-label-primary, #e6edf3);
+  --ail-fg-secondary: var(--dsw-alias-label-secondary, #b8c4d0);
+  --ail-muted: var(--dsw-alias-label-tertiary, #8b9bb0);
+  --ail-border: var(--dsw-alias-border-l2, #2b3645);
+  --ail-accent: #14b8a6;
+  --ail-accent-hover: #2dd4bf;
+  --ail-accent-soft: rgba(20, 184, 166, 0.16);
+  --ail-ok: #4ade80;
+  --ail-ok-soft: rgba(74, 222, 128, 0.14);
+  --ail-warn: #fbbf24;
+  --ail-warn-soft: rgba(251, 191, 36, 0.14);
+  --ail-danger: #f87171;
+  --ail-danger-soft: rgba(248, 113, 113, 0.15);
+  --ail-formula-fg: #60a5fa;
+  --ail-formula-bg: rgba(96, 165, 250, 0.16);
+  --ail-measured-fg: #fbbf24;
+  --ail-measured-bg: rgba(251, 191, 36, 0.16);
+  --ail-sim-fg: #c084fc;
+  --ail-sim-bg: rgba(192, 132, 252, 0.16);
+  --ail-sign-fg: #fb7185;
+  --ail-sign-bg: rgba(251, 113, 133, 0.18);
+  --ail-exp-fg: #60a5fa;
+  --ail-exp-bg: rgba(96, 165, 250, 0.18);
+  --ail-mant-fg: #34d399;
+  --ail-mant-bg: rgba(52, 211, 153, 0.18);
+  --ail-code-bg: #111822;
+  --ail-tok-kw: #c084fc;
+  --ail-tok-str: #34d399;
+  --ail-tok-num: #fbbf24;
+  --ail-tok-cmt: #7d8da1;
+  --ail-tok-fn: #38bdf8;
+  --ail-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.ai-infra-lab *,
+.ai-infra-lab *::before,
+.ai-infra-lab *::after {
+  box-sizing: border-box;
+}
+
+.ai-infra-lab h1,
+.ai-infra-lab h2,
+.ai-infra-lab h3,
+.ai-infra-lab h4 {
+  margin: 0;
+  color: var(--ail-fg);
+  line-height: 1.35;
+}
+
+.ai-infra-lab input,
+.ai-infra-lab select,
+.ai-infra-lab textarea {
+  font: inherit;
+  color: var(--ail-fg);
+  background: var(--ail-surface);
+  border: 1px solid var(--ail-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.ai-infra-lab input:focus-visible,
+.ai-infra-lab select:focus-visible,
+.ai-infra-lab textarea:focus-visible,
+.ai-infra-lab button:focus-visible,
+.ail-term-trigger:focus-visible,
+.ail-prereq-node:focus-visible {
+  outline: 2px solid var(--ail-accent);
+  outline-offset: 2px;
+}
+
+.ail-muted {
+  color: var(--ail-muted);
+}
+
+/* Buttons & Badges */
+.ail-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font: inherit;
+  font-weight: 500;
+  color: var(--ail-fg);
+  background: var(--ail-surface);
+  border: 1px solid var(--ail-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.14s ease, border-color 0.14s ease;
+}
+
+.ail-btn:hover:not(:disabled) {
+  background: var(--ail-surface-2);
+}
+
+.ail-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ail-btn-primary {
+  background: var(--ail-accent);
+  color: #ffffff;
+  border-color: var(--ail-accent);
+}
+
+.ail-btn-primary:hover:not(:disabled) {
+  background: var(--ail-accent-hover);
+  border-color: var(--ail-accent-hover);
+}
+
+.ail-btn-danger {
+  background: var(--ail-danger-soft);
+  color: var(--ail-danger);
+  border-color: var(--ail-danger);
+}
+
+.ail-btn-active {
+  border-color: var(--ail-accent);
+  background: var(--ail-accent-soft);
+  color: var(--ail-accent);
+}
+
+.ail-btn-ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.ail-btn-sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.ail-btn-xs {
+  padding: 2px 8px;
+  font-size: 11.5px;
+}
+
+.ail-btn-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ail-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--ail-surface-2);
+  color: var(--ail-fg-secondary);
+  border: 1px solid var(--ail-border);
+}
+
+.ail-pill-ok {
+  background: var(--ail-ok-soft);
+  color: var(--ail-ok);
+  border-color: transparent;
+}
+
+.ail-pill-accent {
+  background: var(--ail-accent-soft);
+  color: var(--ail-accent);
+  border-color: transparent;
+}
+
+/* DataSourceBadge */
+.ail-ds-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.ail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ail-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.ail-badge-formula {
+  color: var(--ail-formula-fg);
+  background: var(--ail-formula-bg);
+}
+
+.ail-badge-measured {
+  color: var(--ail-measured-fg);
+  background: var(--ail-measured-bg);
+}
+
+.ail-badge-simulated {
+  color: var(--ail-sim-fg);
+  background: var(--ail-sim-bg);
+}
+
+.ail-ds-note {
+  font-size: 11px;
+  color: var(--ail-muted);
+  max-width: 280px;
+  text-align: right;
+  line-height: 1.35;
+}
+
+/* Topbar */
+.ail-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--ail-surface);
+  border-bottom: 1px solid var(--ail-border);
+  flex-shrink: 0;
+}
+
+.ail-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ail-brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--ail-accent-soft);
+  font-size: 17px;
+}
+
+.ail-brand-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ail-brand-sub {
+  display: block;
+  font-size: 11.5px;
+  color: var(--ail-muted);
+}
+
+.ail-topbar-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ail-locale-switch {
+  display: inline-flex;
+  border: 1px solid var(--ail-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--ail-surface-2);
+}
+
+.ail-locale-switch button {
+  border: none;
+  background: transparent;
+  color: var(--ail-fg-secondary);
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ail-locale-switch button.is-active {
+  background: var(--ail-accent);
+  color: #ffffff;
+}
+
+/* Environment Banner */
+.ail-env-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  font-size: 12px;
+  background: var(--ail-surface-2);
+  border-bottom: 1px solid var(--ail-border);
+  flex-shrink: 0;
+}
+
+.ail-env-meta {
+  color: var(--ail-muted);
+  margin-right: auto;
+}
+
+.ail-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ail-status-ok {
+  background: var(--ail-ok);
+}
+
+.ail-status-warn {
+  background: var(--ail-warn);
+}
+
+.ail-status-pending {
+  background: var(--ail-muted);
+}
+
+.ail-env-card {
+  margin: 10px 16px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--ail-surface);
+  border: 1px solid var(--ail-border);
+  border-left: 4px solid var(--ail-warn);
+  flex-shrink: 0;
+}
+
+.ail-env-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ail-env-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ail-env-detail {
+  margin: 6px 0 4px;
+  color: var(--ail-fg-secondary);
+  font-size: 12.5px;
+}
+
+.ail-env-reassurance {
+  margin: 4px 0 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ail-accent);
+}
+
+.ail-env-cmd-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ail-env-cmd {
+  flex: 1;
+  min-width: 220px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: var(--ail-code-bg);
+  border: 1px solid var(--ail-border);
+  font-family: Consolas, 'SFMono-Regular', Menlo, monospace;
+  font-size: 12px;
+}
+
+.ail-error-banner,
+.ail-conflict-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 8px 16px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--ail-danger-soft);
+  color: var(--ail-danger);
+  border: 1px solid var(--ail-danger);
+  flex-shrink: 0;
+}
+
+.ail-conflict-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Main 3-Pane Layout */
+.ail-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+  margin-top: 8px;
+  border-top: 1px solid var(--ail-border);
+}
+
+.ail-lesson-nav {
+  width: 226px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--ail-surface);
+  border-right: 1px solid var(--ail-border);
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.ail-nav-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ail-muted);
+  padding: 4px 6px 8px;
+}
+
+.ail-lesson-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.ail-lesson-item {
+  text-align: left;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ail-fg);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.ail-lesson-item:hover {
+  background: var(--ail-surface-2);
+}
+
+.ail-lesson-item.is-active {
+  background: var(--ail-accent-soft);
+  border-color: var(--ail-accent);
+}
+
+.ail-lesson-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ail-muted);
+  margin-bottom: 2px;
+}
+
+.ail-lesson-code {
+  font-weight: 700;
+  color: var(--ail-accent);
+}
+
+.ail-lesson-item-title {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.ail-review-shortcut {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--ail-warn-soft);
+  color: var(--ail-warn);
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Main Center Scrollable Pane */
+.ail-main-pane {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 14px 18px 36px;
+}
+
+.ail-main-tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--ail-border);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+}
+
+.ail-main-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ail-fg-secondary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ail-main-tab:hover {
+  background: var(--ail-surface);
+}
+
+.ail-main-tab.is-active {
+  background: var(--ail-surface);
+  color: var(--ail-accent);
+  border-color: var(--ail-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.ail-tab-badge {
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: var(--ail-warn);
+  color: #ffffff;
+}
+
+/* Prerequisite Graph */
+.ail-prereq-panel {
+  background: var(--ail-surface);
+  border: 1px solid var(--ail-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+.ail-prereq-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.ail-prereq-title {
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.ail-prereq-legend {
+  display: flex;
+  gap: 12px;
+  font-size: 11.5px;
+  color: var(--ail-muted);
+}
+
+.ail-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.ail-dot-done {
+  background: var(--ail-ok);
+}
+
+.ail-dot-read {
+  background: var(--ail-accent);
+}
+
+.ail-dot-todo {
+  background: var(--ail-border);
+}
+
+.ail-prereq-scroll {
+  overflow-x: auto;
+}
+
+.ail-prereq-svg {
+  display: block;
+  color: var(--ail-muted);
+}
+
+.ail-prereq-edge {
+  fill: none;
+  stroke: var(--ail-border);
+  stroke-width: 1.8;
+}
+
+.ail-prereq-edge-done {
+  stroke: var(--ail-accent);
+}
+
+.ail-prereq-node {
+  cursor: pointer;
+}
+
+.ail-prereq-node rect {
+  fill: var(--ail-surface-2);
+  stroke: var(--ail-border);
+  stroke-width: 1.5;
+  transition: stroke 0.14s ease, fill 0.14s ease;
+}
+
+.ail-prereq-node.is-read rect {
+  border-color: var(--ail-accent);
+  stroke: var(--ail-accent);
+}
+
+.ail-prereq-node.is-completed rect {
+  fill: var(--ail-ok-soft);
+  stroke: var(--ail-ok);
+}
+
+.ail-prereq-node.is-active rect {
+  stroke: var(--ail-accent);
+  stroke-width: 2.5;
+}
+
+.ail-prereq-id {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--ail-accent);
+}
+
+.ail-prereq-status {
+  font-size: 10px;
+  fill: var(--ail-muted);
+}
+
+.ail-prereq-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  fill: var(--ail-fg);
+}
+
+/* Cards & Lesson View */
+.ail-card {
+  background: var(--ail-surface);
+  border: 1px solid var(--ail-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.ail-lesson-stack,
+.ail-activity-stack,
+.ail-records-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ail-lesson-header h2 {
+  font-size: 20px;
+  margin-top: 6px;
+}
+
+.ail-lesson-summary {
+  margin: 6px 0 12px;
+  color: var(--ail-fg-secondary);
+  font-size: 13.5px;
+}
+
+.ail-fasttrack-callout,
+.ail-fasttrack-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background: var(--ail-accent-soft);
+  border: 1px solid var(--ail-accent);
+}
+
+.ail-objectives-box {
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  background: var(--ail-surface-2);
+}
+
+.ail-objectives-box ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.ail-lesson-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Markdown & Inline Glossary Popover */
+.ail-markdown h1 {
+  font-size: 19px;
+  margin: 16px 0 8px;
+}
+
+.ail-markdown h2 {
+  font-size: 16.5px;
+  margin: 16px 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--ail-border);
+}
+
+.ail-markdown h3 {
+  font-size: 14.5px;
+  margin: 14px 0 6px;
+}
+
+.ail-markdown h4 {
+  font-size: 13.5px;
+  margin: 12px 0 4px;
+}
+
+.ail-md-p {
+  margin: 8px 0;
+}
+
+.ail-md-list {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.ail-md-list li {
+  margin: 4px 0;
+}
+
+.ail-md-quote {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--ail-accent);
+  background: var(--ail-surface-2);
+  border-radius: 0 6px 6px 0;
+  color: var(--ail-fg-secondary);
+}
+
+.ail-md-hr {
+  border: none;
+  border-top: 1px solid var(--ail-border);
+  margin: 14px 0;
+}
+
+.ail-inline-code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--ail-surface-2);
+  border: 1px solid var(--ail-border);
+  font-family: Consolas, 'SFMono-Regular', Menlo, monospace;
+  font-size: 12px;
+}
+
+.ail-md-codeblock {
+  margin: 10px 0;
+  border: 1px solid var(--ail-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ail-code-bg);
+}
+
+.ail-md-codehead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--ail-muted);
+  background: var(--ail-surface-2);
+  border-bottom: 1px solid var(--ail-border);
+}
+
+.ail-md-codeblock pre {
+  margin: 0;
+  padding: 10px 12px;
+  overflow-x: auto;
+  font-family: Consolas, 'SFMono-Regular', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.ail-md-table-wrap {
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.ail-md-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.ail-md-table th,
+.ail-md-table td {
+  padding: 7px 10px;
+  border: 1px solid var(--ail-border);
+  text-align: left;
+}
+
+.ail-md-table th {
+  background: var(--ail-surface-2);
+  font-weight: 650;
+}
+
+/* Inline Glossary Term & Accessible Hover/Focus Bubble */
+.ail-term-wrap {
+  position: relative;
+  display: inline;
+}
+
+.ail-term-trigger {
+  border-bottom: 1.5px dashed var(--ail-accent);
+  cursor: help;
+  color: inherit;
+  font-weight: 500;
+}
+
+.ail-term-popover {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 6px);
+  z-index: 40;
+  width: 280px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--ail-surface);
+  color: var(--ail-fg);
+  border: 1px solid var(--ail-border);
+  box-shadow: var(--ail-shadow);
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 400;
+}
+
+.ail-term-wrap:hover .ail-term-popover,
+.ail-term-wrap:focus-within .ail-term-popover {
+  display: block;
+}
+
+.ail-term-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.ail-term-popover-title {
+  font-weight: 700;
+  color: var(--ail-accent);
+}
+
+.ail-term-popover-code {
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  color: var(--ail-muted);
+}
+
+.ail-term-popover-short,
+.ail-term-popover-analogy {
+  display: block;
+  margin-top: 4px;
+}
+
+.ail-term-popover-label {
+  font-weight: 600;
+  color: var(--ail-fg-secondary);
+}
+
+.ail-term-popover-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ail-accent);
+  cursor: pointer;
+}
+
+/* Simulators: BitLayoutExplorer & RooflineExplorer */
+.ail-sim-card {
+  background: var(--ail-surface);
+  border: 1px solid var(--ail-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ail-sim-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ail-sim-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ail-sim-sub {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: var(--ail-muted);
+}
+
+.ail-sim-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ail-sim-goal {
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: var(--ail-accent-soft);
+  border: 1px solid var(--ail-accent);
+  font-size: 12.5px;
+}
+
+.ail-sim-presets,
+.ail-sim-custom-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ail-sim-presets-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ail-fg-secondary);
+}
+
+.ail-inline-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+}
+
+.ail-inline-error {
+  color: var(--ail-danger);
+  font-size: 12px;
+}
+
+.ail-bit-legend {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ail-bit-tag {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.ail-bit-sign {
+  color: var(--ail-sign-fg);
+  background: var(--ail-sign-bg);
+}
+
+.ail-bit-exp {
+  color: var(--ail-exp-fg);
+  background: var(--ail-exp-bg);
+}
+
+.ail-bit-mant {
+  color: var(--ail-mant-fg);
+  background: var(--ail-mant-bg);
+}
+
+.ail-bit-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ail-bit-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 44px;
+  padding: 2px;
+  border-radius: 6px;
+  border: 1.5px solid var(--ail-border);
+  cursor: pointer;
+  font-family: Consolas, monospace;
+  transition: transform 0.08s ease;
+}
+
+.ail-bit-cell:hover {
+  transform: translateY(-1px);
+}
+
+.ail-bit-cell.is-one {
+  border-color: currentColor;
+  font-weight: 700;
+}
+
+.ail-bit-pos {
+  font-size: 9px;
+  opacity: 0.72;
+}
+
+.ail-bit-val {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ail-decode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 8px;
+}
+
+.ail-decode-box {
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: var(--ail-surface-2);
+  border: 1px solid var(--ail-border);
+}
+
+.ail-decode-box small {
+  display: block;
+  font-size: 11px;
+  color: var(--ail-muted);
+  margin-bottom: 2px;
+}
+
+.ail-decode-wide {
+  grid-column: 1 / -1;
+}
+
+.ail-formula-code {
+  font-family: Consolas, monospace;
+  font-size: 12.5px;
+}
+
+.ail-decoded-number {
+  font-family: Consolas, monospace;
+  font-size: 14.5px;
+  color: var(--ail-accent);
+}
+
+.ail-cat-infinity,
+.ail-cat-nan {
+  color: var(--ail-danger);
+}
+
+.ail-cat-subnormal {
+  color: var(--ail-warn);
+}
+
+.ail-compare-strip {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--ail-border);
+}
+
+.ail-compare-head {
+  font-size: 12px;
+  color: var(--ail-muted);
+  margin-bottom: 6px;
+}
+
+.ail-compare-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.ail-compare-item {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--ail-surface-2);
+  border: 1px solid transparent;
+}
+
+.ail-compare-item.is-selected {
+  border-color: var(--ail-accent);
+}
+
+.ail-compare-item-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ail-muted);
+}
+
+.ail-compare-item-val {
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.ail-sim-complete-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid var(--ail-border);
+}
+
+.ail-sim-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--ail-muted);
+}
+
+.ail-sim-checklist .is-done {
+  color: var(--ail-ok);
+  font-weight: 600;
+}
+
+/* Roofline Explorer */
+.ail-roofline-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.ail-slider-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--ail-surface-2);
+}
+
+.ail-slider-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.ail-slider-item input[type='range'] {
+  padding: 0;
+  border: none;
+  background: transparent;
+  accent-color: var(--ail-accent);
+}
+
+.ail-roofline-svg-wrap {
+  border: 1px solid var(--ail-border);
+  border-radius: 10px;
+  background: var(--ail-code-bg);
+  padding: 6px;
+}
+
+.ail-roofline-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ail-roof-zone-mem {
+  fill: rgba(217, 119, 6, 0.06);
+}
+
+.ail-roof-zone-comp {
+  fill: rgba(13, 148, 136, 0.07);
+}
+
+.ail-roof-grid {
+  stroke: var(--ail-border);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.ail-roof-axis {
+  stroke: var(--ail-muted);
+  stroke-width: 1.5;
+}
+
+.ail-roof-tick {
+  font-size: 10.5px;
+  fill: var(--ail-muted);
+  font-family: Consolas, monospace;
+}
+
+.ail-roof-axis-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  fill: var(--ail-fg-secondary);
+}
+
+.ail-roof-zone-label {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ail-roof-zone-label.is-mem {
+  fill: var(--ail-measured-fg);
+}
+
+.ail-roof-zone-label.is-comp {
+  fill: var(--ail-accent);
+}
+
+.ail-roof-ridge {
+  stroke: var(--ail-sim-fg);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.ail-roof-ridge-dot {
+  fill: var(--ail-sim-fg);
+}
+
+.ail-roof-ridge-text {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--ail-sim-fg);
+}
+
+.ail-roof-curve {
+  fill: none;
+  stroke: var(--ail-accent);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.ail-roof-ref rect {
+  fill: var(--ail-formula-fg);
+}
+
+.ail-roof-ref text {
+  font-size: 10.5px;
+  fill: var(--ail-formula-fg);
+  font-weight: 600;
+}
+
+.ail-roof-measured circle {
+  fill: var(--ail-measured-fg);
+  stroke: var(--ail-surface);
+  stroke-width: 1.5;
+}
+
+.ail-roof-measured text {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--ail-measured-fg);
+}
+
+.ail-roof-probe-drop {
+  stroke: var(--ail-sign-fg);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 3;
+}
+
+.ail-roof-probe-dot {
+  fill: var(--ail-sign-fg);
+  stroke: var(--ail-surface);
+  stroke-width: 2;
+}
+
+.ail-roof-probe-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  fill: var(--ail-sign-fg);
+}
+
+.ail-roof-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--ail-muted);
+}
+
+.ail-legend-swatch {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.ail-legend-swatch.is-probe {
+  background: var(--ail-sign-fg);
+}
+
+.ail-legend-swatch.is-ref {
+  background: var(--ail-formula-fg);
+}
+
+.ail-legend-swatch.is-measured {
+  background: var(--ail-measured-fg);
+}
+
+.ail-regime-mem {
+  color: var(--ail-measured-fg);
+}
+
+.ail-regime-comp {
+  color: var(--ail-accent);
+}
+
+/* ActivityView & CodeEditor */
+.ail-ex-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.ail-ex-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--ail-border);
+  background: var(--ail-surface);
+  color: var(--ail-fg);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ail-ex-tab.is-active {
+  border-color: var(--ail-accent);
+  background: var(--ail-accent-soft);
+}
+
+.ail-ex-tab.is-done .ail-ex-tab-num {
+  color: var(--ail-ok);
+  font-weight: 700;
+}
+
+.ail-ex-tab-kind {
+  font-size: 11px;
+  color: var(--ail-muted);
+}
+
+.ail-ex-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ail-ex-kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ail-ex-title {
+  font-size: 18px;
+  margin-top: 6px;
+}
+
+.ail-concept-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ail-border);
+}
+
+/* Step Contracts */
+.ail-steps-box {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--ail-surface-2);
+}
+
+.ail-steps-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ail-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.ail-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  background: var(--ail-surface);
+  border: 1px solid var(--ail-border);
+}
+
+.ail-step-item.is-passed {
+  border-color: var(--ail-ok);
+}
+
+.ail-step-item.is-failed {
+  border-color: var(--ail-danger);
+}
+
+.ail-step-icon {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.ail-step-item.is-passed .ail-step-icon {
+  color: var(--ail-ok);
+}
+
+.ail-step-item.is-failed .ail-step-icon {
+  color: var(--ail-danger);
+}
+
+.ail-step-body {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.ail-step-body code {
+  font-size: 11px;
+  color: var(--ail-muted);
+}
+
+/* Prediction Box */
+.ail-prediction-box {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--ail-warn-soft);
+  border: 1px solid var(--ail-warn);
+}
+
+.ail-prediction-box textarea {
+  width: 100%;
+  margin-top: 6px;
+  resize: vertical;
+}
+
+/* Code Editor */
+.ail-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.ail-editor-toolbar-left,
+.ail-editor-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ail-save-indicator {
+  font-size: 12px;
+  color: var(--ail-ok);
+  font-weight: 600;
+}
+
+.ail-editor {
+  display: flex;
+  height: 300px;
+  border: 1px solid var(--ail-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ail-code-bg);
+  font-family: Consolas, 'SFMono-Regular', Menlo, monospace;
+  font-size: 12.5px;
+  line-height: 20px;
+}
+
+.ail-editor-gutter {
+  width: 42px;
+  flex-shrink: 0;
+  padding: 10px 8px 10px 0;
+  text-align: right;
+  color: var(--ail-muted);
+  background: var(--ail-surface-2);
+  border-right: 1px solid var(--ail-border);
+  overflow: hidden;
+  user-select: none;
+}
+
+.ail-editor-stage {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.ail-editor-highlight,
+.ail-editor-input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 10px 12px;
+  font-family: Consolas, 'SFMono-Regular', Menlo, monospace;
+  font-size: 12.5px;
+  line-height: 20px;
+  white-space: pre;
+  overflow: auto;
+  border: none;
+}
+
+.ail-editor-highlight {
+  pointer-events: none;
+  color: var(--ail-fg);
+}
+
+.ail-editor-line {
+  min-height: 20px;
+}
+
+.ail-editor-input {
+  background: transparent;
+  color: transparent;
+  caret-color: var(--ail-fg);
+  resize: none;
+}
+
+.ail-editor-input::selection {
+  background: rgba(20, 184, 166, 0.28);
+}
+
+.ail-tok-keyword {
+  color: var(--ail-tok-kw);
+  font-weight: 600;
+}
+
+.ail-tok-string {
+  color: var(--ail-tok-str);
+}
+
+.ail-tok-number {
+  color: var(--ail-tok-num);
+}
+
+.ail-tok-comment {
+  color: var(--ail-tok-cmt);
+  font-style: italic;
+}
+
+.ail-tok-builtin {
+  color: var(--ail-tok-fn);
+}
+
+.ail-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.ail-inline-warn {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--ail-warn);
+}
+
+/* Run Result Output */
+.ail-run-panel {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ail-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ail-run-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ail-run-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ail-status-pill {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  background: var(--ail-surface-2);
+}
+
+.ail-status-pill.is-check-passed {
+  background: var(--ail-ok-soft);
+  color: var(--ail-ok);
+}
+
+.ail-status-pill.is-check-failed,
+.ail-status-pill.is-failed,
+.ail-status-pill.is-timed_out {
+  background: var(--ail-danger-soft);
+  color: var(--ail-danger);
+}
+
+.ail-run-prediction-echo {
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--ail-surface-2);
+  font-size: 12px;
+}
+
+.ail-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+}
+
+.ail-metric-card {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--ail-surface-2);
+  border: 1px solid var(--ail-border);
+}
+
+.ail-metric-card small {
+  display: block;
+  font-size: 11px;
+  color: var(--ail-muted);
+}
+
+.ail-log-box {
+  border: 1px solid var(--ail-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ail-code-bg);
+}
+
+.ail-log-head {
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--ail-muted);
+  background: var(--ail-surface-2);
+  border-bottom: 1px solid var(--ail-border);
+}
+
+.ail-log-box pre {
+  margin: 0;
+  padding: 10px 12px;
+  max-height: 260px;
+  overflow: auto;
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+/* Quiz, Estimate, Explanation */
+.ail-quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ail-quiz-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--ail-border);
+  background: var(--ail-surface-2);
+  cursor: pointer;
+}
+
+.ail-quiz-option.is-selected {
+  border-color: var(--ail-accent);
+  background: var(--ail-accent-soft);
+}
+
+.ail-quiz-opt-id {
+  font-weight: 700;
+  color: var(--ail-accent);
+}
+
+.ail-estimate-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ail-estimate-input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ail-estimate-input-row input {
+  flex: 1;
+}
+
+.ail-unit-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ail-explanation-label textarea {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  resize: vertical;
+}
+
+.ail-feedback {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+}
+
+.ail-feedback-pass {
+  background: var(--ail-ok-soft);
+  color: var(--ail-ok);
+  border: 1px solid var(--ail-ok);
+}
+
+.ail-feedback-fail {
+  background: var(--ail-warn-soft);
+  color: var(--ail-warn);
+  border: 1px solid var(--ail-warn);
+}
+
+/* Scaffold: Hints & Note */
+.ail-scaffold-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ail-scaffold-header small {
+  display: block;
+  color: var(--ail-muted);
+}
+
+.ail-hint-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ail-hint-body {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--ail-surface-2);
+  border-left: 3px solid var(--ail-accent);
+}
+
+.ail-note-details {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ail-border);
+}
+
+.ail-note-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12.5px;
+}
+
+.ail-note-details textarea {
+  width: 100%;
+  margin-top: 8px;
+  resize: vertical;
+}
+
+/* Records View */
+.ail-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.ail-kpi-card {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--ail-surface);
+  border: 1px solid var(--ail-border);
+}
+
+.ail-kpi-card small {
+  display: block;
+  color: var(--ail-muted);
+  font-size: 11.5px;
+}
+
+.ail-kpi-card strong {
+  font-size: 20px;
+  color: var(--ail-accent);
+}
+
+.ail-section-head {
+  margin-bottom: 12px;
+}
+
+.ail-section-head small {
+  display: block;
+  color: var(--ail-muted);
+}
+
+.ail-review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ail-review-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--ail-surface-2);
+}
+
+.ail-review-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ail-review-main p {
+  margin: 4px 0 0;
+}
+
+.ail-review-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.ail-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.ail-profile-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ail-profile-wide {
+  grid-column: 1 / -1;
+}
+
+.ail-file-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.ail-file-btn input[type='file'] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ail-io-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ail-io-box textarea {
+  font-family: Consolas, monospace;
+  font-size: 11.5px;
+}
+
+/* Right Drawers: Glossary & Mentor */
+.ail-drawer,
+.ail-mentor-drawer {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--ail-surface);
+  border-left: 1px solid var(--ail-border);
+  overflow: hidden;
+}
+
+.ail-drawer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--ail-border);
+}
+
+.ail-drawer-header small {
+  display: block;
+  font-size: 11px;
+  color: var(--ail-muted);
+}
+
+.ail-drawer-search {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ail-border);
+}
+
+.ail-drawer-search input {
+  width: 100%;
+}
+
+.ail-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ail-glossary-card {
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--ail-surface-2);
+  border: 1px solid var(--ail-border);
+}
+
+.ail-glossary-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.ail-glossary-aliases {
+  font-size: 11px;
+  color: var(--ail-muted);
+  margin-top: 2px;
+}
+
+.ail-glossary-short,
+.ail-glossary-analogy {
+  margin: 6px 0 0;
+  font-size: 12px;
+}
+
+.ail-glossary-foot {
+  margin-top: 6px;
+  text-align: right;
+}
+
+.ail-mentor-collapsed {
+  width: 38px;
+  flex-shrink: 0;
+  background: var(--ail-surface);
+  border-left: 1px solid var(--ail-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.ail-mentor-rail-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 4px;
+  border: none;
+  background: transparent;
+  color: var(--ail-fg-secondary);
+  cursor: pointer;
+}
+
+.ail-mentor-rail-text {
+  writing-mode: vertical-rl;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.ail-mentor-controls {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ail-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.ail-mentor-controls select {
+  width: 100%;
+  margin-top: 3px;
+}
+
+.ail-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--ail-fg-secondary);
+}
+
+.ail-mentor-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ail-mentor-empty p {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--ail-muted);
+}
+
+.ail-mentor-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ail-mentor-chips button {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.ail-msg {
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.ail-msg-user {
+  background: var(--ail-accent-soft);
+  align-self: flex-end;
+  max-width: 92%;
+}
+
+.ail-msg-tutor {
+  background: var(--ail-surface-2);
+  border: 1px solid var(--ail-border);
+}
+
+.ail-msg-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ail-muted);
+  margin-bottom: 3px;
+}
+
+.ail-mentor-selection {
+  margin: 0 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--ail-surface-2);
+  font-size: 11px;
+}
+
+.ail-mentor-selection-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ail-mentor-composer {
+  padding: 10px 12px;
+  border-top: 1px solid var(--ail-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ail-mentor-composer textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+/* Loading State */
+.ail-loading-shell {
+  margin: auto;
+  text-align: center;
+  padding: 32px;
+}
+
+.ail-spinner {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 10px;
+  border: 3px solid var(--ail-border);
+  border-top-color: var(--ail-accent);
+  border-radius: 50%;
+  animation: ail-spin 0.8s linear infinite;
+}
+
+@keyframes ail-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+`

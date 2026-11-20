@@ -1,0 +1,3 @@
+- insert:
+    - id: ai-infra-lab
+      name: dsh-plugin-ai-infra-lab

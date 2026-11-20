@@ -1,0 +1,308 @@
+[
+  {
+    "term": "data-source",
+    "aliases": ["formula", "cpu_measured", "simulated", "数据来源"],
+    "title": {
+      "zh": "数据来源徽章",
+      "en": "Data-Source Badge"
+    },
+    "short": {
+      "zh": "区分一个数字是由理论公式算出（formula）、本机 CPU 真实运行测得（cpu_measured），还是由硬件模拟器推演得出（simulated）。",
+      "en": "Marks whether a number comes from a theoretical equation (formula), real local CPU timing (cpu_measured), or an architectural model (simulated)."
+    },
+    "analogy": {
+      "zh": "就像看地图导航：纸面路程除以限速是“公式估算”，自己骑车掐表是“本机实测”，沙盘推演高速路况是“架构模拟”——绝不能把骑车时间当成高铁速度。",
+      "en": "Like trip planning: distance divided by speed limit is a formula, timing a bike ride is a local measurement, and modeling traffic on a highway is a simulation — never confuse bike time with bullet-train speed."
+    },
+    "firstLessonId": "A00"
+  },
+  {
+    "term": "assertion",
+    "aliases": ["assert", "check", "断言检查"],
+    "title": {
+      "zh": "断言检查",
+      "en": "Assertion Check"
+    },
+    "short": {
+      "zh": "自动对比程序“实际输出”与“预期结果”是否一致的验证守门员。",
+      "en": "An automated check that compares your program's actual output against the expected result."
+    },
+    "analogy": {
+      "zh": "就像自动售货机的硬币检测口：尺寸和重量对得上就放行，对不上就立即退回并告诉你差了多少。",
+      "en": "Like a coin slot on a vending machine: if diameter and weight match, it passes; otherwise it rejects immediately and tells you the mismatch."
+    },
+    "firstLessonId": "A00"
+  },
+  {
+    "term": "loop-slice",
+    "aliases": ["list slice", "for loop", "列表切片", "循环累加"],
+    "title": {
+      "zh": "切片与循环累加",
+      "en": "List Slicing & Loop Accumulation"
+    },
+    "short": {
+      "zh": "用 a[start:stop] 截取左闭右开的连续片段，并用循环将每一步的结果汇总到一个累加变量中。",
+      "en": "Using a[start:stop] to extract a half-open contiguous range and a loop to accumulate per-item results into a running total."
+    },
+    "analogy": {
+      "zh": "就像在货架第 2 格到第 5 格之间依次取货，每拿一件都在记账本上加上它的价格。",
+      "en": "Like walking from shelf slot 2 up to slot 5 and adding each item's price onto a running tally."
+    },
+    "firstLessonId": "A01"
+  },
+  {
+    "term": "shape-2d",
+    "aliases": ["shape", "2D array", "二维形状", "rows", "cols"],
+    "title": {
+      "zh": "二维数组形状 (rows, cols)",
+      "en": "2D Array Shape (rows, cols)"
+    },
+    "short": {
+      "zh": "描述二维表格有几行（第 0 轴）和几列（第 1 轴）的尺寸元组，例如 (1024, 512) 表示 1024 行、512 列。",
+      "en": "A pair (rows, cols) describing how many rows (axis 0) and columns (axis 1) a 2D table has, e.g. (1024, 512)."
+    },
+    "analogy": {
+      "zh": "就像电影院座位表：(排数, 每排座位数) 一眼就能算出全场总共能坐多少人。",
+      "en": "Like a theater seating chart: (number of rows, seats per row) immediately tells you layout and total seats."
+    },
+    "firstLessonId": "A02"
+  },
+  {
+    "term": "dtype-bytes",
+    "aliases": ["dtype", "itemsize", "字节容量", "MiB"],
+    "title": {
+      "zh": "数据类型与字节容量",
+      "en": "Data Type (dtype) & Byte Capacity"
+    },
+    "short": {
+      "zh": "每个数字占用的固定字节数（如 float32 占 4B，float16/bfloat16 占 2B），乘以元素总数即为内存体积。",
+      "en": "Fixed byte width per number (e.g. 4B for float32, 2B for float16/bfloat16); multiplied by element count gives memory footprint."
+    },
+    "analogy": {
+      "zh": "就像快递箱规格：大号箱每只占 4 格，中号箱每只占 2 格；1000 件货乘以单箱格数就是仓库要留出的总空间。",
+      "en": "Like shipping box sizes: large boxes take 4 slots, medium boxes take 2 slots; item count times box size gives warehouse space needed."
+    },
+    "firstLessonId": "A02"
+  },
+  {
+    "term": "broadcasting",
+    "aliases": ["广播", "row broadcast"],
+    "title": {
+      "zh": "广播机制",
+      "en": "Broadcasting"
+    },
+    "short": {
+      "zh": "当形状为 (R, C) 的二维矩阵与形状为 (C,) 的一维向量相加时，NumPy 自动将该向量沿每一行虚拟对齐相加，无需复制整张矩阵。",
+      "en": "When a (R, C) 2D matrix meets a (C,) 1D vector, NumPy virtually aligns and applies the vector across every row without copying memory."
+    },
+    "analogy": {
+      "zh": "就像全班成绩表每科统一加平时分：只需写一行“各科加分标准”，不必把这张标准复印几十份贴给每个人。",
+      "en": "Like adding a per-subject bonus across a grade sheet: you write one bonus row at the top instead of photocopying it for every student."
+    },
+    "firstLessonId": "A02"
+  },
+  {
+    "term": "vectorization",
+    "aliases": ["向量化", "NumPy C loop"],
+    "title": {
+      "zh": "向量化执行",
+      "en": "Vectorization"
+    },
+    "short": {
+      "zh": "把逐元素的 Python 循环交给底层编译好的连续内存批处理算子执行，消除每次循环的解释器调度开销。",
+      "en": "Replacing element-by-element Python loops with compiled batch array operations over contiguous memory, eliminating interpreter overhead."
+    },
+    "analogy": {
+      "zh": "Python 循环像一次只搬一块砖还要每次签字登记；向量化像直接开叉车整托盘搬运，只签一次单。",
+      "en": "A Python loop carries one brick at a time and signs a form each trip; vectorization moves the whole pallet on a forklift with one dispatch."
+    },
+    "firstLessonId": "A02"
+  },
+  {
+    "term": "floating-point",
+    "aliases": ["IEEE-754", "sign", "exponent", "mantissa", "指数位", "尾数位"],
+    "title": {
+      "zh": "IEEE-754 浮点数结构",
+      "en": "IEEE-754 Floating-Point Layout"
+    },
+    "short": {
+      "zh": "用二进制科学计数法表示实数：符号位决定正负，指数位（Exponent）决定能表示多大/多小的范围，尾数位（Mantissa）决定有效数字精度。",
+      "en": "Binary scientific notation: 1 sign bit sets +/-, exponent bits set dynamic range (how large/small), and mantissa bits set precision."
+    },
+    "analogy": {
+      "zh": "就像科学计数法 +1.25 × 10^8：指数决定了后面跟几个零（量级跨度），尾数决定了小数点后能写几位细节。",
+      "en": "Like +1.25 × 10^8: the exponent controls how many zeros follow (scale), while the mantissa controls how many digits of detail you keep."
+    },
+    "firstLessonId": "A03"
+  },
+  {
+    "term": "fp16-vs-bf16",
+    "aliases": ["FP16", "BF16", "bfloat16", "float16", "溢出", "overflow"],
+    "title": {
+      "zh": "FP16 与 BF16 权衡",
+      "en": "FP16 vs BF16 Trade-off"
+    },
+    "short": {
+      "zh": "两者都占 16 位（2 字节）：FP16 用 5 位指数 + 10 位尾数（最大仅 65504，易溢出）；BF16 用 8 位指数 + 7 位尾数（范围与 FP32 几乎一致，不易爆成 Inf）。",
+      "en": "Both use 16 bits (2B): FP16 has 5 exp + 10 mantissa bits (max 65504, overflows easily); BF16 has 8 exp + 7 mantissa bits (FP32-like range, resists Inf overflow)."
+    },
+    "analogy": {
+      "zh": "同样 16 格预算：FP16 选了“放大镜”（看细节清楚但视野窄，超过 65504 就爆表），BF16 选了“广角镜”（颗粒粗一点但装得下整座大山）。",
+      "en": "With the same 16-bit budget, FP16 buys a magnifying glass (sharp detail, narrow range up to 65504), while BF16 buys a wide-angle lens (coarser grain, fits huge numbers)."
+    },
+    "firstLessonId": "A03"
+  },
+  {
+    "term": "catastrophic-absorption",
+    "aliases": ["swamping", "大数吃小数", "chunked sum", "分块求和"],
+    "title": {
+      "zh": "大数吃小数（精度吞没）",
+      "en": "Swamping (Large Number Swallowing Small Delta)"
+    },
+    "short": {
+      "zh": "当大数与远小于其尾数最小刻度的小数直接相加时，小数在对阶舍入中被完全丢弃（如 float32 下 1e8 + 1.0 仍等于 1e8）；先将小数分块累加可显著缓解。",
+      "en": "Adding a tiny number directly to a huge float drops the tiny value during exponent alignment (e.g. float32(1e8) + 1.0 == 1e8); summing small values in chunks first prevents loss."
+    },
+    "analogy": {
+      "zh": "就像用只显示“吨”的卡车地磅称重：往 100 吨卡车上每次放 1 块苹果，读数纹丝不动；先把一万个苹果装成一整箱再上秤，重量才会被看见。",
+      "en": "Like a truck scale that only reads whole tons: tossing one apple onto a 100-ton truck never moves the dial, unless you crate thousands of apples together first."
+    },
+    "firstLessonId": "A03"
+  },
+  {
+    "term": "flops",
+    "aliases": ["FLOP", "FLOPs", "GFLOP/s", "浮点运算次数", "算力吞吐率"],
+    "title": {
+      "zh": "FLOPs（工作量）与 GFLOP/s（吞吐率）",
+      "en": "FLOPs (Work Count) vs GFLOP/s (Throughput)"
+    },
+    "short": {
+      "zh": "FLOPs 是浮点加减乘除的“总次数”（工作量，一次乘加计 2 FLOPs）；FLOP/s（如 GFLOP/s = 10^9 FLOP/s）是每秒完成的浮点运算速率。",
+      "en": "FLOPs is the total count of floating-point operations (work volume; 1 multiply + 1 add = 2 FLOPs); GFLOP/s (10^9 FLOP/s) is the compute rate per second."
+    },
+    "analogy": {
+      "zh": "FLOPs 就像“一共要跑 10 公里”（路程总量），GFLOP/s 就像“时速 20 公里/小时”（奔跑速度）——算账时绝不能混为一谈。",
+      "en": "FLOPs is distance ('run 10 km total'), while GFLOP/s is speed ('20 km per hour') — never mix up total work with rate."
+    },
+    "firstLessonId": "A04"
+  },
+  {
+    "term": "simd",
+    "aliases": ["SIMD", "单指令多数据"],
+    "title": {
+      "zh": "SIMD（单指令多数据）",
+      "en": "SIMD (Single Instruction, Multiple Data)"
+    },
+    "short": {
+      "zh": "CPU 用一条向量指令在宽寄存器（如 256 位 AVX2 可装 8 个 float32）上同时对多个数字做同一种运算。",
+      "en": "A CPU mechanism where a single instruction operates on multiple numbers packed into a wide vector register (e.g. 8 float32s in 256-bit AVX2) at once."
+    },
+    "analogy": {
+      "zh": "就像一排带 8 个印章头的联排印章：盖一下就同时印好 8 张票，而不是拿单枚印章连敲 8 下。",
+      "en": "Like an 8-head rubber stamp bar that stamps 8 tickets in one press instead of stamping one ticket 8 separate times."
+    },
+    "firstLessonId": "A04"
+  },
+  {
+    "term": "cache-line",
+    "aliases": ["Cache Line", "缓存行", "64B", "spatial locality", "空间局部性"],
+    "title": {
+      "zh": "缓存行（Cache Line）与空间局部性",
+      "en": "Cache Line & Spatial Locality"
+    },
+    "short": {
+      "zh": "CPU 从主存拿数据时不是只取 4 字节，而是以固定大小的缓存行（常见 64 字节 = 16 个 float32）为单位整条搬运；紧挨着读取就能白嫖同行的其余 15 个元素。",
+      "en": "CPUs fetch memory in fixed-size cache lines (typically 64 bytes = 16 float32s); reading adjacent elements reuses all 16 numbers from one fetch."
+    },
+    "analogy": {
+      "zh": "就像鸡蛋只能整托（16 枚一托）从冷库搬到灶台：顺着吃能吃完一整托；如果每托只拿 1 枚就扔掉其余 15 枚，搬运工就会累死在路上。",
+      "en": "Like fetching eggs from storage in 16-egg cartons: cooking sequentially uses all 16 eggs per trip, whereas taking 1 egg per carton wastes 15/16 of your carrying capacity."
+    },
+    "firstLessonId": "A05"
+  },
+  {
+    "term": "stride-and-view",
+    "aliases": ["stride", "步长", "NumPy view", "视图切片", "row-major"],
+    "title": {
+      "zh": "访问步长（Stride）与零拷贝视图（View）",
+      "en": "Memory Stride & Zero-Copy View"
+    },
+    "short": {
+      "zh": "步长是相邻两次访问在内存中跨越的距离；NumPy 基础切片（如 a[::16] 或 mat[:, j]）只改步长元数据而不拷贝底层数组（np.shares_memory 为 True）。",
+      "en": "Stride is the byte/element jump between consecutive accesses; NumPy basic slicing (e.g. a[::16], mat[:, j]) creates a zero-copy view sharing the original buffer."
+    },
+    "analogy": {
+      "zh": "视图切片就像给同一本书套上一张镂空阅读卡：书一个字都没重印（零拷贝），只是阅读卡决定了你是顺着逐字读（按行）还是跳着读（按列）。",
+      "en": "A slice view is like laying a stencil over a book: zero pages are reprinted, yet the stencil controls whether you read adjacent words or jump across lines."
+    },
+    "firstLessonId": "A05"
+  },
+  {
+    "term": "amdahl-law",
+    "aliases": ["Amdahl", "阿姆达尔定律", "speedup", "加速比"],
+    "title": {
+      "zh": "阿姆达尔定律（Amdahl's Law）",
+      "en": "Amdahl's Law"
+    },
+    "short": {
+      "zh": "若程序中不可并行的串行比例为 s，使用 P 个处理器时的理论最高加速比为 1 / (s + (1 - s) / P)；即使 P 趋于无穷大，加速比也无法超过 1 / s。",
+      "en": "If fraction s of a program is serial, maximum speedup on P workers is 1 / (s + (1 - s) / P); even with infinite cores, speedup is capped at 1 / s."
+    },
+    "analogy": {
+      "zh": "就像做一桌菜：切菜（占 80% 时间）可以找 4 个帮厨平分，但最后大火收汁（占 20% 时间）只能一口锅串行完成，总时间永远不可能压到收汁时间以下。",
+      "en": "Like cooking a banquet: 4 chefs can split chopping (80% of time), but simmering in one pot (20%) stays serial — total time can never beat that serial step."
+    },
+    "firstLessonId": "A06"
+  },
+  {
+    "term": "multiprocessing",
+    "aliases": ["多核并行", "多进程", "process pool"],
+    "title": {
+      "zh": "多进程并行（Multiprocessing）",
+      "en": "Multiprocessing"
+    },
+    "short": {
+      "zh": "启动多个独立操作系统进程同时在不同 CPU 核心上处理互不依赖的子任务，但伴随进程启动与跨进程传参（序列化）开销。",
+      "en": "Running independent OS processes across multiple CPU cores in parallel, trading off parallel compute gains against process startup and IPC serialization overhead."
+    },
+    "analogy": {
+      "zh": "就像把一摞考卷分给 4 个办公室的老师同时批改：卷子够厚时能快好几倍；如果只有 2 道口算题，跑腿发卷收卷的时间反而比自己算还慢。",
+      "en": "Like distributing exam stacks to 4 rooms of graders: great for thick stacks, but if there are only 2 tiny questions, walking down the hall takes longer than grading alone."
+    },
+    "firstLessonId": "A06"
+  },
+  {
+    "term": "arithmetic-intensity",
+    "aliases": ["Arithmetic Intensity", "AI", "算术强度", "FLOPs/Byte"],
+    "title": {
+      "zh": "算术强度（Arithmetic Intensity）",
+      "en": "Arithmetic Intensity (FLOPs/Byte)"
+    },
+    "short": {
+      "zh": "一个算子执行的浮点运算总次数除以它从主存读写的数据总字节数（FLOPs / Bytes），衡量“每搬运 1 字节数据能做多少次计算”。",
+      "en": "Total floating-point operations divided by total bytes transferred to/from memory (FLOPs / Bytes) — how much math you do per byte moved."
+    },
+    "analogy": {
+      "zh": "就像食材深加工度：洗个黄瓜生吃（向量加法）是“搬一斤菜只切一刀”，算术强度极低；揉面做千层酥（大矩阵乘法）是“搬一斤面反复折叠几百次”，算术强度很高。",
+      "en": "Like kitchen prep intensity: rinsing cucumbers (vector add) moves heavy produce for one cut, whereas laminating puff pastry (large matmul) works each gram of dough hundreds of times."
+    },
+    "firstLessonId": "A07"
+  },
+  {
+    "term": "roofline-model",
+    "aliases": ["Roofline", "Ridge Point", "拐点", "memory-bound", "compute-bound", "访存受限", "算力受限"],
+    "title": {
+      "zh": "Roofline 屋顶线模型与拐点",
+      "en": "Roofline Model & Ridge Point"
+    },
+    "short": {
+      "zh": "将算子理论最高性能表示为 min(峰值算力, 算术强度 × 内存带宽) 的屋顶折线；斜坡与平顶交汇处的算术强度（峰值算力 / 峰值带宽）称为拐点（Ridge Point），左侧为访存受限（memory-bound），右侧为算力受限（compute-bound）。",
+      "en": "Bounds attainable performance by min(Peak Compute, AI × Peak Bandwidth); the Ridge Point (Peak Compute / Peak Bandwidth) separates memory-bound (left slope) from compute-bound (right flat roof)."
+    },
+    "analogy": {
+      "zh": "就像工厂产能受限于 min(机器加工上限, 传送带供料速度 × 每公斤原料加工道数)：供料跟不上时加再多机器也闲着（访存受限）；原料很耐加工时机器才满载轰鸣（算力受限）。",
+      "en": "Like factory output capped by min(machine speed, conveyor belt speed × work per kg): if the belt starves machines you are memory-bound; if each item gets heavy processing you hit the compute ceiling."
+    },
+    "firstLessonId": "A07"
+  }
+]

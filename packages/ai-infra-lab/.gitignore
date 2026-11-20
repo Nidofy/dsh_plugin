@@ -1,0 +1,5 @@
+lib/
+.build/
+.test-runs/
+node_modules/
+*.tgz
